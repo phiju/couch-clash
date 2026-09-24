@@ -160,7 +160,7 @@ Players can take a selfie or pick a photo when joining. The party server turns i
 - The server copies the generated images to `saved/<random id>/` in R2. **Only this phone learns the id** (message `photo_saved` to this connection only, stored in `localStorage`). Other clients just see `saved: true`.
 - Next time, "⭐ Meine Figur nehmen" appears right after the name. The server copies the figure into the new room: no API call, no cost, all expressions right away.
 - "Figur löschen" (`DELETE /api/avatars/saved/:id`) removes it immediately.
-- Every use rewrites the files, so the R2 lifecycle rule on `saved/` (180 days) means "180 days without playing".
+- Every use rewrites the files, so the R2 lifecycle rule on `saved/` (365 days) means "365 days without playing".
 - There is deliberately no public list or name search: the figures are made from real faces.
 
 **Code:** `apps/party/src/avatar/`
@@ -184,7 +184,7 @@ Players can take a selfie or pick a photo when joining. The party server turns i
 1. **R2 bucket:** dashboard → **R2 Object Storage** → **Create bucket** → name `couch-clash-avatars` (location: Automatic). Or: `cd apps/party && npx wrangler r2 bucket create couch-clash-avatars`.
 2. **Lifecycle rules:** bucket → **Settings** → **Object lifecycle rules** → **Add rule**:
    - `delete-after-1-day`: prefix `rooms/`, delete objects after **1 day**. Or: `npx wrangler r2 bucket lifecycle add couch-clash-avatars delete-after-1-day rooms/ --expire-days 1`
-   - `saved-figures-180-days`: prefix `saved/`, delete objects after **180 days** (every use rewrites the files, so this means "180 days without use"). Or: `npx wrangler r2 bucket lifecycle add couch-clash-avatars saved-figures-180-days saved/ --expire-days 180`
+   - `saved-figures-365-days`: prefix `saved/`, delete objects after **365 days** (every use rewrites the files, so this means "365 days without use"). Or: `npx wrangler r2 bucket lifecycle add couch-clash-avatars saved-figures-365-days saved/ --expire-days 365`
 3. **Secret:** Workers & Pages → `couch-clash` → **Settings** → **Variables and Secrets** → type **Secret**, name `OPENAI_API_KEY`. Or: `npx wrangler secret put OPENAI_API_KEY`.
 4. The bindings are in `apps/party/wrangler.jsonc`:
    - `AVATARS`: R2 bucket `couch-clash-avatars`

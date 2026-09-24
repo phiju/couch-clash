@@ -49,7 +49,7 @@ export interface PublicPhotoAvatar {
  */
 export const SAVED_AVATAR_ID_PATTERN = /^[a-f0-9]{32}$/;
 /** Kept this long after the last use (R2 lifecycle rule on "saved/"). */
-export const SAVED_AVATAR_RETENTION_DAYS = 180;
+export const SAVED_AVATAR_RETENTION_DAYS = 365;
 
 export function savedAvatarPath(savedId: string, expression: PhotoExpression = "neutral"): string {
   return `/api/avatars/saved/${savedId}/${expression}`;
