@@ -230,7 +230,9 @@ export class AudioEngine {
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0, now);
     gain.gain.linearRampToValueAtTime(level, now + fade);
-    source.connect(gain).connect(this.musicBus);
+    const trackGain = ctx.createGain();
+    trackGain.gain.value = entry.gain;
+    source.connect(trackGain).connect(gain).connect(this.musicBus);
     source.start(now); // plays the lead-in once, then loops between loopStart/loopEnd
     this.music = { id, source, gain };
   }
@@ -244,7 +246,9 @@ export class AudioEngine {
     if (!buffer || this.ctx !== ctx) return;
     const source = ctx.createBufferSource();
     source.buffer = buffer;
-    source.connect(this.effectsBus);
+    const trackGain = ctx.createGain();
+    trackGain.gain.value = this.manifest?.[id].gain ?? 1;
+    source.connect(trackGain).connect(this.effectsBus);
     this.setDuck(true);
     this.oneShots++;
     source.start();

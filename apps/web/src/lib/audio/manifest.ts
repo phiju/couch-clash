@@ -12,6 +12,8 @@ export interface AudioEntry {
   loop: boolean;
   loopStart?: number;
   loopEnd?: number;
+  /** Per-track level from audio.json (default 1). */
+  gain: number;
 }
 
 export const AUDIO_BASE = "/audio/";
@@ -53,6 +55,7 @@ export function parseAudioManifest(raw: unknown): Record<AudioId, AudioEntry> {
       loop: e.loop === true || /loop|music|background/i.test(role) || (MUSIC_IDS as readonly string[]).includes(id),
       loopStart,
       loopEnd,
+      gain: Math.min(4, Math.max(0, num(e.gain) ?? 1)),
     });
   }
   const out = {} as Record<AudioId, AudioEntry>;
@@ -61,6 +64,7 @@ export function parseAudioManifest(raw: unknown): Record<AudioId, AudioEntry> {
       id,
       url: `${AUDIO_BASE}${id}.mp3`,
       loop: (MUSIC_IDS as readonly string[]).includes(id),
+      gain: 1,
     };
   }
   return out;

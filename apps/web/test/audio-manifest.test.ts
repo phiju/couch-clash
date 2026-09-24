@@ -29,3 +29,15 @@ describe("audio.json", () => {
     expect(loopPoints({ ...m.lobby, loopStart: 1.25, loopEnd: 40 }, 60)).toEqual({ start: 1.25, end: 40 });
   });
 });
+
+describe("the real audio.json", () => {
+  it("has all sounds with the right files and loop points", async () => {
+    const { readFileSync } = await import("node:fs");
+    const raw = JSON.parse(readFileSync(new URL("../public/audio/audio.json", import.meta.url), "utf8"));
+    const m = parseAudioManifest(raw);
+    expect(m.lobby).toMatchObject({ url: "/audio/lobby.mp3", loop: true, loopStart: 0.5, loopEnd: 95.702, gain: 1 });
+    expect(m.think).toMatchObject({ url: "/audio/think.mp3", loop: true, loopStart: 0.5, loopEnd: 92.753 });
+    expect(m["sting-short"]).toMatchObject({ url: "/audio/sting-short.mp3", loop: false }); // key "stingShort"
+    for (const id of ["jingle", "sting", "fanfare"] as const) expect(m[id]).toMatchObject({ url: `/audio/${id}.mp3`, loop: false });
+  });
+});
