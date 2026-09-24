@@ -6,6 +6,9 @@ import { HostFinale, HostIntro, HostPlay, HostScoreboard } from "@/components/ho
 import { HostLobby } from "@/components/host/lobby";
 import { HostSetup } from "@/components/host/setup";
 import { ButtonLink, ConnectionBadge, Notice, Screen } from "@/components/ui";
+import { getGameViews } from "@/games/registry";
+import { AudioDirector, SoundControls } from "@/lib/audio/react";
+import { audioSceneFor } from "@/lib/audio/scenes";
 import { ClockContext } from "@/lib/clock";
 import { hostTokenStore } from "@/lib/storage";
 import { useRoom } from "@/lib/use-room";
@@ -99,8 +102,18 @@ function HostRoom({ code, token }: { code: string; token: string }) {
       break;
   }
 
+  // Music + sound effects for the current phase (host device only).
+  const round = state?.game?.rounds[state.game.roundIndex];
+  const moduleAudio =
+    state?.phase === "play" && round && state.game?.module != null
+      ? (getGameViews(round.categoryId)?.audio?.(state.game.module) ?? null)
+      : null;
+  const scene = audioSceneFor(state, moduleAudio);
+
   return (
     <ClockContext.Provider value={clockOffset}>
+      <AudioDirector scene={scene} />
+      <SoundControls />
       {content}
       {error && (
         <div className="fixed top-6 left-1/2 z-50 -translate-x-1/2 rounded-2xl bg-rust px-6 py-3 text-xl font-bold shadow-xl">

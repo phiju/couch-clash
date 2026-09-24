@@ -1,67 +1,38 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { getAudioEngine } from "@/lib/audio/engine";
+import { SoundControls } from "@/lib/audio/react";
 import { computeStageLayout, type StageLayout } from "@/lib/stage-layout";
 
-type IntroState = "pending" | "play" | "done";
+type IntroState = "welcome" | "play" | "done";
 
-const SEEN_KEY = "couchclash:intro-seen";
 const CONFETTI_AT_MS = 2400;
 const CONFETTI_COLORS = ["#fdbc5f", "#e15a14", "#217b77", "#fff3d6", "#cc3e05"];
-
-function introAlreadySeen(): boolean {
-  try {
-    return window.sessionStorage.getItem(SEEN_KEY) === "1";
-  } catch {
-    return false;
-  }
-}
-
-function markIntroSeen() {
-  try {
-    window.sessionStorage.setItem(SEEN_KEY, "1");
-  } catch {
-    // ignore – the intro just plays again next time
-  }
-}
-
-/**
- * Per page visit: was the intro already seen in this browser session?
- * Read once (and marked as seen), so it stays stable while the page is open.
- */
-function createSeenStore() {
-  let seen: boolean | null = null;
-  return {
-    subscribe: () => () => {},
-    getSnapshot: () => {
-      if (seen === null) {
-        seen = introAlreadySeen();
-        if (!seen) markIntroSeen();
-      }
-      return seen;
-    },
-    getServerSnapshot: () => null,
-  };
-}
 
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
- * Start page stage: lights, spotlight, logo pop with confetti, host walk-in,
- * then the buttons (children). Plays once per browser session; any click,
- * tap or key skips to the final state.
+ * Start page: a welcome card on the dark stage. "Los geht's!" unlocks audio
+ * for the whole session, plays the title jingle and the intro (lights,
+ * spotlight, logo pop with confetti, host walk-in), then the buttons
+ * (children). Any click, tap or key during the intro skips to the end.
+ * The welcome card shows on every fresh visit of the start page.
  */
 export function StageIntro({ children }: { children: React.ReactNode }) {
-  const [seenStore] = useState(createSeenStore);
-  const seen = useSyncExternalStore(seenStore.subscribe, seenStore.getSnapshot, seenStore.getServerSnapshot);
-  const [finished, setFinished] = useState(false);
+  // Coming back to "/" within the app (audio already on): skip the welcome card.
+  const [state, setState] = useState<IntroState>(() => (getAudioEngine().unlocked ? "done" : "welcome"));
   const [layout, setLayout] = useState<StageLayout | null>(null);
   const actionsRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // pending (SSR / hydration) → play (first visit) → done (finished, skipped or seen before)
-  const state: IntroState = seen === null ? "pending" : seen || finished ? "done" : "play";
+  function start() {
+    const engine = getAudioEngine();
+    engine.unlock(); // inside the click: browsers allow audio from here on
+    void engine.playTitleJingle();
+    setState("play");
+  }
 
   // Position logo + host from the background's cover scale; recompute on resize.
   useLayoutEffect(() => {
@@ -82,7 +53,7 @@ export function StageIntro({ children }: { children: React.ReactNode }) {
   // While playing: skip on any input, finish after the sequence, confetti burst.
   useEffect(() => {
     if (state !== "play") return;
-    const finish = () => setFinished(true);
+    const finish = () => setState("done");
     const endTimer = setTimeout(finish, 5600);
     const confettiTimer = reducedMotion() ? undefined : setTimeout(() => burst(canvasRef.current), CONFETTI_AT_MS);
     window.addEventListener("pointerdown", finish);
@@ -133,6 +104,8 @@ export function StageIntro({ children }: { children: React.ReactNode }) {
       />
       <canvas ref={canvasRef} className="intro-confetti" aria-hidden />
       <div className="intro-vignette" aria-hidden />
+      {state !== "done" && <WelcomeCard onStart={start} />}
+      {state !== "welcome" && <SoundControls />}
       <div
         ref={actionsRef}
         className="intro-actions bottom-[5%] left-1/2 flex w-[82vw] -translate-x-1/2 flex-col gap-4 wide:bottom-[8%] wide:w-auto wide:flex-row wide:gap-5"
@@ -144,6 +117,46 @@ export function StageIntro({ children }: { children: React.ReactNode }) {
           Tippen zum Überspringen
         </p>
       )}
+    </div>
+  );
+}
+
+function WelcomeCard({ onStart }: { onStart: () => void }) {
+  return (
+    <div className="welcome absolute inset-0 z-20 flex items-center justify-center p-[3vmin]">
+      <div className="panel flex max-h-full w-[min(40rem,94vw)] flex-col items-center gap-[clamp(0.6rem,2.2vh,1.5rem)] overflow-hidden !rounded-[2rem] px-[clamp(1rem,4vw,3rem)] py-[clamp(1rem,4vh,3rem)] text-center shadow-[0_0_60px_rgb(253_188_95/0.35)]">
+        <p className="text-[clamp(0.75rem,1.9vh,1.1rem)] font-bold tracking-[0.18em] text-bulb uppercase">
+          Die Partyshow fürs Wohnzimmer
+        </p>
+        <h1 className="text-[clamp(1.6rem,min(7vw,5.8vh),3.6rem)] leading-tight font-bold text-balance">
+          Willkommen bei Couch Clash
+        </h1>
+        <p className="text-[clamp(0.95rem,min(4vw,2.6vh),1.4rem)] text-cream/90">
+          Der Fernseher ist die Bühne, eure Handys sind die Buzzer.
+        </p>
+        <ul className="flex w-full flex-col gap-[clamp(0.35rem,1.2vh,0.8rem)] text-left text-[clamp(0.9rem,min(3.8vw,2.4vh),1.3rem)]">
+          {[
+            ["📺", "Spiel auf dem Fernseher oder Laptop starten"],
+            ["📱", "Alle scannen den QR-Code mit dem Handy"],
+            ["🏆", "Raten, schätzen, punkten – wer holt den Pokal?"],
+          ].map(([emoji, text]) => (
+            <li key={text} className="flex items-center gap-3 rounded-2xl chip px-4 py-[clamp(0.3rem,1vh,0.7rem)]">
+              <span className="text-[1.4em]">{emoji}</span>
+              <span>{text}</span>
+            </li>
+          ))}
+        </ul>
+        <button
+          type="button"
+          onClick={onStart}
+          className="btn btn-primary animate-glow px-[clamp(1.5rem,5vw,3rem)] py-[clamp(0.5rem,1.6vh,1rem)] text-[clamp(1.4rem,min(6vw,4.4vh),2.6rem)] whitespace-nowrap"
+        >
+          Los geht&apos;s!
+        </button>
+        <p className="text-[clamp(0.8rem,min(3.4vw,2vh),1.1rem)] text-cream/80">
+          🔊 Couch Clash läuft mit Ton – Lautsprecher an!
+        </p>
+      </div>
     </div>
   );
 }

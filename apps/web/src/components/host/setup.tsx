@@ -19,7 +19,7 @@ export function HostSetup({
   const startRef = useRef<(() => void) | null>(null);
   return (
     <Screen className="max-w-[1600px] gap-8 lg:py-10">
-      <header className="flex w-full flex-wrap items-center justify-between gap-4">
+      <header className="flex w-full flex-wrap items-center justify-between gap-4 pr-14">
         <Logo className="w-36" />
         <div className="flex -space-x-3">
           {room.players.map((p) => (

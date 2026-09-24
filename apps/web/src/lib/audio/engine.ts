@@ -1,0 +1,325 @@
+"use client";
+
+/**
+ * The host's audio engine (Web Audio API). One instance per browser tab,
+ * shared across client-side navigation (start page → host screen).
+ *
+ * Nothing happens until `unlock()` is called from a user gesture – only
+ * host screens do that, so player phones stay silent.
+ *
+ *   sources → music bus (0.8) → duck gain ─┐
+ *   sources → effects bus (1.0) ───────────┴→ master (volume slider) → speakers
+ */
+import { loopPoints, parseAudioManifest, AUDIO_BASE, type AudioEntry } from "./manifest";
+import { EFFECT_IDS, MUSIC_IDS, type AudioId, type AudioScene, type EffectId, type MusicId } from "./scenes";
+
+const MUSIC_GAIN = 0.8;
+const EFFECTS_GAIN = 1.0;
+const DUCK_LEVEL = 0.3;
+const DEFAULT_FADE = 0.8;
+const VOLUME_KEY = "couchclash:volume";
+
+type Listener = () => void;
+
+interface PlayingMusic {
+  id: MusicId;
+  source: AudioBufferSourceNode;
+  gain: GainNode;
+}
+
+interface MusicRequest {
+  id: MusicId | null;
+  level: number;
+  fade: number;
+}
+
+function readVolume(): number {
+  try {
+    const v = Number(window.localStorage.getItem(VOLUME_KEY));
+    return Number.isFinite(v) && window.localStorage.getItem(VOLUME_KEY) !== null ? Math.min(1, Math.max(0, v)) : 0.8;
+  } catch {
+    return 0.8;
+  }
+}
+
+export class AudioEngine {
+  private ctx: AudioContext | null = null;
+  private master!: GainNode;
+  private musicBus!: GainNode;
+  private duck!: GainNode;
+  private effectsBus!: GainNode;
+
+  private manifest: Record<AudioId, AudioEntry> | null = null;
+  private buffers = new Map<AudioId, AudioBuffer>();
+  private loading = new Map<AudioId, Promise<AudioBuffer | null>>();
+
+  private music: PlayingMusic | null = null;
+  private wanted: MusicRequest = { id: null, level: 1, fade: DEFAULT_FADE };
+  private oneShots = 0;
+  /** While the title jingle plays, music requests wait until this time (ctx seconds). */
+  private holdMusicUntil = 0;
+  private holdTimer: ReturnType<typeof setTimeout> | null = null;
+
+  private sceneKey: string | null = null;
+  private sceneToken = 0;
+
+  private listeners = new Set<Listener>();
+  private _volume = typeof window === "undefined" ? 0.8 : readVolume();
+
+  // ── state for React ───────────────────────────────────────────────────
+  get unlocked(): boolean {
+    return this.ctx !== null;
+  }
+  get volume(): number {
+    return this._volume;
+  }
+  subscribe = (l: Listener) => {
+    this.listeners.add(l);
+    return () => this.listeners.delete(l);
+  };
+  private emit() {
+    for (const l of this.listeners) l();
+  }
+
+  // ── setup ─────────────────────────────────────────────────────────────
+  /** Must be called from a click/tap. Creates the AudioContext and starts preloading. */
+  unlock(): void {
+    if (typeof window === "undefined") return;
+    if (!this.ctx) {
+      const Ctor = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (!Ctor) return;
+      const ctx = new Ctor();
+      this.ctx = ctx;
+      this.master = ctx.createGain();
+      this.master.gain.value = this._volume;
+      this.master.connect(ctx.destination);
+      this.musicBus = ctx.createGain();
+      this.musicBus.gain.value = MUSIC_GAIN;
+      this.duck = ctx.createGain();
+      this.musicBus.connect(this.duck).connect(this.master);
+      this.effectsBus = ctx.createGain();
+      this.effectsBus.gain.value = EFFECTS_GAIN;
+      this.effectsBus.connect(this.master);
+      // A silent buffer "unlocks" playback on iOS/Safari.
+      const silent = ctx.createBufferSource();
+      silent.buffer = ctx.createBuffer(1, 1, 22050);
+      silent.connect(ctx.destination);
+      silent.start();
+      document.addEventListener("visibilitychange", this.onVisibility);
+      void this.preload();
+      this.emit();
+    }
+    void this.ctx.resume();
+  }
+
+  private onVisibility = () => {
+    if (!this.ctx) return;
+    if (document.visibilityState === "hidden") void this.ctx.suspend();
+    else void this.ctx.resume();
+  };
+
+  setVolume(v: number) {
+    this._volume = Math.min(1, Math.max(0, v));
+    try {
+      window.localStorage.setItem(VOLUME_KEY, String(this._volume));
+    } catch {
+      // not remembered – fine
+    }
+    if (this.ctx) this.master.gain.setTargetAtTime(this._volume, this.ctx.currentTime, 0.05);
+    this.emit();
+  }
+
+  private async loadManifest() {
+    if (this.manifest) return this.manifest;
+    let raw: unknown = null;
+    try {
+      const res = await fetch(`${AUDIO_BASE}audio.json`);
+      if (res.ok) raw = await res.json();
+    } catch {
+      // defaults below
+    }
+    this.manifest = parseAudioManifest(raw);
+    return this.manifest;
+  }
+
+  /** Fetch + decode everything; buffers stay in memory. */
+  private async preload() {
+    await this.loadManifest();
+    // Jingle first (it plays right away), then the loops, then the rest.
+    const order: AudioId[] = ["jingle", "lobby", ...MUSIC_IDS, ...EFFECT_IDS];
+    for (const id of [...new Set(order)]) void this.load(id);
+  }
+
+  private load(id: AudioId): Promise<AudioBuffer | null> {
+    const cached = this.buffers.get(id);
+    if (cached) return Promise.resolve(cached);
+    let p = this.loading.get(id);
+    if (!p) {
+      p = (async () => {
+        const ctx = this.ctx;
+        if (!ctx) return null;
+        const manifest = await this.loadManifest();
+        try {
+          const res = await fetch(manifest[id].url);
+          if (!res.ok) return null;
+          const buffer = await ctx.decodeAudioData(await res.arrayBuffer());
+          this.buffers.set(id, buffer);
+          if (this.wanted.id === id) this.applyMusic();
+          return buffer;
+        } catch {
+          return null; // a missing file must never break the game
+        }
+      })();
+      this.loading.set(id, p);
+    }
+    return p;
+  }
+
+  // ── music ─────────────────────────────────────────────────────────────
+  /** Request a background loop (or silence). Only one loop plays at a time. */
+  playMusic(id: MusicId | null, opts: { level?: number; fade?: number } = {}) {
+    this.wanted = { id, level: opts.level ?? 1, fade: opts.fade ?? DEFAULT_FADE };
+    this.applyMusic();
+  }
+
+  private applyMusic() {
+    const ctx = this.ctx;
+    if (!ctx) return;
+    const { id, level, fade } = this.wanted;
+
+    // Title jingle still running: start the loop only at its cue point.
+    if (id && ctx.currentTime < this.holdMusicUntil) {
+      if (!this.holdTimer) {
+        this.holdTimer = setTimeout(() => {
+          this.holdTimer = null;
+          this.applyMusic();
+        }, (this.holdMusicUntil - ctx.currentTime) * 1000 + 20);
+      }
+      return;
+    }
+
+    const now = ctx.currentTime;
+    if (this.music && this.music.id === id) {
+      this.music.gain.gain.cancelScheduledValues(now);
+      this.music.gain.gain.setValueAtTime(this.music.gain.gain.value, now);
+      this.music.gain.gain.linearRampToValueAtTime(level, now + fade);
+      return;
+    }
+    // Fade out whatever is playing.
+    if (this.music) {
+      const old = this.music;
+      old.gain.gain.cancelScheduledValues(now);
+      old.gain.gain.setValueAtTime(old.gain.gain.value, now);
+      old.gain.gain.linearRampToValueAtTime(0, now + fade);
+      old.source.stop(now + fade + 0.05);
+      this.music = null;
+    }
+    if (!id) return;
+    const buffer = this.buffers.get(id);
+    if (!buffer) {
+      void this.load(id); // applyMusic runs again when it is decoded
+      return;
+    }
+    const entry = this.manifest![id];
+    const { start, end } = loopPoints(entry, buffer.duration);
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.loop = true;
+    source.loopStart = start;
+    source.loopEnd = end;
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(level, now + fade);
+    const trackGain = ctx.createGain();
+    trackGain.gain.value = entry.gain;
+    source.connect(trackGain).connect(gain).connect(this.musicBus);
+    source.start(now); // plays the lead-in once, then loops between loopStart/loopEnd
+    this.music = { id, source, gain };
+  }
+
+  // ── one-shots ─────────────────────────────────────────────────────────
+  /** Plays over the music, which is ducked meanwhile. Resolves when finished. */
+  async playEffect(id: EffectId): Promise<void> {
+    const ctx = this.ctx;
+    if (!ctx) return;
+    const buffer = await this.load(id);
+    if (!buffer || this.ctx !== ctx) return;
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    const trackGain = ctx.createGain();
+    trackGain.gain.value = this.manifest?.[id].gain ?? 1;
+    source.connect(trackGain).connect(this.effectsBus);
+    this.setDuck(true);
+    this.oneShots++;
+    source.start();
+    await new Promise<void>((resolve) => {
+      source.onended = () => resolve();
+    });
+    this.oneShots = Math.max(0, this.oneShots - 1);
+    if (this.oneShots === 0) this.setDuck(false);
+  }
+
+  private setDuck(on: boolean) {
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+    const g = this.duck.gain;
+    g.cancelScheduledValues(now);
+    g.setValueAtTime(g.value, now);
+    g.linearRampToValueAtTime(on ? DUCK_LEVEL : 1, now + (on ? 0.2 : 0.6));
+  }
+
+  /**
+   * Start page: title jingle, then the lobby loop fades in ~1.5 s before
+   * the jingle ends (crossfade over ~2 s).
+   */
+  async playTitleJingle(): Promise<void> {
+    const ctx = this.ctx;
+    if (!ctx) return;
+    const buffer = await this.load("jingle");
+    if (!buffer) {
+      this.playMusic("lobby", { fade: 2 });
+      return;
+    }
+    const cue = ctx.currentTime + Math.max(0, buffer.duration - 1.5);
+    this.holdMusicUntil = cue;
+    if (!this.wanted.id) this.wanted = { id: "lobby", level: 1, fade: 2 };
+    else this.wanted = { ...this.wanted, fade: 2 };
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.connect(this.effectsBus);
+    source.start();
+    this.applyMusic(); // schedules the lobby loop at the cue
+  }
+
+  // ── scenes (driven by the room phase) ─────────────────────────────────
+  applyScene(scene: AudioScene | null) {
+    if (!scene || !this.ctx || scene.key === this.sceneKey) return;
+    this.sceneKey = scene.key;
+    const token = ++this.sceneToken;
+    this.playMusic(scene.music, { level: scene.musicLevel, fade: scene.musicFade });
+    if (scene.enter) {
+      void this.playEffect(scene.enter).then(() => {
+        if (scene.afterEnter && token === this.sceneToken) {
+          const a = scene.afterEnter;
+          this.playMusic(a.music, { level: a.musicLevel, fade: a.musicFade });
+        }
+      });
+    }
+  }
+
+  /** For categories that play their own audio (music rounds, karaoke). */
+  get context(): AudioContext | null {
+    return this.ctx;
+  }
+  get effectsOutput(): AudioNode | null {
+    return this.ctx ? this.effectsBus : null;
+  }
+}
+
+let engine: AudioEngine | null = null;
+
+/** The one engine of this tab (created lazily, inert until unlock()). */
+export function getAudioEngine(): AudioEngine {
+  engine ??= new AudioEngine();
+  return engine;
+}

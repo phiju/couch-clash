@@ -46,7 +46,7 @@ function CountUp({ from, to, animated, start }: { from: number; to: number; anim
 
 function RankChange({ before, after, tv, onLight }: { before: number; after: number; tv: boolean; onLight: boolean }) {
   const diff = before - after;
-  const width = tv ? "w-14 text-2xl" : "w-8 text-base";
+  const width = tv ? "fs-lg w-[4ch]" : "w-8 text-base";
   if (diff === 0) return <span className={`${width} text-center text-cream/30`}>–</span>;
   return (
     <motion.span
@@ -97,7 +97,7 @@ export function Leaderboard({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: reduceMotion ? 0.3 : 0.25 }}
-      className={`grid w-full ${tv ? "gap-3" : "gap-2"}`}
+      className={`grid w-full ${tv ? "gap-[1.2vh]" : "gap-2"}`}
     >
       <AnimatePresence initial={false}>
         {visible.map((entry) => {
@@ -114,28 +114,28 @@ export function Leaderboard({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ layout: { type: "spring", stiffness: 260, damping: 30 } }}
-              className={`flex items-center ${tv ? "gap-5 rounded-3xl px-6 py-3" : "gap-3 rounded-2xl px-3 py-2"} ${
+              className={`flex items-center ${tv ? "gap-[1.2vw] rounded-3xl px-[1.4vw] py-[1vh]" : "gap-3 rounded-2xl px-3 py-2"} ${
                 leader ? "border-2 border-orange bg-bulb text-brown" : isMe ? "border-2 border-bulb bg-petrol ring-4 ring-bulb/60" : "chip"
               }`}
             >
-              <span className={`text-center font-bold tabular-nums ${tv ? "w-16 text-5xl" : "w-8 text-2xl"}`}>
+              <span className={`text-center font-bold tabular-nums ${tv ? "fs-xl w-[3ch]" : "w-8 text-2xl"}`}>
                 {rank}.
               </span>
-              <AvatarBadge avatar={player.avatar} size={tv ? "sm" : "xs"} dimmed={!player.connected} />
-              <span className={`min-w-0 flex-1 truncate font-bold ${tv ? "text-4xl" : "text-xl"}`}>
+              <AvatarBadge avatar={player.avatar} size={tv ? "fluidSm" : "xs"} dimmed={!player.connected} />
+              <span className={`min-w-0 flex-1 leading-tight font-bold [overflow-wrap:anywhere] ${tv ? "fs-xl" : "text-xl"}`}>
                 {player.name}
               </span>
               {showGains && reordered && (
                 <RankChange before={entry.rankBefore} after={entry.rankAfter} tv={tv} onLight={leader} />
               )}
               <span
-                className={`font-bold tabular-nums transition-opacity duration-300 ${tv ? "w-24 text-right text-3xl" : "text-lg"} ${
+                className={`font-bold tabular-nums transition-opacity duration-300 ${tv ? "fs-lg w-[5ch] text-right" : "text-lg"} ${
                   gainVisible ? "opacity-100" : "opacity-0"
                 } ${leader ? "text-brown/70" : "text-bulb"}`}
               >
                 +{entry.pointsGained}
               </span>
-              <span className={`text-right font-bold tabular-nums ${tv ? "w-36 text-5xl" : "w-16 text-2xl"}`}>
+              <span className={`text-right font-bold tabular-nums ${tv ? "fs-xl w-[5ch]" : "w-16 text-2xl"}`}>
                 <CountUp from={entry.scoreBefore} to={entry.scoreAfter} animated={run} start={stage >= 1} />
               </span>
             </motion.li>

@@ -159,58 +159,82 @@ export function GameSettingsPanel({
   }
 
   return (
-    <div className="flex w-full flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className={`font-bold ${compact ? "text-3xl" : "text-4xl lg:text-6xl"}`}>Was spielen wir?</h2>
-        <Button variant="secondary" onClick={randomize} className="px-4 py-2 text-lg">
+    <div className={`flex w-full flex-col ${compact ? "gap-[1.4vh]" : "gap-4"}`}>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 className={`font-bold ${compact ? "fs-xl" : "text-4xl lg:text-6xl"}`}>Was spielen wir?</h2>
+        <Button variant="secondary" onClick={randomize} className={compact ? "fs-md !px-4 !py-1.5" : "px-4 py-2 text-lg"}>
           🎲 Zufall
         </Button>
       </div>
 
-      <ul className={`grid w-full gap-4 ${compact ? "" : "lg:grid-cols-2"}`}>
+      <ul className={`grid w-full ${compact ? "gap-[1.4vh]" : "gap-4 lg:grid-cols-2"}`}>
         {metas.map((meta) => {
           const c = setup.choices[meta.id]!;
           const position = selected.indexOf(meta);
           return (
             <li
               key={meta.id}
-              className={`flex flex-col gap-4 rounded-3xl ring-4 transition ${compact ? "p-4" : "p-6"} ${
+              className={`flex flex-col rounded-3xl ring-4 transition ${compact ? "gap-[1.2vh] p-[1.6vh]" : "gap-4 p-6"} ${
                 c.enabled ? "chip ring-bulb" : "bg-petrol-dark/60 opacity-60 ring-transparent"
               }`}
             >
-              <label className="flex cursor-pointer items-start gap-3">
-                <input
-                  type="checkbox"
-                  checked={c.enabled}
-                  onChange={(e) => update(meta.id, { enabled: e.target.checked })}
-                  className="mt-1.5 size-7 shrink-0 accent-[var(--color-orange)]"
-                  aria-label={meta.name}
-                />
-                <span className={compact ? "text-4xl" : "text-6xl"}>{meta.emoji}</span>
-                <span className="flex flex-1 flex-col gap-1">
-                  <span className={`flex flex-wrap items-center gap-2 font-bold ${compact ? "text-2xl" : "text-3xl lg:text-4xl"}`}>
+              {compact ? (
+                // Lobby: checkbox, icon, name, order badge and age badge in one row.
+                <label className="flex min-w-0 cursor-pointer items-center gap-[0.6vw]">
+                  <input
+                    type="checkbox"
+                    checked={c.enabled}
+                    onChange={(e) => update(meta.id, { enabled: e.target.checked })}
+                    className="size-[clamp(1.1rem,2.6vh,1.75rem)] shrink-0 accent-[var(--color-orange)]"
+                    aria-label={meta.name}
+                  />
+                  <span className="fs-xl shrink-0">{meta.emoji}</span>
+                  <span className="fs-lg min-w-0 truncate font-bold" title={meta.name}>
                     {meta.name}
-                    {position >= 0 && (
-                      <span className="rounded-full bg-bulb px-2.5 py-0.5 text-base text-brown">{position + 1}.</span>
-                    )}
                   </span>
-                  {!compact && <span className="text-lg text-cream/70 lg:text-xl">{meta.description}</span>}
-                  <span className="flex flex-wrap gap-2 pt-1 text-sm font-bold text-cream/60">
-                    <span className="rounded-full chip px-2 py-0.5">ab {meta.ageRating}</span>
-                    {!compact &&
-                      meta.tags.map((t) => (
+                  {position >= 0 && (
+                    <span className="fs-sm shrink-0 rounded-full bg-bulb px-2 py-0.5 font-bold text-brown">
+                      {position + 1}.
+                    </span>
+                  )}
+                  <span className="fs-sm ml-auto shrink-0 rounded-full chip px-2 py-0.5 font-bold whitespace-nowrap text-cream/70">
+                    ab {meta.ageRating}
+                  </span>
+                </label>
+              ) : (
+                <label className="flex cursor-pointer items-start gap-3">
+                  <input
+                    type="checkbox"
+                    checked={c.enabled}
+                    onChange={(e) => update(meta.id, { enabled: e.target.checked })}
+                    className="mt-1.5 size-7 shrink-0 accent-[var(--color-orange)]"
+                    aria-label={meta.name}
+                  />
+                  <span className="text-6xl">{meta.emoji}</span>
+                  <span className="flex flex-1 flex-col gap-1">
+                    <span className="flex flex-wrap items-center gap-2 text-3xl font-bold lg:text-4xl">
+                      {meta.name}
+                      {position >= 0 && (
+                        <span className="rounded-full bg-bulb px-2.5 py-0.5 text-base text-brown">{position + 1}.</span>
+                      )}
+                    </span>
+                    <span className="text-lg text-cream/70 lg:text-xl">{meta.description}</span>
+                    <span className="flex flex-wrap gap-2 pt-1 text-sm font-bold text-cream/60">
+                      <span className="rounded-full chip px-2 py-0.5">ab {meta.ageRating}</span>
+                      {meta.tags.map((t) => (
                         <span key={t} className="rounded-full chip px-2 py-0.5">
                           {t}
                         </span>
                       ))}
+                    </span>
                   </span>
-                </span>
-              </label>
+                </label>
+              )}
 
               {c.enabled && (
                 <>
                   <label className="flex flex-col gap-1">
-                    <span className="flex justify-between text-lg font-bold">
+                    <span className={`flex justify-between font-bold ${compact ? "fs-md" : "text-lg"}`}>
                       <span>Fragen</span>
                       <span className="text-bulb">{c.questionCount}</span>
                     </span>
@@ -237,7 +261,7 @@ export function GameSettingsPanel({
         })}
       </ul>
 
-      <p className="text-xl font-bold text-cream/80">
+      <p className={`font-bold text-cream/80 ${compact ? "fs-md" : "text-xl"}`}>
         {selected.length === 0 ? "Wähle mindestens eine Kategorie" : `Dauer: ${formatDuration(seconds)}`}
       </p>
     </div>

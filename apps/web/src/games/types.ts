@@ -1,5 +1,6 @@
 import type { PublicPlayer, PublicRoomState } from "@couch-clash/shared";
 import type { ComponentType } from "react";
+import type { ModuleAudioScene } from "@/lib/audio/scenes";
 
 export interface HostViewProps<TState> {
   state: TState;
@@ -18,4 +19,10 @@ export interface PlayerViewProps<TState> {
 export interface GameViews<TState = never> {
   HostView: ComponentType<HostViewProps<TState>>;
   PlayerView: ComponentType<PlayerViewProps<TState>>;
+  /**
+   * Music/sound on the host while this category plays. Return
+   * `{ music: null }` for no background music (e.g. music rounds that play
+   * their own audio through the audio engine). Omit for the lobby loop.
+   */
+  audio?: (state: TState) => ModuleAudioScene | null;
 }
