@@ -4,9 +4,10 @@ import { getCategoryMeta } from "@couch-clash/games/meta";
 import type { PublicPlayer, PublicRoomState } from "@couch-clash/shared";
 import { useEffect } from "react";
 import { AvatarBadge } from "@/components/avatar";
+import { summaryText } from "@/lib/summary";
+import { Leaderboard } from "@/components/leaderboard";
 import { Screen } from "@/components/ui";
 import { getGameViews } from "@/games/registry";
-import { rankPlayers } from "@/lib/ranking";
 
 interface Props {
   room: PublicRoomState;
@@ -73,25 +74,30 @@ function PhaseContent({ room, me, sendAction }: Omit<Props, "error" | "onErrorSh
 
     case "scoreboard":
     case "finale": {
-      if (!game) return <Screen />;
-      const ranked = rankPlayers(room.players, game.scores, game.roundGain);
-      const mine = ranked.find((r) => r.player.id === me.id);
+      if (!game?.leaderboard) return <Screen />;
+      const mine = game.leaderboard.find((e) => e.playerId === me.id);
       const final = room.phase === "finale";
-      const won = final && mine?.rank === 1;
+      const won = final && mine?.rankAfter === 1;
       return (
-        <Screen className="justify-center gap-6 text-center">
-          <AvatarBadge avatar={me.avatar} size="lg" className={won ? "animate-float" : ""} />
-          <p className="text-2xl text-white/70">{final ? "Endstand" : "Zwischenstand"}</p>
-          <p className="text-7xl font-black text-spot">
-            {won ? "🏆 " : ""}
-            {mine?.rank}. Platz
-          </p>
-          <p className="text-3xl font-black">{mine?.score ?? 0} Punkte</p>
-          {!final && (mine?.gain ?? 0) > 0 && (
-            <p className="text-2xl font-bold text-cool">+{mine?.gain} in dieser Kategorie</p>
-          )}
-          {won && <p className="text-3xl font-black">Glückwunsch! 🎉</p>}
-          {final && <p className="text-lg text-white/60">Der Host kann gleich nochmal starten.</p>}
+        <Screen className="max-w-lg gap-5">
+          <div className="flex flex-col items-center gap-2 text-center">
+            <p className="text-xl text-white/70">{final ? "Endstand" : "Zwischenstand"}</p>
+            <p className="text-5xl font-black text-spot">
+              {won ? "🏆 " : ""}
+              {mine?.rankAfter}. Platz
+            </p>
+            {won && <p className="text-2xl font-black">Glückwunsch! 🎉</p>}
+          </div>
+          <Leaderboard
+            key={`${room.phase}-${game.roundIndex}`}
+            entries={game.leaderboard}
+            players={room.players}
+            variant="phone"
+            meId={me.id}
+            animated={!final}
+            showGains={!final}
+          />
+          {final && <p className="text-center text-lg text-white/60">Der Host kann gleich nochmal starten.</p>}
         </Screen>
       );
     }
@@ -118,6 +124,9 @@ function PhaseContent({ room, me, sendAction }: Omit<Props, "error" | "onErrorSh
             </>
           ) : (
             <p className="text-3xl font-black text-spot">Der Host wählt die Spiele aus … 👀</p>
+          )}
+          {room.settingsSummary && (
+            <p className="rounded-full bg-white/10 px-5 py-2 text-lg font-bold">{summaryText(room.settingsSummary)}</p>
           )}
         </Screen>
       );

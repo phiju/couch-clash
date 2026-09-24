@@ -8,6 +8,12 @@ import { NAME_MAX_LENGTH, type PublicRoomState } from "./state";
 // ---------------------------------------------------------------------------
 
 const token = z.string().min(16).max(128);
+
+export const GameRoundSettingsSchema = z.object({
+  categoryId: z.string().min(1).max(64),
+  questionCount: z.number().int().min(1).max(100),
+  scoring: ScoringSettingsSchema,
+});
 const id = z.string().min(1).max(64);
 
 export const PlayerNameSchema = z
@@ -33,24 +39,15 @@ export const ClientMessageSchema = z.discriminatedUnion("type", [
   }),
   /** Host: remove a player. */
   z.object({ type: z.literal("kick"), playerId: id }),
-  /** Host: close the lobby and go to the game setup. */
-  z.object({ type: z.literal("start") }),
   /** Host: setup → back to the lobby (lets more people join). */
   z.object({ type: z.literal("back_to_lobby") }),
-  /** Host: start the game with the chosen categories. */
+  /** Host: change the game settings (lobby or setup). */
   z.object({
-    type: z.literal("start_game"),
-    rounds: z
-      .array(
-        z.object({
-          categoryId: z.string().min(1).max(64),
-          questionCount: z.number().int().min(1).max(100),
-          scoring: ScoringSettingsSchema,
-        }),
-      )
-      .min(1)
-      .max(20),
+    type: z.literal("update_settings"),
+    rounds: z.array(GameRoundSettingsSchema).max(20),
   }),
+  /** Host: start the game with the stored settings (from lobby or setup). */
+  z.object({ type: z.literal("start_game") }),
   /** Host: skip the current timer ("Weiter"). */
   z.object({ type: z.literal("skip") }),
   /** Host: end the game / play again → back to setup, scores reset. */
@@ -97,7 +94,7 @@ export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   ALREADY_JOINED: "Du bist schon im Spiel.",
   NOT_ENOUGH_PLAYERS: "Es braucht mindestens eine:n Spieler:in.",
   WRONG_PHASE: "Das geht gerade nicht.",
-  INVALID_PLAN: "Bitte wähle mindestens eine Kategorie.",
+  INVALID_PLAN: "Bitte wähle mindestens eine Kategorie aus.",
   ALREADY_ANSWERED: "Du hast schon geantwortet.",
   TOO_LATE: "Zu spät – die Zeit ist abgelaufen.",
 };

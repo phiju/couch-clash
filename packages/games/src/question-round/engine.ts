@@ -5,6 +5,8 @@
  * of a question and its solution look like.
  */
 import {
+  REVEAL_ANSWER_MS,
+  REVEAL_LEADERBOARD_MS,
   type CategoryMeta,
   type GameModule,
   type ModuleContext,
@@ -15,7 +17,7 @@ import {
 } from "@couch-clash/shared";
 import { z } from "zod";
 import type { PointsBreakdown } from "../scoring";
-import { REVEAL_MS, type AnswerAction, type QuestionRoundPublicState } from "./types";
+import type { AnswerAction, QuestionRoundPublicState, QuestionRoundStep } from "./types";
 
 export interface RecordedAnswer<TAnswer> {
   value: TAnswer;
@@ -26,7 +28,7 @@ export interface RecordedAnswer<TAnswer> {
 export interface QuestionRoundState<TQuestion, TAnswer> {
   questions: TQuestion[];
   index: number;
-  step: "question" | "reveal";
+  step: QuestionRoundStep;
   questionStartedAt: number;
   stepEndsAt: number;
   answers: Record<string, RecordedAnswer<TAnswer>>;
@@ -89,10 +91,16 @@ export function createQuestionRoundModule<
     const question = state.questions[state.index]!;
     const answers = Object.entries(state.answers).map(([id, a]) => ({ id, value: a.value, at: a.at }));
     const results = config.score(question, answers, state.scoring);
+    // Always set (even if empty): the room builds the leaderboard snapshot from it.
     const scoreDelta: Record<string, number> = {};
     for (const [id, r] of Object.entries(results)) if (r.points > 0) scoreDelta[id] = r.points;
-    const next: State = { ...state, step: "reveal", stepEndsAt: now + REVEAL_MS, results };
+    const next: State = { ...state, step: "reveal", stepEndsAt: now + REVEAL_ANSWER_MS, results };
     return { state: next, phaseEndsAt: next.stepEndsAt, scoreDelta };
+  }
+
+  function showLeaderboard(state: State, now: number): ModuleUpdate<State> {
+    const next: State = { ...state, step: "leaderboard", stepEndsAt: now + REVEAL_LEADERBOARD_MS };
+    return { state: next, phaseEndsAt: next.stepEndsAt };
   }
 
   /** Everyone who is connected has answered (disconnected players don't block). */
@@ -136,6 +144,7 @@ export function createQuestionRoundModule<
 
     onTimer(state, ctx) {
       if (state.step === "question") return reveal(state, ctx.now);
+      if (state.step === "reveal") return showLeaderboard(state, ctx.now);
       const nextIndex = state.index + 1;
       if (nextIndex < state.questions.length) return openQuestion(state, nextIndex, ctx.now);
       return { state, phaseEndsAt: null, done: true };
@@ -149,7 +158,7 @@ export function createQuestionRoundModule<
     toPublicState(state, viewer: Viewer) {
       const question = state.questions[state.index]!;
       const own = viewer.role === "player" ? state.answers[viewer.playerId] : undefined;
-      const revealed = state.step === "reveal";
+      const revealed = state.step !== "question";
       return {
         step: state.step,
         index: state.index,

@@ -50,10 +50,14 @@ function HostError({ title, children }: { title: string; children?: React.ReactN
 function HostRoom({ code, token }: { code: string; token: string }) {
   const [error, setError] = useState<string | null>(null);
   const [authFailed, setAuthFailed] = useState(false);
+  const [authed, setAuthed] = useState(false);
   const { state, status, fatalError, send, clockOffset } = useRoom(code, {
     hello: () => ({ type: "hello_host", hostToken: token }),
     onMessage: (msg: ServerMessage) => {
-      if (msg.type === "welcome_host") setAuthFailed(false);
+      if (msg.type === "welcome_host") {
+        setAuthFailed(false);
+        setAuthed(true);
+      }
       if (msg.type === "error") {
         if (msg.code === "NOT_AUTHORIZED") setAuthFailed(true);
         setError(msg.message);
@@ -70,7 +74,8 @@ function HostRoom({ code, token }: { code: string; token: string }) {
   if (fatalError) return <HostError title={fatalError.message} />;
   if (authFailed) return <HostError title="Der Host-Zugang für diesen Raum ist ungültig." />;
 
-  const canSend = status === "open";
+  // Only send host commands once this connection is authenticated.
+  const canSend = status === "open" && authed;
   let content: React.ReactNode;
   switch (state?.phase) {
     case undefined:

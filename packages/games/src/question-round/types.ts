@@ -3,10 +3,14 @@ import type { PointsBreakdown } from "../scoring";
 
 export type { PointsBreakdown };
 
-export const REVEAL_MS = 8_000;
+/**
+ * Steps per question: question → reveal (correct answer, ~3 s) →
+ * leaderboard (animated ranking, ~7 s) → next question.
+ */
+export type QuestionRoundStep = "question" | "reveal" | "leaderboard";
 
 export interface QuestionRoundPublicState<TQuestion, TAnswer, TSolution> {
-  step: "question" | "reveal";
+  step: QuestionRoundStep;
   /** 0-based question index and total questions in this category. */
   index: number;
   total: number;
@@ -19,7 +23,7 @@ export interface QuestionRoundPublicState<TQuestion, TAnswer, TSolution> {
   answeredPlayerIds: string[];
   /** Only for the viewing player: their own answer. */
   myAnswer: TAnswer | null;
-  /** Only in the reveal step. */
+  /** Only in the reveal and leaderboard steps. */
   reveal: {
     solution: TSolution;
     answers: Record<string, TAnswer>;

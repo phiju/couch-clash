@@ -2,10 +2,17 @@
 
 import type { EstimatePublicState } from "@couch-clash/games/meta";
 import { formatNumber } from "@/lib/numbers";
-import { AnsweredStrip, Countdown, QuestionCounter, RevealTable } from "../question-round/components";
+import {
+  AnsweredStrip,
+  Countdown,
+  QuestionCounter,
+  QuestionLeaderboard,
+  RevealTable,
+} from "../question-round/components";
 import type { HostViewProps } from "../types";
 
 export function EstimateHostView({ state, room }: HostViewProps<EstimatePublicState>) {
+  if (state.step === "leaderboard") return <QuestionLeaderboard state={state} room={room} variant="tv" />;
   const reveal = state.reveal;
   const { unit, format } = state.question;
 

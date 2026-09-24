@@ -2,9 +2,11 @@
 
 import type { ClientMessage, PublicRoomState } from "@couch-clash/shared";
 import { QRCodeSVG } from "qrcode.react";
-import { useSyncExternalStore } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import { AvatarBadge } from "@/components/avatar";
 import { Button, Logo, Screen } from "@/components/ui";
+import { summaryText } from "@/lib/summary";
+import { GameSettingsPanel } from "./settings-panel";
 
 const subscribeNoop = () => () => {};
 
@@ -17,6 +19,7 @@ export function HostLobby({
   send: (msg: ClientMessage) => void;
   canSend: boolean;
 }) {
+  const startRef = useRef<(() => void) | null>(null);
   const code = room?.code ?? "";
   const players = room?.players ?? [];
   const joinUrl = useSyncExternalStore(
@@ -26,7 +29,7 @@ export function HostLobby({
   );
 
   return (
-    <Screen className="max-w-[1800px] gap-8 lg:py-12">
+    <Screen className="max-w-[1880px] gap-6 lg:py-8">
       <header className="flex w-full items-center justify-between">
         <Logo className="text-4xl lg:text-5xl" />
         <p className="text-xl text-white/70 lg:text-2xl">
@@ -34,14 +37,14 @@ export function HostLobby({
         </p>
       </header>
 
-      <div className="grid w-full flex-1 gap-8 lg:grid-cols-[minmax(320px,2fr)_3fr]">
-        <section className="flex flex-col items-center justify-center gap-6 rounded-[2rem] bg-white/5 p-8 ring-2 ring-white/10">
+      <div className="grid w-full flex-1 gap-6 lg:grid-cols-[minmax(300px,1fr)_1.4fr] xl:grid-cols-[minmax(320px,1fr)_1.3fr_1.2fr]">
+        <section className="flex flex-col items-center justify-center gap-5 rounded-[2rem] bg-white/5 p-6 ring-2 ring-white/10">
           <p className="text-2xl font-bold text-white/80 lg:text-3xl">Mitspielen mit dem Code</p>
-          <p className="font-mono text-8xl font-black tracking-[0.2em] text-spot lg:text-[10rem]">{code}</p>
+          <p className="font-mono text-8xl font-black tracking-[0.15em] text-spot xl:text-9xl">{code}</p>
           {joinUrl && (
             <>
               <div className="rounded-3xl bg-white p-4">
-                <QRCodeSVG value={joinUrl} size={240} marginSize={0} />
+                <QRCodeSVG value={joinUrl} size={220} marginSize={0} />
               </div>
               <p className="text-center text-xl text-white/70 lg:text-2xl">
                 QR-Code scannen oder <span className="font-bold text-white">{new URL(joinUrl).host}/join</span>{" "}
@@ -56,7 +59,7 @@ export function HostLobby({
             {players.length === 0 ? "Warte auf Mitspieler:innen…" : "Wer ist dabei?"}
           </h2>
 
-          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
+          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3">
             {players.map((player) => (
               <li
                 key={player.id}
@@ -97,15 +100,28 @@ export function HostLobby({
           </ul>
 
           <div className="mt-auto flex flex-col items-center gap-3 lg:items-end">
+            <p className="text-xl font-bold text-white/70">{summaryText(room?.settingsSummary ?? null)}</p>
             <Button
-              onClick={() => send({ type: "start" })}
-              disabled={players.length === 0 || !canSend}
+              onClick={() => startRef.current?.()}
+              disabled={players.length === 0 || !canSend || !room?.settingsSummary}
               className="px-12 py-6 text-4xl"
             >
               Spiel starten
             </Button>
           </div>
         </section>
+
+        {room && (
+          <section className="rounded-[2rem] bg-white/5 p-5 ring-2 ring-white/10 lg:col-span-2 xl:col-span-1 xl:max-h-[calc(100dvh-10rem)] xl:overflow-y-auto">
+            <GameSettingsPanel
+              serverSettings={room.settings}
+              send={send}
+              canSend={canSend}
+              startRef={startRef}
+              compact
+            />
+          </section>
+        )}
       </div>
     </Screen>
   );

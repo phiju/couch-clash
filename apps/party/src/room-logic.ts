@@ -5,18 +5,18 @@
  */
 import {
   MAX_PLAYERS,
-  MIN_PLAYERS_TO_START,
   NAME_MAX_LENGTH,
   ROOM_TTL_MS,
   generateSecret,
   type Avatar,
   type Phase,
   type PublicRoomState,
-  type ScoringSettings,
+  type GameRoundSettings,
+  type LeaderboardEntry,
   type Viewer,
 } from "@couch-clash/shared";
 import { GAME_MODULES, type ModuleRegistry } from "@couch-clash/games";
-import { publicGame } from "./game-flow";
+import { publicGame, settingsSummary } from "./game-flow";
 import { fail, ok, type Result } from "./result";
 
 export interface PlayerRecord {
@@ -38,17 +38,16 @@ export interface RoomRecord {
   phaseStartedAt: number;
   phaseEndsAt: number | null;
   players: PlayerRecord[];
-  /** Running game (from "Los geht's" until back to setup), else null. */
+  /** Game settings, edited by the host in lobby/setup. */
+  settings: GameRound[];
+  /** Running game (from "Spiel starten" until back to setup), else null. */
   game: GameRecord | null;
   /** Content ids played in this room (across games) – avoids repeats. */
   usedContentIds: string[];
 }
 
-export interface GameRound {
-  categoryId: string;
-  questionCount: number;
-  scoring: ScoringSettings;
-}
+/** One category of the game settings (sanitized against the registry). */
+export type GameRound = GameRoundSettings;
 
 export interface GameRecord {
   rounds: GameRound[];
@@ -57,11 +56,18 @@ export interface GameRecord {
   moduleState: unknown;
   scores: Record<string, number>;
   roundGain: Record<string, number>;
+  /** Leaderboard snapshot of the last scored question (current category). */
+  questionLeaderboard: LeaderboardEntry[] | null;
 }
 
 /** Fills fields added after 0.1 for rooms stored by an older version. */
 export function normalizeRoomRecord(room: RoomRecord): RoomRecord {
-  return { ...room, game: room.game ?? null, usedContentIds: room.usedContentIds ?? [] };
+  return {
+    ...room,
+    settings: room.settings ?? [],
+    game: room.game ? { ...room.game, questionLeaderboard: room.game.questionLeaderboard ?? null } : null,
+    usedContentIds: room.usedContentIds ?? [],
+  };
 }
 
 export type { Result };
@@ -81,6 +87,7 @@ export function createRoomRecord(code: string, hostToken: string, now: number): 
     phaseStartedAt: now,
     phaseEndsAt: null,
     players: [],
+    settings: [],
     game: null,
     usedContentIds: [],
   };
@@ -149,11 +156,6 @@ export function kickPlayer(room: RoomRecord, playerId: string): Result<RoomRecor
   return ok({ ...room, players: room.players.filter((p) => p.id !== playerId) });
 }
 
-export function startGame(room: RoomRecord, now: number): Result<RoomRecord> {
-  if (room.phase !== "lobby") return fail("GAME_ALREADY_STARTED");
-  if (room.players.length < MIN_PLAYERS_TO_START) return fail("NOT_ENOUGH_PLAYERS");
-  return ok({ ...room, phase: "setup", phaseStartedAt: now, phaseEndsAt: null });
-}
 
 export function toPublicState(
   room: RoomRecord,
@@ -177,5 +179,7 @@ export function toPublicState(
       connected: connected.playerIds.has(p.id),
     })),
     game: publicGame(room, viewer, registry),
+    settings: viewer.role === "host" ? room.settings : null,
+    settingsSummary: settingsSummary(room.settings, registry),
   };
 }

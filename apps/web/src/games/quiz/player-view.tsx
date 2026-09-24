@@ -2,14 +2,18 @@
 
 import type { QuizPublicState } from "@couch-clash/games/meta";
 import { useState } from "react";
-import { AnswerSent, Countdown, PlayerRevealResult } from "../question-round/components";
+import { AnswerSent, Countdown, PlayerRevealResult, QuestionLeaderboard } from "../question-round/components";
 import type { PlayerViewProps } from "../types";
 import { QUIZ_OPTION_STYLES } from "./options";
 
-export function QuizPlayerView({ state, me, sendAction }: PlayerViewProps<QuizPublicState>) {
+export function QuizPlayerView({ state, room, me, sendAction }: PlayerViewProps<QuizPublicState>) {
   // Optimistic: show "sent" right away; the server state confirms it.
   const [sentFor, setSentFor] = useState<number | null>(null);
   const reveal = state.reveal;
+
+  if (state.step === "leaderboard") {
+    return <QuestionLeaderboard state={state} room={room} variant="phone" meId={me.id} />;
+  }
 
   if (reveal) {
     const mine = reveal.answers[me.id];

@@ -1,7 +1,13 @@
-import type { ModuleContext, ModulePlayer, ScoringSettings } from "@couch-clash/shared";
+import {
+  REVEAL_ANSWER_MS,
+  REVEAL_LEADERBOARD_MS,
+  type ModuleContext,
+  type ModulePlayer,
+  type ScoringSettings,
+} from "@couch-clash/shared";
 import { ESTIMATE_QUESTIONS_DE, QUIZ_QUESTIONS_DE } from "@couch-clash/content";
 import { describe, expect, it } from "vitest";
-import { CATEGORY_METAS, GAME_MODULES, REVEAL_MS, quizMeta } from "../src";
+import { CATEGORY_METAS, GAME_MODULES, quizMeta } from "../src";
 import { createEstimateModule } from "../src/estimate/module";
 import type { QuestionRoundState } from "../src/question-round/engine";
 import { createQuizModule, prepareQuizQuestion, type PreparedQuizQuestion } from "../src/quiz/module";
@@ -62,20 +68,37 @@ describe("question round transitions", () => {
     expect(init.usedContentIds).toHaveLength(3);
   });
 
-  it("question → (timer) reveal → (timer) next question → … → done", () => {
+  it("question → reveal → leaderboard → next question → … → done", () => {
     const { mod, init } = setup(ALL_ON, 2);
     let s: QuizState = init.state;
-    let u = mod.onTimer(s, ctx(T0 + 20_000, ALL_ON));
+    let now = T0 + 20_000;
+    let u = mod.onTimer(s, ctx(now, ALL_ON));
     expect(u.state.step).toBe("reveal");
-    expect(u.phaseEndsAt).toBe(T0 + 20_000 + REVEAL_MS);
+    expect(u.phaseEndsAt).toBe(now + REVEAL_ANSWER_MS);
+    expect(u.scoreDelta).toEqual({}); // nobody answered, but always present
     s = u.state;
-    u = mod.onTimer(s, ctx(T0 + 28_000, ALL_ON));
+    u = mod.onTimer(s, ctx((now += REVEAL_ANSWER_MS), ALL_ON));
+    expect(u.state.step).toBe("leaderboard");
+    expect(u.phaseEndsAt).toBe(now + REVEAL_LEADERBOARD_MS);
+    expect(u.scoreDelta).toBeUndefined(); // points are only awarded once
+    u = mod.onTimer(u.state, ctx((now += REVEAL_LEADERBOARD_MS), ALL_ON));
     expect(u.state.step).toBe("question");
     expect(u.state.index).toBe(1);
     expect(u.state.answers).toEqual({});
-    u = mod.onTimer(mod.onTimer(u.state, ctx(T0 + 48_000, ALL_ON)).state, ctx(T0 + 56_000, ALL_ON));
+    for (let i = 0; i < 2; i++) u = mod.onTimer(u.state, ctx((now += 1000), ALL_ON));
+    expect(u.state.step).toBe("leaderboard");
+    u = mod.onTimer(u.state, ctx((now += 1000), ALL_ON));
     expect(u.done).toBe(true);
     expect(u.phaseEndsAt).toBeNull();
+  });
+
+  it("keeps the solution visible during the leaderboard step", () => {
+    const { mod, state } = setup();
+    const revealed = mod.onTimer(state, ctx(T0 + 20_000, ALL_ON)).state;
+    const board = mod.onTimer(revealed, ctx(T0 + 23_000, ALL_ON)).state;
+    const pub = mod.toPublicState(board, { role: "host" });
+    expect(pub.step).toBe("leaderboard");
+    expect(pub.reveal?.solution.correctIndex).toBe(state.questions[0]!.correctIndex);
   });
 
   it("ends the question early when all connected players answered, and scores", () => {
