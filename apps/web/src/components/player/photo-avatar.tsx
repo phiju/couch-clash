@@ -24,11 +24,14 @@ export function PhotoChooser({
   onConfirm,
   onEmoji,
   disabled = false,
+  disabledHint,
 }: {
   onConfirm: (photo: Blob) => void;
   /** Shows the "😀 Emoji nehmen" button. */
   onEmoji?: () => void;
   disabled?: boolean;
+  /** Why the buttons are disabled, shown above them (e.g. "Erst Namen eingeben"). */
+  disabledHint?: string;
 }) {
   const selfieRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -86,6 +89,7 @@ export function PhotoChooser({
     <div className="flex w-full flex-col gap-3">
       {input("selfie")}
       {input("file")}
+      {disabled && disabledHint && <DisabledHint text={disabledHint} />}
       <Button type="button" onClick={() => choose("selfie")} disabled={disabled || preparing} glow className="w-full py-4 text-2xl">
         📸 Selfie machen
       </Button>
@@ -165,6 +169,15 @@ export function PhotoChooser({
         </Overlay>
       )}
     </div>
+  );
+}
+
+/** Friendly reason next to disabled buttons (instead of just greying them out). */
+export function DisabledHint({ text }: { text: string }) {
+  return (
+    <p role="status" className="rounded-full bg-bulb/15 px-4 py-1.5 text-center text-base font-bold text-bulb">
+      ☝️ {text}
+    </p>
   );
 }
 

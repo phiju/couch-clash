@@ -9,9 +9,9 @@ import {
   type Avatar,
   type ServerMessage,
 } from "@couch-clash/shared";
-import { useCallback, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { PlayerGame } from "@/components/player/game-phases";
-import { PhotoChooser, PhotoProgress, SavedFigureChoice } from "@/components/player/photo-avatar";
+import { DisabledHint, PhotoChooser, PhotoProgress, SavedFigureChoice } from "@/components/player/photo-avatar";
 import { deleteSavedFigure, savedFigureUrl, uploadPhoto } from "@/lib/api";
 import { ClockContext } from "@/lib/clock";
 import { AvatarBuilder } from "@/components/avatar-builder";
@@ -334,27 +334,40 @@ function JoinForm({
   status: "connecting" | "open" | "closed";
 }) {
   const [profile, setProfile] = useState<Profile>(loadProfile);
+  // Without photo avatars the emoji builder is the only option → always open.
+  const [emojiOpen, setEmojiOpen] = useState(false);
+  const showEmoji = !photoAvatars || emojiOpen;
+  const emojiRef = useRef<HTMLElement>(null);
+  // Opened by tap → bring the builder into view (once, not on every change).
+  useEffect(() => {
+    if (emojiOpen) emojiRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [emojiOpen]);
   const trimmed = profile.name.trim();
+  const needsName = !trimmed;
+  const disabled = needsName || submitting;
+  const nameHint = needsName ? "Erst Namen eingeben" : undefined;
+  const setAvatar = (avatar: Avatar) => setProfile((p) => ({ ...p, avatar }));
   const submit = (photo: Blob | null, useSaved = false) => {
     if (trimmed) onSubmit({ ...profile, name: trimmed }, photo, useSaved);
   };
 
   return (
-    <Screen dim="soft" className="max-w-lg gap-6">
+    <Screen dim="soft" className="max-w-lg gap-4">
       <div className="flex w-full items-center justify-between">
-        <Logo className="w-28" />
+        <Logo className="w-24" />
         <span className="rounded-full border-2 border-bulb bg-petrol-dark/85 px-4 py-1 text-xl font-bold tracking-widest">
           {code}
         </span>
       </div>
       <form
-        className="panel flex w-full flex-col gap-6 p-5"
+        className="panel flex w-full flex-col gap-4 p-4"
         onSubmit={(e) => {
           e.preventDefault();
           submit(null);
         }}
       >
-        <label className="flex flex-col gap-2">
+        {/* 1. Name */}
+        <label className="flex flex-col gap-1.5">
           <span className="text-lg font-bold text-cream/80">Dein Name</span>
           <input
             value={profile.name}
@@ -363,37 +376,75 @@ function JoinForm({
             autoComplete="nickname"
             enterKeyHint="done"
             placeholder="z. B. Toni"
-            className="w-full rounded-2xl border-4 border-bulb bg-cream px-5 py-3 text-3xl font-bold text-brown placeholder:text-brown/30 focus:ring-8 focus:ring-orange/60 focus:outline-none"
+            className="w-full rounded-2xl border-4 border-bulb bg-cream px-5 py-2.5 text-3xl font-bold text-brown placeholder:text-brown/30 focus:ring-8 focus:ring-orange/60 focus:outline-none"
           />
         </label>
+
+        {/* 2. Saved figure */}
         {savedFigure && (
           <SavedFigureChoice
             previewUrl={savedFigureUrl(savedFigure)}
-            disabled={!trimmed || submitting}
+            disabled={disabled}
             onUse={() => submit(null, true)}
             onDelete={onDeleteSavedFigure}
             onGone={onSavedFigureGone}
           />
         )}
-        <AvatarBuilder value={profile.avatar} onChange={(avatar) => setProfile((p) => ({ ...p, avatar }))} />
+
         {error && <p className="rounded-2xl bg-rust px-4 py-2 text-center text-lg font-bold">{error}</p>}
-        {photoAvatars ? (
-          <div className="flex flex-col gap-2">
-            <p className="text-lg font-bold text-cream/80">Wie willst du aussehen?</p>
-            <p className="text-base text-cream/70">
-              Mit Foto wirst du zur Showstar-Figur (im Rahmen deiner Farbe). Bis sie fertig ist – oder falls es nicht
-              klappt – spielst du mit deinem Emoji.
-            </p>
-            <PhotoChooser
-              disabled={!trimmed || submitting}
-              onConfirm={(photo) => submit(photo)}
-              onEmoji={() => submit(null)}
-            />
-          </div>
-        ) : (
-          <Button type="submit" disabled={!trimmed || submitting} glow className="w-full py-4 text-3xl">
-            Beitreten
-          </Button>
+
+        {photoAvatars && (
+          <>
+            {/* 3. Photo first */}
+            <section className="flex flex-col gap-3" aria-label="Mit Foto">
+              <h2 className="text-2xl font-bold">Wie willst du aussehen?</h2>
+              <PhotoChooser disabled={disabled} disabledHint={nameHint} onConfirm={(photo) => submit(photo)} />
+              <p className="text-center text-base text-cream/75">Du wirst zur Showstar-Figur.</p>
+              {/* The color is the ring of the photo avatar – reachable without the emoji builder. */}
+              {!emojiOpen && (
+                <AvatarBuilder value={profile.avatar} onChange={setAvatar} parts={["color"]} preview={false} labels={{ color: "Deine Farbe" }} />
+              )}
+            </section>
+
+            {/* 4. Divider */}
+            <div className="flex items-center gap-3 text-base font-bold text-cream/60" aria-hidden>
+              <span className="h-0.5 flex-1 rounded bg-cream/20" />
+              oder
+              <span className="h-0.5 flex-1 rounded bg-cream/20" />
+            </div>
+
+            {/* 5. Emoji as the quieter alternative */}
+            {!emojiOpen && (
+              <button
+                type="button"
+                onClick={() => setEmojiOpen(true)}
+                aria-expanded={false}
+                className="self-center rounded-full px-4 py-2 text-xl font-bold text-cream/85 underline decoration-bulb/60 underline-offset-4 transition hover:text-cream"
+              >
+                😀 Lieber mit Emoji spielen
+              </button>
+            )}
+          </>
+        )}
+
+        {showEmoji && (
+          <section
+            className="flex scroll-mt-4 flex-col gap-4"
+            aria-label="Mit Emoji"
+            ref={emojiRef}
+          >
+            <AvatarBuilder value={profile.avatar} onChange={setAvatar} />
+            {nameHint && <DisabledHint text={nameHint} />}
+            {photoAvatars ? (
+              <Button type="submit" variant="secondary" disabled={disabled} className="w-full py-4 !text-2xl">
+                Mit Emoji beitreten
+              </Button>
+            ) : (
+              <Button type="submit" disabled={disabled} glow className="w-full py-4 text-3xl">
+                Beitreten
+              </Button>
+            )}
+          </section>
         )}
       </form>
       <ConnectionBadge status={status} />
