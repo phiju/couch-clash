@@ -64,7 +64,7 @@ export async function addSavedExpression(
 
 /**
  * Saved slot → room. Every file is written again, which resets the R2
- * lifecycle clock ("deleted after 180 days without use").
+ * lifecycle clock ("deleted after 365 days without use").
  * Null if the figure no longer exists.
  */
 export async function loadFigure(
