@@ -1,0 +1,38 @@
+{
+  "jingle": {
+    "file": "jingle.mp3",
+    "use": "Title jingle, plays once after 'Los geht's!' during the intro",
+    "loop": false
+  },
+  "lobby": {
+    "file": "lobby.mp3",
+    "use": "Background loop in the lobby / setup / between categories",
+    "loop": true,
+    "loopStart": 0.5,
+    "loopEnd": 95.702,
+    "gain": 1.0
+  },
+  "think": {
+    "file": "think.mp3",
+    "use": "Quiet loop while a question is open",
+    "loop": true,
+    "loopStart": 0.5,
+    "loopEnd": 92.753,
+    "gain": 1.0
+  },
+  "sting": {
+    "file": "sting.mp3",
+    "use": "Reveal of the correct answer / category scoreboard",
+    "loop": false
+  },
+  "stingShort": {
+    "file": "sting-short.mp3",
+    "use": "Short hit: category intro card, 'all answered'",
+    "loop": false
+  },
+  "fanfare": {
+    "file": "fanfare.mp3",
+    "use": "Final ranking / winner",
+    "loop": false
+  }
+}
