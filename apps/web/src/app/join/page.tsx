@@ -3,6 +3,7 @@
 import { ROOM_CODE_LENGTH, isValidRoomCode, normalizeRoomCode, ERROR_MESSAGES } from "@couch-clash/shared";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Mascot } from "@/components/mascot";
 import { Button, Logo, Screen } from "@/components/ui";
 import { getRoomInfo } from "@/lib/api";
 
@@ -36,9 +37,18 @@ export default function JoinPage() {
   }
 
   return (
-    <Screen className="justify-center gap-10">
-      <Logo className="text-5xl" />
-      <form onSubmit={submit} className="flex w-full max-w-sm flex-col items-center gap-6">
+    <Screen dim="soft" className="justify-center gap-4">
+      <Logo className="w-48" />
+      {/* The only place the host appears on phones. */}
+      <Mascot
+        pose="walk-in"
+        size="phone"
+        message="Wie lautet der Code?"
+        className="-mb-10 self-start pl-2"
+        imageClassName="h-48"
+        bubbleClassName="!text-lg left-[70%] bottom-[55%]"
+      />
+      <form onSubmit={submit} className="panel relative flex w-full max-w-sm flex-col items-center gap-5 p-6">
         <label htmlFor="code" className="text-2xl font-bold">
           Code vom Fernseher
         </label>
@@ -56,9 +66,9 @@ export default function JoinPage() {
           spellCheck={false}
           inputMode="text"
           placeholder="ABCD"
-          className="w-full rounded-3xl bg-white px-4 py-5 text-center font-mono text-6xl font-black tracking-[0.3em] text-stage uppercase placeholder:text-stage/20 focus:ring-8 focus:ring-spot focus:outline-none"
+          className="w-full rounded-3xl border-4 border-bulb bg-cream px-4 py-4 text-center text-6xl font-bold tracking-[0.3em] text-brown uppercase placeholder:text-brown/25 focus:ring-8 focus:ring-orange/60 focus:outline-none"
         />
-        {error && <p className="text-center text-lg font-bold text-hot">{error}</p>}
+        {error && <p className="rounded-2xl bg-rust px-4 py-2 text-center text-lg font-bold">{error}</p>}
         <Button type="submit" disabled={code.length !== ROOM_CODE_LENGTH || busy} className="w-full">
           {busy ? "Suche…" : "Weiter"}
         </Button>

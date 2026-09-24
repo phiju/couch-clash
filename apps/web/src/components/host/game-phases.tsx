@@ -3,6 +3,7 @@
 import { getCategoryMeta } from "@couch-clash/games/meta";
 import type { ClientMessage, PublicRoomState } from "@couch-clash/shared";
 import { AvatarBadge } from "@/components/avatar";
+import { Mascot } from "@/components/mascot";
 import { Button, Screen } from "@/components/ui";
 import { getGameViews } from "@/games/registry";
 import { useServerNow } from "@/lib/clock";
@@ -21,11 +22,11 @@ function GameBar({ room, send, skipLabel }: { room: PublicRoomState; send: Send;
   const { game, meta } = currentRound(room);
   return (
     <header className="flex w-full flex-wrap items-center justify-between gap-4">
-      <div className="flex items-center gap-3 text-2xl font-black lg:text-3xl">
+      <div className="flex items-center gap-3 rounded-full chip px-5 py-2 text-2xl font-bold lg:text-3xl">
         <span className="text-4xl">{meta?.emoji}</span>
         <span>{meta?.name}</span>
         {game && game.rounds.length > 1 && (
-          <span className="text-lg font-bold text-white/60">
+          <span className="text-lg font-bold text-cream/60">
             Kategorie {game.roundIndex + 1} von {game.rounds.length}
           </span>
         )}
@@ -36,7 +37,7 @@ function GameBar({ room, send, skipLabel }: { room: PublicRoomState; send: Send;
           onClick={() => {
             if (window.confirm("Spiel beenden und zurück zur Auswahl?")) send({ type: "play_again" });
           }}
-          className="rounded-xl px-4 py-2 text-base font-bold text-white/50 hover:bg-white/10 hover:text-white"
+          className="rounded-full px-4 py-2 text-base font-bold text-cream/60 hover:bg-petrol-dark/70 hover:text-cream"
         >
           Spiel beenden
         </button>
@@ -61,13 +62,25 @@ export function HostIntro({ room, send }: { room: PublicRoomState; send: Send })
   return (
     <Screen className="max-w-[1600px] gap-8 lg:py-10">
       <GameBar room={room} send={send} skipLabel="Weiter ⏭" />
-      <div key={room.game?.roundIndex} className="flex flex-1 animate-pop flex-col items-center justify-center gap-8 text-center">
-        <div className="animate-float text-[10rem] leading-none">{meta?.emoji}</div>
-        <h2 className="text-7xl font-black text-spot lg:text-9xl">{meta?.name}</h2>
-        <p className="max-w-4xl text-3xl text-white/80 lg:text-4xl">{meta?.description}</p>
-        <p className="text-2xl font-bold text-white/60">
-          {round?.questionCount} Fragen · los geht&apos;s in <SecondsLeft endsAt={room.phaseEndsAt} />
-        </p>
+      <div key={room.game?.roundIndex} className="flex w-full flex-1 items-end justify-center gap-6">
+        {/* The host slides in and announces the category. */}
+        <Mascot
+          pose="announce"
+          message={<>Jetzt kommt: {meta?.name}!</>}
+          className="z-10 hidden shrink-0 md:flex"
+          imageClassName="h-[62vh] max-h-[720px]"
+          bubbleClassName="!bottom-[97%] !left-[25%] text-3xl"
+        />
+        <div className="panel flex max-w-4xl flex-1 animate-pop flex-col items-center gap-6 self-center p-10 text-center">
+          <div className="animate-float text-[9rem] leading-none">{meta?.emoji}</div>
+          <h2 className="text-7xl font-bold text-bulb drop-shadow-[0_6px_0_var(--color-brown)] lg:text-8xl">
+            {meta?.name}
+          </h2>
+          <p className="text-3xl text-cream/90 lg:text-4xl">{meta?.description}</p>
+          <p className="text-2xl font-bold text-cream/70">
+            {round?.questionCount} Fragen · los geht&apos;s in <SecondsLeft endsAt={room.phaseEndsAt} />
+          </p>
+        </div>
       </div>
     </Screen>
   );
@@ -95,16 +108,18 @@ export function HostScoreboard({ room, send }: { room: PublicRoomState; send: Se
   return (
     <Screen className="max-w-[1400px] gap-6 lg:py-10">
       <GameBar room={room} send={send} skipLabel={isLast ? "Zum Finale 🏆" : "Nächste Kategorie ⏭"} />
-      <h2 className="text-6xl font-black lg:text-7xl">Zwischenstand</h2>
-      <Leaderboard key={game.roundIndex} entries={game.leaderboard} players={room.players} />
-      <p className="text-xl text-white/60">
+      <div className="panel flex w-full flex-col gap-5 p-6">
+        <h2 className="text-center text-6xl font-bold text-bulb lg:text-7xl">Zwischenstand</h2>
+        <Leaderboard key={game.roundIndex} entries={game.leaderboard} players={room.players} />
+      </div>
+      <p className="text-xl text-cream/70">
         Weiter in <SecondsLeft endsAt={room.phaseEndsAt} /> s
       </p>
     </Screen>
   );
 }
 
-const CONFETTI_COLORS = ["#ffd23f", "#ff4f79", "#3ee1c6", "#8b5cf6", "#3b82f6"];
+const CONFETTI_COLORS = ["#fdbc5f", "#e15a14", "#217b77", "#fff3d6", "#cc3e05"];
 
 function Confetti() {
   return (
@@ -133,18 +148,29 @@ export function HostFinale({ room, send }: { room: PublicRoomState; send: Send }
   return (
     <Screen className="max-w-[1400px] gap-8 lg:py-10">
       <Confetti />
-      <div className="flex flex-col items-center gap-4 text-center">
-        <div className="flex -space-x-6">
-          {winners.map((w) => (
-            <AvatarBadge key={w.id} avatar={w.avatar} size="lg" className="animate-float" />
-          ))}
+      <div className="flex items-end justify-center gap-4">
+        {/* The host celebrates next to the winner. */}
+        <Mascot
+          pose="cheer"
+          message={<>Applaus für {winners.map((w) => w.name).join(" & ")}!</>}
+          className="z-10 hidden md:flex"
+          imageClassName="h-[42vh] max-h-[460px]"
+        />
+        <div className="flex flex-col items-center gap-4 pb-4 text-center">
+          <div className="flex -space-x-6">
+            {winners.map((w) => (
+              <AvatarBadge key={w.id} avatar={w.avatar} size="lg" className="animate-float" />
+            ))}
+          </div>
+          <h2 className="text-6xl font-bold text-bulb drop-shadow-[0_6px_0_var(--color-brown)] lg:text-7xl">
+            🏆 {winners.map((w) => w.name).join(" & ")} {winners.length > 1 ? "gewinnen" : "gewinnt"}!
+          </h2>
         </div>
-        <h2 className="text-6xl font-black lg:text-8xl">
-          🏆 {winners.map((w) => w.name).join(" & ")} {winners.length > 1 ? "gewinnen" : "gewinnt"}!
-        </h2>
       </div>
-      <Leaderboard entries={entries} players={room.players} animated={false} showGains={false} />
-      <Button onClick={() => send({ type: "play_again" })} className="px-12 py-6 text-4xl">
+      <div className="panel w-full p-6">
+        <Leaderboard entries={entries} players={room.players} animated={false} showGains={false} />
+      </div>
+      <Button onClick={() => send({ type: "play_again" })} glow className="px-12 py-5 text-4xl">
         Nochmal spielen
       </Button>
     </Screen>

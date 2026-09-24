@@ -20,7 +20,7 @@ import { useRoom } from "@/lib/use-room";
 export function PlayerScreen({ code }: { code: string }) {
   if (!isValidRoomCode(code)) {
     return (
-      <Screen className="justify-center">
+      <Screen dim="soft" className="justify-center">
         <Notice title="Diesen Raumcode gibt es nicht.">
           <ButtonLink href="/join">Code eingeben</ButtonLink>
         </Notice>
@@ -114,7 +114,7 @@ function PlayerRoom({ code }: { code: string }) {
 
   if (fatalError) {
     return (
-      <Screen className="justify-center">
+      <Screen dim="soft" className="justify-center">
         <Notice title={fatalError.message}>
           <ButtonLink href="/join">Anderen Code eingeben</ButtonLink>
         </Notice>
@@ -124,7 +124,7 @@ function PlayerRoom({ code }: { code: string }) {
 
   if (view === "kicked") {
     return (
-      <Screen className="justify-center">
+      <Screen dim="soft" className="justify-center">
         <Notice title="Der Host hat dich aus dem Spiel entfernt." emoji="👋">
           {state?.phase === "lobby" && (
             <Button onClick={() => setView("form")}>Nochmal beitreten</Button>
@@ -136,8 +136,8 @@ function PlayerRoom({ code }: { code: string }) {
 
   if (view === "restoring" || !state) {
     return (
-      <Screen className="justify-center">
-        <p className="animate-pulse text-2xl font-bold">Verbinde mit Raum {code}…</p>
+      <Screen dim="soft" className="justify-center">
+        <p className="panel animate-pulse px-6 py-4 text-2xl font-bold">Verbinde mit Raum {code}…</p>
         <ConnectionBadge status={status} />
       </Screen>
     );
@@ -162,9 +162,9 @@ function PlayerRoom({ code }: { code: string }) {
 
   if (state.phase !== "lobby") {
     return (
-      <Screen className="justify-center">
+      <Screen dim="soft" className="justify-center">
         <Notice title="Das Spiel läuft schon." emoji="⏳">
-          <p className="text-lg text-white/70">Beitreten geht nur, solange die Lobby offen ist.</p>
+          <p className="text-lg text-cream/70">Beitreten geht nur, solange die Lobby offen ist.</p>
         </Notice>
       </Screen>
     );
@@ -203,22 +203,22 @@ function JoinForm({
   const trimmed = profile.name.trim();
 
   return (
-    <Screen className="max-w-lg gap-6">
+    <Screen dim="soft" className="max-w-lg gap-6">
       <div className="flex w-full items-center justify-between">
-        <Logo className="text-3xl" />
-        <span className="rounded-full bg-white/10 px-4 py-1 font-mono text-xl font-black tracking-widest">
+        <Logo className="w-28" />
+        <span className="rounded-full border-2 border-bulb bg-petrol-dark/85 px-4 py-1 text-xl font-bold tracking-widest">
           {code}
         </span>
       </div>
       <form
-        className="flex w-full flex-col gap-6"
+        className="panel flex w-full flex-col gap-6 p-5"
         onSubmit={(e) => {
           e.preventDefault();
           if (trimmed) onSubmit({ ...profile, name: trimmed });
         }}
       >
         <label className="flex flex-col gap-2">
-          <span className="text-lg font-bold text-white/80">Dein Name</span>
+          <span className="text-lg font-bold text-cream/80">Dein Name</span>
           <input
             value={profile.name}
             onChange={(e) => setProfile((p) => ({ ...p, name: e.target.value }))}
@@ -226,12 +226,12 @@ function JoinForm({
             autoComplete="nickname"
             enterKeyHint="done"
             placeholder="z. B. Toni"
-            className="w-full rounded-2xl bg-white px-5 py-4 text-3xl font-black text-stage placeholder:text-stage/30 focus:ring-8 focus:ring-spot focus:outline-none"
+            className="w-full rounded-2xl border-4 border-bulb bg-cream px-5 py-3 text-3xl font-bold text-brown placeholder:text-brown/30 focus:ring-8 focus:ring-orange/60 focus:outline-none"
           />
         </label>
         <AvatarBuilder value={profile.avatar} onChange={(avatar) => setProfile((p) => ({ ...p, avatar }))} />
-        {error && <p className="text-center text-lg font-bold text-hot">{error}</p>}
-        <Button type="submit" disabled={!trimmed || submitting} className="sticky bottom-4 w-full py-5 text-3xl">
+        {error && <p className="rounded-2xl bg-rust px-4 py-2 text-center text-lg font-bold">{error}</p>}
+        <Button type="submit" disabled={!trimmed || submitting} glow className="sticky bottom-4 w-full py-4 text-3xl">
           Beitreten
         </Button>
       </form>

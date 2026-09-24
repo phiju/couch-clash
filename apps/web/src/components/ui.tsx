@@ -1,24 +1,26 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ComponentProps } from "react";
 
 type Variant = "primary" | "secondary" | "danger";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-spot text-stage shadow-[0_6px_0_#b8901a] hover:brightness-105 active:translate-y-1 active:shadow-[0_2px_0_#b8901a]",
-  secondary:
-    "bg-white/10 text-white ring-2 ring-white/30 hover:bg-white/20 active:translate-y-0.5",
-  danger: "bg-hot text-white shadow-[0_6px_0_#a8254a] active:translate-y-1 active:shadow-[0_2px_0_#a8254a]",
+  primary: "btn btn-primary",
+  secondary: "btn btn-secondary",
+  danger: "btn bg-rust",
 };
+
+const base = "px-8 py-3.5 text-2xl tracking-wide";
 
 export function Button({
   variant = "primary",
+  glow = false,
   className = "",
   ...props
-}: ComponentProps<"button"> & { variant?: Variant }) {
+}: ComponentProps<"button"> & { variant?: Variant; /** Subtle glow pulse for the main CTA. */ glow?: boolean }) {
   return (
     <button
-      className={`rounded-2xl px-8 py-4 text-2xl font-black tracking-wide transition disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none ${variants[variant]} ${className}`}
+      className={`${base} ${variants[variant]} ${glow ? "animate-glow" : ""} ${className}`}
       {...props}
     />
   );
@@ -26,30 +28,53 @@ export function Button({
 
 export function ButtonLink({
   variant = "primary",
+  glow = false,
   className = "",
   ...props
-}: ComponentProps<typeof Link> & { variant?: Variant }) {
+}: ComponentProps<typeof Link> & { variant?: Variant; glow?: boolean }) {
   return (
     <Link
-      className={`inline-block rounded-2xl px-8 py-4 text-center text-2xl font-black tracking-wide transition ${variants[variant]} ${className}`}
+      className={`inline-block text-center ${base} ${variants[variant]} ${glow ? "animate-glow" : ""} ${className}`}
       {...props}
     />
   );
 }
 
-export function Logo({ className = "" }: { className?: string }) {
+/** Small logo for headers. The big stage logo lives in components/stage-logo.tsx. */
+export function Logo({ className = "w-44" }: { className?: string }) {
   return (
-    <h1
-      className={`font-black tracking-tight drop-shadow-[0_4px_0_rgba(0,0,0,0.35)] ${className}`}
-    >
-      <span className="text-spot">Couch</span> <span className="text-hot">Clash</span>
-    </h1>
+    <Image
+      src="/brand/logo.webp"
+      alt="Couch Clash"
+      width={1100}
+      height={731}
+      sizes="(max-width: 640px) 40vw, 260px"
+      className={`h-auto drop-shadow-[0_6px_12px_rgba(0,0,0,0.45)] ${className}`}
+    />
   );
 }
 
-export function Screen({ children, className = "" }: { children?: React.ReactNode; className?: string }) {
+/** Content panel on the stage: petrol-dark glass, cream text, bulb border. */
+export function Panel({ className = "", ...props }: ComponentProps<"section">) {
+  return <section className={`panel ${className}`} {...props} />;
+}
+
+/**
+ * Page frame. `dim` darkens the stage behind the content:
+ * "none" (start page), "soft" (join/waiting), "game" (questions, lists).
+ */
+export function Screen({
+  children,
+  className = "",
+  dim = "game",
+}: {
+  children?: React.ReactNode;
+  className?: string;
+  dim?: "none" | "soft" | "game";
+}) {
   return (
-    <main className={`mx-auto flex min-h-dvh w-full flex-col items-center px-4 py-8 ${className}`}>
+    <main className={`relative mx-auto flex min-h-dvh w-full flex-col items-center px-4 py-8 ${className}`}>
+      {dim !== "none" && <div className="stage-dim" data-level={dim} aria-hidden />}
       {children}
     </main>
   );
@@ -65,9 +90,9 @@ export function Notice({
   emoji?: string;
 }) {
   return (
-    <div className="flex max-w-md flex-col items-center gap-6 text-center">
+    <div className="panel flex max-w-md flex-col items-center gap-6 p-8 text-center">
       <div className="text-7xl">{emoji}</div>
-      <h2 className="text-3xl font-black">{title}</h2>
+      <h2 className="text-3xl font-bold">{title}</h2>
       {children}
     </div>
   );
@@ -76,7 +101,7 @@ export function Notice({
 export function ConnectionBadge({ status }: { status: "connecting" | "open" | "closed" }) {
   if (status === "open") return null;
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-4 py-2 text-sm font-bold">
+    <div className="fixed bottom-4 left-1/2 z-40 -translate-x-1/2 rounded-full border-2 border-bulb bg-petrol-dark px-4 py-2 text-sm font-bold">
       {status === "connecting" ? "Verbinde…" : "Verbindung getrennt"}
     </div>
   );

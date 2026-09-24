@@ -27,7 +27,7 @@ export function HostScreen({ code }: { code: string }) {
   if (token === null) {
     return (
       <HostError title="Dieser Bildschirm ist nicht der Host von diesem Raum.">
-        <p className="text-xl text-white/70">
+        <p className="text-xl text-cream/70">
           Der Host-Zugang liegt nur im Browser, der das Spiel erstellt hat.
         </p>
       </HostError>
@@ -103,7 +103,7 @@ function HostRoom({ code, token }: { code: string; token: string }) {
     <ClockContext.Provider value={clockOffset}>
       {content}
       {error && (
-        <div className="fixed top-6 left-1/2 z-50 -translate-x-1/2 rounded-2xl bg-hot px-6 py-3 text-xl font-bold shadow-xl">
+        <div className="fixed top-6 left-1/2 z-50 -translate-x-1/2 rounded-2xl bg-rust px-6 py-3 text-xl font-bold shadow-xl">
           {error}
         </div>
       )}

@@ -20,7 +20,7 @@ export function HostSetup({
   return (
     <Screen className="max-w-[1600px] gap-8 lg:py-10">
       <header className="flex w-full flex-wrap items-center justify-between gap-4">
-        <Logo className="text-4xl" />
+        <Logo className="w-36" />
         <div className="flex -space-x-3">
           {room.players.map((p) => (
             <AvatarBadge key={p.id} avatar={p.avatar} size="sm" dimmed={!p.connected} />
@@ -28,7 +28,9 @@ export function HostSetup({
         </div>
       </header>
 
-      <GameSettingsPanel serverSettings={room.settings} send={send} canSend={canSend} startRef={startRef} />
+      <div className="panel w-full p-6">
+        <GameSettingsPanel serverSettings={room.settings} send={send} canSend={canSend} startRef={startRef} />
+      </div>
 
       <footer className="mt-auto flex w-full flex-wrap items-center justify-between gap-4">
         <Button variant="secondary" onClick={() => send({ type: "back_to_lobby" })} className="text-xl">
@@ -37,7 +39,8 @@ export function HostSetup({
         <Button
           onClick={() => startRef.current?.()}
           disabled={!room.settingsSummary || !canSend}
-          className="px-12 py-6 text-4xl"
+          glow
+          className="px-12 py-5 text-4xl"
         >
           Los geht&apos;s!
         </Button>

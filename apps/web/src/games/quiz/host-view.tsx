@@ -28,7 +28,7 @@ export function QuizHostView({ state, room }: HostViewProps<QuizPublicState>) {
         )}
       </div>
 
-      <h2 className="text-center text-5xl leading-tight font-black text-balance lg:text-7xl">
+      <h2 className="panel px-8 py-6 text-center text-5xl leading-tight font-bold text-balance lg:text-6xl">
         {state.question.text}
       </h2>
 
@@ -43,13 +43,13 @@ export function QuizHostView({ state, room }: HostViewProps<QuizPublicState>) {
             return (
               <li
                 key={i}
-                className={`flex min-h-28 flex-col justify-center gap-3 rounded-3xl px-6 py-5 transition duration-500 ${style.bg} ${
+                className={`flex min-h-28 flex-col justify-center gap-3 rounded-[2rem] border-4 border-bulb px-6 py-5 transition duration-500 ${style.bg} ${style.shadow} ${
                   reveal && !isCorrect ? "scale-95 opacity-30 grayscale" : ""
-                } ${reveal && isCorrect ? "scale-105 ring-8 ring-white" : ""}`}
+                } ${reveal && isCorrect ? "scale-105 ring-8 ring-cream/90" : ""}`}
               >
                 <div className="flex items-center gap-4">
-                  <span className="text-4xl text-white/80">{style.shape}</span>
-                  <span className="text-3xl font-black text-white drop-shadow lg:text-4xl">{option}</span>
+                  <span className="text-4xl opacity-80">{style.shape}</span>
+                  <span className="text-3xl font-bold lg:text-4xl">{option}</span>
                   {isCorrect && <span className="ml-auto text-5xl">✅</span>}
                 </div>
                 {pickedBy.length > 0 && (

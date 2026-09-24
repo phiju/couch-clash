@@ -17,3 +17,24 @@ const secure = explicit ? explicit === "https" || explicit === "wss" : !LOCAL_HO
 
 export const PARTY_HTTP_URL = `${secure ? "https" : "http"}://${PARTY_HOST}`;
 export const PARTY_WS_PROTOCOL = secure ? "wss" : "ws";
+
+/**
+ * Public URL of the web app, used for the QR code and the join link on the TV.
+ * Set NEXT_PUBLIC_SITE_URL to the production domain so phones never land on a
+ * protected Vercel preview URL. Falls back to the current origin (local dev).
+ */
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/+$/, "") || null;
+
+export function siteUrl(): string {
+  if (SITE_URL) return /^https?:\/\//.test(SITE_URL) ? SITE_URL : `https://${SITE_URL}`;
+  return typeof window === "undefined" ? "" : window.location.origin;
+}
+
+export function joinUrl(code: string): string {
+  return `${siteUrl()}/join/${code}`;
+}
+
+/** Short, readable link for the TV: "couch-clash-web.vercel.app/join". */
+export function displayJoinLink(): string {
+  return `${siteUrl().replace(/^https?:\/\//, "")}/join`;
+}

@@ -1,14 +1,25 @@
 @import "tailwindcss";
 
+/* Same breakpoint as the backgrounds: portrait (≤ 3:4) vs. everything wider. */
+@custom-variant wide (@media (min-aspect-ratio: 751/1000));
+@custom-variant tall (@media (max-aspect-ratio: 3/4));
+
+/* ── Couch Clash design tokens: retro 1970s TV game show ─────────────── */
 @theme {
-  --color-stage: #1a0b3b;
-  --color-stage-light: #2d1463;
-  --color-spot: #ffd23f;
-  --color-hot: #ff4f79;
-  --color-cool: #3ee1c6;
-  --font-display: "Trebuchet MS", "Arial Rounded MT Bold", ui-rounded, system-ui, sans-serif;
+  --color-petrol: #217b77;
+  --color-petrol-dark: #123f3c;
+  --color-orange: #e15a14;
+  --color-rust: #cc3e05;
+  --color-bulb: #fdbc5f;
+  --color-cream: #fff3d6;
+  --color-brown: #562512;
+
+  --font-display: var(--font-fredoka), "Arial Rounded MT Bold", ui-rounded, system-ui, sans-serif;
+
   --animate-pop: pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   --animate-float: float 3s ease-in-out infinite;
+  --animate-sway: sway 2.6s ease-in-out infinite;
+  --animate-glow: glow-pulse 1.8s ease-in-out infinite;
 
   @keyframes pop {
     0% { transform: scale(0.4); opacity: 0; }
@@ -18,6 +29,49 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
   }
+  @keyframes sway {
+    0%, 100% { rotate: 0deg; }
+    50% { rotate: 1.5deg; }
+  }
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 8px 0 var(--color-brown), 0 0 0 rgb(253 188 95 / 0); }
+    50% { box-shadow: 0 8px 0 var(--color-brown), 0 0 26px rgb(253 188 95 / 0.8); }
+  }
+}
+
+/* Panels / cards: petrol-dark glass with a thin bulb border. */
+@utility panel {
+  background-color: rgb(18 63 60 / 0.85);
+  border: 2px solid rgb(253 188 95 / 0.55);
+  border-radius: 2rem;
+  color: var(--color-cream);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.35);
+  backdrop-filter: blur(3px);
+}
+
+/* Smaller rows / chips inside panels. */
+@utility chip {
+  background-color: rgb(18 63 60 / 0.8);
+  border: 1px solid rgb(253 188 95 / 0.35);
+}
+
+/* Pill buttons: bulb border, gradient, solid brown drop shadow, pressed state. */
+@utility btn {
+  border-radius: 9999px;
+  border: 4px solid var(--color-bulb);
+  color: var(--color-cream);
+  font-weight: 700;
+  box-shadow: 0 8px 0 var(--color-brown);
+  transition: transform 0.08s, box-shadow 0.08s, filter 0.15s;
+  &:hover:not(:disabled) { filter: brightness(1.08); }
+  &:active:not(:disabled) { transform: translateY(6px); box-shadow: 0 2px 0 var(--color-brown); }
+  &:disabled { cursor: not-allowed; opacity: 0.45; }
+}
+@utility btn-primary {
+  background: linear-gradient(180deg, #f07a2a, var(--color-orange) 55%, var(--color-rust));
+}
+@utility btn-secondary {
+  background: linear-gradient(180deg, #2c9791, var(--color-petrol) 55%, var(--color-petrol-dark));
 }
 
 html,
@@ -26,16 +80,206 @@ body {
 }
 
 body {
-  background:
-    radial-gradient(ellipse at top, rgb(255 79 121 / 0.25), transparent 60%),
-    radial-gradient(ellipse at bottom right, rgb(62 225 198 / 0.18), transparent 55%),
-    var(--color-stage);
-  color: white;
+  background: #0b1413;
+  color: var(--color-cream);
   font-family: var(--font-display);
   -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Stage background: wide on landscape, tall on portrait, fixed ───── */
+.stage-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -20;
+  background: #0b1413 url("/brand/stage-wide.webp") center / cover no-repeat;
+}
+@media (max-aspect-ratio: 3/4) {
+  .stage-bg {
+    background-image: url("/brand/stage-tall.webp");
+  }
+}
+
+/* Darkening + vignette so content stays readable on the busy stage. */
+.stage-dim {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+}
+.stage-dim[data-level="soft"] {
+  background:
+    radial-gradient(ellipse at center, rgb(0 0 0 / 0.1) 30%, rgb(0 0 0 / 0.55) 100%),
+    rgb(8 20 19 / 0.35);
+}
+.stage-dim[data-level="game"] {
+  background:
+    radial-gradient(ellipse at center, rgb(0 0 0 / 0.15) 30%, rgb(0 0 0 / 0.65) 100%),
+    rgb(8 20 19 / 0.55);
 }
 
 @keyframes confetti {
   0% { transform: translateY(0) rotate(0deg); opacity: 1; }
   100% { transform: translateY(110vh) rotate(720deg); opacity: 0.7; }
+}
+
+/* ── Speech bubble (mascot) ──────────────────────────────────────────── */
+@layer components {
+.bubble {
+  background: var(--color-cream);
+  color: var(--color-brown);
+  font-weight: 700;
+  border: 4px solid var(--color-orange);
+  box-shadow: 0 8px 0 var(--color-rust);
+  border-radius: 1.2em;
+}
+.bubble::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  bottom: -20px;
+  border: 12px solid transparent;
+  border-top-color: var(--color-orange);
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ── Mascot poses ────────────────────────────────────────────────────── */
+@keyframes mascot-walk {
+  0% { transform: translateX(-140%) rotate(0); }
+  20% { transform: translateX(-110%) translateY(-10px) rotate(-3deg); }
+  40% { transform: translateX(-75%) rotate(2deg); }
+  60% { transform: translateX(-40%) translateY(-10px) rotate(-3deg); }
+  80% { transform: translateX(-8%) rotate(2deg); }
+  90% { transform: translateX(3%) rotate(-1deg); }
+  100% { transform: translateX(0) rotate(0); }
+}
+@keyframes mascot-slide {
+  from { transform: translateX(-60%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes mascot-cheer {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-14px) rotate(-3deg); }
+  50% { transform: translateY(0) rotate(0); }
+  75% { transform: translateY(-8px) rotate(2deg); }
+}
+@keyframes bubble-in {
+  from { opacity: 0; transform: scale(0.4) rotate(-6deg); }
+  to { opacity: 1; transform: scale(1) rotate(-3deg); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.mascot { transform-origin: 50% 100%; filter: drop-shadow(0 20px 25px rgb(0 0 0 / 0.45)); }
+.mascot[data-pose="idle"] { animation: sway 2.6s ease-in-out infinite; }
+.mascot[data-pose="walk-in"] {
+  animation: mascot-walk 1.6s cubic-bezier(0.3, 0.7, 0.4, 1) both, sway 2.6s 1.6s ease-in-out infinite;
+}
+.mascot[data-pose="announce"] {
+  animation: mascot-slide 0.7s cubic-bezier(0.2, 1.3, 0.4, 1) both, sway 2.6s 0.7s ease-in-out infinite;
+}
+.mascot[data-pose="cheer"] { animation: mascot-cheer 1.4s ease-in-out infinite; }
+.mascot-bubble { opacity: 0; transform-origin: 0 100%; animation: bubble-in 0.5s 0.6s cubic-bezier(0.2, 1.6, 0.4, 1) forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .mascot[data-pose],
+  .mascot-bubble { animation: fade-in 0.4s ease-out both !important; transform: none; }
+}
+
+/* ── Start page intro (see docs/brand/intro-reference.html) ──────────── */
+.intro { position: fixed; inset: 0; overflow: hidden; }
+.intro-bg { position: absolute; inset: 0; background: #0b1413 url("/brand/stage-wide.webp") center / cover no-repeat; }
+@media (max-aspect-ratio: 3/4) { .intro-bg { background-image: url("/brand/stage-tall.webp"); } }
+.intro-spot {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 45% 55% at 50% 42%, rgb(255 220 150 / 0.35), transparent 70%);
+}
+.intro-vignette {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgb(0 0 0 / 0.55) 100%);
+}
+.intro-logo { position: absolute; z-index: 3; filter: drop-shadow(0 18px 30px rgb(0 0 0 / 0.45)); }
+.intro-host { position: absolute; z-index: 2; filter: drop-shadow(0 20px 25px rgb(0 0 0 / 0.45)); transform-origin: 50% 100%; }
+.intro-confetti { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+.intro-actions { position: absolute; z-index: 6; }
+
+/* Final state (also: intro already seen, or skipped). */
+.intro[data-state="done"] .intro-bg { filter: none; }
+.intro[data-state="done"] .intro-spot { opacity: 1; }
+.intro[data-state="done"] .intro-logo {
+  animation: logo-float 4s ease-in-out infinite, logo-glow 1.6s ease-in-out infinite;
+}
+.intro[data-state="done"] .intro-host { animation: sway 2.6s ease-in-out infinite; }
+.intro[data-state="done"] .intro-actions .btn-primary { animation: glow-pulse 1.8s ease-in-out infinite; }
+
+/* Before JS decides (SSR) and while playing: start dark. */
+.intro[data-state="pending"] .intro-bg,
+.intro[data-state="play"] .intro-bg { filter: brightness(0.08) saturate(0.6); transform: scale(1.08); }
+.intro[data-state="pending"] .intro-spot,
+.intro[data-state="play"] .intro-spot { opacity: 0; }
+.intro[data-state="pending"] .intro-logo,
+.intro[data-state="play"] .intro-logo { transform: scale(0); }
+.intro[data-state="pending"] .intro-host,
+.intro[data-state="play"] .intro-host { transform: translateX(-140%); }
+.intro[data-state="pending"] .intro-actions > *,
+.intro[data-state="play"] .intro-actions > * { opacity: 0; transform: translateY(40px); }
+.intro[data-state="play"] .intro-actions { pointer-events: none; }
+
+/* The sequence (~5.5 s): lights → spot → logo pop + confetti → host → buttons. */
+.intro[data-state="play"] .intro-bg { animation: intro-lights 2.2s steps(1) forwards, intro-settle 2.2s ease-out forwards; }
+.intro[data-state="play"] .intro-spot { animation: intro-fade 1.2s 1.6s ease-out forwards; }
+.intro[data-state="play"] .intro-logo {
+  animation:
+    intro-pop 0.9s 2.1s cubic-bezier(0.2, 1.6, 0.4, 1) forwards,
+    logo-float 4s 3.2s ease-in-out infinite,
+    logo-glow 1.6s 3.2s ease-in-out infinite;
+}
+.intro[data-state="play"] .intro-host {
+  animation: mascot-walk 1.6s 3s cubic-bezier(0.3, 0.7, 0.4, 1) forwards, sway 2.6s 4.6s ease-in-out infinite;
+}
+.intro[data-state="play"] .intro-actions > * { animation: intro-rise 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) forwards; }
+.intro[data-state="play"] .intro-actions > :nth-child(1) { animation-delay: 4.6s; }
+.intro[data-state="play"] .intro-actions > :nth-child(2) { animation-delay: 4.8s; }
+
+@keyframes intro-lights {
+  0% { filter: brightness(0.08) saturate(0.6); }
+  30% { filter: brightness(0.35) saturate(0.8); }
+  45% { filter: brightness(0.15) saturate(0.7); }
+  60% { filter: brightness(0.7) saturate(0.95); }
+  100% { filter: none; }
+}
+@keyframes intro-settle { to { transform: scale(1); } }
+@keyframes intro-fade { to { opacity: 1; } }
+@keyframes intro-pop {
+  0% { transform: scale(0) rotate(-12deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+@keyframes intro-rise { to { opacity: 1; transform: translateY(0); } }
+@keyframes logo-float { 0%, 100% { scale: 1; } 50% { scale: 1.015; } }
+@keyframes logo-glow {
+  0%, 100% { filter: drop-shadow(0 18px 30px rgb(0 0 0 / 0.45)) drop-shadow(0 0 0 rgb(253 188 95 / 0)); }
+  50% { filter: drop-shadow(0 18px 30px rgb(0 0 0 / 0.45)) drop-shadow(0 0 28px rgb(253 188 95 / 0.75)); }
+}
+
+/* Reduced motion: no movement – everything simply fades in. */
+@media (prefers-reduced-motion: reduce) {
+  .intro[data-state] .intro-bg,
+  .intro[data-state] .intro-logo,
+  .intro[data-state] .intro-host,
+  .intro[data-state] .intro-actions > * { transform: none !important; filter: none !important; }
+  .intro[data-state="play"] .intro-bg,
+  .intro[data-state="play"] .intro-spot,
+  .intro[data-state="play"] .intro-logo,
+  .intro[data-state="play"] .intro-host,
+  .intro[data-state="play"] .intro-actions > * { animation: fade-in 0.8s ease-out both !important; }
+  .intro[data-state="done"] .intro-logo,
+  .intro[data-state="done"] .intro-host,
+  .intro[data-state="done"] .intro-actions .btn-primary { animation: none !important; }
 }

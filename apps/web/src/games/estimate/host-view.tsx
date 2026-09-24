@@ -27,15 +27,15 @@ export function EstimateHostView({ state, room }: HostViewProps<EstimatePublicSt
         )}
       </div>
 
-      <h2 className="text-center text-5xl leading-tight font-black text-balance lg:text-7xl">
+      <h2 className="panel px-8 py-6 text-center text-5xl leading-tight font-bold text-balance lg:text-6xl">
         {state.question.text}
       </h2>
 
       {reveal ? (
         <div className="grid flex-1 gap-8 lg:grid-cols-[2fr_3fr]">
-          <div className="flex flex-col items-center justify-center gap-4 rounded-[2rem] bg-spot p-8 text-center text-stage">
+          <div className="flex flex-col items-center justify-center gap-4 rounded-[2rem] border-4 border-orange bg-bulb p-8 text-center text-brown shadow-[0_8px_0_var(--color-brown)]">
             <p className="text-2xl font-bold">Richtig ist</p>
-            <p className="animate-pop text-7xl font-black lg:text-9xl">
+            <p className="animate-pop text-7xl font-bold lg:text-9xl">
               {formatNumber(reveal.solution.answer, format)}
               {unit && <span className="ml-3 text-4xl lg:text-6xl">{unit}</span>}
             </p>
@@ -55,7 +55,7 @@ export function EstimateHostView({ state, room }: HostViewProps<EstimatePublicSt
         </div>
       ) : (
         <div className="flex flex-1 flex-col items-center justify-center gap-10">
-          <p className="text-3xl text-white/70">
+          <p className="rounded-full chip px-6 py-2 text-3xl text-cream/90">
             Schätzt auf euren Handys{unit ? ` (in ${unit})` : ""} 🤔
           </p>
           <AnsweredStrip state={state} room={room} />

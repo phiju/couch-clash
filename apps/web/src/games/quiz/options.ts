@@ -1,7 +1,10 @@
-/** Colors + shapes for the four answer options (shapes help color-blind players). */
+/**
+ * Colors + shapes for the four answer options (shapes help color-blind players).
+ * All from the show palette; every option has a bulb border like the buttons.
+ */
 export const QUIZ_OPTION_STYLES = [
-  { bg: "bg-hot", shadow: "shadow-[0_6px_0_#a8254a]", shape: "▲" },
-  { bg: "bg-sky-500", shadow: "shadow-[0_6px_0_#0369a1]", shape: "◆" },
-  { bg: "bg-amber-400", shadow: "shadow-[0_6px_0_#b45309]", shape: "●" },
-  { bg: "bg-emerald-500", shadow: "shadow-[0_6px_0_#047857]", shape: "■" },
+  { bg: "bg-orange text-cream", shadow: "shadow-[0_6px_0_var(--color-brown)]", shape: "▲" },
+  { bg: "bg-petrol text-cream", shadow: "shadow-[0_6px_0_var(--color-petrol-dark)]", shape: "◆" },
+  { bg: "bg-bulb text-brown", shadow: "shadow-[0_6px_0_var(--color-brown)]", shape: "●" },
+  { bg: "bg-brown text-cream", shadow: "shadow-[0_6px_0_#2e1309]", shape: "■" },
 ] as const;
