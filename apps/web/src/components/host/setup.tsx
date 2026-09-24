@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { AvatarBadge } from "@/components/avatar";
 import { Button, Logo, Screen } from "@/components/ui";
 import { GameSettingsPanel } from "./settings-panel";
+import { VoiceSettingsPanel } from "./voice-settings";
 
 /** Setup phase – only used after "Nochmal spielen" (the first game is set up in the lobby). */
 export function HostSetup({
@@ -30,6 +31,9 @@ export function HostSetup({
 
       <div className="panel w-full p-6">
         <GameSettingsPanel serverSettings={room.settings} send={send} canSend={canSend} startRef={startRef} />
+        <div className="mt-6 max-w-xl">
+          <VoiceSettingsPanel voice={room.voice} send={send} canSend={canSend} />
+        </div>
       </div>
 
       <footer className="mt-auto flex w-full flex-wrap items-center justify-between gap-4">

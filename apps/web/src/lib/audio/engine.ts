@@ -8,13 +8,16 @@
  * host screens do that, so player phones stay silent.
  *
  *   sources → music bus (0.8) → duck gain ─┐
- *   sources → effects bus (1.0) ───────────┴→ master (volume slider) → speakers
+ *   sources → effects bus (1.0) ───────────┤
+ *   host voice → voice bus (1.8) ──────────┴→ master (volume slider) → speakers
  */
 import { loopPoints, parseAudioManifest, AUDIO_BASE, type AudioEntry } from "./manifest";
 import { EFFECT_IDS, MUSIC_IDS, type AudioId, type AudioScene, type EffectId, type MusicId } from "./scenes";
 
 const MUSIC_GAIN = 0.8;
 const EFFECTS_GAIN = 1.0;
+/** The host's voice is clearly louder than the (ducked) music. */
+const VOICE_GAIN = 1.8;
 const DUCK_LEVEL = 0.3;
 const DEFAULT_FADE = 0.8;
 const VOLUME_KEY = "couchclash:volume";
@@ -48,6 +51,8 @@ export class AudioEngine {
   private musicBus!: GainNode;
   private duck!: GainNode;
   private effectsBus!: GainNode;
+  private voiceBus!: GainNode;
+  private voiceSource: AudioBufferSourceNode | null = null;
 
   private manifest: Record<AudioId, AudioEntry> | null = null;
   private buffers = new Map<AudioId, AudioBuffer>();
@@ -100,6 +105,9 @@ export class AudioEngine {
       this.effectsBus = ctx.createGain();
       this.effectsBus.gain.value = EFFECTS_GAIN;
       this.effectsBus.connect(this.master);
+      this.voiceBus = ctx.createGain();
+      this.voiceBus.gain.value = VOICE_GAIN;
+      this.voiceBus.connect(this.master);
       // A silent buffer "unlocks" playback on iOS/Safari.
       const silent = ctx.createBufferSource();
       silent.buffer = ctx.createBuffer(1, 1, 22050);
@@ -257,6 +265,53 @@ export class AudioEngine {
     });
     this.oneShots = Math.max(0, this.oneShots - 1);
     if (this.oneShots === 0) this.setDuck(false);
+  }
+
+  /**
+   * A spoken line of the host mascot (generated mp3). The music is ducked
+   * while he speaks. Resolves once playback started (with its duration);
+   * `ended` resolves when he is done. Null if audio is locked or the file
+   * can't be loaded – the caller then shows the subtitle only.
+   */
+  async playVoice(url: string): Promise<{ durationMs: number; ended: Promise<void> } | null> {
+    const ctx = this.ctx;
+    if (!ctx) return null;
+    let buffer: AudioBuffer;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) return null;
+      buffer = await ctx.decodeAudioData(await res.arrayBuffer());
+    } catch {
+      return null;
+    }
+    if (this.ctx !== ctx) return null;
+    this.stopVoice();
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.connect(this.voiceBus);
+    this.voiceSource = source;
+    this.setDuck(true);
+    this.oneShots++;
+    const ended = new Promise<void>((resolve) => {
+      source.onended = () => {
+        if (this.voiceSource === source) this.voiceSource = null;
+        this.oneShots = Math.max(0, this.oneShots - 1);
+        if (this.oneShots === 0) this.setDuck(false);
+        resolve();
+      };
+    });
+    source.start();
+    return { durationMs: Math.round(buffer.duration * 1000), ended };
+  }
+
+  /** Cuts the host off (e.g. when leaving the host screen). */
+  stopVoice() {
+    try {
+      this.voiceSource?.stop();
+    } catch {
+      // already stopped
+    }
+    this.voiceSource = null;
   }
 
   private setDuck(on: boolean) {

@@ -14,6 +14,7 @@ import {
   handleSavedAvatarGet,
 } from "./avatar/routes";
 import { r2AvatarStore } from "./avatar/store";
+import { handleVoiceGet } from "./voice/routes";
 import { CORS_HEADERS, json } from "./http";
 import type { Room } from "./room";
 
@@ -65,6 +66,11 @@ export default {
         const [, code, playerId, expression] = image.map((part) => decodeURIComponent(part));
         const store = env.AVATARS ? r2AvatarStore(env.AVATARS) : null;
         return handleAvatarGet(code!, playerId!, expression!, getRoom, store);
+      }
+      const voice = url.pathname.match(/^\/api\/rooms\/([^/]+)\/voice\/([^/]+)$/);
+      if (voice && request.method === "GET") {
+        const store = env.AVATARS ? r2AvatarStore(env.AVATARS) : null;
+        return handleVoiceGet(decodeURIComponent(voice[1]!), voice[2]!, getRoom, store);
       }
       const saved = url.pathname.match(/^\/api\/avatars\/saved\/([^/]+)(?:\/([^/]+))?$/);
       if (saved) {

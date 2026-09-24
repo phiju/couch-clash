@@ -11,6 +11,8 @@ import { displayJoinLink, joinUrl as buildJoinUrl } from "@/lib/config";
 import { summaryText } from "@/lib/summary";
 import { usePhotoCelebration } from "./photo-celebration";
 import { GameSettingsPanel } from "./settings-panel";
+import { useHostSpeech } from "./voice";
+import { VoiceSettingsPanel } from "./voice-settings";
 
 const subscribeNoop = () => () => {};
 
@@ -27,6 +29,7 @@ export function HostLobby({
   const code = room?.code ?? "";
   const players = room?.players ?? [];
   const celebrating = usePhotoCelebration(players);
+  const speech = useHostSpeech();
   const joinUrl = useSyncExternalStore(
     subscribeNoop,
     () => (code ? buildJoinUrl(code) : null),
@@ -46,7 +49,8 @@ export function HostLobby({
         {/* The host stands next to the QR code – only where there is room for him. */}
         <Mascot
           pose="idle"
-          message="Scannt den Code!"
+          talking={!!speech}
+          message={speech?.text ?? "Scannt den Code!"}
           className="z-10 hidden min-h-0 self-end justify-center roomy:flex"
           imageClassName="h-[min(58vh,640px)] max-w-none"
           bubbleClassName="fs-md !bottom-[96%] !left-[10%] max-w-[16rem]"
@@ -182,6 +186,9 @@ export function HostLobby({
                 startRef={startRef}
                 compact
               />
+              <div className="mt-[1.4vh]">
+                <VoiceSettingsPanel voice={room.voice} send={send} canSend={canSend} compact />
+              </div>
             </div>
           </section>
         )}

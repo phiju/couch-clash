@@ -1,10 +1,11 @@
 "use client";
 
-import { isValidRoomCode, type ServerMessage } from "@couch-clash/shared";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { isValidRoomCode, type HostLine, type ServerMessage } from "@couch-clash/shared";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { HostFinale, HostIntro, HostPlay, HostScoreboard } from "@/components/host/game-phases";
 import { HostLobby } from "@/components/host/lobby";
 import { HostSetup } from "@/components/host/setup";
+import { HostSpeaker, HostSpeechContext, useHostVoice } from "@/components/host/voice";
 import { ButtonLink, ConnectionBadge, Notice, Screen } from "@/components/ui";
 import { getGameViews } from "@/games/registry";
 import { AudioDirector, SoundControls } from "@/lib/audio/react";
@@ -54,9 +55,12 @@ function HostRoom({ code, token }: { code: string; token: string }) {
   const [error, setError] = useState<string | null>(null);
   const [authFailed, setAuthFailed] = useState(false);
   const [authed, setAuthed] = useState(false);
+  // The host mascot's lines (host device only) – `onLine` is filled in below.
+  const lineHandler = useRef<(line: HostLine) => void>(() => {});
   const { state, status, fatalError, send, clockOffset } = useRoom(code, {
     hello: () => ({ type: "hello_host", hostToken: token }),
     onMessage: (msg: ServerMessage) => {
+      if (msg.type === "host_line") lineHandler.current(msg.line);
       if (msg.type === "welcome_host") {
         setAuthFailed(false);
         setAuthed(true);
@@ -67,6 +71,11 @@ function HostRoom({ code, token }: { code: string; token: string }) {
       }
     },
   });
+
+  const voice = useHostVoice(send, clockOffset);
+  useEffect(() => {
+    lineHandler.current = voice.onLine;
+  }, [voice.onLine]);
 
   useEffect(() => {
     if (!error) return;
@@ -112,9 +121,16 @@ function HostRoom({ code, token }: { code: string; token: string }) {
 
   return (
     <ClockContext.Provider value={clockOffset}>
-      <AudioDirector scene={scene} />
-      <SoundControls />
-      {content}
+      <HostSpeechContext.Provider value={voice.current}>
+        <AudioDirector scene={scene} />
+        <SoundControls />
+        {content}
+        {/* Lobby (wide screens), intro and finale show the line in their own mascot. */}
+        {state?.phase !== "intro" && state?.phase !== "finale" && (
+          // Lobby: over the player list, never over the QR code.
+          <HostSpeaker className={state?.phase === "lobby" || !state ? "roomy:hidden !left-[32vw]" : ""} />
+        )}
+      </HostSpeechContext.Provider>
       {error && (
         <div className="fixed top-6 left-1/2 z-50 -translate-x-1/2 rounded-2xl bg-rust px-6 py-3 text-xl font-bold shadow-xl">
           {error}

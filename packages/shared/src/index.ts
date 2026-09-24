@@ -6,3 +6,4 @@ export * from "./leaderboard";
 export * from "./messages";
 export * from "./state";
 export * from "./photo";
+export * from "./voice";

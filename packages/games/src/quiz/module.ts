@@ -34,6 +34,11 @@ export function createQuizModule(pool: readonly QuizQuestion[] = QUIZ_QUESTIONS_
     baseScoreInput: (question, answer) => ({ correct: answer === question.correctIndex }),
     publicQuestion: (q) => ({ text: q.text, options: q.options }),
     solution: (q) => ({ correctIndex: q.correctIndex }),
+    describe: {
+      question: (q) => q.text,
+      solution: (q) => q.options[q.correctIndex] ?? "",
+      answer: (q, a) => q.options[a] ?? "",
+    },
   });
 }
 

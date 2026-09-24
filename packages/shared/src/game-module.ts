@@ -134,4 +134,33 @@ export interface GameModule<TState = unknown, TAction = unknown, TPublic = unkno
   onPlayersChanged?(state: TState, ctx: ModuleContext): ModuleUpdate<TState> | null;
   /** Strip everything this viewer must not see (correct answers, others' answers). */
   toPublicState(state: TState, viewer: Viewer): TPublic;
+  /** Where the category stands – lets the room time the host's commentary. Optional. */
+  progress?(state: TState): ModuleProgress | null;
+  /** Facts about the question just revealed, for the host's commentary. Optional. */
+  revealFacts?(state: TState): RevealFacts | null;
+}
+
+export interface ModuleProgress {
+  /** 0-based question index and total questions. */
+  index: number;
+  total: number;
+  step: string;
+}
+
+/** Plain-text facts about one revealed question (server only, never sent to phones). */
+export interface RevealFacts {
+  question: string;
+  correctAnswer: string;
+  /** Per player id; players without an answer are missing. */
+  answers: Record<string, RevealedAnswer>;
+}
+
+export interface RevealedAnswer {
+  /** The answer as text, e.g. "Paris" or "5 m". */
+  text: string;
+  correct: boolean;
+  /** Answer quality 0…1 (base score / max points). */
+  accuracy: number;
+  points: number;
+  responseMs: number;
 }

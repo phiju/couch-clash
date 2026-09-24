@@ -27,6 +27,8 @@ describe("no audio on player phones", () => {
     for (const file of PLAYER_CODE) {
       const code = readFileSync(file, "utf8");
       expect(code, file).not.toMatch(/lib\/audio\/(engine|react)|getAudioEngine|SoundControls|AudioDirector|\.unlock\(/);
+      // The host's voice is host-only too.
+      expect(code, file).not.toMatch(/lib\/voice|host\/voice|useHostVoice|HostSpeaker|host_line|playVoice/);
     }
   });
 

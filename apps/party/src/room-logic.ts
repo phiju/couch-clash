@@ -14,11 +14,13 @@ import {
   type GameRoundSettings,
   type LeaderboardEntry,
   type Viewer,
+  type VoiceSettings,
 } from "@couch-clash/shared";
 import { GAME_MODULES, getModule, normalizeScoring, type ModuleRegistry } from "@couch-clash/games";
 import { publicGame, settingsSummary } from "./game-flow";
 import { fail, ok, type Result } from "./result";
 import { publicPhoto, type PhotoRecord, type PhotoUsage } from "./avatar/photo-logic";
+import { defaultRoomVoice, effectiveCheekiness, hasKidsCategory, normalizeRoomVoice, type RoomVoice } from "./voice/rules";
 
 export interface PlayerRecord {
   id: string;
@@ -53,6 +55,8 @@ export interface RoomRecord {
   photoAvatars: boolean;
   /** Images generated in this room (room-wide limit, kept after kicks/resets). */
   photoUsage: PhotoUsage;
+  /** The host mascot's voice: settings, budget, commentary memory. */
+  voice: RoomVoice;
 }
 
 /** One category of the game settings (sanitized against the registry). */
@@ -92,6 +96,7 @@ export function normalizeRoomRecord(room: RoomRecord, registry: ModuleRegistry =
     usedContentIds: room.usedContentIds ?? [],
     photoAvatars: room.photoAvatars ?? true,
     photoUsage: room.photoUsage ?? { base: 0, expressions: 0 },
+    voice: normalizeRoomVoice(room.voice),
   };
 }
 
@@ -117,6 +122,7 @@ export function createRoomRecord(code: string, hostToken: string, now: number): 
     usedContentIds: [],
     photoAvatars: true,
     photoUsage: { base: 0, expressions: 0 },
+    voice: defaultRoomVoice(),
   };
 }
 
@@ -208,5 +214,21 @@ export function toPublicState(
     settings: viewer.role === "host" ? room.settings : null,
     settingsSummary: settingsSummary(room.settings, registry),
     photoAvatars: room.photoAvatars,
+    voice: viewer.role === "host" ? publicVoice(room, registry) : null,
   };
+}
+
+function publicVoice(room: RoomRecord, registry: ModuleRegistry): PublicRoomState["voice"] {
+  const metas = room.settings.flatMap((r) => getModule(r.categoryId, registry)?.meta ?? []);
+  return {
+    ...room.voice.settings,
+    effectiveCheekiness: effectiveCheekiness(room.voice.settings, metas),
+    kidsCategories: hasKidsCategory(metas),
+  };
+}
+
+/** Host changes the moderator settings (lobby / setup). */
+export function updateVoiceSettings(room: RoomRecord, settings: VoiceSettings): Result<RoomRecord> {
+  if (room.phase !== "lobby" && room.phase !== "setup") return fail("WRONG_PHASE");
+  return ok({ ...room, voice: { ...room.voice, settings } });
 }

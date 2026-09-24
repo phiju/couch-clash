@@ -18,7 +18,18 @@ export function createEstimateModule(pool: readonly EstimateQuestion[] = ESTIMAT
     }),
     publicQuestion: (q) => ({ text: q.text, unit: q.unit, format: q.format }),
     solution: (q) => ({ answer: q.answer, unit: q.unit, format: q.format, fact: q.fact ?? null }),
+    describe: {
+      question: (q) => q.text,
+      solution: (q) => formatEstimate(q.answer, q.unit, q.format),
+      answer: (q, a) => formatEstimate(a, q.unit, q.format),
+    },
   });
+}
+
+/** "12.000 km" / "1989" – German number format, for the host's commentary. */
+export function formatEstimate(value: number, unit: string, format: "number" | "year"): string {
+  const number = format === "year" ? String(Math.round(value)) : value.toLocaleString("de-DE", { maximumFractionDigits: 2 });
+  return unit && format !== "year" ? `${number} ${unit}` : number;
 }
 
 export const estimateModule = createEstimateModule();

@@ -349,3 +349,19 @@ body {
   .spotlight::before { animation: none; }
   .sparkle > span { animation: fade-in 0.4s ease-out reverse forwards; }
 }
+
+/* ── Host mascot talking (AI voice) ──────────────────────────────────── */
+@keyframes mascot-talk {
+  0%, 100% { transform: translateY(0) scale(1); }
+  30% { transform: translateY(-1.2%) scale(1.01, 0.99); }
+  60% { transform: translateY(0.4%) scale(0.995, 1.005); }
+}
+[data-talking] > .mascot { animation: mascot-talk 0.42s ease-in-out infinite; transform-origin: 50% 100%; }
+.host-speaker [data-talking] > .mascot[data-pose="announce"] {
+  animation: mascot-slide 0.45s ease-out both, mascot-talk 0.42s 0.45s ease-in-out infinite;
+}
+/* While he talks the subtitle appears right away. */
+[data-talking] > .mascot-bubble { animation-delay: 0.15s; }
+@media (prefers-reduced-motion: reduce) {
+  [data-talking] > .mascot { animation: none !important; }
+}
