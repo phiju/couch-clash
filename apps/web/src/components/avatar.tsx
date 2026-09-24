@@ -5,6 +5,9 @@ const sizes = {
   sm: "size-14 text-3xl ring-4",
   md: "size-24 text-5xl ring-4",
   lg: "size-40 text-8xl ring-4",
+  /** Host screens: scales with the viewport (width and height). */
+  fluid: "size-[clamp(3rem,min(5.5vw,9.5vh),7rem)] text-[clamp(1.7rem,min(3vw,5.2vh),3.8rem)] ring-4",
+  fluidSm: "size-[clamp(2.25rem,min(3.4vw,6vh),4.5rem)] text-[clamp(1.2rem,min(1.9vw,3.3vh),2.5rem)] ring-[3px]",
 } as const;
 
 export function AvatarBadge({

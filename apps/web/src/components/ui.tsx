@@ -67,13 +67,20 @@ export function Screen({
   children,
   className = "",
   dim = "game",
+  fit = false,
 }: {
   children?: React.ReactNode;
   className?: string;
   dim?: "none" | "soft" | "game";
+  /** Host screens: exactly one viewport high, never scrolls (content scales/scrolls inside). */
+  fit?: boolean;
 }) {
+  const size = fit
+    ? // Below lg (unusual for a host) the page may scroll instead.
+      "min-h-dvh lg:h-dvh lg:overflow-hidden px-[2vw] py-[2.2vh] gap-[2vh]"
+    : "min-h-dvh px-4 py-8";
   return (
-    <main className={`relative mx-auto flex min-h-dvh w-full flex-col items-center px-4 py-8 ${className}`}>
+    <main className={`relative mx-auto flex w-full flex-col items-center ${size} ${className}`}>
       {dim !== "none" && <div className="stage-dim" data-level={dim} aria-hidden />}
       {children}
     </main>

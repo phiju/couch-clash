@@ -28,7 +28,7 @@ export function Countdown({
   return (
     <div className="flex w-full items-center gap-4">
       <div
-        className={`flex-1 overflow-hidden rounded-full border-2 border-bulb/60 bg-petrol-dark/80 ${size === "lg" ? "h-7" : "h-4"}`}
+        className={`flex-1 overflow-hidden rounded-full border-2 border-bulb/60 bg-petrol-dark/80 ${size === "lg" ? "h-[clamp(0.9rem,2.4vh,1.75rem)]" : "h-4"}`}
       >
         <div
           className={`h-full rounded-full bg-gradient-to-r transition-[width] duration-200 ease-linear ${urgent ? "from-rust to-orange" : "from-orange to-bulb"}`}
@@ -36,7 +36,7 @@ export function Countdown({
         />
       </div>
       <span
-        className={`w-16 text-right font-bold tabular-nums drop-shadow-[0_3px_0_var(--color-brown)] ${size === "lg" ? "text-5xl" : "text-2xl"} ${urgent ? "text-orange" : "text-bulb"}`}
+        className={`text-right font-bold tabular-nums drop-shadow-[0_3px_0_var(--color-brown)] ${size === "lg" ? "fs-title w-[3ch]" : "w-16 text-2xl"} ${urgent ? "text-orange" : "text-bulb"}`}
       >
         {seconds}
       </span>
@@ -46,7 +46,7 @@ export function Countdown({
 
 export function QuestionCounter({ state }: { state: AnyRoundState }) {
   return (
-    <span className="rounded-full border-2 border-bulb bg-petrol-dark/85 px-5 py-1.5 text-xl font-bold lg:text-2xl">
+    <span className="fs-md shrink-0 rounded-full border-2 border-bulb bg-petrol-dark/85 px-4 py-[0.6vh] font-bold whitespace-nowrap">
       Frage {state.index + 1} / {state.total}
     </span>
   );
@@ -56,16 +56,16 @@ export function QuestionCounter({ state }: { state: AnyRoundState }) {
 export function AnsweredStrip({ state, room }: { state: AnyRoundState; room: PublicRoomState }) {
   const answered = new Set(state.answeredPlayerIds);
   return (
-    <div className="panel flex flex-wrap items-center justify-center gap-4 self-center px-6 py-4">
+    <div className="panel flex shrink-0 flex-wrap items-center justify-center gap-[1vw] self-center px-[1.5vw] py-[1.2vh]">
       {room.players.map((p) => (
         <div key={p.id} className="flex flex-col items-center gap-1">
           <AvatarBadge
             avatar={p.avatar}
-            size="sm"
+            size="fluidSm"
             dimmed={!answered.has(p.id)}
             className={answered.has(p.id) ? "animate-pop" : ""}
           />
-          <span className={`max-w-24 truncate text-sm font-bold ${answered.has(p.id) ? "" : "text-cream/40"}`}>
+          <span className={`fs-sm max-w-[9rem] truncate font-bold ${answered.has(p.id) ? "" : "text-cream/40"}`}>
             {p.name}
           </span>
         </div>
@@ -100,26 +100,26 @@ export function RevealTable({
   );
   const showSpeed = Object.values(results).some((r) => r.points > 0 && r.speed < 1);
   return (
-    <ul className="grid w-full content-start gap-3">
+    <ul className="grid min-h-0 w-full content-start gap-[1vh] overflow-y-auto">
       {sorted.map((p, i) => {
         const r = results[p.id];
         const text = r && (showAccuracy || showSpeed) ? breakdownText(r, showSpeed, accuracyLabel) : "";
         return (
           <li
             key={p.id}
-            className="flex animate-pop items-center gap-4 rounded-2xl chip px-4 py-3"
+            className="flex animate-pop items-center gap-[1vw] rounded-2xl chip px-[1vw] py-[0.9vh]"
             style={{ animationDelay: `${i * 80}ms`, animationFillMode: "backwards" }}
           >
-            <AvatarBadge avatar={p.avatar} size="sm" />
+            <AvatarBadge avatar={p.avatar} size="fluidSm" />
             <div className="flex min-w-0 flex-1 flex-col">
-              <span className="truncate text-2xl font-bold">{p.name}</span>
-              <span className="truncate text-lg text-cream/70">{renderAnswer(p)}</span>
+              <span className="fs-lg leading-tight font-bold [overflow-wrap:anywhere]">{p.name}</span>
+              <span className="fs-md truncate text-cream/70">{renderAnswer(p)}</span>
             </div>
             <div className="flex flex-col items-end">
-              <span className={`text-3xl font-bold ${r && r.points > 0 ? "text-bulb" : "text-cream/40"}`}>
+              <span className={`fs-xl font-bold ${r && r.points > 0 ? "text-bulb" : "text-cream/40"}`}>
                 +{r?.points ?? 0}
               </span>
-              {text && <span className="text-sm text-cream/60">{text}</span>}
+              {text && <span className="fs-sm text-cream/60">{text}</span>}
             </div>
           </li>
         );
@@ -175,14 +175,14 @@ export function QuestionLeaderboard({
   const entries = room.game?.leaderboard;
   if (!entries) return null;
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div className={`flex w-full flex-col ${variant === "tv" ? "min-h-0 flex-1 gap-[2vh]" : "gap-4"}`}>
       {variant === "tv" && (
-        <h2 className="text-center text-5xl font-bold text-bulb drop-shadow-[0_6px_0_var(--color-brown)] lg:text-6xl">
+        <h2 className="fs-title shrink-0 text-center font-bold text-bulb drop-shadow-[0_6px_0_var(--color-brown)]">
           Rangliste
         </h2>
       )}
       {/* key: restart the animation for every question */}
-      <div className={variant === "tv" ? "panel p-6" : ""}>
+      <div className={variant === "tv" ? "panel min-h-0 flex-1 overflow-y-auto p-[2.5vh]" : ""}>
         <Leaderboard key={state.index} entries={entries} players={room.players} variant={variant} meId={meId} />
       </div>
     </div>

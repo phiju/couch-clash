@@ -21,12 +21,12 @@ function currentRound(room: PublicRoomState) {
 function GameBar({ room, send, skipLabel }: { room: PublicRoomState; send: Send; skipLabel?: string }) {
   const { game, meta } = currentRound(room);
   return (
-    <header className="flex w-full flex-wrap items-center justify-between gap-4">
-      <div className="flex items-center gap-3 rounded-full chip px-5 py-2 text-2xl font-bold lg:text-3xl">
-        <span className="text-4xl">{meta?.emoji}</span>
+    <header className="flex w-full shrink-0 flex-wrap items-center justify-between gap-4 pr-14">
+      <div className="fs-lg flex items-center gap-3 rounded-full chip px-5 py-[0.8vh] font-bold">
+        <span className="fs-xl">{meta?.emoji}</span>
         <span>{meta?.name}</span>
         {game && game.rounds.length > 1 && (
-          <span className="text-lg font-bold text-cream/60">
+          <span className="fs-sm font-bold text-cream/60">
             Kategorie {game.roundIndex + 1} von {game.rounds.length}
           </span>
         )}
@@ -37,12 +37,12 @@ function GameBar({ room, send, skipLabel }: { room: PublicRoomState; send: Send;
           onClick={() => {
             if (window.confirm("Spiel beenden und zurück zur Auswahl?")) send({ type: "play_again" });
           }}
-          className="rounded-full px-4 py-2 text-base font-bold text-cream/60 hover:bg-petrol-dark/70 hover:text-cream"
+          className="fs-sm rounded-full px-4 py-2 font-bold text-cream/60 hover:bg-petrol-dark/70 hover:text-cream"
         >
           Spiel beenden
         </button>
         {skipLabel && (
-          <Button variant="secondary" onClick={() => send({ type: "skip" })} className="px-6 py-3 text-xl">
+          <Button variant="secondary" onClick={() => send({ type: "skip" })} className="fs-md !px-[1.4vw] !py-[0.9vh] whitespace-nowrap">
             {skipLabel}
           </Button>
         )}
@@ -60,24 +60,24 @@ function SecondsLeft({ endsAt }: { endsAt: number | null }) {
 export function HostIntro({ room, send }: { room: PublicRoomState; send: Send }) {
   const { round, meta } = currentRound(room);
   return (
-    <Screen className="max-w-[1600px] gap-8 lg:py-10">
+    <Screen fit className="max-w-[1900px]">
       <GameBar room={room} send={send} skipLabel="Weiter ⏭" />
-      <div key={room.game?.roundIndex} className="flex w-full flex-1 items-end justify-center gap-6">
+      <div key={room.game?.roundIndex} className="flex min-h-0 w-full flex-1 items-end justify-center gap-6">
         {/* The host slides in and announces the category. */}
         <Mascot
           pose="announce"
           message={<>Jetzt kommt: {meta?.name}!</>}
           className="z-10 hidden shrink-0 md:flex"
-          imageClassName="h-[62vh] max-h-[720px]"
-          bubbleClassName="!bottom-[97%] !left-[25%] text-3xl"
+          imageClassName="h-[min(62vh,720px)]"
+          bubbleClassName="fs-lg !bottom-[97%] !left-[25%]"
         />
-        <div className="panel flex max-w-4xl flex-1 animate-pop flex-col items-center gap-6 self-center p-10 text-center">
-          <div className="animate-float text-[9rem] leading-none">{meta?.emoji}</div>
-          <h2 className="text-7xl font-bold text-bulb drop-shadow-[0_6px_0_var(--color-brown)] lg:text-8xl">
+        <div className="panel flex max-w-[min(56rem,70vw)] flex-1 animate-pop flex-col items-center gap-[2vh] self-center p-[4vh] text-center">
+          <div className="animate-float text-[min(9rem,15vh)] leading-none">{meta?.emoji}</div>
+          <h2 className="fs-hero font-bold text-bulb drop-shadow-[0_6px_0_var(--color-brown)]">
             {meta?.name}
           </h2>
-          <p className="text-3xl text-cream/90 lg:text-4xl">{meta?.description}</p>
-          <p className="text-2xl font-bold text-cream/70">
+          <p className="fs-xl text-cream/90">{meta?.description}</p>
+          <p className="fs-lg font-bold text-cream/70">
             {round?.questionCount} Fragen · los geht&apos;s in <SecondsLeft endsAt={room.phaseEndsAt} />
           </p>
         </div>
@@ -94,7 +94,7 @@ export function HostPlay({ room, send }: { room: PublicRoomState; send: Send }) 
   const skipLabel =
     moduleState.step === "question" ? "Auflösen ⏭" : moduleState.step === "reveal" ? "Rangliste ⏭" : "Weiter ⏭";
   return (
-    <Screen className="max-w-[1800px] gap-8 lg:py-10">
+    <Screen fit className="max-w-[2000px]">
       <GameBar room={room} send={send} skipLabel={skipLabel} />
       <views.HostView state={moduleState} room={room} />
     </Screen>
@@ -106,13 +106,15 @@ export function HostScoreboard({ room, send }: { room: PublicRoomState; send: Se
   if (!game?.leaderboard) return <Screen />;
   const isLast = game.roundIndex + 1 >= game.rounds.length;
   return (
-    <Screen className="max-w-[1400px] gap-6 lg:py-10">
+    <Screen fit className="max-w-[1500px]">
       <GameBar room={room} send={send} skipLabel={isLast ? "Zum Finale 🏆" : "Nächste Kategorie ⏭"} />
-      <div className="panel flex w-full flex-col gap-5 p-6">
-        <h2 className="text-center text-6xl font-bold text-bulb lg:text-7xl">Zwischenstand</h2>
-        <Leaderboard key={game.roundIndex} entries={game.leaderboard} players={room.players} />
+      <div className="panel flex min-h-0 w-full flex-1 flex-col gap-[2vh] p-[2.5vh]">
+        <h2 className="fs-title shrink-0 text-center font-bold text-bulb">Zwischenstand</h2>
+        <div className="min-h-0 flex-1 overflow-y-auto">
+          <Leaderboard key={game.roundIndex} entries={game.leaderboard} players={room.players} />
+        </div>
       </div>
-      <p className="text-xl text-cream/70">
+      <p className="fs-md shrink-0 text-cream/70">
         Weiter in <SecondsLeft endsAt={room.phaseEndsAt} /> s
       </p>
     </Screen>
@@ -146,31 +148,31 @@ export function HostFinale({ room, send }: { room: PublicRoomState; send: Send }
   const byId = new Map(room.players.map((p) => [p.id, p]));
   const winners = entries.filter((e) => e.rankAfter === 1).flatMap((e) => byId.get(e.playerId) ?? []);
   return (
-    <Screen className="max-w-[1400px] gap-8 lg:py-10">
+    <Screen fit className="max-w-[1500px]">
       <Confetti />
-      <div className="flex items-end justify-center gap-4">
+      <div className="flex shrink-0 items-end justify-center gap-4">
         {/* The host celebrates next to the winner. */}
         <Mascot
           pose="cheer"
           message={<>Applaus für {winners.map((w) => w.name).join(" & ")}!</>}
           className="z-10 hidden md:flex"
-          imageClassName="h-[42vh] max-h-[460px]"
+          imageClassName="h-[min(34vh,460px)]"
         />
-        <div className="flex flex-col items-center gap-4 pb-4 text-center">
+        <div className="flex flex-col items-center gap-[1.5vh] pb-[1.5vh] text-center">
           <div className="flex -space-x-6">
             {winners.map((w) => (
-              <AvatarBadge key={w.id} avatar={w.avatar} size="lg" className="animate-float" />
+              <AvatarBadge key={w.id} avatar={w.avatar} size="fluid" className="animate-float" />
             ))}
           </div>
-          <h2 className="text-6xl font-bold text-bulb drop-shadow-[0_6px_0_var(--color-brown)] lg:text-7xl">
+          <h2 className="fs-title font-bold text-bulb drop-shadow-[0_6px_0_var(--color-brown)]">
             🏆 {winners.map((w) => w.name).join(" & ")} {winners.length > 1 ? "gewinnen" : "gewinnt"}!
           </h2>
         </div>
       </div>
-      <div className="panel w-full p-6">
+      <div className="panel min-h-0 w-full flex-1 overflow-y-auto p-[2.5vh]">
         <Leaderboard entries={entries} players={room.players} animated={false} showGains={false} />
       </div>
-      <Button onClick={() => send({ type: "play_again" })} glow className="px-12 py-5 text-4xl">
+      <Button onClick={() => send({ type: "play_again" })} glow className="fs-xl shrink-0 !px-[2.5vw] !py-[1.3vh] whitespace-nowrap">
         Nochmal spielen
       </Button>
     </Screen>

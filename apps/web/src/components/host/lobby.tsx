@@ -31,58 +31,62 @@ export function HostLobby({
   );
 
   return (
-    <Screen className="max-w-[1880px] gap-6 lg:py-8">
-      <header className="flex w-full items-center justify-between">
-        <Logo className="w-36 lg:w-44" />
-        <p className="rounded-full chip px-5 py-2 text-xl font-bold lg:text-2xl">
+    <Screen fit className="max-w-[2400px]">
+      <header className="flex w-full shrink-0 items-center justify-between pr-14">
+        <Logo className="w-[clamp(6rem,min(10vw,14vh),12rem)]" />
+        <p className="fs-md rounded-full chip px-5 py-2 font-bold">
           {players.length} {players.length === 1 ? "Spieler:in" : "Spieler:innen"}
         </p>
       </header>
 
-      <div className="grid w-full flex-1 gap-6 lg:grid-cols-[minmax(300px,1fr)_1.4fr] xl:grid-cols-[14rem_minmax(320px,1fr)_1.3fr_1.2fr]">
-        {/* The host stands next to the QR code (TV only). */}
+      <div className="grid min-h-0 w-full flex-1 gap-[1.6vw] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)_minmax(0,1.15fr)] roomy:grid-cols-[minmax(0,0.55fr)_minmax(0,1fr)_minmax(0,1.25fr)_minmax(0,1.15fr)]">
+        {/* The host stands next to the QR code – only where there is room for him. */}
         <Mascot
           pose="idle"
           message="Scannt den Code!"
-          className="z-10 hidden self-end xl:flex"
-          imageClassName="h-[52vh] max-h-[620px]"
-          bubbleClassName="text-xl"
+          className="z-10 hidden min-h-0 self-end justify-center roomy:flex"
+          imageClassName="h-[min(58vh,640px)] max-w-none"
+          bubbleClassName="fs-md !bottom-[96%] !left-[10%] max-w-[16rem]"
         />
 
-        <section className="panel flex flex-col items-center justify-center gap-5 p-6">
-          <p className="text-2xl font-bold text-cream/80 lg:text-3xl">Mitspielen mit dem Code</p>
-          <p className="text-8xl font-bold tracking-[0.15em] text-bulb drop-shadow-[0_6px_0_var(--color-brown)] xl:text-9xl">
+        <section className="panel @container flex min-h-0 flex-col items-center justify-center gap-[1.8vh] p-[2vh]">
+          <p className="fs-lg text-center font-bold text-cream/85">Mitspielen mit dem Code</p>
+          <p className="text-[min(24cqw,14vh)] leading-none font-bold tracking-[0.1em] whitespace-nowrap text-bulb drop-shadow-[0_6px_0_var(--color-brown)]">
             {code}
           </p>
           {joinUrl && (
             <>
-              <div className="rounded-3xl border-4 border-bulb bg-cream p-4">
-                <QRCodeSVG value={joinUrl} size={220} marginSize={0} />
+              <div className="aspect-square w-[min(80cqw,38vh)] shrink rounded-3xl border-4 border-bulb bg-cream p-[1.4vh]">
+                <QRCodeSVG value={joinUrl} size={256} marginSize={0} style={{ width: "100%", height: "100%" }} />
               </div>
-              <p className="text-center text-xl text-cream/70 lg:text-2xl">
-                QR-Code scannen oder <span className="font-bold text-bulb">{displayJoinLink()}</span> öffnen
+              <p className="fs-md text-center text-cream/80">
+                QR-Code scannen oder öffnen:
+                <br />
+                <span className="font-bold whitespace-nowrap text-bulb">{displayJoinLink()}</span>
               </p>
             </>
           )}
         </section>
 
-        <section className="panel flex flex-col gap-6 p-6">
-          <h2 className="text-3xl font-bold lg:text-5xl">
+        <section className="panel flex min-h-0 flex-col gap-[1.8vh] p-[2vh]">
+          <h2 className="fs-title shrink-0 font-bold">
             {players.length === 0 ? "Warte auf Mitspieler:innen…" : "Wer ist dabei?"}
           </h2>
 
-          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+          <ul className="grid min-h-0 flex-1 auto-rows-min grid-cols-[repeat(auto-fill,minmax(clamp(7.5rem,11vw,12rem),1fr))] content-start gap-[1.2vh] overflow-y-auto pr-1">
             {players.map((player) => (
               <li
                 key={player.id}
-                className="relative flex animate-pop flex-col items-center gap-3 rounded-3xl chip p-5"
+                className="relative flex animate-pop flex-col items-center gap-[0.8vh] rounded-3xl chip px-2 py-[1.4vh]"
               >
-                <AvatarBadge avatar={player.avatar} dimmed={!player.connected} />
-                <span className="max-w-full truncate text-2xl font-bold lg:text-3xl">{player.name}</span>
+                <AvatarBadge avatar={player.avatar} size="fluid" dimmed={!player.connected} />
+                <span className="fs-lg w-full text-center leading-tight font-bold [overflow-wrap:anywhere] text-balance">
+                  {player.name}
+                </span>
                 <span
-                  className={`flex items-center gap-2 text-sm font-bold ${player.connected ? "text-bulb" : "text-cream/50"}`}
+                  className={`fs-sm flex items-center gap-1.5 font-bold ${player.connected ? "text-bulb" : "text-cream/50"}`}
                 >
-                  <span className={`size-3 rounded-full ${player.connected ? "bg-bulb" : "bg-cream/40"}`} />
+                  <span className={`size-2.5 rounded-full ${player.connected ? "bg-bulb" : "bg-cream/40"}`} />
                   {player.connected ? "verbunden" : "getrennt"}
                 </span>
                 <button
@@ -92,7 +96,7 @@ export function HostLobby({
                       send({ type: "kick", playerId: player.id });
                     }
                   }}
-                  className="absolute top-2 right-2 flex size-9 items-center justify-center rounded-full bg-petrol-dark/40 text-lg font-bold text-cream/70 transition hover:bg-rust hover:text-cream"
+                  className="absolute top-1.5 right-1.5 flex size-8 items-center justify-center rounded-full bg-petrol-dark/60 text-base font-bold text-cream/70 transition hover:bg-rust hover:text-cream"
                   aria-label={`${player.name} entfernen`}
                   title="Entfernen"
                 >
@@ -104,20 +108,21 @@ export function HostLobby({
               [0, 1, 2].map((i) => (
                 <li
                   key={i}
-                  className="flex aspect-[4/5] items-center justify-center rounded-3xl border-4 border-dashed border-bulb/30 text-5xl text-cream/30"
+                  className="fs-title flex aspect-[4/5] max-h-[22vh] items-center justify-center rounded-3xl border-4 border-dashed border-bulb/30 text-cream/30"
                 >
                   ?
                 </li>
               ))}
           </ul>
 
-          <div className="mt-auto flex flex-col items-center gap-3 lg:items-end">
-            <p className="text-xl font-bold text-cream/70">{summaryText(room?.settingsSummary ?? null)}</p>
+          {/* Always visible – the player list scrolls instead. */}
+          <div className="flex shrink-0 flex-col items-center gap-[1vh] lg:items-end">
+            <p className="fs-md text-right font-bold text-cream/80">{summaryText(room?.settingsSummary ?? null)}</p>
             <Button
               onClick={() => startRef.current?.()}
               disabled={players.length === 0 || !canSend || !room?.settingsSummary}
               glow
-              className="px-12 py-5 text-4xl"
+              className="fs-xl !px-[2.2vw] !py-[1.3vh] whitespace-nowrap"
             >
               Spiel starten
             </Button>
@@ -125,14 +130,17 @@ export function HostLobby({
         </section>
 
         {room && (
-          <section className="panel p-5 lg:col-span-2 xl:col-span-1 xl:max-h-[calc(100dvh-10rem)] xl:overflow-y-auto">
-            <GameSettingsPanel
-              serverSettings={room.settings}
-              send={send}
-              canSend={canSend}
-              startRef={startRef}
-              compact
-            />
+          <section className="panel flex min-h-0 flex-col p-[2vh]">
+            {/* The settings scroll inside their column. */}
+            <div className="-m-1 min-h-0 flex-1 overflow-y-auto p-1">
+              <GameSettingsPanel
+                serverSettings={room.settings}
+                send={send}
+                canSend={canSend}
+                startRef={startRef}
+                compact
+              />
+            </div>
           </section>
         )}
       </div>

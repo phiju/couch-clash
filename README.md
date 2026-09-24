@@ -130,6 +130,15 @@ Retro 1970s TV game show. Design tokens (petrol, petrol-dark, orange, rust, bulb
 - Start page intro: `components/stage-intro.tsx`. Logo/host positions on the stage are computed in `lib/stage-layout.ts` (tested), so the sofa always stands on the stage floor.
 - Mascot: `components/mascot.tsx`, one component with `pose` / `message`. To add a pose, add artwork and a keyframe rule.
 
+## Sound (host only)
+
+The TV/laptop plays music and effects; phones never do.
+
+- Files: `apps/web/public/audio/` (`jingle`, `lobby`, `think`, `sting`, `sting-short`, `fanfare` + `audio.json` with loop points). They are already loudness-normalized, so they must not be re-encoded.
+- Engine: `lib/audio/engine.ts` (Web Audio API). The files are preloaded after "Los geht's!". Loops use the exact `loopStart`/`loopEnd` points, only one loop plays at a time with a 0.8 s crossfade, one-shots duck the music to 30 %, and the tab's audio pauses while it is hidden.
+- **When what plays:** `lib/audio/scenes.ts` (`audioSceneFor`, tested). A category can take over through the `audio` field of its `GameViews`, e.g. `{ music: null }` for music rounds.
+- Welcome screen: the first click ("Los geht's!") unlocks audio for the session. A host page opened directly shows "🔊 Ton aktivieren" instead. The volume menu sits top right and the level is remembered.
+
 ## Status
 
 **Milestone 0.1 – Lobby** ✅ Rooms, join by code/QR, avatars, reconnect, remove players, 24h expiry.
@@ -143,5 +152,7 @@ Retro 1970s TV game show. Design tokens (petrol, petrol-dark, orange, rust, bulb
 - [x] Per-viewer state: no answers leak before the reveal
 - [x] Game settings directly in the lobby, summary on the players' phones
 - [x] Animated leaderboard after every question (TV + phones), reused for scoreboard and final ranking
+
+**Milestone 0.4 – Welcome screen, sound & laptop layout** ✅ Welcome card with "Los geht's!", host audio engine (jingle, loops, stings, fanfare), all host screens fit 1280×720 … 4K without scrolling.
 
 **Milestone 0.3 – Show look & intro** ✅ Retro stage look on all screens, start page intro, host mascot, QR code via `NEXT_PUBLIC_SITE_URL`.

@@ -17,8 +17,8 @@ export function EstimateHostView({ state, room }: HostViewProps<EstimatePublicSt
   const { unit, format } = state.question;
 
   return (
-    <div className="flex w-full flex-1 flex-col gap-8">
-      <div className="flex items-center justify-between gap-6">
+    <div className="flex min-h-0 w-full flex-1 flex-col gap-[2.2vh]">
+      <div className="flex shrink-0 items-center justify-between gap-[1.5vw]">
         <QuestionCounter state={state} />
         {!reveal && (
           <div className="flex-1">
@@ -27,19 +27,19 @@ export function EstimateHostView({ state, room }: HostViewProps<EstimatePublicSt
         )}
       </div>
 
-      <h2 className="panel px-8 py-6 text-center text-5xl leading-tight font-bold text-balance lg:text-6xl">
+      <h2 className="panel fs-title shrink-0 px-[2vw] py-[2.2vh] text-center font-bold text-balance">
         {state.question.text}
       </h2>
 
       {reveal ? (
-        <div className="grid flex-1 gap-8 lg:grid-cols-[2fr_3fr]">
-          <div className="flex flex-col items-center justify-center gap-4 rounded-[2rem] border-4 border-orange bg-bulb p-8 text-center text-brown shadow-[0_8px_0_var(--color-brown)]">
-            <p className="text-2xl font-bold">Richtig ist</p>
-            <p className="animate-pop text-7xl font-bold lg:text-9xl">
+        <div className="grid min-h-0 flex-1 gap-[1.5vw] lg:grid-cols-[2fr_3fr]">
+          <div className="flex flex-col items-center justify-center gap-[1.5vh] rounded-[2rem] border-4 border-orange bg-bulb p-[3vh] text-center text-brown shadow-[0_8px_0_var(--color-brown)]">
+            <p className="fs-lg font-bold">Richtig ist</p>
+            <p className="fs-hero animate-pop font-bold">
               {formatNumber(reveal.solution.answer, format)}
-              {unit && <span className="ml-3 text-4xl lg:text-6xl">{unit}</span>}
+              {unit && <span className="fs-title ml-3">{unit}</span>}
             </p>
-            {reveal.solution.fact && <p className="text-xl font-bold lg:text-2xl">{reveal.solution.fact}</p>}
+            {reveal.solution.fact && <p className="fs-lg font-bold">{reveal.solution.fact}</p>}
           </div>
           <RevealTable
             room={room}
@@ -54,8 +54,8 @@ export function EstimateHostView({ state, room }: HostViewProps<EstimatePublicSt
           />
         </div>
       ) : (
-        <div className="flex flex-1 flex-col items-center justify-center gap-10">
-          <p className="rounded-full chip px-6 py-2 text-3xl text-cream/90">
+        <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-[4vh]">
+          <p className="fs-xl rounded-full chip px-6 py-2 text-cream/90">
             Schätzt auf euren Handys{unit ? ` (in ${unit})` : ""} 🤔
           </p>
           <AnsweredStrip state={state} room={room} />
