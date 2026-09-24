@@ -22,7 +22,7 @@ export function AvatarBadge({
   const color = getAvatarOption("color", avatar.color);
   return (
     <div
-      className={`flex shrink-0 items-center justify-center rounded-full ring-white/80 transition ${sizes[size]} ${dimmed ? "opacity-40 grayscale" : ""} ${className}`}
+      className={`flex shrink-0 items-center justify-center rounded-full ring-bulb/80 transition ${sizes[size]} ${dimmed ? "opacity-40 grayscale" : ""} ${className}`}
       style={{ backgroundColor: color?.value ?? "#888" }}
       aria-label={character?.label}
       role="img"

@@ -21,12 +21,12 @@ export function EstimatePlayerView({ state, room, me, sendAction }: PlayerViewPr
       <PlayerRevealResult result={reveal.results[me.id]}>
         <p className="text-xl">
           Richtig:{" "}
-          <span className="font-black text-spot">
+          <span className="font-bold text-bulb">
             {formatNumber(reveal.solution.answer, format)} {unit}
           </span>
         </p>
         {mine !== undefined && (
-          <p className="text-lg text-white/60">
+          <p className="text-lg text-cream/60">
             Dein Tipp: {formatNumber(mine, format)} {unit}
           </p>
         )}
@@ -37,11 +37,11 @@ export function EstimatePlayerView({ state, room, me, sendAction }: PlayerViewPr
   return (
     <div className="flex w-full flex-1 flex-col gap-6">
       <Countdown startedAt={state.questionStartedAt} endsAt={state.stepEndsAt} size="sm" />
-      <p className="text-center text-2xl leading-snug font-black text-balance">{state.question.text}</p>
+      <p className="panel px-5 py-4 text-center text-2xl leading-snug font-bold text-balance">{state.question.text}</p>
       {state.myAnswer !== null ? (
         <div className="flex flex-1 items-center justify-center">
           <AnswerSent>
-            <p className="text-2xl font-black">
+            <p className="text-2xl font-bold">
               {formatNumber(state.myAnswer, format)} {unit}
             </p>
           </AnswerSent>
@@ -77,7 +77,7 @@ function EstimateInput({ unit, onSubmit }: { unit: string; onSubmit: (value: num
         onSubmit(value);
       }}
     >
-      <div className="flex items-center gap-3 rounded-3xl bg-white px-5 py-3 focus-within:ring-8 focus-within:ring-spot">
+      <div className="flex items-center gap-3 rounded-3xl border-4 border-bulb bg-cream px-5 py-3 focus-within:ring-8 focus-within:ring-orange/60">
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -87,11 +87,11 @@ function EstimateInput({ unit, onSubmit }: { unit: string; onSubmit: (value: num
           enterKeyHint="send"
           placeholder="?"
           aria-label="Deine Schätzung"
-          className="w-full min-w-0 bg-transparent text-right text-5xl font-black text-stage placeholder:text-stage/20 focus:outline-none"
+          className="w-full min-w-0 bg-transparent text-right text-5xl font-bold text-brown placeholder:text-brown/20 focus:outline-none"
         />
-        {unit && <span className="shrink-0 text-3xl font-black text-stage/60">{unit}</span>}
+        {unit && <span className="shrink-0 text-3xl font-bold text-brown/60">{unit}</span>}
       </div>
-      {text && value === null && <p className="text-center font-bold text-hot">Bitte eine Zahl eingeben.</p>}
+      {text && value === null && <p className="rounded-2xl bg-rust px-3 py-1 text-center font-bold">Bitte eine Zahl eingeben.</p>}
       <Button type="submit" disabled={value === null} className="py-5 text-3xl">
         Abschicken
       </Button>

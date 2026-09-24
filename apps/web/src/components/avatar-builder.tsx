@@ -16,7 +16,7 @@ export function AvatarBuilder({
       <AvatarBadge avatar={value} size="lg" className="animate-float" />
       {AVATAR_PARTS.map((part) => (
         <fieldset key={part.id} className="w-full">
-          <legend className="mb-3 text-lg font-bold text-white/80">{part.label}</legend>
+          <legend className="mb-3 text-lg font-bold text-cream/80">{part.label}</legend>
           <div
             className={`grid gap-2 ${part.kind === "emoji" ? "grid-cols-4 sm:grid-cols-8" : "grid-cols-5 sm:grid-cols-10"}`}
           >
@@ -30,8 +30,8 @@ export function AvatarBuilder({
                   aria-pressed={selected}
                   onClick={() => onChange({ ...value, [part.id]: option.id })}
                   className={`flex aspect-square items-center justify-center rounded-2xl text-3xl transition ${
-                    selected ? "scale-105 ring-4 ring-spot" : "ring-2 ring-white/15"
-                  } ${part.kind === "emoji" ? "bg-white/10" : ""}`}
+                    selected ? "scale-105 ring-4 ring-orange" : "ring-2 ring-bulb/40"
+                  } ${part.kind === "emoji" ? "bg-petrol/60" : ""}`}
                   style={part.kind === "color" ? { backgroundColor: option.value } : undefined}
                 >
                   {part.kind === "emoji" ? option.value : selected ? "✓" : ""}

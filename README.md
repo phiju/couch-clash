@@ -103,7 +103,9 @@ From now on, every push to `main` deploys the worker automatically. The Durable 
 1. Go to [vercel.com/new](https://vercel.com/new) and import the `couch-clash` repository.
 2. Settings:
    - **Root Directory:** `apps/web`. Vercel then detects Next.js and pnpm on its own.
-   - **Environment Variables:** `NEXT_PUBLIC_PARTY_HOST` = `couch-clash.<your-subdomain>.workers.dev` (without `https://`)
+   - **Environment Variables:**
+     - `NEXT_PUBLIC_PARTY_HOST` = `couch-clash.<your-subdomain>.workers.dev` (without `https://`)
+     - `NEXT_PUBLIC_SITE_URL` = your production address, e.g. `https://couch-clash-web.vercel.app`. The QR code and the join link on the TV always point there, even when the host opens a (password-protected) preview URL.
 3. Click **Deploy**.
 
 > `NEXT_PUBLIC_*` variables are baked into the build. If you change the value later, go to **Deployments** → **⋯** → **Redeploy**.
@@ -115,8 +117,18 @@ The option "Include source files outside of the Root Directory" must stay on (it
 | Variable                 | Where               | Example                                    |
 | ------------------------ | ------------------- | ------------------------------------------ |
 | `NEXT_PUBLIC_PARTY_HOST` | `apps/web`, Vercel  | `couch-clash.xyz.workers.dev`              |
+| `NEXT_PUBLIC_SITE_URL`   | `apps/web`, Vercel  | `https://couch-clash-web.vercel.app` (QR code / join link; falls back to the current address) |
 
 The party worker currently needs no secrets. No secrets are committed to the repository.
+
+## Look & assets
+
+Retro 1970s TV game show. Design tokens (petrol, petrol-dark, orange, rust, bulb, cream, brown), the Fredoka font and the `btn` / `panel` / `chip` utilities live in `apps/web/src/app/globals.css`.
+
+- Images: `apps/web/public/brand/` (stage backgrounds, logo, host mascot)
+- Intro reference prototype (not shipped): `docs/brand/intro-reference.html`
+- Start page intro: `components/stage-intro.tsx`. Logo/host positions on the stage are computed in `lib/stage-layout.ts` (tested), so the sofa always stands on the stage floor.
+- Mascot: `components/mascot.tsx`, one component with `pose` / `message`. To add a pose, add artwork and a keyframe rule.
 
 ## Status
 
@@ -131,3 +143,5 @@ The party worker currently needs no secrets. No secrets are committed to the rep
 - [x] Per-viewer state: no answers leak before the reveal
 - [x] Game settings directly in the lobby, summary on the players' phones
 - [x] Animated leaderboard after every question (TV + phones), reused for scoreboard and final ranking
+
+**Milestone 0.3 – Show look & intro** ✅ Retro stage look on all screens, start page intro, host mascot, QR code via `NEXT_PUBLIC_SITE_URL`.

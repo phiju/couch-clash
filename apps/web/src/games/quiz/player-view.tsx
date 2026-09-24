@@ -22,12 +22,12 @@ export function QuizPlayerView({ state, room, me, sendAction }: PlayerViewProps<
       <PlayerRevealResult result={reveal.results[me.id]}>
         <p className="text-xl">
           Richtig war:{" "}
-          <span className="font-black text-spot">
+          <span className="font-bold text-bulb">
             {QUIZ_OPTION_STYLES[correct]?.shape} {state.question.options[correct]}
           </span>
         </p>
         {mine !== undefined && mine !== correct && (
-          <p className="text-lg text-white/60">Deine Antwort: {state.question.options[mine]}</p>
+          <p className="text-lg text-cream/60">Deine Antwort: {state.question.options[mine]}</p>
         )}
       </PlayerRevealResult>
     );
@@ -38,7 +38,7 @@ export function QuizPlayerView({ state, room, me, sendAction }: PlayerViewProps<
   return (
     <div className="flex w-full flex-1 flex-col gap-6">
       <Countdown startedAt={state.questionStartedAt} endsAt={state.stepEndsAt} size="sm" />
-      <p className="text-center text-2xl leading-snug font-black text-balance">{state.question.text}</p>
+      <p className="panel px-5 py-4 text-center text-2xl leading-snug font-bold text-balance">{state.question.text}</p>
       {answered ? (
         <div className="flex flex-1 items-center justify-center">
           <AnswerSent>
@@ -61,10 +61,10 @@ export function QuizPlayerView({ state, room, me, sendAction }: PlayerViewProps<
                   setSentFor(state.index);
                   sendAction({ type: "answer", value: i });
                 }}
-                className={`flex min-h-20 items-center gap-4 rounded-3xl px-5 py-4 text-left text-2xl font-black text-white transition active:translate-y-1 active:shadow-none ${style.bg} ${style.shadow}`}
+                className={`flex min-h-20 items-center gap-4 rounded-[2rem] border-4 border-bulb px-5 py-4 text-left text-2xl font-bold transition active:translate-y-1 active:shadow-none ${style.bg} ${style.shadow}`}
               >
-                <span className="text-3xl text-white/80">{style.shape}</span>
-                <span className="drop-shadow">{option}</span>
+                <span className="text-3xl opacity-80">{style.shape}</span>
+                <span>{option}</span>
               </button>
             );
           })}

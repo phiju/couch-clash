@@ -29,7 +29,7 @@ export function PlayerGame({ room, me, sendAction, error, onErrorShown }: Props)
     <>
       <PhaseContent room={room} me={me} sendAction={sendAction} />
       {error && (
-        <div className="fixed top-4 right-4 left-4 z-50 rounded-2xl bg-hot px-4 py-3 text-center text-lg font-bold shadow-xl">
+        <div className="fixed top-4 right-4 left-4 z-50 rounded-2xl bg-rust px-4 py-3 text-center text-lg font-bold shadow-xl">
           {error}
         </div>
       )}
@@ -45,11 +45,13 @@ function PhaseContent({ room, me, sendAction }: Omit<Props, "error" | "onErrorSh
   switch (room.phase) {
     case "intro":
       return (
-        <Screen className="justify-center gap-6 text-center">
-          <div className="animate-float text-9xl">{meta?.emoji}</div>
-          <p className="text-xl text-white/70">Gleich geht&apos;s los mit</p>
-          <p className="text-5xl font-black text-spot">{meta?.name}</p>
-          <p className="text-xl text-white/80">{meta?.description}</p>
+        <Screen className="justify-center">
+          <div className="panel flex animate-pop flex-col items-center gap-5 p-8 text-center">
+            <div className="animate-float text-9xl">{meta?.emoji}</div>
+            <p className="text-xl text-cream/80">Gleich geht&apos;s los mit</p>
+            <p className="text-5xl font-bold text-bulb drop-shadow-[0_4px_0_var(--color-brown)]">{meta?.name}</p>
+            <p className="text-xl text-cream/90">{meta?.description}</p>
+          </div>
         </Screen>
       );
 
@@ -58,7 +60,7 @@ function PhaseContent({ room, me, sendAction }: Omit<Props, "error" | "onErrorSh
       if (!views || game?.module == null) return <Screen />;
       return (
         <Screen className="max-w-lg gap-4">
-          <div className="flex w-full items-center justify-between text-lg font-bold text-white/70">
+          <div className="flex w-full items-center justify-between rounded-full border-2 border-bulb/60 bg-petrol-dark/85 px-4 py-1.5 text-lg font-bold">
             <span>
               {meta?.emoji} {meta?.name}
             </span>
@@ -80,13 +82,13 @@ function PhaseContent({ room, me, sendAction }: Omit<Props, "error" | "onErrorSh
       const won = final && mine?.rankAfter === 1;
       return (
         <Screen className="max-w-lg gap-5">
-          <div className="flex flex-col items-center gap-2 text-center">
-            <p className="text-xl text-white/70">{final ? "Endstand" : "Zwischenstand"}</p>
-            <p className="text-5xl font-black text-spot">
+          <div className="panel flex w-full flex-col items-center gap-2 p-5 text-center">
+            <p className="text-xl text-cream/80">{final ? "Endstand" : "Zwischenstand"}</p>
+            <p className="text-5xl font-bold text-bulb">
               {won ? "🏆 " : ""}
               {mine?.rankAfter}. Platz
             </p>
-            {won && <p className="text-2xl font-black">Glückwunsch! 🎉</p>}
+            {won && <p className="text-2xl font-bold">Glückwunsch! 🎉</p>}
           </div>
           <Leaderboard
             key={`${room.phase}-${game.roundIndex}`}
@@ -97,7 +99,7 @@ function PhaseContent({ room, me, sendAction }: Omit<Props, "error" | "onErrorSh
             animated={!final}
             showGains={!final}
           />
-          {final && <p className="text-center text-lg text-white/60">Der Host kann gleich nochmal starten.</p>}
+          {final && <p className="text-center text-lg text-cream/80">Der Host kann gleich nochmal starten.</p>}
         </Screen>
       );
     }
@@ -106,13 +108,14 @@ function PhaseContent({ room, me, sendAction }: Omit<Props, "error" | "onErrorSh
       // lobby, setup
       const others = room.players.length - 1;
       return (
-        <Screen className="justify-center gap-8 text-center">
+        <Screen dim="soft" className="justify-center">
+          <div className="panel flex w-full max-w-md flex-col items-center gap-6 p-8 text-center">
           <AvatarBadge avatar={me.avatar} size="lg" className="animate-float" />
-          <p className="text-4xl font-black">{me.name}</p>
+          <p className="text-4xl font-bold">{me.name}</p>
           {room.phase === "lobby" ? (
             <>
-              <p className="text-2xl font-bold text-spot">Du bist dabei! 🎉</p>
-              <p className="text-xl text-white/70">
+              <p className="text-2xl font-bold text-bulb">Du bist dabei! 🎉</p>
+              <p className="text-xl text-cream/85">
                 Schau auf den Fernseher. Es geht los, sobald der Host startet.
                 {others > 0 && (
                   <>
@@ -123,11 +126,14 @@ function PhaseContent({ room, me, sendAction }: Omit<Props, "error" | "onErrorSh
               </p>
             </>
           ) : (
-            <p className="text-3xl font-black text-spot">Der Host wählt die Spiele aus … 👀</p>
+            <p className="text-3xl font-bold text-bulb">Der Host wählt die Spiele aus … 👀</p>
           )}
           {room.settingsSummary && (
-            <p className="rounded-full bg-white/10 px-5 py-2 text-lg font-bold">{summaryText(room.settingsSummary)}</p>
+            <p className="rounded-2xl border-2 border-bulb/60 bg-petrol/60 px-5 py-2 text-lg font-bold">
+              {summaryText(room.settingsSummary)}
+            </p>
           )}
+          </div>
         </Screen>
       );
     }

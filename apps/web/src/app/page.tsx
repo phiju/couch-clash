@@ -2,7 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Button, ButtonLink, Logo, Screen } from "@/components/ui";
+import { StageIntro } from "@/components/stage-intro";
+import { Button, ButtonLink } from "@/components/ui";
 import { createRoom } from "@/lib/api";
 import { hostTokenStore } from "@/lib/storage";
 
@@ -25,23 +26,21 @@ export default function Home() {
   }
 
   return (
-    <Screen className="justify-center gap-10 text-center">
-      <div className="flex flex-col items-center gap-4">
-        <div className="animate-float text-7xl">🛋️⚡</div>
-        <Logo className="text-6xl sm:text-8xl" />
-        <p className="max-w-lg text-xl text-white/80 sm:text-2xl">
-          Die Partyspiel-Show fürs Wohnzimmer. Ein Fernseher, alle Handys.
-        </p>
-      </div>
-      <div className="flex w-full max-w-sm flex-col gap-4">
-        <Button onClick={newGame} disabled={busy} className="py-6 text-3xl">
+    <main>
+      <h1 className="sr-only">Couch Clash – die Partyspiel-Show fürs Wohnzimmer</h1>
+      <StageIntro>
+        <Button onClick={newGame} disabled={busy} className="px-10 text-2xl wide:min-w-72 wide:text-3xl">
           {busy ? "Moment…" : "Neues Spiel"}
         </Button>
-        <ButtonLink href="/join" variant="secondary">
-          Mitspielen
+        <ButtonLink href="/join" variant="secondary" className="px-10 text-2xl wide:min-w-72 wide:text-3xl">
+          Beitreten
         </ButtonLink>
-        {error && <p className="font-bold text-hot">{error}</p>}
-      </div>
-    </Screen>
+      </StageIntro>
+      {error && (
+        <p className="fixed top-6 left-1/2 z-50 -translate-x-1/2 rounded-2xl bg-rust px-6 py-3 text-center text-lg font-bold">
+          {error}
+        </p>
+      )}
+    </main>
   );
 }

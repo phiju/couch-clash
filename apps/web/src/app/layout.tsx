@@ -1,5 +1,14 @@
 import type { Metadata, Viewport } from "next";
+import { Fredoka } from "next/font/google";
+import { preload } from "react-dom";
 import "./globals.css";
+
+const fredoka = Fredoka({
+  subsets: ["latin"],
+  weight: ["500", "700"],
+  variable: "--font-fredoka",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Couch Clash",
@@ -9,13 +18,19 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#1a0b3b",
+  themeColor: "#123f3c",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // Only the background that matches the screen shape is fetched early.
+  preload("/brand/stage-wide.webp", { as: "image", media: "(min-aspect-ratio: 3/4)", fetchPriority: "high" });
+  preload("/brand/stage-tall.webp", { as: "image", media: "(max-aspect-ratio: 3/4)", fetchPriority: "high" });
   return (
-    <html lang="de">
-      <body className="min-h-dvh antialiased">{children}</body>
+    <html lang="de" className={fredoka.variable}>
+      <body className="min-h-dvh antialiased">
+        <div className="stage-bg" aria-hidden />
+        {children}
+      </body>
     </html>
   );
 }
