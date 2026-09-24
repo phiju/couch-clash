@@ -174,7 +174,7 @@ describe("toPublicState", () => {
   it("never leaks secrets and marks connected players", () => {
     const a = join(newRoom(), "Anna");
     const b = join(a.room, "Ben");
-    const state = toPublicState(b.room, { host: true, playerIds: new Set([a.player.id]) });
+    const state = toPublicState(b.room, { host: true, playerIds: new Set([a.player.id]) }, { role: "host" });
     const serialized = JSON.stringify(state);
     expect(serialized).not.toContain(HOST_TOKEN);
     expect(serialized).not.toContain(a.player.secret);

@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   // Must match the Worker name in the Cloudflare dashboard (Workers Builds).
-  "name": "couch-clash-party",
+  "name": "couch-clash",
   "main": "src/index.ts",
   "compatibility_date": "2026-09-01",
   "compatibility_flags": ["nodejs_compat"],

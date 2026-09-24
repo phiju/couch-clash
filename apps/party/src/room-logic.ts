@@ -10,10 +10,14 @@ import {
   ROOM_TTL_MS,
   generateSecret,
   type Avatar,
-  type ErrorCode,
   type Phase,
   type PublicRoomState,
+  type ScoringSettings,
+  type Viewer,
 } from "@couch-clash/shared";
+import { GAME_MODULES, type ModuleRegistry } from "@couch-clash/games";
+import { publicGame } from "./game-flow";
+import { fail, ok, type Result } from "./result";
 
 export interface PlayerRecord {
   id: string;
@@ -34,12 +38,33 @@ export interface RoomRecord {
   phaseStartedAt: number;
   phaseEndsAt: number | null;
   players: PlayerRecord[];
+  /** Running game (from "Los geht's" until back to setup), else null. */
+  game: GameRecord | null;
+  /** Content ids played in this room (across games) – avoids repeats. */
+  usedContentIds: string[];
 }
 
-export type Result<T> = { ok: true; value: T } | { ok: false; error: ErrorCode };
+export interface GameRound {
+  categoryId: string;
+  questionCount: number;
+  scoring: ScoringSettings;
+}
 
-const ok = <T>(value: T): Result<T> => ({ ok: true, value });
-const fail = <T>(error: ErrorCode): Result<T> => ({ ok: false, error });
+export interface GameRecord {
+  rounds: GameRound[];
+  roundIndex: number;
+  /** State of the current category module (only in phase "play"). */
+  moduleState: unknown;
+  scores: Record<string, number>;
+  roundGain: Record<string, number>;
+}
+
+/** Fills fields added after 0.1 for rooms stored by an older version. */
+export function normalizeRoomRecord(room: RoomRecord): RoomRecord {
+  return { ...room, game: room.game ?? null, usedContentIds: room.usedContentIds ?? [] };
+}
+
+export type { Result };
 
 export interface Deps {
   now: number;
@@ -56,6 +81,8 @@ export function createRoomRecord(code: string, hostToken: string, now: number): 
     phaseStartedAt: now,
     phaseEndsAt: null,
     players: [],
+    game: null,
+    usedContentIds: [],
   };
 }
 
@@ -131,6 +158,8 @@ export function startGame(room: RoomRecord, now: number): Result<RoomRecord> {
 export function toPublicState(
   room: RoomRecord,
   connected: { host: boolean; playerIds: ReadonlySet<string> },
+  viewer: Viewer,
+  registry: ModuleRegistry = GAME_MODULES,
 ): PublicRoomState {
   return {
     code: room.code,
@@ -147,5 +176,6 @@ export function toPublicState(
       joinedAt: p.joinedAt,
       connected: connected.playerIds.has(p.id),
     })),
+    game: publicGame(room, viewer, registry),
   };
 }

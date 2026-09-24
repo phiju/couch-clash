@@ -1,0 +1,423 @@
+[
+  {
+    "id": "estimate-001",
+    "text": "Wie hoch ist der Eiffelturm in Paris (inklusive Antenne)?",
+    "ageRating": 6,
+    "tags": [
+      "bauwerke",
+      "reisen"
+    ],
+    "difficulty": 2,
+    "answer": 330,
+    "unit": "m",
+    "format": "number",
+    "fact": "Seit 2022 misst der Eiffelturm mit neuer Antenne 330 Meter."
+  },
+  {
+    "id": "estimate-002",
+    "text": "In welchem Jahr landeten zum ersten Mal Menschen auf dem Mond?",
+    "ageRating": 12,
+    "tags": [
+      "weltall",
+      "geschichte"
+    ],
+    "difficulty": 1,
+    "answer": 1969,
+    "unit": "",
+    "format": "year",
+    "fact": "Am 20. Juli 1969 landete Apollo 11 auf dem Mond."
+  },
+  {
+    "id": "estimate-003",
+    "text": "Wie viele Knochen hat ein erwachsener Mensch?",
+    "ageRating": 12,
+    "tags": [
+      "körper",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "answer": 206,
+    "unit": "Knochen",
+    "format": "number",
+    "fact": "Babys haben noch deutlich mehr – viele Knochen wachsen später zusammen."
+  },
+  {
+    "id": "estimate-004",
+    "text": "Wie hoch ist die Zugspitze, Deutschlands höchster Berg?",
+    "ageRating": 12,
+    "tags": [
+      "deutschland",
+      "geografie"
+    ],
+    "difficulty": 2,
+    "answer": 2962,
+    "unit": "m",
+    "format": "number"
+  },
+  {
+    "id": "estimate-005",
+    "text": "Wie lang ist ein Marathon?",
+    "ageRating": 12,
+    "tags": [
+      "sport",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "answer": 42.195,
+    "unit": "km",
+    "format": "number",
+    "fact": "Die offizielle Marathonstrecke ist genau 42,195 km lang."
+  },
+  {
+    "id": "estimate-006",
+    "text": "Wie schnell breitet sich Schall in Luft bei 20 °C aus?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "answer": 343,
+    "unit": "m/s",
+    "format": "number",
+    "fact": "Das sind gut 1.200 km/h."
+  },
+  {
+    "id": "estimate-007",
+    "text": "Wie hoch ist der Mount Everest?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "answer": 8849,
+    "unit": "m",
+    "format": "number",
+    "fact": "Diese Höhe wurde 2020 von China und Nepal gemeinsam vermessen."
+  },
+  {
+    "id": "estimate-008",
+    "text": "In welchem Jahr wurde die Bundesrepublik Deutschland gegründet?",
+    "ageRating": 12,
+    "tags": [
+      "deutschland",
+      "geschichte"
+    ],
+    "difficulty": 1,
+    "answer": 1949,
+    "unit": "",
+    "format": "year",
+    "fact": "Das Grundgesetz trat am 23. Mai 1949 in Kraft."
+  },
+  {
+    "id": "estimate-009",
+    "text": "Wie hoch hängt ein Basketballkorb?",
+    "ageRating": 12,
+    "tags": [
+      "sport"
+    ],
+    "difficulty": 2,
+    "answer": 305,
+    "unit": "cm",
+    "format": "number",
+    "fact": "Genau 10 Fuß – also 3,05 Meter."
+  },
+  {
+    "id": "estimate-010",
+    "text": "Bei wie viel Grad Celsius siedet Wasser auf Meereshöhe?",
+    "ageRating": 6,
+    "tags": [
+      "kinder",
+      "wissenschaft"
+    ],
+    "difficulty": 1,
+    "answer": 100,
+    "unit": "°C",
+    "format": "number"
+  },
+  {
+    "id": "estimate-011",
+    "text": "Wie viele Sekunden hat ein Tag?",
+    "ageRating": 12,
+    "tags": [
+      "mathe",
+      "alltag"
+    ],
+    "difficulty": 2,
+    "answer": 86400,
+    "unit": "Sekunden",
+    "format": "number",
+    "fact": "24 × 60 × 60 = 86.400"
+  },
+  {
+    "id": "estimate-012",
+    "text": "Wie lang ist der Äquator ungefähr?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "answer": 40075,
+    "unit": "km",
+    "format": "number"
+  },
+  {
+    "id": "estimate-013",
+    "text": "Wie weit ist der Mond im Durchschnitt von der Erde entfernt?",
+    "ageRating": 12,
+    "tags": [
+      "weltall",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "answer": 384400,
+    "unit": "km",
+    "format": "number",
+    "fact": "Licht braucht für diese Strecke gut eine Sekunde."
+  },
+  {
+    "id": "estimate-014",
+    "text": "In welchem Jahr begann der Erste Weltkrieg?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte"
+    ],
+    "difficulty": 1,
+    "answer": 1914,
+    "unit": "",
+    "format": "year"
+  },
+  {
+    "id": "estimate-015",
+    "text": "Wie viele Felder hat ein Schachbrett?",
+    "ageRating": 6,
+    "tags": [
+      "spiele",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "answer": 64,
+    "unit": "Felder",
+    "format": "number",
+    "fact": "8 × 8 = 64"
+  },
+  {
+    "id": "estimate-016",
+    "text": "Wie viele Karten hat ein Skatblatt?",
+    "ageRating": 12,
+    "tags": [
+      "spiele",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "answer": 32,
+    "unit": "Karten",
+    "format": "number"
+  },
+  {
+    "id": "estimate-017",
+    "text": "Wie alt wurde Wolfgang Amadeus Mozart?",
+    "ageRating": 12,
+    "tags": [
+      "musik",
+      "geschichte"
+    ],
+    "difficulty": 2,
+    "answer": 35,
+    "unit": "Jahre",
+    "format": "number",
+    "fact": "Mozart lebte von 1756 bis 1791."
+  },
+  {
+    "id": "estimate-018",
+    "text": "Wie hoch ist der Kölner Dom?",
+    "ageRating": 12,
+    "tags": [
+      "bauwerke",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "answer": 157,
+    "unit": "m",
+    "format": "number",
+    "fact": "Mit rund 157 Metern ist er eine der höchsten Kirchen der Welt."
+  },
+  {
+    "id": "estimate-019",
+    "text": "Wie viele Planeten hat unser Sonnensystem?",
+    "ageRating": 6,
+    "tags": [
+      "weltall",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "answer": 8,
+    "unit": "Planeten",
+    "format": "number",
+    "fact": "Seit 2006 zählt Pluto als Zwergplanet."
+  },
+  {
+    "id": "estimate-020",
+    "text": "Wie viele Minuten dauert ein Fußballspiel ohne Nachspielzeit?",
+    "ageRating": 6,
+    "tags": [
+      "sport",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "answer": 90,
+    "unit": "Minuten",
+    "format": "number"
+  },
+  {
+    "id": "estimate-021",
+    "text": "In welchem Jahr wurde der Euro als Bargeld eingeführt?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "alltag"
+    ],
+    "difficulty": 1,
+    "answer": 2002,
+    "unit": "",
+    "format": "year",
+    "fact": "Am 1. Januar 2002 gab es die ersten Euro-Scheine und -Münzen."
+  },
+  {
+    "id": "estimate-022",
+    "text": "Wie viele Buchstaben hat das deutsche Alphabet ohne Ä, Ö, Ü und ß?",
+    "ageRating": 6,
+    "tags": [
+      "kinder",
+      "sprache"
+    ],
+    "difficulty": 1,
+    "answer": 26,
+    "unit": "Buchstaben",
+    "format": "number"
+  },
+  {
+    "id": "estimate-023",
+    "text": "Wie hoch ist die Freiheitsstatue in New York – ohne Sockel?",
+    "ageRating": 12,
+    "tags": [
+      "bauwerke",
+      "reisen"
+    ],
+    "difficulty": 3,
+    "answer": 46,
+    "unit": "m",
+    "format": "number",
+    "fact": "Mit Sockel sind es rund 93 Meter."
+  },
+  {
+    "id": "estimate-024",
+    "text": "Wie viele volle Wochen hat ein Jahr?",
+    "ageRating": 6,
+    "tags": [
+      "kinder",
+      "alltag"
+    ],
+    "difficulty": 1,
+    "answer": 52,
+    "unit": "Wochen",
+    "format": "number"
+  },
+  {
+    "id": "estimate-025",
+    "text": "Wie tief ist der Marianengraben an seiner tiefsten Stelle ungefähr?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "natur"
+    ],
+    "difficulty": 3,
+    "answer": 10994,
+    "unit": "m",
+    "format": "number",
+    "fact": "Das Challengertief ist die tiefste bekannte Stelle der Ozeane."
+  },
+  {
+    "id": "estimate-026",
+    "text": "In welchem Jahr sank die Titanic?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte"
+    ],
+    "difficulty": 1,
+    "answer": 1912,
+    "unit": "",
+    "format": "year",
+    "fact": "Die Titanic sank im April 1912 auf ihrer ersten Fahrt."
+  },
+  {
+    "id": "estimate-027",
+    "text": "Wie viele Ringe hat das Olympische Symbol?",
+    "ageRating": 6,
+    "tags": [
+      "sport",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "answer": 5,
+    "unit": "Ringe",
+    "format": "number"
+  },
+  {
+    "id": "estimate-028",
+    "text": "Wie viele Milchzähne hat ein Kind?",
+    "ageRating": 6,
+    "tags": [
+      "körper",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "answer": 20,
+    "unit": "Zähne",
+    "format": "number"
+  },
+  {
+    "id": "estimate-029",
+    "text": "Wie hoch ist der Berliner Fernsehturm?",
+    "ageRating": 12,
+    "tags": [
+      "bauwerke",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "answer": 368,
+    "unit": "m",
+    "format": "number",
+    "fact": "Er ist das höchste Bauwerk Deutschlands."
+  },
+  {
+    "id": "estimate-030",
+    "text": "In welchem Jahr wurde die Berliner Mauer gebaut?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "deutschland"
+    ],
+    "difficulty": 1,
+    "answer": 1961,
+    "unit": "",
+    "format": "year",
+    "fact": "Der Bau begann am 13. August 1961."
+  },
+  {
+    "id": "estimate-031",
+    "text": "Wie viele Stunden hat eine Woche?",
+    "ageRating": 6,
+    "tags": [
+      "mathe",
+      "alltag"
+    ],
+    "difficulty": 2,
+    "answer": 168,
+    "unit": "Stunden",
+    "format": "number",
+    "fact": "7 × 24 = 168"
+  }
+]

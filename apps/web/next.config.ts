@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // The shared package ships TypeScript sources.
-  transpilePackages: ["@couch-clash/shared"],
+  // Workspace packages ship TypeScript sources.
+  transpilePackages: ["@couch-clash/shared", "@couch-clash/games"],
 };
 
 export default nextConfig;

@@ -1,0 +1,733 @@
+[
+  {
+    "id": "quiz-001",
+    "text": "Wie viele Beine hat eine Spinne?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "8",
+      "6",
+      "10",
+      "4"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-002",
+    "text": "Welcher Planet ist der Sonne am nächsten?",
+    "ageRating": 6,
+    "tags": [
+      "weltall",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Venus",
+      "Merkur",
+      "Mars",
+      "Erde"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-003",
+    "text": "Wie heißt die Hauptstadt von Frankreich?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Lyon",
+      "Marseille",
+      "Paris",
+      "Nizza"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-004",
+    "text": "Welches ist das größte Tier der Welt?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Afrikanischer Elefant",
+      "Giraffe",
+      "Pottwal",
+      "Blauwal"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-005",
+    "text": "Aus welchem Land stammt die Pizza ursprünglich?",
+    "ageRating": 6,
+    "tags": [
+      "essen",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Italien",
+      "Spanien",
+      "Griechenland",
+      "Frankreich"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-006",
+    "text": "Welche Farbe entsteht, wenn man blaue und gelbe Farbe mischt?",
+    "ageRating": 6,
+    "tags": [
+      "kinder",
+      "alltag"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Lila",
+      "Grün",
+      "Orange",
+      "Braun"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-007",
+    "text": "Wie viele Minuten hat eine Stunde?",
+    "ageRating": 6,
+    "tags": [
+      "kinder",
+      "alltag"
+    ],
+    "difficulty": 1,
+    "options": [
+      "100",
+      "30",
+      "60",
+      "90"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-008",
+    "text": "Welches chemische Symbol steht für Gold?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Ag",
+      "Go",
+      "Gd",
+      "Au"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-009",
+    "text": "Wer malte die „Mona Lisa“?",
+    "ageRating": 12,
+    "tags": [
+      "kunst",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Leonardo da Vinci",
+      "Michelangelo",
+      "Raffael",
+      "Rembrandt"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-010",
+    "text": "Welcher Fluss hat den längsten Abschnitt in Deutschland?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Elbe",
+      "Rhein",
+      "Donau",
+      "Main"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-011",
+    "text": "In welchem Jahr fiel die Berliner Mauer?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "deutschland"
+    ],
+    "difficulty": 1,
+    "options": [
+      "1990",
+      "1987",
+      "1989",
+      "1991"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-012",
+    "text": "Wie viele Spieler einer Fußballmannschaft stehen gleichzeitig auf dem Feld?",
+    "ageRating": 6,
+    "tags": [
+      "sport",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "10",
+      "9",
+      "12",
+      "11"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-013",
+    "text": "Welches Gas nehmen Pflanzen für die Fotosynthese auf?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "natur"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Kohlendioxid",
+      "Sauerstoff",
+      "Stickstoff",
+      "Helium"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-014",
+    "text": "Wie heißt der höchste Berg der Welt?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "K2",
+      "Mount Everest",
+      "Mont Blanc",
+      "Kilimandscharo"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-015",
+    "text": "Welches Organ pumpt das Blut durch den Körper?",
+    "ageRating": 6,
+    "tags": [
+      "körper",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Lunge",
+      "Leber",
+      "Herz",
+      "Niere"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-016",
+    "text": "Wie viele Ecken hat ein Sechseck?",
+    "ageRating": 6,
+    "tags": [
+      "mathe",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "5",
+      "7",
+      "8",
+      "6"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-017",
+    "text": "Wer schrieb „Faust“?",
+    "ageRating": 12,
+    "tags": [
+      "literatur",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Johann Wolfgang von Goethe",
+      "Friedrich Schiller",
+      "Heinrich Heine",
+      "Thomas Mann"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-018",
+    "text": "Welcher ist der größte Ozean der Erde?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Atlantik",
+      "Pazifik",
+      "Indischer Ozean",
+      "Arktischer Ozean"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-019",
+    "text": "Wie heißt die Hauptstadt von Australien?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Sydney",
+      "Melbourne",
+      "Canberra",
+      "Perth"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-020",
+    "text": "Welches Säugetier legt Eier?",
+    "ageRating": 12,
+    "tags": [
+      "tiere",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Delfin",
+      "Fledermaus",
+      "Känguru",
+      "Schnabeltier"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-021",
+    "text": "Wie viele Tasten hat ein klassisches Klavier?",
+    "ageRating": 12,
+    "tags": [
+      "musik",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "options": [
+      "88",
+      "76",
+      "92",
+      "64"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-022",
+    "text": "Für welches Element steht das chemische Symbol O?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Gold",
+      "Sauerstoff",
+      "Osmium",
+      "Ozon"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-023",
+    "text": "Welcher berühmte Komponist wurde in Bonn geboren?",
+    "ageRating": 12,
+    "tags": [
+      "musik",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Wolfgang Amadeus Mozart",
+      "Johann Sebastian Bach",
+      "Ludwig van Beethoven",
+      "Joseph Haydn"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-024",
+    "text": "In welcher Stadt steht das Brandenburger Tor?",
+    "ageRating": 6,
+    "tags": [
+      "deutschland",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Potsdam",
+      "Hamburg",
+      "München",
+      "Berlin"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-025",
+    "text": "Wie viele Tage hat ein Schaltjahr?",
+    "ageRating": 6,
+    "tags": [
+      "kinder",
+      "alltag"
+    ],
+    "difficulty": 1,
+    "options": [
+      "366",
+      "365",
+      "364",
+      "367"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-026",
+    "text": "Wie heißt die Hauptstadt von Kanada?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Toronto",
+      "Ottawa",
+      "Vancouver",
+      "Montreal"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-027",
+    "text": "Welcher Planet wird „der Rote Planet“ genannt?",
+    "ageRating": 6,
+    "tags": [
+      "weltall",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Jupiter",
+      "Venus",
+      "Mars",
+      "Saturn"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-028",
+    "text": "Welches ist das flächenmäßig größte Land der Erde?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Kanada",
+      "China",
+      "USA",
+      "Russland"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-029",
+    "text": "In welcher Einheit misst man elektrische Spannung?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Volt",
+      "Ampere",
+      "Watt",
+      "Ohm"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-030",
+    "text": "Wer entwickelte die Relativitätstheorie?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Isaac Newton",
+      "Albert Einstein",
+      "Niels Bohr",
+      "Max Planck"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-031",
+    "text": "Wie viele Zähne hat ein Erwachsener normalerweise, inklusive Weisheitszähnen?",
+    "ageRating": 12,
+    "tags": [
+      "körper",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "28",
+      "30",
+      "32",
+      "36"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-032",
+    "text": "Welches ist das schnellste Landtier?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Löwe",
+      "Windhund",
+      "Strauß",
+      "Gepard"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-033",
+    "text": "In welchem Land liegt die Ruinenstadt Machu Picchu?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "geschichte"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Peru",
+      "Mexiko",
+      "Chile",
+      "Bolivien"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-034",
+    "text": "Welches Instrument hat normalerweise sechs Saiten?",
+    "ageRating": 6,
+    "tags": [
+      "musik",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Geige",
+      "Gitarre",
+      "Harfe",
+      "Cello"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-035",
+    "text": "Welcher Vogel kann rückwärts fliegen?",
+    "ageRating": 12,
+    "tags": [
+      "tiere",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Specht",
+      "Schwalbe",
+      "Kolibri",
+      "Adler"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-036",
+    "text": "Wie viele Bundesländer hat Deutschland?",
+    "ageRating": 12,
+    "tags": [
+      "deutschland",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "14",
+      "15",
+      "12",
+      "16"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-037",
+    "text": "Welches ist das flächenmäßig kleinste Bundesland?",
+    "ageRating": 12,
+    "tags": [
+      "deutschland",
+      "geografie"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Bremen",
+      "Saarland",
+      "Hamburg",
+      "Berlin"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-038",
+    "text": "Welches Metall ist bei Zimmertemperatur flüssig?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Blei",
+      "Quecksilber",
+      "Zinn",
+      "Aluminium"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-039",
+    "text": "Wie heißt die Währung von Japan?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Won",
+      "Yuan",
+      "Yen",
+      "Baht"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-040",
+    "text": "Wer betrat als erster Mensch den Mond?",
+    "ageRating": 12,
+    "tags": [
+      "weltall",
+      "geschichte"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Buzz Aldrin",
+      "Juri Gagarin",
+      "Michael Collins",
+      "Neil Armstrong"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-041",
+    "text": "Welches Tier ist auf dem Bundeswappen Deutschlands zu sehen?",
+    "ageRating": 6,
+    "tags": [
+      "deutschland",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Adler",
+      "Löwe",
+      "Bär",
+      "Hirsch"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-042",
+    "text": "Welcher Kontinent ist der flächenmäßig größte?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Afrika",
+      "Asien",
+      "Nordamerika",
+      "Antarktika"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-043",
+    "text": "Wie viele Saiten hat eine Geige?",
+    "ageRating": 6,
+    "tags": [
+      "musik",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "options": [
+      "5",
+      "6",
+      "4",
+      "3"
+    ],
+    "correctIndex": 2
+  }
+]

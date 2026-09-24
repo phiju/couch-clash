@@ -50,3 +50,9 @@ export const profileStore = {
   get: <T>() => read<T>("profile"),
   set: (profile: unknown) => write("profile", profile),
 };
+
+/** Host setup (chosen categories, question counts, scoring) – remembered per device. */
+export const setupStore = {
+  get: <T>() => read<T>("setup"),
+  set: (setup: unknown) => write("setup", setup),
+};
