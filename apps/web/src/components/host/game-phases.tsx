@@ -4,6 +4,7 @@ import { getCategoryMeta } from "@couch-clash/games/meta";
 import type { ClientMessage, PublicRoomState } from "@couch-clash/shared";
 import { AvatarBadge } from "@/components/avatar";
 import { Mascot } from "@/components/mascot";
+import { useHostSpeech } from "./voice";
 import { Button, Screen } from "@/components/ui";
 import { getGameViews } from "@/games/registry";
 import { useServerNow } from "@/lib/clock";
@@ -59,6 +60,7 @@ function SecondsLeft({ endsAt }: { endsAt: number | null }) {
 
 export function HostIntro({ room, send }: { room: PublicRoomState; send: Send }) {
   const { round, meta } = currentRound(room);
+  const speech = useHostSpeech();
   return (
     <Screen fit className="max-w-[1900px]">
       <GameBar room={room} send={send} skipLabel="Weiter ⏭" />
@@ -66,7 +68,8 @@ export function HostIntro({ room, send }: { room: PublicRoomState; send: Send })
         {/* The host slides in and announces the category. */}
         <Mascot
           pose="announce"
-          message={<>Jetzt kommt: {meta?.name}!</>}
+          talking={!!speech}
+          message={speech?.text ?? <>Jetzt kommt: {meta?.name}!</>}
           className="z-10 hidden shrink-0 md:flex"
           imageClassName="h-[min(62vh,720px)]"
           bubbleClassName="fs-lg !bottom-[97%] !left-[25%]"
@@ -144,6 +147,7 @@ function Confetti() {
 
 export function HostFinale({ room, send }: { room: PublicRoomState; send: Send }) {
   const entries = room.game?.leaderboard;
+  const speech = useHostSpeech();
   if (!entries) return <Screen />;
   const byId = new Map(room.players.map((p) => [p.id, p]));
   const winners = entries.filter((e) => e.rankAfter === 1).flatMap((e) => byId.get(e.playerId) ?? []);
@@ -154,7 +158,8 @@ export function HostFinale({ room, send }: { room: PublicRoomState; send: Send }
         {/* The host celebrates next to the winner. */}
         <Mascot
           pose="cheer"
-          message={<>Applaus für {winners.map((w) => w.name).join(" & ")}!</>}
+          talking={!!speech}
+          message={speech?.text ?? <>Applaus für {winners.map((w) => w.name).join(" & ")}!</>}
           className="z-10 hidden md:flex"
           imageClassName="h-[min(34vh,460px)]"
         />

@@ -21,6 +21,7 @@ couch-clash/
 │       ├── src/room-logic.ts        Pure lobby logic (join, reconnect, kick)
 │       ├── src/game-flow.ts         Pure game flow (setup → intro → play → scoreboard → finale)
 │       ├── src/avatar/              Photo avatars: provider interface + OpenAI, R2 store, routes, state logic
+│       ├── src/voice/               Host mascot's voice: text + speech providers, prompts, rules, director
 │       └── test/
 └── packages/
     ├── shared/                  Types + zod schemas: messages, room state, GameModule interface, duration
@@ -190,6 +191,44 @@ Players can take a selfie or pick a photo when joining. The party server turns i
    - `AVATARS`: R2 bucket `couch-clash-avatars`
    - `IMAGES`: Cloudflare Images, for the 256 px resize. The free plan includes 5,000 unique transformations/month; if a transformation fails, the full-size WebP is stored instead.
 
+## The host speaks (AI voice)
+
+The mascot welcomes every player by name and comments on the leaderboard. Each line is generated live: first a short text (**`gpt-4.1-mini`**), then speech (**`gpt-4o-mini-tts`**, voice `ash`, style "enthusiastic 1970s German TV game show host"). Audio plays **only on the host device** through the audio manager: the music is ducked, and the voice has its own gain, clearly louder than the music. The master volume still applies.
+
+**When he speaks**
+- **Welcome:** one short line per joining player ("Applaus für Clara – unsere Geheimwaffe vom Sofa!"). At most 3 welcome lines wait on the TV; further names are merged into one line ("… und willkommen Tina, Max und Oma Gerda!").
+- **Game start:** "Meine Damen und Herren, willkommen bei Couch Clash! …" with the number of players.
+- **Commentary:** prepared at the reveal from structured facts (answers, right/wrong, estimate vs. correct value, rank changes, fastest answer, streaks). It plays when the leaderboard starts and is skipped if it isn't ready by then.
+  - A line that is still playing may keep the leaderboard up to 3 s longer.
+  - How often (host setting "Kommentare"): `oft` = every 2nd question, `normal` = every 3rd, `selten` = only after the last question of a category. The last question of a category is always commented.
+- **Finale:** winner announcement (max 2 sentences).
+
+**Tone ("Frechheit", host setting):** `nett` / `frech` (default) / `gnadenlos`.
+- Hard limits in every mode: only about answers and scores in this game, never about looks, body, age, gender, origin, religion, family, health or intelligence as a person, and no swear words.
+- Targets rotate, so the same player is never roasted twice in a row.
+- Categories with an age rating below 12 switch to `nett` automatically, unless the host ticks "Trotzdem …".
+
+**Safety**
+- Player names are sanitized (letters, digits, spaces, basic punctuation, max 20 chars), only ever placed in a quoted JSON data block, and the model is told to ignore instructions inside it.
+- Logs contain counts and error reasons only, never names or texts.
+
+**Never blocking**
+- Timeouts: text 4 s, speech 8 s.
+- On errors, timeouts, refusals or when the room's budget of **60 lines** is used up, a pre-written template line is shown as a subtitle (no audio).
+- Without an unlocked audio context, lines are subtitles only.
+
+**Code** (`apps/party/src/voice/`)
+- `config.ts`: models, voice, style, timeouts, limits
+- `provider.ts`: `TextProvider.generateLine(prompt) → text` and `SpeechProvider.speak(text) → audio`. To switch the voice to e.g. ElevenLabs, implement `SpeechProvider` and change `index.ts`.
+- `prompt.ts`: sanitizing and prompts
+- `rules.ts`: frequency, Frechheit, welcome batching, hold, streaks (pure, tested)
+- `service.ts`: timeouts, fallback, R2
+- `director.ts`: what to say when
+
+**Storage:** the mp3s live in R2 under `rooms/<code>/voice/<id>.mp3` and are served by `GET /api/rooms/:code/voice/:id` while the room exists. They are deleted with the room; the existing 1-day rule `rooms/` covers them too. No extra setup is needed: the voice reuses the secret `OPENAI_API_KEY` and the bucket `AVATARS`.
+
+**Host screen:** `components/host/voice.tsx` and `lib/voice/` (queue + player, tested). The mascot shows the line as a speech bubble with a small talking bounce.
+
 ## Sound (host only)
 
 The TV/laptop plays music and effects; phones never do.
@@ -214,6 +253,8 @@ The TV/laptop plays music and effects; phones never do.
 - [x] Animated leaderboard after every question (TV + phones), reused for scoreboard and final ranking
 
 **Milestone 0.4 – Welcome screen, sound & laptop layout** ✅ Welcome card with "Los geht's!", host audio engine (jingle, loops, stings, fanfare), all host screens fit 1280×720 … 4K without scrolling.
+
+**The host speaks (AI voice)** ✅ Welcome by name, game start, leaderboard commentary with "Frechheit" levels, winner announcement – host device only, template fallback, 60 lines per room.
 
 **Photo avatars (AI)** ✅ Selfie/photo → cartoon in the show style via OpenAI, 3 expressions for the leaderboard, emoji fallback, R2 storage with cleanup, "⭐ Meine Figur" for next time.
 

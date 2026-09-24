@@ -12,6 +12,7 @@ import {
   type ModuleContext,
   type ModuleInitOptions,
   type ModuleUpdate,
+  type RevealFacts,
   type ScoringSettings,
   type Viewer,
 } from "@couch-clash/shared";
@@ -50,6 +51,15 @@ export interface QuestionRoundConfig<TQuestion extends { id: string }, TAnswer, 
   publicQuestion(question: TQuestion): TPublicQ;
   /** The solution, shown at reveal. */
   solution(question: TQuestion): TSolution;
+  /**
+   * Plain-text descriptions for the host's commentary (server only):
+   * the question, the correct answer and a player's answer.
+   */
+  describe?: {
+    question(question: TQuestion): string;
+    solution(question: TQuestion): string;
+    answer(question: TQuestion, answer: TAnswer): string;
+  };
 }
 
 export type QuestionRoundModule<TQuestion, TAnswer, TPublicQ, TSolution> = GameModule<
@@ -170,6 +180,31 @@ export function createQuestionRoundModule<
     onPlayersChanged(state, ctx) {
       if (state.step === "question" && allAnswered(state, ctx)) return reveal(state, ctx.now);
       return null;
+    },
+
+    progress(state) {
+      return { index: state.index, total: state.questions.length, step: state.step };
+    },
+
+    revealFacts(state) {
+      const describe = config.describe;
+      if (!describe || state.step === "question" || !state.results) return null;
+      const question = state.questions[state.index]!;
+      const maxPoints = Math.max(1, normalizeScoring(config.meta, state.scoring).maxPoints);
+      const answers: RevealFacts["answers"] = {};
+      for (const [id, a] of Object.entries(state.answers)) {
+        const result = state.results[id];
+        const accuracy = Math.min(1, Math.max(0, (result?.baseScore ?? 0) / maxPoints));
+        answers[id] = {
+          text: describe.answer(question, a.value),
+          // Estimates count as "right" when they are very close.
+          correct: accuracy >= 0.9,
+          accuracy: Math.round(accuracy * 100) / 100,
+          points: result?.finalScore ?? 0,
+          responseMs: Math.max(0, a.at - state.questionStartedAt),
+        };
+      }
+      return { question: describe.question(question), correctAnswer: describe.solution(question), answers };
     },
 
     toPublicState(state, viewer: Viewer) {

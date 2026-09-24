@@ -27,6 +27,7 @@ export function Mascot({
   className = "",
   imageClassName = "h-[60vh]",
   bubbleClassName = "",
+  talking = false,
 }: {
   pose?: MascotPose;
   /** Speech bubble text. */
@@ -37,10 +38,12 @@ export function Mascot({
   /** Size of the figure, e.g. "h-[60vh]". */
   imageClassName?: string;
   bubbleClassName?: string;
+  /** Speaking right now: small bounce. */
+  talking?: boolean;
 }) {
   const image = IMAGES[POSE_IMAGES[pose] ?? size];
   return (
-    <div className={`pointer-events-none relative flex items-end ${className}`}>
+    <div className={`pointer-events-none relative flex items-end ${className}`} data-talking={talking || undefined}>
       <Image
         src={image.src}
         alt=""

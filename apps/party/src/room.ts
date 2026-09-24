@@ -1,6 +1,8 @@
 import {
   ClientMessageSchema,
   errorMessage,
+  generateSecret,
+  type HostLine,
   type Avatar,
   type PhotoExpression,
   type PhotoUploadResponse,
@@ -21,6 +23,8 @@ import type { AvatarRoomApi } from "./avatar/routes";
 import { imagesResizer, type AvatarServiceDeps } from "./avatar/service";
 import { playerPrefix, r2AvatarStore, roomPrefix } from "./avatar/store";
 import { styleReference } from "./avatar/style";
+import { createVoiceProviders } from "./voice";
+import { VoiceDirector } from "./voice/director";
 import { Server, type Connection, type WSMessage } from "partyserver";
 import {
   advance,
@@ -43,6 +47,7 @@ import {
   kickPlayer,
   normalizeRoomRecord,
   toPublicState,
+  updateVoiceSettings,
   type RoomRecord,
 } from "./room-logic";
 
@@ -68,6 +73,22 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     const stored = await this.ctx.storage.get<RoomRecord>(STORAGE_KEY);
     this.room = stored ? normalizeRoomRecord(stored) : null;
   }
+
+  /** The host mascot's voice (lines are sent to host screens only). */
+  private readonly voice = new VoiceDirector({
+    read: () => this.activeRoom(),
+    commit: (room) => this.commit(room),
+    sendToHosts: (line) => this.sendToHosts(line),
+    hostConnected: () => this.presence().host,
+    waitUntil: (promise) => this.ctx.waitUntil(promise),
+    services: () => {
+      const providers = createVoiceProviders(this.env);
+      return { text: providers?.text ?? null, speech: providers?.speech ?? null, store: this.avatarStore() };
+    },
+    now: () => Date.now(),
+    random: Math.random,
+    newId: () => generateSecret(8),
+  });
 
   /** Read/commit access for background avatar jobs. */
   private readonly roomAccess: RoomAccess = {
@@ -254,6 +275,15 @@ export class Room extends Server<Env> implements AvatarRoomApi {
         return;
       }
 
+      case "update_voice_settings":
+        if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        return this.apply(conn, updateVoiceSettings(room, msg.settings));
+
+      case "voice_event":
+        if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        this.voice.hostEvent(msg.lineId, msg.event, msg.endsAt);
+        return;
+
       case "photo_save": {
         const state = conn.state;
         if (state?.role !== "player") return this.send(conn, errorMessage("NOT_AUTHORIZED"));
@@ -323,6 +353,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     conn.setState({ role: "player", playerId: player.id });
     this.send(conn, { type: "joined", playerId: player.id, playerSecret: player.secret });
     await this.commit(next);
+    this.voice.playerJoined(player.id);
     // Joined with the emoji first; the saved figure replaces it a moment later.
     if (savedFigureId) {
       const used = await useSavedPhoto(this.roomAccess, this.avatarStore(), player.id, savedFigureId, Date.now());
@@ -337,9 +368,23 @@ export class Room extends Server<Env> implements AvatarRoomApi {
 
   /** Save, re-arm the alarm and send everyone their view. */
   private async commit(room: RoomRecord) {
+    const prev = this.room;
     await this.save(room);
     await this.scheduleAlarm(room);
     this.broadcastState();
+    // The host may have something to say about it (welcome, commentary, …).
+    this.voice.roomChanged(prev, room);
+  }
+
+  /** Host lines never go to phones. */
+  private sendToHosts(line: HostLine): boolean {
+    let sent = false;
+    for (const conn of this.getConnections<ConnState>()) {
+      if (conn.state?.role !== "host") continue;
+      this.send(conn, { type: "host_line", line });
+      sent = true;
+    }
+    return sent;
   }
 
   private async presenceChanged(closingConnId?: string) {

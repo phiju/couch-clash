@@ -2,6 +2,7 @@ import { z } from "zod";
 import { AvatarSchema } from "./avatar";
 import { ScoringSettingsSchema } from "./game-module";
 import { SAVED_AVATAR_ID_PATTERN } from "./photo";
+import { VoiceEventSchema, VoiceSettingsSchema, type HostLine } from "./voice";
 import { NAME_MAX_LENGTH, type PublicRoomState } from "./state";
 
 // ---------------------------------------------------------------------------
@@ -65,6 +66,10 @@ export const ClientMessageSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("photo_use_saved"), savedId: z.string().regex(SAVED_AVATAR_ID_PATTERN) }),
   /** Host (any player) or a player (themselves): back to the emoji avatar. */
   z.object({ type: z.literal("photo_reset"), playerId: id.optional() }),
+  /** Host: moderator voice settings (lobby / setup). */
+  z.object({ type: z.literal("update_voice_settings"), settings: VoiceSettingsSchema }),
+  /** Host screen: a line started/ended playing. */
+  VoiceEventSchema,
   /** Player: a category-specific action. Validated by the module's own schema. */
   z.object({ type: z.literal("action"), action: z.unknown() }),
 ]);
@@ -138,6 +143,8 @@ export type ServerMessage =
   /** Sent once to the joining connection only – contains the reconnect secret. */
   | { type: "joined"; playerId: string; playerSecret: string }
   | { type: "kicked" }
+  /** Only to host screens: the mascot says something. */
+  | { type: "host_line"; line: HostLine }
   /** Only to the owner: the id of the saved figure (stored on the phone). */
   | { type: "photo_saved"; savedId: string }
   | { type: "error"; code: ErrorCode; message: string };
