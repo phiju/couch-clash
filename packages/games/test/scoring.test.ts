@@ -1,144 +1,172 @@
 import type { ScoringSettings } from "@couch-clash/shared";
 import { describe, expect, it } from "vitest";
-import { linearFactor, scoreEstimate, scoreQuiz, timeFactors } from "../src/scoring";
+import {
+  calculateBaseScore,
+  calculateFinalScore,
+  calculateSpeedModifier,
+  normalizeScoring,
+  scoreAnswer,
+} from "../src/scoring";
+import { estimateMeta } from "../src/estimate/meta";
+import { quizMeta } from "../src/quiz/meta";
 
-const quizSettings: ScoringSettings = {
-  basePoints: 100,
-  speedBonus: true,
-  minPercent: 10,
-  estimateScale: "distance",
-};
-const estimateSettings: ScoringSettings = { ...quizSettings, speedBonus: false };
-const points = (r: Record<string, { points: number }>) =>
-  Object.fromEntries(Object.entries(r).map(([k, v]) => [k, v.points]));
+const LIMIT = 20_000;
+const SPEED_ON = { enabled: true, fastestMultiplier: 1.5, slowestMultiplier: 0.5 };
+const SPEED_OFF = { ...SPEED_ON, enabled: false };
+const absolute = (speed = SPEED_OFF): ScoringSettings => ({ mode: "absolute", maxPoints: 100, speedModifier: speed });
+const proximity = (speed = SPEED_OFF): ScoringSettings => ({ mode: "proximity", maxPoints: 100, speedModifier: speed });
+const at = (seconds: number) => ({ responseTimeMs: seconds * 1000, timeLimitMs: LIMIT });
 
-describe("linearFactor / timeFactors", () => {
-  it("maps best → 1 and worst → minPercent", () => {
-    expect(linearFactor(0, 0, 10, 10)).toBe(1);
-    expect(linearFactor(10, 0, 10, 10)).toBeCloseTo(0.1);
-    expect(linearFactor(5, 0, 10, 0)).toBeCloseTo(0.5);
+describe("base score: absolute", () => {
+  it("correct → maxPoints, wrong → 0", () => {
+    expect(calculateBaseScore("absolute", { correct: true }, 100)).toBe(100);
+    expect(calculateBaseScore("absolute", { correct: false }, 100)).toBe(0);
+    expect(calculateBaseScore("absolute", { correct: true }, 250)).toBe(250);
   });
 
-  it("gives 100 % if best == worst", () => {
-    expect(linearFactor(3, 3, 3, 10)).toBe(1);
+  it("without speed modifier: final = base, response time does not matter", () => {
+    expect(scoreAnswer(absolute(), { correct: true }, at(2))).toEqual({ baseScore: 100, speedModifier: 1, finalScore: 100 });
+    expect(scoreAnswer(absolute(), { correct: true }, at(19))).toEqual({ baseScore: 100, speedModifier: 1, finalScore: 100 });
+    expect(scoreAnswer(absolute(), { correct: false }, at(1))).toEqual({ baseScore: 0, speedModifier: 1, finalScore: 0 });
   });
 
-  it("gives 100 % to a single scorer and when speed bonus is off", () => {
-    expect(timeFactors([{ id: "a", at: 5 }], quizSettings).get("a")).toBe(1);
-    const off = timeFactors(
-      [
-        { id: "a", at: 1 },
-        { id: "b", at: 9 },
-      ],
-      { speedBonus: false, minPercent: 10 },
-    );
-    expect([...off.values()]).toEqual([1, 1]);
-  });
-});
-
-describe("scoreQuiz", () => {
-  it("example: correct after 2 s, 5 s, 8 s → 100, 55, 10", () => {
-    const r = scoreQuiz(
-      [
-        { id: "a", correct: true, at: 2000 },
-        { id: "b", correct: true, at: 5000 },
-        { id: "c", correct: true, at: 8000 },
-      ],
-      quizSettings,
-    );
-    expect(points(r)).toEqual({ a: 100, b: 55, c: 10 });
-    expect(r.b!.speed).toBeCloseTo(0.55);
-  });
-
-  it("wrong answers get 0 and don't affect the time scale", () => {
-    const r = scoreQuiz(
-      [
-        { id: "wrong-fast", correct: false, at: 1000 },
-        { id: "a", correct: true, at: 3000 },
-        { id: "b", correct: true, at: 9000 },
-      ],
-      quizSettings,
-    );
-    expect(points(r)).toEqual({ "wrong-fast": 0, a: 100, b: 10 });
-  });
-
-  it("without speed bonus every correct answer gets basePoints", () => {
-    const r = scoreQuiz(
-      [
-        { id: "a", correct: true, at: 1 },
-        { id: "b", correct: true, at: 99999 },
-      ],
-      { ...quizSettings, speedBonus: false, basePoints: 250 },
-    );
-    expect(points(r)).toEqual({ a: 250, b: 250 });
+  it("with speed modifier: correct at 2 s → 140, at 20 s → 50, wrong → 0", () => {
+    expect(scoreAnswer(absolute(SPEED_ON), { correct: true }, at(2)).finalScore).toBe(140);
+    expect(scoreAnswer(absolute(SPEED_ON), { correct: true }, at(20)).finalScore).toBe(50);
+    expect(scoreAnswer(absolute(SPEED_ON), { correct: false }, at(2)).finalScore).toBe(0);
   });
 });
 
-describe("scoreEstimate", () => {
-  it("example: Eiffel Tower 330 m, answers 350, 300, 500 → 100, 94, 10", () => {
-    const r = scoreEstimate(
-      [
-        { id: "a", value: 350, at: 1 },
-        { id: "b", value: 300, at: 2 },
-        { id: "c", value: 500, at: 3 },
-      ],
-      330,
-      estimateSettings,
-    );
-    expect(points(r)).toEqual({ a: 100, b: 94, c: 10 });
-  });
-
-  it("gives everyone 100 % if all distances are equal (ties)", () => {
-    const r = scoreEstimate(
-      [
-        { id: "a", value: 320, at: 1 },
-        { id: "b", value: 340, at: 2 },
-      ],
-      330,
-      estimateSettings,
-    );
-    expect(points(r)).toEqual({ a: 100, b: 100 });
-  });
-
-  it("rank scale is robust against outliers", () => {
-    const answers = [
-      { id: "a", value: 330, at: 1 },
-      { id: "b", value: 400, at: 2 },
-      { id: "c", value: 1_000_000, at: 3 },
+describe("speed modifier (time-limit scale)", () => {
+  it("20 s limit: 0 → 1.50 · 2 → 1.40 · 5 → 1.25 · 10 → 1.00 · 15 → 0.75 · 20 → 0.50", () => {
+    const table: [number, number][] = [
+      [0, 1.5],
+      [2, 1.4],
+      [5, 1.25],
+      [10, 1.0],
+      [15, 0.75],
+      [20, 0.5],
     ];
-    const byDistance = points(scoreEstimate(answers, 330, estimateSettings));
-    const byRank = points(scoreEstimate(answers, 330, { ...estimateSettings, estimateScale: "rank" }));
-    expect(byDistance.b).toBe(100); // outlier squashes everyone else to ~100 %
-    expect(byRank).toEqual({ a: 100, b: 55, c: 10 });
+    for (const [s, expected] of table) expect(calculateSpeedModifier(s * 1000, LIMIT, SPEED_ON)).toBe(expected);
   });
 
-  it("rank scale: ties share a rank and factor", () => {
-    const r = scoreEstimate(
-      [
-        { id: "a", value: 10, at: 1 },
-        { id: "b", value: 10, at: 2 },
-        { id: "c", value: 50, at: 3 },
-      ],
-      10,
-      { ...estimateSettings, estimateScale: "rank" },
+  it("disabled → always 1.0", () => {
+    expect(calculateSpeedModifier(0, LIMIT, SPEED_OFF)).toBe(1);
+    expect(calculateSpeedModifier(20_000, LIMIT, SPEED_OFF)).toBe(1);
+  });
+
+  it("at or after the limit → slowestMultiplier; negative times clamp to fastest", () => {
+    expect(calculateSpeedModifier(20_000, LIMIT, SPEED_ON)).toBe(0.5);
+    expect(calculateSpeedModifier(25_000, LIMIT, SPEED_ON)).toBe(0.5);
+    expect(calculateSpeedModifier(-50, LIMIT, SPEED_ON)).toBe(1.5);
+    expect(calculateSpeedModifier(Number.NaN, LIMIT, SPEED_ON)).toBe(0.5);
+  });
+
+  it("custom multipliers", () => {
+    const s = { enabled: true, fastestMultiplier: 2, slowestMultiplier: 1 };
+    expect(calculateSpeedModifier(10_000, LIMIT, s)).toBe(1.5);
+  });
+
+  it("same response time → identical modifier, independent of other players", () => {
+    const a = calculateSpeedModifier(2000, LIMIT, SPEED_ON);
+    const b = calculateSpeedModifier(2300, LIMIT, SPEED_ON);
+    expect(calculateSpeedModifier(2000, LIMIT, SPEED_ON)).toBe(a);
+    // 2.0 s vs 2.3 s is nearly the same – not ×1.5 vs ×0.5 like a relative scale.
+    expect(a).toBe(1.4);
+    expect(b).toBe(1.39);
+  });
+});
+
+describe("base score: proximity", () => {
+  it("Eiffel Tower 330 m (zeroRange = 100 % of the answer)", () => {
+    const table: [number, number][] = [
+      [330, 100],
+      [320, 97],
+      [300, 91],
+      [250, 76],
+      [410, 76],
+      [660, 0],
+      [0, 0],
+      [5000, 0],
+    ];
+    for (const [answer, expected] of table) {
+      expect(calculateBaseScore("proximity", { answer, correctAnswer: 330 }, 100), `answer ${answer}`).toBe(expected);
+    }
+  });
+
+  it("zeroRange override: Apollo 11 (1969, 50 years) and 0 °C (20)", () => {
+    expect(calculateBaseScore("proximity", { answer: 1960, correctAnswer: 1969, zeroRange: 50 }, 100)).toBe(82);
+    expect(calculateBaseScore("proximity", { answer: 1900, correctAnswer: 1969, zeroRange: 50 }, 100)).toBe(0);
+    expect(calculateBaseScore("proximity", { answer: 5, correctAnswer: 0, zeroRange: 20 }, 100)).toBe(75);
+  });
+
+  it("exact hit → maxPoints; error ≥ zeroRange → 0, never negative", () => {
+    expect(calculateBaseScore("proximity", { answer: 42.195, correctAnswer: 42.195 }, 100)).toBe(100);
+    expect(calculateBaseScore("proximity", { answer: 1919, correctAnswer: 1969, zeroRange: 50 }, 100)).toBe(0);
+    expect(calculateBaseScore("proximity", { answer: 2019, correctAnswer: 1969, zeroRange: 50 }, 100)).toBe(0);
+    expect(calculateBaseScore("proximity", { answer: -1e9, correctAnswer: 330 }, 100)).toBe(0);
+  });
+
+  it("too high and too low are treated the same", () => {
+    expect(calculateBaseScore("proximity", { answer: 250, correctAnswer: 330 }, 100)).toBe(
+      calculateBaseScore("proximity", { answer: 410, correctAnswer: 330 }, 100),
     );
-    expect(points(r)).toEqual({ a: 100, b: 100, c: 10 });
   });
 
-  it("combines accuracy and time factor (among all who answered)", () => {
-    const r = scoreEstimate(
-      [
-        { id: "a", value: 330, at: 1000 },
-        { id: "b", value: 330, at: 3000 },
-      ],
-      330,
-      { ...estimateSettings, speedBonus: true },
+  it("invalid answers (NaN, Infinity) count as no answer", () => {
+    expect(calculateBaseScore("proximity", { answer: Number.NaN, correctAnswer: 330 }, 100)).toBe(0);
+    expect(calculateBaseScore("proximity", { answer: Infinity, correctAnswer: 330 }, 100)).toBe(0);
+  });
+
+  it("with speed modifier: base 80 × 1.25 = 100, base 40 × 1.5 = 60", () => {
+    // base 80: error 66 of 330; base 40: error 198 of 330
+    expect(scoreAnswer(proximity(SPEED_ON), { answer: 396, correctAnswer: 330 }, at(5))).toEqual({
+      baseScore: 80,
+      speedModifier: 1.25,
+      finalScore: 100,
+    });
+    expect(scoreAnswer(proximity(SPEED_ON), { answer: 528, correctAnswer: 330 }, at(0))).toEqual({
+      baseScore: 40,
+      speedModifier: 1.5,
+      finalScore: 60,
+    });
+  });
+});
+
+describe("final score", () => {
+  it("rounds base × modifier", () => {
+    expect(calculateFinalScore(97, 1.25)).toBe(121);
+    expect(calculateFinalScore(100, 1)).toBe(100);
+  });
+
+  it("base 0 stays 0 with any speed modifier (fast wrong answer = 0)", () => {
+    expect(calculateFinalScore(0, 1.5)).toBe(0);
+    expect(scoreAnswer(absolute(SPEED_ON), { correct: false }, at(0)).finalScore).toBe(0);
+    expect(scoreAnswer(proximity(SPEED_ON), { answer: 5000, correctAnswer: 330 }, at(0)).finalScore).toBe(0);
+  });
+
+  it("max per question is maxPoints × fastestMultiplier", () => {
+    expect(scoreAnswer(absolute(SPEED_ON), { correct: true }, at(0)).finalScore).toBe(150);
+  });
+
+  it("identical inputs always give identical results", () => {
+    const run = () => scoreAnswer(proximity(SPEED_ON), { answer: 300, correctAnswer: 330 }, at(7.3));
+    expect(run()).toEqual(run());
+  });
+});
+
+describe("normalizeScoring (old or invalid settings)", () => {
+  it("old shapes fall back to the category defaults", () => {
+    const old = { basePoints: 200, speedBonus: true, minPercent: 10, estimateScale: "rank" };
+    expect(normalizeScoring(estimateMeta, old)).toEqual(estimateMeta.scoring);
+    expect(normalizeScoring(quizMeta, undefined)).toEqual(quizMeta.scoring);
+    expect(normalizeScoring(quizMeta, { mode: "absolute", maxPoints: -5, speedModifier: SPEED_ON })).toEqual(
+      quizMeta.scoring,
     );
-    expect(points(r)).toEqual({ a: 100, b: 10 });
-    expect(r.b).toMatchObject({ accuracy: 1 });
   });
 
-  it("returns nothing without answers", () => {
-    expect(scoreEstimate([], 1, estimateSettings)).toEqual({});
+  it("keeps valid host edits but never changes the category's mode", () => {
+    const s = normalizeScoring(quizMeta, { mode: "proximity", maxPoints: 250, speedModifier: SPEED_OFF });
+    expect(s).toEqual({ mode: "absolute", maxPoints: 250, speedModifier: SPEED_OFF });
   });
 });

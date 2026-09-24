@@ -44,8 +44,6 @@ export function EstimateHostView({ state, room }: HostViewProps<EstimatePublicSt
           <RevealTable
             room={room}
             results={reveal.results}
-            accuracyLabel="Genauigkeit"
-            showAccuracy
             renderAnswer={(p) => {
               const a = reveal.answers[p.id];
               if (a === undefined) return "keine Antwort";

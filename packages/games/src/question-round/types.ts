@@ -1,7 +1,7 @@
 /** Client-safe types for question-based categories (no logic, no content). */
-import type { PointsBreakdown } from "../scoring";
+import type { ScoreResult } from "../scoring/final";
 
-export type { PointsBreakdown };
+export type { ScoreResult };
 
 /**
  * Steps per question: question → reveal (correct answer, ~3 s) →
@@ -27,7 +27,7 @@ export interface QuestionRoundPublicState<TQuestion, TAnswer, TSolution> {
   reveal: {
     solution: TSolution;
     answers: Record<string, TAnswer>;
-    results: Record<string, PointsBreakdown>;
+    results: Record<string, ScoreResult>;
   } | null;
 }
 

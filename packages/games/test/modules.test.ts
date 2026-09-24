@@ -14,7 +14,11 @@ import { createQuizModule, prepareQuizQuestion, type PreparedQuizQuestion } from
 import { pickFresh } from "../src/random";
 
 const T0 = 1_700_000_000_000;
-const scoring: ScoringSettings = { basePoints: 100, speedBonus: true, minPercent: 10, estimateScale: "distance" };
+const scoring: ScoringSettings = quizMetaScoring();
+
+function quizMetaScoring(): ScoringSettings {
+  return { mode: "absolute", maxPoints: 100, speedModifier: { enabled: true, fastestMultiplier: 1.5, slowestMultiplier: 0.5 } };
+}
 
 function seeded(seed = 42) {
   let s = seed;
@@ -110,7 +114,12 @@ describe("question round transitions", () => {
     const r2 = mod.handleAction(r1.state, { type: "answer", value: (correct + 1) % 4 }, "b", ctx(T0 + 3000, ALL_ON));
     if ("error" in r2) throw new Error(r2.error);
     expect(r2.state.step).toBe("reveal");
-    expect(r2.scoreDelta).toEqual({ a: 100 });
+    // correct after 2 s of 20 s → 100 × 1.4; wrong → 0 (not in the delta)
+    expect(r2.scoreDelta).toEqual({ a: 140 });
+    expect(r2.state.results).toEqual({
+      a: { baseScore: 100, speedModifier: 1.4, finalScore: 140 },
+      b: { baseScore: 0, speedModifier: 1.35, finalScore: 0 },
+    });
   });
 
   it("disconnected players don't block the early end", () => {
@@ -247,3 +256,81 @@ describe("content selection", () => {
     expect(seen.size).toBeGreaterThan(1);
   });
 });
+
+describe("per-player scoring in the engine", () => {
+  const ONE = [{ id: "a", connected: true }];
+
+  it("a single player gets the full time-limit modifier (not a relative 100 %)", () => {
+    const { mod, state } = setup(ONE);
+    const correct = state.questions[0]!.correctIndex;
+    const r = mod.handleAction(state, { type: "answer", value: correct }, "a", ctx(T0 + 10_000, ONE));
+    if ("error" in r) throw new Error(r.error);
+    expect(r.state.results!.a).toEqual({ baseScore: 100, speedModifier: 1, finalScore: 100 });
+  });
+
+  it("players answering at the same time get identical modifiers", () => {
+    const { mod, state } = setup();
+    const correct = state.questions[0]!.correctIndex;
+    let s = state;
+    for (const id of ["a", "b"]) {
+      const r = mod.handleAction(s, { type: "answer", value: correct }, id, ctx(T0 + 3000, ALL_ON));
+      if ("error" in r) throw new Error(r.error);
+      s = r.state;
+    }
+    expect(s.results!.a).toEqual(s.results!.b);
+    expect(s.results!.a).toEqual({ baseScore: 100, speedModifier: 1.35, finalScore: 135 }); // 3 s of 20 s
+  });
+
+  it("no answer / timeout → not scored, no points", () => {
+    const { mod, state } = setup();
+    const correct = state.questions[0]!.correctIndex;
+    const r = mod.handleAction(state, { type: "answer", value: correct }, "a", ctx(T0 + 1000, ALL_ON));
+    if ("error" in r) throw new Error(r.error);
+    const revealed = mod.onTimer(r.state, ctx(T0 + 20_000, ALL_ON));
+    expect(revealed.state.results!.b).toBeUndefined();
+    expect(revealed.scoreDelta).toEqual({ a: 145 });
+  });
+
+  it("an answer exactly at the time limit gets the slowest multiplier", () => {
+    const { mod, state } = setup(ONE);
+    const correct = state.questions[0]!.correctIndex;
+    const r = mod.handleAction(state, { type: "answer", value: correct }, "a", ctx(T0 + 20_000, ONE));
+    if ("error" in r) throw new Error(r.error);
+    expect(r.state.results!.a).toEqual({ baseScore: 100, speedModifier: 0.5, finalScore: 50 });
+    // after phaseEndsAt answers are still rejected
+    expect(mod.handleAction(state, { type: "answer", value: correct }, "a", ctx(T0 + 20_001, ONE))).toEqual({
+      error: "TOO_LATE",
+    });
+  });
+
+  it("a room with old scoring settings still scores with the category defaults", () => {
+    const { mod, state } = setup(ONE);
+    const old = { ...state, scoring: { basePoints: 999, speedBonus: false, minPercent: 0, estimateScale: "rank" } };
+    const correct = state.questions[0]!.correctIndex;
+    const r = mod.handleAction(old as unknown as typeof state, { type: "answer", value: correct }, "a", ctx(T0, ONE));
+    if ("error" in r) throw new Error(r.error);
+    expect(r.state.results!.a).toEqual({ baseScore: 100, speedModifier: 1.5, finalScore: 150 });
+  });
+
+  it("estimate: proximity per player, never compared to the others", () => {
+    const est = createEstimateModule([
+      { id: "e1", text: "Wie hoch ist der Eiffelturm?", ageRating: 6, tags: ["t"], difficulty: 1, answer: 330, unit: "m", format: "number" },
+    ]);
+    const opts = { questionCount: 1, scoring: estimateScoring(), excludeContentIds: [] };
+    const init = est.init(ctx(T0, ALL_ON), opts);
+    let s = init.state;
+    for (const [id, value] of [["a", 320], ["b", 5000]] as const) {
+      const r = est.handleAction(s, { type: "answer", value }, id, ctx(T0 + 4000, ALL_ON));
+      if ("error" in r) throw new Error(r.error);
+      s = r.state;
+    }
+    expect(s.results).toEqual({
+      a: { baseScore: 97, speedModifier: 1, finalScore: 97 },
+      b: { baseScore: 0, speedModifier: 1, finalScore: 0 },
+    });
+  });
+});
+
+function estimateScoring(): ScoringSettings {
+  return { mode: "proximity", maxPoints: 100, speedModifier: { enabled: false, fastestMultiplier: 1.5, slowestMultiplier: 0.5 } };
+}

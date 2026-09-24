@@ -17,16 +17,31 @@ export const QuizQuestionSchema = z
   })
   .refine((q) => new Set(q.options).size === 4, "Options must be distinct");
 
-export const EstimateQuestionSchema = z.object({
-  ...base,
-  answer: z.number().finite(),
-  /** Shown after the number, e.g. "m", "km". Empty for years. */
-  unit: z.string().max(20),
-  /** "year" is displayed without thousands separator. */
-  format: z.enum(["number", "year"]).default("number"),
-  /** Short fact shown at the reveal. */
-  fact: z.string().max(200).optional(),
-});
+export const EstimateQuestionSchema = z
+  .object({
+    ...base,
+    answer: z.number().finite(),
+    /** Shown after the number, e.g. "m", "km". Empty for years. */
+    unit: z.string().max(20),
+    /** "year" is displayed without thousands separator. */
+    format: z.enum(["number", "year"]).default("number"),
+    /**
+     * Proximity scoring: the error (same unit as the answer) at which the
+     * score reaches 0. Default: |answer| (100 % of the correct value).
+     */
+    zeroRange: z.number().finite().positive().optional(),
+    /** Short fact shown at the reveal. */
+    fact: z.string().max(200).optional(),
+  })
+  // A percentage of the answer makes no sense for years or for answers near 0.
+  .refine((q) => q.format !== "year" || q.zeroRange !== undefined, {
+    message: "Year questions need a zeroRange (e.g. 25–50 years)",
+    path: ["zeroRange"],
+  })
+  .refine((q) => q.answer !== 0 || q.zeroRange !== undefined, {
+    message: "Questions whose answer is 0 need a zeroRange",
+    path: ["zeroRange"],
+  });
 
 export type QuizQuestion = z.infer<typeof QuizQuestionSchema>;
 export type EstimateQuestion = z.infer<typeof EstimateQuestionSchema>;

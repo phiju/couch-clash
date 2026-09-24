@@ -16,6 +16,7 @@ export function getCategoryMeta(id: string): CategoryMeta | undefined {
 }
 
 export { estimateMeta, quizMeta };
+export { normalizeScoring } from "./scoring/normalize";
 export * from "./question-round/types";
 export type * from "./quiz/types";
 export type * from "./estimate/types";
