@@ -34,7 +34,7 @@ export class VoiceQueue {
     return null;
   }
 
-  /** The line finished (audio ended or subtitle time over). */
+  /** The line finished (audio ended or skipped). */
   finish(id: string) {
     if (this.playing?.id === id) this.playing = null;
   }

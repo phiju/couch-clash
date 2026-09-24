@@ -1,7 +1,7 @@
 /**
- * The host's voice: a text model writes the line, a speech model says it.
- * Both are interfaces so the voice can move to e.g. ElevenLabs without
- * touching game code – implement `SpeechProvider` and change `index.ts`.
+ * The host's voice: a text model writes the line, a speech provider says it.
+ * Both are interfaces – the text comes from OpenAI, the voice from
+ * ElevenLabs (or OpenAI, see VOICE_PROVIDER).
  */
 export interface LinePrompt {
   /** Rules and style (never contains player input). */
@@ -21,12 +21,27 @@ export interface SpeechClip {
   mimeType: string;
 }
 
+/** "expressive": welcome/start/finale (may use audio tags); "fast": time-critical comments. */
+export type SpeechStyle = "expressive" | "fast";
+
 export interface SpeechProvider {
-  speak(text: string, options?: { signal?: AbortSignal }): Promise<SpeechClip>;
+  readonly id: "elevenlabs" | "openai";
+  /** Whether the text model may add audio tags for this style. */
+  supportsTags(style: SpeechStyle): boolean;
+  /** The exact text that will be sent (unsupported tags removed) – used for the character budget. */
+  prepare(text: string, style: SpeechStyle): string;
+  /** Speaks an already prepared text. */
+  speak(text: string, options: { style: SpeechStyle; speed: number; signal?: AbortSignal }): Promise<SpeechClip>;
 }
 
 export class VoiceProviderError extends Error {
-  constructor(readonly reason: "error" | "refused", message: string) {
+  constructor(
+    /** "unavailable": quota, key, payment, rate limit or voice missing → stop the voice for this room. */
+    readonly reason: "error" | "refused" | "unavailable",
+    message: string,
+    /** Short error code for logs, e.g. "401 quota_exceeded". */
+    readonly code: string = "",
+  ) {
     super(message);
     this.name = "VoiceProviderError";
   }

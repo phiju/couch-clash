@@ -70,6 +70,8 @@ export const ClientMessageSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("update_voice_settings"), settings: VoiceSettingsSchema }),
   /** Host screen: a line started/ended playing. */
   VoiceEventSchema,
+  /** Host: "▶ Probe-Spruch" / "▶ Nochmal" in the moderator panel. */
+  z.object({ type: z.literal("voice_test") }),
   /** Player: a category-specific action. Validated by the module's own schema. */
   z.object({ type: z.literal("action"), action: z.unknown() }),
 ]);

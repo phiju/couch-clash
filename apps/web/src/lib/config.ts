@@ -38,3 +38,9 @@ export function joinUrl(code: string): string {
 export function displayJoinLink(): string {
   return `${siteUrl().replace(/^https?:\/\//, "")}/join`;
 }
+
+/**
+ * The host's voice comes from ElevenLabs; its free tier requires
+ * attribution. Shown small on the start page – turn off with a paid plan.
+ */
+export const SHOW_VOICE_ATTRIBUTION = true;

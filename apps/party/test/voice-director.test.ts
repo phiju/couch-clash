@@ -5,9 +5,10 @@ import type { Result } from "../src/result";
 import { createRoomRecord, joinPlayer, type RoomRecord } from "../src/room-logic";
 import { VOICE_CONFIG } from "../src/voice/config";
 import { VoiceDirector, detectVoiceEvents } from "../src/voice/director";
-import type { LinePrompt, TextProvider } from "../src/voice/provider";
+import { VoiceProviderError, type LinePrompt, type TextProvider } from "../src/voice/provider";
 import type { VoiceServices } from "../src/voice/service";
 import { memoryStore } from "./avatar-helpers";
+import { mockSpeech } from "./voice-helpers";
 
 const T0 = 1_700_000_000_000;
 const avatar = { character: "fox", color: "red" } as const;
@@ -44,13 +45,13 @@ function echoText(): TextProvider & { prompts: LinePrompt[] } {
   };
 }
 
-function setup(names: string[], opts: { text?: TextProvider; host?: boolean } = {}) {
+function setup(names: string[], opts: { text?: TextProvider; host?: boolean; speech?: VoiceServices["speech"] } = {}) {
   let room = createRoomRecord("ABCD", "host-token-0123456789abcdef", T0);
   let n = 0;
   const text = opts.text ?? echoText();
   const services: VoiceServices = {
     text,
-    speech: { speak: async () => ({ bytes: new Uint8Array([1]), mimeType: "audio/mpeg" }) },
+    speech: opts.speech === undefined ? mockSpeech() : opts.speech,
     store: memoryStore(),
   };
   const rt = {
@@ -160,15 +161,74 @@ describe("welcome lines", () => {
     expect((noHost.text as ReturnType<typeof echoText>).prompts).toHaveLength(0);
   });
 
-  it("uses template lines once the room budget of 60 lines is used up", async () => {
+  it("speaks template lines once the room budget of 60 texts is used up", async () => {
     vi.spyOn(console, "log").mockImplementation(() => {});
     const { rt, director, ids, text, settle } = setup(["Clara"]);
     rt.room = { ...rt.room!, voice: { ...rt.room!.voice, linesUsed: VOICE_CONFIG.maxLinesPerRoom } };
     director.playerJoined(ids[0]!);
     await settle();
     expect((text as ReturnType<typeof echoText>).prompts).toHaveLength(0);
-    expect(rt.sent[0]).toMatchObject({ audioPath: null });
     expect(rt.sent[0]!.text).toMatch(/Clara/);
+    expect(rt.sent[0]!.audioPath).toBeTruthy();
+  });
+
+  it("stops the voice for the room on a quota error – the game continues silently", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    const speech = mockSpeech(async () => {
+      throw new VoiceProviderError("unavailable", "ElevenLabs 401 quota_exceeded", "401 quota_exceeded");
+    });
+    const ctx = setup(["Anna", "Ben"], { speech });
+    ctx.director.playerJoined(ctx.ids[0]!);
+    await ctx.settle();
+    expect(ctx.rt.room!.voice.status).toBe("unavailable");
+    expect(ctx.rt.sent).toHaveLength(0);
+    // Nothing is generated any more (no text, no voice) – but the game runs.
+    const promptsBefore = (ctx.text as ReturnType<typeof echoText>).prompts.length;
+    const { answerAll, next } = await startGame(ctx, "oft", 3);
+    await answerAll();
+    await ctx.settle();
+    await next();
+    expect(ctx.rt.room!.phase).toBe("play");
+    expect((ctx.text as ReturnType<typeof echoText>).prompts.length).toBe(promptsBefore);
+    expect(speech.speak).toHaveBeenCalledTimes(1);
+  });
+
+  it("stops at the room's character budget", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    const ctx = setup(["Anna", "Ben"]);
+    ctx.rt.room = { ...ctx.rt.room!, voice: { ...ctx.rt.room!.voice, charsUsed: VOICE_CONFIG.charBudgetPerRoom - 5 } };
+    ctx.director.playerJoined(ctx.ids[0]!);
+    await ctx.settle();
+    expect(ctx.rt.sent).toHaveLength(0);
+    expect(ctx.rt.room!.voice.status).toBe("budget");
+  });
+
+  it("says nothing without a voice provider (no text is generated either)", async () => {
+    const ctx = setup(["Clara"], { speech: null });
+    ctx.director.playerJoined(ctx.ids[0]!);
+    await ctx.settle();
+    expect(ctx.rt.sent).toHaveLength(0);
+    expect((ctx.text as ReturnType<typeof echoText>).prompts).toHaveLength(0);
+  });
+
+  it("counts the characters sent and applies the tempo", async () => {
+    const speech = mockSpeech();
+    const ctx = setup(["Clara"], { speech });
+    ctx.rt.room = { ...ctx.rt.room!, voice: { ...ctx.rt.room!.voice, settings: { ...ctx.rt.room!.voice.settings, tempo: "turbo" } } };
+    ctx.director.playerJoined(ctx.ids[0]!);
+    await ctx.settle();
+    expect(ctx.rt.room!.voice.charsUsed).toBe("Willkommen Clara!".length);
+    expect(speech.speak).toHaveBeenCalledWith("Willkommen Clara!", expect.objectContaining({ style: "expressive", speed: 1.2 }));
+    expect(ctx.rt.sent[0]!.playbackRate).toBe(1.1);
+  });
+
+  it("test line (Probe-Spruch) is spoken and counts towards the budget", async () => {
+    const ctx = setup([]);
+    ctx.director.testLine();
+    await ctx.settle();
+    expect(ctx.rt.sent[0]).toMatchObject({ kind: "test" });
+    expect(ctx.rt.room!.voice.charsUsed).toBeGreaterThan(0);
+    expect(ctx.rt.room!.voice.linesUsed).toBe(1);
   });
 
   it("counts generated lines", async () => {

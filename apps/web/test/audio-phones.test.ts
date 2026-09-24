@@ -19,6 +19,18 @@ const PLAYER_CODE = [
   ...files(join(SRC, "games")).filter((f) => f.endsWith("player-view.tsx")),
 ];
 
+describe("no speech bubbles anywhere", () => {
+  it("the mascot has no bubble/subtitle and no screen renders one", () => {
+    const all = files(SRC);
+    for (const file of all) {
+      const code = readFileSync(file, "utf8");
+      expect(code, file).not.toMatch(/mascot-bubble|bubbleClassName|className="[^"]*\bbubble\b/);
+    }
+    expect(readFileSync(join(SRC, "components/mascot.tsx"), "utf8")).not.toMatch(/message/);
+    expect(readFileSync(join(SRC, "app/globals.css"), "utf8")).not.toMatch(/\.bubble|mascot-bubble|bubble-in/);
+  });
+});
+
 describe("no audio on player phones", () => {
   afterEach(() => vi.unstubAllGlobals());
 

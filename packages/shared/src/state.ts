@@ -2,7 +2,7 @@ import type { Avatar } from "./avatar";
 import type { ScoringSettings } from "./game-module";
 import type { LeaderboardEntry } from "./leaderboard";
 import type { PublicPhotoAvatar } from "./photo";
-import type { Cheekiness, VoiceSettings } from "./voice";
+import type { Cheekiness, VoiceSettings, VoiceStatus } from "./voice";
 
 /**
  * Room state machine. Transitions are driven by client intents and by
@@ -101,5 +101,14 @@ export interface PublicRoomState {
   /** Host setting "Foto-Avatare erlauben". */
   photoAvatars: boolean;
   /** Moderator voice settings – host only (null for everyone else). */
-  voice: (VoiceSettings & { effectiveCheekiness: Cheekiness; kidsCategories: boolean }) | null;
+  voice:
+    | (VoiceSettings & {
+        effectiveCheekiness: Cheekiness;
+        kidsCategories: boolean;
+        /** Silent because the voice service refused (quota, key) or the room's character budget is used up. */
+        status: VoiceStatus;
+        charsUsed: number;
+        charBudget: number;
+      })
+    | null;
 }

@@ -6,6 +6,8 @@ interface Env {
   IMAGES?: ImagesBinding;
   /** Worker secret (dashboard / `wrangler secret put`). Never sent to clients. */
   OPENAI_API_KEY?: string;
+  /** Worker secret for the host's voice (ElevenLabs). Never sent to clients. */
+  ELEVENLABS_API_KEY?: string;
 }
 
 declare namespace Cloudflare {
@@ -15,6 +17,7 @@ declare namespace Cloudflare {
     AVATARS?: R2Bucket;
     IMAGES?: ImagesBinding;
     OPENAI_API_KEY?: string;
+    ELEVENLABS_API_KEY?: string;
   }
 }
 

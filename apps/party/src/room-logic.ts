@@ -20,6 +20,7 @@ import { GAME_MODULES, getModule, normalizeScoring, type ModuleRegistry } from "
 import { publicGame, settingsSummary } from "./game-flow";
 import { fail, ok, type Result } from "./result";
 import { publicPhoto, type PhotoRecord, type PhotoUsage } from "./avatar/photo-logic";
+import { VOICE_CONFIG } from "./voice/config";
 import { defaultRoomVoice, effectiveCheekiness, hasKidsCategory, normalizeRoomVoice, type RoomVoice } from "./voice/rules";
 
 export interface PlayerRecord {
@@ -224,6 +225,9 @@ function publicVoice(room: RoomRecord, registry: ModuleRegistry): PublicRoomStat
     ...room.voice.settings,
     effectiveCheekiness: effectiveCheekiness(room.voice.settings, metas),
     kidsCategories: hasKidsCategory(metas),
+    status: room.voice.status,
+    charsUsed: room.voice.charsUsed,
+    charBudget: VOICE_CONFIG.charBudgetPerRoom,
   };
 }
 

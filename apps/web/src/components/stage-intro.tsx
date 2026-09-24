@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { SHOW_VOICE_ATTRIBUTION } from "@/lib/config";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { getAudioEngine } from "@/lib/audio/engine";
 import { SoundControls } from "@/lib/audio/react";
@@ -116,6 +117,9 @@ export function StageIntro({ children }: { children: React.ReactNode }) {
         <p className="absolute top-3 right-4 z-10 text-sm text-cream/60" aria-hidden>
           Tippen zum Überspringen
         </p>
+      )}
+      {SHOW_VOICE_ATTRIBUTION && (
+        <p className="absolute right-3 bottom-2 z-10 text-xs text-cream/50">Stimme: ElevenLabs</p>
       )}
     </div>
   );

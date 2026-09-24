@@ -69,10 +69,8 @@ export function HostIntro({ room, send }: { room: PublicRoomState; send: Send })
         <Mascot
           pose="announce"
           talking={!!speech}
-          message={speech?.text ?? <>Jetzt kommt: {meta?.name}!</>}
           className="z-10 hidden shrink-0 md:flex"
           imageClassName="h-[min(62vh,720px)]"
-          bubbleClassName="fs-lg !bottom-[97%] !left-[25%]"
         />
         <div className="panel flex max-w-[min(56rem,70vw)] flex-1 animate-pop flex-col items-center gap-[2vh] self-center p-[4vh] text-center">
           <div className="animate-float text-[min(9rem,15vh)] leading-none">{meta?.emoji}</div>
@@ -159,7 +157,6 @@ export function HostFinale({ room, send }: { room: PublicRoomState; send: Send }
         <Mascot
           pose="cheer"
           talking={!!speech}
-          message={speech?.text ?? <>Applaus für {winners.map((w) => w.name).join(" & ")}!</>}
           className="z-10 hidden md:flex"
           imageClassName="h-[min(34vh,460px)]"
         />

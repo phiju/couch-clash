@@ -53,6 +53,7 @@ export class AudioEngine {
   private effectsBus!: GainNode;
   private voiceBus!: GainNode;
   private voiceSource: AudioBufferSourceNode | null = null;
+  private voiceElement: HTMLAudioElement | null = null;
 
   private manifest: Record<AudioId, AudioEntry> | null = null;
   private buffers = new Map<AudioId, AudioBuffer>();
@@ -271,11 +272,19 @@ export class AudioEngine {
    * A spoken line of the host mascot (generated mp3). The music is ducked
    * while he speaks. Resolves once playback started (with its duration);
    * `ended` resolves when he is done. Null if audio is locked or the file
-   * can't be loaded – the caller then shows the subtitle only.
+   * can't be played – the line is then skipped.
+   *
+   * `playbackRate` > 1 ("turbo") plays through an <audio> element with
+   * preservesPitch, routed into the voice bus; 1 uses a decoded buffer.
    */
-  async playVoice(url: string): Promise<{ durationMs: number; ended: Promise<void> } | null> {
+  async playVoice(url: string, playbackRate = 1): Promise<{ durationMs: number; ended: Promise<void> } | null> {
     const ctx = this.ctx;
     if (!ctx) return null;
+    if (playbackRate !== 1) {
+      const fast = await this.playVoiceElement(ctx, url, playbackRate);
+      if (fast) return fast;
+      // <audio> refused (autoplay policy, CORS) → normal speed below.
+    }
     let buffer: AudioBuffer;
     try {
       const res = await fetch(url);
@@ -290,18 +299,64 @@ export class AudioEngine {
     source.buffer = buffer;
     source.connect(this.voiceBus);
     this.voiceSource = source;
+    const ended = this.voiceStarted(() => {
+      if (this.voiceSource === source) this.voiceSource = null;
+    });
+    source.onended = ended.done;
+    source.start();
+    return { durationMs: Math.round(buffer.duration * 1000), ended: ended.promise };
+  }
+
+  private async playVoiceElement(
+    ctx: AudioContext,
+    url: string,
+    rate: number,
+  ): Promise<{ durationMs: number; ended: Promise<void> } | null> {
+    const el = new Audio();
+    el.crossOrigin = "anonymous";
+    el.preload = "auto";
+    el.preservesPitch = true;
+    el.src = url;
+    try {
+      await new Promise<void>((resolve, reject) => {
+        el.addEventListener("loadedmetadata", () => resolve(), { once: true });
+        el.addEventListener("error", () => reject(new Error("load")), { once: true });
+      });
+      const node = ctx.createMediaElementSource(el);
+      node.connect(this.voiceBus);
+      el.playbackRate = rate;
+      this.stopVoice();
+      this.voiceElement = el;
+      const ended = this.voiceStarted(() => {
+        node.disconnect();
+        if (this.voiceElement === el) this.voiceElement = null;
+      });
+      el.addEventListener("ended", ended.done, { once: true });
+      el.addEventListener("error", ended.done, { once: true });
+      await el.play();
+      return { durationMs: Math.round((el.duration / rate) * 1000), ended: ended.promise };
+    } catch {
+      el.removeAttribute("src");
+      return null;
+    }
+  }
+
+  /** Ducks the music until `done` is called. */
+  private voiceStarted(cleanup: () => void): { promise: Promise<void>; done: () => void } {
     this.setDuck(true);
     this.oneShots++;
-    const ended = new Promise<void>((resolve) => {
-      source.onended = () => {
-        if (this.voiceSource === source) this.voiceSource = null;
-        this.oneShots = Math.max(0, this.oneShots - 1);
-        if (this.oneShots === 0) this.setDuck(false);
-        resolve();
-      };
-    });
-    source.start();
-    return { durationMs: Math.round(buffer.duration * 1000), ended };
+    let finished = false;
+    let resolve!: () => void;
+    const promise = new Promise<void>((r) => (resolve = r));
+    const done = () => {
+      if (finished) return;
+      finished = true;
+      cleanup();
+      this.oneShots = Math.max(0, this.oneShots - 1);
+      if (this.oneShots === 0) this.setDuck(false);
+      resolve();
+    };
+    return { promise, done };
   }
 
   /** Cuts the host off (e.g. when leaving the host screen). */
@@ -312,6 +367,11 @@ export class AudioEngine {
       // already stopped
     }
     this.voiceSource = null;
+    if (this.voiceElement) {
+      this.voiceElement.pause();
+      this.voiceElement.dispatchEvent(new Event("ended"));
+      this.voiceElement = null;
+    }
   }
 
   private setDuck(on: boolean) {

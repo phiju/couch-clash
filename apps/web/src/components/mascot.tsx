@@ -2,6 +2,8 @@ import Image from "next/image";
 
 /**
  * The game show host. All mascot usage goes through this component.
+ * He never shows speech bubbles – he speaks (host device only, see
+ * components/host/voice.tsx) and bounces slightly while talking.
  * To add a pose with its own artwork: add an image to POSE_IMAGES and a
  * keyframe rule for `.mascot[data-pose="…"]` in globals.css.
  */
@@ -22,23 +24,18 @@ const POSE_IMAGES: Record<MascotPose, keyof typeof IMAGES | undefined> = {
 
 export function Mascot({
   pose = "idle",
-  message,
   size = "tv",
   className = "",
   imageClassName = "h-[60vh]",
-  bubbleClassName = "",
   talking = false,
 }: {
   pose?: MascotPose;
-  /** Speech bubble text. */
-  message?: React.ReactNode;
   /** "phone" uses the smaller image. */
   size?: "tv" | "phone";
   className?: string;
   /** Size of the figure, e.g. "h-[60vh]". */
   imageClassName?: string;
-  bubbleClassName?: string;
-  /** Speaking right now: small bounce. */
+  /** Speaking right now (the voice plays): small bounce. */
   talking?: boolean;
 }) {
   const image = IMAGES[POSE_IMAGES[pose] ?? size];
@@ -53,14 +50,6 @@ export function Mascot({
         data-pose={pose}
         className={`mascot w-auto ${imageClassName}`}
       />
-      {message && (
-        <div
-          className={`mascot-bubble bubble absolute bottom-[62%] left-[55%] w-max max-w-[min(26rem,60vw)] px-5 py-3 text-2xl ${bubbleClassName}`}
-          role="status"
-        >
-          {message}
-        </div>
-      )}
     </div>
   );
 }

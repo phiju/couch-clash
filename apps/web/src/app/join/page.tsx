@@ -43,10 +43,8 @@ export default function JoinPage() {
       <Mascot
         pose="walk-in"
         size="phone"
-        message="Wie lautet der Code?"
         className="-mb-10 self-start pl-2"
         imageClassName="h-48"
-        bubbleClassName="!text-lg left-[70%] bottom-[55%]"
       />
       <form onSubmit={submit} className="panel relative flex w-full max-w-sm flex-col items-center gap-5 p-6">
         <label htmlFor="code" className="text-2xl font-bold">

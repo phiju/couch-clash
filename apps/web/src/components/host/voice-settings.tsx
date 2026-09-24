@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import {
   CHEEKINESS_LEVELS,
   COMMENT_FREQUENCIES,
+  SPEECH_TEMPOS,
   type ClientMessage,
   type PublicRoomState,
   type VoiceSettings,
@@ -10,8 +12,12 @@ import {
 
 const FREQUENCY_LABEL = { selten: "selten", normal: "normal", oft: "oft" } as const;
 const CHEEKINESS_LABEL = { nett: "😇 nett", frech: "😏 frech", gnadenlos: "😈 gnadenlos" } as const;
+const TEMPO_LABEL = { normal: "normal", schnell: "schnell", turbo: "turbo" } as const;
 
-/** "🎙️ Moderator spricht", comment frequency and "Frechheit" (lobby / setup). */
+export const VOICE_UNAVAILABLE_NOTE = "Moderator-Stimme gerade nicht verfügbar (ElevenLabs-Kontingent?)";
+export const VOICE_BUDGET_NOTE = "Zeichen-Budget für diesen Raum aufgebraucht – der Moderator schweigt.";
+
+/** "🎙️ Moderator spricht", Kommentare, Frechheit, Sprechtempo and "Moderator testen" (lobby / setup). */
 export function VoiceSettingsPanel({
   voice,
   send,
@@ -23,13 +29,16 @@ export function VoiceSettingsPanel({
   canSend: boolean;
   compact?: boolean;
 }) {
+  const [tested, setTested] = useState(false);
   if (!voice) return null;
   const settings: VoiceSettings = {
     enabled: voice.enabled,
     frequency: voice.frequency,
     cheekiness: voice.cheekiness,
     cheekinessOverride: voice.cheekinessOverride,
+    tempo: voice.tempo,
   };
+  const silent = voice.status !== "ok";
   const update = (patch: Partial<VoiceSettings>) =>
     send({ type: "update_voice_settings", settings: { ...settings, ...patch } });
   const autoNett = voice.kidsCategories && !voice.cheekinessOverride;
@@ -67,6 +76,14 @@ export function VoiceSettingsPanel({
             dimmed={autoNett}
             className={text}
           />
+          <Segmented
+            label="Sprechtempo"
+            options={SPEECH_TEMPOS.map((t) => ({ value: t, label: TEMPO_LABEL[t] }))}
+            value={voice.tempo}
+            onChange={(tempo) => update({ tempo })}
+            disabled={!canSend}
+            className={text}
+          />
           {voice.kidsCategories && voice.cheekiness !== "nett" && (
             <label className={`flex cursor-pointer items-start gap-2 text-cream/80 ${compact ? "fs-sm" : "text-base"}`}>
               <input
@@ -83,6 +100,28 @@ export function VoiceSettingsPanel({
                 <b>{CHEEKINESS_LABEL[voice.cheekiness]}</b>
               </span>
             </label>
+          )}
+          <div className={`flex flex-wrap items-center gap-2 ${text}`}>
+            <span className="font-bold text-cream/80">Moderator testen</span>
+            <button
+              type="button"
+              disabled={!canSend || silent}
+              onClick={() => {
+                send({ type: "voice_test" });
+                setTested(true);
+              }}
+              className="rounded-full bg-petrol px-3 py-1 font-bold transition hover:bg-orange disabled:opacity-40"
+            >
+              {tested ? "▶ Nochmal" : "▶ Probe-Spruch"}
+            </button>
+            <span className={`ml-auto text-cream/55 ${compact ? "fs-sm" : "text-sm"}`} title="Zeichen für die Stimme in diesem Raum">
+              {voice.charsUsed.toLocaleString("de-DE")} / {voice.charBudget.toLocaleString("de-DE")} Zeichen
+            </span>
+          </div>
+          {silent && (
+            <p role="status" className={`rounded-2xl bg-rust/80 px-3 py-1.5 font-bold ${compact ? "fs-sm" : "text-base"}`}>
+              {voice.status === "unavailable" ? VOICE_UNAVAILABLE_NOTE : VOICE_BUDGET_NOTE}
+            </p>
           )}
         </>
       )}

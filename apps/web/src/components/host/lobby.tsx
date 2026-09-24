@@ -50,10 +50,8 @@ export function HostLobby({
         <Mascot
           pose="idle"
           talking={!!speech}
-          message={speech?.text ?? "Scannt den Code!"}
           className="z-10 hidden min-h-0 self-end justify-center roomy:flex"
           imageClassName="h-[min(58vh,640px)] max-w-none"
-          bubbleClassName="fs-md !bottom-[96%] !left-[10%] max-w-[16rem]"
         />
 
         <section className="panel @container flex min-h-0 flex-col items-center justify-center gap-[1.8vh] p-[2vh]">
