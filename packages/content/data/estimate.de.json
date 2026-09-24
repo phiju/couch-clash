@@ -25,6 +25,7 @@
     "answer": 1969,
     "unit": "",
     "format": "year",
+    "zeroRange": 50,
     "fact": "Am 20. Juli 1969 landete Apollo 11 auf dem Mond."
   },
   {
@@ -108,6 +109,7 @@
     "answer": 1949,
     "unit": "",
     "format": "year",
+    "zeroRange": 40,
     "fact": "Das Grundgesetz trat am 23. Mai 1949 in Kraft."
   },
   {
@@ -134,7 +136,8 @@
     "difficulty": 1,
     "answer": 100,
     "unit": "°C",
-    "format": "number"
+    "format": "number",
+    "zeroRange": 50
   },
   {
     "id": "estimate-011",
@@ -187,7 +190,8 @@
     "difficulty": 1,
     "answer": 1914,
     "unit": "",
-    "format": "year"
+    "format": "year",
+    "zeroRange": 50
   },
   {
     "id": "estimate-015",
@@ -269,7 +273,8 @@
     "difficulty": 1,
     "answer": 90,
     "unit": "Minuten",
-    "format": "number"
+    "format": "number",
+    "zeroRange": 45
   },
   {
     "id": "estimate-021",
@@ -283,6 +288,7 @@
     "answer": 2002,
     "unit": "",
     "format": "year",
+    "zeroRange": 25,
     "fact": "Am 1. Januar 2002 gab es die ersten Euro-Scheine und -Münzen."
   },
   {
@@ -350,6 +356,7 @@
     "answer": 1912,
     "unit": "",
     "format": "year",
+    "zeroRange": 50,
     "fact": "Die Titanic sank im April 1912 auf ihrer ersten Fahrt."
   },
   {
@@ -404,6 +411,7 @@
     "answer": 1961,
     "unit": "",
     "format": "year",
+    "zeroRange": 40,
     "fact": "Der Bau begann am 13. August 1961."
   },
   {

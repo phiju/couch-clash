@@ -1,11 +1,10 @@
 "use client";
 
-import type { PointsBreakdown, QuestionRoundPublicState } from "@couch-clash/games/meta";
+import type { QuestionRoundPublicState, ScoreResult } from "@couch-clash/games/meta";
 import type { PublicPlayer, PublicRoomState } from "@couch-clash/shared";
 import { AvatarBadge } from "@/components/avatar";
 import { Leaderboard } from "@/components/leaderboard";
 import { useServerNow } from "@/lib/clock";
-import { formatPercent } from "@/lib/numbers";
 
 type AnyRoundState = QuestionRoundPublicState<unknown, unknown, unknown>;
 
@@ -74,11 +73,14 @@ export function AnsweredStrip({ state, room }: { state: AnyRoundState; room: Pub
   );
 }
 
-export function breakdownText(r: PointsBreakdown, showSpeed: boolean, accuracyLabel: string): string {
-  if (r.points === 0) return "";
-  const parts = [`${formatPercent(r.accuracy)} ${accuracyLabel}`];
-  if (showSpeed) parts.push(`${formatPercent(r.speed)} Tempo`);
-  return parts.join(" × ");
+function formatModifier(m: number): string {
+  return m.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+/** "80 Punkte × 1,25 Tempo = 100" – only when a speed modifier applied. */
+export function breakdownText(r: ScoreResult): string {
+  if (r.finalScore === 0 || r.speedModifier === 1) return "";
+  return `${r.baseScore} Punkte × ${formatModifier(r.speedModifier)} Tempo = ${r.finalScore}`;
 }
 
 /** Reveal list: every player, their answer, points and breakdown – best first. */
@@ -86,24 +88,19 @@ export function RevealTable({
   room,
   results,
   renderAnswer,
-  accuracyLabel,
-  showAccuracy,
 }: {
   room: PublicRoomState;
-  results: Record<string, PointsBreakdown>;
+  results: Record<string, ScoreResult>;
   renderAnswer: (player: PublicPlayer) => React.ReactNode;
-  accuracyLabel: string;
-  showAccuracy: boolean;
 }) {
   const sorted = [...room.players].sort(
-    (a, b) => (results[b.id]?.points ?? -1) - (results[a.id]?.points ?? -1),
+    (a, b) => (results[b.id]?.finalScore ?? -1) - (results[a.id]?.finalScore ?? -1),
   );
-  const showSpeed = Object.values(results).some((r) => r.points > 0 && r.speed < 1);
   return (
     <ul className="grid min-h-0 w-full content-start gap-[1vh] overflow-y-auto">
       {sorted.map((p, i) => {
         const r = results[p.id];
-        const text = r && (showAccuracy || showSpeed) ? breakdownText(r, showSpeed, accuracyLabel) : "";
+        const text = r ? breakdownText(r) : "";
         return (
           <li
             key={p.id}
@@ -116,8 +113,8 @@ export function RevealTable({
               <span className="fs-md truncate text-cream/70">{renderAnswer(p)}</span>
             </div>
             <div className="flex flex-col items-end">
-              <span className={`fs-xl font-bold ${r && r.points > 0 ? "text-bulb" : "text-cream/40"}`}>
-                +{r?.points ?? 0}
+              <span className={`fs-xl font-bold ${r && r.finalScore > 0 ? "text-bulb" : "text-cream/40"}`}>
+                +{r?.finalScore ?? 0}
               </span>
               {text && <span className="fs-sm text-cream/60">{text}</span>}
             </div>
@@ -145,14 +142,16 @@ export function PlayerRevealResult({
   result,
   children,
 }: {
-  result: PointsBreakdown | undefined;
+  result: ScoreResult | undefined;
   children?: React.ReactNode;
 }) {
-  const points = result?.points ?? 0;
+  const points = result?.finalScore ?? 0;
+  const breakdown = result ? breakdownText(result) : "";
   return (
     <div className="panel flex w-full flex-col items-center gap-4 p-6 text-center">
       <div className="animate-pop text-8xl">{points > 0 ? "🎉" : result ? "😬" : "⏰"}</div>
       <p className={`text-6xl font-bold ${points > 0 ? "text-bulb" : "text-cream/60"}`}>+{points}</p>
+      {breakdown && <p className="text-lg text-cream/80">{breakdown}</p>}
       {!result && <p className="text-xl text-cream/70">Keine Antwort abgegeben</p>}
       {children}
       <p className="text-lg text-cream/60">Schau auf den Fernseher!</p>

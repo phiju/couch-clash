@@ -27,7 +27,7 @@ couch-clash/
     │   └── src/
     │       ├── meta.ts               Client-safe: category metadata + public state types
     │       ├── index.ts              Server-only: module registry (logic + content)
-    │       ├── scoring.ts            Pure scoring functions (time factor, quiz, estimate)
+    │       ├── scoring/              Base score strategies, speed modifier, final score (pure, tested)
     │       ├── question-round/       Generic engine for question → reveal categories
     │       ├── quiz/                 "Wissensfragen"
     │       └── estimate/             "Schätzfragen"
@@ -129,6 +129,17 @@ Retro 1970s TV game show. Design tokens (petrol, petrol-dark, orange, rust, bulb
 - Intro reference prototype (not shipped): `docs/brand/intro-reference.html`
 - Start page intro: `components/stage-intro.tsx`. Logo/host positions on the stage are computed in `lib/stage-layout.ts` (tested), so the sofa always stands on the stage floor.
 - Mascot: `components/mascot.tsx`, one component with `pose` / `message`. To add a pose, add artwork and a keyframe rule.
+
+## Scoring
+
+**Final Score = Base Score × Speed Modifier** (rounded). Every player's points depend only on their own answer and their own response time; players are never compared with each other.
+
+- **Base score (answer quality)**, one strategy per mode in `packages/games/src/scoring/base.ts`:
+  - `absolute`: correct → `maxPoints`, wrong → 0 (Wissensfragen)
+  - `proximity`: `maxPoints × max(0, 1 − |answer − correct| / zeroRange)` (Schätzfragen). `zeroRange` defaults to `|correct answer|`; a question can set its own `zeroRange` in the content, which is required for years and for answers that are 0.
+- **Speed modifier (optional)** in `scoring/speed.ts`: measured against the question's time limit, from `fastestMultiplier` (answer at 0 s, default 1.5) down to `slowestMultiplier` (answer at the limit, default 0.5). When disabled it is 1.0.
+- A base score of 0 stays 0, so a fast wrong answer never earns points.
+- Settings per category (`scoring: { mode, maxPoints, speedModifier }`): the mode is fixed by the category; the host can change max points and the speed modifier. Old or invalid settings fall back to the category defaults (`normalizeScoring`).
 
 ## Sound (host only)
 

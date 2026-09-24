@@ -7,6 +7,7 @@ import {
   isExpired,
   joinPlayer,
   kickPlayer,
+  normalizeRoomRecord,
   toPublicState,
   type RoomRecord,
 } from "../src/room-logic";
@@ -176,7 +177,11 @@ describe("settings visibility", () => {
         {
           categoryId: "quiz",
           questionCount: 5,
-          scoring: { basePoints: 100, speedBonus: true, minPercent: 10, estimateScale: "distance" as const },
+          scoring: {
+            mode: "absolute" as const,
+            maxPoints: 100,
+            speedModifier: { enabled: true, fastestMultiplier: 1.5, slowestMultiplier: 0.5 },
+          },
         },
       ],
     };
@@ -189,5 +194,24 @@ describe("settings visibility", () => {
     expect(guest.settings).toBeNull();
     expect(player.settingsSummary).toMatchObject({ categoryIds: ["quiz"], questionCount: 5 });
     expect(player.settingsSummary!.estimatedSeconds).toBeGreaterThan(60);
+  });
+});
+
+describe("normalizeRoomRecord (rooms saved by an older version)", () => {
+  it("replaces old scoring shapes with the category defaults and drops unknown categories", () => {
+    const old = {
+      ...newRoom(),
+      settings: [
+        { categoryId: "estimate", questionCount: 6, scoring: { basePoints: 100, speedBonus: false, minPercent: 10, estimateScale: "rank" } },
+        { categoryId: "gone", questionCount: 3, scoring: {} },
+      ],
+    } as unknown as Parameters<typeof normalizeRoomRecord>[0];
+    const room = normalizeRoomRecord(old);
+    expect(room.settings).toHaveLength(1);
+    expect(room.settings[0]!.scoring).toEqual({
+      mode: "proximity",
+      maxPoints: 100,
+      speedModifier: { enabled: false, fastestMultiplier: 1.5, slowestMultiplier: 0.5 },
+    });
   });
 });

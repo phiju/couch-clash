@@ -16,7 +16,7 @@ import {
   type Viewer,
 } from "@couch-clash/shared";
 import { z } from "zod";
-import type { PointsBreakdown } from "../scoring";
+import { normalizeScoring, scoreAnswer, type BaseScoreInputs, type ScoreResult } from "../scoring";
 import type { AnswerAction, QuestionRoundPublicState, QuestionRoundStep } from "./types";
 
 export interface RecordedAnswer<TAnswer> {
@@ -32,7 +32,7 @@ export interface QuestionRoundState<TQuestion, TAnswer> {
   questionStartedAt: number;
   stepEndsAt: number;
   answers: Record<string, RecordedAnswer<TAnswer>>;
-  results: Record<string, PointsBreakdown> | null;
+  results: Record<string, ScoreResult> | null;
   scoring: ScoringSettings;
 }
 
@@ -41,11 +41,11 @@ export interface QuestionRoundConfig<TQuestion extends { id: string }, TAnswer, 
   answerSchema: z.ZodType<TAnswer>;
   /** Choose `count` questions (already prepared, e.g. options shuffled). */
   pickQuestions(ctx: ModuleContext, options: ModuleInitOptions): TQuestion[];
-  score(
-    question: TQuestion,
-    answers: { id: string; value: TAnswer; at: number }[],
-    scoring: ScoringSettings,
-  ): Record<string, PointsBreakdown>;
+  /**
+   * Input for the category's base score mode (quality of ONE answer, e.g.
+   * `{ correct }` for "absolute"). Scoring itself is done by the engine.
+   */
+  baseScoreInput(question: TQuestion, answer: TAnswer): BaseScoreInputs[CategoryMeta["scoring"]["mode"]];
   /** What everyone may see while the question is open – never the answer. */
   publicQuestion(question: TQuestion): TPublicQ;
   /** The solution, shown at reveal. */
@@ -87,13 +87,30 @@ export function createQuestionRoundModule<
     return { state: next, phaseEndsAt: next.stepEndsAt };
   }
 
-  function reveal(state: State, now: number): ModuleUpdate<State> {
+  /**
+   * Every answer is scored on its own: base score from the answer quality,
+   * speed modifier from the player's own response time vs. the time limit.
+   * Players without an answer get nothing (they are not in `results`).
+   */
+  function scoreQuestion(state: State): Record<string, ScoreResult> {
     const question = state.questions[state.index]!;
-    const answers = Object.entries(state.answers).map(([id, a]) => ({ id, value: a.value, at: a.at }));
-    const results = config.score(question, answers, state.scoring);
+    // Old rooms may carry an old settings shape – fall back to the defaults.
+    const scoring = normalizeScoring(config.meta, state.scoring);
+    const results: Record<string, ScoreResult> = {};
+    for (const [id, a] of Object.entries(state.answers)) {
+      results[id] = scoreAnswer(scoring, config.baseScoreInput(question, a.value), {
+        responseTimeMs: a.at - state.questionStartedAt,
+        timeLimitMs: questionMs,
+      });
+    }
+    return results;
+  }
+
+  function reveal(state: State, now: number): ModuleUpdate<State> {
+    const results = scoreQuestion(state);
     // Always set (even if empty): the room builds the leaderboard snapshot from it.
     const scoreDelta: Record<string, number> = {};
-    for (const [id, r] of Object.entries(results)) if (r.points > 0) scoreDelta[id] = r.points;
+    for (const [id, r] of Object.entries(results)) if (r.finalScore > 0) scoreDelta[id] = r.finalScore;
     const next: State = { ...state, step: "reveal", stepEndsAt: now + REVEAL_ANSWER_MS, results };
     return { state: next, phaseEndsAt: next.stepEndsAt, scoreDelta };
   }
@@ -123,7 +140,7 @@ export function createQuestionRoundModule<
         stepEndsAt: ctx.now,
         answers: {},
         results: null,
-        scoring: options.scoring,
+        scoring: normalizeScoring(config.meta, options.scoring),
       };
       if (questions.length === 0) return { state: initial, phaseEndsAt: null, done: true };
       return { ...openQuestion(initial, 0, ctx.now), usedContentIds: questions.map((q) => q.id) };

@@ -17,7 +17,12 @@ import { createRoomRecord, joinPlayer, type GameRound, type RoomRecord } from ".
 
 const T0 = 1_700_000_000_000;
 const avatar = { character: "fox", color: "red" } as const;
-const scoring: ScoringSettings = { basePoints: 100, speedBonus: true, minPercent: 10, estimateScale: "distance" };
+// Flow tests: speed modifier off so a correct answer is exactly 100 points.
+const scoring: ScoringSettings = {
+  mode: "absolute",
+  maxPoints: 100,
+  speedModifier: { enabled: false, fastestMultiplier: 1.5, slowestMultiplier: 0.5 },
+};
 
 function unwrap<T>(r: Result<T>): T {
   if (!r.ok) throw new Error(`expected ok, got ${r.error}`);
@@ -96,18 +101,18 @@ describe("settings + beginGame", () => {
     expect(beginGame(room, deps(T0, []))).toEqual({ ok: false, error: "NOT_ENOUGH_PLAYERS" });
   });
 
-  it("clamps question counts and ignores scoring fields the category doesn't allow", () => {
+  it("clamps question counts and keeps each category's scoring mode", () => {
     const { room } = setupRoom();
     const next = unwrap(
       updateSettings(room, [
-        { categoryId: "quiz", questionCount: 999, scoring: { ...scoring, estimateScale: "rank" } },
-        { categoryId: "estimate", questionCount: 1, scoring: { ...scoring, basePoints: 500 } },
+        { categoryId: "quiz", questionCount: 999, scoring: { ...scoring, mode: "proximity" } },
+        { categoryId: "estimate", questionCount: 1, scoring: { ...scoring, maxPoints: 500 } },
       ]),
     );
     expect(next.settings[0]!.questionCount).toBe(20);
-    expect(next.settings[0]!.scoring.estimateScale).toBe("distance"); // not editable for quiz
+    expect(next.settings[0]!.scoring.mode).toBe("absolute"); // the mode belongs to the category
     expect(next.settings[1]!.questionCount).toBe(3);
-    expect(next.settings[1]!.scoring.basePoints).toBe(500);
+    expect(next.settings[1]!.scoring).toMatchObject({ mode: "proximity", maxPoints: 500 });
   });
 });
 

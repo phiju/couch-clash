@@ -24,18 +24,42 @@ export type InputType =
 
 export type ContentSource = "static" | "generated" | "ai" | "user";
 
+/**
+ * Scoring model:  Final Score = Base Score × Speed Modifier
+ *
+ * - Base score = answer quality, per player, never compared to other players.
+ *   The mode picks the strategy (see packages/games/src/scoring/base.ts).
+ * - Speed modifier = optional multiplier measured against the question's
+ *   time limit (see packages/games/src/scoring/speed.ts).
+ */
+export const BASE_SCORE_MODES = ["absolute", "proximity"] as const;
+export type BaseScoreMode = (typeof BASE_SCORE_MODES)[number];
+
+export const SpeedModifierSettingsSchema = z.object({
+  enabled: z.boolean(),
+  /** Multiplier for an instant answer (response time 0). */
+  fastestMultiplier: z.number().min(0).max(5),
+  /** Multiplier for an answer at the time limit. */
+  slowestMultiplier: z.number().min(0).max(5),
+});
+export type SpeedModifierSettings = z.infer<typeof SpeedModifierSettingsSchema>;
+
+export const DEFAULT_SPEED_MODIFIER: SpeedModifierSettings = {
+  enabled: false,
+  fastestMultiplier: 1.5,
+  slowestMultiplier: 0.5,
+};
+
 export const ScoringSettingsSchema = z.object({
-  /** Points for a perfect answer. */
-  basePoints: z.number().int().min(0).max(10_000),
-  /** Faster answers score more (fastest 100 %, slowest minPercent). */
-  speedBonus: z.boolean(),
-  /** Percentage the slowest / farthest scoring answer still gets. */
-  minPercent: z.number().int().min(0).max(100),
-  /** Estimation: scale by distance to the answer or by rank. */
-  estimateScale: z.enum(["distance", "rank"]),
+  /** How answer quality becomes the base score (fixed per category). */
+  mode: z.enum(BASE_SCORE_MODES),
+  /** Base score for a perfect answer. */
+  maxPoints: z.number().int().min(0).max(10_000),
+  speedModifier: SpeedModifierSettingsSchema,
 });
 export type ScoringSettings = z.infer<typeof ScoringSettingsSchema>;
-export type ScoringField = keyof ScoringSettings;
+/** Settings the host may edit (the mode is part of the category). */
+export type ScoringField = "maxPoints" | "speedModifier";
 
 export interface CategoryMeta {
   id: string;

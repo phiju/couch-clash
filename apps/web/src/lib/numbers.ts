@@ -21,7 +21,3 @@ export function formatNumber(value: number, format: "number" | "year" = "number"
   if (format === "year") return String(value);
   return value.toLocaleString("de-DE", { maximumFractionDigits: 3 });
 }
-
-export function formatPercent(factor: number): string {
-  return `${Math.round(factor * 100)} %`;
-}

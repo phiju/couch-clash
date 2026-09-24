@@ -15,7 +15,7 @@ import {
   type LeaderboardEntry,
   type Viewer,
 } from "@couch-clash/shared";
-import { GAME_MODULES, type ModuleRegistry } from "@couch-clash/games";
+import { GAME_MODULES, getModule, normalizeScoring, type ModuleRegistry } from "@couch-clash/games";
 import { publicGame, settingsSummary } from "./game-flow";
 import { fail, ok, type Result } from "./result";
 
@@ -60,12 +60,26 @@ export interface GameRecord {
   questionLeaderboard: LeaderboardEntry[] | null;
 }
 
-/** Fills fields added after 0.1 for rooms stored by an older version. */
-export function normalizeRoomRecord(room: RoomRecord): RoomRecord {
+/** Old scoring shapes (before the scoring refactor) → category defaults. */
+function normalizeRounds(rounds: readonly GameRound[] | undefined, registry: ModuleRegistry): GameRound[] {
+  return (rounds ?? []).flatMap((r) => {
+    const module = getModule(r.categoryId, registry);
+    return module ? [{ ...r, scoring: normalizeScoring(module.meta, r.scoring) }] : [];
+  });
+}
+
+/** Fills fields added later for rooms stored by an older version. */
+export function normalizeRoomRecord(room: RoomRecord, registry: ModuleRegistry = GAME_MODULES): RoomRecord {
   return {
     ...room,
-    settings: room.settings ?? [],
-    game: room.game ? { ...room.game, questionLeaderboard: room.game.questionLeaderboard ?? null } : null,
+    settings: normalizeRounds(room.settings, registry),
+    game: room.game
+      ? {
+          ...room.game,
+          rounds: normalizeRounds(room.game.rounds, registry),
+          questionLeaderboard: room.game.questionLeaderboard ?? null,
+        }
+      : null,
     usedContentIds: room.usedContentIds ?? [],
   };
 }

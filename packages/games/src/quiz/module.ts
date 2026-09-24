@@ -2,7 +2,6 @@ import { QUIZ_QUESTIONS_DE, type QuizQuestion } from "@couch-clash/content";
 import { z } from "zod";
 import { createQuestionRoundModule } from "../question-round/engine";
 import { pickFresh, shuffle } from "../random";
-import { scoreQuiz } from "../scoring";
 import { quizMeta } from "./meta";
 import type { QuizPublicQuestion, QuizSolution } from "./types";
 
@@ -32,11 +31,7 @@ export function createQuizModule(pool: readonly QuizQuestion[] = QUIZ_QUESTIONS_
       pickFresh(pool, questionCount, excludeContentIds, ctx.random).map((q) =>
         prepareQuizQuestion(q, ctx.random),
       ),
-    score: (question, answers, scoring) =>
-      scoreQuiz(
-        answers.map((a) => ({ id: a.id, correct: a.value === question.correctIndex, at: a.at })),
-        scoring,
-      ),
+    baseScoreInput: (question, answer) => ({ correct: answer === question.correctIndex }),
     publicQuestion: (q) => ({ text: q.text, options: q.options }),
     solution: (q) => ({ correctIndex: q.correctIndex }),
   });

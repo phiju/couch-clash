@@ -1,10 +1,9 @@
 "use client";
 
-import { CATEGORY_METAS, getCategoryMeta } from "@couch-clash/games/meta";
+import { CATEGORY_METAS, getCategoryMeta, normalizeScoring } from "@couch-clash/games/meta";
 import {
   estimateGameSeconds,
   formatDuration,
-  ScoringSettingsSchema,
   type CategoryMeta,
   type ClientMessage,
   type GameRoundSettings,
@@ -29,17 +28,17 @@ interface SetupState {
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 
 function defaultChoice(meta: CategoryMeta): CategoryChoice {
-  return { enabled: true, questionCount: meta.questionsPerRound.default, scoring: { ...meta.scoring } };
+  return { enabled: true, questionCount: meta.questionsPerRound.default, scoring: structuredClone(meta.scoring) };
 }
 
 function sanitizeChoice(meta: CategoryMeta, raw: Partial<CategoryChoice> | undefined): CategoryChoice {
   if (!raw) return defaultChoice(meta);
-  const scoring = ScoringSettingsSchema.safeParse({ ...meta.scoring, ...raw.scoring });
   const { min, max } = meta.questionsPerRound;
   return {
     enabled: raw.enabled !== false,
     questionCount: clamp(Number(raw.questionCount) || meta.questionsPerRound.default, min, max),
-    scoring: scoring.success ? scoring.data : { ...meta.scoring },
+    // Old saved shapes (before the scoring refactor) fall back to the defaults.
+    scoring: normalizeScoring(meta, raw.scoring),
   };
 }
 
@@ -252,7 +251,7 @@ export function GameSettingsPanel({
                     meta={meta}
                     scoring={c.scoring}
                     onChange={(patch) => updateScoring(meta.id, patch)}
-                    onReset={() => update(meta.id, { scoring: { ...meta.scoring } })}
+                    onReset={() => update(meta.id, { scoring: structuredClone(meta.scoring) })}
                   />
                 </>
               )}
@@ -280,65 +279,71 @@ function ScoringEditor({
   onReset: () => void;
 }) {
   const fields = new Set(meta.scoringFields);
+  const speed = scoring.speedModifier;
+  const setSpeed = (patch: Partial<ScoringSettings["speedModifier"]>) =>
+    onChange({ speedModifier: { ...speed, ...patch } });
+  const multiplier = (v: string) => Math.round(clamp(Number(v) || 0, 0, 5) * 100) / 100;
+  const max = Math.round(scoring.maxPoints * (speed.enabled ? speed.fastestMultiplier : 1));
   return (
     <details className="rounded-2xl bg-petrol-dark/60 p-3">
       <summary className="cursor-pointer text-base font-bold text-cream/80">Punkte-Einstellungen</summary>
       <div className="mt-3 grid gap-3 text-base">
-        {fields.has("basePoints") && (
+        {fields.has("maxPoints") && (
           <label className="flex items-center justify-between gap-4">
-            <span>Punkte pro Frage</span>
+            <span>{scoring.mode === "proximity" ? "Punkte für einen Volltreffer" : "Punkte für eine richtige Antwort"}</span>
             <input
               type="number"
               min={0}
               max={10000}
               step={10}
-              value={scoring.basePoints}
-              onChange={(e) => onChange({ basePoints: clamp(Math.round(Number(e.target.value) || 0), 0, 10000) })}
+              value={scoring.maxPoints}
+              onChange={(e) => onChange({ maxPoints: clamp(Math.round(Number(e.target.value) || 0), 0, 10000) })}
               className="w-24 rounded-xl bg-cream px-3 py-1 text-right font-bold text-brown"
             />
           </label>
         )}
-        {fields.has("speedBonus") && (
-          <label className="flex items-center justify-between gap-4">
-            <span>Tempo-Bonus</span>
-            <input
-              type="checkbox"
-              checked={scoring.speedBonus}
-              onChange={(e) => onChange({ speedBonus: e.target.checked })}
-              className="size-6 accent-[var(--color-orange)]"
-            />
-          </label>
+        {fields.has("speedModifier") && (
+          <>
+            <label className="flex items-center justify-between gap-4">
+              <span>Tempo-Bonus (schnelle Antworten zählen mehr)</span>
+              <input
+                type="checkbox"
+                checked={speed.enabled}
+                onChange={(e) => setSpeed({ enabled: e.target.checked })}
+                className="size-6 accent-[var(--color-orange)]"
+              />
+            </label>
+            {speed.enabled && (
+              <div className="grid grid-cols-2 gap-3">
+                <label className="flex flex-col gap-1">
+                  <span className="text-sm text-cream/80">Sofort geantwortet ×</span>
+                  <input
+                    type="number"
+                    min={0}
+                    max={5}
+                    step={0.1}
+                    value={speed.fastestMultiplier}
+                    onChange={(e) => setSpeed({ fastestMultiplier: multiplier(e.target.value) })}
+                    className="rounded-xl bg-cream px-3 py-1 text-right font-bold text-brown"
+                  />
+                </label>
+                <label className="flex flex-col gap-1">
+                  <span className="text-sm text-cream/80">Bei Zeitablauf ×</span>
+                  <input
+                    type="number"
+                    min={0}
+                    max={5}
+                    step={0.1}
+                    value={speed.slowestMultiplier}
+                    onChange={(e) => setSpeed({ slowestMultiplier: multiplier(e.target.value) })}
+                    className="rounded-xl bg-cream px-3 py-1 text-right font-bold text-brown"
+                  />
+                </label>
+              </div>
+            )}
+          </>
         )}
-        {fields.has("minPercent") && (
-          <label className="flex flex-col gap-1">
-            <span className="flex justify-between">
-              <span>Mindestens für Langsamste / Weiteste</span>
-              <span className="font-bold text-bulb">{scoring.minPercent} %</span>
-            </span>
-            <input
-              type="range"
-              min={0}
-              max={100}
-              step={5}
-              value={scoring.minPercent}
-              onChange={(e) => onChange({ minPercent: Number(e.target.value) })}
-              className="accent-[var(--color-orange)]"
-            />
-          </label>
-        )}
-        {fields.has("estimateScale") && (
-          <label className="flex items-center justify-between gap-4">
-            <span>Wertung</span>
-            <select
-              value={scoring.estimateScale}
-              onChange={(e) => onChange({ estimateScale: e.target.value as ScoringSettings["estimateScale"] })}
-              className="rounded-xl bg-cream px-3 py-1 font-bold text-brown"
-            >
-              <option value="distance">nach Abstand</option>
-              <option value="rank">nach Platzierung</option>
-            </select>
-          </label>
-        )}
+        <p className="text-sm text-cream/70">Höchstens {max} Punkte pro Frage.</p>
         <button type="button" onClick={onReset} className="self-start text-sm text-cream/60 underline">
           Standard wiederherstellen
         </button>

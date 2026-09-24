@@ -68,8 +68,6 @@ export function QuizHostView({ state, room }: HostViewProps<QuizPublicState>) {
           <RevealTable
             room={room}
             results={reveal.results}
-            accuracyLabel="richtig"
-            showAccuracy={false}
             renderAnswer={(p) => {
               const a = reveal.answers[p.id];
               if (a === undefined) return "keine Antwort";

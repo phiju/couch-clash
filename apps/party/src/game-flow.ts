@@ -18,11 +18,10 @@ import {
   type ModuleUpdate,
   type Phase,
   type PublicGameState,
-  type ScoringSettings,
   type SettingsSummary,
   type Viewer,
 } from "@couch-clash/shared";
-import { GAME_MODULES, getModule, type ModuleRegistry } from "@couch-clash/games";
+import { GAME_MODULES, getModule, normalizeScoring, type ModuleRegistry } from "@couch-clash/games";
 import { fail, ok, type Result } from "./result";
 import type { GameRecord, GameRound, RoomRecord } from "./room-logic";
 
@@ -81,14 +80,6 @@ function applyModuleUpdate(room: RoomRecord, update: ModuleUpdate<unknown>, now:
   return { ...next, phaseEndsAt: update.phaseEndsAt };
 }
 
-/** Only the fields a category allows are taken from the host; the rest are defaults. */
-function sanitizeScoring(module: GameModule, input: ScoringSettings): ScoringSettings {
-  const scoring: ScoringSettings = { ...module.meta.scoring };
-  for (const field of module.meta.scoringFields) {
-    (scoring as Record<string, unknown>)[field] = input[field];
-  }
-  return scoring;
-}
 
 /** Validates host settings against the registry: known categories, clamped counts, allowed fields. */
 export function sanitizeSettings(
@@ -104,7 +95,7 @@ export function sanitizeSettings(
     planned.push({
       categoryId: round.categoryId,
       questionCount: Math.min(max, Math.max(min, round.questionCount)),
-      scoring: sanitizeScoring(module, round.scoring),
+      scoring: normalizeScoring(module.meta, round.scoring),
     });
   }
   return ok(planned);
