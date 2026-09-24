@@ -1,13 +1,17 @@
 import type { Avatar } from "./avatar";
+import type { ScoringSettings } from "./game-module";
+import type { LeaderboardEntry } from "./leaderboard";
 
 /**
  * Room state machine. Transitions are driven by client intents and by
  * timestamps (phaseEndsAt) that Durable Object alarms act on – never by
  * in-memory setTimeout, which does not survive hibernation.
  *
- *   lobby → setup → [intro → play → scoreboard] × categories → finale
- *                ↑___________________________________________________|
- *                                 "Nochmal spielen"
+ *   lobby ──────→ [intro → play → scoreboard] × categories → finale
+ *   setup ──↗                                                   |
+ *     ↑________________________ "Nochmal spielen" _____________|
+ *
+ * Settings are edited in the lobby (and in setup, after a game).
  *
  * During "play" the category module owns the flow (e.g. question → reveal)
  * and reports its own phaseEndsAt.
@@ -24,6 +28,9 @@ export const NAME_MAX_LENGTH = 20;
 export const INTRO_MS = 4_000;
 /** Scoreboard after each category (host can skip). */
 export const SCOREBOARD_MS = 10_000;
+/** After each question: correct answer, then the animated leaderboard. */
+export const REVEAL_ANSWER_MS = 3_000;
+export const REVEAL_LEADERBOARD_MS = 7_000;
 
 /** Player as visible to every client (no secrets). */
 export interface PublicPlayer {
@@ -39,6 +46,20 @@ export interface PublicRound {
   questionCount: number;
 }
 
+/** One category in the game settings. */
+export interface GameRoundSettings {
+  categoryId: string;
+  questionCount: number;
+  scoring: ScoringSettings;
+}
+
+/** What players see of the settings: a short summary. */
+export interface SettingsSummary {
+  categoryIds: string[];
+  questionCount: number;
+  estimatedSeconds: number;
+}
+
 /** Game progress. `module` is the category module's state as seen by this viewer. */
 export interface PublicGameState {
   rounds: PublicRound[];
@@ -48,6 +69,11 @@ export interface PublicGameState {
   /** Points gained in the current category per player id. */
   roundGain: Record<string, number>;
   module: unknown;
+  /**
+   * Animated ranking: after a question (play), per category (scoreboard)
+   * or final (finale, no gains). Null when there is nothing to show.
+   */
+  leaderboard: LeaderboardEntry[] | null;
 }
 
 /** Room state sent to a client. Built per viewer – may differ between clients. */
@@ -63,4 +89,8 @@ export interface PublicRoomState {
   hostConnected: boolean;
   players: PublicPlayer[];
   game: PublicGameState | null;
+  /** Full game settings – host only (null for everyone else). */
+  settings: GameRoundSettings[] | null;
+  /** Short summary for everyone, null if nothing is selected. */
+  settingsSummary: SettingsSummary | null;
 }

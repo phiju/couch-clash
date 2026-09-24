@@ -2,5 +2,6 @@ export * from "./avatar";
 export * from "./codes";
 export * from "./duration";
 export * from "./game-module";
+export * from "./leaderboard";
 export * from "./messages";
 export * from "./state";

@@ -7,7 +7,6 @@ import {
   isExpired,
   joinPlayer,
   kickPlayer,
-  startGame,
   toPublicState,
   type RoomRecord,
 } from "../src/room-logic";
@@ -89,9 +88,8 @@ describe("joinPlayer", () => {
 
   it("only allows joining in the lobby", () => {
     const { room } = join(newRoom(), "Anna");
-    const started = startGame(room, T0 + 2000);
-    if (!started.ok) throw new Error("start failed");
-    expect(joinPlayer(started.value, { name: "Ben", avatar }, deps())).toEqual({
+    const started = { ...room, phase: "intro" as const };
+    expect(joinPlayer(started, { name: "Ben", avatar }, deps())).toEqual({
       ok: false,
       error: "GAME_ALREADY_STARTED",
     });
@@ -123,9 +121,8 @@ describe("reconnect (authenticatePlayer)", () => {
 
   it("still works after the game has started", () => {
     const { room, player } = join(newRoom(), "Anna");
-    const started = startGame(room, T0 + 2000);
-    if (!started.ok) throw new Error("start failed");
-    expect(authenticatePlayer(started.value, player.id, player.secret).ok).toBe(true);
+    const started = { ...room, phase: "play" as const };
+    expect(authenticatePlayer(started, player.id, player.secret).ok).toBe(true);
   });
 
   it("fails after the player was kicked", () => {
@@ -153,23 +150,6 @@ describe("kickPlayer", () => {
   });
 });
 
-describe("startGame", () => {
-  it("needs at least one player", () => {
-    expect(startGame(newRoom(), T0)).toEqual({ ok: false, error: "NOT_ENOUGH_PLAYERS" });
-  });
-
-  it("moves lobby → setup with timestamps and cannot start twice", () => {
-    const { room } = join(newRoom(), "Anna");
-    const r = startGame(room, T0 + 5000);
-    expect(r.ok).toBe(true);
-    if (!r.ok) return;
-    expect(r.value.phase).toBe("setup");
-    expect(r.value.phaseStartedAt).toBe(T0 + 5000);
-    expect(r.value.phaseEndsAt).toBeNull();
-    expect(startGame(r.value, T0 + 6000)).toEqual({ ok: false, error: "GAME_ALREADY_STARTED" });
-  });
-});
-
 describe("toPublicState", () => {
   it("never leaks secrets and marks connected players", () => {
     const a = join(newRoom(), "Anna");
@@ -180,9 +160,34 @@ describe("toPublicState", () => {
     expect(serialized).not.toContain(a.player.secret);
     expect(serialized).not.toContain(b.player.secret);
     expect(state.hostConnected).toBe(true);
+    expect(state.settings).toEqual([]);
     expect(state.players.map((p) => [p.name, p.connected])).toEqual([
       ["Anna", true],
       ["Ben", false],
     ]);
+  });
+});
+
+describe("settings visibility", () => {
+  it("only the host sees the settings, everyone sees the summary", () => {
+    const room = {
+      ...newRoom(),
+      settings: [
+        {
+          categoryId: "quiz",
+          questionCount: 5,
+          scoring: { basePoints: 100, speedBonus: true, minPercent: 10, estimateScale: "distance" as const },
+        },
+      ],
+    };
+    const connected = { host: true, playerIds: new Set<string>() };
+    const host = toPublicState(room, connected, { role: "host" });
+    const player = toPublicState(room, connected, { role: "player", playerId: "x" });
+    const guest = toPublicState(room, connected, { role: "guest" });
+    expect(host.settings).toHaveLength(1);
+    expect(player.settings).toBeNull();
+    expect(guest.settings).toBeNull();
+    expect(player.settingsSummary).toMatchObject({ categoryIds: ["quiz"], questionCount: 5 });
+    expect(player.settingsSummary!.estimatedSeconds).toBeGreaterThan(60);
   });
 });

@@ -4,12 +4,16 @@ import type { EstimatePublicState } from "@couch-clash/games/meta";
 import { useState } from "react";
 import { Button } from "@/components/ui";
 import { formatNumber, parseGermanNumber } from "@/lib/numbers";
-import { AnswerSent, Countdown, PlayerRevealResult } from "../question-round/components";
+import { AnswerSent, Countdown, PlayerRevealResult, QuestionLeaderboard } from "../question-round/components";
 import type { PlayerViewProps } from "../types";
 
-export function EstimatePlayerView({ state, me, sendAction }: PlayerViewProps<EstimatePublicState>) {
+export function EstimatePlayerView({ state, room, me, sendAction }: PlayerViewProps<EstimatePublicState>) {
   const reveal = state.reveal;
   const { unit, format } = state.question;
+
+  if (state.step === "leaderboard") {
+    return <QuestionLeaderboard state={state} room={room} variant="phone" meId={me.id} />;
+  }
 
   if (reveal) {
     const mine = reveal.answers[me.id];

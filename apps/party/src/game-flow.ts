@@ -8,6 +8,8 @@
  * button uses.
  */
 import {
+  buildLeaderboard,
+  estimateGameSeconds,
   INTRO_MS,
   MIN_PLAYERS_TO_START,
   SCOREBOARD_MS,
@@ -17,6 +19,7 @@ import {
   type Phase,
   type PublicGameState,
   type ScoringSettings,
+  type SettingsSummary,
   type Viewer,
 } from "@couch-clash/shared";
 import { GAME_MODULES, getModule, type ModuleRegistry } from "@couch-clash/games";
@@ -68,6 +71,10 @@ function applyModuleUpdate(room: RoomRecord, update: ModuleUpdate<unknown>, now:
     moduleState: update.done ? null : update.state,
     scores: addPoints(game.scores, update.scoreDelta),
     roundGain: addPoints(game.roundGain, update.scoreDelta),
+    // A scored question (even with 0 points for everyone) gets a leaderboard snapshot.
+    questionLeaderboard: update.scoreDelta
+      ? buildLeaderboard(room.players, game.scores, update.scoreDelta)
+      : game.questionLeaderboard,
   };
   const next: RoomRecord = { ...room, game: nextGame, usedContentIds };
   if (update.done) return setPhase(next, "scoreboard", now, now + SCOREBOARD_MS);
@@ -83,16 +90,16 @@ function sanitizeScoring(module: GameModule, input: ScoringSettings): ScoringSet
   return scoring;
 }
 
-export function beginGame(room: RoomRecord, rounds: readonly GameRound[], deps: FlowDeps): Result<RoomRecord> {
-  const registry = deps.registry ?? GAME_MODULES;
-  if (room.phase !== "setup") return fail("WRONG_PHASE");
-  if (room.players.length < MIN_PLAYERS_TO_START) return fail("NOT_ENOUGH_PLAYERS");
-  if (rounds.length === 0) return fail("INVALID_PLAN");
-
+/** Validates host settings against the registry: known categories, clamped counts, allowed fields. */
+export function sanitizeSettings(
+  rounds: readonly GameRound[],
+  registry: ModuleRegistry = GAME_MODULES,
+): Result<GameRound[]> {
   const planned: GameRound[] = [];
   for (const round of rounds) {
     const module = getModule(round.categoryId, registry);
     if (!module) return fail("INVALID_PLAN");
+    if (planned.some((p) => p.categoryId === round.categoryId)) return fail("INVALID_PLAN");
     const { min, max } = module.meta.questionsPerRound;
     planned.push({
       categoryId: round.categoryId,
@@ -100,13 +107,53 @@ export function beginGame(room: RoomRecord, rounds: readonly GameRound[], deps: 
       scoring: sanitizeScoring(module, round.scoring),
     });
   }
+  return ok(planned);
+}
+
+/** Host changes the settings – allowed while nothing is running (lobby, setup). */
+export function updateSettings(
+  room: RoomRecord,
+  rounds: readonly GameRound[],
+  registry: ModuleRegistry = GAME_MODULES,
+): Result<RoomRecord> {
+  if (room.phase !== "lobby" && room.phase !== "setup") return fail("WRONG_PHASE");
+  const settings = sanitizeSettings(rounds, registry);
+  if (!settings.ok) return settings;
+  return ok({ ...room, settings: settings.value });
+}
+
+export function settingsSummary(
+  settings: readonly GameRound[],
+  registry: ModuleRegistry = GAME_MODULES,
+): SettingsSummary | null {
+  if (settings.length === 0) return null;
+  const planned = settings.flatMap((r) => {
+    const module = getModule(r.categoryId, registry);
+    return module ? [{ meta: module.meta, questionCount: r.questionCount }] : [];
+  });
+  return {
+    categoryIds: settings.map((r) => r.categoryId),
+    questionCount: settings.reduce((sum, r) => sum + r.questionCount, 0),
+    estimatedSeconds: estimateGameSeconds(planned),
+  };
+}
+
+/** "Spiel starten": from the lobby or setup, with the stored settings. */
+export function beginGame(room: RoomRecord, deps: FlowDeps): Result<RoomRecord> {
+  const registry = deps.registry ?? GAME_MODULES;
+  if (room.phase !== "lobby" && room.phase !== "setup") return fail("WRONG_PHASE");
+  if (room.players.length < MIN_PLAYERS_TO_START) return fail("NOT_ENOUGH_PLAYERS");
+  const settings = sanitizeSettings(room.settings, registry);
+  if (!settings.ok) return settings;
+  if (settings.value.length === 0) return fail("INVALID_PLAN");
 
   const game: GameRecord = {
-    rounds: planned,
+    rounds: settings.value,
     roundIndex: 0,
     moduleState: null,
     scores: Object.fromEntries(room.players.map((p) => [p.id, 0])),
     roundGain: {},
+    questionLeaderboard: null,
   };
   return ok(setPhase({ ...room, game }, "intro", deps.now, deps.now + INTRO_MS));
 }
@@ -121,7 +168,12 @@ function startRound(room: RoomRecord, deps: FlowDeps, registry: ModuleRegistry):
     scoring: round.scoring,
     excludeContentIds: room.usedContentIds,
   });
-  const playing = setPhase({ ...room, game: { ...game, roundGain: {} } }, "play", deps.now, null);
+  const playing = setPhase(
+    { ...room, game: { ...game, roundGain: {}, questionLeaderboard: null } },
+    "play",
+    deps.now,
+    null,
+  );
   return ok(applyModuleUpdate(playing, update, deps.now));
 }
 
@@ -210,5 +262,23 @@ export function publicGame(
     scores: game.scores,
     roundGain: game.roundGain,
     module: module ? module.toPublicState(game.moduleState, viewer) : null,
+    leaderboard: publicLeaderboard(room, game),
   };
+}
+
+function publicLeaderboard(room: RoomRecord, game: GameRecord) {
+  switch (room.phase) {
+    case "play":
+      // Only after a question was scored – never during the question itself.
+      return game.questionLeaderboard;
+    case "scoreboard": {
+      const before: Record<string, number> = {};
+      for (const [id, score] of Object.entries(game.scores)) before[id] = score - (game.roundGain[id] ?? 0);
+      return buildLeaderboard(room.players, before, game.roundGain);
+    }
+    case "finale":
+      return buildLeaderboard(room.players, game.scores, {});
+    default:
+      return null;
+  }
 }

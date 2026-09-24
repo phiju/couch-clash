@@ -2,11 +2,18 @@
 
 import type { QuizPublicState } from "@couch-clash/games/meta";
 import { AvatarBadge } from "@/components/avatar";
-import { AnsweredStrip, Countdown, QuestionCounter, RevealTable } from "../question-round/components";
+import {
+  AnsweredStrip,
+  Countdown,
+  QuestionCounter,
+  QuestionLeaderboard,
+  RevealTable,
+} from "../question-round/components";
 import type { HostViewProps } from "../types";
 import { QUIZ_OPTION_STYLES } from "./options";
 
 export function QuizHostView({ state, room }: HostViewProps<QuizPublicState>) {
+  if (state.step === "leaderboard") return <QuestionLeaderboard state={state} room={room} variant="tv" />;
   const reveal = state.reveal;
   const correct = reveal?.solution.correctIndex;
 

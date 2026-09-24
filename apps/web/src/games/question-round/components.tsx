@@ -3,6 +3,7 @@
 import type { PointsBreakdown, QuestionRoundPublicState } from "@couch-clash/games/meta";
 import type { PublicPlayer, PublicRoomState } from "@couch-clash/shared";
 import { AvatarBadge } from "@/components/avatar";
+import { Leaderboard } from "@/components/leaderboard";
 import { useServerNow } from "@/lib/clock";
 import { formatPercent } from "@/lib/numbers";
 
@@ -153,6 +154,31 @@ export function PlayerRevealResult({
       {!result && <p className="text-xl text-white/70">Keine Antwort abgegeben</p>}
       {children}
       <p className="text-lg text-white/60">Schau auf den Fernseher!</p>
+    </div>
+  );
+}
+
+/** Leaderboard step after a question – same component for TV and phones. */
+export function QuestionLeaderboard({
+  state,
+  room,
+  variant,
+  meId,
+}: {
+  state: AnyRoundState;
+  room: PublicRoomState;
+  variant: "tv" | "phone";
+  meId?: string;
+}) {
+  const entries = room.game?.leaderboard;
+  if (!entries) return null;
+  return (
+    <div className="flex w-full flex-col gap-4">
+      {variant === "tv" && (
+        <h2 className="text-center text-5xl font-black lg:text-6xl">Rangliste</h2>
+      )}
+      {/* key: restart the animation for every question */}
+      <Leaderboard key={state.index} entries={entries} players={room.players} variant={variant} meId={meId} />
     </div>
   );
 }

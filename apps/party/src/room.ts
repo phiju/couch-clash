@@ -14,6 +14,7 @@ import {
   handlePresenceChange,
   isTimerDue,
   playAgain,
+  updateSettings,
   type FlowDeps,
 } from "./game-flow";
 import type { Result } from "./result";
@@ -25,7 +26,6 @@ import {
   joinPlayer,
   kickPlayer,
   normalizeRoomRecord,
-  startGame,
   toPublicState,
   type RoomRecord,
 } from "./room-logic";
@@ -190,17 +190,17 @@ export class Room extends Server<Env> {
         return this.commit(handlePresenceChange(kicked, this.flowDeps(now)) ?? kicked);
       }
 
-      case "start":
-        if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
-        return this.apply(conn, startGame(room, now));
-
       case "back_to_lobby":
         if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
         return this.apply(conn, backToLobby(room, now));
 
+      case "update_settings":
+        if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        return this.apply(conn, updateSettings(room, msg.rounds));
+
       case "start_game":
         if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
-        return this.apply(conn, beginGame(room, msg.rounds, this.flowDeps(now)));
+        return this.apply(conn, beginGame(room, this.flowDeps(now)));
 
       case "skip":
         if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
