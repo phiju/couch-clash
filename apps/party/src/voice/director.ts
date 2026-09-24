@@ -4,11 +4,20 @@
  * the director decides what the host says and produces it in the
  * background. Nothing here ever delays the game.
  */
-import { buildLeaderboard, type HostLine } from "@couch-clash/shared";
+import { TEMPO_PLAYBACK_RATE, TEMPO_SPEED, buildLeaderboard, type HostLine } from "@couch-clash/shared";
 import { GAME_MODULES, getModule, type ModuleRegistry } from "@couch-clash/games";
 import type { RoomRecord } from "../room-logic";
 import { VOICE_CONFIG } from "./config";
-import { commentPrompt, finalePrompt, sanitizeName, startPrompt, welcomePrompt, type CommentFacts } from "./prompt";
+import {
+  commentPrompt,
+  finalePrompt,
+  sanitizeName,
+  startPrompt,
+  testPrompt,
+  welcomePrompt,
+  type CommentFacts,
+} from "./prompt";
+import type { LinePrompt, SpeechStyle } from "./provider";
 import {
   commentHighlights,
   commentPlayers,
@@ -16,6 +25,7 @@ import {
   extendedPhaseEnd,
   planWelcomes,
   rememberTarget,
+  reserveChars,
   shouldComment,
   updateStreaks,
   type RoomVoice,
@@ -104,8 +114,18 @@ export class VoiceDirector {
     return this.rt.registry ?? GAME_MODULES;
   }
 
+  /** Speaking makes sense: switched on, a host screen listening, a voice available. */
   private enabled(room: RoomRecord | null = this.rt.read()): room is RoomRecord {
-    return !!room && room.voice.settings.enabled && this.rt.hostConnected();
+    return !!room && room.voice.settings.enabled && this.canSpeak(room);
+  }
+
+  private canSpeak(room: RoomRecord): boolean {
+    return room.voice.status === "ok" && this.rt.hostConnected() && this.rt.services().speech !== null;
+  }
+
+  /** Whether the text model may add audio tags for this style. */
+  private tags(style: SpeechStyle): boolean {
+    return this.rt.services().speech?.supportsTags(style) ?? false;
   }
 
   private run(task: () => Promise<void>) {
@@ -131,18 +151,23 @@ export class VoiceDirector {
 
   private log(kind: string, produced: ProducedLine) {
     const used = this.rt.read()?.voice.linesUsed ?? 0;
-    console.log(`voice ${kind}: ${produced.source} (${used}/${VOICE_CONFIG.maxLinesPerRoom} lines)`);
+    const chars = this.rt.read()?.voice.charsUsed ?? 0;
+    console.log(
+      `voice ${kind}: ${produced.source}${produced.line ? "" : " (silent)"} (${used}/${VOICE_CONFIG.maxLinesPerRoom} lines, ${chars}/${VOICE_CONFIG.charBudgetPerRoom} chars)`,
+    );
   }
 
   private async produce(
     kind: HostLine["kind"],
-    prompt: Parameters<typeof produceLine>[1]["prompt"],
+    style: SpeechStyle,
+    prompt: LinePrompt,
     fallback: string,
     deadline: number | null = null,
   ): Promise<ProducedLine | null> {
     const room = this.rt.read();
     if (!room) return null;
     const useAi = await this.reserveLine();
+    const tempo = room.voice.settings.tempo;
     const produced = await produceLine(this.rt.services(), {
       code: room.code,
       id: this.rt.newId(),
@@ -150,12 +175,35 @@ export class VoiceDirector {
       prompt,
       fallback,
       useAi,
+      style,
+      speed: TEMPO_SPEED[tempo],
+      playbackRate: TEMPO_PLAYBACK_RATE[tempo],
       deadline,
       now: this.rt.now,
+      reserveChars: async (count) => {
+        const current = this.rt.read();
+        const next = current ? reserveChars(current.voice, count) : null;
+        if (!current || !next) return false;
+        await this.rt.commit({ ...current, voice: next });
+        return true;
+      },
       staleAfterMs: kind === "comment" ? 2_500 : null,
     });
     this.log(kind, produced);
+    if (produced.voiceStatus) {
+      // Quota/key problem or budget used up: silent for the rest of this room, the game goes on.
+      const status = produced.voiceStatus;
+      console.warn(`voice: stopped for this room (${status}${produced.errorCode ? ` ${produced.errorCode}` : ""})`);
+      await this.updateVoice((v) => ({ ...v, status }));
+    }
     return produced;
+  }
+
+  /** Sends a produced line if it has audio and the voice is still wanted. */
+  private deliver(produced: ProducedLine | null): HostLine | null {
+    const line = produced?.line;
+    if (!line || !this.enabled()) return null;
+    return this.rt.sendToHosts(line) ? line : null;
   }
 
   private variant() {
@@ -194,12 +242,12 @@ export class VoiceDirector {
     if (!this.enabled(room) || names.length === 0) return;
     const produced = await this.produce(
       "welcome",
-      welcomePrompt(names, this.variant()),
+      "expressive",
+      welcomePrompt(names, this.variant(), this.tags("expressive")),
       welcomeTemplate(names.map(sanitizeName), this.rt.random),
     );
-    if (produced && this.enabled() && this.rt.sendToHosts(produced.line)) {
-      this.welcomesOnHost.set(produced.line.id, this.rt.now());
-    }
+    const sent = this.deliver(produced);
+    if (sent) this.welcomesOnHost.set(sent.id, this.rt.now());
   }
 
   // ── Room changes ─────────────────────────────────────────────────────
@@ -230,8 +278,13 @@ export class VoiceDirector {
     if (!this.enabled(room)) return;
     const categories = (room.game?.rounds ?? []).flatMap((r) => getModule(r.categoryId, this.registry)?.meta.name ?? []);
     const count = room.players.length;
-    const produced = await this.produce("start", startPrompt(count, categories, this.variant()), startTemplate(count));
-    if (produced && this.enabled()) this.rt.sendToHosts(produced.line);
+    const produced = await this.produce(
+      "start",
+      "expressive",
+      startPrompt(count, categories, this.variant(), this.tags("expressive")),
+      startTemplate(count),
+    );
+    this.deliver(produced);
   }
 
   // ── Part B: commentary ───────────────────────────────────────────────
@@ -270,13 +323,14 @@ export class VoiceDirector {
     const leader = players.find((p) => p.rankAfter === 1)?.name ?? null;
     const produced = await this.produce(
       "comment",
+      "fast",
       commentPrompt(commentFacts, cheekiness, lastTarget ? [lastTarget.name] : [], this.variant()),
       commentTemplate(leader ? sanitizeName(leader) : null, this.rt.random),
       // Must be ready when the leaderboard starts – otherwise it is skipped.
       room.phaseEndsAt,
     );
     const now = progressOf(this.rt.read(), this.registry);
-    if (produced && now?.key === event.key && now.step === "reveal") {
+    if (produced?.line && now?.key === event.key && now.step === "reveal") {
       this.readyComment = { key: event.key, produced };
     }
   }
@@ -285,8 +339,9 @@ export class VoiceDirector {
     const ready = this.readyComment;
     this.readyComment = null;
     if (!ready || ready.key !== key || !this.enabled(room)) return;
-    if (!this.rt.sendToHosts(ready.produced.line)) return;
-    this.hold = { lineId: ready.produced.line.id, key, baseEnd: room.phaseEndsAt ?? this.rt.now() };
+    const line = ready.produced.line;
+    if (!line || !this.rt.sendToHosts(line)) return;
+    this.hold = { lineId: line.id, key, baseEnd: room.phaseEndsAt ?? this.rt.now() };
     const target = ready.produced.target;
     const targetId = target
       ? (room.players.find((p) => sanitizeName(p.name).toLowerCase() === sanitizeName(target).toLowerCase())?.id ?? null)
@@ -303,8 +358,44 @@ export class VoiceDirector {
       .filter((s) => s.name);
     const winners = standings.filter((s) => s.rank === 1).map((s) => sanitizeName(s.name));
     const cheekiness = effectiveCheekiness(room.voice.settings, game.rounds.flatMap((r) => getModule(r.categoryId, this.registry)?.meta ?? []));
-    const produced = await this.produce("finale", finalePrompt(standings, cheekiness, this.variant()), finaleTemplate(winners));
-    if (produced && this.enabled()) this.rt.sendToHosts(produced.line);
+    const produced = await this.produce(
+      "finale",
+      "expressive",
+      finalePrompt(standings, cheekiness, this.variant(), this.tags("expressive")),
+      finaleTemplate(winners),
+    );
+    this.deliver(produced);
+  }
+
+  // ── "Moderator testen" ───────────────────────────────────────────────
+  private testing = false;
+
+  /** "▶ Probe-Spruch" / "▶ Nochmal": a sample line in the chosen tone (counts towards the budget). */
+  testLine() {
+    const room = this.rt.read();
+    if (!room || this.testing || !this.canSpeak(room)) return;
+    this.testing = true;
+    this.run(async () => {
+      try {
+        const current = this.rt.read();
+        if (!current) return;
+        const cheekiness = effectiveCheekiness(
+          current.voice.settings,
+          current.settings.flatMap((r) => getModule(r.categoryId, this.registry)?.meta ?? []),
+        );
+        const produced = await this.produce(
+          "test",
+          "expressive",
+          testPrompt(cheekiness, this.variant(), this.tags("expressive")),
+          "Meine Damen und Herren – hier spricht Ihr Moderator!",
+        );
+        const line = produced?.line;
+        const now = this.rt.read();
+        if (line && now && this.canSpeak(now)) this.rt.sendToHosts(line);
+      } finally {
+        this.testing = false;
+      }
+    });
   }
 
   // ── Host screen feedback ─────────────────────────────────────────────

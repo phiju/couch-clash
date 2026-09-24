@@ -12,6 +12,7 @@ import {
   type LeaderboardEntry,
   type RevealFacts,
   type VoiceSettings,
+  type VoiceStatus,
 } from "@couch-clash/shared";
 import { VOICE_CONFIG } from "./config";
 import type { CommentPlayerFacts } from "./prompt";
@@ -27,14 +28,27 @@ export interface RoomVoice {
   lastTargets: string[];
   /** Last commented question in the current category. */
   lastComment: { roundIndex: number; index: number } | null;
+  /** Characters sent to the voice service in this room. */
+  charsUsed: number;
+  /** "unavailable": the voice service refused (quota, key, …) – silent for the rest of the room. */
+  status: VoiceStatus;
 }
 
 export function defaultRoomVoice(): RoomVoice {
-  return { settings: DEFAULT_VOICE_SETTINGS, linesUsed: 0, streaks: {}, lastTargets: [], lastComment: null };
+  return {
+    settings: DEFAULT_VOICE_SETTINGS,
+    linesUsed: 0,
+    streaks: {},
+    lastTargets: [],
+    lastComment: null,
+    charsUsed: 0,
+    status: "ok",
+  };
 }
 
 export function normalizeRoomVoice(voice: Partial<RoomVoice> | undefined): RoomVoice {
-  const settings = VoiceSettingsSchema.safeParse(voice?.settings);
+  // Settings from before a field existed keep their values, the new field gets its default.
+  const settings = VoiceSettingsSchema.safeParse({ ...DEFAULT_VOICE_SETTINGS, ...voice?.settings });
   return {
     ...defaultRoomVoice(),
     ...voice,
@@ -168,4 +182,10 @@ export function commentHighlights(players: readonly CommentPlayerFacts[]): strin
   const fastest = players.find((p) => p.fastest);
   if (fastest) out.push(`${fastest.name} war am schnellsten (${fastest.seconds} s)${fastest.correct ? "" : " – aber falsch"}.`);
   return out;
+}
+
+/** Reserves `count` characters from the room's voice budget; null if it does not fit. */
+export function reserveChars(voice: RoomVoice, count: number, budget: number = VOICE_CONFIG.charBudgetPerRoom): RoomVoice | null {
+  if (voice.status !== "ok" || voice.charsUsed + count > budget) return null;
+  return { ...voice, charsUsed: voice.charsUsed + count };
 }

@@ -1,4 +1,5 @@
 import { VOICE_CONFIG } from "./config";
+import { stripTags } from "./tags";
 import {
   VoiceProviderError,
   type LinePrompt,
@@ -47,25 +48,32 @@ export function createOpenAITextProvider(apiKey: string, fetchFn: typeof fetch =
   };
 }
 
-/** Text-to-speech (mp3) with style instructions. */
+/** OpenAI text-to-speech (mp3) with style instructions – selectable via VOICE_PROVIDER. */
 export function createOpenAISpeechProvider(apiKey: string, fetchFn: typeof fetch = fetch): SpeechProvider {
   return {
-    async speak(text, options = {}) {
+    id: "openai",
+    supportsTags: () => false,
+    prepare: (text) => stripTags(text),
+    async speak(text, { speed, signal }) {
       const res = await fetchFn(SPEECH_URL, {
         method: "POST",
         headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: VOICE_CONFIG.speechModel,
-          voice: VOICE_CONFIG.voice,
+          model: VOICE_CONFIG.openaiSpeechModel,
+          voice: VOICE_CONFIG.openaiVoice,
           input: text,
-          instructions: VOICE_CONFIG.style,
+          instructions: VOICE_CONFIG.openaiStyle,
           response_format: "mp3",
+          speed,
         }),
-        signal: options.signal,
+        signal,
       });
-      if (!res.ok) throw new VoiceProviderError("error", `OpenAI speech HTTP ${res.status}`);
+      if (!res.ok) {
+        const unavailable = [401, 402, 403, 429].includes(res.status);
+        throw new VoiceProviderError(unavailable ? "unavailable" : "error", `OpenAI speech HTTP ${res.status}`, String(res.status));
+      }
       const bytes = new Uint8Array(await res.arrayBuffer());
-      if (bytes.length === 0) throw new VoiceProviderError("error", "OpenAI speech empty");
+      if (bytes.length === 0) throw new VoiceProviderError("error", "OpenAI speech empty", "empty");
       return { bytes, mimeType: "audio/mpeg" };
     },
   };

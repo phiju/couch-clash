@@ -81,10 +81,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     sendToHosts: (line) => this.sendToHosts(line),
     hostConnected: () => this.presence().host,
     waitUntil: (promise) => this.ctx.waitUntil(promise),
-    services: () => {
-      const providers = createVoiceProviders(this.env);
-      return { text: providers?.text ?? null, speech: providers?.speech ?? null, store: this.avatarStore() };
-    },
+    services: () => ({ ...createVoiceProviders(this.env), store: this.avatarStore() }),
     now: () => Date.now(),
     random: Math.random,
     newId: () => generateSecret(8),
@@ -278,6 +275,12 @@ export class Room extends Server<Env> implements AvatarRoomApi {
       case "update_voice_settings":
         if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
         return this.apply(conn, updateVoiceSettings(room, msg.settings));
+
+      case "voice_test":
+        if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        if (room.phase !== "lobby" && room.phase !== "setup") return this.send(conn, errorMessage("WRONG_PHASE"));
+        this.voice.testLine();
+        return;
 
       case "voice_event":
         if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));

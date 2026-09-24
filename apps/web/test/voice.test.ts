@@ -8,6 +8,7 @@ const line = (id: string, over: Partial<HostLine> = {}): HostLine => ({
   kind: "welcome",
   text: `Applaus für ${id}!`,
   audioPath: `/api/rooms/ABCD/voice/${id}`,
+  playbackRate: 1,
   staleAfterMs: null,
   ...over,
 });
@@ -72,17 +73,17 @@ describe("VoicePlayer", () => {
     await flush();
     expect(maxActive()).toBe(1);
     expect(log).toEqual([
-      "show:a", "started:a@3000", "ended:a", "show:-",
-      "show:b", "started:b@3000", "ended:b", "show:-",
+      "show:a", "started:a@3000", "show:-", "ended:a",
+      "show:b", "started:b@3000", "show:-", "ended:b",
     ]);
   });
 
-  it("shows the subtitle for a reading time when there is no audio", async () => {
-    const { player, log } = setup(async () => null);
-    player.enqueue(line("a", { audioPath: null, text: "Kurz!" }));
+  it("skips a line it can't play – no subtitle, the queue moves on", async () => {
+    const { player, log } = setup(async (l) => (l.id === "a" ? null : { durationMs: 1000, ended: Promise.resolve() }));
+    player.enqueue(line("a"));
+    player.enqueue(line("b"));
     await flush();
-    expect(log[0]).toBe("show:a");
-    expect(log[1]).toBe("started:a@3500"); // 1000 + minimum reading time 2.5 s
+    expect(log).toEqual(["ended:a", "show:b", "started:b@2000", "show:-", "ended:b"]);
   });
 
   it("stops cleanly", async () => {

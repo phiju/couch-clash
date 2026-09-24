@@ -16,8 +16,8 @@ export function useHostSpeech(): HostLine | null {
 
 /**
  * Plays the host's lines one after another (host device only). Audio goes
- * through the audio engine (music ducked); without audio – locked, muted
- * or the speech failed – the line is shown as a subtitle for a reading time.
+ * through the audio engine (music ducked). Without audio (locked, file
+ * failed) a line is skipped – there are no subtitles.
  * Reports start/end to the server (welcome queue, leaderboard hold).
  */
 export function useHostVoice(send: (msg: ClientMessage) => void, clockOffset: number) {
@@ -35,8 +35,8 @@ export function useHostVoice(send: (msg: ClientMessage) => void, clockOffset: nu
     const player = new VoicePlayer({
       play: (line) => {
         const engine = getAudioEngine();
-        return line.audioPath && engine.unlocked
-          ? engine.playVoice(`${PARTY_HTTP_URL}${line.audioPath}`)
+        return engine.unlocked
+          ? engine.playVoice(`${PARTY_HTTP_URL}${line.audioPath}`, line.playbackRate)
           : Promise.resolve(null);
       },
       report: (event) => sendRef.current({ type: "voice_event", ...event }),
@@ -56,8 +56,9 @@ export function useHostVoice(send: (msg: ClientMessage) => void, clockOffset: nu
 }
 
 /**
- * The host with a speech bubble, bottom left – for screens that don't show
- * him anyway. Lobby, intro and finale put the line into their own mascot.
+ * While a line plays: the host slides in bottom left and bounces (no
+ * bubble) – on screens that don't show him anyway. Lobby, intro and
+ * finale let their own mascot talk.
  */
 export function HostSpeaker({ className = "" }: { className?: string }) {
   const line = useHostSpeech();
@@ -68,9 +69,7 @@ export function HostSpeaker({ className = "" }: { className?: string }) {
         key={line.id}
         pose="announce"
         talking
-        message={line.text}
         imageClassName="h-[min(40vh,440px)]"
-        bubbleClassName="fs-xl !bottom-[86%] !left-[62%] max-w-[min(38rem,58vw)]"
       />
     </div>
   );

@@ -122,7 +122,8 @@ The option "Include source files outside of the Root Directory" must stay on (it
 | `NEXT_PUBLIC_PARTY_HOST` | `apps/web`, Vercel  | `couch-clash.xyz.workers.dev`              |
 | `NEXT_PUBLIC_SITE_URL`   | `apps/web`, Vercel  | `https://couch-clash-web.vercel.app` (QR code / join link; falls back to the current address) |
 
-| `OPENAI_API_KEY`         | `apps/party`, Cloudflare Worker **secret** | Photo avatars (never sent to the browser) |
+| `OPENAI_API_KEY`         | `apps/party`, Cloudflare Worker **secret** | Photo avatars + the host's texts (never sent to the browser) |
+| `ELEVENLABS_API_KEY`     | `apps/party`, Cloudflare Worker **secret** | The host's voice (never sent to the browser) |
 
 No secrets are committed to the repository. For local photo avatars, put `OPENAI_API_KEY=…` into `apps/party/.dev.vars` (git-ignored). Without the key, photo avatars answer "not available" and everyone plays with emojis.
 
@@ -193,41 +194,56 @@ Players can take a selfie or pick a photo when joining. The party server turns i
 
 ## The host speaks (AI voice)
 
-The mascot welcomes every player by name and comments on the leaderboard. Each line is generated live: first a short text (**`gpt-4.1-mini`**), then speech (**`gpt-4o-mini-tts`**, voice `ash`, style "enthusiastic 1970s German TV game show host"). Audio plays **only on the host device** through the audio manager: the music is ducked, and the voice has its own gain, clearly louder than the music. The master volume still applies.
+The mascot welcomes every player by name and comments on the leaderboard. Every line is generated live, and the host device only plays it through the audio manager. The music is ducked; the voice has its own gain, clearly louder than the music, and the master volume still applies.
+
+- **Text:** OpenAI **`gpt-4.1-mini`**.
+- **Voice:** **ElevenLabs**, voice `DQ4rTqXxHr077oQgsA9D`, mp3 44.1 kHz / 128 kbps.
+  - `eleven_v3` (expressive, audio tags) for welcome, game start, winner announcement and the test line.
+  - `eleven_flash_v2_5` (fast) for leaderboard comments.
+  - Voice settings: stability 0.35 (v3: preset 0.5 "natural"), similarity 0.8, style 0.6, speaker boost.
+- The OpenAI voice stays in the code: `VOICE_PROVIDER = "openai"` in `apps/party/src/voice/config.ts`.
+
+**No speech bubbles:** the host never shows bubbles or subtitles. He only sways (idle) and bounces slightly while the voice plays. A line that can't be heard is skipped.
 
 **When he speaks**
-- **Welcome:** one short line per joining player ("Applaus für Clara – unsere Geheimwaffe vom Sofa!"). At most 3 welcome lines wait on the TV; further names are merged into one line ("… und willkommen Tina, Max und Oma Gerda!").
-- **Game start:** "Meine Damen und Herren, willkommen bei Couch Clash! …" with the number of players.
-- **Commentary:** prepared at the reveal from structured facts (answers, right/wrong, estimate vs. correct value, rank changes, fastest answer, streaks). It plays when the leaderboard starts and is skipped if it isn't ready by then.
-  - A line that is still playing may keep the leaderboard up to 3 s longer.
-  - How often (host setting "Kommentare"): `oft` = every 2nd question, `normal` = every 3rd, `selten` = only after the last question of a category. The last question of a category is always commented.
-- **Finale:** winner announcement (max 2 sentences).
+- **Welcome:** one short line per joining player. At most 3 welcome lines wait on the TV; further names are merged into one line.
+- **Game start:** with the number of players.
+- **Commentary:** prepared at the reveal from structured facts (answers, right/wrong, estimate vs. correct value, rank changes, fastest answer, streaks).
+  - It plays when the leaderboard starts or is skipped; a line still playing may keep the leaderboard up to 3 s longer.
+  - "Kommentare": `oft` = every 2nd question, `normal` = every 3rd, `selten` = only after the last question of a category. The last question of a category is always commented.
+- **Finale:** winner announcement.
 
-**Tone ("Frechheit", host setting):** `nett` / `frech` (default) / `gnadenlos`.
-- Hard limits in every mode: only about answers and scores in this game, never about looks, body, age, gender, origin, religion, family, health or intelligence as a person, and no swear words.
-- Targets rotate, so the same player is never roasted twice in a row.
-- Categories with an age rating below 12 switch to `nett` automatically, unless the host ticks "Trotzdem …".
+**Host settings** (lobby / setup)
+- 🎙️ Moderator spricht
+- Kommentare
+- Frechheit (`nett` / `frech` / `gnadenlos`): hard limits, rotating targets, automatic `nett` for categories with an age rating below 12 unless overridden
+- **Sprechtempo:** `normal` = speed 1.0, `schnell` = 1.15 (default), `turbo` = 1.2 plus playback at 1.1 with preserved pitch on the host
+- **Moderator testen:** "▶ Probe-Spruch" / "▶ Nochmal"
+
+**Audio tags**
+- For `eleven_v3` lines the text model may add 1–2 tags from `[excited] [laughs] [gasps] [sarcastic] [whispers] [shouting]`. Any other tag is removed.
+- For `eleven_flash_v2_5` all tags are removed before sending.
+
+**Limits / errors**
+- Per room: **3,000 characters** for the voice (`charBudgetPerRoom`; the ElevenLabs free tier has 10,000 per month). Only the characters actually sent are counted, and test lines count too.
+- Per room: max 60 generated texts; after that, template lines are spoken.
+- Quota exceeded / 401 / 402 / 429 / voice not available → the voice stops for this room, the game continues silently, and the settings panel shows "Moderator-Stimme gerade nicht verfügbar (ElevenLabs-Kontingent?)". Only the error code is logged.
+- Timeouts: text 4 s, speech 8 s. A comment that isn't ready in time is skipped.
 
 **Safety**
-- Player names are sanitized (letters, digits, spaces, basic punctuation, max 20 chars), only ever placed in a quoted JSON data block, and the model is told to ignore instructions inside it.
-- Logs contain counts and error reasons only, never names or texts.
+- Player names are sanitized, only placed in a quoted JSON data block, and the model ignores instructions inside it.
+- Logs contain counts and error codes only, never names or texts.
 
-**Never blocking**
-- Timeouts: text 4 s, speech 8 s.
-- On errors, timeouts, refusals or when the room's budget of **60 lines** is used up, a pre-written template line is shown as a subtitle (no audio).
-- Without an unlocked audio context, lines are subtitles only.
+**Attribution:** the ElevenLabs free tier requires attribution. The start page shows a small "Stimme: ElevenLabs" (`SHOW_VOICE_ATTRIBUTION` in `apps/web/src/lib/config.ts`, default on).
 
 **Code** (`apps/party/src/voice/`)
-- `config.ts`: models, voice, style, timeouts, limits
-- `provider.ts`: `TextProvider.generateLine(prompt) → text` and `SpeechProvider.speak(text) → audio`. To switch the voice to e.g. ElevenLabs, implement `SpeechProvider` and change `index.ts`.
-- `prompt.ts`: sanitizing and prompts
-- `rules.ts`: frequency, Frechheit, welcome batching, hold, streaks (pure, tested)
-- `service.ts`: timeouts, fallback, R2
-- `director.ts`: what to say when
+- `config.ts`: provider, models, voice, budgets
+- `provider.ts`: `TextProvider`, `SpeechProvider`
+- `elevenlabs.ts` / `openai.ts`
+- `tags.ts`
+- `prompt.ts`, `rules.ts`, `service.ts`, `director.ts`
 
-**Storage:** the mp3s live in R2 under `rooms/<code>/voice/<id>.mp3` and are served by `GET /api/rooms/:code/voice/:id` while the room exists. They are deleted with the room; the existing 1-day rule `rooms/` covers them too. No extra setup is needed: the voice reuses the secret `OPENAI_API_KEY` and the bucket `AVATARS`.
-
-**Host screen:** `components/host/voice.tsx` and `lib/voice/` (queue + player, tested). The mascot shows the line as a speech bubble with a small talking bounce.
+**Storage:** the mp3s live in R2 under `rooms/<code>/voice/<id>.mp3`, are deleted with the room, and are covered by the 1-day rule on `rooms/`.
 
 ## Sound (host only)
 
@@ -254,7 +270,7 @@ The TV/laptop plays music and effects; phones never do.
 
 **Milestone 0.4 – Welcome screen, sound & laptop layout** ✅ Welcome card with "Los geht's!", host audio engine (jingle, loops, stings, fanfare), all host screens fit 1280×720 … 4K without scrolling.
 
-**The host speaks (AI voice)** ✅ Welcome by name, game start, leaderboard commentary with "Frechheit" levels, winner announcement – host device only, template fallback, 60 lines per room.
+**The host speaks (AI voice)** ✅ Welcome by name, game start, leaderboard commentary with "Frechheit" levels, winner announcement – voice by ElevenLabs, host device only, no speech bubbles, character budget per room.
 
 **Photo avatars (AI)** ✅ Selfie/photo → cartoon in the show style via OpenAI, 3 expressions for the leaderboard, emoji fallback, R2 storage with cleanup, "⭐ Meine Figur" for next time.
 
