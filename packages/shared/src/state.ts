@@ -1,6 +1,7 @@
 import type { Avatar } from "./avatar";
 import type { ScoringSettings } from "./game-module";
 import type { LeaderboardEntry } from "./leaderboard";
+import type { PublicPhotoAvatar } from "./photo";
 
 /**
  * Room state machine. Transitions are driven by client intents and by
@@ -32,11 +33,14 @@ export const SCOREBOARD_MS = 10_000;
 export const REVEAL_ANSWER_MS = 3_000;
 export const REVEAL_LEADERBOARD_MS = 7_000;
 
+/** Emoji avatar plus the optional AI photo avatar (emoji stays the fallback). */
+export type PublicAvatar = Avatar & { photo?: PublicPhotoAvatar };
+
 /** Player as visible to every client (no secrets). */
 export interface PublicPlayer {
   id: string;
   name: string;
-  avatar: Avatar;
+  avatar: PublicAvatar;
   joinedAt: number;
   connected: boolean;
 }
@@ -93,4 +97,6 @@ export interface PublicRoomState {
   settings: GameRoundSettings[] | null;
   /** Short summary for everyone, null if nothing is selected. */
   settingsSummary: SettingsSummary | null;
+  /** Host setting "Foto-Avatare erlauben". */
+  photoAvatars: boolean;
 }

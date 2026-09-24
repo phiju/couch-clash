@@ -5,9 +5,11 @@ import { QRCodeSVG } from "qrcode.react";
 import { useRef, useSyncExternalStore } from "react";
 import { AvatarBadge } from "@/components/avatar";
 import { Mascot } from "@/components/mascot";
+import { Sparkle } from "@/components/sparkle";
 import { Button, Logo, Screen } from "@/components/ui";
 import { displayJoinLink, joinUrl as buildJoinUrl } from "@/lib/config";
 import { summaryText } from "@/lib/summary";
+import { usePhotoCelebration } from "./photo-celebration";
 import { GameSettingsPanel } from "./settings-panel";
 
 const subscribeNoop = () => () => {};
@@ -24,6 +26,7 @@ export function HostLobby({
   const startRef = useRef<(() => void) | null>(null);
   const code = room?.code ?? "";
   const players = room?.players ?? [];
+  const celebrating = usePhotoCelebration(players);
   const joinUrl = useSyncExternalStore(
     subscribeNoop,
     () => (code ? buildJoinUrl(code) : null),
@@ -69,9 +72,24 @@ export function HostLobby({
         </section>
 
         <section className="panel flex min-h-0 flex-col gap-[1.8vh] p-[2vh]">
-          <h2 className="fs-title shrink-0 font-bold">
-            {players.length === 0 ? "Warte auf Mitspieler:innen…" : "Wer ist dabei?"}
-          </h2>
+          <div className="flex shrink-0 flex-wrap items-center justify-between gap-x-4 gap-y-1">
+            <h2 className="fs-title font-bold">
+              {players.length === 0 ? "Warte auf Mitspieler:innen…" : "Wer ist dabei?"}
+            </h2>
+            {room && (
+              <label className="fs-sm flex cursor-pointer items-center gap-2 font-bold text-cream/85">
+                <input
+                  type="checkbox"
+                  role="switch"
+                  checked={room.photoAvatars}
+                  disabled={!canSend}
+                  onChange={(e) => send({ type: "set_photo_avatars", enabled: e.target.checked })}
+                  className="size-5 accent-orange"
+                />
+                📸 Foto-Avatare erlauben
+              </label>
+            )}
+          </div>
 
           <ul className="grid min-h-0 flex-1 auto-rows-min grid-cols-[repeat(auto-fill,minmax(clamp(7.5rem,11vw,12rem),1fr))] content-start gap-[1.2vh] overflow-y-auto pr-1">
             {players.map((player) => (
@@ -79,7 +97,18 @@ export function HostLobby({
                 key={player.id}
                 className="relative flex animate-pop flex-col items-center gap-[0.8vh] rounded-3xl chip px-2 py-[1.4vh]"
               >
-                <AvatarBadge avatar={player.avatar} size="fluid" dimmed={!player.connected} />
+                <div className="relative">
+                  <AvatarBadge avatar={player.avatar} size="fluid" dimmed={!player.connected} />
+                  {celebrating.has(player.id) && <Sparkle />}
+                  {player.avatar.photo?.status === "pending" && (
+                    <span
+                      className="absolute -right-2 -bottom-1 animate-pulse rounded-full bg-orange px-1.5 text-base"
+                      title="Foto-Figur wird gemalt"
+                    >
+                      ✨
+                    </span>
+                  )}
+                </div>
                 <span className="fs-lg w-full text-center leading-tight font-bold [overflow-wrap:anywhere] text-balance">
                   {player.name}
                 </span>
@@ -89,6 +118,19 @@ export function HostLobby({
                   <span className={`size-2.5 rounded-full ${player.connected ? "bg-bulb" : "bg-cream/40"}`} />
                   {player.connected ? "verbunden" : "getrennt"}
                 </span>
+                {player.avatar.photo && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (window.confirm(`Foto-Figur von ${player.name} löschen? (Das Emoji bleibt.)`)) {
+                        send({ type: "photo_reset", playerId: player.id });
+                      }
+                    }}
+                    className="fs-sm rounded-full bg-petrol-dark/60 px-3 font-bold text-cream/70 transition hover:bg-rust hover:text-cream"
+                  >
+                    ↺ Emoji
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={() => {

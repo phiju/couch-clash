@@ -1,6 +1,6 @@
 "use client";
 
-import type { LeaderboardEntry, PublicPlayer } from "@couch-clash/shared";
+import { expressionForChange, type LeaderboardEntry, type PublicPlayer } from "@couch-clash/shared";
 import { AnimatePresence, animate, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import { AvatarBadge } from "@/components/avatar";
@@ -121,7 +121,17 @@ export function Leaderboard({
               <span className={`text-center font-bold tabular-nums ${tv ? "fs-xl w-[3ch]" : "w-8 text-2xl"}`}>
                 {rank}.
               </span>
-              <AvatarBadge avatar={player.avatar} size={tv ? "fluidSm" : "xs"} dimmed={!player.connected} />
+              <AvatarBadge
+                avatar={player.avatar}
+                size={tv ? "fluidSm" : "xs"}
+                dimmed={!player.connected}
+                // Photo avatars react to the change: cheering, disappointed, shocked.
+                expression={
+                  showGains && reordered
+                    ? expressionForChange(entry, player.avatar.photo?.expressions ?? [])
+                    : "neutral"
+                }
+              />
               <span className={`min-w-0 flex-1 leading-tight font-bold [overflow-wrap:anywhere] ${tv ? "fs-xl" : "text-xl"}`}>
                 {player.name}
               </span>

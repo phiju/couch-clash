@@ -18,6 +18,7 @@ import {
 import { GAME_MODULES, getModule, normalizeScoring, type ModuleRegistry } from "@couch-clash/games";
 import { publicGame, settingsSummary } from "./game-flow";
 import { fail, ok, type Result } from "./result";
+import { publicPhoto, type PhotoRecord, type PhotoUsage } from "./avatar/photo-logic";
 
 export interface PlayerRecord {
   id: string;
@@ -26,6 +27,10 @@ export interface PlayerRecord {
   name: string;
   avatar: Avatar;
   joinedAt: number;
+  /** AI photo avatar (emoji `avatar` stays the fallback). */
+  photo?: PhotoRecord;
+  /** Base images generated for this player (also counts after a reset). */
+  photoGenerations?: number;
 }
 
 /** Everything persisted in Durable Object storage for one room. */
@@ -44,6 +49,10 @@ export interface RoomRecord {
   game: GameRecord | null;
   /** Content ids played in this room (across games) – avoids repeats. */
   usedContentIds: string[];
+  /** Host setting "Foto-Avatare erlauben". */
+  photoAvatars: boolean;
+  /** Images generated in this room (room-wide limit, kept after kicks/resets). */
+  photoUsage: PhotoUsage;
 }
 
 /** One category of the game settings (sanitized against the registry). */
@@ -81,6 +90,8 @@ export function normalizeRoomRecord(room: RoomRecord, registry: ModuleRegistry =
         }
       : null,
     usedContentIds: room.usedContentIds ?? [],
+    photoAvatars: room.photoAvatars ?? true,
+    photoUsage: room.photoUsage ?? { base: 0, expressions: 0 },
   };
 }
 
@@ -104,6 +115,8 @@ export function createRoomRecord(code: string, hostToken: string, now: number): 
     settings: [],
     game: null,
     usedContentIds: [],
+    photoAvatars: true,
+    photoUsage: { base: 0, expressions: 0 },
   };
 }
 
@@ -170,7 +183,6 @@ export function kickPlayer(room: RoomRecord, playerId: string): Result<RoomRecor
   return ok({ ...room, players: room.players.filter((p) => p.id !== playerId) });
 }
 
-
 export function toPublicState(
   room: RoomRecord,
   connected: { host: boolean; playerIds: ReadonlySet<string> },
@@ -188,12 +200,13 @@ export function toPublicState(
     players: room.players.map((p) => ({
       id: p.id,
       name: p.name,
-      avatar: p.avatar,
+      avatar: p.photo ? { ...p.avatar, photo: publicPhoto(p, room.code) } : p.avatar,
       joinedAt: p.joinedAt,
       connected: connected.playerIds.has(p.id),
     })),
     game: publicGame(room, viewer, registry),
     settings: viewer.role === "host" ? room.settings : null,
     settingsSummary: settingsSummary(room.settings, registry),
+    photoAvatars: room.photoAvatars,
   };
 }

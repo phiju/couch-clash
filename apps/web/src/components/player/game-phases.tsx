@@ -2,7 +2,7 @@
 
 import { getCategoryMeta } from "@couch-clash/games/meta";
 import type { PublicPlayer, PublicRoomState } from "@couch-clash/shared";
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { AvatarBadge } from "@/components/avatar";
 import { summaryText } from "@/lib/summary";
 import { Leaderboard } from "@/components/leaderboard";
@@ -15,10 +15,12 @@ interface Props {
   sendAction: (action: unknown) => void;
   error: string | null;
   onErrorShown: () => void;
+  /** Extra content on the lobby card (photo avatar options). */
+  lobbyExtra?: ReactNode;
 }
 
 /** Phone screen for everything after joining – switches on the room phase. */
-export function PlayerGame({ room, me, sendAction, error, onErrorShown }: Props) {
+export function PlayerGame({ room, me, sendAction, error, onErrorShown, lobbyExtra }: Props) {
   useEffect(() => {
     if (!error) return;
     const t = setTimeout(onErrorShown, 3000);
@@ -27,7 +29,7 @@ export function PlayerGame({ room, me, sendAction, error, onErrorShown }: Props)
 
   return (
     <>
-      <PhaseContent room={room} me={me} sendAction={sendAction} />
+      <PhaseContent room={room} me={me} sendAction={sendAction} lobbyExtra={lobbyExtra} />
       {error && (
         <div className="fixed top-4 right-4 left-4 z-50 rounded-2xl bg-rust px-4 py-3 text-center text-lg font-bold shadow-xl">
           {error}
@@ -37,7 +39,7 @@ export function PlayerGame({ room, me, sendAction, error, onErrorShown }: Props)
   );
 }
 
-function PhaseContent({ room, me, sendAction }: Omit<Props, "error" | "onErrorShown">) {
+function PhaseContent({ room, me, sendAction, lobbyExtra }: Omit<Props, "error" | "onErrorShown">) {
   const game = room.game;
   const round = game?.rounds[game.roundIndex];
   const meta = round ? getCategoryMeta(round.categoryId) : undefined;
@@ -133,6 +135,7 @@ function PhaseContent({ room, me, sendAction }: Omit<Props, "error" | "onErrorSh
               {summaryText(room.settingsSummary)}
             </p>
           )}
+          {lobbyExtra}
           </div>
         </Screen>
       );
