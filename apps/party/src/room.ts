@@ -2,9 +2,19 @@ import {
   ClientMessageSchema,
   errorMessage,
   type Avatar,
+  type PhotoExpression,
+  type PhotoUploadResponse,
   type ServerMessage,
   type Viewer,
 } from "@couch-clash/shared";
+import { createAvatarProvider } from "./avatar";
+import { acceptPhotoAndGenerate, startPhotoUpload, type RoomAccess } from "./avatar/jobs";
+import { expireStalePhotos, nextPhotoDeadline, resetPhoto, setPhotoAvatars } from "./avatar/photo-logic";
+import type { AvatarImage } from "./avatar/provider";
+import type { AvatarRoomApi } from "./avatar/routes";
+import { imagesResizer, type AvatarServiceDeps } from "./avatar/service";
+import { playerPrefix, r2AvatarStore, roomPrefix } from "./avatar/store";
+import { styleReference } from "./avatar/style";
 import { Server, type Connection, type WSMessage } from "partyserver";
 import {
   advance,
@@ -43,7 +53,7 @@ type Conn = Connection<ConnState>;
  * updates its state and sends every client the state *it* may see.
  * All timers are Durable Object alarms at `phaseEndsAt`.
  */
-export class Room extends Server<Env> {
+export class Room extends Server<Env> implements AvatarRoomApi {
   static options = { hibernate: true };
 
   private room: RoomRecord | null = null;
@@ -52,6 +62,12 @@ export class Room extends Server<Env> {
     const stored = await this.ctx.storage.get<RoomRecord>(STORAGE_KEY);
     this.room = stored ? normalizeRoomRecord(stored) : null;
   }
+
+  /** Read/commit access for background avatar jobs. */
+  private readonly roomAccess: RoomAccess = {
+    read: () => this.activeRoom(),
+    commit: (room) => this.commit(room),
+  };
 
   // -------------------------------------------------------------------------
   // RPC, called by the worker's HTTP API
@@ -74,12 +90,33 @@ export class Room extends Server<Env> {
     return { phase: room.phase, playerCount: room.players.length };
   }
 
+  /**
+   * Photo upload (validated by the worker). Marks the avatar as pending and
+   * generates it in the background; clients learn the result via the state.
+   * The photo is only kept in memory until the generation finished.
+   */
+  async uploadPhoto(playerId: string, playerSecret: string, photo: AvatarImage): Promise<PhotoUploadResponse> {
+    const { response, job } = await startPhotoUpload(
+      this.roomAccess,
+      this.avatarDeps(),
+      { playerId, playerSecret, photo },
+      Date.now(),
+    );
+    if (job) this.ctx.waitUntil(job);
+    return response;
+  }
+
+  async hasPhoto(playerId: string, expression: PhotoExpression): Promise<boolean> {
+    const photo = this.activeRoom()?.players.find((p) => p.id === playerId)?.photo;
+    return !!photo && photo.readyVersion !== null && photo.expressions.includes(expression);
+  }
+
   // -------------------------------------------------------------------------
   // Alarms: game timers (phaseEndsAt) and room expiry
   // -------------------------------------------------------------------------
 
   async onAlarm() {
-    const room = this.room;
+    let room = this.room;
     if (!room) return;
     const now = Date.now();
     if (isExpired(room, now)) {
@@ -89,6 +126,13 @@ export class Room extends Server<Env> {
       }
       await this.destroy();
       return;
+    }
+    // Avatar jobs that never reported back (e.g. the object was evicted) → failed.
+    const expired = expireStalePhotos(room, now);
+    if (expired) {
+      room = expired;
+      await this.save(room);
+      this.broadcastState();
     }
     if (isTimerDue(room, now)) {
       const result = advance(room, this.flowDeps(now));
@@ -187,7 +231,34 @@ export class Room extends Server<Env> {
         }
         // A removed player may have been the last one we were waiting for.
         const kicked = result.value;
+        this.deleteAvatars(playerPrefix(room.code, msg.playerId));
         return this.commit(handlePresenceChange(kicked, this.flowDeps(now)) ?? kicked);
+      }
+
+      case "set_photo_avatars":
+        if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        return this.apply(conn, setPhotoAvatars(room, msg.enabled));
+
+      case "photo_accept": {
+        const state = conn.state;
+        if (state?.role !== "player") return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        const result = await acceptPhotoAndGenerate(this.roomAccess, this.avatarDeps(), state.playerId, now);
+        if (!result.ok) return this.send(conn, errorMessage(result.error));
+        if (result.value) this.ctx.waitUntil(result.value);
+        return;
+      }
+
+      case "photo_reset": {
+        const state = conn.state;
+        // The host resets anyone; a player only themselves.
+        const target = isHost ? msg.playerId : state?.role === "player" ? state.playerId : undefined;
+        if (!target || (!isHost && msg.playerId && msg.playerId !== target)) {
+          return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        }
+        const result = resetPhoto(room, target);
+        if (!result.ok) return this.send(conn, errorMessage(result.error));
+        if (result.value !== room) this.deleteAvatars(playerPrefix(room.code, target));
+        return this.commit(result.value);
       }
 
       case "back_to_lobby":
@@ -274,14 +345,43 @@ export class Room extends Server<Env> {
   }
 
   private async scheduleAlarm(room: RoomRecord) {
-    const next = room.phaseEndsAt ? Math.min(room.phaseEndsAt, room.expiresAt) : room.expiresAt;
+    const candidates = [room.expiresAt, room.phaseEndsAt, nextPhotoDeadline(room)];
+    const next = Math.min(...candidates.filter((t): t is number => t !== null));
     await this.ctx.storage.setAlarm(next);
   }
 
   private async destroy() {
+    const code = this.room?.code;
     this.room = null;
     await this.ctx.storage.deleteAlarm();
     await this.ctx.storage.deleteAll();
+    // Generated avatars live 24 h at most (plus the bucket's 1-day lifecycle rule).
+    if (code) await this.deleteAvatarsNow(roomPrefix(code));
+  }
+
+  /** Null when photo avatars are not set up (no API key or no R2 bucket). */
+  private avatarDeps(): AvatarServiceDeps | null {
+    const provider = createAvatarProvider(this.env);
+    if (!provider || !this.env.AVATARS) return null;
+    return {
+      provider,
+      store: r2AvatarStore(this.env.AVATARS),
+      styleReference,
+      resize: this.env.IMAGES ? imagesResizer(this.env.IMAGES) : undefined,
+    };
+  }
+
+  private async deleteAvatarsNow(prefix: string) {
+    if (!this.env.AVATARS) return;
+    try {
+      await r2AvatarStore(this.env.AVATARS).deletePrefix(prefix);
+    } catch {
+      console.warn("avatar cleanup failed (the bucket lifecycle rule will remove them)");
+    }
+  }
+
+  private deleteAvatars(prefix: string) {
+    this.ctx.waitUntil(this.deleteAvatarsNow(prefix));
   }
 
   /** `excludeConnId`: a connection that is closing but may still be listed. */

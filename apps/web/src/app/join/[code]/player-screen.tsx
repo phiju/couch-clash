@@ -9,8 +9,10 @@ import {
   type Avatar,
   type ServerMessage,
 } from "@couch-clash/shared";
-import { useCallback, useState, useSyncExternalStore } from "react";
+import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 import { PlayerGame } from "@/components/player/game-phases";
+import { PhotoChooser, PhotoProgress } from "@/components/player/photo-avatar";
+import { uploadPhoto } from "@/lib/api";
 import { ClockContext } from "@/lib/clock";
 import { AvatarBuilder } from "@/components/avatar-builder";
 import { Button, ButtonLink, ConnectionBadge, Logo, Notice, Screen } from "@/components/ui";
@@ -70,6 +72,27 @@ function PlayerRoom({ code }: { code: string }) {
 
   const [actionError, setActionError] = useState<string | null>(null);
   const clearActionError = useCallback(() => setActionError(null), []);
+
+  // Photo avatar: the prepared photo stays only in memory (for "Nochmal").
+  const [lastPhoto, setLastPhoto] = useState<Blob | null>(null);
+  /** Photo chosen in the join form – uploaded right after "joined". */
+  const joinPhotoRef = useRef<Blob | null>(null);
+  const [photoFlow, setPhotoFlow] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  const startUpload = useCallback(
+    async (credentials: PlayerCredentials, photo: Blob) => {
+      setLastPhoto(photo);
+      setPhotoFlow(true);
+      setUploadError(null);
+      setUploading(true);
+      const result = await uploadPhoto(code, credentials, photo);
+      setUploading(false);
+      if (!result.ok) setUploadError(result.error);
+    },
+    [code],
+  );
   const { state, status, fatalError, send, clockOffset } = useRoom(code, {
     hello: () => {
       const c = playerStore.get(code);
@@ -77,13 +100,19 @@ function PlayerRoom({ code }: { code: string }) {
     },
     onMessage: (msg: ServerMessage) => {
       switch (msg.type) {
-        case "joined":
-          playerStore.set(code, { playerId: msg.playerId, playerSecret: msg.playerSecret });
-          setCreds({ playerId: msg.playerId, playerSecret: msg.playerSecret });
+        case "joined": {
+          const joinedCreds = { playerId: msg.playerId, playerSecret: msg.playerSecret };
+          playerStore.set(code, joinedCreds);
+          setCreds(joinedCreds);
           setPlayerId(msg.playerId);
           setSubmitting(false);
           setView("joined");
+          // Joined with the emoji avatar – the photo is transformed in the background.
+          const photo = joinPhotoRef.current;
+          joinPhotoRef.current = null;
+          if (photo) void startUpload(joinedCreds, photo);
           break;
+        }
         case "welcome_player":
           setPlayerId(msg.playerId);
           setView("joined");
@@ -104,6 +133,7 @@ function PlayerRoom({ code }: { code: string }) {
           } else if (view === "joined") {
             setActionError(msg.message);
           } else {
+            joinPhotoRef.current = null;
             setFormError(msg.message);
             setSubmitting(false);
           }
@@ -146,6 +176,16 @@ function PlayerRoom({ code }: { code: string }) {
   const me = playerId ? state.players.find((p) => p.id === playerId) : undefined;
 
   if (view === "joined" && me) {
+    const photo = me.avatar.photo;
+    const inLobby = state.phase === "lobby" || state.phase === "setup";
+    // Also resumes after a reload: a running job or an unconfirmed result.
+    const showProgress =
+      inLobby && (photoFlow || photo?.status === "pending" || (photo?.status === "ready" && !photo.accepted));
+    const closeFlow = () => {
+      setPhotoFlow(false);
+      setUploadError(null);
+    };
+    const canUpload = state.photoAvatars && !!creds;
     return (
       <ClockContext.Provider value={clockOffset}>
         <PlayerGame
@@ -154,7 +194,48 @@ function PlayerRoom({ code }: { code: string }) {
           sendAction={(action) => send({ type: "action", action })}
           error={actionError}
           onErrorShown={clearActionError}
+          lobbyExtra={
+            canUpload && !photo ? (
+              <div className="w-full">
+                <p className="mb-3 text-lg font-bold text-cream/85">Lust auf eine Showstar-Figur?</p>
+                <PhotoChooser onConfirm={(blob) => void startUpload(creds, blob)} />
+              </div>
+            ) : photo && !showProgress ? (
+              <button
+                type="button"
+                onClick={() => send({ type: "photo_reset" })}
+                className="text-lg font-bold text-cream/70 underline"
+              >
+                Zurück zum Emoji
+              </button>
+            ) : null
+          }
         />
+        {showProgress && (
+          <PhotoProgress
+            me={me}
+            uploading={uploading}
+            uploadError={uploadError}
+            onAccept={() => {
+              send({ type: "photo_accept" });
+              closeFlow();
+            }}
+            onRetry={(next) => {
+              const retryPhoto = next ?? lastPhoto;
+              if (creds && retryPhoto) void startUpload(creds, retryPhoto);
+            }}
+            hasPhotoInMemory={lastPhoto !== null}
+            onEmoji={() => {
+              send({ type: "photo_reset" });
+              closeFlow();
+            }}
+            onClose={() => {
+              // An earlier image is still there → keep it (starts the expressions).
+              if (photo?.readyVersion != null && !photo.accepted) send({ type: "photo_accept" });
+              closeFlow();
+            }}
+          />
+        )}
         <ConnectionBadge status={status} />
       </ClockContext.Provider>
     );
@@ -175,10 +256,12 @@ function PlayerRoom({ code }: { code: string }) {
       code={code}
       error={formError}
       submitting={submitting || status !== "open"}
-      onSubmit={(profile) => {
+      photoAvatars={state.photoAvatars}
+      onSubmit={(profile, photo) => {
         setFormError(null);
         setSubmitting(true);
         profileStore.set(profile);
+        joinPhotoRef.current = photo;
         send({ type: "join", name: profile.name, avatar: profile.avatar });
       }}
       status={status}
@@ -190,17 +273,23 @@ function JoinForm({
   code,
   error,
   submitting,
+  photoAvatars,
   onSubmit,
   status,
 }: {
   code: string;
   error: string | null;
   submitting: boolean;
-  onSubmit: (profile: Profile) => void;
+  photoAvatars: boolean;
+  /** `photo`: prepared photo after "Verwandeln!", null → emoji only. */
+  onSubmit: (profile: Profile, photo: Blob | null) => void;
   status: "connecting" | "open" | "closed";
 }) {
   const [profile, setProfile] = useState<Profile>(loadProfile);
   const trimmed = profile.name.trim();
+  const submit = (photo: Blob | null) => {
+    if (trimmed) onSubmit({ ...profile, name: trimmed }, photo);
+  };
 
   return (
     <Screen dim="soft" className="max-w-lg gap-6">
@@ -214,7 +303,7 @@ function JoinForm({
         className="panel flex w-full flex-col gap-6 p-5"
         onSubmit={(e) => {
           e.preventDefault();
-          if (trimmed) onSubmit({ ...profile, name: trimmed });
+          submit(null);
         }}
       >
         <label className="flex flex-col gap-2">
@@ -231,9 +320,24 @@ function JoinForm({
         </label>
         <AvatarBuilder value={profile.avatar} onChange={(avatar) => setProfile((p) => ({ ...p, avatar }))} />
         {error && <p className="rounded-2xl bg-rust px-4 py-2 text-center text-lg font-bold">{error}</p>}
-        <Button type="submit" disabled={!trimmed || submitting} glow className="sticky bottom-4 w-full py-4 text-3xl">
-          Beitreten
-        </Button>
+        {photoAvatars ? (
+          <div className="flex flex-col gap-2">
+            <p className="text-lg font-bold text-cream/80">Wie willst du aussehen?</p>
+            <p className="text-base text-cream/70">
+              Mit Foto wirst du zur Showstar-Figur (im Rahmen deiner Farbe). Bis sie fertig ist – oder falls es nicht
+              klappt – spielst du mit deinem Emoji.
+            </p>
+            <PhotoChooser
+              disabled={!trimmed || submitting}
+              onConfirm={(photo) => submit(photo)}
+              onEmoji={() => submit(null)}
+            />
+          </div>
+        ) : (
+          <Button type="submit" disabled={!trimmed || submitting} glow className="w-full py-4 text-3xl">
+            Beitreten
+          </Button>
+        )}
       </form>
       <ConnectionBadge status={status} />
     </Screen>

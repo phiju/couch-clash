@@ -303,3 +303,49 @@ body {
   .intro[data-state="done"] .intro-host,
   .intro[data-state="done"] .intro-actions .btn-primary { animation: none !important; }
 }
+
+/* ── Photo avatars: waiting spotlight + "ready" sparkle ──────────────── */
+.spotlight {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  border-radius: 9999px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgb(253 188 95 / 0.75) 25deg,
+    transparent 60deg,
+    transparent 180deg,
+    rgb(255 243 214 / 0.55) 205deg,
+    transparent 240deg
+  );
+  filter: blur(6px);
+  animation: spotlight-spin 2.4s linear infinite;
+}
+@keyframes spotlight-spin { to { rotate: 360deg; } }
+
+.sparkle {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+.sparkle > span {
+  position: absolute;
+  opacity: 0;
+  animation: sparkle-burst 1.6s ease-out forwards;
+}
+@keyframes sparkle-burst {
+  0% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+  25% { opacity: 1; transform: scale(1.25) rotate(10deg); }
+  100% { opacity: 0; transform: scale(0.8) translateY(-40%) rotate(25deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spotlight::before { animation: none; }
+  .sparkle > span { animation: fade-in 0.4s ease-out reverse forwards; }
+}

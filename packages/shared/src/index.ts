@@ -5,3 +5,4 @@ export * from "./game-module";
 export * from "./leaderboard";
 export * from "./messages";
 export * from "./state";
+export * from "./photo";

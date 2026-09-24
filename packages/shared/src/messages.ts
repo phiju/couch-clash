@@ -52,6 +52,12 @@ export const ClientMessageSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("skip") }),
   /** Host: end the game / play again → back to setup, scores reset. */
   z.object({ type: z.literal("play_again") }),
+  /** Host: allow or forbid photo avatars (lobby setting). */
+  z.object({ type: z.literal("set_photo_avatars"), enabled: z.boolean() }),
+  /** Player: "Passt!" – keep the photo avatar (starts the extra expressions). */
+  z.object({ type: z.literal("photo_accept") }),
+  /** Host (any player) or a player (themselves): back to the emoji avatar. */
+  z.object({ type: z.literal("photo_reset"), playerId: id.optional() }),
   /** Player: a category-specific action. Validated by the module's own schema. */
   z.object({ type: z.literal("action"), action: z.unknown() }),
 ]);
@@ -78,6 +84,14 @@ export const ERROR_CODES = [
   "INVALID_PLAN",
   "ALREADY_ANSWERED",
   "TOO_LATE",
+  "PHOTO_DISABLED",
+  "PHOTO_BUSY",
+  "PHOTO_LIMIT",
+  "PHOTO_ROOM_LIMIT",
+  "PHOTO_TOO_LARGE",
+  "PHOTO_BAD_TYPE",
+  "PHOTO_NOT_READY",
+  "PHOTO_UNAVAILABLE",
 ] as const;
 export type ErrorCode = (typeof ERROR_CODES)[number];
 
@@ -97,6 +111,14 @@ export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   INVALID_PLAN: "Bitte wähle mindestens eine Kategorie aus.",
   ALREADY_ANSWERED: "Du hast schon geantwortet.",
   TOO_LATE: "Zu spät – die Zeit ist abgelaufen.",
+  PHOTO_DISABLED: "Foto-Avatare sind in diesem Raum ausgeschaltet.",
+  PHOTO_BUSY: "Deine Figur wird gerade schon gemalt. Einen Moment noch!",
+  PHOTO_LIMIT: "Du hast keine Versuche mehr. Deine Figur bleibt, wie sie ist.",
+  PHOTO_ROOM_LIMIT: "Für diesen Raum sind keine Foto-Figuren mehr übrig.",
+  PHOTO_TOO_LARGE: "Das Foto ist zu groß (höchstens 1 MB).",
+  PHOTO_BAD_TYPE: "Bitte nimm ein JPEG-, PNG- oder WebP-Foto.",
+  PHOTO_NOT_READY: "Deine Figur ist noch nicht fertig.",
+  PHOTO_UNAVAILABLE: "Die Foto-Verwandlung ist gerade nicht verfügbar.",
 };
 
 export type ServerMessage =
@@ -125,6 +147,9 @@ export interface CreateRoomResponse {
 export type RoomInfoResponse =
   | { exists: true; code: string; phase: PublicRoomState["phase"]; playerCount: number }
   | { exists: false; code: string };
+
+/** Response of POST /api/rooms/:code/avatar (upload). Errors: { error, code }. */
+export type PhotoUploadResponse = { ok: true; version: number } | { ok: false; code: ErrorCode; error: string };
 
 /** PartyServer party name for the room Durable Object (binding "Room"). */
 export const ROOM_PARTY = "room";

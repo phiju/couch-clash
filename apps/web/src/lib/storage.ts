@@ -56,3 +56,9 @@ export const setupStore = {
   get: <T>() => read<T>("setup"),
   set: (setup: unknown) => write("setup", setup),
 };
+
+/** The player agreed to the photo note once ("Okay") – remembered per device. */
+export const photoConsentStore = {
+  get: () => read<boolean>("photo-consent") === true,
+  set: () => write("photo-consent", true),
+};

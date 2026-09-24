@@ -20,6 +20,7 @@ couch-clash/
 │       ├── src/room.ts              Durable Object "Room": storage, connections, alarms, per-viewer state
 │       ├── src/room-logic.ts        Pure lobby logic (join, reconnect, kick)
 │       ├── src/game-flow.ts         Pure game flow (setup → intro → play → scoreboard → finale)
+│       ├── src/avatar/              Photo avatars: provider interface + OpenAI, R2 store, routes, state logic
 │       └── test/
 └── packages/
     ├── shared/                  Types + zod schemas: messages, room state, GameModule interface, duration
@@ -92,8 +93,9 @@ Deploy Cloudflare first, because Vercel needs the worker URL.
    - **Build command:** leave empty
    - **Deploy command:** `cd apps/party && npx wrangler deploy`
    - **Root directory (path):** `/`
-4. Click **Create and deploy**.
-5. Afterwards the worker is live at `https://couch-clash.<your-subdomain>.workers.dev`. Opening the URL should show "Couch Clash party server 🎉".
+4. **Before the first deploy**, set up R2 and the OpenAI secret (see [Photo avatars](#photo-avatars-ai)). The worker config binds the R2 bucket `couch-clash-avatars`, and the deploy fails if it doesn't exist.
+5. Click **Create and deploy**.
+6. Afterwards the worker is live at `https://couch-clash.<your-subdomain>.workers.dev`. Opening the URL should show "Couch Clash party server 🎉".
    Note the host part without `https://`. You need it for Vercel.
 
 From now on, every push to `main` deploys the worker automatically. The Durable Object uses the SQLite backend, which also works on the free Workers plan.
@@ -119,7 +121,9 @@ The option "Include source files outside of the Root Directory" must stay on (it
 | `NEXT_PUBLIC_PARTY_HOST` | `apps/web`, Vercel  | `couch-clash.xyz.workers.dev`              |
 | `NEXT_PUBLIC_SITE_URL`   | `apps/web`, Vercel  | `https://couch-clash-web.vercel.app` (QR code / join link; falls back to the current address) |
 
-The party worker currently needs no secrets. No secrets are committed to the repository.
+| `OPENAI_API_KEY`         | `apps/party`, Cloudflare Worker **secret** | Photo avatars (never sent to the browser) |
+
+No secrets are committed to the repository. For local photo avatars, put `OPENAI_API_KEY=…` into `apps/party/.dev.vars` (git-ignored). Without the key, photo avatars answer "not available" and everyone plays with emojis.
 
 ## Look & assets
 
@@ -140,6 +144,40 @@ Retro 1970s TV game show. Design tokens (petrol, petrol-dark, orange, rust, bulb
 - **Speed modifier (optional)** in `scoring/speed.ts`: measured against the question's time limit, from `fastestMultiplier` (answer at 0 s, default 1.5) down to `slowestMultiplier` (answer at the limit, default 0.5). When disabled it is 1.0.
 - A base score of 0 stays 0, so a fast wrong answer never earns points.
 - Settings per category (`scoring: { mode, maxPoints, speedModifier }`): the mode is fixed by the category; the host can change max points and the speed modifier. Old or invalid settings fall back to the category defaults (`normalizeScoring`).
+
+## Photo avatars (AI)
+
+Players can take a selfie or pick a photo when joining. The party server turns it into a cartoon in the Couch Clash style (the host artwork `apps/web/public/brand/host.webp` is the style reference). **The emoji avatar is always the fallback**, and the game never waits for the AI.
+
+**Flow**
+- **Phone:** name → "📸 Selfie machen" / "🖼️ Foto wählen" / "😀 Emoji nehmen". A one-time consent note appears (remembered in `localStorage`). The phone crops the photo to a centered square (max 512 px, JPEG 0.8; re-encoding strips EXIF) and shows a preview. **Nothing is uploaded before "Verwandeln!"**. The player joins right away with the emoji and sees the waiting screen, then "Passt!" / "Nochmal" (max 2 re-generations). Errors, the 90 s timeout and safety refusals keep the emoji (or the previous image).
+- **Worker:** `POST /api/rooms/:code/avatar` (multipart `playerId`, `playerSecret`, `photo`; ≤ 1 MB; JPEG/PNG/WebP, checked by the file bytes). The room sets the avatar's `photo.status` to `pending` and generates in the background (`ctx.waitUntil`). Every client gets `pending → ready | failed` over the room WebSocket. After "Passt!", 3 expressions are generated in the background (jubelnd / enttäuscht / geschockt). The animated leaderboard shows them when a player moves up, moves down, or loses big.
+- **Limits per room:** 16 players × (1 + 2) base images, 16 × 3 expressions, and one job per player at a time. The API returns clear errors (409 busy, 429 limit, 413 too large, 415 wrong type, 401 auth, 404 room).
+- **Host:** lobby switch "📸 Foto-Avatare erlauben" (default on), "↺ Emoji" on each player card, and a sparkle plus `sting-short` when a photo avatar is ready.
+
+**Code:** `apps/party/src/avatar/`
+- `config.ts`: model, quality, prompts (**one place to change the model**)
+- `provider.ts`: `AvatarProvider.generateAvatar(photo, style) → image`
+- `openai.ts`: OpenAI Images "edit" with [photo, style reference]
+- `index.ts`: picks the provider (**swap to e.g. Gemini here**)
+- `service.ts`: timeout, 256 px resize (Cloudflare Images), R2
+- `photo-logic.ts`: pure state transitions (tested)
+- `jobs.ts`: glue to the room
+- `routes.ts`: HTTP
+
+**Privacy**
+- The original photo is **never stored**; it only lives in memory during the request.
+- Generated avatars are stored in R2 as `rooms/<code>/<playerId>/<expression>.webp`. They are served only while the room exists, deleted on kick/reset and when the room expires (Durable Object alarm), and additionally removed by an R2 lifecycle rule after 1 day.
+- Logs contain only error reasons, never images, prompts or responses.
+
+### Cloudflare setup (once)
+
+1. **R2 bucket:** dashboard → **R2 Object Storage** → **Create bucket** → name `couch-clash-avatars` (location: Automatic). Or: `cd apps/party && npx wrangler r2 bucket create couch-clash-avatars`.
+2. **Lifecycle rule:** bucket → **Settings** → **Object lifecycle rules** → **Add rule**: name `delete-after-1-day`, prefix `rooms/`, action "Delete objects" after **1 day**. Or: `npx wrangler r2 bucket lifecycle add couch-clash-avatars delete-after-1-day rooms/ --expire-days 1`.
+3. **Secret:** Workers & Pages → `couch-clash` → **Settings** → **Variables and Secrets** → type **Secret**, name `OPENAI_API_KEY`. Or: `npx wrangler secret put OPENAI_API_KEY`.
+4. The bindings are in `apps/party/wrangler.jsonc`:
+   - `AVATARS`: R2 bucket `couch-clash-avatars`
+   - `IMAGES`: Cloudflare Images, for the 256 px resize. The free plan includes 5,000 unique transformations/month; if a transformation fails, the full-size WebP is stored instead.
 
 ## Sound (host only)
 
@@ -165,5 +203,7 @@ The TV/laptop plays music and effects; phones never do.
 - [x] Animated leaderboard after every question (TV + phones), reused for scoreboard and final ranking
 
 **Milestone 0.4 – Welcome screen, sound & laptop layout** ✅ Welcome card with "Los geht's!", host audio engine (jingle, loops, stings, fanfare), all host screens fit 1280×720 … 4K without scrolling.
+
+**Photo avatars (AI)** ✅ Selfie/photo → cartoon in the show style via OpenAI, 3 expressions for the leaderboard, emoji fallback, R2 storage with cleanup.
 
 **Milestone 0.3 – Show look & intro** ✅ Retro stage look on all screens, start page intro, host mascot, QR code via `NEXT_PUBLIC_SITE_URL`.

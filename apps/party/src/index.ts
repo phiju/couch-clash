@@ -7,25 +7,14 @@ import {
   type RoomInfoResponse,
 } from "@couch-clash/shared";
 import { getServerByName, routePartykitRequest } from "partyserver";
+import { handleAvatarGet, handleAvatarUpload } from "./avatar/routes";
+import { r2AvatarStore } from "./avatar/store";
+import { CORS_HEADERS, json } from "./http";
 import type { Room } from "./room";
 
 export { Room } from "./room";
 
 const MAX_CODE_ATTEMPTS = 20;
-
-const CORS_HEADERS = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
-  "Access-Control-Max-Age": "86400",
-};
-
-function json(body: unknown, status = 200): Response {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { "Content-Type": "application/json", ...CORS_HEADERS },
-  });
-}
 
 async function roomStub(env: Env, code: string) {
   return getServerByName<Env, Room>(env.Room, code);
@@ -63,6 +52,15 @@ export default {
       if (url.pathname === "/api/rooms" && request.method === "POST") return createRoom(env);
       const match = url.pathname.match(/^\/api\/rooms\/([^/]+)$/);
       if (match && request.method === "GET") return roomInfo(env, decodeURIComponent(match[1]!));
+      const getRoom = (code: string) => roomStub(env, code);
+      const upload = url.pathname.match(/^\/api\/rooms\/([^/]+)\/avatar$/);
+      if (upload && request.method === "POST") return handleAvatarUpload(request, decodeURIComponent(upload[1]!), getRoom);
+      const image = url.pathname.match(/^\/api\/rooms\/([^/]+)\/avatar\/([^/]+)\/([^/]+)$/);
+      if (image && request.method === "GET") {
+        const [, code, playerId, expression] = image.map((part) => decodeURIComponent(part));
+        const store = env.AVATARS ? r2AvatarStore(env.AVATARS) : null;
+        return handleAvatarGet(code!, playerId!, expression!, getRoom, store);
+      }
       return json({ error: "Not found" }, 404);
     }
 

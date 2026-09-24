@@ -10,5 +10,13 @@
     "bindings": [{ "name": "Room", "class_name": "Room" }]
   },
   // SQLite-backed Durable Objects are available on the Workers Free plan.
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Room"] }]
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Room"] }],
+  // Generated photo avatars (never the original photos). Create the bucket
+  // first (see README) and add a lifecycle rule that deletes objects after 1 day.
+  "r2_buckets": [{ "binding": "AVATARS", "bucket_name": "couch-clash-avatars" }],
+  // Scales avatars down to 256 px WebP.
+  "images": { "binding": "IMAGES" },
+  // The host artwork (style reference) is bundled as binary data.
+  "rules": [{ "type": "Data", "globs": ["**/*.webp"], "fallthrough": true }]
+  // Secret (not in this file): OPENAI_API_KEY
 }
