@@ -8,7 +8,13 @@ import {
   type Viewer,
 } from "@couch-clash/shared";
 import { createAvatarProvider } from "./avatar";
-import { acceptPhotoAndGenerate, startPhotoUpload, type RoomAccess } from "./avatar/jobs";
+import {
+  acceptPhotoAndGenerate,
+  savePlayerPhoto,
+  startPhotoUpload,
+  useSavedPhoto,
+  type RoomAccess,
+} from "./avatar/jobs";
 import { expireStalePhotos, nextPhotoDeadline, resetPhoto, setPhotoAvatars } from "./avatar/photo-logic";
 import type { AvatarImage } from "./avatar/provider";
 import type { AvatarRoomApi } from "./avatar/routes";
@@ -214,7 +220,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
         if (conn.state?.role === "player") {
           return this.send(conn, errorMessage("ALREADY_JOINED"));
         }
-        return this.join(conn, room, msg.name, msg.avatar);
+        return this.join(conn, room, msg.name, msg.avatar, msg.savedFigureId);
       }
 
       case "kick": {
@@ -245,6 +251,23 @@ export class Room extends Server<Env> implements AvatarRoomApi {
         const result = await acceptPhotoAndGenerate(this.roomAccess, this.avatarDeps(), state.playerId, now);
         if (!result.ok) return this.send(conn, errorMessage(result.error));
         if (result.value) this.ctx.waitUntil(result.value);
+        return;
+      }
+
+      case "photo_save": {
+        const state = conn.state;
+        if (state?.role !== "player") return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        const result = await savePlayerPhoto(this.roomAccess, this.avatarStore(), state.playerId, now);
+        if (!result.ok) return this.send(conn, errorMessage(result.error));
+        // The id goes to this connection only – it is the key to the saved figure.
+        return this.send(conn, { type: "photo_saved", savedId: result.value });
+      }
+
+      case "photo_use_saved": {
+        const state = conn.state;
+        if (state?.role !== "player") return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        const result = await useSavedPhoto(this.roomAccess, this.avatarStore(), state.playerId, msg.savedId, now);
+        if (!result.ok) return this.send(conn, errorMessage(result.error));
         return;
       }
 
@@ -293,13 +316,18 @@ export class Room extends Server<Env> implements AvatarRoomApi {
   // Helpers
   // -------------------------------------------------------------------------
 
-  private async join(conn: Conn, room: RoomRecord, name: string, avatar: Avatar) {
+  private async join(conn: Conn, room: RoomRecord, name: string, avatar: Avatar, savedFigureId?: string) {
     const result = joinPlayer(room, { name, avatar }, { now: Date.now() });
     if (!result.ok) return this.send(conn, errorMessage(result.error));
     const { room: next, player } = result.value;
     conn.setState({ role: "player", playerId: player.id });
     this.send(conn, { type: "joined", playerId: player.id, playerSecret: player.secret });
     await this.commit(next);
+    // Joined with the emoji first; the saved figure replaces it a moment later.
+    if (savedFigureId) {
+      const used = await useSavedPhoto(this.roomAccess, this.avatarStore(), player.id, savedFigureId, Date.now());
+      if (!used.ok) this.send(conn, errorMessage(used.error));
+    }
   }
 
   private async apply(conn: Conn, result: Result<RoomRecord>) {
@@ -357,6 +385,10 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     await this.ctx.storage.deleteAll();
     // Generated avatars live 24 h at most (plus the bucket's 1-day lifecycle rule).
     if (code) await this.deleteAvatarsNow(roomPrefix(code));
+  }
+
+  private avatarStore() {
+    return this.env.AVATARS ? r2AvatarStore(this.env.AVATARS) : null;
   }
 
   /** Null when photo avatars are not set up (no API key or no R2 bucket). */

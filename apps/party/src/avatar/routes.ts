@@ -7,6 +7,7 @@
 import {
   ERROR_MESSAGES,
   PHOTO_MAX_BYTES,
+  SAVED_AVATAR_ID_PATTERN,
   PHOTO_MIME_TYPES,
   isPhotoExpression,
   isValidRoomCode,
@@ -17,7 +18,8 @@ import {
 } from "@couch-clash/shared";
 import { CORS_HEADERS, json } from "../http";
 import type { AvatarImage } from "./provider";
-import { avatarKey, type AvatarStore } from "./store";
+import { deleteFigure } from "./saved";
+import { avatarKey, savedKey, savedMetaKey, type AvatarStore } from "./store";
 
 export type PhotoMimeType = (typeof PHOTO_MIME_TYPES)[number];
 
@@ -130,4 +132,37 @@ export async function handleAvatarGet(
       ...CORS_HEADERS,
     },
   });
+}
+
+/**
+ * Saved figures ("⭐ Meine Figur"). The random id is the key: only the phone
+ * that saved the figure knows it.
+ *   GET    /api/avatars/saved/:id/:expression   preview on the join screen
+ *   DELETE /api/avatars/saved/:id               "Figur löschen"
+ */
+export async function handleSavedAvatarGet(
+  savedId: string,
+  expression: string,
+  store: AvatarStore | null,
+): Promise<Response> {
+  const notFound = () => new Response("Not found", { status: 404, headers: CORS_HEADERS });
+  if (!store || !SAVED_AVATAR_ID_PATTERN.test(savedId) || !isPhotoExpression(expression)) return notFound();
+  const image = await store.get(savedKey(savedId, expression));
+  if (!image) return notFound();
+  return new Response(image.bytes, {
+    headers: {
+      "Content-Type": image.contentType,
+      "Cache-Control": "private, max-age=300",
+      "X-Content-Type-Options": "nosniff",
+      ...CORS_HEADERS,
+    },
+  });
+}
+
+export async function handleSavedAvatarDelete(savedId: string, store: AvatarStore | null): Promise<Response> {
+  if (!store) return json({ ok: false }, 503);
+  if (!SAVED_AVATAR_ID_PATTERN.test(savedId)) return json({ ok: false }, 404);
+  const existed = (await store.get(savedMetaKey(savedId))) !== null;
+  await deleteFigure(store, savedId);
+  return json({ ok: true, deleted: existed });
 }

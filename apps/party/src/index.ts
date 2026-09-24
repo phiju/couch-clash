@@ -7,7 +7,12 @@ import {
   type RoomInfoResponse,
 } from "@couch-clash/shared";
 import { getServerByName, routePartykitRequest } from "partyserver";
-import { handleAvatarGet, handleAvatarUpload } from "./avatar/routes";
+import {
+  handleAvatarGet,
+  handleAvatarUpload,
+  handleSavedAvatarDelete,
+  handleSavedAvatarGet,
+} from "./avatar/routes";
 import { r2AvatarStore } from "./avatar/store";
 import { CORS_HEADERS, json } from "./http";
 import type { Room } from "./room";
@@ -60,6 +65,13 @@ export default {
         const [, code, playerId, expression] = image.map((part) => decodeURIComponent(part));
         const store = env.AVATARS ? r2AvatarStore(env.AVATARS) : null;
         return handleAvatarGet(code!, playerId!, expression!, getRoom, store);
+      }
+      const saved = url.pathname.match(/^\/api\/avatars\/saved\/([^/]+)(?:\/([^/]+))?$/);
+      if (saved) {
+        const store = env.AVATARS ? r2AvatarStore(env.AVATARS) : null;
+        const [, savedId, expression] = saved;
+        if (request.method === "GET" && expression) return handleSavedAvatarGet(savedId!, expression, store);
+        if (request.method === "DELETE" && !expression) return handleSavedAvatarDelete(savedId!, store);
       }
       return json({ error: "Not found" }, 404);
     }

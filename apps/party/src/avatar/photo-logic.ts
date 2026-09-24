@@ -26,6 +26,8 @@ export interface PhotoRecord {
   /** When the current job (base image or expressions) started. */
   startedAt: number;
   reason: PhotoFailure | null;
+  /** Saved slot of this figure ("Figur behalten"). Never sent to other clients. */
+  savedId?: string;
 }
 
 /** Base images per player: the first one plus the re-generations. */
@@ -76,6 +78,7 @@ export function startPhotoGeneration(
     expressionsPending: false,
     startedAt: now,
     reason: null,
+    savedId: prev?.savedId,
   };
   const next = updatePlayer(room, playerId, (p) => ({
     ...p,
@@ -99,7 +102,8 @@ export function finishPhotoGeneration(
   const photo = player?.photo;
   if (!photo || photo.version !== version || photo.status !== "pending") return null;
   const next: PhotoRecord = outcome.ok
-    ? { ...photo, status: "ready", readyVersion: version, expressions: ["neutral"], reason: null }
+    ? // A new image is a new figure – the saved one stays as it was.
+      { ...photo, status: "ready", readyVersion: version, expressions: ["neutral"], reason: null, savedId: undefined }
     : { ...photo, status: "failed", reason: outcome.reason };
   return updatePlayer(room, playerId, (p) => ({ ...p, photo: next }));
 }
@@ -173,6 +177,57 @@ export function resetPhoto(room: RoomRecord, playerId: string): Result<RoomRecor
   return ok(updatePlayer(room, playerId, (p) => ({ ...p, photo: undefined })));
 }
 
+/** Whether the player's current figure can be saved; returns it. */
+export function photoToSave(room: RoomRecord, playerId: string): Result<PhotoRecord> {
+  const player = room.players.find((p) => p.id === playerId);
+  if (!player) return fail("UNKNOWN_PLAYER");
+  const photo = player.photo;
+  if (!photo || photo.readyVersion === null || photo.status === "pending" || !photo.accepted) {
+    return fail("PHOTO_NOT_READY");
+  }
+  return ok(photo);
+}
+
+export function markPhotoSaved(room: RoomRecord, playerId: string, version: number, savedId: string): RoomRecord | null {
+  const photo = room.players.find((p) => p.id === playerId)?.photo;
+  if (!photo || photo.readyVersion !== version) return null;
+  return updatePlayer(room, playerId, (p) => ({ ...p, photo: { ...photo, savedId } }));
+}
+
+/** Before loading a saved figure: allowed, and nothing running for this player. */
+export function canUseSavedPhoto(room: RoomRecord, playerId: string): Result<PlayerRecord> {
+  if (!room.photoAvatars) return fail("PHOTO_DISABLED");
+  const player = room.players.find((p) => p.id === playerId);
+  if (!player) return fail("UNKNOWN_PLAYER");
+  if (isBusy(player.photo)) return fail("PHOTO_BUSY");
+  return ok(player);
+}
+
+/** The saved figure was copied into the room: ready and accepted right away, no generation. */
+export function applySavedPhoto(
+  room: RoomRecord,
+  playerId: string,
+  savedId: string,
+  expressions: PhotoExpression[],
+  now: number,
+): Result<RoomRecord> {
+  const allowed = canUseSavedPhoto(room, playerId);
+  if (!allowed.ok) return allowed;
+  const version = (allowed.value.photo?.version ?? 0) + 1;
+  const photo: PhotoRecord = {
+    status: "ready",
+    version,
+    readyVersion: version,
+    accepted: true,
+    expressions,
+    expressionsPending: false,
+    startedAt: now,
+    reason: null,
+    savedId,
+  };
+  return ok(updatePlayer(room, playerId, (p) => ({ ...p, photo })));
+}
+
 export function setPhotoAvatars(room: RoomRecord, enabled: boolean): Result<RoomRecord> {
   if (room.phase !== "lobby" && room.phase !== "setup") return fail("WRONG_PHASE");
   return ok({ ...room, photoAvatars: enabled });
@@ -226,5 +281,6 @@ export function publicPhoto(player: PlayerRecord, code: string): PublicPhotoAvat
     regenerationsLeft: Math.max(0, PHOTO_MAX_BASE_PER_PLAYER - (player.photoGenerations ?? 0)),
     reason: photo.reason,
     path: photoAvatarPath(code, player.id),
+    saved: !!photo.savedId,
   };
 }

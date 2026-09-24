@@ -155,6 +155,14 @@ Players can take a selfie or pick a photo when joining. The party server turns i
 - **Limits per room:** 16 players × (1 + 2) base images, 16 × 3 expressions, and one job per player at a time. The API returns clear errors (409 busy, 429 limit, 413 too large, 415 wrong type, 401 auth, 404 room).
 - **Host:** lobby switch "📸 Foto-Avatare erlauben" (default on), "↺ Emoji" on each player card, and a sparkle plus `sting-short` when a photo avatar is ready.
 
+**Keep the figure ("⭐ Figur fürs nächste Mal behalten")**
+- After "Passt!", the player can tick the checkbox (opt-in), or tap the button in the lobby later.
+- The server copies the generated images to `saved/<random id>/` in R2. **Only this phone learns the id** (message `photo_saved` to this connection only, stored in `localStorage`). Other clients just see `saved: true`.
+- Next time, "⭐ Meine Figur nehmen" appears right after the name. The server copies the figure into the new room: no API call, no cost, all expressions right away.
+- "Figur löschen" (`DELETE /api/avatars/saved/:id`) removes it immediately.
+- Every use rewrites the files, so the R2 lifecycle rule on `saved/` (180 days) means "180 days without playing".
+- There is deliberately no public list or name search: the figures are made from real faces.
+
 **Code:** `apps/party/src/avatar/`
 - `config.ts`: model, quality, prompts (**one place to change the model**)
 - `provider.ts`: `AvatarProvider.generateAvatar(photo, style) → image`
@@ -162,6 +170,7 @@ Players can take a selfie or pick a photo when joining. The party server turns i
 - `index.ts`: picks the provider (**swap to e.g. Gemini here**)
 - `service.ts`: timeout, 256 px resize (Cloudflare Images), R2
 - `photo-logic.ts`: pure state transitions (tested)
+- `saved.ts`: copies for saved figures
 - `jobs.ts`: glue to the room
 - `routes.ts`: HTTP
 
@@ -173,7 +182,9 @@ Players can take a selfie or pick a photo when joining. The party server turns i
 ### Cloudflare setup (once)
 
 1. **R2 bucket:** dashboard → **R2 Object Storage** → **Create bucket** → name `couch-clash-avatars` (location: Automatic). Or: `cd apps/party && npx wrangler r2 bucket create couch-clash-avatars`.
-2. **Lifecycle rule:** bucket → **Settings** → **Object lifecycle rules** → **Add rule**: name `delete-after-1-day`, prefix `rooms/`, action "Delete objects" after **1 day**. Or: `npx wrangler r2 bucket lifecycle add couch-clash-avatars delete-after-1-day rooms/ --expire-days 1`.
+2. **Lifecycle rules:** bucket → **Settings** → **Object lifecycle rules** → **Add rule**:
+   - `delete-after-1-day`: prefix `rooms/`, delete objects after **1 day**. Or: `npx wrangler r2 bucket lifecycle add couch-clash-avatars delete-after-1-day rooms/ --expire-days 1`
+   - `saved-figures-180-days`: prefix `saved/`, delete objects after **180 days** (every use rewrites the files, so this means "180 days without use"). Or: `npx wrangler r2 bucket lifecycle add couch-clash-avatars saved-figures-180-days saved/ --expire-days 180`
 3. **Secret:** Workers & Pages → `couch-clash` → **Settings** → **Variables and Secrets** → type **Secret**, name `OPENAI_API_KEY`. Or: `npx wrangler secret put OPENAI_API_KEY`.
 4. The bindings are in `apps/party/wrangler.jsonc`:
    - `AVATARS`: R2 bucket `couch-clash-avatars`
@@ -204,6 +215,6 @@ The TV/laptop plays music and effects; phones never do.
 
 **Milestone 0.4 – Welcome screen, sound & laptop layout** ✅ Welcome card with "Los geht's!", host audio engine (jingle, loops, stings, fanfare), all host screens fit 1280×720 … 4K without scrolling.
 
-**Photo avatars (AI)** ✅ Selfie/photo → cartoon in the show style via OpenAI, 3 expressions for the leaderboard, emoji fallback, R2 storage with cleanup.
+**Photo avatars (AI)** ✅ Selfie/photo → cartoon in the show style via OpenAI, 3 expressions for the leaderboard, emoji fallback, R2 storage with cleanup, "⭐ Meine Figur" for next time.
 
 **Milestone 0.3 – Show look & intro** ✅ Retro stage look on all screens, start page intro, host mascot, QR code via `NEXT_PUBLIC_SITE_URL`.

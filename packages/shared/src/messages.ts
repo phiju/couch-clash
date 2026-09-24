@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { AvatarSchema } from "./avatar";
 import { ScoringSettingsSchema } from "./game-module";
+import { SAVED_AVATAR_ID_PATTERN } from "./photo";
 import { NAME_MAX_LENGTH, type PublicRoomState } from "./state";
 
 // ---------------------------------------------------------------------------
@@ -36,6 +37,8 @@ export const ClientMessageSchema = z.discriminatedUnion("type", [
     type: z.literal("join"),
     name: PlayerNameSchema,
     avatar: AvatarSchema,
+    /** Use the figure saved on this phone ("⭐ Meine Figur"). */
+    savedFigureId: z.string().regex(SAVED_AVATAR_ID_PATTERN).optional(),
   }),
   /** Host: remove a player. */
   z.object({ type: z.literal("kick"), playerId: id }),
@@ -56,6 +59,10 @@ export const ClientMessageSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("set_photo_avatars"), enabled: z.boolean() }),
   /** Player: "Passt!" – keep the photo avatar (starts the extra expressions). */
   z.object({ type: z.literal("photo_accept") }),
+  /** Player: keep the current figure for next time ("Figur behalten"). */
+  z.object({ type: z.literal("photo_save") }),
+  /** Player: use a figure saved on this phone earlier ("⭐ Meine Figur"). */
+  z.object({ type: z.literal("photo_use_saved"), savedId: z.string().regex(SAVED_AVATAR_ID_PATTERN) }),
   /** Host (any player) or a player (themselves): back to the emoji avatar. */
   z.object({ type: z.literal("photo_reset"), playerId: id.optional() }),
   /** Player: a category-specific action. Validated by the module's own schema. */
@@ -92,6 +99,7 @@ export const ERROR_CODES = [
   "PHOTO_BAD_TYPE",
   "PHOTO_NOT_READY",
   "PHOTO_UNAVAILABLE",
+  "PHOTO_SAVED_GONE",
 ] as const;
 export type ErrorCode = (typeof ERROR_CODES)[number];
 
@@ -119,6 +127,7 @@ export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   PHOTO_BAD_TYPE: "Bitte nimm ein JPEG-, PNG- oder WebP-Foto.",
   PHOTO_NOT_READY: "Deine Figur ist noch nicht fertig.",
   PHOTO_UNAVAILABLE: "Die Foto-Verwandlung ist gerade nicht verfügbar.",
+  PHOTO_SAVED_GONE: "Deine gespeicherte Figur gibt es nicht mehr. Mach einfach ein neues Selfie!",
 };
 
 export type ServerMessage =
@@ -129,6 +138,8 @@ export type ServerMessage =
   /** Sent once to the joining connection only – contains the reconnect secret. */
   | { type: "joined"; playerId: string; playerSecret: string }
   | { type: "kicked" }
+  /** Only to the owner: the id of the saved figure (stored on the phone). */
+  | { type: "photo_saved"; savedId: string }
   | { type: "error"; code: ErrorCode; message: string };
 
 export function errorMessage(code: ErrorCode): ServerMessage {

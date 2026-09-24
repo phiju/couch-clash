@@ -47,3 +47,16 @@ export function r2AvatarStore(bucket: R2Bucket): AvatarStore {
     },
   };
 }
+
+/** Saved figures ("Figur behalten"), refreshed on every use; lifecycle rule on "saved/". */
+export function savedPrefix(savedId: string): string {
+  return `saved/${savedId}/`;
+}
+
+export function savedKey(savedId: string, expression: PhotoExpression): string {
+  return `${savedPrefix(savedId)}${expression}.webp`;
+}
+
+export function savedMetaKey(savedId: string): string {
+  return `${savedPrefix(savedId)}meta.json`;
+}

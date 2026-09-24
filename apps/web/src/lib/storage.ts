@@ -1,3 +1,5 @@
+import { SAVED_AVATAR_ID_PATTERN } from "@couch-clash/shared";
+
 /**
  * localStorage helpers. Every access is wrapped in try/catch because storage
  * can be unavailable (private mode, blocked site data).
@@ -61,4 +63,14 @@ export const setupStore = {
 export const photoConsentStore = {
   get: () => read<boolean>("photo-consent") === true,
   set: () => write("photo-consent", true),
+};
+
+/** Id of the figure saved with "Figur behalten" – the key to it, stays on this phone. */
+export const savedFigureStore = {
+  get: () => {
+    const id = read<string>("saved-figure");
+    return typeof id === "string" && SAVED_AVATAR_ID_PATTERN.test(id) ? id : null;
+  },
+  set: (id: string) => write("saved-figure", id),
+  clear: () => remove("saved-figure"),
 };

@@ -1,5 +1,6 @@
 import {
   ERROR_MESSAGES,
+  savedAvatarPath,
   type CreateRoomResponse,
   type PhotoUploadResponse,
   type RoomInfoResponse,
@@ -39,5 +40,20 @@ export async function uploadPhoto(
     return (await res.json()) as PhotoUploadResponse;
   } catch {
     return { ok: false, code: "PHOTO_UNAVAILABLE", error: ERROR_MESSAGES.PHOTO_UNAVAILABLE };
+  }
+}
+
+/** Preview of the saved figure ("⭐ Meine Figur"). */
+export function savedFigureUrl(savedId: string): string {
+  return `${PARTY_HTTP_URL}${savedAvatarPath(savedId)}`;
+}
+
+/** "Figur löschen": removes the saved figure from the server. */
+export async function deleteSavedFigure(savedId: string): Promise<boolean> {
+  try {
+    const res = await fetch(`${PARTY_HTTP_URL}/api/avatars/saved/${savedId}`, { method: "DELETE" });
+    return res.ok;
+  } catch {
+    return false;
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import type { PublicPlayer } from "@couch-clash/shared";
+import { SAVED_AVATAR_RETENTION_DAYS, type PublicPlayer } from "@couch-clash/shared";
 import { useEffect, useRef, useState } from "react";
 import { AvatarBadge } from "@/components/avatar";
 import { Sparkle } from "@/components/sparkle";
@@ -12,6 +12,8 @@ type Source = "selfie" | "file";
 
 export const PHOTO_CONSENT_TEXT =
   "Dein Foto wird zur Umwandlung an OpenAI geschickt und danach sofort gelöscht. Deine Figur wird nach 24 Stunden gelöscht.";
+/** Shown next to the opt-in "Figur behalten". */
+export const KEEP_FIGURE_TEXT = `Nur dieses Handy kennt sie. Du kannst sie jederzeit löschen, sonst verschwindet sie nach ${SAVED_AVATAR_RETENTION_DAYS} Tagen ohne Spiel.`;
 
 /**
  * "📸 Selfie machen" / "🖼️ Foto wählen" (/ "😀 Emoji nehmen"), the one-time
@@ -200,7 +202,8 @@ export function PhotoProgress({
   me: PublicPlayer;
   uploading: boolean;
   uploadError: string | null;
-  onAccept: () => void;
+  /** "Passt!" – `keep`: also save the figure for next time. */
+  onAccept: (keep: boolean) => void;
   /** Upload again: a new photo, or (no argument) the one still in memory. */
   onRetry: (photo?: Blob) => void;
   /** False after a reload – "Nochmal" then asks for a new photo. */
@@ -210,6 +213,7 @@ export function PhotoProgress({
 }) {
   const photo = me.avatar.photo;
   const [choosing, setChoosing] = useState(false);
+  const [keep, setKeep] = useState(false);
   const retriesLeft = photo?.regenerationsLeft ?? 0;
 
   if (choosing) {
@@ -275,10 +279,11 @@ export function PhotoProgress({
           >
             Nochmal
           </Button>
-          <Button type="button" glow onClick={onAccept} className="!px-3">
+          <Button type="button" glow onClick={() => onAccept(keep)} className="!px-3">
             Passt!
           </Button>
         </div>
+        <KeepFigureToggle checked={keep} onChange={setKeep} />
         <p className="text-base text-cream/70">
           {retriesLeft === 0 ? "Keine Versuche mehr übrig." : `Noch ${retriesLeft} ${retriesLeft === 1 ? "Versuch" : "Versuche"} übrig.`}
         </p>
@@ -319,4 +324,66 @@ export function PhotoProgress({
   }
 
   return null;
+}
+
+/** Opt-in "⭐ Figur fürs nächste Mal behalten". */
+export function KeepFigureToggle({ checked, onChange }: { checked: boolean; onChange: (keep: boolean) => void }) {
+  return (
+    <label className="flex w-full cursor-pointer items-start gap-3 rounded-2xl border-2 border-bulb/50 bg-petrol/50 p-3 text-left">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+        className="mt-1 size-6 shrink-0 accent-orange"
+      />
+      <span>
+        <span className="block text-lg font-bold">⭐ Figur fürs nächste Mal behalten</span>
+        <span className="block text-sm text-cream/75">{KEEP_FIGURE_TEXT}</span>
+      </span>
+    </label>
+  );
+}
+
+/**
+ * "⭐ Meine Figur nehmen" with a preview of the saved figure. Hides itself
+ * (and forgets the id) if the figure no longer exists.
+ */
+export function SavedFigureChoice({
+  previewUrl,
+  onUse,
+  onDelete,
+  onGone,
+  disabled = false,
+}: {
+  previewUrl: string;
+  onUse: () => void;
+  onDelete: () => void;
+  onGone: () => void;
+  disabled?: boolean;
+}) {
+  return (
+    <div className="flex w-full items-center gap-4 rounded-3xl border-2 border-bulb bg-petrol/60 p-3">
+      {/* eslint-disable-next-line @next/next/no-img-element -- served by the party worker */}
+      <img
+        src={previewUrl}
+        alt="Deine gespeicherte Figur"
+        onError={onGone}
+        className="size-20 shrink-0 rounded-full bg-cream object-cover ring-4 ring-bulb"
+      />
+      <div className="flex min-w-0 flex-1 flex-col items-start gap-2">
+        <Button type="button" glow disabled={disabled} onClick={onUse} className="w-full !px-3 !py-3 !text-xl">
+          ⭐ Meine Figur nehmen
+        </Button>
+        <button
+          type="button"
+          onClick={() => {
+            if (window.confirm("Deine gespeicherte Figur löschen?")) onDelete();
+          }}
+          className="text-base font-bold text-cream/70 underline"
+        >
+          Figur löschen
+        </button>
+      </div>
+    </div>
+  );
 }

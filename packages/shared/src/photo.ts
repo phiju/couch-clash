@@ -39,6 +39,20 @@ export interface PublicPhotoAvatar {
   reason: PhotoFailure | null;
   /** Image base path on the party worker, see `photoAvatarUrl`. */
   path: string;
+  /** Kept for next time ("Figur behalten"). The id itself is only sent to the owner. */
+  saved: boolean;
+}
+
+/**
+ * Saved figures ("⭐ Meine Figur"): stored under a random id that only the
+ * player's phone knows. Knowing the id = owning the figure.
+ */
+export const SAVED_AVATAR_ID_PATTERN = /^[a-f0-9]{32}$/;
+/** Kept this long after the last use (R2 lifecycle rule on "saved/"). */
+export const SAVED_AVATAR_RETENTION_DAYS = 180;
+
+export function savedAvatarPath(savedId: string, expression: PhotoExpression = "neutral"): string {
+  return `/api/avatars/saved/${savedId}/${expression}`;
 }
 
 /** Base path of a player's avatar images on the party worker. */

@@ -30,6 +30,7 @@ describe("photoAvatarUrl", () => {
     regenerationsLeft: 1,
     reason: null,
     path: "/api/rooms/ABCD/avatar/p1",
+    saved: false,
   };
 
   it("builds a cache-busting URL and falls back to neutral", () => {
@@ -40,5 +41,16 @@ describe("photoAvatarUrl", () => {
   it("returns null (emoji) without a ready image", () => {
     expect(photoAvatarUrl("https://x.dev", undefined)).toBeNull();
     expect(photoAvatarUrl("https://x.dev", { ...photo, status: "pending", readyVersion: null })).toBeNull();
+  });
+});
+
+describe("saved figure messages", () => {
+  it("accepts only well-formed saved ids", async () => {
+    const { ClientMessageSchema } = await import("../src");
+    const avatar = { character: "fox", color: "red" };
+    const ok = "0123456789abcdef0123456789abcdef";
+    expect(ClientMessageSchema.safeParse({ type: "join", name: "Ana", avatar, savedFigureId: ok }).success).toBe(true);
+    expect(ClientMessageSchema.safeParse({ type: "join", name: "Ana", avatar }).success).toBe(true);
+    expect(ClientMessageSchema.safeParse({ type: "photo_use_saved", savedId: "../rooms/x" }).success).toBe(false);
   });
 });

@@ -11,12 +11,12 @@ import {
 } from "@couch-clash/shared";
 import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 import { PlayerGame } from "@/components/player/game-phases";
-import { PhotoChooser, PhotoProgress } from "@/components/player/photo-avatar";
-import { uploadPhoto } from "@/lib/api";
+import { PhotoChooser, PhotoProgress, SavedFigureChoice } from "@/components/player/photo-avatar";
+import { deleteSavedFigure, savedFigureUrl, uploadPhoto } from "@/lib/api";
 import { ClockContext } from "@/lib/clock";
 import { AvatarBuilder } from "@/components/avatar-builder";
 import { Button, ButtonLink, ConnectionBadge, Logo, Notice, Screen } from "@/components/ui";
-import { playerStore, profileStore, type PlayerCredentials } from "@/lib/storage";
+import { playerStore, profileStore, savedFigureStore, type PlayerCredentials } from "@/lib/storage";
 import { useRoom } from "@/lib/use-room";
 
 export function PlayerScreen({ code }: { code: string }) {
@@ -80,6 +80,12 @@ function PlayerRoom({ code }: { code: string }) {
   const [photoFlow, setPhotoFlow] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  /** Figure kept with "Figur behalten" (id only on this phone). */
+  const [savedFigure, setSavedFigure] = useState<string | null>(() => savedFigureStore.get());
+  const forgetSavedFigure = useCallback(() => {
+    savedFigureStore.clear();
+    setSavedFigure(null);
+  }, []);
 
   const startUpload = useCallback(
     async (credentials: PlayerCredentials, photo: Blob) => {
@@ -113,6 +119,10 @@ function PlayerRoom({ code }: { code: string }) {
           if (photo) void startUpload(joinedCreds, photo);
           break;
         }
+        case "photo_saved":
+          savedFigureStore.set(msg.savedId);
+          setSavedFigure(msg.savedId);
+          break;
         case "welcome_player":
           setPlayerId(msg.playerId);
           setView("joined");
@@ -124,6 +134,7 @@ function PlayerRoom({ code }: { code: string }) {
           setView("kicked");
           break;
         case "error":
+          if (msg.code === "PHOTO_SAVED_GONE") forgetSavedFigure();
           if (msg.code === "UNKNOWN_PLAYER") {
             // Stored credentials are stale (e.g. removed while offline).
             playerStore.clear(code);
@@ -196,18 +207,37 @@ function PlayerRoom({ code }: { code: string }) {
           onErrorShown={clearActionError}
           lobbyExtra={
             canUpload && !photo ? (
-              <div className="w-full">
-                <p className="mb-3 text-lg font-bold text-cream/85">Lust auf eine Showstar-Figur?</p>
+              <div className="flex w-full flex-col gap-3">
+                <p className="text-lg font-bold text-cream/85">Lust auf eine Showstar-Figur?</p>
+                {savedFigure && (
+                  <SavedFigureChoice
+                    previewUrl={savedFigureUrl(savedFigure)}
+                    onUse={() => send({ type: "photo_use_saved", savedId: savedFigure })}
+                    onDelete={() => {
+                      void deleteSavedFigure(savedFigure);
+                      forgetSavedFigure();
+                    }}
+                    onGone={forgetSavedFigure}
+                  />
+                )}
                 <PhotoChooser onConfirm={(blob) => void startUpload(creds, blob)} />
               </div>
             ) : photo && !showProgress ? (
-              <button
-                type="button"
-                onClick={() => send({ type: "photo_reset" })}
-                className="text-lg font-bold text-cream/70 underline"
-              >
-                Zurück zum Emoji
-              </button>
+              <div className="flex flex-col items-center gap-3">
+                {photo.accepted && photo.readyVersion !== null && inLobby && !photo.saved && (
+                  <Button type="button" variant="secondary" onClick={() => send({ type: "photo_save" })} className="!text-xl">
+                    ⭐ Figur fürs nächste Mal behalten
+                  </Button>
+                )}
+                {photo.saved && <p className="text-lg font-bold text-bulb">⭐ Für nächstes Mal gespeichert</p>}
+                <button
+                  type="button"
+                  onClick={() => send({ type: "photo_reset" })}
+                  className="text-lg font-bold text-cream/70 underline"
+                >
+                  Zurück zum Emoji
+                </button>
+              </div>
             ) : null
           }
         />
@@ -216,8 +246,9 @@ function PlayerRoom({ code }: { code: string }) {
             me={me}
             uploading={uploading}
             uploadError={uploadError}
-            onAccept={() => {
+            onAccept={(keep) => {
               send({ type: "photo_accept" });
+              if (keep) send({ type: "photo_save" });
               closeFlow();
             }}
             onRetry={(next) => {
@@ -257,12 +288,23 @@ function PlayerRoom({ code }: { code: string }) {
       error={formError}
       submitting={submitting || status !== "open"}
       photoAvatars={state.photoAvatars}
-      onSubmit={(profile, photo) => {
+      savedFigure={state.photoAvatars ? savedFigure : null}
+      onDeleteSavedFigure={() => {
+        if (savedFigure) void deleteSavedFigure(savedFigure);
+        forgetSavedFigure();
+      }}
+      onSavedFigureGone={forgetSavedFigure}
+      onSubmit={(profile, photo, useSaved) => {
         setFormError(null);
         setSubmitting(true);
         profileStore.set(profile);
         joinPhotoRef.current = photo;
-        send({ type: "join", name: profile.name, avatar: profile.avatar });
+        send({
+          type: "join",
+          name: profile.name,
+          avatar: profile.avatar,
+          ...(useSaved && savedFigure ? { savedFigureId: savedFigure } : {}),
+        });
       }}
       status={status}
     />
@@ -274,6 +316,9 @@ function JoinForm({
   error,
   submitting,
   photoAvatars,
+  savedFigure,
+  onDeleteSavedFigure,
+  onSavedFigureGone,
   onSubmit,
   status,
 }: {
@@ -281,14 +326,17 @@ function JoinForm({
   error: string | null;
   submitting: boolean;
   photoAvatars: boolean;
-  /** `photo`: prepared photo after "Verwandeln!", null → emoji only. */
-  onSubmit: (profile: Profile, photo: Blob | null) => void;
+  savedFigure: string | null;
+  onDeleteSavedFigure: () => void;
+  onSavedFigureGone: () => void;
+  /** `photo`: prepared photo after "Verwandeln!", null → emoji only. `useSaved`: "⭐ Meine Figur". */
+  onSubmit: (profile: Profile, photo: Blob | null, useSaved?: boolean) => void;
   status: "connecting" | "open" | "closed";
 }) {
   const [profile, setProfile] = useState<Profile>(loadProfile);
   const trimmed = profile.name.trim();
-  const submit = (photo: Blob | null) => {
-    if (trimmed) onSubmit({ ...profile, name: trimmed }, photo);
+  const submit = (photo: Blob | null, useSaved = false) => {
+    if (trimmed) onSubmit({ ...profile, name: trimmed }, photo, useSaved);
   };
 
   return (
@@ -318,6 +366,15 @@ function JoinForm({
             className="w-full rounded-2xl border-4 border-bulb bg-cream px-5 py-3 text-3xl font-bold text-brown placeholder:text-brown/30 focus:ring-8 focus:ring-orange/60 focus:outline-none"
           />
         </label>
+        {savedFigure && (
+          <SavedFigureChoice
+            previewUrl={savedFigureUrl(savedFigure)}
+            disabled={!trimmed || submitting}
+            onUse={() => submit(null, true)}
+            onDelete={onDeleteSavedFigure}
+            onGone={onSavedFigureGone}
+          />
+        )}
         <AvatarBuilder value={profile.avatar} onChange={(avatar) => setProfile((p) => ({ ...p, avatar }))} />
         {error && <p className="rounded-2xl bg-rust px-4 py-2 text-center text-lg font-bold">{error}</p>}
         {photoAvatars ? (
