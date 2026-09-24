@@ -32,6 +32,8 @@ export function useRoom(code: string, options: Options) {
   const [state, setState] = useState<PublicRoomState | null>(null);
   const [status, setStatus] = useState<ConnectionStatus>("connecting");
   const [fatalError, setFatalError] = useState<ServerMessage & { type: "error" } | null>(null);
+  /** serverTime ≈ Date.now() + clockOffset – used for countdowns. */
+  const [clockOffset, setClockOffset] = useState(0);
   const socketRef = useRef<PartySocket | null>(null);
   const optionsRef = useRef(options);
 
@@ -63,6 +65,7 @@ export function useRoom(code: string, options: Options) {
       }
       if (msg.type === "state") {
         setState(msg.state);
+        if (typeof msg.serverNow === "number") setClockOffset(msg.serverNow - Date.now());
         return;
       }
       if (msg.type === "error" && FATAL_ERRORS.includes(msg.code)) {
@@ -96,5 +99,5 @@ export function useRoom(code: string, options: Options) {
     socketRef.current?.send(JSON.stringify(msg));
   }, []);
 
-  return { state, status, fatalError, send };
+  return { state, status, fatalError, send, clockOffset };
 }

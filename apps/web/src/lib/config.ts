@@ -1,7 +1,7 @@
 /**
  * Where the party worker lives, from NEXT_PUBLIC_PARTY_HOST:
  *   "localhost:1999", "192.168.1.20:1999"            → http / ws
- *   "couch-clash-party.xyz.workers.dev"              → https / wss
+ *   "couch-clash.xyz.workers.dev"                    → https / wss
  *   "http://…" or "https://…" prefix                 → forces the protocol
  */
 const raw = process.env.NEXT_PUBLIC_PARTY_HOST?.trim() || "localhost:1999";

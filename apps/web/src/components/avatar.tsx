@@ -1,9 +1,10 @@
 import { getAvatarOption, type Avatar } from "@couch-clash/shared";
 
 const sizes = {
-  sm: "size-14 text-3xl",
-  md: "size-24 text-5xl",
-  lg: "size-40 text-8xl",
+  xs: "size-9 text-xl ring-2",
+  sm: "size-14 text-3xl ring-4",
+  md: "size-24 text-5xl ring-4",
+  lg: "size-40 text-8xl ring-4",
 } as const;
 
 export function AvatarBadge({
@@ -21,7 +22,7 @@ export function AvatarBadge({
   const color = getAvatarOption("color", avatar.color);
   return (
     <div
-      className={`flex shrink-0 items-center justify-center rounded-full ring-4 ring-white/80 transition ${sizes[size]} ${dimmed ? "opacity-40 grayscale" : ""} ${className}`}
+      className={`flex shrink-0 items-center justify-center rounded-full ring-white/80 transition ${sizes[size]} ${dimmed ? "opacity-40 grayscale" : ""} ${className}`}
       style={{ backgroundColor: color?.value ?? "#888" }}
       aria-label={character?.label}
       role="img"

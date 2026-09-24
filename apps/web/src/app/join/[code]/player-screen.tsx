@@ -7,11 +7,11 @@ import {
   randomAvatar,
   secureRandomInt,
   type Avatar,
-  type PublicRoomState,
   type ServerMessage,
 } from "@couch-clash/shared";
-import { useState, useSyncExternalStore } from "react";
-import { AvatarBadge } from "@/components/avatar";
+import { useCallback, useState, useSyncExternalStore } from "react";
+import { PlayerGame } from "@/components/player/game-phases";
+import { ClockContext } from "@/lib/clock";
 import { AvatarBuilder } from "@/components/avatar-builder";
 import { Button, ButtonLink, ConnectionBadge, Logo, Notice, Screen } from "@/components/ui";
 import { playerStore, profileStore, type PlayerCredentials } from "@/lib/storage";
@@ -68,7 +68,9 @@ function PlayerRoom({ code }: { code: string }) {
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  const { state, status, fatalError, send } = useRoom(code, {
+  const [actionError, setActionError] = useState<string | null>(null);
+  const clearActionError = useCallback(() => setActionError(null), []);
+  const { state, status, fatalError, send, clockOffset } = useRoom(code, {
     hello: () => {
       const c = playerStore.get(code);
       return c ? { type: "hello_player", playerId: c.playerId, playerSecret: c.playerSecret } : null;
@@ -99,6 +101,8 @@ function PlayerRoom({ code }: { code: string }) {
             setCreds(null);
             setPlayerId(null);
             setView("form");
+          } else if (view === "joined") {
+            setActionError(msg.message);
           } else {
             setFormError(msg.message);
             setSubmitting(false);
@@ -142,7 +146,18 @@ function PlayerRoom({ code }: { code: string }) {
   const me = playerId ? state.players.find((p) => p.id === playerId) : undefined;
 
   if (view === "joined" && me) {
-    return <WaitingScreen state={state} me={me} status={status} />;
+    return (
+      <ClockContext.Provider value={clockOffset}>
+        <PlayerGame
+          room={state}
+          me={me}
+          sendAction={(action) => send({ type: "action", action })}
+          error={actionError}
+          onErrorShown={clearActionError}
+        />
+        <ConnectionBadge status={status} />
+      </ClockContext.Provider>
+    );
   }
 
   if (state.phase !== "lobby") {
@@ -220,41 +235,6 @@ function JoinForm({
           Beitreten
         </Button>
       </form>
-      <ConnectionBadge status={status} />
-    </Screen>
-  );
-}
-
-function WaitingScreen({
-  state,
-  me,
-  status,
-}: {
-  state: PublicRoomState;
-  me: PublicRoomState["players"][number];
-  status: "connecting" | "open" | "closed";
-}) {
-  const others = state.players.length - 1;
-  return (
-    <Screen className="justify-center gap-8 text-center">
-      <AvatarBadge avatar={me.avatar} size="lg" className="animate-float" />
-      <p className="text-4xl font-black">{me.name}</p>
-      {state.phase === "lobby" ? (
-        <>
-          <p className="text-2xl font-bold text-spot">Du bist dabei! 🎉</p>
-          <p className="text-xl text-white/70">
-            Schau auf den Fernseher. Es geht los, sobald der Host startet.
-            {others > 0 && (
-              <>
-                <br />
-                {others === 1 ? "1 weitere Person ist" : `${others} weitere Personen sind`} schon da.
-              </>
-            )}
-          </p>
-        </>
-      ) : (
-        <p className="text-3xl font-black text-spot">Gleich geht&apos;s los! 👀</p>
-      )}
       <ConnectionBadge status={status} />
     </Screen>
   );

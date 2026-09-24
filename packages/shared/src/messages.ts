@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { AvatarSchema } from "./avatar";
+import { ScoringSettingsSchema } from "./game-module";
 import { NAME_MAX_LENGTH, type PublicRoomState } from "./state";
 
 // ---------------------------------------------------------------------------
@@ -32,8 +33,30 @@ export const ClientMessageSchema = z.discriminatedUnion("type", [
   }),
   /** Host: remove a player. */
   z.object({ type: z.literal("kick"), playerId: id }),
-  /** Host: start the game (leaves the lobby). */
+  /** Host: close the lobby and go to the game setup. */
   z.object({ type: z.literal("start") }),
+  /** Host: setup → back to the lobby (lets more people join). */
+  z.object({ type: z.literal("back_to_lobby") }),
+  /** Host: start the game with the chosen categories. */
+  z.object({
+    type: z.literal("start_game"),
+    rounds: z
+      .array(
+        z.object({
+          categoryId: z.string().min(1).max(64),
+          questionCount: z.number().int().min(1).max(100),
+          scoring: ScoringSettingsSchema,
+        }),
+      )
+      .min(1)
+      .max(20),
+  }),
+  /** Host: skip the current timer ("Weiter"). */
+  z.object({ type: z.literal("skip") }),
+  /** Host: end the game / play again → back to setup, scores reset. */
+  z.object({ type: z.literal("play_again") }),
+  /** Player: a category-specific action. Validated by the module's own schema. */
+  z.object({ type: z.literal("action"), action: z.unknown() }),
 ]);
 
 export type ClientMessage = z.infer<typeof ClientMessageSchema>;
@@ -54,6 +77,10 @@ export const ERROR_CODES = [
   "ROOM_FULL",
   "ALREADY_JOINED",
   "NOT_ENOUGH_PLAYERS",
+  "WRONG_PHASE",
+  "INVALID_PLAN",
+  "ALREADY_ANSWERED",
+  "TOO_LATE",
 ] as const;
 export type ErrorCode = (typeof ERROR_CODES)[number];
 
@@ -69,10 +96,15 @@ export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   ROOM_FULL: "Der Raum ist voll.",
   ALREADY_JOINED: "Du bist schon im Spiel.",
   NOT_ENOUGH_PLAYERS: "Es braucht mindestens eine:n Spieler:in.",
+  WRONG_PHASE: "Das geht gerade nicht.",
+  INVALID_PLAN: "Bitte wähle mindestens eine Kategorie.",
+  ALREADY_ANSWERED: "Du hast schon geantwortet.",
+  TOO_LATE: "Zu spät – die Zeit ist abgelaufen.",
 };
 
 export type ServerMessage =
-  | { type: "state"; state: PublicRoomState }
+  /** `serverNow` lets clients correct their clock for countdowns. */
+  | { type: "state"; state: PublicRoomState; serverNow: number }
   | { type: "welcome_host" }
   | { type: "welcome_player"; playerId: string }
   /** Sent once to the joining connection only – contains the reconnect secret. */
