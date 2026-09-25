@@ -8,6 +8,7 @@ import {
   type ClientMessage,
   type PublicRoomState,
   type VoiceSettings,
+  voiceErrorHint,
 } from "@couch-clash/shared";
 
 const FREQUENCY_LABEL = { selten: "selten", normal: "normal", oft: "oft" } as const;
@@ -119,9 +120,25 @@ export function VoiceSettingsPanel({
             </span>
           </div>
           {silent && (
-            <p role="status" className={`rounded-2xl bg-rust/80 px-3 py-1.5 font-bold ${compact ? "fs-sm" : "text-base"}`}>
-              {voice.status === "unavailable" ? VOICE_UNAVAILABLE_NOTE : VOICE_BUDGET_NOTE}
-            </p>
+            <div role="status" className={`flex flex-col gap-1.5 rounded-2xl bg-rust/80 px-3 py-2 ${compact ? "fs-sm" : "text-base"}`}>
+              <p className="font-bold">{voice.status === "unavailable" ? VOICE_UNAVAILABLE_NOTE : VOICE_BUDGET_NOTE}</p>
+              {voice.status === "unavailable" && (
+                <>
+                  <p>
+                    {voiceErrorHint(voice.errorCode)}
+                    {voice.errorCode && <span className="ml-1 font-mono text-cream/75">(Fehler {voice.errorCode})</span>}
+                  </p>
+                  <button
+                    type="button"
+                    disabled={!canSend}
+                    onClick={() => send({ type: "voice_retry" })}
+                    className="self-start rounded-full bg-petrol-dark/70 px-3 py-1 font-bold transition hover:bg-petrol disabled:opacity-40"
+                  >
+                    ↻ Stimme erneut versuchen
+                  </button>
+                </>
+              )}
+            </div>
           )}
         </>
       )}

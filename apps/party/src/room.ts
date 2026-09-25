@@ -282,6 +282,11 @@ export class Room extends Server<Env> implements AvatarRoomApi {
         this.voice.testLine();
         return;
 
+      case "voice_retry":
+        if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        await this.voice.retryVoice();
+        return;
+
       case "voice_event":
         if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
         this.voice.hostEvent(msg.lineId, msg.event, msg.endsAt);

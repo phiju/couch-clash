@@ -54,3 +54,27 @@ describe("saved figure messages", () => {
     expect(ClientMessageSchema.safeParse({ type: "photo_use_saved", savedId: "../rooms/x" }).success).toBe(false);
   });
 });
+
+describe("voice settings from older host screens", () => {
+  it("accepts update_voice_settings without tempo (defaults to schnell)", async () => {
+    const { ClientMessageSchema } = await import("../src");
+    const parsed = ClientMessageSchema.safeParse({
+      type: "update_voice_settings",
+      settings: { enabled: false, frequency: "normal", cheekiness: "frech", cheekinessOverride: false },
+    });
+    expect(parsed.success).toBe(true);
+    expect(parsed.success && parsed.data.type === "update_voice_settings" && parsed.data.settings.tempo).toBe("schnell");
+  });
+});
+
+describe("voiceErrorHint", () => {
+  it("explains the common ElevenLabs refusals", async () => {
+    const { voiceErrorHint } = await import("../src");
+    expect(voiceErrorHint("401 quota_exceeded")).toMatch(/Kontingent/);
+    expect(voiceErrorHint("401 missing_permissions")).toMatch(/Text to Speech/);
+    expect(voiceErrorHint("401 invalid_api_key")).toMatch(/ELEVENLABS_API_KEY/);
+    expect(voiceErrorHint("400 voice_not_found")).toMatch(/My Voices/);
+    expect(voiceErrorHint("402")).toMatch(/Abo/);
+    expect(voiceErrorHint(null)).toMatch(/abgelehnt/);
+  });
+});
