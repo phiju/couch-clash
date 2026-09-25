@@ -92,6 +92,8 @@ export class VoiceDirector {
   private readyComment: { key: string; produced: ProducedLine } | null = null;
   /** The commentary line currently shown with the leaderboard (for the hold extension). */
   private hold: { lineId: string; key: string; baseEnd: number } | null = null;
+  /** What the host is reading out (e.g. the Bluff-Lexikon options). */
+  private reading: { key: string; lineIds: Set<string>; baseEnd: number } | null = null;
 
   constructor(private readonly rt: VoiceRuntime) {}
 
@@ -148,10 +150,12 @@ export class VoiceDirector {
     prompt: LinePrompt,
     fallback: string,
     deadline: number | null = null,
+    /** False: fixed text (e.g. reading out) – no text model, no line from the budget. */
+    ai = true,
   ): Promise<ProducedLine | null> {
     const room = this.rt.read();
     if (!room) return null;
-    const useAi = await this.reserveLine();
+    const useAi = ai ? await this.reserveLine() : false;
     const tempo = room.voice.settings.tempo;
     const produced = await produceLine(this.rt.services(), {
       code: room.code,
@@ -237,6 +241,7 @@ export class VoiceDirector {
 
   // ── Room changes ─────────────────────────────────────────────────────
   roomChanged(prev: RoomRecord | null, next: RoomRecord) {
+    this.readAloudChanged(next);
     for (const event of detectVoiceEvents(prev, next, this.registry)) {
       switch (event.type) {
         case "game_start":
@@ -301,7 +306,7 @@ export class VoiceDirector {
       correctAnswer: facts.correctAnswer,
       lastQuestionOfCategory: event.index === event.total - 1,
       players,
-      highlights: commentHighlights(players),
+      highlights: [...(facts.highlights ?? []), ...commentHighlights(players)],
     };
     const cheekiness = effectiveCheekiness(room.voice.settings, game.rounds.flatMap((r) => getModule(r.categoryId, this.registry)?.meta ?? []));
     const lastTarget = room.players.find((p) => p.id === room.voice.lastTargets[0]);
@@ -315,7 +320,8 @@ export class VoiceDirector {
       room.phaseEndsAt,
     );
     const now = progressOf(this.rt.read(), this.registry);
-    if (produced?.line && now?.key === event.key && now.step === "reveal") {
+    // Still revealing (some categories have several reveal steps) – not at the leaderboard yet.
+    if (produced?.line && now?.key === event.key && now.revealed && now.step !== "leaderboard") {
       this.readyComment = { key: event.key, produced };
     }
   }
@@ -350,6 +356,14 @@ export class VoiceDirector {
       finaleTemplate(winners),
     );
     this.deliver(produced);
+  }
+
+  /** The voice reads slower than the fallback timing → the step waits for it (bounded). */
+  private extendReading(reading: { key: string; baseEnd: number }, endsAt: number) {
+    const room = this.rt.read();
+    if (!room || room.phaseEndsAt === null || this.currentReadAloud(room)?.key !== reading.key) return;
+    const end = Math.min(endsAt + VOICE_CONFIG.readPauseMs, reading.baseEnd + VOICE_CONFIG.maxReadExtensionMs);
+    if (end > room.phaseEndsAt) this.run(() => this.rt.commit({ ...room, phaseEndsAt: end }));
   }
 
   /** "Stimme erneut versuchen": lifts the room's voice stop after a refusal (e.g. new key or plan). */
@@ -390,8 +404,46 @@ export class VoiceDirector {
     });
   }
 
+  // ── Reading out (GameModule.readAloud) ───────────────────────────────
+  private currentReadAloud(room: RoomRecord | null) {
+    const game = room?.phase === "play" ? room.game : null;
+    const round = game?.rounds[game.roundIndex];
+    const module = round ? getModule(round.categoryId, this.registry) : undefined;
+    return game?.moduleState != null ? (module?.readAloud?.(game.moduleState) ?? null) : null;
+  }
+
+  private readAloudChanged(room: RoomRecord) {
+    const read = this.currentReadAloud(room);
+    if (!read) {
+      this.reading = null;
+      return;
+    }
+    if (this.reading?.key === read.key) return;
+    const reading = { key: read.key, lineIds: new Set<string>(), baseEnd: room.phaseEndsAt ?? this.rt.now() };
+    this.reading = reading;
+    if (!this.enabled(room)) return;
+    // All clips in parallel, sent in order (the host plays them one after another).
+    const clips = read.items.map((item) =>
+      this.produce("read", "fast", { system: "", user: "" }, item.text, null, false).then((produced) => ({ produced, cue: item.cue })),
+    );
+    this.run(async () => {
+      for (const clip of clips) {
+        const { produced, cue } = await clip;
+        if (this.reading !== reading) return;
+        const line = produced?.line;
+        if (!line || !this.enabled()) continue;
+        const withCue = { ...line, cue };
+        if (this.rt.sendToHosts(withCue)) reading.lineIds.add(withCue.id);
+      }
+    });
+  }
+
   // ── Host screen feedback ─────────────────────────────────────────────
   hostEvent(lineId: string, event: "started" | "ended", endsAt?: number) {
+    if (event === "started" && endsAt !== undefined && this.reading?.lineIds.has(lineId)) {
+      this.extendReading(this.reading, endsAt);
+      return;
+    }
     if (event === "ended") {
       if (this.welcomesOnHost.delete(lineId)) this.pumpWelcomes();
       if (this.hold?.lineId === lineId) this.hold = null;

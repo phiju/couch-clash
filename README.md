@@ -60,6 +60,19 @@ couch-clash/
 2. **Register** the category in `packages/games/src/meta.ts` (`CATEGORY_METAS`) and `packages/games/src/index.ts` (`GAME_MODULES`).
 3. **UI:** create `apps/web/src/games/<id>/` with `HostView` and `PlayerView`, and add them to `apps/web/src/games/registry.ts`. TypeScript reports an error if a registered category has no views.
 4. **Content:** add `packages/content/data/<id>.de.json`, a zod schema in `packages/content/src/schema.ts` and an export in `packages/content/src/index.ts`.
+5. **Optional hooks:** `minPlayers` in the meta (not selectable below it), `pendingTask`/`resolveTask` for server work such as an AI check (the room runs it generically, `null` on timeout – the module falls back), `readAloud` for texts the host reads out (one voice clip per item, the category highlights the item via the line's `cue`), `revealFacts`/`toStats` for commentary and statistics.
+
+## Bluff-Lexikon
+
+A rare, real German word (200 in `packages/content/data/bluff.de.json`). Per word:
+
+1. **Write** (60 s): everyone invents a believable definition on the phone (max 80 characters). Ends early when everyone has written one.
+2. **Check** (invisible, max 5 s): a module task asks the text model to compare every definition with the real one: essentially correct → "Gewusst!" (+100, not shown, no vote), near-identical ones are merged (all authors share the fooling bonus), obvious typos fixed, offensive ones removed. Only anonymous texts are sent (s1, s2, …), never names. Without an answer in time (or without `OPENAI_API_KEY`) everything is shown as written.
+3. **Present:** all options A, B, C, … in random order, same look for all (capital letter, no full stop). The host reads them out with his voice, the option being read is highlighted; without voice each option is shown for ~3.5 s.
+4. **Vote** (30 s): letter buttons on the phone ("Texte anzeigen" for people far from the TV); no vote for your own definition.
+5. **Reveal:** who fooled whom (authors and voters on every option), then the real definition with a sting, commentary, leaderboard.
+
+Scoring (strategy `bluff`, no speed bonus): real definition found +100, +50 per player who fell for your definition, correct definition written +100. The host sets the base amount ("Punkte für die echte Erklärung"), the others scale with it (`BLUFF_CONFIG` in `packages/games/src/bluff/meta.ts`). Needs at least 2 players.
 
 The room, lobby, setup screen, scoreboard and finale pick up the new category automatically.
 
@@ -303,6 +316,8 @@ The TV/laptop plays music and effects; phones never do.
 **The host speaks (AI voice)** ✅ Welcome by name, game start, leaderboard commentary with "Frechheit" levels, winner announcement – voice by ElevenLabs, host device only, no speech bubbles, character budget per room.
 
 **Photo avatars (AI)** ✅ Selfie/photo → cartoon in the show style via OpenAI, 3 expressions for the leaderboard, emoji fallback, R2 storage with cleanup, "⭐ Meine Figur" for next time.
+
+**Bluff-Lexikon** ✅ New category: invent definitions for rare words, find the real one – AI check, host reads the options, 200 words.
 
 **Question statistics** ✅ Plays and 👍/👎 per question in D1, "⚠️ Stimmt nicht?" with undo, admin page `/admin/fragen` with quick filters and CSV, automatic AI replacement for removed questions.
 

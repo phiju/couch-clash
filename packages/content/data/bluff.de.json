@@ -1,0 +1,2446 @@
+[
+  {
+    "id": "bluff-001",
+    "word": "Fisimatenten",
+    "definition": "Ausflüchte, unnötige Umstände, Faxen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 1,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-002",
+    "word": "Tinnef",
+    "definition": "wertloses Zeug, Plunder; auch Unsinn",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 1,
+    "sourceNote": "ugs., aus dem Jiddischen"
+  },
+  {
+    "id": "bluff-003",
+    "word": "Zinnober",
+    "definition": "wertloses Zeug, Unsinn; übertriebenes Getue",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 1,
+    "sourceNote": "ugs.; auch Mineral/Farbe"
+  },
+  {
+    "id": "bluff-004",
+    "word": "Kalfaktor",
+    "definition": "jemand, der untergeordnete Hilfsdienste verrichtet, z. B. im Gefängnis",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet",
+      "berufe"
+    ],
+    "difficulty": 2,
+    "sourceNote": "veraltend"
+  },
+  {
+    "id": "bluff-005",
+    "word": "Schmonzes",
+    "definition": "leeres, albernes Gerede, Geschwätz",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs., aus dem Jiddischen"
+  },
+  {
+    "id": "bluff-006",
+    "word": "Bramarbas",
+    "definition": "Aufschneider, Prahlhans",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet",
+      "menschen"
+    ],
+    "difficulty": 3,
+    "sourceNote": "bildungsspr."
+  },
+  {
+    "id": "bluff-007",
+    "word": "Hagestolz",
+    "definition": "älterer, eingefleischter Junggeselle",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet",
+      "menschen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "veraltet"
+  },
+  {
+    "id": "bluff-008",
+    "word": "blümerant",
+    "definition": "flau, schwindlig, unwohl",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs., veraltend"
+  },
+  {
+    "id": "bluff-009",
+    "word": "Gschaftlhuber",
+    "definition": "wichtigtuerischer, übereifriger Mensch",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "menschen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "bair., österr."
+  },
+  {
+    "id": "bluff-010",
+    "word": "Gspusi",
+    "definition": "Liebschaft, Liebelei",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional"
+    ],
+    "difficulty": 2,
+    "sourceNote": "südd., österr."
+  },
+  {
+    "id": "bluff-011",
+    "word": "Fatzke",
+    "definition": "eitler, eingebildeter Mensch",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache",
+      "menschen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-012",
+    "word": "Quisquilien",
+    "definition": "Kleinigkeiten, Nichtigkeiten",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort"
+    ],
+    "difficulty": 3,
+    "sourceNote": "bildungsspr."
+  },
+  {
+    "id": "bluff-013",
+    "word": "Schnurrpfeiferei",
+    "definition": "närrischer Einfall, Albernheit, Posse",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet"
+    ],
+    "difficulty": 3,
+    "sourceNote": "veraltet"
+  },
+  {
+    "id": "bluff-014",
+    "word": "Plörre",
+    "definition": "dünner, fader Kaffee oder Tee; schlechtes Getränk",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "essen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "nordd., md., ugs."
+  },
+  {
+    "id": "bluff-015",
+    "word": "Kladderadatsch",
+    "definition": "Zusammenbruch mit Krach; Durcheinander, Skandal",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-016",
+    "word": "Tünche",
+    "definition": "Kalkanstrich; übertragen: oberflächlicher, schöner Schein",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "handwerk"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-017",
+    "word": "Mores",
+    "definition": "Anstand, gute Sitten (jemanden Mores lehren)",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs., lat. mores"
+  },
+  {
+    "id": "bluff-018",
+    "word": "Hahnrei",
+    "definition": "betrogener Ehemann",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet",
+      "menschen"
+    ],
+    "difficulty": 3,
+    "sourceNote": "veraltet"
+  },
+  {
+    "id": "bluff-019",
+    "word": "kujonieren",
+    "definition": "schikanieren, unwürdig behandeln",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet"
+    ],
+    "difficulty": 3,
+    "sourceNote": "veraltend"
+  },
+  {
+    "id": "bluff-020",
+    "word": "scharwenzeln",
+    "definition": "sich dienernd und schmeichelnd um jemanden bewegen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-021",
+    "word": "schwadronieren",
+    "definition": "wortreich und prahlerisch daherreden",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-022",
+    "word": "Schabracke",
+    "definition": "verzierte Decke unter dem Sattel; Querbehang über Fenstern",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-023",
+    "word": "Vatermörder",
+    "definition": "hoher, steifer Stehkragen am Herrenhemd",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "kleidung",
+      "veraltet"
+    ],
+    "difficulty": 2,
+    "sourceNote": "19. Jh."
+  },
+  {
+    "id": "bluff-024",
+    "word": "Kasack",
+    "definition": "lange, über Rock oder Hose getragene Bluse",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "kleidung"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-025",
+    "word": "Pelerine",
+    "definition": "ärmelloser Umhang, Regenumhang",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "kleidung",
+      "veraltet"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-026",
+    "word": "Plumeau",
+    "definition": "dickes Federbett, Oberbett",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "wohnen",
+      "veraltet"
+    ],
+    "difficulty": 2,
+    "sourceNote": "frz."
+  },
+  {
+    "id": "bluff-027",
+    "word": "Vertiko",
+    "definition": "kleiner Zierschrank mit Schublade und Aufsatz",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "wohnen",
+      "veraltet"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-028",
+    "word": "Etagere",
+    "definition": "Gestell mit mehreren Ablagen übereinander",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "wohnen",
+      "fremdwort"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-029",
+    "word": "Latüchte",
+    "definition": "Laterne, Lampe",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "umgangssprache"
+    ],
+    "difficulty": 2,
+    "sourceNote": "nordd., ugs."
+  },
+  {
+    "id": "bluff-030",
+    "word": "dengeln",
+    "definition": "Sensen- oder Sichelblatt durch Hämmern schärfen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "handwerk",
+      "landwirtschaft"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-031",
+    "word": "Kiepe",
+    "definition": "auf dem Rücken getragener Korb",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "landwirtschaft"
+    ],
+    "difficulty": 2,
+    "sourceNote": "nordd., md."
+  },
+  {
+    "id": "bluff-032",
+    "word": "Bratenrock",
+    "definition": "festlicher Gehrock für Sonn- und Feiertage",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "kleidung",
+      "veraltet"
+    ],
+    "difficulty": 3,
+    "sourceNote": "veraltet"
+  },
+  {
+    "id": "bluff-033",
+    "word": "Kummet",
+    "definition": "gepolsterter Halsring für Zugpferde",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "landwirtschaft"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-034",
+    "word": "Ortscheit",
+    "definition": "Querholz am Wagen, an dem die Zugstränge der Tiere hängen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "landwirtschaft"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-035",
+    "word": "Häcksel",
+    "definition": "klein geschnittenes Stroh als Futter",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "landwirtschaft"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-036",
+    "word": "Schober",
+    "definition": "Heuhaufen; überdachter Stapel für Heu oder Stroh",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "landwirtschaft",
+      "regional"
+    ],
+    "difficulty": 3,
+    "sourceNote": "südd., österr."
+  },
+  {
+    "id": "bluff-037",
+    "word": "Hucke",
+    "definition": "Rücken; Last auf dem Rücken",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional"
+    ],
+    "difficulty": 3,
+    "sourceNote": "landsch. (jemandem die Hucke vollhauen)"
+  },
+  {
+    "id": "bluff-038",
+    "word": "Katen",
+    "definition": "kleines, ärmliches Bauernhaus",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "wohnen"
+    ],
+    "difficulty": 3,
+    "sourceNote": "nordd."
+  },
+  {
+    "id": "bluff-039",
+    "word": "Söller",
+    "definition": "Dachboden; offener Balkon auf einem Gebäude",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur",
+      "veraltet"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-040",
+    "word": "Gaube",
+    "definition": "Dachfenster mit eigenem kleinen Dach",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-041",
+    "word": "Remise",
+    "definition": "Schuppen für Wagen und Geräte",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur",
+      "veraltet"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-042",
+    "word": "Kemenate",
+    "definition": "beheizbarer Wohnraum, besonders für Frauen, in einer Burg",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur",
+      "mittelalter"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-043",
+    "word": "Pechnase",
+    "definition": "Vorbau an Burgmauern zum Ausgießen von heißem Pech",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur",
+      "mittelalter"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-044",
+    "word": "Pofese",
+    "definition": "in Fett gebackene, gefüllte Weißbrotschnitte",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "essen"
+    ],
+    "difficulty": 3,
+    "sourceNote": "bair., österr."
+  },
+  {
+    "id": "bluff-045",
+    "word": "Powidl",
+    "definition": "Pflaumenmus",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "essen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "österr."
+  },
+  {
+    "id": "bluff-046",
+    "word": "Obers",
+    "definition": "Sahne",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "essen"
+    ],
+    "difficulty": 1,
+    "sourceNote": "österr."
+  },
+  {
+    "id": "bluff-047",
+    "word": "Paradeiser",
+    "definition": "Tomate",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "essen"
+    ],
+    "difficulty": 1,
+    "sourceNote": "österr."
+  },
+  {
+    "id": "bluff-048",
+    "word": "Karfiol",
+    "definition": "Blumenkohl",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "essen"
+    ],
+    "difficulty": 1,
+    "sourceNote": "österr."
+  },
+  {
+    "id": "bluff-049",
+    "word": "Fisolen",
+    "definition": "grüne Bohnen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "essen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "österr."
+  },
+  {
+    "id": "bluff-050",
+    "word": "Kren",
+    "definition": "Meerrettich",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "essen"
+    ],
+    "difficulty": 1,
+    "sourceNote": "südd., österr."
+  },
+  {
+    "id": "bluff-051",
+    "word": "Ribisel",
+    "definition": "Johannisbeere",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "essen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "österr."
+  },
+  {
+    "id": "bluff-052",
+    "word": "Kukuruz",
+    "definition": "Mais",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "essen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "österr."
+  },
+  {
+    "id": "bluff-053",
+    "word": "Brägen",
+    "definition": "Hirn vom Schlachttier",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "essen"
+    ],
+    "difficulty": 3,
+    "sourceNote": "nordd."
+  },
+  {
+    "id": "bluff-054",
+    "word": "Kaldaunen",
+    "definition": "essbare Innereien, Kutteln",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "essen",
+      "regional"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-055",
+    "word": "Plinse",
+    "definition": "dünner Pfannkuchen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "essen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ostmd."
+  },
+  {
+    "id": "bluff-056",
+    "word": "Gewese",
+    "definition": "Getue, großes Aufheben",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional"
+    ],
+    "difficulty": 2,
+    "sourceNote": "nordd."
+  },
+  {
+    "id": "bluff-057",
+    "word": "tüdelig",
+    "definition": "verwirrt, zerstreut",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "umgangssprache"
+    ],
+    "difficulty": 2,
+    "sourceNote": "nordd., ugs."
+  },
+  {
+    "id": "bluff-058",
+    "word": "klönen",
+    "definition": "gemütlich plaudern",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional"
+    ],
+    "difficulty": 1,
+    "sourceNote": "nordd."
+  },
+  {
+    "id": "bluff-059",
+    "word": "Pütt",
+    "definition": "Bergwerk, Zeche",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional"
+    ],
+    "difficulty": 2,
+    "sourceNote": "Ruhrgebiet"
+  },
+  {
+    "id": "bluff-060",
+    "word": "Budike",
+    "definition": "kleiner Laden; kleine Kneipe",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional"
+    ],
+    "difficulty": 3,
+    "sourceNote": "berlin."
+  },
+  {
+    "id": "bluff-061",
+    "word": "Destille",
+    "definition": "kleine Branntweinschenke",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "veraltet"
+    ],
+    "difficulty": 3,
+    "sourceNote": "berlin., veraltet"
+  },
+  {
+    "id": "bluff-062",
+    "word": "Tingeltangel",
+    "definition": "billiges Tanzlokal; anspruchslose Unterhaltung",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache",
+      "veraltet"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-063",
+    "word": "Schwof",
+    "definition": "Tanzvergnügen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-064",
+    "word": "Tranfunzel",
+    "definition": "langsamer, träger Mensch; schwache Lampe",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache",
+      "menschen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-065",
+    "word": "Nassauer",
+    "definition": "jemand, der auf Kosten anderer lebt",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache",
+      "menschen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-066",
+    "word": "Filou",
+    "definition": "Schlingel, gerissener Kerl",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "menschen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "frz."
+  },
+  {
+    "id": "bluff-067",
+    "word": "Luftikus",
+    "definition": "oberflächlicher, leichtsinniger Mensch",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache",
+      "menschen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-068",
+    "word": "Hallodri",
+    "definition": "leichtsinniger, unzuverlässiger Mensch",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "menschen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "bair., österr."
+  },
+  {
+    "id": "bluff-069",
+    "word": "Faselhans",
+    "definition": "jemand, der gedankenlos daherredet",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache",
+      "menschen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-070",
+    "word": "Philister",
+    "definition": "engstirniger, spießiger Mensch",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "menschen"
+    ],
+    "difficulty": 3,
+    "sourceNote": "bildungsspr."
+  },
+  {
+    "id": "bluff-071",
+    "word": "Parvenü",
+    "definition": "Emporkömmling",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "menschen"
+    ],
+    "difficulty": 3,
+    "sourceNote": "bildungsspr., frz."
+  },
+  {
+    "id": "bluff-072",
+    "word": "Kiebitz",
+    "definition": "Zuschauer beim Kartenspiel, der sich einmischt",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache",
+      "spiele"
+    ],
+    "difficulty": 2,
+    "sourceNote": "auch Vogel"
+  },
+  {
+    "id": "bluff-073",
+    "word": "Schwerenöter",
+    "definition": "charmanter Frauenheld",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache",
+      "menschen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "scherzh."
+  },
+  {
+    "id": "bluff-074",
+    "word": "Stenz",
+    "definition": "eitler, selbstgefälliger junger Mann",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache",
+      "menschen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-075",
+    "word": "Geck",
+    "definition": "eitler, modisch übertriebener Mann",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "menschen",
+      "veraltet"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-076",
+    "word": "Duckmäuser",
+    "definition": "feiger, unterwürfiger Mensch",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "menschen"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-077",
+    "word": "Schmock",
+    "definition": "gesinnungsloser Journalist, Schreiberling",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "menschen"
+    ],
+    "difficulty": 3,
+    "sourceNote": "nach Freytags „Die Journalisten“"
+  },
+  {
+    "id": "bluff-078",
+    "word": "Skribent",
+    "definition": "Vielschreiber, Schreiberling",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "menschen"
+    ],
+    "difficulty": 3,
+    "sourceNote": "bildungsspr."
+  },
+  {
+    "id": "bluff-079",
+    "word": "Epigone",
+    "definition": "unschöpferischer Nachahmer",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "menschen"
+    ],
+    "difficulty": 3,
+    "sourceNote": "bildungsspr."
+  },
+  {
+    "id": "bluff-080",
+    "word": "Adlatus",
+    "definition": "Gehilfe, Helfer",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "berufe"
+    ],
+    "difficulty": 2,
+    "sourceNote": "lat."
+  },
+  {
+    "id": "bluff-081",
+    "word": "Famulus",
+    "definition": "Assistent eines Gelehrten; Medizinstudent im Praktikum",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "berufe"
+    ],
+    "difficulty": 3,
+    "sourceNote": "lat."
+  },
+  {
+    "id": "bluff-082",
+    "word": "Faktotum",
+    "definition": "Mädchen für alles, langjähriger Helfer",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "berufe"
+    ],
+    "difficulty": 2,
+    "sourceNote": "lat."
+  },
+  {
+    "id": "bluff-083",
+    "word": "Kustos",
+    "definition": "wissenschaftlicher Betreuer einer Museumssammlung",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "berufe"
+    ],
+    "difficulty": 3,
+    "sourceNote": "lat."
+  },
+  {
+    "id": "bluff-084",
+    "word": "Pedell",
+    "definition": "Hausmeister einer Schule oder Hochschule",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet",
+      "berufe"
+    ],
+    "difficulty": 2,
+    "sourceNote": "veraltet"
+  },
+  {
+    "id": "bluff-085",
+    "word": "Büttel",
+    "definition": "Gerichtsdiener; abwertend: Handlanger der Obrigkeit",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet",
+      "berufe"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-086",
+    "word": "Profos",
+    "definition": "Offizier, der früher die Strafgewalt im Heer ausübte",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet",
+      "berufe"
+    ],
+    "difficulty": 3,
+    "sourceNote": "hist."
+  },
+  {
+    "id": "bluff-087",
+    "word": "Schultheiß",
+    "definition": "Gemeindevorsteher, Bürgermeister",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet",
+      "berufe"
+    ],
+    "difficulty": 2,
+    "sourceNote": "hist."
+  },
+  {
+    "id": "bluff-088",
+    "word": "Vogt",
+    "definition": "Verwalter und Schirmherr im Auftrag eines Landesherrn",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet",
+      "mittelalter"
+    ],
+    "difficulty": 2,
+    "sourceNote": "hist."
+  },
+  {
+    "id": "bluff-089",
+    "word": "Postillion",
+    "definition": "Kutscher einer Postkutsche",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet",
+      "berufe"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-090",
+    "word": "Abdecker",
+    "definition": "jemand, der Tierkadaver beseitigt und verwertet",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "berufe"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-091",
+    "word": "Köhler",
+    "definition": "jemand, der im Meiler Holzkohle herstellt",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "handwerk",
+      "berufe"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-092",
+    "word": "Kiepenkerl",
+    "definition": "wandernder Händler mit Rückentragekorb",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "berufe"
+    ],
+    "difficulty": 3,
+    "sourceNote": "westfäl."
+  },
+  {
+    "id": "bluff-093",
+    "word": "Böttcher",
+    "definition": "Handwerker, der Fässer herstellt",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "handwerk",
+      "berufe"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-094",
+    "word": "Stellmacher",
+    "definition": "Handwerker, der Wagen und Räder aus Holz baut",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "handwerk",
+      "berufe"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-095",
+    "word": "Gürtler",
+    "definition": "Handwerker, der Schnallen und Metallbeschläge fertigt",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "handwerk",
+      "berufe"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-096",
+    "word": "Kürschner",
+    "definition": "Handwerker, der Pelze verarbeitet",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "handwerk",
+      "berufe"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-097",
+    "word": "Flickschuster",
+    "definition": "Schuster, der nur repariert; übertragen: Pfuscher",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "handwerk",
+      "berufe"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-098",
+    "word": "Zeidler",
+    "definition": "Waldimker, Honigsammler",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "berufe",
+      "mittelalter"
+    ],
+    "difficulty": 3,
+    "sourceNote": "hist."
+  },
+  {
+    "id": "bluff-099",
+    "word": "Täschner",
+    "definition": "Handwerker, der Taschen und Lederwaren herstellt",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "handwerk",
+      "berufe"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-100",
+    "word": "Posamentierer",
+    "definition": "Hersteller von Borten, Quasten und Schnüren",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "handwerk",
+      "berufe"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-101",
+    "word": "Plattner",
+    "definition": "Handwerker, der Rüstungen aus Metallplatten fertigte",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "handwerk",
+      "mittelalter"
+    ],
+    "difficulty": 3,
+    "sourceNote": "hist."
+  },
+  {
+    "id": "bluff-102",
+    "word": "Pareidolie",
+    "definition": "das Erkennen von Gesichtern in Dingen, etwa in Wolken",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "wissenschaft"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-103",
+    "word": "Palimpsest",
+    "definition": "Pergament, dessen alte Schrift abgeschabt und neu beschrieben wurde",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-104",
+    "word": "Kolophonium",
+    "definition": "Harz zum Einreiben von Geigenbögen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "musik"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-105",
+    "word": "Anakoluth",
+    "definition": "Satzbruch, grammatisch nicht folgerichtiger Satzbau",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "sprachwissenschaft"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-106",
+    "word": "Schibboleth",
+    "definition": "Erkennungszeichen, Losungswort einer Gruppe",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort"
+    ],
+    "difficulty": 3,
+    "sourceNote": "hebr."
+  },
+  {
+    "id": "bluff-107",
+    "word": "Abbreviatur",
+    "definition": "Abkürzung in Schrift oder Notenschrift",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-108",
+    "word": "Sinekure",
+    "definition": "einträgliches Amt ohne viel Arbeit",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort"
+    ],
+    "difficulty": 3,
+    "sourceNote": "lat."
+  },
+  {
+    "id": "bluff-109",
+    "word": "Kenotaph",
+    "definition": "Grabmal ohne Leichnam, Ehrengrab",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "architektur"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-110",
+    "word": "Ossuarium",
+    "definition": "Beinhaus, Aufbewahrungsort für Gebeine",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "architektur"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-111",
+    "word": "Refektorium",
+    "definition": "Speisesaal eines Klosters",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-112",
+    "word": "Skriptorium",
+    "definition": "Schreibstube eines Klosters",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur",
+      "mittelalter"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-113",
+    "word": "Apsis",
+    "definition": "halbrunder Raumabschluss am Ende einer Kirche",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-114",
+    "word": "Lettner",
+    "definition": "Schranke zwischen Chor und Kirchenschiff",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-115",
+    "word": "Karner",
+    "definition": "Beinhaus auf dem Friedhof",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur",
+      "regional"
+    ],
+    "difficulty": 3,
+    "sourceNote": "südd., österr."
+  },
+  {
+    "id": "bluff-116",
+    "word": "Fiale",
+    "definition": "schlankes, spitzes Ziertürmchen der Gotik",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-117",
+    "word": "Belvedere",
+    "definition": "Aussichtspunkt; Gebäude mit schöner Aussicht",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur",
+      "fremdwort"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ital."
+  },
+  {
+    "id": "bluff-118",
+    "word": "Gloriette",
+    "definition": "offener Gartenpavillon auf einer Anhöhe",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur",
+      "fremdwort"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-119",
+    "word": "Glacis",
+    "definition": "flache Böschung vor einer Festung",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur",
+      "fremdwort"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-120",
+    "word": "Kasematte",
+    "definition": "beschusssicherer Raum in einer Festung",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-121",
+    "word": "Barbakane",
+    "definition": "Vorwerk vor einem Burg- oder Stadttor",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur",
+      "mittelalter"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-122",
+    "word": "Ravelin",
+    "definition": "dreieckiges Vorwerk vor dem Festungsgraben",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "architektur"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-123",
+    "word": "Fallreep",
+    "definition": "Treppe außen an der Bordwand eines Schiffes",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "seefahrt"
+    ],
+    "difficulty": 3,
+    "sourceNote": "Seemannsspr."
+  },
+  {
+    "id": "bluff-124",
+    "word": "Klüse",
+    "definition": "Öffnung im Schiffsrumpf für die Ankerkette",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "seefahrt"
+    ],
+    "difficulty": 3,
+    "sourceNote": "Seemannsspr."
+  },
+  {
+    "id": "bluff-125",
+    "word": "Kimm",
+    "definition": "sichtbare Horizontlinie auf See",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "seefahrt"
+    ],
+    "difficulty": 3,
+    "sourceNote": "Seemannsspr."
+  },
+  {
+    "id": "bluff-126",
+    "word": "Pütz",
+    "definition": "Eimer",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "seefahrt"
+    ],
+    "difficulty": 3,
+    "sourceNote": "Seemannsspr."
+  },
+  {
+    "id": "bluff-127",
+    "word": "kalfatern",
+    "definition": "die Fugen eines Holzschiffs abdichten",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "seefahrt",
+      "handwerk"
+    ],
+    "difficulty": 3,
+    "sourceNote": "Seemannsspr."
+  },
+  {
+    "id": "bluff-128",
+    "word": "Wanten",
+    "definition": "seitliche Taue, die den Mast abstützen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "seefahrt"
+    ],
+    "difficulty": 3,
+    "sourceNote": "Seemannsspr."
+  },
+  {
+    "id": "bluff-129",
+    "word": "Schot",
+    "definition": "Tau, mit dem ein Segel bedient wird",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "seefahrt"
+    ],
+    "difficulty": 3,
+    "sourceNote": "Seemannsspr."
+  },
+  {
+    "id": "bluff-130",
+    "word": "Davit",
+    "definition": "kranartige Vorrichtung zum Aussetzen von Beibooten",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "seefahrt"
+    ],
+    "difficulty": 3,
+    "sourceNote": "Seemannsspr."
+  },
+  {
+    "id": "bluff-131",
+    "word": "Bugspriet",
+    "definition": "über den Bug hinausragende Spiere",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "seefahrt"
+    ],
+    "difficulty": 2,
+    "sourceNote": "Seemannsspr."
+  },
+  {
+    "id": "bluff-132",
+    "word": "Speigatt",
+    "definition": "Öffnung in der Bordwand, durch die Wasser abläuft",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "seefahrt"
+    ],
+    "difficulty": 3,
+    "sourceNote": "Seemannsspr."
+  },
+  {
+    "id": "bluff-133",
+    "word": "Zunderschwamm",
+    "definition": "Baumpilz, der früher zum Feuermachen diente",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-134",
+    "word": "Neuntöter",
+    "definition": "Singvogel, der seine Beute auf Dornen spießt",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur",
+      "tiere"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-135",
+    "word": "Pirol",
+    "definition": "gelb-schwarzer Singvogel mit flötendem Ruf",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur",
+      "tiere"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-136",
+    "word": "Rohrdommel",
+    "definition": "Reiherart, die versteckt im Schilf lebt",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur",
+      "tiere"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-137",
+    "word": "Wegwarte",
+    "definition": "Pflanze mit hellblauen Blüten am Wegrand",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur",
+      "pflanzen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "Gemeine Wegwarte, Zichorie"
+  },
+  {
+    "id": "bluff-138",
+    "word": "Mauerpfeffer",
+    "definition": "Dickblattgewächs mit gelben Blüten",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur",
+      "pflanzen"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-139",
+    "word": "Hauhechel",
+    "definition": "dorniger Schmetterlingsblütler, alte Heilpflanze",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur",
+      "pflanzen"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-140",
+    "word": "Schöllkraut",
+    "definition": "Mohngewächs mit orangefarbenem Milchsaft",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur",
+      "pflanzen"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-141",
+    "word": "Kalmus",
+    "definition": "Sumpfpflanze mit aromatischer Wurzel",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur",
+      "pflanzen"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-142",
+    "word": "Bovist",
+    "definition": "kugeliger Pilz, der seine Sporen als Staubwolke ausstößt",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur",
+      "pflanzen"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-143",
+    "word": "Doline",
+    "definition": "trichterförmige Senke in Karstgebieten",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur",
+      "geografie"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-144",
+    "word": "Gumpe",
+    "definition": "tiefe Stelle, Becken in einem Bach",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "natur"
+    ],
+    "difficulty": 3,
+    "sourceNote": "südd."
+  },
+  {
+    "id": "bluff-145",
+    "word": "Priel",
+    "definition": "Wasserrinne im Wattenmeer",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur",
+      "geografie"
+    ],
+    "difficulty": 2,
+    "sourceNote": "nordd."
+  },
+  {
+    "id": "bluff-146",
+    "word": "Warft",
+    "definition": "aufgeschütteter Hügel, auf dem Häuser vor Sturmfluten stehen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur",
+      "regional"
+    ],
+    "difficulty": 2,
+    "sourceNote": "nordd."
+  },
+  {
+    "id": "bluff-147",
+    "word": "Tobel",
+    "definition": "enge Waldschlucht",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "natur"
+    ],
+    "difficulty": 3,
+    "sourceNote": "südd., schweiz."
+  },
+  {
+    "id": "bluff-148",
+    "word": "Diabolo",
+    "definition": "Geschicklichkeitsspiel mit Doppelkegel auf einer Schnur",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "spiele"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-149",
+    "word": "Bilboquet",
+    "definition": "Fangspiel: Kugel an einer Schnur mit einem Stab auffangen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "spiele",
+      "fremdwort"
+    ],
+    "difficulty": 3,
+    "sourceNote": "frz."
+  },
+  {
+    "id": "bluff-150",
+    "word": "Schusser",
+    "definition": "Murmel",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "spiele"
+    ],
+    "difficulty": 2,
+    "sourceNote": "südd."
+  },
+  {
+    "id": "bluff-151",
+    "word": "Behuf",
+    "definition": "Zweck (zu diesem Behuf)",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet"
+    ],
+    "difficulty": 3,
+    "sourceNote": "Amtsspr., veraltet"
+  },
+  {
+    "id": "bluff-152",
+    "word": "Gusto",
+    "definition": "Appetit, Geschmack, Neigung",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "regional"
+    ],
+    "difficulty": 2,
+    "sourceNote": "südd., österr."
+  },
+  {
+    "id": "bluff-153",
+    "word": "Schnurre",
+    "definition": "kurze, lustige Erzählung",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-154",
+    "word": "Ränke",
+    "definition": "Intrigen, hinterlistige Pläne",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet"
+    ],
+    "difficulty": 2,
+    "sourceNote": "meist Plural"
+  },
+  {
+    "id": "bluff-155",
+    "word": "Fährnis",
+    "definition": "Gefahr",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet"
+    ],
+    "difficulty": 3,
+    "sourceNote": "veraltet"
+  },
+  {
+    "id": "bluff-156",
+    "word": "Unbill",
+    "definition": "Unrecht, Ungemach",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet"
+    ],
+    "difficulty": 2,
+    "sourceNote": "geh."
+  },
+  {
+    "id": "bluff-157",
+    "word": "Labsal",
+    "definition": "Erfrischung, Wohltat",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet"
+    ],
+    "difficulty": 2,
+    "sourceNote": "geh."
+  },
+  {
+    "id": "bluff-158",
+    "word": "Talmi",
+    "definition": "unechter Schmuck; Wertloses mit falschem Glanz",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-159",
+    "word": "Flitter",
+    "definition": "glitzernder Zierrat; wertloser Glanz",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "kleidung"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-160",
+    "word": "Sermon",
+    "definition": "langatmiges, langweiliges Gerede",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-161",
+    "word": "Suada",
+    "definition": "Redeschwall",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort"
+    ],
+    "difficulty": 3,
+    "sourceNote": "bildungsspr."
+  },
+  {
+    "id": "bluff-162",
+    "word": "Grimmen",
+    "definition": "krampfartige Bauchschmerzen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet"
+    ],
+    "difficulty": 3,
+    "sourceNote": "landsch., veraltend"
+  },
+  {
+    "id": "bluff-163",
+    "word": "Zipperlein",
+    "definition": "Gicht; kleine Wehwehchen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet",
+      "umgangssprache"
+    ],
+    "difficulty": 2,
+    "sourceNote": "scherzh., veraltet"
+  },
+  {
+    "id": "bluff-164",
+    "word": "Kapotthut",
+    "definition": "kleiner, unter dem Kinn gebundener Damenhut",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "kleidung",
+      "veraltet"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-165",
+    "word": "Jabot",
+    "definition": "Rüschenbesatz an Hemdbrust oder Bluse",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "kleidung",
+      "fremdwort"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-166",
+    "word": "Krinoline",
+    "definition": "weiter Reifrock",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "kleidung",
+      "veraltet"
+    ],
+    "difficulty": 2,
+    "sourceNote": "19. Jh."
+  },
+  {
+    "id": "bluff-167",
+    "word": "Lorgnette",
+    "definition": "Brille mit Stiel zum Vorhalten",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "kleidung",
+      "veraltet"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-168",
+    "word": "Zwicker",
+    "definition": "Brille ohne Bügel, die auf die Nase geklemmt wird",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "kleidung",
+      "veraltet"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-169",
+    "word": "Ridikül",
+    "definition": "kleine Damenhandtasche",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "kleidung",
+      "veraltet"
+    ],
+    "difficulty": 3,
+    "sourceNote": "veraltet"
+  },
+  {
+    "id": "bluff-170",
+    "word": "Nachtmahr",
+    "definition": "Albtraum; Schreckgespenst",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "mythologie"
+    ],
+    "difficulty": 2,
+    "sourceNote": "geh."
+  },
+  {
+    "id": "bluff-171",
+    "word": "Wechselbalg",
+    "definition": "untergeschobenes Kind im Volksglauben",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "mythologie"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-172",
+    "word": "Tatzelwurm",
+    "definition": "drachenähnliches Fabeltier der Alpen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "mythologie",
+      "regional"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-173",
+    "word": "Wolpertinger",
+    "definition": "bayerisches Fabelwesen aus mehreren Tieren",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "mythologie",
+      "regional"
+    ],
+    "difficulty": 2,
+    "sourceNote": "bair."
+  },
+  {
+    "id": "bluff-174",
+    "word": "Elmsfeuer",
+    "definition": "Leuchterscheinung an Mastspitzen bei Gewitter",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur",
+      "seefahrt"
+    ],
+    "difficulty": 3
+  },
+  {
+    "id": "bluff-175",
+    "word": "lavieren",
+    "definition": "geschickt taktieren, sich durchschlängeln",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-176",
+    "word": "fabulieren",
+    "definition": "fantasievoll erzählen, erfinden",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-177",
+    "word": "düpieren",
+    "definition": "täuschen, bloßstellen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort"
+    ],
+    "difficulty": 3,
+    "sourceNote": "bildungsspr."
+  },
+  {
+    "id": "bluff-178",
+    "word": "mäandern",
+    "definition": "in Schleifen verlaufen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "natur"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-179",
+    "word": "Schlendrian",
+    "definition": "träger Trott, Nachlässigkeit",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-180",
+    "word": "bräsig",
+    "definition": "behäbig, selbstzufrieden",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional"
+    ],
+    "difficulty": 2,
+    "sourceNote": "nordd."
+  },
+  {
+    "id": "bluff-181",
+    "word": "fuchtig",
+    "definition": "wütend, aufgebracht",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-182",
+    "word": "schnieke",
+    "definition": "schick, elegant",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional"
+    ],
+    "difficulty": 2,
+    "sourceNote": "berlin."
+  },
+  {
+    "id": "bluff-183",
+    "word": "plietsch",
+    "definition": "schlau, pfiffig",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional"
+    ],
+    "difficulty": 2,
+    "sourceNote": "nordd."
+  },
+  {
+    "id": "bluff-184",
+    "word": "kommod",
+    "definition": "bequem, gemächlich",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional"
+    ],
+    "difficulty": 2,
+    "sourceNote": "landsch., österr."
+  },
+  {
+    "id": "bluff-185",
+    "word": "pomadig",
+    "definition": "träge, gemächlich",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-186",
+    "word": "hanebüchen",
+    "definition": "unerhört, haarsträubend",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet"
+    ],
+    "difficulty": 2
+  },
+  {
+    "id": "bluff-187",
+    "word": "frugal",
+    "definition": "einfach, bescheiden (vom Essen)",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "essen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "bildungsspr."
+  },
+  {
+    "id": "bluff-188",
+    "word": "schnabulieren",
+    "definition": "mit Genuss essen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache",
+      "essen"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs., scherzh."
+  },
+  {
+    "id": "bluff-189",
+    "word": "picheln",
+    "definition": "Alkohol trinken",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 2,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-190",
+    "word": "pofen",
+    "definition": "schlafen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 3,
+    "sourceNote": "salopp"
+  },
+  {
+    "id": "bluff-191",
+    "word": "stikum",
+    "definition": "heimlich, im Stillen",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 3,
+    "sourceNote": "ugs."
+  },
+  {
+    "id": "bluff-192",
+    "word": "weiland",
+    "definition": "einst, früher",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "veraltet"
+    ],
+    "difficulty": 3,
+    "sourceNote": "veraltet"
+  },
+  {
+    "id": "bluff-193",
+    "word": "dunnemals",
+    "definition": "damals",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "umgangssprache"
+    ],
+    "difficulty": 3,
+    "sourceNote": "ugs., scherzh."
+  },
+  {
+    "id": "bluff-194",
+    "word": "Malesche",
+    "definition": "Unannehmlichkeit, Schwierigkeit",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional"
+    ],
+    "difficulty": 3,
+    "sourceNote": "nordd."
+  },
+  {
+    "id": "bluff-195",
+    "word": "Kaprize",
+    "definition": "Laune, Eigensinn",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "regional",
+      "fremdwort"
+    ],
+    "difficulty": 3,
+    "sourceNote": "österr."
+  },
+  {
+    "id": "bluff-196",
+    "word": "Rabulist",
+    "definition": "Wortverdreher, Haarspalter",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "menschen"
+    ],
+    "difficulty": 3,
+    "sourceNote": "bildungsspr."
+  },
+  {
+    "id": "bluff-197",
+    "word": "Sykophant",
+    "definition": "Verleumder, Denunziant",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "menschen"
+    ],
+    "difficulty": 3,
+    "sourceNote": "bildungsspr., griech."
+  },
+  {
+    "id": "bluff-198",
+    "word": "Bader",
+    "definition": "Barbier und Wundarzt im Mittelalter",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "berufe",
+      "mittelalter"
+    ],
+    "difficulty": 2,
+    "sourceNote": "hist."
+  },
+  {
+    "id": "bluff-199",
+    "word": "Feldscher",
+    "definition": "Wundarzt beim Militär",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "berufe",
+      "veraltet"
+    ],
+    "difficulty": 3,
+    "sourceNote": "hist."
+  },
+  {
+    "id": "bluff-200",
+    "word": "Pinakothek",
+    "definition": "Gemäldesammlung, Bildergalerie",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "fremdwort",
+      "kunst"
+    ],
+    "difficulty": 2,
+    "sourceNote": "griech."
+  }
+]

@@ -56,6 +56,17 @@ export const GENERATORS: Readonly<Record<string, QuestionGenerator>> = {
     describe: (item) =>
       `Schätzfrage: ${String(item.text)}\nAntwort: ${String(item.answer)} ${String(item.unit ?? "")}${item.fact ? `\nFakt: ${String(item.fact)}` : ""}`,
   },
+  bluff: {
+    format: '{"word": "seltenes deutsches Wort", "definition": "kurze Erklärung wie im Wörterbuch"}',
+    rules: [
+      "Nur ECHTE, sehr seltene Wörter, die im Duden, DWDS oder Wiktionary stehen (veraltet, regional, Fachwort oder seltenes Fremdwort). Keine Fantasiewörter, nichts Anstößiges.",
+      "Die Erklärung ist kurz (höchstens 80 Zeichen), sachlich wie ein Wörterbucheintrag, ohne Angaben wie (österr.) oder (veraltet).",
+      "Das Wort darf nicht schon im Spiel vorkommen (Liste unten).",
+    ],
+    toItem: (json, base) => ({ ...base, word: json.word, definition: json.definition }),
+    describe: (item) =>
+      `Wort: ${String(item.word)}\nErklärung: ${String(item.definition)}\nPrüfe: Gibt es das Wort wirklich im Deutschen (Duden/DWDS/Wiktionary) und stimmt die Erklärung?`,
+  },
 };
 
 export function similarEntries(original: ContentEntry, all: readonly ContentEntry[], max: number): ContentEntry[] {

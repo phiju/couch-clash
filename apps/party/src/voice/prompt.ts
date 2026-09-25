@@ -110,6 +110,8 @@ export interface CommentPlayerFacts {
   rankBefore: number;
   rankAfter: number;
   streak: number;
+  /** Category-specific fact, e.g. "hat 2 Mitspieler reingelegt". */
+  note?: string;
 }
 
 export interface CommentFacts {

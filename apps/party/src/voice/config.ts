@@ -34,6 +34,10 @@ export const AUDIO_TAG_WHITELIST = ["excited", "laughs", "gasps", "sarcastic", "
 export const MAX_AUDIO_TAGS = 2;
 
 export const VOICE_CONFIG = {
+  /** Pause after a read-out option before the step may end. */
+  readPauseMs: 700,
+  /** Reading out may extend a step by at most this much. */
+  maxReadExtensionMs: 20_000,
   /** Small, fast text model without a reasoning step (answers within the 4 s budget). */
   textModel: "gpt-4.1-mini",
   /** OpenAI text-to-speech (only when VOICE_PROVIDER = "openai"). */

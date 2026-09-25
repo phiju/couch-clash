@@ -3,9 +3,10 @@
  * this module is loaded – a broken question file fails fast (and in tests).
  */
 import { z } from "zod";
+import bluffDe from "../data/bluff.de.json";
 import estimateDe from "../data/estimate.de.json";
 import quizDe from "../data/quiz.de.json";
-import { EstimateQuestionSchema, QuizQuestionSchema } from "./schema";
+import { BluffWordSchema, EstimateQuestionSchema, QuizQuestionSchema } from "./schema";
 
 export * from "./schema";
 
@@ -21,3 +22,4 @@ function load<T extends z.ZodType>(schema: T, data: unknown, name: string): z.in
 
 export const QUIZ_QUESTIONS_DE = load(QuizQuestionSchema, quizDe, "quiz.de.json");
 export const ESTIMATE_QUESTIONS_DE = load(EstimateQuestionSchema, estimateDe, "estimate.de.json");
+export const BLUFF_WORDS_DE = load(BluffWordSchema, bluffDe, "bluff.de.json");

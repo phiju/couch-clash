@@ -27,6 +27,8 @@ import { createVoiceProviders } from "./voice";
 import { VoiceDirector } from "./voice/director";
 import { loadContentFilter, type ContentFilter } from "./stats/content-filter";
 import { StatsRecorder } from "./stats/recorder";
+import { createOpenAIJsonModel } from "./generate/model";
+import { ModuleTaskRunner } from "./tasks/runner";
 import { d1StatsStore } from "./stats/store";
 import { Server, type Connection, type WSMessage } from "partyserver";
 import {
@@ -55,6 +57,8 @@ import {
 } from "./room-logic";
 
 const STORAGE_KEY = "room";
+/** Fast text model for module tasks (answers within the modules' timeouts). */
+const TASK_MODEL = "gpt-4.1-mini";
 
 /** Per-connection identity; persisted in the WebSocket attachment (survives hibernation). */
 type ConnState = { role: "guest" } | { role: "host" } | { role: "player"; playerId: string };
@@ -97,6 +101,18 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     store: () => this.statsStore(),
     waitUntil: (promise) => this.ctx.waitUntil(promise),
     now: () => Date.now(),
+  });
+
+  /** Server work for category modules (e.g. the AI check in the Bluff-Lexikon). */
+  private readonly tasks = new ModuleTaskRunner({
+    read: () => this.activeRoom(),
+    commit: (room) => this.commit(room),
+    waitUntil: (promise) => this.ctx.waitUntil(promise),
+    flowDeps: () => this.flowDeps(Date.now()),
+    model: () =>
+      this.env.OPENAI_API_KEY
+        ? createOpenAIJsonModel(this.env.OPENAI_API_KEY, fetch, { model: TASK_MODEL, temperature: 0, timeoutMs: 10_000 })
+        : null,
   });
 
   /** Blocked ids + generated questions, refreshed before each round starts. */
@@ -434,6 +450,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     // The host may have something to say about it (welcome, commentary, …).
     this.voice.roomChanged(prev, room);
     this.stats.roomChanged(prev, room);
+    this.tasks.roomChanged(room);
   }
 
   /** Host lines never go to phones. */

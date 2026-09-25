@@ -49,7 +49,7 @@ export type VoiceStatus = "ok" | "unavailable" | "budget";
 /** Categories below this age rating are "kids' categories". */
 export const KIDS_AGE_RATING_LIMIT = 12;
 
-export type HostLineKind = "welcome" | "start" | "comment" | "finale" | "test";
+export type HostLineKind = "welcome" | "start" | "comment" | "finale" | "test" | "read";
 
 /** One thing the host says. Sent to host screens only. */
 export interface HostLine {
@@ -63,6 +63,8 @@ export interface HostLine {
   playbackRate: number;
   /** Drop the line if it could not start within this time after arriving (commentary). */
   staleAfterMs: number | null;
+  /** Read-aloud lines: which item is being read (the category highlights it). */
+  cue?: string;
 }
 
 /** Host screen → server: playback progress (queue and leaderboard hold). */

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ESTIMATE_QUESTIONS_DE, EstimateQuestionSchema, QUIZ_QUESTIONS_DE } from "../src";
+import { BLUFF_WORDS_DE, ESTIMATE_QUESTIONS_DE, EstimateQuestionSchema, QUIZ_QUESTIONS_DE } from "../src";
 
 describe("content", () => {
   it("has enough questions", () => {
@@ -52,5 +52,22 @@ describe("estimate schema: zeroRange rules", () => {
     const years = ESTIMATE_QUESTIONS_DE.filter((q) => q.format === "year");
     expect(years.length).toBeGreaterThan(0);
     for (const q of years) expect(q.zeroRange, q.id).toBeGreaterThan(0);
+  });
+});
+
+describe("bluff words", () => {
+  it("has 200 words with unique ids and words", () => {
+    expect(BLUFF_WORDS_DE).toHaveLength(200);
+    expect(new Set(BLUFF_WORDS_DE.map((w) => w.id)).size).toBe(200);
+    expect(new Set(BLUFF_WORDS_DE.map((w) => w.word.toLowerCase())).size).toBe(200);
+  });
+
+  it("definitions are short dictionary entries without region markers", () => {
+    for (const w of BLUFF_WORDS_DE) {
+      expect(w.definition.length).toBeLessThanOrEqual(80);
+      // Markers like "(österr.)" would give the real definition away.
+      expect(w.definition).not.toMatch(/\((österr|nordd|südd|bair|ugs|veraltet)/);
+      expect(w.tags).toContain("sprache");
+    }
   });
 });
