@@ -8,22 +8,14 @@ import { QUIZ_QUESTIONS_DE, QuizQuestionSchema, type QuizQuestion } from "@couch
 import {
   KNOWLEDGE_CATEGORIES,
   KNOWLEDGE_CATEGORY_LABELS,
-  difficultyWeight,
   type KnowledgeCategory,
   type ModeFilterMeta,
   type ModuleInitOptions,
   type QuestionMedia,
 } from "@couch-clash/shared";
 import { playablePool } from "../content-pool";
-import { pickFresh, shuffle } from "../random";
-
-export const KNOWLEDGE_POOL_CONFIG = {
-  /**
-   * Party mode: share of questions from the party pool (adult: true). If
-   * there are not enough, the family pool fills up.
-   */
-  partyShare: 0.3,
-} as const;
+import { selectWithPartyShare } from "../party-share";
+import { shuffle } from "../random";
 
 /** A multiple-choice question as stored; categories built on the quiz may add a picture and an explanation. */
 export type QuizLikeQuestion = QuizQuestion & { media?: QuestionMedia | null; explanation?: string };
@@ -40,6 +32,8 @@ export interface PreparedQuizQuestion {
   explanation?: string;
   /** Scenes: who drives in which order at the reveal (vehicle ids, "ped:<arm>" for pedestrians). */
   driveOrder?: string[];
+  /** From the party pool (adult) – for the host's commentary. */
+  partyItem?: boolean;
 }
 
 export function prepareQuizQuestion(q: QuizLikeQuestion, random: () => number): PreparedQuizQuestion {
@@ -52,6 +46,7 @@ export function prepareQuizQuestion(q: QuizLikeQuestion, random: () => number): 
     category: q.primaryCategory ?? null,
     ...(q.media ? { media: q.media } : {}),
     ...(q.explanation ? { explanation: q.explanation } : {}),
+    ...(q.adult ? { partyItem: true } : {}),
   };
 }
 
@@ -82,7 +77,7 @@ export function toKnowledgeQuestion(q: QuizQuestion): KnowledgeQuestion {
 
 export type KnowledgePoolOptions = Pick<
   ModuleInitOptions,
-  "blockedContentIds" | "extraContent" | "mode" | "excludeContentIds"
+  "blockedContentIds" | "extraContent" | "mode" | "excludeContentIds" | "log"
 >;
 
 /** Everything playable in this mode (static + generated, minus blocked). */
@@ -96,28 +91,16 @@ export function knowledgePool(
 
 /**
  * `count` questions from `candidates`: not played recently first, weighted
- * by difficulty. Party mode mixes in ~partyShare party questions (adult) –
- * as many as there are, the family pool fills up the rest.
+ * by difficulty; Party mode mixes in the party share (selectWithPartyShare).
  */
 export function selectQuestions(
   candidates: readonly QuizQuestion[],
   count: number,
   options: KnowledgePoolOptions,
   random: () => number,
-  partyShare: number = KNOWLEDGE_POOL_CONFIG.partyShare,
+  label = "quiz",
 ): QuizQuestion[] {
-  const weight = (q: QuizQuestion) => difficultyWeight(q.difficulty, options.mode);
-  const exclude = options.excludeContentIds ?? [];
-  if (options.mode?.mode !== "party") return pickFresh(candidates, count, exclude, random, weight);
-  const party = candidates.filter((q) => q.adult);
-  const family = candidates.filter((q) => !q.adult);
-  const wantParty = Math.min(party.length, Math.round(count * Math.min(1, Math.max(0, partyShare))));
-  const fromParty = pickFresh(party, wantParty, exclude, random, weight);
-  const fromFamily = pickFresh(family, count - fromParty.length, exclude, random, weight);
-  // Family pool too small → more party questions.
-  const rest = count - fromParty.length - fromFamily.length;
-  const extra = rest > 0 ? pickFresh(party.filter((q) => !fromParty.includes(q)), rest, exclude, random, weight) : [];
-  return shuffle([...fromParty, ...fromFamily, ...extra], random);
+  return selectWithPartyShare(candidates, count, options, random, label);
 }
 
 /** Questions for a whole round, prepared (options shuffled). */
@@ -128,7 +111,7 @@ export function pickKnowledgeQuestions(
   pool: readonly QuizQuestion[] = QUIZ_QUESTIONS_DE,
 ): PreparedQuizQuestion[] {
   const candidates = knowledgePool(pool, options, meta);
-  return selectQuestions(candidates, options.questionCount, options, random).map((q) => prepareQuizQuestion(q, random));
+  return selectQuestions(candidates, options.questionCount, options, random, meta.id).map((q) => prepareQuizQuestion(q, random));
 }
 
 /** Playable questions per topic (Kategorienvorgabe: which cards can be offered). */

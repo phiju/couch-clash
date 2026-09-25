@@ -55,6 +55,21 @@ describe("replacement questions", () => {
     expect((await store.recentGenerationLog(5))[0]).toMatchObject({ ok: 1 });
   });
 
+  it("a party question's replacement stays a party question (adult, 18, party prompt)", async () => {
+    const { store } = sqliteStore();
+    const party = QUIZ.find((q) => q.adult)!;
+    const { model, prompts } = scripted([{ ...goodQuiz, text: "Wie viele Kalorien hat ungefähr ein Glas Sekt?" }, { ok: true }]);
+    const result = await replaceQuestion(deps(store, model), { id: party.id, categoryId: "quiz" });
+    expect(result.ok).toBe(true);
+    const payload = JSON.parse((await store.listGenerated())[0]!.payload);
+    expect(payload).toMatchObject({ adult: true, ageRating: 18, tags: party.tags });
+    expect(prompts[0]!.system).toMatch(/Party-Frage nur für Erwachsene/);
+    // A family original gets no party rule.
+    const { model: m2, prompts: p2 } = scripted([{ ...goodQuiz, text: "Wie viele Monde hat der Mars?" }, { ok: true }]);
+    await replaceQuestion(deps(store, m2, { newId: () => "fam" }), { id: original.id, categoryId: "quiz" });
+    expect(p2[0]!.system).not.toMatch(/Party-Frage/);
+  });
+
   it("retries up to 3 times: invalid JSON, duplicate, rejected check", async () => {
     const { store } = sqliteStore();
     const { model } = scripted([

@@ -15,7 +15,6 @@
 import {
   botPick,
   DEFAULT_PER_QUESTION_CAP,
-  difficultyWeight,
   type CategoryMeta,
   type ContentEntry,
   type GameMode,
@@ -30,8 +29,9 @@ import {
   type Viewer,
 } from "@couch-clash/shared";
 import { z } from "zod";
-import { listEntries, parseWith, pickForRound, playablePool } from "../content-pool";
-import { pickFresh, shuffle } from "../random";
+import { listEntries, parseWith } from "../content-pool";
+import { isPartyItem } from "../party-share";
+import { shuffle } from "../random";
 import { normalizeScoring, scoreAnswer } from "../scoring";
 import {
   buildJudgePrompt,
@@ -175,38 +175,6 @@ const actionSchema = z.discriminatedUnion("type", [
 ]) as z.ZodType<BluffAction>;
 
 const REVEALED_STEPS: readonly BluffStep[] = ["reveal", "solution", "leaderboard"];
-
-/**
- * The items of a round. Party mode: about `partyShare` of them come from the
- * party set (adult: true), spread out; the others – and all items in Kids and
- * Familie – are filtered by the global mode as usual.
- */
-export function pickWithPartyShare<Item extends BluffItem>(
-  pool: readonly Item[],
-  schema: z.ZodType<Item>,
-  meta: CategoryMeta,
-  partyShare: number,
-  options: ModuleInitOptions,
-  random: () => number,
-): Item[] {
-  if (options.mode?.mode !== "party") return pickForRound(pool, schema, options, random, meta);
-  const all = playablePool(pool, schema, options, meta);
-  const pick = (items: Item[], n: number) =>
-    pickFresh(items, n, options.excludeContentIds, random, (w) => difficultyWeight(w.difficulty, options.mode));
-  const adult = all.filter((w) => w.adult);
-  const family = all.filter((w) => !w.adult);
-  const nAdult = Math.min(adult.length, Math.round(options.questionCount * partyShare));
-  const party = pick(adult, nAdult);
-  const rest = pick(family, options.questionCount - party.length);
-  // Spread them: positions 2, 5, 8, … get a party item.
-  const out: Item[] = [];
-  while (party.length || rest.length) {
-    const wantParty = out.length % 3 === 1;
-    const next = (wantParty && party.length ? party : rest.length ? rest : party).shift()!;
-    out.push(next);
-  }
-  return out;
-}
 
 export function createBluffEngine<Item extends BluffItem>(adapter: BluffContentAdapter<Item>, pool: readonly Item[] = adapter.pool) {
   type State = BluffEngineState<Item>;
@@ -590,6 +558,7 @@ export function createBluffEngine<Item extends BluffItem>(adapter: BluffContentA
         correctAnswer: adapter.realAnswer(item),
         answers,
         highlights: [texts.highlight],
+        ...(isPartyItem(item) ? { partyItem: true } : {}),
       };
     },
 

@@ -15,7 +15,7 @@ import {
 import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { Button, Screen } from "@/components/ui";
 import { AdminApiError, adminApi, adminTokenStore, saveAdminToken } from "@/lib/admin-api";
-import { applyView, DEFAULT_VIEW, quickCounts, scoreOf, STATUS_LABELS, toCsv, type AdminView, type SortKey } from "@/lib/admin-view";
+import { applyView, DEFAULT_VIEW, partyCounters, quickCounts, scoreOf, STATUS_LABELS, toCsv, type AdminView, type SortKey } from "@/lib/admin-view";
 
 const COLUMNS: { key: SortKey; label: string; className?: string }[] = [
   { key: "id", label: "ID" },
@@ -116,6 +116,7 @@ function AdminTable({ token, onLogout }: { token: string; onLogout: (message?: s
 
   const rows = useMemo(() => (data ? applyView(data.questions, view) : []), [data, view]);
   const counts = useMemo(() => quickCounts(data?.questions ?? [], QUICK_FILTERS), [data]);
+  const party = useMemo(() => partyCounters(data?.questions ?? []), [data]);
   const selectedItems = useMemo<Item[]>(
     () => (data?.questions ?? []).filter((q) => selected.has(q.id)).map((q) => ({ id: q.id, categoryId: q.categoryId })),
     [data, selected],
@@ -216,6 +217,24 @@ function AdminTable({ token, onLogout }: { token: string; onLogout: (message?: s
           </button>
         ))}
       </div>
+
+      {party.length > 0 && (
+        <div className="flex flex-wrap items-center gap-2 text-sm" aria-label="Party-Fragen je Spiel">
+          {party.map((c) => {
+            const meta = getCategoryMeta(c.categoryId);
+            return (
+              <button
+                key={c.categoryId}
+                type="button"
+                onClick={() => setView((v) => ({ ...v, category: c.categoryId, quick: "party" }))}
+                className="chip rounded-full px-3 py-1 hover:border-cream/60"
+              >
+                🍸 {meta ? `${meta.emoji} ${meta.name}` : c.categoryId}: Party-Fragen {c.total} / davon gespielt {c.played}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       <div className="flex flex-wrap items-center gap-3">
         <select

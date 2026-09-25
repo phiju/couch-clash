@@ -2166,44 +2166,6 @@
     "source": "https://linie.com/en/thejourney"
   },
   {
-    "id": "skurril-party-007",
-    "context": "Die Sängerin Björk erschien 2001 zur Oscar-Verleihung in einem Kleid, das aussah wie ein Schwan, dessen Hals sich um ihren eigenen Hals legte.",
-    "question": "Was tat sie damit auf dem roten Teppich?",
-    "answer": "Sie tat so, als würde sie ein Ei legen",
-    "fact": "Das Kleid des Designers Marjan Pejoski wurde erst verspottet und ist heute eines der berühmtesten Oscar-Outfits aller Zeiten.",
-    "year": 2001,
-    "primaryCategory": "MOVIES_TV",
-    "tags": [
-      "oscars",
-      "mode",
-      "promi",
-      "björk"
-    ],
-    "difficulty": 3,
-    "ageRating": 18,
-    "adult": true,
-    "source": "https://en.wikipedia.org/wiki/Swan_dress"
-  },
-  {
-    "id": "skurril-party-008",
-    "context": "Jennifer Lopez trug bei den Grammys 2000 ein tief ausgeschnittenes grünes Versace-Kleid, nach dem danach Millionen Menschen googelten.",
-    "question": "Welche Erfindung soll das Kleid ausgelöst haben?",
-    "answer": "Die Google-Bildersuche",
-    "fact": "Laut Ex-Google-Chef Eric Schmidt war das Kleid die beliebteste Suchanfrage, und Textergebnisse reichten dafür nicht. 2001 startete Google Images.",
-    "year": 2000,
-    "primaryCategory": "TECHNOLOGY",
-    "tags": [
-      "mode",
-      "google",
-      "promi",
-      "grammys"
-    ],
-    "difficulty": 2,
-    "ageRating": 18,
-    "adult": true,
-    "source": "https://en.wikipedia.org/wiki/Green_Versace_dress_of_Jennifer_Lopez"
-  },
-  {
     "id": "skurril-party-009",
     "context": "1965 gründeten Harvard-Studenten „Operation Match“, eine Partnervermittlung für Studierende. Für 3 Dollar füllte man einen Fragebogen aus.",
     "question": "Wer suchte die passenden Dates aus?",
@@ -2259,25 +2221,6 @@
     "ageRating": 18,
     "adult": true,
     "source": "https://en.wikipedia.org/wiki/Engagement_ring"
-  },
-  {
-    "id": "skurril-party-012",
-    "context": "Das erste Münchner Oktoberfest fand 1810 zur Hochzeit von Kronprinz Ludwig und Prinzessin Therese statt. Von Bierzelten war damals noch keine Rede.",
-    "question": "Was war die Hauptattraktion des ersten Festes?",
-    "answer": "Ein Pferderennen",
-    "fact": "Der siegreiche Kutscher Franz Baumgartner bekam eine Goldmedaille. Die Festwiese wurde noch 1810 nach der Braut Theresienwiese benannt.",
-    "year": 1810,
-    "primaryCategory": "HISTORY",
-    "tags": [
-      "oktoberfest",
-      "münchen",
-      "hochzeit",
-      "bayern"
-    ],
-    "difficulty": 2,
-    "ageRating": 18,
-    "adult": true,
-    "source": "https://en.wikipedia.org/wiki/Oktoberfest"
   },
   {
     "id": "skurril-party-013",
@@ -2413,25 +2356,6 @@
     "source": "https://www.cnn.com/2011/WORLD/europe/09/08/sweden.drunken.moose/index.html"
   },
   {
-    "id": "skurril-party-020",
-    "context": "Ab 1780 stellte Friedrich der Große in Preußen rund 400 Kriegsinvaliden in Uniform als Kontrolleure ein. Man nannte sie „Kaffeeriecher“.",
-    "question": "Was war ihre Aufgabe?",
-    "answer": "Illegal gerösteten Kaffee am Geruch aufspüren",
-    "fact": "Privates Kaffeerösten war verboten, weil der König am Kaffeemonopol verdiente. Die Schnüffler waren verhasst, verdienten aber gut.",
-    "year": 1780,
-    "primaryCategory": "FOOD_DRINK",
-    "tags": [
-      "kaffee",
-      "preußen",
-      "friedrich",
-      "verbot"
-    ],
-    "difficulty": 2,
-    "ageRating": 18,
-    "adult": true,
-    "source": "https://de.wikipedia.org/wiki/Kaffeeriecher"
-  },
-  {
     "id": "skurril-party-021",
     "context": "Im Münchner Hofbräuhaus haben über 600 Stammgäste ihren eigenen Maßkrug im Tresor. Viele von ihnen bezahlen dort nicht mit Euro.",
     "question": "Womit zahlen sie stattdessen?",
@@ -2449,25 +2373,6 @@
     "ageRating": 18,
     "adult": true,
     "source": "https://www.muenchen.travel/artikel/essen-trinken/sieben-fakten-hofbraeuhaus"
-  },
-  {
-    "id": "skurril-party-022",
-    "context": "Das 1993 gegründete „Museum of Bad Art“ bei Boston sammelt absichtlich schlechte Gemälde. Ab 1995 hing die Sammlung im Keller eines Theaters in Dedham.",
-    "question": "Wo genau hingen die Bilder dort?",
-    "answer": "Direkt vor der Herrentoilette",
-    "fact": "Das ständige Spülen sollte angeblich für gleichmäßige Luftfeuchtigkeit sorgen. Heute ist das Museum im Schankraum einer Brauerei.",
-    "year": 1995,
-    "primaryCategory": "ART_CULTURE",
-    "tags": [
-      "museum",
-      "kunst",
-      "usa",
-      "kurios"
-    ],
-    "difficulty": 3,
-    "ageRating": 18,
-    "adult": true,
-    "source": "https://en.wikipedia.org/wiki/Museum_of_Bad_Art"
   },
   {
     "id": "skurril-party-023",
@@ -2565,25 +2470,6 @@
     "source": "https://de.wikipedia.org/wiki/Fensterln"
   },
   {
-    "id": "skurril-party-028",
-    "context": "Ein Töpfer in Avanos in Kappadokien betreibt in einer Höhle unter seinem Laden ein Museum, das im Guinness-Buch der Rekorde steht.",
-    "question": "Was wird dort gesammelt?",
-    "answer": "Haarlocken von Besucherinnen",
-    "fact": "Es sind rund 16.000 Locken mit Namen und Adresse. Zweimal im Jahr werden zehn davon gezogen und bekommen eine Gratisreise nach Kappadokien.",
-    "year": null,
-    "primaryCategory": "ART_CULTURE",
-    "tags": [
-      "museum",
-      "türkei",
-      "haare",
-      "kurios"
-    ],
-    "difficulty": 3,
-    "ageRating": 18,
-    "adult": true,
-    "source": "https://en.wikipedia.org/wiki/Hair_museum"
-  },
-  {
     "id": "skurril-party-029",
     "context": "Zum Jahreswechsel 2021/22 bauten Moët & Chandon und ein Hotel in Dubai einen Champagnerturm, der mit 8,23 m ins Guinness-Buch kam.",
     "question": "Aus wie vielen Gläsern bestand der Turm?",
@@ -2601,5 +2487,480 @@
     "ageRating": 18,
     "adult": true,
     "source": "https://www.guinnessworldrecords.com/news/commercial/2022/1/8-metre-tall-champagne-glass-pyramid-breaks-record-in-dubai-687915"
+  },
+  {
+    "id": "skurril-party-030",
+    "context": "Bei Ausgrabungen auf Dudley Castle in England stießen Archäologen auf die ältesten bekannten Kondome der Welt. Sie stammen aus der Zeit um 1642.",
+    "question": "Wo genau lagen die guten Stücke?",
+    "answer": "In der Senkgrube der Burg – also im alten Klo",
+    "fact": "Die Kondome waren aus Tierhaut bzw. Tierdarm gefertigt. Sie stammen aus der Zeit des Englischen Bürgerkriegs.",
+    "year": 1642,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "verhütung",
+      "england"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/History_of_condoms"
+  },
+  {
+    "id": "skurril-party-031",
+    "context": "Winston Churchill liebte den Champagner von Pol Roger so sehr, dass er sogar eines seiner Rennpferde „Pol Roger“ taufte. Er starb 1965.",
+    "question": "Wie trauerte das Champagnerhaus um seinen treuesten Fan?",
+    "answer": "Mit einem schwarzen Trauerrand auf den Etiketten für Großbritannien",
+    "fact": "1984 legte Pol Roger zusätzlich die Prestige-Cuvée „Sir Winston Churchill“ auf.",
+    "year": 1965,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "champagner",
+      "churchill"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Pol_Roger"
+  },
+  {
+    "id": "skurril-party-032",
+    "context": "Die schottische Brauerei BrewDog brachte 2010 „The End of History“ heraus: ein Bier mit 55 % Alkohol, von dem es nur 11 Flaschen gab.",
+    "question": "Worin steckten die Flaschen?",
+    "answer": "In ausgestopften Hermelinen und Grauhörnchen",
+    "fact": "Sieben Flaschen steckten in Hermelinen, vier in Grauhörnchen. Sie kosteten 500 bzw. 700 Pfund pro Stück.",
+    "year": 2010,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "schottland"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://newatlas.com/brewdogs-55-abv-beer-the-strongest-and-most-expensive-beer-in-history/15798/"
+  },
+  {
+    "id": "skurril-party-033",
+    "context": "2010 fanden Taucher vor den finnischen Åland-Inseln in einem Wrack am Grund der Ostsee 168 Flaschen Champagner. Das Schiff war um 1825–1830 gesunken.",
+    "question": "Wie viel zahlte ein Käufer 2011 für eine einzige Flasche Veuve Clicquot daraus?",
+    "answer": "30.000 Euro",
+    "fact": "Kälte und Dunkelheit am Meeresgrund hatten den Champagner konserviert. Eine Flasche der längst verschwundenen Marke Juglar brachte 24.000 Euro.",
+    "year": 2010,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "champagner",
+      "schiffswrack"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.decanter.com/wine-news/shipwreck-champagne-fetches-record-price-38410/"
+  },
+  {
+    "id": "skurril-party-034",
+    "context": "Forscher der University of California in San Francisco ließen 2012 männliche Fruchtfliegen bei Weibchen abblitzen, die schon verpaart waren und keine Lust mehr hatten.",
+    "question": "Wie reagierten die verschmähten Männchen danach?",
+    "answer": "Sie tranken deutlich mehr alkoholhaltiges Futter",
+    "fact": "Schuld ist der Botenstoff Neuropeptid F: Nach erfolgreichem Sex ist er hoch, nach einer Abfuhr sinkt er – und der Durst auf Alkohol steigt.",
+    "year": 2012,
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "alkohol",
+      "sex",
+      "tiere"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.sciencedaily.com/releases/2012/03/120315145023.htm"
+  },
+  {
+    "id": "skurril-party-035",
+    "context": "Während der US-Prohibition verkaufte die Firma Fruit Industries ab 1929 „Vine-Glo“: Traubenkonzentrat zum Auflösen in Wasser.",
+    "question": "Wovor „warnten“ die Verkäufer ihre Kunden ausdrücklich?",
+    "answer": "Den Saft nicht drei Wochen stehen lassen – sonst werde er zu Wein",
+    "fact": "Die „Warnung“ war eine augenzwinkernde Gebrauchsanweisung. 1931 beendete ein Bundesgerichtsurteil das Geschäft.",
+    "year": 1929,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "wein",
+      "prohibition"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Vine-Glo"
+  },
+  {
+    "id": "skurril-party-036",
+    "context": "Männliche Prachtkäfer der Art Julodimorpha bakewelli zeigten in Westaustralien großes Interesse an weggeworfenen braunen Bierflaschen, den „Stubbies“.",
+    "question": "Was versuchten die Käfer mit den Flaschen?",
+    "answer": "Sich mit ihnen zu paaren",
+    "fact": "Die braunen, genoppten Flaschen sahen aus wie riesige Käferweibchen. Die Forscher Gwynne und Rentz erhielten dafür 2011 den Ig-Nobelpreis.",
+    "year": 1983,
+    "primaryCategory": "NATURE",
+    "tags": [
+      "party",
+      "sex",
+      "bier",
+      "ig-nobelpreis"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.sciencedaily.com/releases/2011/09/110929235201.htm"
+  },
+  {
+    "id": "skurril-party-037",
+    "context": "Französische Psychologen um Laurent Bègue gaben Versuchspersonen Getränke – manche mit Alkohol, manche ohne. Die Leute wussten nicht sicher, was sie tranken.",
+    "question": "Was fanden die Forscher heraus?",
+    "answer": "Wer glaubt, betrunken zu sein, hält sich selbst für attraktiver",
+    "fact": "Dafür gab es 2013 den Ig-Nobelpreis für Psychologie. Die „Bierbrille“ wirkt also auch beim Blick in den Spiegel.",
+    "year": 2013,
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "alkohol",
+      "flirten",
+      "ig-nobelpreis"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.cbsnews.com/boston/news/2013-ig-nobel-award-winners-beer-goggles-dung-beetles-standing-cows/"
+  },
+  {
+    "id": "skurril-party-038",
+    "context": "In der Bar des Downtown Hotel in Dawson City (Kanada) gibt es seit 1973 den „Sourtoe Cocktail“ – meist ein Whisky mit ganz besonderer Garnitur.",
+    "question": "Was schwimmt in dem Glas?",
+    "answer": "Ein echter, mumifizierter menschlicher Zeh",
+    "fact": "Die Lippen müssen den Zeh berühren, dann gibt es eine Urkunde. Wer ihn verschluckt, zahlt 2.500 Dollar Strafe.",
+    "year": 1973,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "bar",
+      "kanada"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Sourtoe_Cocktail"
+  },
+  {
+    "id": "skurril-party-039",
+    "context": "Tübinger Forscher stellten 2005 einen polierten Steinphallus aus der Höhle Hohle Fels auf der Schwäbischen Alb vor: etwa 20 cm lang und rund 28.000 Jahre alt.",
+    "question": "Wofür wurde er nach Ansicht der Forscher wohl AUCH benutzt?",
+    "answer": "Als Schlagstein zum Bearbeiten von Feuerstein",
+    "fact": "Er wurde aus 14 Bruchstücken zusammengesetzt. Ob er auch für „andere Zwecke“ diente, lassen die Forscher ausdrücklich offen.",
+    "year": 2005,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "steinzeit",
+      "archäologie"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.snopes.com/fact-check/28000-year-old-dildos/"
+  },
+  {
+    "id": "skurril-party-040",
+    "context": "In der Antike war die Pflanze Silphium aus Kyrene (im heutigen Libyen) so begehrt, dass die Stadt sie auf ihre Münzen prägte.",
+    "question": "Wofür wurde das Wunderkraut unter anderem genutzt?",
+    "answer": "Als Verhütungsmittel und Aphrodisiakum",
+    "fact": "Silphium galt als so wertvoll wie Gold. Laut Plinius bekam Kaiser Nero den letzten Stängel geschenkt – danach war die Pflanze verschwunden.",
+    "year": null,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "verhütung",
+      "antike"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Silphium"
+  },
+  {
+    "id": "skurril-party-041",
+    "context": "Die Brauerei De Halve Maan in Brügge hatte ein Problem: Tanklaster kamen kaum durch die engen Gassen der Altstadt zur Abfüllanlage am Stadtrand.",
+    "question": "Wie gelangt das Bier heute dorthin?",
+    "answer": "Durch eine gut 3 km lange unterirdische Bierpipeline",
+    "fact": "Die Pipeline ging 2016 in Betrieb und schafft bis zu 4.000 Liter pro Stunde. Großzügige Crowdfunding-Spender bekamen lebenslang Freibier.",
+    "year": 2016,
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "belgien"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.cnn.com/travel/article/bruges-beer-pipeline/index.html"
+  },
+  {
+    "id": "skurril-party-042",
+    "context": "2019 ließen Forscher der Uni Witten/Herdecke und der Universität Cambridge 90 Freiwillige Bier und Wein in wechselnder Reihenfolge trinken.",
+    "question": "Was ergab die Studie für den Kater am nächsten Morgen?",
+    "answer": "Die Reihenfolge ist egal – es kommt nur auf die Menge an",
+    "fact": "Der Spruch „Bier auf Wein, das lass sein“ ist damit wissenschaftlich widerlegt.",
+    "year": 2019,
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "alkohol",
+      "kater",
+      "studie"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.t-online.de/leben/essen-und-trinken/id_85220032/alkoholstudie-bier-auf-wein-das-lass-sein-stimmt-der-mythos-.html"
+  },
+  {
+    "id": "skurril-party-043",
+    "context": "2014 ließ das Londoner Restaurant 34 zum 40. Geburtstag von Kate Moss eine eigene Champagnerschale entwerfen, gestaltet von der Künstlerin Jane McAdam Freud.",
+    "question": "Was diente als Vorlage für die Schale?",
+    "answer": "Ein Abdruck ihrer linken Brust",
+    "fact": "Eine Anspielung auf die Legende, die Champagnerschale sei nach der Brust von Marie Antoinette geformt. Die Glasform ist aber älter.",
+    "year": 2014,
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "party",
+      "alkohol",
+      "champagner",
+      "promi"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.dezeen.com/2014/08/22/kate-moss-left-breast-champagne-coupe-34-restaurant/"
+  },
+  {
+    "id": "skurril-party-044",
+    "context": "Admiral Horatio Nelson fiel 1805 in der Schlacht von Trafalgar. Sein Leichnam musste die wochenlange Seereise nach England überstehen.",
+    "question": "Womit wurde er für die Heimreise haltbar gemacht?",
+    "answer": "Mit Brandy – er lag in einem Fass voller Weinbrand",
+    "fact": "Später wurde noch Weingeist nachgefüllt. Dass Matrosen heimlich davon tranken („Tapping the Admiral“), ist nicht belegt – leergetrunken wurde das Fass jedenfalls nicht.",
+    "year": 1805,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "brandy",
+      "seefahrt"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.atlasobscura.com/articles/the-scandalous-decision-to-pickle-admiral-horatio-nelson-in-brandy"
+  },
+  {
+    "id": "skurril-party-045",
+    "context": "1989 präsentierte Weinhändler William Sokolin im New Yorker Restaurant Four Seasons einen Château Margaux von 1787, der Thomas Jefferson gehört haben soll.",
+    "question": "Was passierte bei der Weinprobe?",
+    "answer": "Er stieß mit der Flasche gegen ein Tablett und sie ging kaputt",
+    "fact": "Sokolin wollte 519.000 Dollar für die Flasche. Zum Glück war sie versichert – der Rest im Glas schmeckte laut ihm „nicht sehr gut“.",
+    "year": 1989,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "wein",
+      "missgeschick"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.deseret.com/1989/4/25/18804204/oops-trader-breaks-1787-bottle-of-wine/"
+  },
+  {
+    "id": "skurril-party-046",
+    "context": "Von 1919 bis 1955 brauchte man in Schweden zum Schnapskaufen ein persönliches Heftchen, das „Motbok“.",
+    "question": "Wozu diente das Heft?",
+    "answer": "Jeder Einkauf wurde eingetragen, um die Alkoholmenge zu rationieren",
+    "fact": "Ende 1948 lag die durchschnittliche Ration bei 1,82 Litern Spirituosen pro Monat. Männer durften mehr kaufen als Frauen.",
+    "year": 1919,
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "alkohol",
+      "schweden",
+      "gesetz"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Bratt_System"
+  },
+  {
+    "id": "skurril-party-047",
+    "context": "Das Archäologische Nationalmuseum Neapel besitzt ein „Geheimes Kabinett“ voller erotischer Fresken und Skulpturen aus Pompeji und Herculaneum.",
+    "question": "Wer durfte es früher betreten?",
+    "answer": "Nur Personen „reifen Alters und anerkannter Moral“",
+    "fact": "In der Praxis hieß das: nur gebildete Männer. Jahrzehntelang war die Sammlung weggeschlossen, heute ist sie ein Teil des Museums.",
+    "year": null,
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "party",
+      "sex",
+      "museum",
+      "pompeji"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Gabinetto_Segreto"
+  },
+  {
+    "id": "skurril-party-048",
+    "context": "Jedes Jahr schreiben Tausende Menschen Liebesbriefe an Julia aus Shakespeares „Romeo und Julia“ – adressiert einfach nach Verona.",
+    "question": "Was passiert mit den Briefen?",
+    "answer": "Freiwillige des Julia-Clubs beantworten sie",
+    "fact": "Briefe an Julia kommen schon seit den 1930ern. 2010 waren es über 5.000 pro Jahr, drei Viertel davon von Frauen.",
+    "year": null,
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "liebe",
+      "briefe",
+      "italien"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Juliet_Club"
+  },
+  {
+    "id": "skurril-party-049",
+    "context": "1951 stieß der Assyriologe Samuel Kramer in einer Schublade des Altorientalischen Museums in Istanbul auf eine Keilschrifttafel aus Nippur.",
+    "question": "Was stand darauf?",
+    "answer": "Eines der ältesten bekannten Liebesgedichte der Welt",
+    "fact": "Die Tafel „Istanbul 2461“ ist rund 4.000 Jahre alt. Darin schwärmt eine Frau ziemlich sinnlich von König Shu-Sin.",
+    "year": 1951,
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "liebe",
+      "gedicht",
+      "sumerer"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Istanbul_2461"
+  },
+  {
+    "id": "skurril-party-050",
+    "context": "Der Verführer Giacomo Casanova schrieb in seinen Memoiren, die sein Leben bis 1774 schildern, auch ganz offen über Kondome.",
+    "question": "Wie prüfte er sie vor dem Gebrauch auf Löcher?",
+    "answer": "Er blies sie auf wie einen Luftballon",
+    "fact": "Das gilt als die erste schriftlich festgehaltene Qualitätskontrolle von Kondomen.",
+    "year": null,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "verhütung",
+      "casanova"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/History_of_condoms"
+  },
+  {
+    "id": "skurril-party-051",
+    "context": "Die Whiskybrennerei Ardbeg von der Insel Islay schickte Ende 2011 eine Probe ihres Destillats zur Internationalen Raumstation ISS.",
+    "question": "Was wollte man damit herausfinden?",
+    "answer": "Wie Whisky in der Schwerelosigkeit reift",
+    "fact": "Nach drei Jahren landete die Probe 2014 wieder in Kasachstan und wurde mit einer Vergleichsprobe aus dem Lagerhaus auf Islay verglichen.",
+    "year": 2011,
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "alkohol",
+      "whisky",
+      "weltraum"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.thespiritsbusiness.com/2014/08/ardbeg-supernova-marks-end-of-space-experiment/"
+  },
+  {
+    "id": "skurril-party-052",
+    "context": "Auf der Karibikinsel St. Kitts leben Grüne Meerkatzen, die sich ein menschliches Laster abgeschaut haben.",
+    "question": "Was klauen die Affen am Strand?",
+    "answer": "Alkoholische Drinks von Touristen",
+    "fact": "Die Affen werden danach sichtbar beschwipst. Der Anteil an Abstinenzlern, Genusstrinkern und Schluckspechten ähnelt dem bei Menschen.",
+    "year": null,
+    "primaryCategory": "NATURE",
+    "tags": [
+      "party",
+      "alkohol",
+      "affen",
+      "karibik"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Recreational_drug_use_in_animals"
+  },
+  {
+    "id": "skurril-party-053",
+    "context": "Der japanische Arzt Hajime Kimata ließ Allergiker 30 Minuten lang bei sanfter Musik ihre Partner küssen.",
+    "question": "Was bewirkte das Knutschen?",
+    "answer": "Die allergischen Reaktionen wurden schwächer",
+    "fact": "Getestet wurde unter anderem an Menschen mit Neurodermitis und Heuschnupfen. 2015 gab es dafür den Ig-Nobelpreis für Medizin.",
+    "year": 2015,
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "liebe",
+      "kuss",
+      "ig-nobelpreis"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.japantimes.co.jp/life/2015/10/19/language/japanese-doctor-wins-ig-nobel-medicine-prize-kissing-study/"
+  },
+  {
+    "id": "skurril-party-054",
+    "context": "Verliebte hängten jahrelang Vorhängeschlösser an die Pariser Fußgängerbrücke Pont des Arts und warfen die Schlüssel in die Seine.",
+    "question": "Was passierte im Juni 2014?",
+    "answer": "Ein Teil des Geländers brach unter dem Gewicht der Schlösser zusammen",
+    "fact": "2015 ließ die Stadt alle Liebesschlösser entfernen – über eine Million Stück – und ersetzte das Geländer durch Glasplatten.",
+    "year": 2014,
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "liebe",
+      "paris",
+      "brücke"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Pont_des_Arts"
   }
 ]

@@ -6,6 +6,8 @@ import {
   GAME_MODE_INFO,
   GAME_MODES,
   normalizeModeSettings,
+  partyShareOf,
+  PARTY_CONFIG,
   type ClientMessage,
   type GameMode,
   type GameModeSettings,
@@ -15,7 +17,8 @@ import { modeStore } from "@/lib/storage";
 
 /**
  * Global game mode at the very top of the settings: 🧸 Kids · 👨‍👩‍👧 Familie · 🍸 Party.
- * Party asks once per room "sind alle über 18?". Familie/Party get a difficulty mix.
+ * Party asks once per room "sind alle über 18?". Familie/Party get a difficulty mix,
+ * Party also the "Party-Anteil" (share of party questions per round).
  */
 export function ModePicker({
   mode,
@@ -100,6 +103,7 @@ export function ModePicker({
           </div>
         </div>
       )}
+      {mode.mode === "party" && <PartyShareSlider mode={mode} disabled={!canSend} compact={compact} onChange={choose} />}
       {mode.mode === "family" && (
         <label className={`flex cursor-pointer items-center justify-between gap-2 text-cream/80 ${compact ? "fs-sm" : "text-base"}`}>
           <span>Auch Fragen ab 16 erlauben</span>
@@ -137,5 +141,46 @@ export function ModePicker({
         </div>
       )}
     </section>
+  );
+}
+
+/** "Party-Anteil": how much of each round comes from the party questions (30 % / 50 % / 100 %). */
+function PartyShareSlider({
+  mode,
+  disabled,
+  compact,
+  onChange,
+}: {
+  mode: GameModeSettings;
+  disabled: boolean;
+  compact: boolean;
+  onChange: (next: GameModeSettings) => void;
+}) {
+  const shares = PARTY_CONFIG.shares;
+  const index = Math.max(0, shares.findIndex((s) => s === partyShareOf(mode)));
+  const percent = (s: number) => `${Math.round(s * 100)} %`;
+  return (
+    <label className={`flex flex-col gap-1 ${compact ? "fs-sm" : "text-base"}`}>
+      <span className="flex items-center justify-between gap-2">
+        <span className="font-bold text-cream/80">Party-Anteil</span>
+        <span className="rounded-full bg-bulb px-3 py-0.5 font-bold text-brown">{percent(shares[index]!)}</span>
+      </span>
+      <input
+        type="range"
+        min={0}
+        max={shares.length - 1}
+        step={1}
+        value={index}
+        disabled={disabled}
+        aria-valuetext={percent(shares[index]!)}
+        onChange={(e) => onChange({ ...mode, partyShare: shares[Number(e.target.value)] ?? PARTY_CONFIG.defaultShare })}
+        className="w-full accent-[var(--color-orange)]"
+      />
+      <span className="flex justify-between text-cream/60" aria-hidden>
+        {shares.map((s) => (
+          <span key={s}>{percent(s)}</span>
+        ))}
+      </span>
+    </label>
   );
 }

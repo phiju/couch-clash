@@ -5,14 +5,12 @@
  * file is only the content adapter.
  */
 import { SKURRIL_STORIES_DE, SkurrilStorySchema, type SkurrilStory } from "@couch-clash/content";
-import { createBluffEngine, pickWithPartyShare, type BluffContentAdapter, type BluffEngineState } from "../bluff/engine";
+import { pickForRound } from "../content-pool";
+import { createBluffEngine, type BluffContentAdapter, type BluffEngineState } from "../bluff/engine";
 import { EVENT_JUDGE_STYLE } from "../bluff/judge";
 import { skurrilMeta } from "./meta";
 
 export type SkurrilState = BluffEngineState<SkurrilStory>;
-
-/** Party mode: share of stories from the party set. */
-export const SKURRIL_PARTY_SHARE = 0.3;
 
 /** "https://de.wikipedia.org/wiki/…" → "de.wikipedia.org" (shown, never a link on the TV). */
 export function sourceDomain(url: string): string | null {
@@ -27,7 +25,7 @@ export const skurrilAdapter: BluffContentAdapter<SkurrilStory> = {
   meta: skurrilMeta,
   pool: SKURRIL_STORIES_DE,
   schema: SkurrilStorySchema,
-  loadItems: (pool, options, random) => pickWithPartyShare(pool, SkurrilStorySchema, skurrilMeta, SKURRIL_PARTY_SHARE, options, random),
+  loadItems: (pool, options, random) => pickForRound(pool, SkurrilStorySchema, options, random, skurrilMeta),
   title: (s) => s.question,
   promptText: (s) => s.question,
   story: (s) => ({ context: s.context, year: s.year }),

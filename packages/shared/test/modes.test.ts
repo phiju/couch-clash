@@ -7,6 +7,8 @@ import {
   MODE_CHEEKINESS,
   modesFor,
   normalizeModeSettings,
+  GameModeSettingsSchema,
+  PARTY_CONFIG,
   type GameModeSettings,
 } from "../src";
 
@@ -88,5 +90,21 @@ describe("settings migration", () => {
     expect(normalizeModeSettings({ mode: "rave" })).toEqual(DEFAULT_MODE_SETTINGS);
     expect(normalizeModeSettings(party)).toEqual(party);
     expect(DEFAULT_MODE_SETTINGS.mode).toBe("family");
+  });
+
+  it("Party-Anteil: 30 / 50 / 100 % are kept (not stripped), anything else is rejected", () => {
+    expect(PARTY_CONFIG.shares).toEqual([0.3, 0.5, 1]);
+    for (const partyShare of PARTY_CONFIG.shares) {
+      expect(normalizeModeSettings({ ...party, partyShare })).toEqual({ ...party, partyShare });
+    }
+    expect(GameModeSettingsSchema.safeParse({ ...party, partyShare: 0.7 }).success).toBe(false);
+    // Stored settings from before the slider still load (default share).
+    expect(normalizeModeSettings(party).partyShare).toBeUndefined();
+  });
+
+  it("party items (adult, 18) come up in Party only", () => {
+    const item = { ageRating: 18, difficulty: 2, adult: true, alcohol: true };
+    expect(modesFor(item, true)).toEqual(["party"]);
+    expect(eligibleForMode(item, { ...party, partyShare: 1 })).toBe(true);
   });
 });

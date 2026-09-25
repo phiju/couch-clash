@@ -3254,5 +3254,355 @@
     ],
     "difficulty": 3,
     "adult": true
+  },
+  {
+    "id": "bluff-party-061",
+    "article": "die",
+    "word": "Temulenz",
+    "definition": "Das Taumeln, die Trunkenheit",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-062",
+    "article": "der",
+    "word": "Potator",
+    "definition": "Fachsprachlich für einen Trinker",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 2,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-063",
+    "article": "das",
+    "word": "Potatorium",
+    "definition": "Medizinisch für Trunksucht",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-064",
+    "article": "die",
+    "word": "Ebrietät",
+    "definition": "Veraltet und gebildet für Trunkenheit",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-065",
+    "article": "die",
+    "word": "Dipsomanie",
+    "definition": "Anfallsweise auftretende Trunksucht",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 2,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-066",
+    "article": "der",
+    "word": "Absinthismus",
+    "definition": "Krämpfe, Lähmungen und Verwirrtheit durch übermäßigen Absinthgenuss",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 2,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-067",
+    "article": "die",
+    "word": "Zymologie",
+    "definition": "Die Lehre von der Gärung",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-068",
+    "article": "die",
+    "word": "Libation",
+    "definition": "Ein Trankopfer, etwa Wein für die Götter",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 2,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-069",
+    "article": "der",
+    "word": "Kommers",
+    "definition": "Feierliches Trinkgelage von Studentenverbindungen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 2,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-070",
+    "article": "der",
+    "word": "Symposiarch",
+    "definition": "Der Leiter eines Trinkgelages im alten Griechenland",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-071",
+    "article": "das",
+    "word": "Degorgement",
+    "definition": "Entfernen der Hefe aus dem Flaschenhals bei der Sektherstellung",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-072",
+    "article": "der",
+    "word": "Böckser",
+    "definition": "Weinfehler: Geruch nach faulen Eiern bei jungem Wein",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-073",
+    "article": "die",
+    "word": "Firne",
+    "definition": "Alterston des Weines, der dunkler und schal wird",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-074",
+    "article": "das",
+    "word": "Önometer",
+    "definition": "Messgerät für den Alkoholgehalt im Wein",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 2,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-075",
+    "article": "der",
+    "word": "Tastevin",
+    "definition": "Flache Silberschale zum Verkosten von Wein",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-076",
+    "article": "die",
+    "word": "Kräusen",
+    "definition": "Die Schaumkrone auf gärendem Bier",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-077",
+    "article": "das",
+    "word": "Lupulin",
+    "definition": "Bitterstoffhaltiges Harz aus dem Hopfen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-078",
+    "article": "der",
+    "word": "Treber",
+    "definition": "Rückstand aus Malz, der beim Bierbrauen übrig bleibt",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 2,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-079",
+    "article": "der",
+    "word": "Lutter",
+    "definition": "Schwaches, fuseliges Zwischendestillat beim Schnapsbrennen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-080",
+    "article": "der",
+    "word": "Alembik",
+    "definition": "Alter Destillierkolben zum Brennen von Schnaps",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-081",
+    "article": "das",
+    "word": "Rhyton",
+    "definition": "Antikes Trinkhorn in Form eines Tierkopfes",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-082",
+    "article": "der",
+    "word": "Kantharos",
+    "definition": "Griechischer Weinbecher mit zwei hochgezogenen Henkeln",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-083",
+    "article": "die",
+    "word": "Kylix",
+    "definition": "Flache griechische Trinkschale für Wein",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-084",
+    "article": "die",
+    "word": "Oinochoe",
+    "definition": "Altgriechische Weinkanne mit Henkel",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-085",
+    "article": "der",
+    "word": "Psykter",
+    "definition": "Antikes Gefäß zum Kühlen von Wein",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "adult": true
   }
 ]

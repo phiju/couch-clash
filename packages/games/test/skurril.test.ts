@@ -9,7 +9,7 @@ import { bluffModule, lexikonAdapter } from "../src/bluff/module";
 import type { BluffAction, BluffPublicState } from "../src/bluff/types";
 import { CATEGORY_METAS, planGame } from "../src/meta";
 import { skurrilMeta } from "../src/skurril/meta";
-import { createSkurrilModule, skurrilAdapter, skurrilModule, sourceDomain, SKURRIL_PARTY_SHARE, type SkurrilState } from "../src/skurril/module";
+import { createSkurrilModule, skurrilAdapter, skurrilModule, sourceDomain, type SkurrilState } from "../src/skurril/module";
 
 const T0 = 1_700_000_000_000;
 const MARATHON: SkurrilStory = {
@@ -177,11 +177,10 @@ describe("mode filters and party mix", () => {
   });
 
   it("Party: family pool plus about 30 % party stories, spread out", () => {
-    expect(SKURRIL_PARTY_SHARE).toBe(0.3);
     const party = init("party", 10);
     expect(party).toHaveLength(10);
     expect(party.filter((s) => s.adult)).toHaveLength(3);
-    expect(party.map((s, i) => (s.adult ? i : -1)).filter((i) => i >= 0)).toEqual([1, 4, 7]);
+    expect([[0, 3, 6], [1, 4, 7]]).toContainEqual(party.map((s, i) => (s.adult ? i : -1)).filter((i) => i >= 0));
     expect(init("party", 5).filter((s) => s.adult)).toHaveLength(2);
   });
 });

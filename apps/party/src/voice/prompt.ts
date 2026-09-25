@@ -131,7 +131,13 @@ export interface CommentFacts {
   players: CommentPlayerFacts[];
   /** Precomputed hints: new leader, big jump, everyone wrong, streaks, … */
   highlights: string[];
+  /** The question came from the party pool (alcohol, love, sex). */
+  partyItem?: boolean;
 }
+
+/** Party mode + a party question: the host may be a little cheekier about the topic. */
+const PARTY_ITEM_RULE =
+  "partyItem is true: this was a party question about alcohol, love or sex. You may add a cheeky, suggestive wink about the topic (drinking, flirting, dating) – still never explicit, never degrading, never about a player's own body or sex life.";
 
 /** One comment after a question. Reply: {"line": "...", "target": "<name or empty>"}. */
 export function commentPrompt(
@@ -149,6 +155,7 @@ export function commentPrompt(
       ...(facts.persona ? [facts.persona] : []),
       TONE[cheekiness],
       MODE_RULE[mode],
+      ...(facts.partyItem && mode === "party" ? [PARTY_ITEM_RULE] : []),
       HARD_LIMITS,
       "Do not pick on the players listed in avoidTargets again – rotate targets so nobody gets piled on (praise for them is fine).",
       DATA_RULE,

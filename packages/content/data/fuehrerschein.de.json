@@ -5195,5 +5195,592 @@
         }
       ]
     }
+  },
+  {
+    "id": "fs-party-001",
+    "text": "Auf dem Heimweg von der Party sitzt du als Beifahrer (nicht als Begleitperson). Darfst du ein Bier trinken?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "beifahrer"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Ja, die Grenzen gelten nur für Fahrer",
+      "Nein, im Auto gilt für alle 0,0 Promille",
+      "Nur, wenn der Fahrer mittrinkt",
+      "Nur aus der Dose, nicht aus der Flasche"
+    ],
+    "correctIndex": 0,
+    "explanation": "Promillegrenzen gelten nur für den Fahrer. Der Beifahrer darf trinken – der Fahrer bleibt am besten ganz nüchtern.",
+    "media": null
+  },
+  {
+    "id": "fs-party-002",
+    "text": "Beim Begleiteten Fahren ab 17 sitzt du als Begleitperson daneben. Wie viel Alkohol darfst du höchstens im Blut haben?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "bf17",
+      "begleitperson"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Weniger als 1,6 Promille",
+      "Weniger als 1,1 Promille",
+      "Egal, du fährst ja nicht",
+      "Weniger als 0,5 Promille"
+    ],
+    "correctIndex": 3,
+    "explanation": "Die Begleitperson muss unter 0,5 Promille (0,25 mg/l Atemalkohol) bleiben – sonst ist sie keine gültige Begleitung.",
+    "media": null
+  },
+  {
+    "id": "fs-party-003",
+    "text": "Du hast um 3 Uhr nachts noch 1,0 Promille. Wann bist du nach der Faustregel ungefähr wieder bei 0,0?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "restalkohol",
+      "abbau"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Nach zwei Stunden Schlaf",
+      "Pünktlich zum Frühstück um 7 Uhr",
+      "Vorsichtig gerechnet erst gegen Mittag",
+      "Direkt nach einer kalten Dusche"
+    ],
+    "correctIndex": 2,
+    "explanation": "Vorsichtig gerechnet baut der Körper nur rund 0,1 Promille pro Stunde ab – aus 1,0 Promille wird erst nach etwa zehn Stunden wieder null.",
+    "media": null
+  },
+  {
+    "id": "fs-party-004",
+    "text": "Wie viel Promille baut der Körper nach der gängigen Faustregel ungefähr pro Stunde ab?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "abbau"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Rund 0,5 Promille",
+      "Rund 0,1 Promille",
+      "Rund 2,0 Promille",
+      "Rund 1,0 Promille"
+    ],
+    "correctIndex": 1,
+    "explanation": "Als Faustregel gilt ein Abbau von etwa 0,1 Promille pro Stunde – egal wie dringend man nach Hause will.",
+    "media": null
+  },
+  {
+    "id": "fs-party-005",
+    "text": "Welcher Trick senkt den Promillewert vor der Heimfahrt wirklich?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "mythen",
+      "abbau"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Eine kalte Dusche",
+      "Ein starker Kaffee",
+      "Ein Pfefferminzbonbon",
+      "Keiner – nur Zeit hilft"
+    ],
+    "correctIndex": 3,
+    "explanation": "Kaffee, Duschen und Bonbons machen höchstens wacher oder frischer im Atem – die Promille bleiben. Nur Zeit baut Alkohol ab.",
+    "media": null
+  },
+  {
+    "id": "fs-party-006",
+    "text": "Nach einer langen Nacht fährst du morgens mit Restalkohol zur Arbeit. Was gilt?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "restalkohol"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Morgens gelten doppelte Grenzwerte",
+      "Restalkohol zählt genauso",
+      "Restalkohol wird nicht gemessen",
+      "Nach dem Schlafen ist man nüchtern"
+    ],
+    "correctIndex": 1,
+    "explanation": "Promille sind Promille – auch wenn das letzte Bier schon Stunden her ist. Schlaf ist kein Reset-Knopf.",
+    "media": null
+  },
+  {
+    "id": "fs-party-007",
+    "text": "Welche Promillegrenzen gelten für E-Scooter-Fahrer ab 21 ohne Probezeit?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "e-scooter"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Nur 3,0 Promille",
+      "Wie beim Fahrrad: erst ab 1,6 Promille",
+      "Wie beim Auto: 0,5 und 1,1 Promille",
+      "Gar keine, E-Scooter sind Spielzeug"
+    ],
+    "correctIndex": 2,
+    "explanation": "E-Scooter sind Kraftfahrzeuge. Es gelten 0,5 Promille als Ordnungswidrigkeit und 1,1 Promille als Straftat – wie beim Auto.",
+    "media": null
+  },
+  {
+    "id": "fs-party-008",
+    "text": "Du bist 19 und willst nach der Party mit dem E-Scooter heimrollern. Wie viel Alkohol ist erlaubt?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "e-scooter",
+      "probezeit"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "0,0 Promille – absolutes Alkoholverbot",
+      "Bis 0,5 Promille",
+      "Bis 1,6 Promille",
+      "Bis 1,1 Promille"
+    ],
+    "correctIndex": 0,
+    "explanation": "Für Fahrer unter 21 und in der Probezeit gilt auch auf dem E-Scooter: kein Alkohol.",
+    "media": null
+  },
+  {
+    "id": "fs-party-009",
+    "text": "Ab welchem Wert gelten Radfahrer als absolut fahruntüchtig?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "fahrrad"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "1,1 Promille",
+      "1,6 Promille",
+      "0,8 Promille",
+      "0,5 Promille"
+    ],
+    "correctIndex": 1,
+    "explanation": "Ab 1,6 Promille ist Radfahren eine Straftat – der Drahtesel ist kein Freifahrtschein.",
+    "media": null
+  },
+  {
+    "id": "fs-party-010",
+    "text": "Was droht einem Radfahrer, der mit 1,6 Promille oder mehr erwischt wird?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "fahrrad",
+      "mpu"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Eine MPU",
+      "Eine Pflicht-Fahrradklingel",
+      "Nur ein Luftablassen am Reifen",
+      "Nichts, Radfahren ist immer erlaubt"
+    ],
+    "correctIndex": 0,
+    "explanation": "Ab 1,6 Promille muss die Fahrerlaubnisbehörde eine MPU anordnen – auch wenn man „nur“ Rad gefahren ist.",
+    "media": null
+  },
+  {
+    "id": "fs-party-011",
+    "text": "Welche Promilleregeln gelten für ein normales Pedelec mit Tretunterstützung bis 25 km/h?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "pedelec",
+      "fahrrad"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Wie beim Lkw",
+      "Pedelecs dürfen nachts gar nicht fahren",
+      "Es gilt immer 0,0 Promille",
+      "Wie beim Fahrrad"
+    ],
+    "correctIndex": 3,
+    "explanation": "Ein Pedelec bis 25 km/h zählt rechtlich als Fahrrad – schnelle S-Pedelecs dagegen als Kraftfahrzeug.",
+    "media": null
+  },
+  {
+    "id": "fs-party-012",
+    "text": "Warum haben Frauen nach derselben Menge Alkohol meist mehr Promille als Männer?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "promille",
+      "widmark"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Das stimmt nicht – es ist immer gleich",
+      "Weil Frauen schneller trinken",
+      "Ihr Körper enthält weniger Wasser",
+      "Weil Frauen nur Sekt trinken"
+    ],
+    "correctIndex": 2,
+    "explanation": "Alkohol verteilt sich im Körperwasser. Frauen haben im Schnitt weniger davon, deshalb steigt der Wert stärker.",
+    "media": null
+  },
+  {
+    "id": "fs-party-013",
+    "text": "Wie viel reinen Alkohol enthält ungefähr ein halber Liter Bier mit 5 % Alkohol?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "promille",
+      "bier"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Etwa 2 Gramm",
+      "Etwa 20 Gramm",
+      "Etwa 100 Gramm",
+      "Etwa 50 Gramm"
+    ],
+    "correctIndex": 1,
+    "explanation": "0,5 Liter × 5 % = 25 ml Alkohol, und 1 ml wiegt etwa 0,8 Gramm – macht rund 20 Gramm.",
+    "media": null
+  },
+  {
+    "id": "fs-party-014",
+    "text": "Widmark-Faustformel: Ein 80-kg-Mann trinkt 20 g Alkohol. Wie viel Promille ergibt das ungefähr?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "promille",
+      "widmark"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Etwa 2,0 Promille",
+      "Etwa 1,0 Promille",
+      "Etwa 0,35 Promille",
+      "Etwa 0,05 Promille"
+    ],
+    "correctIndex": 2,
+    "explanation": "Faustformel: 20 g ÷ (80 kg × 0,7) ≈ 0,36 Promille. Der echte Wert kann abweichen – der Promillerechner ersetzt kein Taxi.",
+    "media": null
+  },
+  {
+    "id": "fs-party-015",
+    "text": "Was droht, wenn du zum ersten Mal mit 0,5 Promille ohne Ausfallerscheinungen Auto fährst?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "bußgeld",
+      "fahrverbot"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Bußgeld, 2 Punkte und 1 Monat Fahrverbot",
+      "Nur eine mündliche Verwarnung",
+      "Lebenslanger Führerscheinentzug",
+      "Gar nichts beim ersten Mal"
+    ],
+    "correctIndex": 0,
+    "explanation": "Schon der erste Verstoß bringt Bußgeld, 2 Punkte in Flensburg und einen Monat Fahrverbot.",
+    "media": null
+  },
+  {
+    "id": "fs-party-016",
+    "text": "Autofahren mit 1,1 Promille oder mehr ist eine Straftat. Was passiert in der Regel mit dem Führerschein?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "straftat",
+      "entzug"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Er bekommt einen Stempel",
+      "Nichts, wenn man langsam fährt",
+      "Er wird für eine Nacht einbehalten",
+      "Er wird entzogen"
+    ],
+    "correctIndex": 3,
+    "explanation": "Bei Trunkenheit im Verkehr wird die Fahrerlaubnis in der Regel entzogen – plus Sperrfrist für den Neuerwerb.",
+    "media": null
+  },
+  {
+    "id": "fs-party-017",
+    "text": "Eine Fahranfängerin in der Probezeit wird mit Alkohol am Steuer erwischt. Welche Folge ist typisch?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "probezeit"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Keine, ein Gläschen ist erlaubt",
+      "Aufbauseminar, Probezeit bis 4 Jahre",
+      "Sie muss den Sekt nachträglich bezahlen",
+      "Die Probezeit endet sofort"
+    ],
+    "correctIndex": 1,
+    "explanation": "Alkohol in der Probezeit ist ein schwerer Verstoß: Aufbauseminar und Verlängerung der Probezeit auf vier Jahre.",
+    "media": null
+  },
+  {
+    "id": "fs-party-018",
+    "text": "0,5 Promille im Blut entsprechen welchem Wert beim Atemalkohol?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "atemalkohol"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "0,5 mg/l",
+      "0,25 mg/l",
+      "0,05 mg/l",
+      "1,0 mg/l"
+    ],
+    "correctIndex": 1,
+    "explanation": "Die Grenze für die Ordnungswidrigkeit liegt bei 0,5 Promille im Blut oder 0,25 mg/l in der Atemluft.",
+    "media": null
+  },
+  {
+    "id": "fs-party-019",
+    "text": "Die Polizei bittet dich bei der Kontrolle ins Röhrchen zu pusten. Was stimmt?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "kontrolle"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Wer nicht pustet, gilt als nüchtern",
+      "Pusten ist Pflicht, sonst Haft",
+      "Man darf stattdessen Kopfstand machen",
+      "Freiwillig, aber Blutprobe droht"
+    ],
+    "correctIndex": 3,
+    "explanation": "Den Atemtest muss man nicht machen – dann kann aber eine Blutentnahme angeordnet werden. Das Ausweichen bringt also wenig.",
+    "media": null
+  },
+  {
+    "id": "fs-party-020",
+    "text": "Ein Autofahrer mit 0,4 Promille fährt Schlangenlinien. Was gilt?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "ausfallerscheinungen"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Er kann sich strafbar machen",
+      "Schlangenlinien sind nur nachts verboten",
+      "Er bekommt einen Tanzpokal",
+      "Alles erlaubt, er liegt unter 0,5"
+    ],
+    "correctIndex": 0,
+    "explanation": "Mit Ausfallerscheinungen kann man schon ab 0,3 Promille strafbar sein – die 0,5 ist keine Zielmarke.",
+    "media": null
+  },
+  {
+    "id": "fs-party-021",
+    "text": "Deine Clique plant die Party-Heimfahrt. Welche Strategie ist die beste?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "heimfahrt"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Nüchterner Fahrer, Taxi oder Bahn",
+      "Man fährt einfach besonders langsam",
+      "Wer am wenigsten schwankt, fährt",
+      "Wer am lautesten singt, fährt"
+    ],
+    "correctIndex": 0,
+    "explanation": "Ein nüchterner Fahrer oder öffentliche Verkehrsmittel – alles andere ist ein schlechter Partygag.",
+    "media": null
+  },
+  {
+    "id": "fs-party-022",
+    "text": "Du gehst nach der Party zu Fuß nach Hause. Gibt es für Fußgänger eine Promillegrenze?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "fußgänger"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Ja, 0,5 Promille",
+      "Ja, 1,1 Promille",
+      "Nein, dafür gibt es keine feste Grenze",
+      "Ja, 0,0 Promille nach Mitternacht"
+    ],
+    "correctIndex": 2,
+    "explanation": "Für Fußgänger gibt es keinen Grenzwert – trotzdem gilt: Wer torkelnd auf die Fahrbahn gerät, gefährdet vor allem sich selbst.",
+    "media": null
+  },
+  {
+    "id": "fs-party-023",
+    "text": "Ab welchem Blutalkoholwert muss die Behörde bei einem Autofahrer auf jeden Fall eine MPU anordnen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "mpu"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "1,6 Promille",
+      "0,8 Promille",
+      "0,3 Promille",
+      "0,5 Promille"
+    ],
+    "correctIndex": 0,
+    "explanation": "Ab 1,6 Promille ist die MPU Pflicht – wer so viel verträgt, muss erst beweisen, dass er Trinken und Fahren trennen kann.",
+    "media": null
+  },
+  {
+    "id": "fs-party-024",
+    "text": "Jemand wird zum zweiten Mal mit 0,5 Promille oder mehr am Steuer erwischt. Was kann zusätzlich drohen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "mpu",
+      "wiederholung"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Gar nichts, Punkte verfallen sofort",
+      "Ein Rabatt beim nächsten Mal",
+      "Eine MPU",
+      "Nur eine Postkarte der Polizei"
+    ],
+    "correctIndex": 2,
+    "explanation": "Wiederholte Verstöße unter Alkoholeinfluss sind ein Grund für eine MPU – zusätzlich zu Bußgeld, Punkten und längerem Fahrverbot.",
+    "media": null
+  },
+  {
+    "id": "fs-party-025",
+    "text": "Wie nennt der Volksmund die medizinisch-psychologische Untersuchung (MPU)?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "party",
+      "alkohol",
+      "mpu"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Katerprüfung",
+      "Führerscheinlotto",
+      "Promilleparty",
+      "Idiotentest"
+    ],
+    "correctIndex": 3,
+    "explanation": "Der Spitzname „Idiotentest“ ist nicht nett – aber wer sie braucht, hat vorher meist etwas ziemlich Unkluges gemacht.",
+    "media": null
   }
 ]

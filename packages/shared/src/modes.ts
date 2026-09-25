@@ -13,11 +13,24 @@ export type GameMode = (typeof GAME_MODES)[number];
 export const DIFFICULTY_MIXES = ["easy", "mixed", "hard"] as const;
 export type DifficultyMix = (typeof DIFFICULTY_MIXES)[number];
 
+/**
+ * Party mode: the share of each round that comes from the party pool
+ * (adult: alcohol, love, sex). THE config for every game – the host can
+ * pick one of `shares` ("Party-Anteil").
+ */
+export const PARTY_CONFIG = {
+  defaultShare: 0.3,
+  shares: [0.3, 0.5, 1] as const,
+} as const;
+export type PartyShare = (typeof PARTY_CONFIG.shares)[number];
+
 export const GameModeSettingsSchema = z.object({
   mode: z.enum(GAME_MODES),
   /** Familie: also questions rated 16. */
   allow16: z.boolean(),
   difficulty: z.enum(DIFFICULTY_MIXES),
+  /** Party only: share of party items per round (default PARTY_CONFIG.defaultShare). */
+  partyShare: z.union(PARTY_CONFIG.shares.map((s) => z.literal(s))).optional(),
 });
 export type GameModeSettings = z.infer<typeof GameModeSettingsSchema>;
 
@@ -72,6 +85,22 @@ export function eligibleForMode(item: ContentFlags, s: GameModeSettings, meta?: 
     case "party":
       return true;
   }
+}
+
+/** The party share a round uses: the host's choice in Party mode, 0 otherwise. */
+export function partyShareOf(s: GameModeSettings | undefined): number {
+  if (s?.mode !== "party") return 0;
+  return s.partyShare ?? PARTY_CONFIG.defaultShare;
+}
+
+/**
+ * How many of `n` items come from the party pool: max(1, ceil(n × share)),
+ * at most n (0 for n = 0 or share 0). The pool size limits it further.
+ */
+export function partyCountFor(n: number, share: number): number {
+  if (n < 1 || share <= 0) return 0;
+  // 10 × 0.3 is 3.0000000000000004 in floating point – that must stay 3.
+  return Math.min(n, Math.max(1, Math.ceil(n * share - 1e-9)));
 }
 
 /** Relative chance per difficulty (1–3) for the question selection. */

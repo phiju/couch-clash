@@ -319,6 +319,36 @@ describe("leaderboard commentary", () => {
     expect(ctx.rt.room!.voice.streaks[ctx.ids[1]!]).toBe(0);
   });
 
+  it("party question in Party mode → partyItem in the facts, the host may wink", async () => {
+    const ctx = setup(["Anna", "Ben"]);
+    ctx.rt.room = { ...ctx.rt.room!, mode: { mode: "party", allow16: false, difficulty: "mixed", partyShare: 1 }, partyConfirmed: true };
+    const { answerAll, next } = await startGame(ctx, "oft");
+    for (let q = 0; q < 2; q++) {
+      await answerAll();
+      await ctx.settle();
+      await next();
+      await ctx.settle();
+      if (q < 1) await next();
+    }
+    const prompt = (ctx.text as ReturnType<typeof echoText>).prompts.find((p) => p.json)!;
+    expect(prompt.user).toContain('"partyItem":true');
+    expect(prompt.system).toMatch(/partyItem is true/);
+  });
+
+  it("family question → no partyItem", async () => {
+    const ctx = setup(["Anna", "Ben"]);
+    const { answerAll, next } = await startGame(ctx, "oft");
+    for (let q = 0; q < 2; q++) {
+      await answerAll();
+      await ctx.settle();
+      await next();
+      await ctx.settle();
+      if (q < 1) await next();
+    }
+    const prompt = (ctx.text as ReturnType<typeof echoText>).prompts.find((p) => p.json)!;
+    expect(prompt.user).not.toContain("partyItem");
+  });
+
   it("rotates targets: the last target is passed as avoidTargets", async () => {
     const ctx = setup(["Anna", "Ben"]);
     const { answerAll, next } = await startGame(ctx, "oft", 4);

@@ -28,6 +28,18 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.17.0",
+    date: "2026-09-25",
+    title: "Party-Modus aufgedreht: fast 300 neue Fragen rund um Alkohol, Liebe und Sex – ab 18 und garantiert in jeder Runde.",
+    items: [
+      { emoji: "🍸", text: "Fast 300 neue Party-Fragen: Cocktails, Kater, Flirten und Dating" },
+      { emoji: "🎯", text: "In jeder Party-Runde kommen garantiert Party-Fragen – gut verteilt" },
+      { emoji: "🎚️", text: "Neuer Regler „Party-Anteil“: 30 %, 50 % oder volle Kanne 100 %" },
+      { emoji: "🚗", text: "Führerscheinprüfung: Promille-Fragen für den Heimweg von der Party" },
+      { emoji: "😏", text: "Bei Party-Fragen wird der Moderator ein bisschen frecher" },
+    ],
+  },
+  {
     version: "0.16.0",
     date: "2026-09-25",
     title: "Allein zu Hause? Jetzt lässt sich jedes Spiel auch solo spielen – der Moderator schummelt ein paar Lügen dazu.",

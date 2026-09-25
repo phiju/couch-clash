@@ -45,6 +45,9 @@ function writePrompt(gen: QuestionGenerator, original: ContentEntry, similar: Co
     "- Deutsch, korrekt, eindeutig, kurz (höchstens 200 Zeichen).",
     `- Passend für Spieler ab ${original.ageRating} Jahren.`,
     `- Schwierigkeit ${original.difficulty} von 3.`,
+    ...(original.adult
+      ? ["- Party-Frage nur für Erwachsene: Thema Alkohol oder Liebe/Sex – frech und augenzwinkernd, nie explizit, nie herabwürdigend."]
+      : []),
     "- Die Antwort muss sicher stimmen und überprüfbar sein.",
     ...gen.rules.map((r) => `- ${r}`),
   ].join("\n");
@@ -136,6 +139,8 @@ export async function replaceQuestion(deps: ReplaceDeps, target: { id: string; c
         ageRating: original.ageRating,
         difficulty: original.difficulty,
         tags: original.tags,
+        ...(original.adult ? { adult: true as const } : {}),
+        ...(original.alcohol ? { alcohol: true as const } : {}),
       });
       const parsed = module.parseContent(raw);
       if (!parsed.ok) {

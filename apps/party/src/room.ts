@@ -629,6 +629,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
       // Connected incl. the grace period: a short blip never ends a question early.
       connectedPlayerIds: this.presence(excludeConnId).playerIds,
       content: this.content,
+      log: (message, data) => console.warn(`[content] ${message}`, JSON.stringify(data ?? {})),
     };
   }
 

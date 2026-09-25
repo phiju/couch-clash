@@ -342,6 +342,8 @@ export class VoiceDirector {
       lastQuestionOfCategory: event.index === event.total - 1,
       players,
       highlights: [...(facts.highlights ?? []), ...commentHighlights(players)],
+      // Only in Party mode – a party item can never reach Kids / Familie anyway.
+      ...(facts.partyItem && room.mode.mode === "party" ? { partyItem: true } : {}),
     };
     const cheekiness = effectiveCheekiness(room.voice.settings, room.mode.mode);
     const lastTarget = room.players.find((p) => p.id === room.voice.lastTargets[0]);

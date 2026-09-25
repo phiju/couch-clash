@@ -405,6 +405,7 @@ export function createKnowledgeModule<G, A extends { type: string } = never>(
         correctAnswer: question.options[question.correctIndex] ?? "",
         answers,
         ...(extra?.highlights?.length ? { highlights: extra.highlights } : {}),
+        ...(question.partyItem ? { partyItem: true } : {}),
       };
     },
 

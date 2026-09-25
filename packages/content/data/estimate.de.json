@@ -4704,5 +4704,1143 @@
     "format": "year",
     "zeroRange": 25,
     "fact": "Pixar schrieb 1995 mit „Toy Story“ Filmgeschichte."
+  },
+  {
+    "id": "estimate-party-001",
+    "text": "Wie viele Millionen Maß Bier wurden auf dem Münchner Oktoberfest 2023 ungefähr ausgeschenkt?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "oktoberfest"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 6.5,
+    "unit": "Millionen Maß",
+    "format": "number",
+    "zeroRange": 6,
+    "fact": "Laut offizieller Wiesn-Bilanz flossen 2023 rund 6,5 Millionen Maß – das sind 6,5 Millionen Liter."
+  },
+  {
+    "id": "estimate-party-002",
+    "text": "Wie viele Millionen Besucher kamen 2023 ungefähr aufs Münchner Oktoberfest?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "alkohol",
+      "oktoberfest",
+      "bier"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 7.2,
+    "unit": "Millionen",
+    "format": "number",
+    "zeroRange": 6,
+    "fact": "Rund 7,2 Millionen Gäste machten die Wiesn 2023 zu einem Rekordjahr."
+  },
+  {
+    "id": "estimate-party-003",
+    "text": "In welchem Jahr fand das erste Münchner Oktoberfest statt?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "oktoberfest",
+      "geschichte"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1810,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 100,
+    "fact": "Anlass war 1810 die Hochzeit von Kronprinz Ludwig mit Therese von Sachsen-Hildburghausen – die erste Wiesn war also eine Hochzeitsparty."
+  },
+  {
+    "id": "estimate-party-004",
+    "text": "Seit welchem Jahr zapft traditionell der Münchner Oberbürgermeister das erste Wiesn-Fass an?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "oktoberfest",
+      "bier"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1950,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 50,
+    "fact": "1950 rief Oberbürgermeister Thomas Wimmer zum ersten Mal „O’zapft is!“."
+  },
+  {
+    "id": "estimate-party-005",
+    "text": "Wie viel Prozent Alkohol hat Jägermeister?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "likör",
+      "schnaps"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 35,
+    "unit": "%",
+    "format": "number",
+    "zeroRange": 25,
+    "fact": "Der Kräuterlikör aus Wolfenbüttel hat 35 % vol."
+  },
+  {
+    "id": "estimate-party-006",
+    "text": "Aus wie vielen Kräutern, Blüten, Wurzeln und Früchten wird Jägermeister hergestellt?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "likör",
+      "schnaps"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 56,
+    "unit": "Zutaten",
+    "format": "number",
+    "zeroRange": 50,
+    "fact": "Laut Hersteller stecken 56 Botanicals im Jägermeister – das genaue Rezept ist geheim."
+  },
+  {
+    "id": "estimate-party-007",
+    "text": "In welchem Jahr kam Jägermeister erstmals auf den Markt?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "likör",
+      "marken"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1935,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 50,
+    "fact": "Curt Mast brachte den Kräuterlikör 1935 in Wolfenbüttel heraus."
+  },
+  {
+    "id": "estimate-party-008",
+    "text": "Wie viele Millionen Flaschen Champagner wurden 2023 weltweit ungefähr ausgeliefert?",
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "party",
+      "alkohol",
+      "champagner",
+      "wein"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 299,
+    "unit": "Millionen Flaschen",
+    "format": "number",
+    "zeroRange": 250,
+    "fact": "Laut Comité Champagne wurden 2023 knapp 300 Millionen Flaschen verschickt."
+  },
+  {
+    "id": "estimate-party-009",
+    "text": "Wie viel Bar Druck herrscht ungefähr in einer geschlossenen Champagnerflasche?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "alkohol",
+      "champagner",
+      "physik"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 6,
+    "unit": "bar",
+    "format": "number",
+    "zeroRange": 8,
+    "fact": "Rund 6 bar – zwei- bis dreimal so viel wie in einem Autoreifen, also den Korken nie aufs Gesicht richten!"
+  },
+  {
+    "id": "estimate-party-010",
+    "text": "Wie vielen normalen 0,75-Liter-Flaschen entspricht eine Nebukadnezar-Champagnerflasche?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "champagner",
+      "flaschen"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 20,
+    "unit": "Flaschen",
+    "format": "number",
+    "zeroRange": 20,
+    "fact": "Eine Nebukadnezar fasst 15 Liter – genug für über 100 Gläser."
+  },
+  {
+    "id": "estimate-party-011",
+    "text": "Wie viele Milliliter fasst eine Standard-Weinflasche?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "wein",
+      "flaschen"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 750,
+    "unit": "ml",
+    "format": "number",
+    "zeroRange": 500,
+    "fact": "0,75 Liter sind seit Jahrzehnten der europäische Standard für Wein."
+  },
+  {
+    "id": "estimate-party-012",
+    "text": "Wie viele Liter fasst ein klassisches Bordeaux-Barrique-Fass?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "wein",
+      "fass"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 225,
+    "unit": "Liter",
+    "format": "number",
+    "zeroRange": 200,
+    "fact": "Das Bordeaux-Barrique fasst 225 Liter – also 300 Flaschen Wein."
+  },
+  {
+    "id": "estimate-party-013",
+    "text": "Wie viel Prozent Alkohol muss Wodka in der EU mindestens haben?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "wodka",
+      "schnaps"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 37.5,
+    "unit": "%",
+    "format": "number",
+    "zeroRange": 25,
+    "fact": "Die EU-Spirituosenverordnung schreibt für Wodka mindestens 37,5 % vol vor."
+  },
+  {
+    "id": "estimate-party-014",
+    "text": "Wie viele Jahre muss Scotch Whisky mindestens im Fass reifen?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "whisky",
+      "schnaps"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 3,
+    "unit": "Jahre",
+    "format": "number",
+    "zeroRange": 8,
+    "fact": "Unter drei Jahren Fassreife darf sich kein Scotch Whisky nennen."
+  },
+  {
+    "id": "estimate-party-015",
+    "text": "Wie viel Prozent Agavenzucker muss ein Tequila mindestens enthalten?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "tequila",
+      "schnaps"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 51,
+    "unit": "%",
+    "format": "number",
+    "zeroRange": 45,
+    "fact": "Einfacher „Mixto“-Tequila braucht mindestens 51 % Agave, „100 % Agave“ steht nur auf reinem Stoff."
+  },
+  {
+    "id": "estimate-party-016",
+    "text": "Wie viel Prozent Alkohol darf ein Bier in Deutschland höchstens haben, um „alkoholfrei“ zu heißen?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "alkoholfrei"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 0.5,
+    "unit": "%",
+    "format": "number",
+    "zeroRange": 3,
+    "fact": "Bis 0,5 % vol gilt Bier in Deutschland als alkoholfrei."
+  },
+  {
+    "id": "estimate-party-017",
+    "text": "Für wie viele Jahre pachtete Arthur Guinness 1759 die Brauerei in Dublin?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "guinness"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 9000,
+    "unit": "Jahre",
+    "format": "number",
+    "fact": "Der Pachtvertrag von 1759 lief über 9.000 Jahre – heute gehört das Gelände Guinness ohnehin selbst."
+  },
+  {
+    "id": "estimate-party-018",
+    "text": "Wie viele Sekunden dauert laut Guinness das perfekte Zapfen eines Pints?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "guinness"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 119.5,
+    "unit": "Sekunden",
+    "format": "number",
+    "zeroRange": 100,
+    "fact": "Guinness wirbt mit 119,5 Sekunden für den Zapfvorgang in zwei Schritten."
+  },
+  {
+    "id": "estimate-party-019",
+    "text": "Wie viele Jahre dauerte die landesweite Alkohol-Prohibition in den USA?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "prohibition",
+      "usa"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 13,
+    "unit": "Jahre",
+    "format": "number",
+    "zeroRange": 15,
+    "fact": "Von 1920 bis 1933 war Alkohol in den USA verboten – ein goldenes Zeitalter für Schmuggler."
+  },
+  {
+    "id": "estimate-party-020",
+    "text": "In welchem Jahr wurde Absinth in Frankreich verboten?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "absinth",
+      "frankreich"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1915,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 60,
+    "fact": "Frankreich verbot die „grüne Fee“ 1915 – erst 2011 wurde das Verbot vollständig aufgehoben."
+  },
+  {
+    "id": "estimate-party-021",
+    "text": "In welchem Jahr wurde das Münchner Hofbräuhaus gegründet?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "münchen"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1589,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 150,
+    "fact": "Herzog Wilhelm V. gründete das Hofbräuhaus 1589, weil ihm das importierte Bier zu teuer war."
+  },
+  {
+    "id": "estimate-party-022",
+    "text": "Auf welches Gründungsjahr beruft sich die Brauerei Weihenstephan, die als älteste bestehende Brauerei der Welt gilt?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "brauerei"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1040,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 300,
+    "fact": "Die Freisinger Brauerei führt ihre Tradition auf das Jahr 1040 zurück."
+  },
+  {
+    "id": "estimate-party-023",
+    "text": "In welchem Jahr wurde Aperol erstmals vorgestellt?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "aperol",
+      "cocktails"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1919,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 60,
+    "fact": "Die Brüder Barbieri präsentierten Aperol 1919 auf der Messe in Padua."
+  },
+  {
+    "id": "estimate-party-024",
+    "text": "In welchem Jahr wurde die Rumfirma Bacardi auf Kuba gegründet?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "rum",
+      "marken"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1862,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 80,
+    "fact": "Facundo Bacardí gründete 1862 seine Destillerie in Santiago de Cuba – samt Fledermaus im Logo."
+  },
+  {
+    "id": "estimate-party-025",
+    "text": "Wie viel Prozent Alkohol hat der österreichische Inländerrum „Stroh 80“?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "rum",
+      "schnaps"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 80,
+    "unit": "%",
+    "format": "number",
+    "zeroRange": 40,
+    "fact": "Der Name verrät es: Stroh 80 hat 80 % vol und ist eher zum Backen und für Jagatee gedacht."
+  },
+  {
+    "id": "estimate-party-026",
+    "text": "Bei wie viel Grad Celsius siedet Trinkalkohol (Ethanol) ungefähr?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "alkohol",
+      "chemie",
+      "destillation"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 78,
+    "unit": "°C",
+    "format": "number",
+    "zeroRange": 40,
+    "fact": "Ethanol siedet bei rund 78 °C – deshalb lässt er sich durch Destillieren vom Wasser trennen."
+  },
+  {
+    "id": "estimate-party-027",
+    "text": "Wie viele Kilokalorien liefert ein Gramm reiner Alkohol ungefähr?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "alkohol",
+      "ernährung",
+      "kalorien"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 7,
+    "unit": "kcal",
+    "format": "number",
+    "zeroRange": 8,
+    "fact": "Mit rund 7 kcal pro Gramm liegt Alkohol fast auf Fett-Niveau (9 kcal)."
+  },
+  {
+    "id": "estimate-party-028",
+    "text": "Ein US-Whiskey hat „100 Proof“. Wie viel Prozent Alkohol hat er?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "whisky",
+      "usa"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 50,
+    "unit": "%",
+    "format": "number",
+    "zeroRange": 40,
+    "fact": "In den USA entspricht der Proof-Wert dem doppelten Alkoholgehalt in Prozent."
+  },
+  {
+    "id": "estimate-party-029",
+    "text": "Ab welchem Alter darf man in den USA landesweit legal Alkohol kaufen?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "alkohol",
+      "gesetz",
+      "usa"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 21,
+    "unit": "Jahre",
+    "format": "number",
+    "zeroRange": 8,
+    "fact": "Nach einem Bundesgesetz von 1984 hoben alle US-Bundesstaaten das Mindestalter auf 21 Jahre an."
+  },
+  {
+    "id": "estimate-party-030",
+    "text": "Ab welchem Alter darf man in Deutschland Bier und Wein kaufen?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "alkohol",
+      "gesetz",
+      "jugendschutz"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 16,
+    "unit": "Jahre",
+    "format": "number",
+    "zeroRange": 6,
+    "fact": "Bier, Wein und Sekt gibt es ab 16, Schnaps und Spirituosen erst ab 18."
+  },
+  {
+    "id": "estimate-party-031",
+    "text": "In welchem Jahr kam die Antibabypille in der Bundesrepublik Deutschland auf den Markt?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "verhütung",
+      "geschichte"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1961,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 40,
+    "fact": "Am 1. Juni 1961 brachte Schering die „Anovlar“ heraus – offiziell gegen Menstruationsbeschwerden."
+  },
+  {
+    "id": "estimate-party-032",
+    "text": "In welchem Jahr kam die Antibabypille in der DDR auf den Markt?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "verhütung",
+      "ddr"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1965,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 40,
+    "fact": "Die DDR zog 1965 nach, später gab es die „Wunschkindpille“ sogar kostenlos."
+  },
+  {
+    "id": "estimate-party-033",
+    "text": "In welchem Jahr startete die Dating-App Tinder?",
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "party",
+      "sex",
+      "dating",
+      "apps"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 2012,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 20,
+    "fact": "Tinder ging 2012 an den Start und machte das Wischen nach links und rechts berühmt."
+  },
+  {
+    "id": "estimate-party-034",
+    "text": "In welchem Jahr ging die Partnerbörse Parship online – passenderweise an einem Valentinstag?",
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "party",
+      "sex",
+      "dating",
+      "online"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 2001,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 20,
+    "fact": "Parship ging am 14. Februar 2001 online."
+  },
+  {
+    "id": "estimate-party-035",
+    "text": "In welchem Jahr startete die Dating-App Bumble, bei der Frauen den ersten Schritt machen?",
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "party",
+      "sex",
+      "dating",
+      "apps"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 2014,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 20,
+    "fact": "Whitney Wolfe Herd gründete Bumble 2014 – zuvor hatte sie Tinder mitgegründet."
+  },
+  {
+    "id": "estimate-party-036",
+    "text": "In welchem Jahr ging Match.com, eine der ersten Online-Dating-Seiten, online?",
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "party",
+      "sex",
+      "dating",
+      "internet"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1995,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 25,
+    "fact": "Match.com startete 1995 – als die meisten noch per Modem ins Netz gingen."
+  },
+  {
+    "id": "estimate-party-037",
+    "text": "In welchem Jahr eröffnete Beate Uhse in Flensburg den ersten Sexshop der Welt?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "erotik",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1962,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 40,
+    "fact": "Das „Fachgeschäft für Ehehygiene“ öffnete im Dezember 1962 in Flensburg."
+  },
+  {
+    "id": "estimate-party-038",
+    "text": "Seit welchem Jahr beantwortet das Dr.-Sommer-Team in der BRAVO Fragen zu Liebe und Sex?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "sex",
+      "aufklärung",
+      "zeitschriften"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1969,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 40,
+    "fact": "Seit 1969 klärt das Dr.-Sommer-Team Generationen von Jugendlichen auf."
+  },
+  {
+    "id": "estimate-party-039",
+    "text": "In welchem Jahr kam der berühmte Aufklärungsfilm „Helga“ in die deutschen Kinos?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "sex",
+      "aufklärung",
+      "filme"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1967,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 40,
+    "fact": "„Helga – Vom Werden des menschlichen Lebens“ lockte ab 1967 Millionen ins Kino."
+  },
+  {
+    "id": "estimate-party-040",
+    "text": "In welchem Jahr erschien der erste Kinsey-Report über das Sexualverhalten des Mannes?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "sex",
+      "sexualforschung",
+      "geschichte"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1948,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 50,
+    "fact": "Alfred Kinseys Report von 1948 wurde überraschend zum Bestseller."
+  },
+  {
+    "id": "estimate-party-041",
+    "text": "In welchem Jahr erschien die allererste Ausgabe des Playboy?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "erotik",
+      "zeitschriften"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1953,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 40,
+    "fact": "Hugh Hefner brachte den Playboy im Dezember 1953 heraus – mit Marilyn Monroe auf dem Cover."
+  },
+  {
+    "id": "estimate-party-042",
+    "text": "In welchem Jahr erschien D. H. Lawrences skandalöser Roman „Lady Chatterley“ erstmals?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "sex",
+      "erotik",
+      "literatur"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1928,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 50,
+    "fact": "Der Roman erschien 1928 als Privatdruck in Florenz; in Großbritannien durfte er erst ab 1960 frei verkauft werden."
+  },
+  {
+    "id": "estimate-party-043",
+    "text": "In welchem Jahr erschien der Roman „Fifty Shades of Grey“ erstmals?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "sex",
+      "erotik",
+      "literatur"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 2011,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 20,
+    "fact": "E. L. James veröffentlichte das Buch 2011 zunächst als E-Book, die Verfilmung folgte 2015."
+  },
+  {
+    "id": "estimate-party-044",
+    "text": "In welchem Jahr wurde Viagra in den USA zugelassen?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "sex",
+      "medizin",
+      "potenz"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1998,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 25,
+    "fact": "Die „blaue Pille“ wurde 1998 zugelassen – ursprünglich wurde der Wirkstoff als Herzmittel getestet."
+  },
+  {
+    "id": "estimate-party-045",
+    "text": "In welchem Jahr wurde der Markenname Durex eingeführt?",
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "party",
+      "sex",
+      "verhütung",
+      "marken"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1929,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 60,
+    "fact": "Durex steht für „Durability, Reliability, Excellence“ und existiert als Name seit 1929."
+  },
+  {
+    "id": "estimate-party-046",
+    "text": "Aus welchem Jahrzehnt stammen die ältesten bekannten Kondome, gefunden auf Dudley Castle in England?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "verhütung",
+      "archäologie"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1640,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 200,
+    "fact": "Die Kondome aus Tierdarm stammen aus den 1640er-Jahren und lagen in einer Latrine der Burg."
+  },
+  {
+    "id": "estimate-party-047",
+    "text": "In welchem Jahr entstand der erste Filmkuss der Kinogeschichte, „The Kiss“ von Thomas Edisons Studio?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "sex",
+      "küssen",
+      "filme"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1896,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 60,
+    "fact": "Der 1896 gedrehte Kuss dauerte nur Sekunden – und sorgte trotzdem für einen Skandal."
+  },
+  {
+    "id": "estimate-party-048",
+    "text": "Wie viele Künste sollte man laut Kamasutra beherrschen?",
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "party",
+      "sex",
+      "kamasutra",
+      "indien"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 64,
+    "unit": "Künste",
+    "format": "number",
+    "zeroRange": 60,
+    "fact": "Das Kamasutra listet 64 Künste – von Musik und Tanz bis zum Kochen."
+  },
+  {
+    "id": "estimate-party-049",
+    "text": "Am wievielten Februar ist Valentinstag?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "sex",
+      "valentinstag",
+      "feiertage"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 14,
+    "unit": "",
+    "format": "number",
+    "zeroRange": 14,
+    "fact": "Am 14. Februar werden weltweit Blumen, Pralinen und Liebesbotschaften verschickt."
+  },
+  {
+    "id": "estimate-party-050",
+    "text": "Nach wie vielen Ehejahren feiert man Silberhochzeit?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "sex",
+      "hochzeit",
+      "ehe"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 25,
+    "unit": "Jahre",
+    "format": "number",
+    "zeroRange": 20,
+    "fact": "Nach 25 Jahren Ehe ist Silber dran – halbe Strecke zur Goldenen."
+  },
+  {
+    "id": "estimate-party-051",
+    "text": "Nach wie vielen Ehejahren feiert man Goldene Hochzeit?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "sex",
+      "hochzeit",
+      "ehe"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 50,
+    "unit": "Jahre",
+    "format": "number",
+    "zeroRange": 30,
+    "fact": "50 Jahre Ehe werden mit Gold gefeiert – ein halbes Jahrhundert Zweisamkeit."
+  },
+  {
+    "id": "estimate-party-052",
+    "text": "Nach wie vielen Ehejahren feiert man Diamantene Hochzeit?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "sex",
+      "hochzeit",
+      "ehe"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 60,
+    "unit": "Jahre",
+    "format": "number",
+    "zeroRange": 40,
+    "fact": "60 Jahre verheiratet – dafür gibt es Diamant."
+  },
+  {
+    "id": "estimate-party-053",
+    "text": "Wie viele Tonnen Liebesschlösser wurden 2015 ungefähr von der Pariser Brücke Pont des Arts entfernt?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "sex",
+      "liebesschlösser",
+      "paris"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 45,
+    "unit": "Tonnen",
+    "format": "number",
+    "zeroRange": 60,
+    "fact": "Rund 45 Tonnen Schlösser hatten Teile des Geländers zum Einsturz gebracht."
+  },
+  {
+    "id": "estimate-party-054",
+    "text": "In welchem Jahr wurde in Deutschland die „Ehe für alle“ eingeführt?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "sex",
+      "ehe",
+      "gesetz"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 2017,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 20,
+    "fact": "Seit dem 1. Oktober 2017 dürfen in Deutschland auch gleichgeschlechtliche Paare heiraten."
+  },
+  {
+    "id": "estimate-party-055",
+    "text": "In welchem Jahr führten die Niederlande als erstes Land der Welt die Ehe für gleichgeschlechtliche Paare ein?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "sex",
+      "ehe",
+      "geschichte"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 2001,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 25,
+    "fact": "Am 1. April 2001 gaben sich in Amsterdam die ersten gleichgeschlechtlichen Paare das Jawort."
+  },
+  {
+    "id": "estimate-party-056",
+    "text": "Wie alt waren Männer in Deutschland 2024 bei ihrer ersten Hochzeit im Durchschnitt ungefähr?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "sex",
+      "ehe",
+      "statistik"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 35.3,
+    "unit": "Jahre",
+    "format": "number",
+    "zeroRange": 20,
+    "fact": "Laut Statistischem Bundesamt waren Männer 2024 bei der ersten Heirat im Schnitt 35,3 Jahre alt, Frauen 32,9."
+  },
+  {
+    "id": "estimate-party-057",
+    "text": "Wie viele Ehen wurden 2024 in Deutschland ungefähr geschlossen?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "sex",
+      "ehe",
+      "statistik"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 349200,
+    "unit": "Ehen",
+    "format": "number",
+    "fact": "Mit rund 349.200 Hochzeiten war 2024 der niedrigste Stand seit 1950."
+  },
+  {
+    "id": "estimate-party-058",
+    "text": "Wie viele Tage braucht die Venus, benannt nach der Liebesgöttin, ungefähr für eine Runde um die Sonne?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "sex",
+      "venus",
+      "weltall"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 225,
+    "unit": "Tage",
+    "format": "number",
+    "zeroRange": 250,
+    "fact": "Ein Venusjahr dauert rund 225 Erdtage."
+  },
+  {
+    "id": "estimate-party-059",
+    "text": "Wie viele Tage können Spermien im Körper der Frau höchstens ungefähr überleben?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "sex",
+      "biologie",
+      "verhütung"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 5,
+    "unit": "Tage",
+    "format": "number",
+    "zeroRange": 7,
+    "fact": "Bis zu fünf Tage – deshalb beginnt das fruchtbare Fenster schon vor dem Eisprung."
+  },
+  {
+    "id": "estimate-party-060",
+    "text": "In welchem Jahr wurde Giacomo Casanova, der berühmteste Verführer der Geschichte, geboren?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "casanova",
+      "verführung"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "answer": 1725,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 150,
+    "fact": "Casanova kam 1725 in Venedig zur Welt und schrieb später seine Memoiren „Histoire de ma vie“."
   }
 ]

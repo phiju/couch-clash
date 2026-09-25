@@ -96,6 +96,20 @@ describe("admin questions", () => {
     expect(body).toMatchObject({ generationsToday: 0, dailyGenerationLimit: 50 });
   });
 
+  it("party questions: flagged, Party mode only, D1 stats work for the new ids", async () => {
+    const { call, store } = setup();
+    await store.recordPlay("quiz", { contentId: "quiz-party-001", answers: 3, correct: 2, sumResponseMs: 6000, sumErrorPct: null }, T0);
+    await store.recordPlay("skurril", { contentId: "skurril-party-030", answers: 2, correct: 1, sumResponseMs: 3000, sumErrorPct: null }, T0);
+    const body = (await (await call("/api/admin/questions")).json()) as AdminQuestionsResponse;
+    expect(body.questions.find((q) => q.id === "quiz-party-001")).toMatchObject({ party: true, modes: ["party"], ageRating: 18, plays: 1, correctRate: 0.667 });
+    expect(body.questions.find((q) => q.id === "skurril-party-030")).toMatchObject({ party: true, plays: 1 });
+    expect(body.questions.find((q) => q.id === "quiz-001")).toMatchObject({ party: false });
+    const party = body.questions.filter((q) => q.party);
+    expect(party.every((q) => q.modes.length === 1 && q.modes[0] === "party")).toBe(true);
+    const per = (categoryId: string) => party.filter((q) => q.categoryId === categoryId).length;
+    expect([per("quiz"), per("estimate"), per("fuehrerschein"), per("skurril"), per("bluff")]).toEqual([159, 60, 25, 48, 85]);
+  });
+
   it("bulk status: reactivate and quarantine", async () => {
     const { call, store } = setup();
     const items = [
@@ -173,6 +187,7 @@ describe("quick filters", () => {
     createdAt: null,
     payload: null,
     modes: ["kids", "family", "party"],
+    party: false,
     ...over,
   });
 
@@ -183,6 +198,8 @@ describe("quick filters", () => {
     expect(matchesQuickFilter(q({ generated: true }), "generated")).toBe(true);
     expect(matchesQuickFilter(q({ reports: 1 }), "reported")).toBe(true);
     expect(matchesQuickFilter(q({ plays: 0 }), "neverPlayed")).toBe(true);
+    expect(matchesQuickFilter(q({ party: true, modes: ["party"] }), "party")).toBe(true);
+    expect(matchesQuickFilter(q({}), "party")).toBe(false);
     expect(matchesQuickFilter(q({}), "neverPlayed")).toBe(false);
   });
 
