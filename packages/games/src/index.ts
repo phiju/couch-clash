@@ -5,6 +5,7 @@
 import type { GameModule } from "@couch-clash/shared";
 import { bluffModule } from "./bluff/module";
 import { estimateModule } from "./estimate/module";
+import { fuehrerscheinModule } from "./fuehrerschein/module";
 import type { CategoryId } from "./meta";
 import { quizModule } from "./quiz/module";
 
@@ -15,6 +16,7 @@ export * from "./scoring";
 export const GAME_MODULES: Record<CategoryId, GameModule> = {
   quiz: quizModule as unknown as GameModule,
   estimate: estimateModule as unknown as GameModule,
+  fuehrerschein: fuehrerscheinModule as unknown as GameModule,
   bluff: bluffModule as unknown as GameModule,
 };
 

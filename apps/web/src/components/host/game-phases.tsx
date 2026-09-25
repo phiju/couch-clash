@@ -63,6 +63,9 @@ function SecondsLeft({ endsAt }: { endsAt: number | null }) {
 export function HostIntro({ room, send }: { room: PublicRoomState; send: Send }) {
   const { round, meta } = currentRound(room);
   const speech = useHostSpeech();
+  const views = round ? getGameViews(round.categoryId) : undefined;
+  const Decor = views?.IntroDecor;
+  const Prop = views?.MascotProp;
   return (
     <Screen fit className="max-w-[1900px]">
       <GameBar room={room} send={send} skipLabel="Weiter ⏭" />
@@ -73,10 +76,13 @@ export function HostIntro({ room, send }: { room: PublicRoomState; send: Send })
           talking={!!speech}
           className="z-10 hidden shrink-0 md:flex"
           imageClassName="h-[min(62vh,720px)]"
+          prop={Prop ? <Prop /> : undefined}
         />
         <div className="panel flex max-w-[min(56rem,70vw)] flex-1 animate-pop flex-col items-center gap-[2vh] self-center p-[4vh] text-center">
+          {Decor && <Decor />}
           <div className="animate-float text-[min(9rem,15vh)] leading-none">{meta?.emoji}</div>
-          <h2 className="fs-hero font-bold text-bulb drop-shadow-[0_6px_0_var(--color-brown)]">
+          {/* Long names ("Führerscheinprüfung") would overflow the card at hero size. */}
+          <h2 className={`${(meta?.name.length ?? 0) > 14 ? "fs-title" : "fs-hero"} font-bold text-bulb drop-shadow-[0_6px_0_var(--color-brown)]`}>
             {meta?.name}
           </h2>
           <p className="fs-xl text-cream/90">{meta?.description}</p>

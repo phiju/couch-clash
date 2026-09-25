@@ -266,11 +266,11 @@ describe("welcome lines", () => {
 type QState = { step: string; index: number; questions: { correctIndex: number }[]; stepEndsAt: number };
 const qstate = (room: RoomRecord) => room.game!.moduleState as QState;
 
-async function startGame(ctx: ReturnType<typeof setup>, frequency: "selten" | "normal" | "oft", count = 4) {
+async function startGame(ctx: ReturnType<typeof setup>, frequency: "selten" | "normal" | "oft", count = 4, categoryId = "quiz") {
   expect(count).toBeGreaterThanOrEqual(3); // quiz minimum
   const { rt, commit, ids, settle } = ctx;
   const deps = () => ({ now: rt.now, random: () => 0.3, connectedPlayerIds: new Set(ids) });
-  let room = unwrap(updateSettings(rt.room!, [{ categoryId: "quiz", questionCount: count, scoring }]));
+  let room = unwrap(updateSettings(rt.room!, [{ categoryId, questionCount: count, scoring }]));
   room = { ...room, voice: { ...room.voice, settings: { ...room.voice.settings, frequency } } };
   await commit(room);
   await commit(unwrap(beginGame(rt.room!, deps())));
@@ -394,6 +394,38 @@ describe("leaderboard commentary", () => {
     expect(ctx.rt.sent.some((l) => l.kind === "finale")).toBe(true);
     // "selten": only the last question of the category was commented.
     expect(ctx.rt.sent.filter((l) => l.kind === "comment")).toHaveLength(1);
+  });
+});
+
+describe("Führerscheinprüfung", () => {
+  it("the host plays the driving instructor and announces the exam result", async () => {
+    const ctx = setup(["Anna", "Ben"]);
+    const { answerAll, next } = await startGame(ctx, "selten", 5, "fuehrerschein");
+    for (let q = 0; q < 5; q++) {
+      await answerAll();
+      await ctx.settle();
+      await next(); // leaderboard
+      await ctx.settle();
+      await next(); // next question / exam result
+      await ctx.settle();
+    }
+    expect(qstate(ctx.rt.room!).step).toBe("summary");
+    const prompts = (ctx.text as ReturnType<typeof echoText>).prompts;
+    const comment = prompts.find((p) => p.json)!;
+    expect(comment.system).toMatch(/DRIVING INSTRUCTOR/);
+    // The persona is a rule, never part of the data block.
+    expect(comment.user).not.toMatch(/DRIVING INSTRUCTOR/);
+    const exam = prompts.find((p) => p.system.includes("each player's result"))!;
+    expect(exam.user).toMatch(/"verdict":"bestanden"/);
+    expect(exam.user).toMatch(/"verdict":"durchgefallen"/);
+    expect(exam.system).toMatch(/does not change the game points/);
+    // Sent right away, and the step waits (bounded) while it plays.
+    const line = ctx.rt.sent.at(-1)!;
+    expect(line.kind).toBe("comment");
+    const baseEnd = ctx.rt.room!.phaseEndsAt!;
+    ctx.director.hostEvent(line.id, "started", baseEnd + 10_000);
+    await ctx.settle();
+    expect(ctx.rt.room!.phaseEndsAt).toBe(baseEnd + 3_000);
   });
 });
 

@@ -5,6 +5,8 @@ import {
   BluffWordSchema,
   ESTIMATE_QUESTIONS_DE,
   EstimateQuestionSchema,
+  FUEHRERSCHEIN_QUESTIONS_DE,
+  FuehrerscheinQuestionSchema,
   QUIZ_QUESTIONS_DE,
   QuizQuestionSchema,
 } from "../src";
@@ -145,5 +147,100 @@ describe("bluff words", () => {
     expect(BluffWordSchema.safeParse({ ...base, word: "gähnen" }).success).toBe(false);
     expect(BluffWordSchema.safeParse({ ...base, difficulty: 1 }).success).toBe(false);
     expect(BluffWordSchema.safeParse({ ...base, definition: "x".repeat(81) }).success).toBe(false);
+  });
+});
+
+describe("Führerscheinprüfung", () => {
+  const all = FUEHRERSCHEIN_QUESTIONS_DE;
+  const kind = (q: (typeof all)[number]) => q.media?.kind ?? "text";
+
+  it("has 155 valid questions: text, sign and scene", () => {
+    expect(all).toHaveLength(155);
+    expect(all.filter((q) => kind(q) === "text").length).toBeGreaterThanOrEqual(50);
+    expect(all.filter((q) => kind(q) === "sign").length).toBeGreaterThanOrEqual(50);
+    expect(all.filter((q) => kind(q) === "scene").length).toBeGreaterThanOrEqual(40);
+    for (const q of all) expect(FuehrerscheinQuestionSchema.safeParse(q).success, q.id).toBe(true);
+  });
+
+  it("ids are unique, also across the other files", () => {
+    const ids = [...all, ...QUIZ_QUESTIONS_DE, ...ESTIMATE_QUESTIONS_DE].map((q) => q.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it("text + picture is unique (texts like 'Was bedeutet dieses Verkehrszeichen?' repeat)", () => {
+    const keys = all.map((q) => `${q.text}|${JSON.stringify(q.media)}`);
+    expect(new Set(keys).size).toBe(keys.length);
+  });
+
+  it("every question is MOBILITY and tagged führerschein", () => {
+    for (const q of all) {
+      expect(q.primaryCategory, q.id).toBe("MOBILITY");
+      expect(q.tags, q.id).toContain("führerschein");
+    }
+  });
+
+  it("26 questions are for kids (ageRating 6), the rest 12", () => {
+    expect(all.filter((q) => q.ageRating === 6)).toHaveLength(26);
+    for (const q of all) expect([6, 12]).toContain(q.ageRating);
+  });
+
+  it("scene vehicles have unique colours and ids", () => {
+    for (const q of all) {
+      if (q.media?.kind !== "scene") continue;
+      const v = q.media.vehicles;
+      expect(new Set(v.map((x) => x.color)).size, q.id).toBe(v.length);
+      expect(new Set(v.map((x) => x.id)).size, q.id).toBe(v.length);
+    }
+  });
+
+  describe("media schema", () => {
+    const scene = {
+      kind: "scene",
+      arms: ["N", "E", "S", "W"],
+      signs: {},
+      priorityPath: null,
+      vehicles: [
+        { id: "rot", type: "car", color: "rot", from: "S", turn: "straight" },
+        { id: "blau", type: "car", color: "blau", from: "E", turn: "left" },
+      ],
+    };
+    const q = {
+      id: "fs-x",
+      text: "Wer darf zuerst fahren?",
+      ageRating: 12,
+      tags: ["führerschein"],
+      difficulty: 1,
+      options: ["a", "b", "c", "d"],
+      correctIndex: 0,
+      explanation: "Rechts vor links.",
+    };
+    const ok = (media: unknown) => FuehrerscheinQuestionSchema.safeParse({ ...q, media }).success;
+
+    it("accepts null, sign and scene", () => {
+      expect(ok(null)).toBe(true);
+      expect(ok({ kind: "sign", signs: ["206"] })).toBe(true);
+      expect(ok({ kind: "sign", signs: ["274-53", "1020-30"] })).toBe(true);
+      expect(ok(scene)).toBe(true);
+    });
+
+    it("rejects broken media", () => {
+      expect(ok(undefined)).toBe(false);
+      expect(ok({ kind: "video" })).toBe(false);
+      expect(ok({ kind: "sign", signs: [] })).toBe(false);
+      expect(ok({ kind: "sign", signs: ["../etc"] })).toBe(false);
+      const v = scene.vehicles;
+      expect(ok({ ...scene, vehicles: [v[0], { ...v[1], color: "rot" }] })).toBe(false); // same colour twice
+      expect(ok({ ...scene, vehicles: [v[0], { ...v[1], id: "rot" }] })).toBe(false);
+      expect(ok({ ...scene, arms: ["E", "S", "W"], vehicles: [{ ...v[0], from: "N" }] })).toBe(false); // missing arm
+      expect(ok({ ...scene, arms: ["E", "S", "W"], vehicles: [v[0]] })).toBe(false); // S straight → N is missing
+      expect(ok({ ...scene, signs: { X: ["205"] } })).toBe(false);
+      expect(ok({ ...scene, priorityPath: ["N", "N"] })).toBe(false);
+      expect(ok({ ...scene, vehicles: [{ ...v[0], siren: true }] })).toBe(false); // only police
+      expect(ok({ ...scene, pedestrians: [{ at: "Q", crossing: true }] })).toBe(false);
+    });
+
+    it("needs an explanation", () => {
+      expect(FuehrerscheinQuestionSchema.safeParse({ ...q, media: null, explanation: undefined }).success).toBe(false);
+    });
   });
 });

@@ -28,6 +28,7 @@ export function Mascot({
   className = "",
   imageClassName = "h-[60vh]",
   talking = false,
+  prop,
 }: {
   pose?: MascotPose;
   /** "phone" uses the smaller image. */
@@ -37,6 +38,8 @@ export function Mascot({
   imageClassName?: string;
   /** Speaking right now (the voice plays): small bounce. */
   talking?: boolean;
+  /** Something he holds under his arm while playing a role (e.g. the driving instructor's clipboard). */
+  prop?: React.ReactNode;
 }) {
   const image = IMAGES[POSE_IMAGES[pose] ?? size];
   return (
@@ -50,6 +53,10 @@ export function Mascot({
         data-pose={pose}
         className={`mascot w-auto ${imageClassName}`}
       />
+      {prop && (
+        // Tucked under his left arm (the hand in the pocket), moves with the figure's box.
+        <div className="absolute right-[2%] bottom-[40%] h-[20%] w-[42%] rotate-[10deg]">{prop}</div>
+      )}
     </div>
   );
 }

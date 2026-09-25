@@ -103,6 +103,11 @@ export interface CategoryMeta {
   kidsMaxDifficulty?: 1 | 2 | 3;
   /** Extra on/off settings the host may change for this category. */
   options?: readonly CategoryOption[];
+  /**
+   * The host plays a role in this category (English prompt text for the
+   * commentary), e.g. the know-it-all driving instructor. Hard limits stay.
+   */
+  hostPersona?: string;
 }
 
 export interface CategoryOption {
@@ -177,6 +182,8 @@ export interface GameModule<TState = unknown, TAction = unknown, TPublic = unkno
   progress?(state: TState): ModuleProgress | null;
   /** Facts about the question just revealed, for the host's commentary. Optional. */
   revealFacts?(state: TState): RevealFacts | null;
+  /** Facts about the round summary (e.g. exam passed / failed) while it shows, for the host. Optional. */
+  summaryFacts?(state: TState): RoundSummaryFacts | null;
   /** Aggregated numbers for the question just revealed (question statistics). Optional. */
   toStats?(state: TState): QuestionStatsPayload | null;
   /** All content of this category (static + extra) for the admin page. Optional. */
@@ -263,6 +270,15 @@ export interface RevealFacts {
   answers: Record<string, RevealedAnswer>;
   /** Extra hints for the commentary (no names – those come from `note`). */
   highlights?: string[];
+}
+
+/** The round summary as plain facts (server only). Show only – it never changes points. */
+export interface RoundSummaryFacts {
+  /** What the summary is, e.g. "Prüfungsergebnis der Führerscheinprüfung". */
+  title: string;
+  /** Per player id, in the order the screen shows them. */
+  players: { playerId: string; verdict: string; correct: number; total: number }[];
+  highlights: string[];
 }
 
 export interface RevealedAnswer {

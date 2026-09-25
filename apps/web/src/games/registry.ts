@@ -1,6 +1,7 @@
 import type { CategoryId } from "@couch-clash/games/meta";
 import { bluffViews } from "./bluff";
 import { estimateViews } from "./estimate";
+import { fuehrerscheinViews } from "./fuehrerschein";
 import { quizViews } from "./quiz";
 import type { GameViews } from "./types";
 
@@ -12,6 +13,7 @@ import type { GameViews } from "./types";
 export const GAME_VIEWS: Record<CategoryId, GameViews<any>> = {
   quiz: quizViews,
   estimate: estimateViews,
+  fuehrerschein: fuehrerscheinViews,
   bluff: bluffViews,
 };
 
