@@ -194,7 +194,7 @@ export class VoiceDirector {
       // Quota/key problem or budget used up: silent for the rest of this room, the game goes on.
       const status = produced.voiceStatus;
       console.warn(`voice: stopped for this room (${status}${produced.errorCode ? ` ${produced.errorCode}` : ""})`);
-      await this.updateVoice((v) => ({ ...v, status }));
+      await this.updateVoice((v) => ({ ...v, status, errorCode: produced.errorCode ?? null }));
     }
     return produced;
   }
@@ -365,6 +365,13 @@ export class VoiceDirector {
       finaleTemplate(winners),
     );
     this.deliver(produced);
+  }
+
+  /** "Stimme erneut versuchen": lifts the room's voice stop after a refusal (e.g. new key or plan). */
+  async retryVoice() {
+    const room = this.rt.read();
+    if (!room || room.voice.status !== "unavailable") return;
+    await this.updateVoice((v) => ({ ...v, status: "ok", errorCode: null }));
   }
 
   // ── "Moderator testen" ───────────────────────────────────────────────

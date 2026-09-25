@@ -226,6 +226,7 @@ function publicVoice(room: RoomRecord, registry: ModuleRegistry): PublicRoomStat
     effectiveCheekiness: effectiveCheekiness(room.voice.settings, metas),
     kidsCategories: hasKidsCategory(metas),
     status: room.voice.status,
+    errorCode: room.voice.errorCode,
     charsUsed: room.voice.charsUsed,
     charBudget: VOICE_CONFIG.charBudgetPerRoom,
   };

@@ -74,3 +74,18 @@ export const VoiceEventSchema = z.object({
   endsAt: z.number().finite().optional(),
 });
 
+
+/** Plain-German hint for a voice-service error code (shown to the host). */
+export function voiceErrorHint(code: string | null): string {
+  if (!code) return "ElevenLabs hat die Anfrage abgelehnt.";
+  if (/quota_exceeded/.test(code)) return "Das ElevenLabs-Kontingent ist aufgebraucht.";
+  if (/invalid_api_key/.test(code)) return "Der ElevenLabs-Schlüssel ist ungültig – Secret ELEVENLABS_API_KEY prüfen.";
+  if (/missing_permissions/.test(code) || /^403/.test(code))
+    return "Dem ElevenLabs-Schlüssel fehlt die Berechtigung „Text to Speech“ – in ElevenLabs beim API-Key freischalten.";
+  if (/voice_not_found|voice_not_available/.test(code))
+    return "Die Stimme ist in diesem ElevenLabs-Konto nicht verfügbar – in ElevenLabs zu „My Voices“ hinzufügen.";
+  if (/^402|payment/.test(code)) return "ElevenLabs verlangt ein passendes Abo für diese Anfrage (Stimme oder Modell).";
+  if (/^429|too_many|system_busy/.test(code)) return "ElevenLabs ist gerade ausgelastet oder zu viele Anfragen gleichzeitig.";
+  if (/^401/.test(code)) return "ElevenLabs lehnt den Schlüssel ab – Secret ELEVENLABS_API_KEY prüfen.";
+  return "ElevenLabs hat die Anfrage abgelehnt.";
+}

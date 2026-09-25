@@ -72,6 +72,8 @@ export const ClientMessageSchema = z.discriminatedUnion("type", [
   VoiceEventSchema,
   /** Host: "▶ Probe-Spruch" / "▶ Nochmal" in the moderator panel. */
   z.object({ type: z.literal("voice_test") }),
+  /** Host: "Stimme erneut versuchen" after the voice service refused. */
+  z.object({ type: z.literal("voice_retry") }),
   /** Player: a category-specific action. Validated by the module's own schema. */
   z.object({ type: z.literal("action"), action: z.unknown() }),
 ]);

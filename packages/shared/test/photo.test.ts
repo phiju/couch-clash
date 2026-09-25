@@ -66,3 +66,15 @@ describe("voice settings from older host screens", () => {
     expect(parsed.success && parsed.data.type === "update_voice_settings" && parsed.data.settings.tempo).toBe("schnell");
   });
 });
+
+describe("voiceErrorHint", () => {
+  it("explains the common ElevenLabs refusals", async () => {
+    const { voiceErrorHint } = await import("../src");
+    expect(voiceErrorHint("401 quota_exceeded")).toMatch(/Kontingent/);
+    expect(voiceErrorHint("401 missing_permissions")).toMatch(/Text to Speech/);
+    expect(voiceErrorHint("401 invalid_api_key")).toMatch(/ELEVENLABS_API_KEY/);
+    expect(voiceErrorHint("400 voice_not_found")).toMatch(/My Voices/);
+    expect(voiceErrorHint("402")).toMatch(/Abo/);
+    expect(voiceErrorHint(null)).toMatch(/abgelehnt/);
+  });
+});

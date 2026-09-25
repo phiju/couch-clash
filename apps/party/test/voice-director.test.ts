@@ -181,6 +181,7 @@ describe("welcome lines", () => {
     ctx.director.playerJoined(ctx.ids[0]!);
     await ctx.settle();
     expect(ctx.rt.room!.voice.status).toBe("unavailable");
+    expect(ctx.rt.room!.voice.errorCode).toBe("401 quota_exceeded");
     expect(ctx.rt.sent).toHaveLength(0);
     // Nothing is generated any more (no text, no voice) – but the game runs.
     const promptsBefore = (ctx.text as ReturnType<typeof echoText>).prompts.length;
@@ -191,6 +192,28 @@ describe("welcome lines", () => {
     expect(ctx.rt.room!.phase).toBe("play");
     expect((ctx.text as ReturnType<typeof echoText>).prompts.length).toBe(promptsBefore);
     expect(speech.speak).toHaveBeenCalledTimes(1);
+  });
+
+  it("'Stimme erneut versuchen' lifts the stop (e.g. after fixing the key)", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    let refuse = true;
+    const speech = mockSpeech(async () => {
+      if (refuse) throw new VoiceProviderError("unavailable", "ElevenLabs 401 missing_permissions", "401 missing_permissions");
+      return { bytes: new Uint8Array([1]), mimeType: "audio/mpeg" };
+    });
+    const ctx = setup([], { speech });
+    ctx.director.testLine();
+    await ctx.settle();
+    expect(ctx.rt.room!.voice).toMatchObject({ status: "unavailable", errorCode: "401 missing_permissions" });
+    ctx.director.testLine(); // still stopped
+    await ctx.settle();
+    expect(speech.speak).toHaveBeenCalledTimes(1);
+    refuse = false;
+    await ctx.director.retryVoice();
+    expect(ctx.rt.room!.voice).toMatchObject({ status: "ok", errorCode: null });
+    ctx.director.testLine();
+    await ctx.settle();
+    expect(ctx.rt.sent.map((l) => l.kind)).toEqual(["test"]);
   });
 
   it("stops at the room's character budget", async () => {

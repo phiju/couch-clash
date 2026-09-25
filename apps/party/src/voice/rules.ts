@@ -32,6 +32,8 @@ export interface RoomVoice {
   charsUsed: number;
   /** "unavailable": the voice service refused (quota, key, …) – silent for the rest of the room. */
   status: VoiceStatus;
+  /** Short error code of the last refusal, e.g. "401 missing_permissions" (shown to the host). */
+  errorCode: string | null;
 }
 
 export function defaultRoomVoice(): RoomVoice {
@@ -43,6 +45,7 @@ export function defaultRoomVoice(): RoomVoice {
     lastComment: null,
     charsUsed: 0,
     status: "ok",
+    errorCode: null,
   };
 }
 

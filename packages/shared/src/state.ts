@@ -107,6 +107,8 @@ export interface PublicRoomState {
         kidsCategories: boolean;
         /** Silent because the voice service refused (quota, key) or the room's character budget is used up. */
         status: VoiceStatus;
+        /** Error code of the last refusal, e.g. "401 missing_permissions". */
+        errorCode: string | null;
         charsUsed: number;
         charBudget: number;
       })
