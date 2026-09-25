@@ -313,6 +313,12 @@ Asks for the `ADMIN_TOKEN` (kept in `sessionStorage` of that tab only); the work
 
 Locally: `cd apps/party && npx wrangler d1 migrations apply couch-clash-stats --local`, and `ADMIN_TOKEN=…` in `apps/party/.dev.vars`.
 
+## Neuigkeiten (release notes)
+
+- Data: `apps/web/src/content/changelog.ts` (typed, newest first) – German, for players, fun and non-technical. Every PR that changes something visible adds or updates an entry (rule in `CLAUDE.md` and `apps/web/AGENTS.md`): new feature → minor, fixes only → patch.
+- Start page only (TV / host device): after the intro a popup „🎉 Juhu, neue Version!“ lists what's new since the last visit (max 3 versions, then „… und mehr“). The first visit shows nothing and just remembers the version (`localStorage`). ESC, a click outside or „Los geht's“ close it. Phones that join via QR code never see it.
+- Footer „v0.9 · Neuigkeiten“ and the page `/neuigkeiten` (timeline of all versions).
+
 ## Sound (host only)
 
 The TV/laptop plays music and effects; phones never do.

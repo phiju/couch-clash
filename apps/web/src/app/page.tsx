@@ -1,9 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { StageIntro } from "@/components/stage-intro";
 import { Button, ButtonLink } from "@/components/ui";
+import { VersionFooter, WhatsNew } from "@/components/whats-new";
 import { createRoom } from "@/lib/api";
 import { hostTokenStore } from "@/lib/storage";
 
@@ -11,6 +12,8 @@ export default function Home() {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [introDone, setIntroDone] = useState(false);
+  const onIntroDone = useCallback(() => setIntroDone(true), []);
 
   async function newGame() {
     setBusy(true);
@@ -28,7 +31,7 @@ export default function Home() {
   return (
     <main>
       <h1 className="sr-only">Couch Clash – die Partyspiel-Show fürs Wohnzimmer</h1>
-      <StageIntro>
+      <StageIntro onDone={onIntroDone}>
         <Button onClick={newGame} disabled={busy} className="px-10 text-2xl wide:min-w-72 wide:text-3xl">
           {busy ? "Moment…" : "Neues Spiel"}
         </Button>
@@ -36,6 +39,8 @@ export default function Home() {
           Beitreten
         </ButtonLink>
       </StageIntro>
+      <VersionFooter />
+      <WhatsNew ready={introDone} />
       {error && (
         <p className="fixed top-6 left-1/2 z-50 -translate-x-1/2 rounded-2xl bg-rust px-6 py-3 text-center text-lg font-bold">
           {error}
