@@ -42,7 +42,7 @@ export function createQuizModule(pool: readonly QuizQuestion[] = QUIZ_QUESTIONS_
     meta: quizMeta,
     answerSchema: z.number().int().min(0).max(3),
     pickQuestions: (ctx, options) =>
-      pickForRound(pool, QuizQuestionSchema, options, ctx.random).map((q) =>
+      pickForRound(pool, QuizQuestionSchema, options, ctx.random, quizMeta).map((q) =>
         prepareQuizQuestion(q, ctx.random),
       ),
     baseScoreInput: (question, answer) => ({ correct: answer === question.correctIndex }),

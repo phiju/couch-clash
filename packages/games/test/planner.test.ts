@@ -80,12 +80,12 @@ describe("planGame", () => {
 });
 
 describe("mode pools on the real content", () => {
-  it("kids: at least 20 questions for quiz and estimate; the round only picks eligible questions", async () => {
+  it("kids: enough questions for quiz and estimate; the round only picks eligible questions", async () => {
     const { GAME_MODULES } = await import("../src");
     const { modePoolSize } = await import("../src/content-pool");
     const kids = { mode: "kids", allow16: false, difficulty: "mixed" } as const;
-    expect(modePoolSize(GAME_MODULES.quiz.listContent!(), kids)).toBeGreaterThanOrEqual(20);
-    expect(modePoolSize(GAME_MODULES.estimate.listContent!(), kids)).toBeGreaterThanOrEqual(20);
+    expect(modePoolSize(GAME_MODULES.quiz.listContent!(), kids, GAME_MODULES.quiz.meta)).toBeGreaterThanOrEqual(200);
+    expect(modePoolSize(GAME_MODULES.estimate.listContent!(), kids, GAME_MODULES.estimate.meta)).toBeGreaterThanOrEqual(90);
     const init = GAME_MODULES.quiz.init(
       { now: 0, players: [{ id: "a", connected: true }], random: seeded(5) },
       { questionCount: 20, scoring: GAME_MODULES.quiz.meta.scoring, excludeContentIds: [], mode: kids },
@@ -95,6 +95,24 @@ describe("mode pools on the real content", () => {
       GAME_MODULES.quiz.listContent!().filter((e) => e.ageRating <= 6 && e.difficulty === 1).map((e) => e.id),
     );
     for (const id of ids) expect(eligible.has(id)).toBe(true);
+  });
+
+  it("kids estimate: difficulty up to 2 (kidsMaxDifficulty), quiz stays at 1", async () => {
+    const { GAME_MODULES } = await import("../src");
+    const kids = { mode: "kids", allow16: false, difficulty: "mixed" } as const;
+    expect(GAME_MODULES.estimate.meta.kidsMaxDifficulty).toBe(2);
+    expect(GAME_MODULES.quiz.meta.kidsMaxDifficulty ?? 1).toBe(1);
+    const init = GAME_MODULES.estimate.init(
+      { now: 0, players: [{ id: "a", connected: true }], random: seeded(7) },
+      { questionCount: 15, scoring: GAME_MODULES.estimate.meta.scoring, excludeContentIds: [], mode: kids },
+    );
+    const byId = new Map(GAME_MODULES.estimate.listContent!().map((e) => [e.id, e]));
+    const picked = (init.state as { questions: { id: string }[] }).questions.map((q) => byId.get(q.id)!);
+    expect(picked).toHaveLength(15);
+    for (const e of picked) {
+      expect(e.ageRating).toBeLessThanOrEqual(6);
+      expect(e.difficulty).toBeLessThanOrEqual(2);
+    }
   });
 
   it("difficulty mix 'hard' prefers hard questions", async () => {

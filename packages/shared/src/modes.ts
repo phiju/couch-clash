@@ -3,6 +3,7 @@
  * every category and sets the host voice's default "Frechheit".
  */
 import { z } from "zod";
+import type { CategoryMeta } from "./game-module";
 import type { Cheekiness } from "./voice";
 
 export const GAME_MODES = ["kids", "family", "party"] as const;
@@ -58,11 +59,14 @@ export function maxAgeRating(s: GameModeSettings): number {
   return 18;
 }
 
+/** The part of a category's meta the mode filter needs (kidsMaxDifficulty, default 1). */
+export type ModeFilterMeta = Pick<CategoryMeta, "id" | "kidsMaxDifficulty">;
+
 /** THE filter for every category's question pool. */
-export function eligibleForMode(item: ContentFlags, s: GameModeSettings): boolean {
+export function eligibleForMode(item: ContentFlags, s: GameModeSettings, meta?: ModeFilterMeta): boolean {
   switch (s.mode) {
     case "kids":
-      return item.ageRating <= 6 && item.difficulty === 1 && !item.alcohol && !item.adult;
+      return item.ageRating <= 6 && item.difficulty <= (meta?.kidsMaxDifficulty ?? 1) && !item.alcohol && !item.adult;
     case "family":
       return item.ageRating <= maxAgeRating(s) && !item.adult;
     case "party":
@@ -90,6 +94,6 @@ export function normalizeModeSettings(raw: unknown): GameModeSettings {
 }
 
 /** Which modes a content item can come up in (admin page). */
-export function modesFor(item: ContentFlags, allow16 = false): GameMode[] {
-  return GAME_MODES.filter((mode) => eligibleForMode(item, { mode, allow16, difficulty: "mixed" }));
+export function modesFor(item: ContentFlags, allow16 = false, meta?: ModeFilterMeta): GameMode[] {
+  return GAME_MODES.filter((mode) => eligibleForMode(item, { mode, allow16, difficulty: "mixed" }, meta));
 }

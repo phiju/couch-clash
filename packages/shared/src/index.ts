@@ -9,3 +9,4 @@ export * from "./photo";
 export * from "./voice";
 export * from "./admin";
 export * from "./modes";
+export * from "./knowledge-categories";

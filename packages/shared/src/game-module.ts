@@ -99,6 +99,8 @@ export interface CategoryMeta {
   minPlayers?: number;
   /** Game modes this category is offered in. */
   modes: readonly GameMode[];
+  /** Kids mode: highest question difficulty that is still child-friendly (default 1). */
+  kidsMaxDifficulty?: 1 | 2 | 3;
   /** Extra on/off settings the host may change for this category. */
   options?: readonly CategoryOption[];
 }

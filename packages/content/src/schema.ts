@@ -1,4 +1,4 @@
-import { AGE_RATINGS } from "@couch-clash/shared";
+import { AGE_RATINGS, KNOWLEDGE_CATEGORIES } from "@couch-clash/shared";
 import { z } from "zod";
 
 const base = {
@@ -13,9 +13,15 @@ const base = {
   adult: z.boolean().default(false),
 };
 
+/** Quiz + estimate: the question's topic (optional – AI-generated items may lack it). */
+const knowledge = {
+  primaryCategory: z.enum(KNOWLEDGE_CATEGORIES).optional(),
+};
+
 export const QuizQuestionSchema = z
   .object({
     ...base,
+    ...knowledge,
     options: z.tuple([z.string().min(1), z.string().min(1), z.string().min(1), z.string().min(1)]),
     correctIndex: z.number().int().min(0).max(3),
   })
@@ -24,6 +30,7 @@ export const QuizQuestionSchema = z
 export const EstimateQuestionSchema = z
   .object({
     ...base,
+    ...knowledge,
     answer: z.number().finite(),
     /** Shown after the number, e.g. "m", "km". Empty for years. */
     unit: z.string().max(20),

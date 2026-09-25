@@ -289,8 +289,8 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
    * party set (adult: true); the others – and all words in Familie – are family words.
    */
   function pickWords(options: ModuleInitOptions, random: () => number): BluffWord[] {
-    if (options.mode?.mode !== "party") return pickForRound(pool, BluffWordSchema, options, random);
-    const all = playablePool(pool, BluffWordSchema, options);
+    if (options.mode?.mode !== "party") return pickForRound(pool, BluffWordSchema, options, random, bluffMeta);
+    const all = playablePool(pool, BluffWordSchema, options, bluffMeta);
     const pick = (items: BluffWord[], n: number) =>
       pickFresh(items, n, options.excludeContentIds, random, (w) => difficultyWeight(w.difficulty, options.mode));
     const adult = all.filter((w) => w.adult);
