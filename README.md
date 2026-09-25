@@ -79,7 +79,7 @@ One global setting at the top of the host settings decides who is playing (defau
 
 ## Bluff-Lexikon
 
-A very rare, real German noun – mostly Latin/Greek terms from medicine, biology, law, architecture, linguistics, book arts, music, geology and astronomy (200 in `packages/content/data/bluff.de.json`, each with article; at most ~5 % of adults know them). The screen asks „Ein Borborygmus ist …?“ / „Vibrissen sind …?“. Per word:
+A very rare, real German noun – mostly Latin/Greek terms from medicine, biology, law, architecture, linguistics, book arts, music, geology and astronomy (`packages/content/data/bluff.de.json`, each with article; at most ~5 % of adults know them): 200 family words plus 60 Party words (`adult: true`, age 18 – body, love, excess, all real and checked by a second model). Bluff is played in Familie and Party only; in Party about a third of the words (every third position) come from the Party set. The screen asks „Ein Borborygmus ist …?“ / „Vibrissen sind …?“. Per word:
 
 1. **Write** (60 s): everyone invents a believable definition on the phone (max 80 characters).
 2. **Check** (invisible, max 6 s, strong model): the judge compares every definition with the real one and returns verdict, confidence and a short reason (logs only):
@@ -90,7 +90,16 @@ A very rare, real German noun – mostly Latin/Greek terms from medicine, biolog
 3. **Present:** options A, B, C, … – only polished texts (TV, phone, voice), all in the same style. The host reads them out.
 4. **Vote** (30 s), then **reveal** („Ein Borborygmus ist: …“). Host option (default off): show the authors' original texts („Philip schrieb: …“).
 
-Scoring (strategy `bluff`, no speed bonus): real definition found +100, +50 per player who fell for your definition, correct definition written +100. Needs at least 2 players.
+Scoring (strategy `bluff`, no speed bonus, all amounts editable in „Punkte-Einstellungen“):
+
+- real definition found: +100 (`find`),
+- fool bonus: `fool × pickers / eligibleVoters` (default fool 100) – eligible voters are all players except yourself who could vote; fooling everyone gives the full 100, 5 of 9 gives +56. Every author of a merged option gets the full bonus,
+- correct definition written („Gewusst!“): +100 (`know`) plus `fool × realPickers / eligibleVoters`,
+- at most 200 per word (`perQuestionCap`); with no eligible voters there is no bonus. The reveal shows „+56 (5 von 9 reingelegt)“ next to the authors and the „Gewusst“ players with their points on the real definition.
+
+Needs at least 2 players. The judge's „offensive“ rule depends on the mode (Party allows suggestive, never explicit or hateful).
+
+**Per-question cap:** every category has „Höchstens pro Frage“ (default 200) in the Punkte-Einstellungen; the room applies it once more to every score update as a safety net.
 
 ## Local development
 

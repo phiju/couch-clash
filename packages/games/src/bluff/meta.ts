@@ -13,11 +13,18 @@ export const bluffMeta = {
   questionsPerRound: { min: 3, default: 5, max: 10 },
   scoring: {
     mode: "bluff",
-    /** Points for voting for the real definition (the other amounts are shares of it). */
     maxPoints: 100,
     speedModifier: { enabled: false, fastestMultiplier: 1.5, slowestMultiplier: 0.5 },
+    /** find: real one found · know: wrote a correct definition · fool: fooling EVERYONE (scaled by the share). */
+    points: { find: 100, know: 100, fool: 100 },
+    perQuestionCap: 200,
   },
-  scoringFields: ["maxPoints"],
+  scoringPoints: [
+    { id: "find", label: "Echte Erklärung gefunden", default: 100 },
+    { id: "know", label: "Selbst richtig erklärt (Gewusst!)", default: 100 },
+    { id: "fool", label: "Alle reingelegt (anteilig)", default: 100 },
+  ],
+  scoringFields: ["points", "perQuestionCap"],
   /** Writing, check, reading, voting, reveal, leaderboard. */
   estimatedSecondsPerQuestion: 150,
   contentSource: "static",
@@ -28,14 +35,10 @@ export const bluffMeta = {
   options: [{ id: "showOriginals", label: "Originaltexte der Spieler bei der Auflösung zeigen", default: false }],
 } as const satisfies CategoryMeta;
 
-/** Timings and point shares (maxPoints = points for finding the real definition). */
+/** Timings (points: see scoring.points in bluffMeta). */
 export const BLUFF_CONFIG = {
   maxDefinitionLength: 80,
   voteSeconds: 30,
-  /** Per player who voted for your invented definition, as a share of maxPoints (100 → 50). */
-  perFooledShare: 0.5,
-  /** Writing an essentially correct definition ("Gewusst!"), as a share of maxPoints. */
-  knewItShare: 1,
   /** AI check of the definitions (strong model); without an answer in time a local check runs. */
   checkTimeoutMs: 6_000,
   /** The check step never takes longer than this (the room's alarm falls back). */

@@ -212,6 +212,7 @@ describe("normalizeRoomRecord (rooms saved by an older version)", () => {
       mode: "proximity",
       maxPoints: 100,
       speedModifier: { enabled: false, fastestMultiplier: 1.5, slowestMultiplier: 0.5 },
+      perQuestionCap: 200,
     });
   });
 });

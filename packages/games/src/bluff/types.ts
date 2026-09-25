@@ -15,6 +15,15 @@ export interface BluffResult extends ScoreResult {
   knewIt: boolean;
   /** Players who voted for this player's invented definition. */
   fooled: number;
+  /** Players who could vote in this word, without this player ("5 von 9 reingelegt"). */
+  eligibleVoters: number;
+  /** Knowers: players who picked the real definition. */
+  realPickers: number;
+  /** The single parts before the per-question cap. */
+  findPoints: number;
+  foolBonus: number;
+  knowPoints: number;
+  knowBonus: number;
 }
 
 export interface BluffRevealOption {
@@ -49,8 +58,8 @@ export interface BluffPublicState {
   canVote: boolean;
   votedPlayerIds: string[];
   myVote: number | null;
-  /** Points for finding the real definition (the other amounts are shares of it). */
-  maxPoints: number;
+  /** Point settings of this game (find / know / fool, cap). */
+  points: { find: number; know: number; fool: number; cap: number };
   /** Reading timing on the host when the voice is silent. */
   presentLeadMs: number;
   presentMsPerOption: number;

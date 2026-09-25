@@ -15,7 +15,7 @@ export const quizMeta = {
     maxPoints: 100,
     speedModifier: { enabled: true, fastestMultiplier: 1.5, slowestMultiplier: 0.5 },
   },
-  scoringFields: ["maxPoints", "speedModifier"],
+  scoringFields: ["maxPoints", "speedModifier", "perQuestionCap"],
   estimatedSecondsPerQuestion: 22,
   contentSource: "static",
   modes: ["kids", "family", "party"],

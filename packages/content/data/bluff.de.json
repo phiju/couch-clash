@@ -2413,5 +2413,846 @@
       "wissenschaft"
     ],
     "difficulty": 3
+  },
+  {
+    "id": "bluff-party-001",
+    "article": "die",
+    "word": "Philematologie",
+    "definition": "Die Wissenschaft vom Küssen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "liebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-002",
+    "article": "die",
+    "word": "Trichophilie",
+    "definition": "Eine erotische Vorliebe für Haare",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "vorliebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-003",
+    "article": "die",
+    "word": "Podophilie",
+    "definition": "Eine erotische Vorliebe für Füße",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "vorliebe"
+    ],
+    "difficulty": 2,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-004",
+    "article": "die",
+    "word": "Agalmatophilie",
+    "definition": "Die Liebe zu Statuen oder Puppen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "vorliebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-005",
+    "article": "der",
+    "word": "Pygmalionismus",
+    "definition": "Das Verlieben in eine selbst geschaffene Figur",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "liebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-006",
+    "article": "die",
+    "word": "Anaphrodisie",
+    "definition": "Fehlende sexuelle Lust",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "koerper"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-007",
+    "article": "die",
+    "word": "Satyriasis",
+    "definition": "Ein krankhaft gesteigerter Liebeshunger beim Mann",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "koerper"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-008",
+    "article": "die",
+    "word": "Algolagnie",
+    "definition": "Lustempfinden durch Schmerz",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "vorliebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-009",
+    "article": "der",
+    "word": "Cicisbeo",
+    "definition": "Ein offizieller Begleiter und Verehrer einer verheirateten Dame",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-010",
+    "article": "das",
+    "word": "Levirat",
+    "definition": "Die Pflicht, die Witwe des verstorbenen Bruders zu heiraten",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-011",
+    "article": "die",
+    "word": "Couvade",
+    "definition": "Wenn der Vater die Wehen seiner Frau nachahmt",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-012",
+    "article": "die",
+    "word": "Hypergamie",
+    "definition": "Die Heirat in eine höhere Gesellschaftsschicht",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-013",
+    "article": "die",
+    "word": "Tumeszenz",
+    "definition": "Das Anschwellen von Körpergewebe, etwa bei Erregung",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "koerper"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-014",
+    "article": "die",
+    "word": "Mamille",
+    "definition": "Die Brustwarze",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "koerper"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-015",
+    "article": "die",
+    "word": "Nates",
+    "definition": "Die Gesäßbacken",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "koerper"
+    ],
+    "difficulty": 3,
+    "adult": true,
+    "plural": true
+  },
+  {
+    "id": "bluff-party-016",
+    "article": "die",
+    "word": "Kalokagathie",
+    "definition": "Das griechische Ideal von Schönheit und Tugend",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-017",
+    "article": "der",
+    "word": "Seladon",
+    "definition": "Ein schmachtender, schüchterner Liebhaber",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "liebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-018",
+    "article": "die",
+    "word": "Limerenz",
+    "definition": "Der Zustand schwärmerischen Verliebtseins",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "liebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-019",
+    "article": "die",
+    "word": "Philautie",
+    "definition": "Die Eigenliebe",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "liebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-020",
+    "article": "die",
+    "word": "Philogynie",
+    "definition": "Die Liebe zu Frauen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "liebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-021",
+    "article": "die",
+    "word": "Misogamie",
+    "definition": "Die Abneigung gegen die Ehe",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-022",
+    "article": "die",
+    "word": "Protandrie",
+    "definition": "Wenn ein Zwitter erst männlich und später weiblich ist",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "biologie"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-023",
+    "article": "der",
+    "word": "Lek",
+    "definition": "Ein Balzplatz, auf dem Männchen um Weibchen werben",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "biologie"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-024",
+    "article": "der",
+    "word": "Amplexus",
+    "definition": "Die Umklammerung bei der Paarung von Fröschen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "biologie"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-025",
+    "article": "die",
+    "word": "Spermatophore",
+    "definition": "Ein Samenpäckchen, das manche Tiere bei der Paarung übergeben",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "biologie"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-026",
+    "article": "die",
+    "word": "Erythrophobie",
+    "definition": "Die Angst vor dem Erröten",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "phobie"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-027",
+    "article": "der",
+    "word": "Candaulismus",
+    "definition": "Die Lust, den eigenen Partner anderen nackt zu zeigen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "vorliebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-028",
+    "article": "die",
+    "word": "Philokalie",
+    "definition": "Die Liebe zum Schönen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "liebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-029",
+    "article": "das",
+    "word": "Epithalamium",
+    "definition": "Ein Hochzeitslied, ein Brautgedicht",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-030",
+    "article": "das",
+    "word": "Konnubium",
+    "definition": "Das Recht, eine gültige Ehe zu schließen, im alten Rom",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-031",
+    "article": "die",
+    "word": "Galaktorrhö",
+    "definition": "Ein Milchfluss aus der Brust außerhalb der Stillzeit",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "koerper"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-032",
+    "article": "die",
+    "word": "Hypertrichose",
+    "definition": "Eine übermäßig starke Körperbehaarung",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "koerper"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-033",
+    "article": "die",
+    "word": "Bromhidrose",
+    "definition": "Übelriechender Schweiß",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "koerper"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-034",
+    "article": "das",
+    "word": "Diastema",
+    "definition": "Eine Lücke zwischen den oberen Schneidezähnen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "koerper"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-035",
+    "article": "die",
+    "word": "Makromastie",
+    "definition": "Eine besonders große weibliche Brust",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "koerper"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-036",
+    "article": "die",
+    "word": "Rhytidektomie",
+    "definition": "Ein Facelifting, das Straffen der Gesichtshaut",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "koerper"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-037",
+    "article": "die",
+    "word": "Blepharoplastik",
+    "definition": "Eine operative Lidstraffung",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "koerper"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-038",
+    "article": "die",
+    "word": "Josefsehe",
+    "definition": "Eine Ehe ohne körperliche Liebe",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-039",
+    "article": "das",
+    "word": "Charivari",
+    "definition": "Lärmender Spott vor dem Haus eines ungleichen Brautpaars",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-040",
+    "article": "das",
+    "word": "Wittum",
+    "definition": "Das Vermögen, das eine Witwe zur Versorgung erhält",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-041",
+    "article": "das",
+    "word": "Hypokoristikum",
+    "definition": "Ein Kosename",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "liebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-042",
+    "article": "die",
+    "word": "Anakreontik",
+    "definition": "Heitere Dichtung über Liebe, Wein und Lebensfreude",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "liebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-043",
+    "article": "die",
+    "word": "Pastourelle",
+    "definition": "Ein Lied, in dem ein Ritter eine Schäferin umwirbt",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "liebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-044",
+    "article": "die",
+    "word": "Alba",
+    "definition": "Ein Tagelied: Liebende trennen sich im Morgengrauen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "liebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-045",
+    "article": "die",
+    "word": "Aubade",
+    "definition": "Ein Morgenständchen für die Geliebte",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "liebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-046",
+    "article": "die",
+    "word": "Syngamie",
+    "definition": "Die Verschmelzung zweier Geschlechtszellen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "biologie"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-047",
+    "article": "die",
+    "word": "Kleistogamie",
+    "definition": "Die Selbstbestäubung in geschlossen bleibenden Blüten",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "biologie"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-048",
+    "article": "die",
+    "word": "Xenogamie",
+    "definition": "Die Fremdbestäubung zwischen zwei Pflanzen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "biologie"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-049",
+    "article": "die",
+    "word": "Ranz",
+    "definition": "Die Paarungszeit von Fuchs, Marder und Dachs",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "biologie"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-050",
+    "article": "der",
+    "word": "Hektokotylus",
+    "definition": "Ein Arm, mit dem männliche Tintenfische Samen übertragen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "biologie"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-051",
+    "article": "die",
+    "word": "Kokotte",
+    "definition": "Eine elegante Halbweltdame",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-052",
+    "article": "die",
+    "word": "Grisette",
+    "definition": "Eine junge Pariser Näherin mit lockerem Liebesleben",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-053",
+    "article": "die",
+    "word": "Mänade",
+    "definition": "Eine rasende, ekstatische Begleiterin des Dionysos",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-054",
+    "article": "die",
+    "word": "Hierogamie",
+    "definition": "Die heilige Hochzeit zwischen zwei Gottheiten",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-055",
+    "article": "die",
+    "word": "Konkupiszenz",
+    "definition": "Die sinnliche Begierde",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "liebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-056",
+    "article": "die",
+    "word": "Kurtoisie",
+    "definition": "Ritterlich-höfliches, galantes Benehmen",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "liebe"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-057",
+    "article": "das",
+    "word": "Kamisol",
+    "definition": "Ein kurzes, ärmelloses Leibchen, ein Mieder",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "koerper"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-058",
+    "article": "die",
+    "word": "Mouche",
+    "definition": "Ein aufgeklebtes Schönheitspflästerchen im Gesicht",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "koerper"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-059",
+    "article": "der",
+    "word": "Roué",
+    "definition": "Ein vornehmer Lebemann und Verführer",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
+  },
+  {
+    "id": "bluff-party-060",
+    "article": "das",
+    "word": "Sororat",
+    "definition": "Die Heirat mit der Schwester der verstorbenen Ehefrau",
+    "ageRating": 18,
+    "tags": [
+      "sprache",
+      "party",
+      "sitten"
+    ],
+    "difficulty": 3,
+    "adult": true
   }
 ]

@@ -10,6 +10,7 @@ import {
   planGame,
 } from "@couch-clash/games/meta";
 import {
+  DEFAULT_PER_QUESTION_CAP,
   estimateGameSeconds,
   formatDuration,
   type CategoryMeta,
@@ -439,6 +440,23 @@ const MAX_POINTS_LABEL: Record<ScoringSettings["mode"], string> = {
   bluff: "Punkte für die echte Erklärung",
 };
 
+function PointsInput({ label, value, onChange }: { label: string; value: number; onChange: (value: number) => void }) {
+  return (
+    <label className="flex items-center justify-between gap-4">
+      <span>{label}</span>
+      <input
+        type="number"
+        min={0}
+        max={10000}
+        step={10}
+        value={value}
+        onChange={(e) => onChange(clamp(Math.round(Number(e.target.value) || 0), 0, 10000))}
+        className="w-24 rounded-xl bg-cream px-3 py-1 text-right font-bold text-brown"
+      />
+    </label>
+  );
+}
+
 function ScoringEditor({
   meta,
   scoring,
@@ -457,24 +475,23 @@ function ScoringEditor({
   const multiplier = (v: string) => Math.round(clamp(Number(v) || 0, 0, 5) * 100) / 100;
   const max = Math.round(scoring.maxPoints * (speed.enabled ? speed.fastestMultiplier : 1));
   const bluff = scoring.mode === "bluff";
+  const cap = scoring.perQuestionCap ?? DEFAULT_PER_QUESTION_CAP;
   return (
     <details className="rounded-2xl bg-petrol-dark/60 p-3">
       <summary className="cursor-pointer text-base font-bold text-cream/80">Punkte-Einstellungen</summary>
       <div className="mt-3 grid gap-3 text-base">
         {fields.has("maxPoints") && (
-          <label className="flex items-center justify-between gap-4">
-            <span>{MAX_POINTS_LABEL[scoring.mode]}</span>
-            <input
-              type="number"
-              min={0}
-              max={10000}
-              step={10}
-              value={scoring.maxPoints}
-              onChange={(e) => onChange({ maxPoints: clamp(Math.round(Number(e.target.value) || 0), 0, 10000) })}
-              className="w-24 rounded-xl bg-cream px-3 py-1 text-right font-bold text-brown"
-            />
-          </label>
+          <PointsInput label={MAX_POINTS_LABEL[scoring.mode]} value={scoring.maxPoints} onChange={(maxPoints) => onChange({ maxPoints })} />
         )}
+        {fields.has("points") &&
+          (meta.scoringPoints ?? []).map((p) => (
+            <PointsInput
+              key={p.id}
+              label={p.label}
+              value={scoring.points?.[p.id] ?? p.default}
+              onChange={(value) => onChange({ points: { ...scoring.points, [p.id]: value } })}
+            />
+          ))}
         {fields.has("speedModifier") && (
           <>
             <label className="flex items-center justify-between gap-4">
@@ -516,12 +533,15 @@ function ScoringEditor({
             )}
           </>
         )}
+        {fields.has("perQuestionCap") && (
+          <PointsInput label="Höchstens pro Frage" value={cap} onChange={(perQuestionCap) => onChange({ perQuestionCap })} />
+        )}
         {bluff ? (
           <p className="text-sm text-cream/70">
-            Pro reingelegtem Mitspieler {Math.round(scoring.maxPoints / 2)} Punkte, eigene richtige Erklärung {scoring.maxPoints} Punkte.
+            Wer alle anderen reinlegt, bekommt den vollen Bonus – sonst anteilig. Höchstens {cap} Punkte pro Wort.
           </p>
         ) : (
-          <p className="text-sm text-cream/70">Höchstens {max} Punkte pro Frage.</p>
+          <p className="text-sm text-cream/70">Höchstens {Math.min(max, cap)} Punkte pro Frage.</p>
         )}
         <button type="button" onClick={onReset} className="self-start text-sm text-cream/60 underline">
           Standard wiederherstellen

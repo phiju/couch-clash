@@ -1,7 +1,7 @@
 import type { BluffWord } from "@couch-clash/content";
 import type { ModuleContext, ModulePlayer, ScoringSettings } from "@couch-clash/shared";
 import { describe, expect, it } from "vitest";
-import { calculateBaseScore } from "../src/scoring";
+import { calculateBaseScore, scoreAnswer } from "../src/scoring";
 import { bluffMeta, BLUFF_CONFIG } from "../src/bluff/meta";
 import { cleanDefinition, createBluffModule, type BluffState } from "../src/bluff/module";
 import type { BluffAction } from "../src/bluff/types";
@@ -63,14 +63,32 @@ const optionOf = (s: BluffState, author: string) => s.options!.findIndex((o) => 
 const correctOf = (s: BluffState) => s.options!.findIndex((o) => o.correct);
 
 describe("bluff scoring strategy", () => {
-  it("adds up: right vote, fooled players, correct definition – not capped", () => {
-    expect(calculateBaseScore("bluff", { votedCorrect: true, knewIt: false, fooled: 0 }, 100)).toBe(100);
-    expect(calculateBaseScore("bluff", { votedCorrect: false, knewIt: false, fooled: 3 }, 100)).toBe(150);
-    expect(calculateBaseScore("bluff", { votedCorrect: true, knewIt: false, fooled: 2 }, 100)).toBe(200);
-    expect(calculateBaseScore("bluff", { votedCorrect: false, knewIt: true, fooled: 0 }, 100)).toBe(100);
-    expect(calculateBaseScore("bluff", { votedCorrect: false, knewIt: false, fooled: 0 }, 100)).toBe(0);
-    // Configurable via maxPoints and shares.
-    expect(calculateBaseScore("bluff", { votedCorrect: true, knewIt: false, fooled: 1, perFooledShare: 1 }, 200)).toBe(400);
+  const points = { find: 100, know: 100, fool: 100 };
+  const base = { found: false, knew: false, pickers: 0, realPickers: 0, eligibleVoters: 3, points };
+  const score = (over: Partial<typeof base>) => calculateBaseScore("bluff", { ...base, ...over }, 100);
+
+  it("the fooling bonus scales with the share of players fooled (the spec examples)", () => {
+    // 4 players, Philip's bluff fools 2 of the 3 others → +67
+    expect(score({ pickers: 2, eligibleVoters: 3 })).toBe(67);
+    // 10 players, fools 5 of 9 → +56 (instead of +250)
+    expect(score({ pickers: 5, eligibleVoters: 9 })).toBe(56);
+    // found the real one AND fooled all others → 100 + 100
+    expect(score({ found: true, pickers: 3 })).toBe(200);
+    // knew it, 3 of 3 voters pick the real one → 100 + 100; 1 of 3 → 100 + 33
+    expect(score({ knew: true, realPickers: 3 })).toBe(200);
+    expect(score({ knew: true, realPickers: 1 })).toBe(133);
+  });
+
+  it("nobody else could vote → no bonus, no division by zero", () => {
+    expect(score({ pickers: 0, eligibleVoters: 0 })).toBe(0);
+    expect(score({ knew: true, realPickers: 0, eligibleVoters: 0 })).toBe(100);
+  });
+
+  it("the per-question cap (default 200) is applied on top, also with bigger amounts", () => {
+    const scoring = { ...bluffMeta.scoring, points: { find: 100, know: 100, fool: 150 } };
+    const r = scoreAnswer(scoring, { ...base, found: true, pickers: 3, points: scoring.points }, { responseTimeMs: 0, timeLimitMs: 1 });
+    expect(r.baseScore).toBe(250);
+    expect(r.finalScore).toBe(200);
   });
 
   it("meta: speed modifier off, 2+ players, registered", () => {
@@ -117,7 +135,7 @@ describe("bluff flow", () => {
     expect(t.state).toMatchObject({ step: "write", index: 1, submissions: {}, votes: {}, options: null });
   });
 
-  it("merged definitions: every author gets +50 per vote", () => {
+  it("merged definitions: every author gets the full scaled bonus", () => {
     const t = setup(["a", "b", "c", "d"]);
     t.act("a", { type: "define", text: "Halsband für Hunde" });
     t.act("b", { type: "define", text: "Halsband fuer Hunde" });
@@ -135,9 +153,11 @@ describe("bluff flow", () => {
     t.act("a", { type: "vote", option: correctOf(t.state) });
     t.act("b", { type: "vote", option: optionOf(t.state, "c") });
     expect(t.state.step).toBe("reveal");
-    expect(t.state.results!.a!.finalScore).toBe(100 + 2 * 50);
-    expect(t.state.results!.b!.finalScore).toBe(2 * 50);
-    expect(t.state.results!.c!.finalScore).toBe(50); // fooled b
+    // 4 voters → 3 others per author; c and d fell for the merged option.
+    expect(t.state.results!.a!.finalScore).toBe(100 + 67);
+    expect(t.state.results!.b!.finalScore).toBe(67);
+    expect(t.state.results!.a).toMatchObject({ fooled: 2, eligibleVoters: 3, foolBonus: 67 });
+    expect(t.state.results!.c!.finalScore).toBe(33); // fooled b: 1 of 3
     expect(t.state.results!.d!.finalScore).toBe(0);
   });
 
@@ -156,8 +176,10 @@ describe("bluff flow", () => {
     t.act("b", { type: "vote", option: correctOf(t.state) });
     t.act("c", { type: "vote", option: optionOf(t.state, "b") }); // a doesn't block the early end
     expect(t.state.step).toBe("reveal");
-    expect(t.state.results!.a).toMatchObject({ knewIt: true, finalScore: 100 });
-    expect(t.state.results!.b!.finalScore).toBe(150);
+    // a knew it: 100 + 1 of 2 voters picked the real one → +50
+    expect(t.state.results!.a).toMatchObject({ knewIt: true, finalScore: 150, knowPoints: 100, knowBonus: 50, realPickers: 1 });
+    // b found it (100) and fooled c, the only other voter (+100)
+    expect(t.state.results!.b!.finalScore).toBe(200);
   });
 
   it("offensive submissions are not shown and earn nothing; typos fixed", () => {

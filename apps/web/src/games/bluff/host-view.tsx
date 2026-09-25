@@ -7,7 +7,7 @@ import { useHostSpeech } from "@/components/host/voice";
 import { useServerNow } from "@/lib/clock";
 import { AnsweredStrip, Countdown, QuestionLeaderboard } from "../question-round/components";
 import type { HostViewProps } from "../types";
-import { presentHighlight } from "./logic";
+import { foolText, presentHighlight } from "./logic";
 
 function WordCounter({ state }: { state: BluffPublicState }) {
   return (
@@ -119,7 +119,26 @@ function Options({ state, room }: { state: BluffPublicState; room: PublicRoomSta
               {r && (
                 <div className="flex flex-wrap items-center gap-x-[1.2vw] gap-y-[0.6vh] pl-[calc(clamp(2.2rem,5.5vh,4rem)+1vw)]">
                   {r.authors.length > 0 && (
-                    <Authors players={people(r.authors)} delay={i * 350} originals={reveal?.originals ?? null} />
+                    <Authors
+                      players={people(r.authors)}
+                      delay={i * 350}
+                      originals={reveal?.originals ?? null}
+                      bonus={r.voters.length > 0 && reveal?.results[r.authors[0]!] ? foolText(reveal.results[r.authors[0]!]!) : null}
+                    />
+                  )}
+                  {isReal && solution && reveal && reveal.knewItPlayerIds.length > 0 && (
+                    <span className="fs-md flex flex-wrap items-center gap-2 font-bold">
+                      🧠 Gewusst:
+                      {people(reveal.knewItPlayerIds).map((p) => {
+                        const res = reveal.results[p.id];
+                        return (
+                          <span key={p.id} className="flex items-center gap-1 rounded-full bg-brown/80 px-2 py-0.5 text-bulb">
+                            <AvatarBadge avatar={p.avatar} size="xs" />
+                            {p.name} {res ? `+${res.finalScore}` : ""}
+                          </span>
+                        );
+                      })}
+                    </span>
                   )}
                   {r.voters.length > 0 && <Voters players={people(r.voters)} delay={600 + i * 350} fooled={!isReal} />}
                 </div>
@@ -128,11 +147,6 @@ function Options({ state, room }: { state: BluffPublicState; room: PublicRoomSta
           );
         })}
       </ul>
-      {solution && reveal && reveal.knewItPlayerIds.length > 0 && (
-        <p className="fs-lg shrink-0 animate-pop text-center font-bold">
-          🧠 Gewusst: {people(reveal.knewItPlayerIds).map((p) => p.name).join(", ")}
-        </p>
-      )}
     </div>
   );
 }
@@ -141,9 +155,12 @@ function Authors({
   players,
   delay,
   originals,
+  bonus,
 }: {
   players: PublicPlayer[];
   delay: number;
+  /** "+56 (5 von 9 reingelegt)" – every author of a merged option gets it. */
+  bonus: string | null;
   /** Host option: what the authors really wrote (before polishing). */
   originals: Record<string, string> | null;
 }) {
@@ -160,6 +177,7 @@ function Authors({
             {p.name}
           </span>
         ))}
+        {bonus && <span className="text-bulb">{bonus}</span>}
       </span>
       {originals &&
         players.map((p) =>

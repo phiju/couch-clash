@@ -51,16 +51,30 @@ export const DEFAULT_SPEED_MODIFIER: SpeedModifierSettings = {
   slowestMultiplier: 0.5,
 };
 
+/** No player gets more than this per question, in any category (balance). */
+export const DEFAULT_PER_QUESTION_CAP = 200;
+
 export const ScoringSettingsSchema = z.object({
   /** How answer quality becomes the base score (fixed per category). */
   mode: z.enum(BASE_SCORE_MODES),
   /** Base score for a perfect answer. */
   maxPoints: z.number().int().min(0).max(10_000),
   speedModifier: SpeedModifierSettingsSchema,
+  /** Category-specific amounts (CategoryMeta.scoringPoints), e.g. Bluff: find / know / fool. */
+  points: z.record(z.string().max(20), z.number().int().min(0).max(10_000)).optional(),
+  /** Maximum points per player per question (default 200). */
+  perQuestionCap: z.number().int().min(0).max(10_000).optional(),
 });
 export type ScoringSettings = z.infer<typeof ScoringSettingsSchema>;
 /** Settings the host may edit (the mode is part of the category). */
-export type ScoringField = "maxPoints" | "speedModifier";
+export type ScoringField = "maxPoints" | "speedModifier" | "points" | "perQuestionCap";
+
+/** One category-specific amount the host may set ("Punkte-Einstellungen"). */
+export interface ScoringPoint {
+  id: string;
+  label: string;
+  default: number;
+}
 
 export interface CategoryMeta {
   id: string;
@@ -74,6 +88,8 @@ export interface CategoryMeta {
   questionsPerRound: { min: number; default: number; max: number };
   /** Default scoring settings. */
   scoring: ScoringSettings;
+  /** Category-specific amounts in `scoring.points` (labels for the host). */
+  scoringPoints?: readonly ScoringPoint[];
   /** Which scoring settings the host may edit for this category. */
   scoringFields: ScoringField[];
   /** Average seconds per question incl. reveal – for the duration estimate. */

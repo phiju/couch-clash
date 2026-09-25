@@ -25,20 +25,26 @@ export interface ProximityInput {
 }
 
 /**
- * Bluff: points for finding the real definition and for fooling others.
- *   base = maxPoints × (votedCorrect + knewIt) + round(maxPoints × perFooledShare) × fooled
- * (defaults: 100 for the right vote, 100 for writing a correct definition, 50 per fooled player)
+ * Bluff: points for finding the real definition and for fooling others –
+ * the fooling bonus scales with the share of players fooled, so it doesn't
+ * grow with the number of players:
+ *   found the real one:  + find
+ *   your bluff:          + fool × pickers / eligibleVoters
+ *   you knew it:         + know + fool × realPickers / eligibleVoters
+ * (defaults 100 each; the per-question cap of 200 is applied afterwards)
  */
 export interface BluffInput {
-  votedCorrect: boolean;
+  /** Voted for the real definition. */
+  found: boolean;
   /** Wrote an essentially correct definition ("Gewusst!"). */
-  knewIt: boolean;
-  /** Players who voted for this player's invented definition. */
-  fooled: number;
-  /** Share of maxPoints per fooled player (default 0.5). */
-  perFooledShare?: number;
-  /** Share of maxPoints for "Gewusst!" (default 1). */
-  knewItShare?: number;
+  knew: boolean;
+  /** Players who picked this player's invented definition. */
+  pickers: number;
+  /** Players who picked the real definition (the knowers' bonus). */
+  realPickers: number;
+  /** Players allowed to vote in this word, without this player. */
+  eligibleVoters: number;
+  points: { find: number; know: number; fool: number };
 }
 
 export interface BaseScoreInputs {
@@ -64,10 +70,14 @@ export const BASE_SCORE_STRATEGIES: { [M in BaseScoreMode]: Strategy<BaseScoreIn
     return maxPoints * Math.max(0, 1 - error / range);
   },
 
-  bluff: ({ votedCorrect, knewIt, fooled, perFooledShare = 0.5, knewItShare = 1 }, maxPoints) =>
-    (votedCorrect ? maxPoints : 0) +
-    (knewIt ? Math.round(maxPoints * knewItShare) : 0) +
-    Math.round(maxPoints * perFooledShare) * Math.max(0, Math.floor(fooled)),
+  bluff: ({ found, knew, pickers, realPickers, eligibleVoters, points }) => {
+    const share = (n: number) => (eligibleVoters > 0 ? Math.max(0, Math.min(n, eligibleVoters)) / eligibleVoters : 0);
+    return (
+      (found ? points.find : 0) +
+      Math.round(points.fool * share(pickers)) +
+      (knew ? points.know + Math.round(points.fool * share(realPickers)) : 0)
+    );
+  },
 };
 
 /** Modes whose base score may exceed maxPoints (points add up from several parts). */

@@ -22,12 +22,27 @@ export function presentHighlight(
   return Math.min(state.options.length - 1, Math.floor(elapsed / state.presentMsPerOption));
 }
 
-/** "Richtig getippt +100 · 2 reingelegt +100 · Gewusst! +100" */
-export function resultParts(r: BluffResult, maxPoints: number, perFooledShare: number): string[] {
+/** "+56 (5 von 9 reingelegt)" */
+export function foolText(r: Pick<BluffResult, "foolBonus" | "fooled" | "eligibleVoters">): string {
+  return `+${r.foolBonus} (${r.fooled} von ${r.eligibleVoters} reingelegt)`;
+}
+
+/** Knowers: "+33 (1 von 3 fanden die echte)" */
+export function knowText(r: Pick<BluffResult, "knowBonus" | "realPickers" | "eligibleVoters">): string {
+  return `+${r.knowBonus} (${r.realPickers} von ${r.eligibleVoters} fanden die echte)`;
+}
+
+/** "Richtig getippt +100 · +56 (5 von 9 reingelegt) · Gewusst! +100 · …" – and a note when capped. */
+export function resultParts(r: BluffResult): string[] {
   const parts: string[] = [];
-  if (r.knewIt) parts.push(`Gewusst! +${maxPoints}`);
-  if (r.votedCorrect) parts.push(`Richtig getippt +${maxPoints}`);
-  if (r.fooled > 0) parts.push(`${r.fooled} reingelegt +${r.fooled * Math.round(maxPoints * perFooledShare)}`);
+  if (r.knewIt) {
+    parts.push(`Gewusst! +${r.knowPoints}`);
+    if (r.eligibleVoters > 0) parts.push(knowText(r));
+  }
+  if (r.votedCorrect) parts.push(`Richtig getippt +${r.findPoints}`);
+  if (r.fooled > 0) parts.push(foolText(r));
+  const sum = r.findPoints + r.foolBonus + r.knowPoints + r.knowBonus;
+  if (sum > r.finalScore) parts.push(`Höchstens ${r.finalScore} pro Wort`);
   return parts;
 }
 

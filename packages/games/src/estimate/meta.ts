@@ -15,7 +15,7 @@ export const estimateMeta = {
     maxPoints: 100,
     speedModifier: { enabled: false, fastestMultiplier: 1.5, slowestMultiplier: 0.5 },
   },
-  scoringFields: ["maxPoints", "speedModifier"],
+  scoringFields: ["maxPoints", "speedModifier", "perQuestionCap"],
   estimatedSecondsPerQuestion: 32,
   contentSource: "static",
   modes: ["kids", "family", "party"],

@@ -1,4 +1,4 @@
-import type { ScoringSettings } from "@couch-clash/shared";
+import { DEFAULT_PER_QUESTION_CAP, type ScoringSettings } from "@couch-clash/shared";
 import { calculateBaseScore, type BaseScoreInputs } from "./base";
 import { calculateSpeedModifier } from "./speed";
 
@@ -28,5 +28,10 @@ export function scoreAnswer<M extends ScoringSettings["mode"]>(
 ): ScoreResult {
   const baseScore = calculateBaseScore(scoring.mode, input, scoring.maxPoints);
   const speedModifier = calculateSpeedModifier(timing.responseTimeMs, timing.timeLimitMs, scoring.speedModifier);
-  return { baseScore, speedModifier, finalScore: calculateFinalScore(baseScore, speedModifier) };
+  return { baseScore, speedModifier, finalScore: capPerQuestion(calculateFinalScore(baseScore, speedModifier), scoring) };
+}
+
+/** The global per-question cap (default 200), applied after every category's own scoring. */
+export function capPerQuestion(points: number, scoring: Pick<ScoringSettings, "perQuestionCap">): number {
+  return Math.min(points, scoring.perQuestionCap ?? DEFAULT_PER_QUESTION_CAP);
 }

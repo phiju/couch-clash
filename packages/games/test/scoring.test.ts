@@ -158,15 +158,15 @@ describe("final score", () => {
 describe("normalizeScoring (old or invalid settings)", () => {
   it("old shapes fall back to the category defaults", () => {
     const old = { basePoints: 200, speedBonus: true, minPercent: 10, estimateScale: "rank" };
-    expect(normalizeScoring(estimateMeta, old)).toEqual(estimateMeta.scoring);
-    expect(normalizeScoring(quizMeta, undefined)).toEqual(quizMeta.scoring);
+    expect(normalizeScoring(estimateMeta, old)).toEqual({ ...estimateMeta.scoring, perQuestionCap: 200 });
+    expect(normalizeScoring(quizMeta, undefined)).toEqual({ ...quizMeta.scoring, perQuestionCap: 200 });
     expect(normalizeScoring(quizMeta, { mode: "absolute", maxPoints: -5, speedModifier: SPEED_ON })).toEqual(
-      quizMeta.scoring,
+      { ...quizMeta.scoring, perQuestionCap: 200 },
     );
   });
 
   it("keeps valid host edits but never changes the category's mode", () => {
     const s = normalizeScoring(quizMeta, { mode: "proximity", maxPoints: 250, speedModifier: SPEED_OFF });
-    expect(s).toEqual({ mode: "absolute", maxPoints: 250, speedModifier: SPEED_OFF });
+    expect(s).toEqual({ mode: "absolute", maxPoints: 250, speedModifier: SPEED_OFF, perQuestionCap: 200 });
   });
 });
