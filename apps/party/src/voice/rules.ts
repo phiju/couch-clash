@@ -157,6 +157,7 @@ export function commentPlayers(
         rankBefore: entry.rankBefore,
         rankAfter: entry.rankAfter,
         streak: streaks[p.id] ?? 0,
+        ...(a?.note ? { note: a.note } : {}),
       },
     ];
   });

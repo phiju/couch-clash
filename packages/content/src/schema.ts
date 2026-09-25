@@ -45,3 +45,18 @@ export const EstimateQuestionSchema = z
 
 export type QuizQuestion = z.infer<typeof QuizQuestionSchema>;
 export type EstimateQuestion = z.infer<typeof EstimateQuestionSchema>;
+
+/** Bluff-Lexikon: a real, very rare German word and its dictionary meaning. */
+export const BluffWordSchema = z.object({
+  id: z.string().regex(/^[a-z0-9-]+$/),
+  word: z.string().min(2).max(40),
+  /** Short, written like a dictionary entry. */
+  definition: z.string().min(3).max(80),
+  ageRating: z.union(AGE_RATINGS.map((a) => z.literal(a))),
+  tags: z.array(z.string().min(1)).min(1),
+  difficulty: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+  /** Where the meaning was checked / what kind of word (e.g. "regional, bair."). */
+  sourceNote: z.string().max(120).optional(),
+});
+
+export type BluffWord = z.infer<typeof BluffWordSchema>;

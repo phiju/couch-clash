@@ -1,6 +1,6 @@
 "use client";
 
-import { CATEGORY_METAS, getCategoryMeta, normalizeScoring } from "@couch-clash/games/meta";
+import { CATEGORY_METAS, categoryAvailable, getCategoryMeta, normalizeScoring } from "@couch-clash/games/meta";
 import {
   estimateGameSeconds,
   formatDuration,
@@ -66,9 +66,12 @@ function initialSetup(server: GameRoundSettings[] | null): SetupState {
   return { order: [...serverIds, ...base.order.filter((id) => !serverIds.includes(id))], choices };
 }
 
-function toRounds(setup: SetupState): GameRoundSettings[] {
+function toRounds(setup: SetupState, playerCount: number): GameRoundSettings[] {
   return setup.order
-    .filter((id) => setup.choices[id]?.enabled)
+    .filter((id) => {
+      const meta = getCategoryMeta(id);
+      return setup.choices[id]?.enabled && !!meta && categoryAvailable(meta, playerCount);
+    })
     .map((id) => {
       const c = setup.choices[id]!;
       return { categoryId: id, questionCount: c.questionCount, scoring: c.scoring };
@@ -95,6 +98,7 @@ export function GameSettingsPanel({
   canSend,
   compact = false,
   startRef,
+  playerCount,
 }: {
   serverSettings: GameRoundSettings[] | null;
   send: (msg: ClientMessage) => void;
@@ -103,6 +107,8 @@ export function GameSettingsPanel({
   compact?: boolean;
   /** Set to a function that flushes pending changes and starts the game. */
   startRef: RefObject<(() => void) | null>;
+  /** Players in the room – categories with a minimum are hidden from the plan below it. */
+  playerCount: number;
 }) {
   const [setup, setSetup] = useState<SetupState>(() => initialSetup(serverSettings));
   const pending = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -112,28 +118,28 @@ export function GameSettingsPanel({
     if (!canSend) return;
     pending.current = setTimeout(() => {
       pending.current = null;
-      send({ type: "update_settings", rounds: toRounds(setup) });
+      send({ type: "update_settings", rounds: toRounds(setup, playerCount) });
     }, 250);
     return () => {
       if (pending.current) clearTimeout(pending.current);
       pending.current = null;
     };
-  }, [setup, send, canSend]);
+  }, [setup, send, canSend, playerCount]);
 
   useEffect(() => {
     startRef.current = () => {
       if (pending.current) clearTimeout(pending.current);
       pending.current = null;
       // Same socket, in order: the room has the latest settings before it starts.
-      send({ type: "update_settings", rounds: toRounds(setup) });
+      send({ type: "update_settings", rounds: toRounds(setup, playerCount) });
       send({ type: "start_game" });
     };
-  }, [setup, send, startRef]);
+  }, [setup, send, startRef, playerCount]);
 
-  const metas = setup.order
+  const metas: CategoryMeta[] = setup.order
     .map((id) => CATEGORY_METAS.find((m) => m.id === id))
     .filter((m): m is (typeof CATEGORY_METAS)[number] => !!m);
-  const selected = metas.filter((m) => setup.choices[m.id]?.enabled);
+  const selected = metas.filter((m) => setup.choices[m.id]?.enabled && categoryAvailable(m, playerCount));
   const seconds = estimateGameSeconds(
     selected.map((meta) => ({ meta, questionCount: setup.choices[meta.id]!.questionCount })),
   );
@@ -149,7 +155,11 @@ export function GameSettingsPanel({
   function randomize() {
     setSetup((s) => {
       const order = shuffled(s.order);
-      const pick = new Set(order.slice(0, 1 + Math.floor(Math.random() * order.length)));
+      const available = order.filter((id) => {
+        const meta = getCategoryMeta(id);
+        return !!meta && categoryAvailable(meta, playerCount);
+      });
+      const pick = new Set(available.slice(0, 1 + Math.floor(Math.random() * available.length)));
       const choices = Object.fromEntries(
         Object.entries(s.choices).map(([id, c]) => [id, { ...c, enabled: pick.has(id) }]),
       );
@@ -168,7 +178,8 @@ export function GameSettingsPanel({
 
       <ul className={`grid w-full ${compact ? "gap-[1.4vh]" : "gap-4 lg:grid-cols-2"}`}>
         {metas.map((meta) => {
-          const c = setup.choices[meta.id]!;
+          const available = categoryAvailable(meta, playerCount);
+          const c = { ...setup.choices[meta.id]!, enabled: setup.choices[meta.id]!.enabled && available };
           const position = selected.indexOf(meta);
           return (
             <li
@@ -183,6 +194,7 @@ export function GameSettingsPanel({
                   <input
                     type="checkbox"
                     checked={c.enabled}
+                    disabled={!available}
                     onChange={(e) => update(meta.id, { enabled: e.target.checked })}
                     className="size-[clamp(1.1rem,2.6vh,1.75rem)] shrink-0 accent-[var(--color-orange)]"
                     aria-label={meta.name}
@@ -205,6 +217,7 @@ export function GameSettingsPanel({
                   <input
                     type="checkbox"
                     checked={c.enabled}
+                    disabled={!available}
                     onChange={(e) => update(meta.id, { enabled: e.target.checked })}
                     className="mt-1.5 size-7 shrink-0 accent-[var(--color-orange)]"
                     aria-label={meta.name}
@@ -230,6 +243,11 @@ export function GameSettingsPanel({
                 </label>
               )}
 
+              {!available && (
+                <p className={`font-bold text-cream/80 ${compact ? "fs-sm" : "text-lg"}`}>
+                  👥 Erst ab {meta.minPlayers} Spielern spielbar
+                </p>
+              )}
               {c.enabled && (
                 <>
                   <label className="flex flex-col gap-1">
@@ -267,6 +285,12 @@ export function GameSettingsPanel({
   );
 }
 
+const MAX_POINTS_LABEL: Record<ScoringSettings["mode"], string> = {
+  absolute: "Punkte für eine richtige Antwort",
+  proximity: "Punkte für einen Volltreffer",
+  bluff: "Punkte für die echte Erklärung",
+};
+
 function ScoringEditor({
   meta,
   scoring,
@@ -284,13 +308,14 @@ function ScoringEditor({
     onChange({ speedModifier: { ...speed, ...patch } });
   const multiplier = (v: string) => Math.round(clamp(Number(v) || 0, 0, 5) * 100) / 100;
   const max = Math.round(scoring.maxPoints * (speed.enabled ? speed.fastestMultiplier : 1));
+  const bluff = scoring.mode === "bluff";
   return (
     <details className="rounded-2xl bg-petrol-dark/60 p-3">
       <summary className="cursor-pointer text-base font-bold text-cream/80">Punkte-Einstellungen</summary>
       <div className="mt-3 grid gap-3 text-base">
         {fields.has("maxPoints") && (
           <label className="flex items-center justify-between gap-4">
-            <span>{scoring.mode === "proximity" ? "Punkte für einen Volltreffer" : "Punkte für eine richtige Antwort"}</span>
+            <span>{MAX_POINTS_LABEL[scoring.mode]}</span>
             <input
               type="number"
               min={0}
@@ -343,7 +368,13 @@ function ScoringEditor({
             )}
           </>
         )}
-        <p className="text-sm text-cream/70">Höchstens {max} Punkte pro Frage.</p>
+        {bluff ? (
+          <p className="text-sm text-cream/70">
+            Pro reingelegtem Mitspieler {Math.round(scoring.maxPoints / 2)} Punkte, eigene richtige Erklärung {scoring.maxPoints} Punkte.
+          </p>
+        ) : (
+          <p className="text-sm text-cream/70">Höchstens {max} Punkte pro Frage.</p>
+        )}
         <button type="button" onClick={onReset} className="self-start text-sm text-cream/60 underline">
           Standard wiederherstellen
         </button>

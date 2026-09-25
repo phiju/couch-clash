@@ -16,13 +16,14 @@ import {
   type GameModule,
   type ModuleContext,
   type ModuleProgress,
+  type ModuleTask,
   type ModuleUpdate,
   type Phase,
   type PublicGameState,
   type SettingsSummary,
   type Viewer,
 } from "@couch-clash/shared";
-import { GAME_MODULES, getModule, normalizeScoring, type ModuleRegistry } from "@couch-clash/games";
+import { GAME_MODULES, categoryAvailable, getModule, normalizeScoring, type ModuleRegistry } from "@couch-clash/games";
 import { fail, ok, type Result } from "./result";
 import type { GameRecord, GameRound, RoomRecord } from "./room-logic";
 import type { ContentFilter } from "./stats/content-filter";
@@ -141,9 +142,15 @@ export function beginGame(room: RoomRecord, deps: FlowDeps): Result<RoomRecord> 
   const settings = sanitizeSettings(room.settings, registry);
   if (!settings.ok) return settings;
   if (settings.value.length === 0) return fail("INVALID_PLAN");
+  // Categories that need more players (e.g. bluffing) are skipped.
+  const rounds = settings.value.filter((r) => {
+    const meta = getModule(r.categoryId, registry)?.meta;
+    return !!meta && categoryAvailable(meta, room.players.length);
+  });
+  if (rounds.length === 0) return fail("NOT_ENOUGH_PLAYERS");
 
   const game: GameRecord = {
-    rounds: settings.value,
+    rounds,
     roundIndex: 0,
     moduleState: null,
     scores: Object.fromEntries(room.players.map((p) => [p.id, 0])),
@@ -218,6 +225,21 @@ export function handlePlayerAction(
   const result = module.handleAction(room.game.moduleState, parsed.data, playerId, moduleContext(room, deps));
   if ("error" in result) return fail(result.error);
   return ok(applyModuleUpdate(room, result, deps.now));
+}
+
+/** Server work the current module waits for (e.g. an AI check), or null. */
+export function pendingModuleTask(room: RoomRecord, registry: ModuleRegistry = GAME_MODULES): ModuleTask | null {
+  if (room.phase !== "play" || room.game?.moduleState == null) return null;
+  return currentModule(room, registry)?.pendingTask?.(room.game.moduleState) ?? null;
+}
+
+/** Result of a module task (null = timeout/failure). Null when the task is outdated. */
+export function resolveModuleTask(room: RoomRecord, taskId: string, result: unknown, deps: FlowDeps): RoomRecord | null {
+  const registry = deps.registry ?? GAME_MODULES;
+  if (room.phase !== "play" || room.game?.moduleState == null) return null;
+  const module = currentModule(room, registry);
+  const update = module?.resolveTask?.(room.game.moduleState, taskId, result, moduleContext(room, deps));
+  return update ? applyModuleUpdate(room, update, deps.now) : null;
 }
 
 /** Connection changes (disconnect, kick) may end a question early. Null = no change. */

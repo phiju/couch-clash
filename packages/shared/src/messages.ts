@@ -115,6 +115,7 @@ export const ERROR_CODES = [
   "PHOTO_NOT_READY",
   "PHOTO_UNAVAILABLE",
   "PHOTO_SAVED_GONE",
+  "OWN_ANSWER",
 ] as const;
 export type ErrorCode = (typeof ERROR_CODES)[number];
 
@@ -143,6 +144,7 @@ export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   PHOTO_NOT_READY: "Deine Figur ist noch nicht fertig.",
   PHOTO_UNAVAILABLE: "Die Foto-Verwandlung ist gerade nicht verfügbar.",
   PHOTO_SAVED_GONE: "Deine gespeicherte Figur gibt es nicht mehr. Mach einfach ein neues Selfie!",
+  OWN_ANSWER: "Für deine eigene Erklärung kannst du nicht stimmen.",
 };
 
 export type ServerMessage =

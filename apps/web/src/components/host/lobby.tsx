@@ -210,6 +210,7 @@ export function HostLobby({
                 send={send}
                 canSend={canSend}
                 startRef={startRef}
+                playerCount={room.players.length}
                 compact
               />
               <div className="mt-[1.4vh]">

@@ -32,7 +32,7 @@ export type ContentSource = "static" | "generated" | "ai" | "user";
  * - Speed modifier = optional multiplier measured against the question's
  *   time limit (see packages/games/src/scoring/speed.ts).
  */
-export const BASE_SCORE_MODES = ["absolute", "proximity"] as const;
+export const BASE_SCORE_MODES = ["absolute", "proximity", "bluff"] as const;
 export type BaseScoreMode = (typeof BASE_SCORE_MODES)[number];
 
 export const SpeedModifierSettingsSchema = z.object({
@@ -78,6 +78,8 @@ export interface CategoryMeta {
   /** Average seconds per question incl. reveal – for the duration estimate. */
   estimatedSecondsPerQuestion: number;
   contentSource: ContentSource;
+  /** Fewer players → the category cannot be selected (e.g. bluffing needs someone to fool). */
+  minPlayers?: number;
 }
 
 /** Who is looking at the state. Public state is built per viewer. */
@@ -148,6 +150,32 @@ export interface GameModule<TState = unknown, TAction = unknown, TPublic = unkno
   listContent?(extraContent?: readonly unknown[]): ContentEntry[];
   /** Validates one content item (AI-generated or edited in the admin page). Optional. */
   parseContent?(raw: unknown): { ok: true; value: unknown } | { ok: false; error: string };
+  /**
+   * Server work the module is waiting for (e.g. an AI check of the players'
+   * texts). The room runs it (at most once per id) and hands the result to
+   * resolveTask – null on timeout/failure. Optional.
+   */
+  pendingTask?(state: TState): ModuleTask | null;
+  /** Result of pendingTask. Return null if the task is outdated. */
+  resolveTask?(state: TState, taskId: string, result: unknown, ctx: ModuleContext): ModuleUpdate<TState> | null;
+  /** Texts the host reads out now, in order (e.g. the answer options). Optional. */
+  readAloud?(state: TState): ReadAloud | null;
+}
+
+/** Generic server tasks a module may request. */
+export type ModuleTask = {
+  /** Unique per state – the room runs each id once. */
+  id: string;
+  /** A JSON answer from the text model; the module builds the prompt and validates the reply. */
+  kind: "llm_json";
+  input: { system: string; user: string };
+  timeoutMs: number;
+};
+
+export interface ReadAloud {
+  /** Changes when there is something new to read. */
+  key: string;
+  items: { cue: string; text: string }[];
 }
 
 /** Numbers for one played question – never names or answers. */
@@ -196,6 +224,8 @@ export interface RevealFacts {
   correctAnswer: string;
   /** Per player id; players without an answer are missing. */
   answers: Record<string, RevealedAnswer>;
+  /** Extra hints for the commentary (no names – those come from `note`). */
+  highlights?: string[];
 }
 
 export interface RevealedAnswer {
@@ -206,4 +236,6 @@ export interface RevealedAnswer {
   accuracy: number;
   points: number;
   responseMs: number;
+  /** Extra fact about this player, e.g. "hat 2 Mitspieler reingelegt". */
+  note?: string;
 }

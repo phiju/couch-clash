@@ -30,7 +30,13 @@ export function HostSetup({
       </header>
 
       <div className="panel w-full p-6">
-        <GameSettingsPanel serverSettings={room.settings} send={send} canSend={canSend} startRef={startRef} />
+        <GameSettingsPanel
+          serverSettings={room.settings}
+          send={send}
+          canSend={canSend}
+          startRef={startRef}
+          playerCount={room.players.length}
+        />
         <div className="mt-6 max-w-xl">
           <VoiceSettingsPanel voice={room.voice} send={send} canSend={canSend} />
         </div>
