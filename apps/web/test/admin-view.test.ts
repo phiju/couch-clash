@@ -1,6 +1,6 @@
 import type { AdminQuestion } from "@couch-clash/shared";
 import { describe, expect, it } from "vitest";
-import { applyView, DEFAULT_VIEW, quickCounts, toCsv } from "../src/lib/admin-view";
+import { applyView, DEFAULT_VIEW, partyCounters, quickCounts, toCsv } from "../src/lib/admin-view";
 
 const q = (over: Partial<AdminQuestion>): AdminQuestion => ({
   id: "quiz-001",
@@ -26,6 +26,7 @@ const q = (over: Partial<AdminQuestion>): AdminQuestion => ({
   createdAt: null,
   payload: null,
   modes: ["family", "party"],
+  party: false,
   ...over,
 });
 
@@ -43,6 +44,27 @@ describe("admin view", () => {
     expect(applyView(ROWS, { ...DEFAULT_VIEW, quick: "generated" }).map((r) => r.id)).toEqual(["quiz-gen-a"]);
     expect(applyView(ROWS, { ...DEFAULT_VIEW, search: "NACHSTEN" }).map((r) => r.id)).toEqual(["quiz-002"]);
     expect(applyView(ROWS, { ...DEFAULT_VIEW, search: "330" }).map((r) => r.id)).toEqual(["estimate-001"]);
+  });
+
+  it("\"nur Party\" and the party counter per game (total / played, removed ones don't count)", () => {
+    const rows = [
+      ...ROWS,
+      q({ id: "quiz-party-001", party: true, modes: ["party"], plays: 2 }),
+      q({ id: "quiz-party-002", party: true, modes: ["party"] }),
+      q({ id: "quiz-party-003", party: true, modes: ["party"], status: "removed", plays: 1 }),
+      q({ id: "bluff-party-061", categoryId: "bluff", party: true, modes: ["party"] }),
+    ];
+    expect(applyView(rows, { ...DEFAULT_VIEW, quick: "party", category: "quiz" }).map((r) => r.id)).toEqual([
+      "quiz-party-001",
+      "quiz-party-002",
+      "quiz-party-003",
+    ]);
+    expect(quickCounts(rows, ["party"]).party).toBe(4);
+    expect(partyCounters(rows)).toEqual([
+      { categoryId: "quiz", total: 2, played: 1 },
+      { categoryId: "bluff", total: 1, played: 0 },
+    ]);
+    expect(toCsv([rows.at(-1)!]).split("\r\n")[0]).toContain(",party,");
   });
 
   it("filters by game mode", () => {

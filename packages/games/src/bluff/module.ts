@@ -6,7 +6,8 @@
  */
 import { BLUFF_WORDS_DE, BluffWordSchema, type BluffWord } from "@couch-clash/content";
 import type { ContentEntry } from "@couch-clash/shared";
-import { createBluffEngine, pickWithPartyShare, type BluffContentAdapter, type BluffEngineState } from "./engine";
+import { pickForRound } from "../content-pool";
+import { createBluffEngine, type BluffContentAdapter, type BluffEngineState } from "./engine";
 import { LEXIKON_JUDGE_STYLE, normalizeText } from "./judge";
 import { bluffMeta } from "./meta";
 import { bluffLead, bluffQuestion } from "./text";
@@ -17,9 +18,6 @@ export type BluffState = BluffEngineState<BluffWord>;
 
 /** For comparing texts: lower case, letters and digits only. */
 export const normalizeDefinition = normalizeText;
-
-/** Party mode: share of words from the party set. */
-const PARTY_SHARE = 1 / 3;
 
 const entry = (w: BluffWord): ContentEntry => ({
   id: w.id,
@@ -37,7 +35,7 @@ export const lexikonAdapter: BluffContentAdapter<BluffWord> = {
   meta: bluffMeta,
   pool: BLUFF_WORDS_DE,
   schema: BluffWordSchema,
-  loadItems: (pool, options, random) => pickWithPartyShare(pool, BluffWordSchema, bluffMeta, PARTY_SHARE, options, random),
+  loadItems: (pool, options, random) => pickForRound(pool, BluffWordSchema, options, random, bluffMeta),
   title: (w) => w.word,
   promptText: bluffQuestion,
   realAnswer: (w) => w.definition,

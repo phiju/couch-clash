@@ -1,5 +1,6 @@
 import { FUEHRERSCHEIN_QUESTIONS_DE, FuehrerscheinQuestionSchema, type FuehrerscheinQuestion } from "@couch-clash/content";
 import { playablePool } from "../content-pool";
+import { selectWithPartyShare } from "../party-share";
 import { createQuizLikeModule } from "../quiz/module";
 import { buildExam, examDurationMs, examFacts } from "./exam";
 import { FUEHRERSCHEIN_CONFIG, fuehrerscheinMeta } from "./meta";
@@ -13,8 +14,16 @@ export function createFuehrerscheinModule(pool: readonly FuehrerscheinQuestion[]
     meta: fuehrerscheinMeta,
     schema: FuehrerscheinQuestionSchema,
     pool,
+    // Party share like every game; the family part keeps the text / sign / scene mix.
     pick: (all, ctx, options) =>
-      pickMixed(playablePool(all, FuehrerscheinQuestionSchema, options, fuehrerscheinMeta), options, ctx.random),
+      selectWithPartyShare(
+        playablePool(all, FuehrerscheinQuestionSchema, options, fuehrerscheinMeta),
+        options.questionCount,
+        options,
+        ctx.random,
+        fuehrerscheinMeta.id,
+        (items, n) => pickMixed(items, { ...options, questionCount: n }, ctx.random),
+      ),
     prepare: (prepared, source) => {
       if (source.media?.kind !== "scene") return prepared;
       const order = driveOrder(source.media, source.text, source.options[source.correctIndex]!);

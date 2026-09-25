@@ -21,6 +21,9 @@ export interface GeneratedBase {
   ageRating: number;
   difficulty: number;
   tags: string[];
+  /** Party questions stay party questions (mode filter + party share). */
+  adult?: true;
+  alcohol?: true;
 }
 
 export const GENERATORS: Readonly<Record<string, QuestionGenerator>> = {

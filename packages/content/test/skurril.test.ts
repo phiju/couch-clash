@@ -5,13 +5,13 @@ const STORY: SkurrilStory = SKURRIL_STORIES_DE.find((s) => s.id === "skurril-001
 const parse = (over: Partial<Record<keyof SkurrilStory, unknown>>) => SkurrilStorySchema.safeParse({ ...STORY, ...over }).success;
 
 describe("Skurrile Ereignisse content", () => {
-  it("139 stories: 30 kids (6), 80 family (12), 29 party (18, adult)", () => {
-    expect(SKURRIL_STORIES_DE).toHaveLength(139);
+  it("158 stories: 30 kids (6), 80 family (12), 48 party (18, adult)", () => {
+    expect(SKURRIL_STORIES_DE).toHaveLength(158);
     const by = (re: RegExp) => SKURRIL_STORIES_DE.filter((s) => re.test(s.id));
     const kids = by(/^skurril-kids-\d{3}$/);
     const family = by(/^skurril-\d{3}$/);
     const party = by(/^skurril-party-\d{3}$/);
-    expect([kids.length, family.length, party.length]).toEqual([30, 80, 29]);
+    expect([kids.length, family.length, party.length]).toEqual([30, 80, 48]);
     expect(kids.every((s) => s.ageRating === 6 && !s.adult)).toBe(true);
     expect(family.every((s) => s.ageRating === 12 && !s.adult)).toBe(true);
     expect(party.every((s) => s.ageRating === 18 && s.adult)).toBe(true);

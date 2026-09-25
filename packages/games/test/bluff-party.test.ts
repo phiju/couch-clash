@@ -28,21 +28,21 @@ describe("Bluff-Lexikon in the game modes", () => {
     }
   });
 
-  it("Party: about one word in three from the party set, spread out", () => {
+  it("Party: ceil(30 %) of the words from the party set, spread out", () => {
     const mod = createBluffModule();
     for (let seed = 1; seed <= 20; seed++) {
       const s = mod.init(ctx(T0, [], seeded(seed)), { questionCount: 9, scoring: bluffMeta.scoring, excludeContentIds: [], mode: party }).state;
       expect(s.words.filter((w) => w.adult)).toHaveLength(3);
-      expect(s.words.map((w) => (w.adult ? "P" : "f")).join("")).toBe("fPffPffPf");
+      expect(["PffPffPff", "fPffPffPf"]).toContain(s.words.map((w) => (w.adult ? "P" : "f")).join(""));
       expect(s.mode).toBe("party");
     }
     const five = mod.init(ctx(T0, []), { questionCount: 5, scoring: bluffMeta.scoring, excludeContentIds: [], mode: party }).state;
     expect(five.words.filter((w) => w.adult)).toHaveLength(2);
   });
 
-  it("the party set is real content: adult, age 18, 60 words", () => {
+  it("the party set is real content: adult, age 18, 85 words", () => {
     const adult = BLUFF_WORDS_DE.filter((w) => w.adult);
-    expect(adult).toHaveLength(60);
+    expect(adult).toHaveLength(85);
     expect(adult.every((w) => w.ageRating === 18)).toBe(true);
   });
 

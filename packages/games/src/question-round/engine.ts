@@ -20,6 +20,7 @@ import {
   type Viewer,
 } from "@couch-clash/shared";
 import { z } from "zod";
+import { isPartyItem } from "../party-share";
 import { normalizeScoring, scoreAnswer, type BaseScoreInputs, type ScoreResult } from "../scoring";
 import type { AnswerAction, QuestionRoundPublicState, QuestionRoundStep } from "./types";
 
@@ -292,6 +293,7 @@ export function createQuestionRoundModule<
         correctAnswer: describe.solution(question),
         answers,
         ...(highlights.length ? { highlights } : {}),
+        ...(isPartyItem(question) ? { partyItem: true } : {}),
       };
     },
 

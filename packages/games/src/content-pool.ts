@@ -1,5 +1,4 @@
 import {
-  difficultyWeight,
   eligibleForMode,
   type ContentEntry,
   type ContentFlags,
@@ -8,7 +7,7 @@ import {
   type ModuleInitOptions,
 } from "@couch-clash/shared";
 import type { z } from "zod";
-import { pickFresh } from "./random";
+import { selectWithPartyShare, type PartyPickable } from "./party-share";
 
 /**
  * The questions a category may play: static content + valid extra content
@@ -35,8 +34,11 @@ export function playablePool<T extends { id: string }>(
   return mode ? allowed.filter((q) => eligibleForMode(q as unknown as ContentFlags, mode, meta)) : allowed;
 }
 
-/** The questions for one round: mode filter, not played recently first, weighted by difficulty. */
-export function pickForRound<T extends { id: string; difficulty: number }>(
+/**
+ * The questions for one round: mode filter, not played recently first,
+ * weighted by difficulty – and in Party mode the party share (selectWithPartyShare).
+ */
+export function pickForRound<T extends PartyPickable>(
   staticPool: readonly T[],
   schema: z.ZodType<T>,
   options: ModuleInitOptions,
@@ -44,7 +46,7 @@ export function pickForRound<T extends { id: string; difficulty: number }>(
   meta: ModeFilterMeta,
 ): T[] {
   const pool = playablePool(staticPool, schema, options, meta);
-  return pickFresh(pool, options.questionCount, options.excludeContentIds, random, (q) => difficultyWeight(q.difficulty, options.mode));
+  return selectWithPartyShare(pool, options.questionCount, options, random, meta.id);
 }
 
 /** How many questions a category has in this mode (settings panel: warning + slider cap). */

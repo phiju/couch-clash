@@ -1,6 +1,6 @@
 import { GAME_MODULES } from "@couch-clash/games";
 import { DEFAULT_MODE_SETTINGS, type GameModeSettings, type ScoringSettings } from "@couch-clash/shared";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { advance, beginGame, updateMode, updateSettings, type FlowDeps } from "../src/game-flow";
 import { poolSizesFor } from "../src/pools";
 import type { Result } from "../src/result";
@@ -102,5 +102,36 @@ describe("game mode in the room", () => {
     expect(host.poolSizes!.quiz).toBeGreaterThan(100);
     expect(player.poolSizes).toBeNull();
     expect(player.partyConfirmed).toBe(false);
+  });
+});
+
+describe("Party-Anteil in the room", () => {
+  const start = (r: RoomRecord, d: FlowDeps) => unwrap(advance(unwrap(beginGame(r, d)), d));
+  const questionsOf = (r: RoomRecord) => (r.game!.moduleState as { questions: { adult?: boolean }[] }).questions;
+
+  it("the host's share reaches the round (100 % → only party questions)", () => {
+    let r = unwrap(updateMode(room(), { ...party, partyShare: 1 }, true));
+    r = unwrap(updateSettings(r, [{ categoryId: "estimate", questionCount: 6, scoring: sc("estimate") }]));
+    expect(r.mode.partyShare).toBe(1);
+    const qs = questionsOf(start(r, deps(r)));
+    expect(qs).toHaveLength(6);
+    expect(qs.every((q) => q.adult)).toBe(true);
+  });
+
+  it("default 30 %: max(1, ceil(6 × 0.3)) = 2 party questions", () => {
+    let r = unwrap(updateMode(room(), party, true));
+    r = unwrap(updateSettings(r, [{ categoryId: "estimate", questionCount: 6, scoring: sc("estimate") }]));
+    expect(questionsOf(start(r, deps(r))).filter((q) => q.adult)).toHaveLength(2);
+  });
+
+  it("all party questions played already → logged, family fills up, the game still starts", () => {
+    let r = unwrap(updateMode(room(), party, true));
+    r = unwrap(updateSettings(r, [{ categoryId: "estimate", questionCount: 6, scoring: sc("estimate") }]));
+    r = { ...r, usedContentIds: GAME_MODULES.estimate.listContent!().filter((q) => q.adult).map((q) => q.id) };
+    const log = vi.fn();
+    const qs = questionsOf(start(r, { ...deps(r), log }));
+    expect(qs).toHaveLength(6);
+    expect(qs.some((q) => q.adult)).toBe(false);
+    expect(log).toHaveBeenCalledWith(expect.stringContaining("party pool"), expect.objectContaining({ label: "estimate", unplayedParty: 0 }));
   });
 });

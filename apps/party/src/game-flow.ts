@@ -55,6 +55,8 @@ export interface FlowDeps {
   registry?: ModuleRegistry;
   /** Blocked ids + generated content (question statistics); null/undefined → no filter. */
   content?: ContentFilter | null;
+  /** Server log for content problems the modules report (e.g. a party pool that ran dry). */
+  log?: (message: string, data?: Record<string, unknown>) => void;
 }
 
 function setPhase(room: RoomRecord, phase: Phase, now: number, phaseEndsAt: number | null): RoomRecord {
@@ -283,6 +285,7 @@ function startRound(room: RoomRecord, deps: FlowDeps, registry: ModuleRegistry):
     extraContent: deps.content?.extra[contentPoolOf(module.meta)],
     options: normalizeCategoryOptions(module.meta, round.options),
     mode: room.mode,
+    ...(deps.log ? { log: deps.log } : {}),
   });
   const playing = setPhase(
     { ...room, game: { ...game, roundGain: {}, questionLeaderboard: null } },

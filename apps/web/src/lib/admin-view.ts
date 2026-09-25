@@ -73,6 +73,25 @@ export function quickCounts(questions: readonly AdminQuestion[], filters: readon
   return counts;
 }
 
+/** Party pool per category: how many party items there are and how many were played already. */
+export interface PartyCounter {
+  categoryId: string;
+  total: number;
+  played: number;
+}
+
+export function partyCounters(questions: readonly AdminQuestion[]): PartyCounter[] {
+  const by = new Map<string, PartyCounter>();
+  for (const q of questions) {
+    if (!q.party || q.status === "removed") continue;
+    const c = by.get(q.categoryId) ?? { categoryId: q.categoryId, total: 0, played: 0 };
+    c.total++;
+    if (q.plays > 0) c.played++;
+    by.set(q.categoryId, c);
+  }
+  return [...by.values()];
+}
+
 export const STATUS_LABELS: Record<AdminQuestion["status"], string> = {
   active: "aktiv",
   quarantined: "Quarantäne",
@@ -95,6 +114,7 @@ const CSV_COLUMNS: [string, (q: AdminQuestion) => string | number | null][] = [
   ["meldungen", (q) => q.reports],
   ["status", (q) => q.status],
   ["neu_generiert", (q) => (q.generated ? 1 : 0)],
+  ["party", (q) => (q.party ? 1 : 0)],
   ["zuletzt_gespielt", (q) => (q.lastPlayedAt ? new Date(q.lastPlayedAt).toISOString() : null)],
 ];
 

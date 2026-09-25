@@ -71,6 +71,16 @@ describe("comment prompt", () => {
     highlights: ["Alle lagen falsch."],
   };
 
+  it("party question in Party mode: a cheekier wink is allowed – never explicit; not outside Party", () => {
+    const partyFacts: CommentFacts = { ...facts, partyItem: true };
+    const p = commentPrompt(partyFacts, "frech", [], 1, "party");
+    expect(p.system).toMatch(/partyItem is true/);
+    expect(p.system).toMatch(/never explicit/);
+    expect(p.user).toContain('"partyItem":true');
+    expect(commentPrompt(facts, "frech", [], 1, "party").system).not.toMatch(/partyItem is true/);
+    expect(commentPrompt(partyFacts, "frech", [], 1, "family").system).not.toMatch(/partyItem is true/);
+  });
+
   it("passes the level, hard limits and sanitized facts", () => {
     const p = commentPrompt(facts, "gnadenlos", ["Max"], 3);
     expect(p.json).toBe(true);

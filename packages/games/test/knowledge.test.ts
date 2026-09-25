@@ -641,7 +641,8 @@ describe("party share", () => {
   });
 
   it("the share is configurable; family/kids never get party questions", () => {
-    expect(selectQuestions([...family, ...party], 10, { mode: partyMode, excludeContentIds: [] }, seeded(), 0.5).filter((x) => x.adult)).toHaveLength(5);
+    const half = { ...partyMode, partyShare: 0.5 as const };
+    expect(selectQuestions([...family, ...party], 10, { mode: half, excludeContentIds: [] }, seeded()).filter((x) => x.adult)).toHaveLength(5);
     const mod = createQuizModule([...family, ...party]);
     for (const mode of ["family", "kids"] as const) {
       const s = mod.init(ctx(T0), {

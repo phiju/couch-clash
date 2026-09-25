@@ -9,6 +9,7 @@ import {
   botPick,
   HOST_ACTOR_ID,
   KNOWLEDGE_CATEGORIES,
+  partyShareOf,
   type KnowledgeCategory,
   type ModuleContext,
 } from "@couch-clash/shared";
@@ -27,6 +28,13 @@ export interface CategoryPickGame {
   queues: Partial<Record<KnowledgeCategory, string[]>>;
   /** Generated questions in the queues (static ones are looked up in the pool). */
   extra: QuizQuestion[];
+  /**
+   * Party mode: party question ids in play order and the question indexes
+   * they go to (selectWithPartyShare). The category cards stay family-only;
+   * a party slot plays a party question – of the picked category if one is left.
+   */
+  party?: string[];
+  partySlots?: number[];
   pickerId: string | null;
   /** The picker's score when the block started (for the host's roast). */
   pickerScore: number;
@@ -79,7 +87,11 @@ export function categoryPickGame(pool: readonly QuizQuestion[]): KnowledgeGame<C
 
     init(ctx, options) {
       const candidates = knowledgePool(pool, options, meta);
-      const byCategory = questionsByCategory(candidates);
+      // The round's party mix, decided once by the shared helper: which indexes, which questions.
+      const mix = partyShareOf(options.mode) > 0 ? selectQuestions(candidates, options.questionCount, options, ctx.random, meta.id) : [];
+      const partySlots = mix.flatMap((q, i) => (q.adult ? [i] : []));
+      const party = mix.filter((q) => q.adult).map((q) => q.id);
+      const byCategory = questionsByCategory(mix.length > 0 ? candidates.filter((q) => !q.adult) : candidates);
       const excluded = new Set(options.excludeContentIds);
       const build = (freshOnly: boolean) => {
         const queues: CategoryPickGame["queues"] = {};
@@ -93,7 +105,7 @@ export function categoryPickGame(pool: readonly QuizQuestion[]): KnowledgeGame<C
       // Unplayed questions first; only if too few categories are left, played ones come back.
       let queues = build(true);
       if (offerable(queues).length < offerSize) queues = build(false);
-      const queued = new Set(Object.values(queues).flat());
+      const queued = new Set([...Object.values(queues).flat(), ...party]);
       const extra = candidates.filter((q) => !byId.has(q.id) && queued.has(q.id));
       const strategy: PickerStrategy = options.options?.hostPicks ? "HOST" : "LAST_PLACE";
       return {
@@ -101,6 +113,7 @@ export function categoryPickGame(pool: readonly QuizQuestion[]): KnowledgeGame<C
           strategy,
           queues,
           extra,
+          ...(party.length > 0 ? { party, partySlots } : {}),
           pickerId: null,
           pickerScore: 0,
           byLot: false,
@@ -151,7 +164,14 @@ export function categoryPickGame(pool: readonly QuizQuestion[]): KnowledgeGame<C
       },
     },
 
-    drawQuestion(game, _index, ctx) {
+    drawQuestion(game, index, ctx) {
+      if (game.party?.length && game.partySlots?.includes(index)) {
+        const own = game.party.find((id) => (byId.get(id) ?? game.extra.find((q) => q.id === id))?.primaryCategory === game.selectedCategory);
+        const id = own ?? game.party[0]!;
+        const raw = byId.get(id) ?? game.extra.find((q) => q.id === id);
+        const rest = game.party.filter((x) => x !== id);
+        if (raw) return { game: { ...game, party: rest }, question: prepareQuizQuestion(raw, ctx.random) };
+      }
       let category = game.selectedCategory;
       if (!category || !game.queues[category]?.length) {
         // Block continues in a category that ran dry → any category with questions left.

@@ -106,15 +106,15 @@ describe("estimate schema: zeroRange rules", () => {
 });
 
 describe("bluff words", () => {
-  it("has 200 family words + 60 party words (nouns with article, unique ids and words)", () => {
+  it("has 200 family words + 85 party words (nouns with article, unique ids and words)", () => {
     const family = BLUFF_WORDS_DE.filter((w) => !w.adult);
     const party = BLUFF_WORDS_DE.filter((w) => w.adult);
     expect(family).toHaveLength(200);
-    expect(party).toHaveLength(60);
+    expect(party).toHaveLength(85);
     for (const w of family) expect(w.ageRating).toBe(12);
     for (const w of party) expect(w.ageRating).toBe(18);
-    expect(new Set(BLUFF_WORDS_DE.map((w) => w.id)).size).toBe(260);
-    expect(new Set(BLUFF_WORDS_DE.map((w) => w.word.toLowerCase())).size).toBe(260);
+    expect(new Set(BLUFF_WORDS_DE.map((w) => w.id)).size).toBe(285);
+    expect(new Set(BLUFF_WORDS_DE.map((w) => w.word.toLowerCase())).size).toBe(285);
     for (const w of BLUFF_WORDS_DE) {
       expect(["der", "die", "das"]).toContain(w.article);
       expect(w.word).toMatch(/^\p{Lu}/u); // nouns are capitalized
@@ -154,8 +154,8 @@ describe("Führerscheinprüfung", () => {
   const all = FUEHRERSCHEIN_QUESTIONS_DE;
   const kind = (q: (typeof all)[number]) => q.media?.kind ?? "text";
 
-  it("has 155 valid questions: text, sign and scene", () => {
-    expect(all).toHaveLength(155);
+  it("has 180 valid questions (155 + 25 party): text, sign and scene", () => {
+    expect(all).toHaveLength(180);
     expect(all.filter((q) => kind(q) === "text").length).toBeGreaterThanOrEqual(50);
     expect(all.filter((q) => kind(q) === "sign").length).toBeGreaterThanOrEqual(50);
     expect(all.filter((q) => kind(q) === "scene").length).toBeGreaterThanOrEqual(40);
@@ -179,9 +179,11 @@ describe("Führerscheinprüfung", () => {
     }
   });
 
-  it("26 questions are for kids (ageRating 6), the rest 12", () => {
+  it("26 questions are for kids (ageRating 6), 25 party (18, adult), the rest 12", () => {
     expect(all.filter((q) => q.ageRating === 6)).toHaveLength(26);
-    for (const q of all) expect([6, 12]).toContain(q.ageRating);
+    expect(all.filter((q) => q.ageRating === 18)).toHaveLength(25);
+    for (const q of all) expect([6, 12, 18]).toContain(q.ageRating);
+    for (const q of all) expect(q.adult, q.id).toBe(q.ageRating === 18);
   });
 
   it("scene vehicles have unique colours and ids", () => {

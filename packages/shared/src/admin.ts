@@ -37,6 +37,8 @@ export interface AdminQuestion {
   payload: unknown;
   /** Game modes this question can come up in (Familie with questions up to 16 counts as Familie). */
   modes: GameMode[];
+  /** From the party pool (adult: alcohol, love, sex) – Party mode only. */
+  party: boolean;
 }
 
 export interface AdminGenerationLogEntry {
@@ -67,6 +69,7 @@ export const QUICK_FILTERS = [
   "thumbsDown",
   "difficultyMismatch",
   "neverPlayed",
+  "party",
 ] as const;
 export type QuickFilter = (typeof QUICK_FILTERS)[number];
 
@@ -78,6 +81,7 @@ export const QUICK_FILTER_LABELS: Record<QuickFilter, string> = {
   thumbsDown: "viele 👎",
   difficultyMismatch: "Schwierigkeit passt nicht",
   neverPlayed: "nie gespielt",
+  party: "nur Party",
 };
 
 /** "viele 👎": at least this many votes … */
@@ -106,5 +110,7 @@ export function matchesQuickFilter(q: AdminQuestion, filter: QuickFilter): boole
       return (q.difficulty === 3 && q.correctRate > 0.8) || (q.difficulty === 1 && q.correctRate < 0.4);
     case "neverPlayed":
       return q.plays === 0;
+    case "party":
+      return q.party;
   }
 }

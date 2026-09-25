@@ -14948,5 +14948,3246 @@
       "Spanien"
     ],
     "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-001",
+    "text": "Welches Kraut gehört unbedingt in einen Mojito?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "cocktails"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Minze",
+      "Basilikum",
+      "Rosmarin",
+      "Koriander"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-002",
+    "text": "Aus welcher Pflanze wird Tequila hergestellt?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "spirituosen"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Kaktusfeige",
+      "Zuckerrohr",
+      "Mais",
+      "Blaue Agave"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-003",
+    "text": "Was mischt man in einer Cuba Libre zu Rum und Limette?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "cocktails"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Tonic Water",
+      "Ginger Ale",
+      "Cola",
+      "Orangensaft"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-004",
+    "text": "Wie nennen Münchner ihr Oktoberfest liebevoll?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "oktoberfest"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Wasen",
+      "Wiesn",
+      "Dult",
+      "Kirmes"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-005",
+    "text": "Wie heißt der Zustand am Morgen nach zu vielen Drinks?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "kater"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Hund",
+      "Kater",
+      "Hase",
+      "Frosch"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-006",
+    "text": "Was ist ein „Absacker“?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "bar"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Der letzte Drink des Abends",
+      "Der erste Drink des Abends",
+      "Ein Bier mit Limo",
+      "Ein umgekippter Barhocker"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-007",
+    "text": "Aus welcher französischen Region muss echter Champagner kommen?",
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "party",
+      "alkohol",
+      "wein",
+      "sekt"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Burgund",
+      "Bordeaux",
+      "Elsass",
+      "Champagne"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-008",
+    "text": "Welcher Saft macht eine Bloody Mary so schön „blutig“?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "cocktails"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Kirschsaft",
+      "Blutorangensaft",
+      "Tomatensaft",
+      "Rote-Bete-Saft"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-009",
+    "text": "Mit welchen Beeren wird Gin aromatisiert?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "spirituosen"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Holunderbeeren",
+      "Heidelbeeren",
+      "Wacholderbeeren",
+      "Johannisbeeren"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-010",
+    "text": "Wie viel Bier passt in eine Wiesn-Maß?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "oktoberfest"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "0,5 Liter",
+      "1 Liter",
+      "0,75 Liter",
+      "2 Liter"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-011",
+    "text": "In welcher Stadt spielt die Komödie „Hangover“ (2009)?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "alkohol",
+      "film"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Las Vegas",
+      "Bangkok",
+      "New York",
+      "Miami"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-012",
+    "text": "Welcher Agent will seinen Martini „geschüttelt, nicht gerührt“?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "alkohol",
+      "film",
+      "cocktails"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Jason Bourne",
+      "Ethan Hunt",
+      "Austin Powers",
+      "James Bond"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-013",
+    "text": "Welcher Sommerdrink mixt Prosecco, Holunderblütensirup und Minze?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "cocktails"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Aperol Spritz",
+      "Bellini",
+      "Kir Royal",
+      "Hugo"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-014",
+    "text": "In welcher Sprache stößt man mit „Na zdrowie!“ an?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "alkohol",
+      "prost",
+      "sprache"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Ungarisch",
+      "Rumänisch",
+      "Polnisch",
+      "Griechisch"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-015",
+    "text": "Mit welchen Worten wird das erste Wiesn-Fass angezapft?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "oktoberfest"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "„Prost Wiesn!“",
+      "„O’zapft is!“",
+      "„Auf geht’s!“",
+      "„Hoch die Krüge!“"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-016",
+    "text": "Welche Pflanze gibt dem Bier seine herbe Bitterkeit?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Hopfen",
+      "Malz",
+      "Hefe",
+      "Gerste"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-017",
+    "text": "Welche Stadt ist berühmt für ihr Altbier?",
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Düsseldorf",
+      "Köln",
+      "Dortmund",
+      "Hamburg"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-018",
+    "text": "Was bedeutet „trocken“ auf einem Weinetikett?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "wein"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Wenig Alkohol",
+      "Ohne Wasserzusatz",
+      "Besonders lange gelagert",
+      "Wenig Restzucker"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-019",
+    "text": "Welcher Pirat jammert: „Warum ist der Rum immer alle?“",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "alkohol",
+      "film",
+      "rum"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Captain Hook",
+      "Blackbeard",
+      "Jack Sparrow",
+      "Hector Barbossa"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-020",
+    "text": "Welches Bier trinkt Homer Simpson am liebsten?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "serie"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Buzz",
+      "Duff",
+      "Krusty-Bräu",
+      "Moesel"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-021",
+    "text": "Wie geht es weiter: „Ein Prosit, ein Prosit …“?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "party",
+      "alkohol",
+      "lieder",
+      "oktoberfest"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "„… auf die Freundschaft“",
+      "„… der Gemütlichkeit“",
+      "„… auf den Durst“",
+      "„… auf das Leben“"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-022",
+    "text": "Wer sang 1974 „Griechischer Wein“?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "party",
+      "alkohol",
+      "lieder",
+      "wein"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Udo Jürgens",
+      "Roland Kaiser",
+      "Peter Alexander",
+      "Howard Carpendale"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-023",
+    "text": "Was droht laut Aberglaube, wenn man beim Anstoßen wegschaut?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "alkohol",
+      "prost",
+      "aberglaube"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Sieben Jahre Pech im Spiel",
+      "Ein doppelter Kater",
+      "Die nächste Runde zahlen",
+      "Sieben Jahre schlechter Sex"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-024",
+    "text": "Was bedeutet beim Cocktail der Zusatz „virgin“?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "cocktails",
+      "bar"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Mit doppeltem Schuss",
+      "Zum ersten Mal gemixt",
+      "Ohne Alkohol",
+      "Ohne Eis"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-025",
+    "text": "Welcher Cocktail ist das Lieblingsgetränk in „Sex and the City“?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "alkohol",
+      "serie",
+      "cocktails"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Mojito",
+      "Margarita",
+      "Cosmopolitan",
+      "Piña Colada"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-026",
+    "text": "Welche Spirituose gehört in eine echte Caipirinha?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "cocktails"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Pisco",
+      "Cachaça",
+      "Weißer Rum",
+      "Tequila"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-027",
+    "text": "Was bekommt man klassisch, wenn man ein „Herrengedeck“ bestellt?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "bar"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Ein Bier und einen Kurzen",
+      "Rotwein und Käseplatte",
+      "Whisky und eine Zigarre",
+      "Sekt mit Orangensaft"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-028",
+    "text": "Mit welchem gälischen Wort prostet man sich in Irland zu?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "alkohol",
+      "prost",
+      "sprache"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Skål",
+      "Kanpai",
+      "Şerefe",
+      "Sláinte"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-029",
+    "text": "In welchem Jahr wurde das bayerische Reinheitsgebot erlassen?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "reinheitsgebot"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "1492",
+      "1618",
+      "1871",
+      "1516"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-030",
+    "text": "Welche Brauerei gilt als älteste noch bestehende der Welt?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Paulaner",
+      "Beck’s",
+      "Weihenstephan",
+      "Heineken"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-031",
+    "text": "Welcher Anlass führte 1810 zum ersten Oktoberfest?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "oktoberfest"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Das Ende eines Krieges",
+      "Eine königliche Hochzeit",
+      "Eine Rekord-Hopfenernte",
+      "Der Geburtstag des Papstes"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-032",
+    "text": "Welche dieser Brauereien schenkt NICHT auf dem Oktoberfest aus?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "oktoberfest"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Erdinger",
+      "Augustiner",
+      "Paulaner",
+      "Hacker-Pschorr"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-033",
+    "text": "Wie heißt der Kellner in einem Kölner Brauhaus?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "bar"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Köbes",
+      "Zapfes",
+      "Schankmaat",
+      "Bräumeister"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-034",
+    "text": "Für welche Bierspezialität ist Bamberg berühmt?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Kölsch",
+      "Gose",
+      "Berliner Weiße",
+      "Rauchbier"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-035",
+    "text": "Womit trinkt man Berliner Weiße klassisch „mit Schuss“?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Doppelkorn",
+      "Zitronenlimonade",
+      "Himbeer- oder Waldmeistersirup",
+      "Kirschlikör"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-036",
+    "text": "Warum brauten Mönche der Überlieferung nach fürs Fasten gern Starkbier?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Es war billiger als Wein",
+      "Flüssiges bricht das Fasten nicht",
+      "Es hielt Wölfe fern",
+      "Der Papst schrieb es vor"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-037",
+    "text": "Welches ist das größte Weinanbaugebiet Deutschlands?",
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "party",
+      "alkohol",
+      "wein"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Mosel",
+      "Rheinhessen",
+      "Pfalz",
+      "Franken"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-038",
+    "text": "In welchem Weinanbaugebiet ist der bauchige Bocksbeutel typisch?",
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "party",
+      "alkohol",
+      "wein"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Franken",
+      "Mosel",
+      "Rheingau",
+      "Ahr"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-039",
+    "text": "Welche Rebsorte ist typisch für Österreich?",
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "party",
+      "alkohol",
+      "wein"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Tempranillo",
+      "Nebbiolo",
+      "Malbec",
+      "Grüner Veltliner"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-040",
+    "text": "Woher bekommt Rotwein seine Farbe?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "alkohol",
+      "wein"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Aus rotem Traubensaft",
+      "Aus Farbstoffzusatz",
+      "Aus den Traubenschalen",
+      "Aus dem Holzfass"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-041",
+    "text": "Unter welchem Namen kennt man den Spätburgunder international?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "wein"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Merlot",
+      "Syrah",
+      "Pinot Noir",
+      "Cabernet Sauvignon"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-042",
+    "text": "Welcher Mönch soll der Legende nach den Champagner erfunden haben?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "wein",
+      "sekt"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Gregor Mendel",
+      "Dom Pérignon",
+      "Bruder Tuck",
+      "Martin Luther"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-043",
+    "text": "Wie nennt man das Köpfen einer Sektflasche mit einem Säbel?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "sekt",
+      "bar"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Sabrieren",
+      "Degorgieren",
+      "Dekantieren",
+      "Remuage"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-044",
+    "text": "Aus welchem Land stammt der Vorläufer des Gins, der Genever?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "spirituosen"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "England",
+      "Schottland",
+      "Irland",
+      "Niederlande"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-045",
+    "text": "Wer schreibt sein Nationalgetränk traditionell „Whiskey“ mit e?",
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "party",
+      "alkohol",
+      "spirituosen",
+      "whisky"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Die Schotten",
+      "Die Japaner",
+      "Die Kanadier",
+      "Die Iren"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-046",
+    "text": "Was bedeutet das gälische Ursprungswort von „Whisky“?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "spirituosen",
+      "whisky",
+      "sprache"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Feuer des Nordens",
+      "Gold der Gerste",
+      "Wasser des Lebens",
+      "Atem der Götter"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-047",
+    "text": "Was ist NICHT im Long Island Iced Tea – trotz Namen?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "cocktails"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Wodka",
+      "Tee",
+      "Gin",
+      "Tequila"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-048",
+    "text": "Welcher Wodka-Drink mit Ginger Beer kommt im Kupferbecher?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "cocktails"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Moscow Mule",
+      "Cuba Libre",
+      "Caipiroska",
+      "Screwdriver"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-049",
+    "text": "Welche Spirituose ist die Basis von „Sex on the Beach“?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "cocktails"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Wodka",
+      "Rum",
+      "Gin",
+      "Tequila"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-050",
+    "text": "Von wann bis wann galt die Prohibition in den USA?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "geschichte"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "1910 bis 1925",
+      "1929 bis 1945",
+      "1933 bis 1941",
+      "1920 bis 1933"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-051",
+    "text": "Wie nannte man illegale Bars während der US-Prohibition?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "geschichte",
+      "bar"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Saloon",
+      "Honky Tonk",
+      "Speakeasy",
+      "Juke Joint"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-052",
+    "text": "Welches giftige Zwischenprodukt entsteht beim Alkoholabbau in der Leber?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "alkohol",
+      "kater",
+      "wissenschaft"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Methanol",
+      "Acetaldehyd",
+      "Milchsäure",
+      "Ammoniak"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-053",
+    "text": "Ab wie viel Promille gilt man am Steuer als absolut fahruntüchtig?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "alkohol",
+      "promille"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "0,5 Promille",
+      "1,1 Promille",
+      "0,8 Promille",
+      "1,6 Promille"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-054",
+    "text": "Welche Band sang „Red Red Wine“ 1983 in die Charts?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "party",
+      "alkohol",
+      "lieder",
+      "wein"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "UB40",
+      "Madness",
+      "The Police",
+      "Simply Red"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-055",
+    "text": "Welcher Sänger landete 1984 mit dem Song „Alkohol“ einen Hit?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "party",
+      "alkohol",
+      "lieder"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Marius Müller-Westernhagen",
+      "Udo Lindenberg",
+      "Peter Maffay",
+      "Herbert Grönemeyer"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-056",
+    "text": "Wie geht es weiter: „Trink, trink, Brüderlein trink, lass doch die …“?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "party",
+      "alkohol",
+      "lieder"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "„… Gläser nicht leer“",
+      "„… Frauen allein“",
+      "„… Sorgen zu Haus“",
+      "„… Rechnung beim Wirt“"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-057",
+    "text": "Welchen Cocktail schlürft „The Dude“ in „The Big Lebowski“ ständig?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "alkohol",
+      "film",
+      "cocktails"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Martini",
+      "Mojito",
+      "White Russian",
+      "Old Fashioned"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-058",
+    "text": "Wie heißt die Stammkneipe in „How I Met Your Mother“?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "alkohol",
+      "serie",
+      "bar"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Moe’s",
+      "MacLaren’s",
+      "Paddy’s Pub",
+      "Central Perk"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-059",
+    "text": "Bei welchem Trinkspiel wirft man einen Ball auf eine Flasche?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "alkohol",
+      "trinkspiele"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Flunkyball",
+      "Beer Pong",
+      "Kings Cup",
+      "Bierdeckel-Flip"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-060",
+    "text": "Welches Land hat seit Jahren den höchsten Bierkonsum pro Kopf?",
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Deutschland",
+      "Irland",
+      "Belgien",
+      "Tschechien"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-061",
+    "text": "Welche heute unverzichtbare Bierzutat fehlt im Reinheitsgebot von 1516?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "reinheitsgebot"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Hopfen",
+      "Wasser",
+      "Gerste",
+      "Hefe"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-062",
+    "text": "In welcher Stadt wurde das Reinheitsgebot 1516 verkündet?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "reinheitsgebot"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "München",
+      "Bamberg",
+      "Ingolstadt",
+      "Nürnberg"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-063",
+    "text": "An welchem Tag feiert man den „Tag des Deutschen Bieres“?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "reinheitsgebot"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "1. Mai",
+      "23. April",
+      "3. Oktober",
+      "11. November"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-064",
+    "text": "Welcher Paulaner-Doppelbock ist das Vorbild aller „-ator“-Biere?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Salvator",
+      "Triumphator",
+      "Animator",
+      "Celebrator"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-065",
+    "text": "Welches dieser Biere ist obergärig?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Kölsch",
+      "Pils",
+      "Helles",
+      "Märzen"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-066",
+    "text": "Mit welcher Pflanze ist der Hopfen botanisch eng verwandt?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "wissenschaft"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Weinrebe",
+      "Brennnessel",
+      "Efeu",
+      "Hanf"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-067",
+    "text": "Bei höchstens wie viel Grad müssen Eiswein-Trauben gelesen werden?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "wein"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "0 °C",
+      "−3 °C",
+      "−7 °C",
+      "−15 °C"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-068",
+    "text": "Wie viele Kräuter und Gewürze stecken laut Hersteller im Jägermeister?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "spirituosen"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "27",
+      "56",
+      "42",
+      "99"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-069",
+    "text": "In welchem Schnaps schwimmt manchmal ein „Wurm“ in der Flasche?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "spirituosen"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Tequila",
+      "Mezcal",
+      "Pisco",
+      "Cachaça"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-070",
+    "text": "Wie lange muss Scotch Whisky mindestens im Fass reifen?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "spirituosen",
+      "whisky"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "3 Jahre",
+      "1 Jahr",
+      "5 Jahre",
+      "10 Jahre"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-071",
+    "text": "Welcher US-Whiskey muss zu mindestens 51 % aus Mais bestehen?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "spirituosen",
+      "whisky"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Rye",
+      "Scotch",
+      "Single Malt",
+      "Bourbon"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-072",
+    "text": "Ein US-Whiskey mit „100 Proof“ hat wie viel Prozent Alkohol?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "alkohol",
+      "spirituosen",
+      "whisky"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "100 %",
+      "57 %",
+      "50 %",
+      "40 %"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-073",
+    "text": "Welcher Rum-Cocktail ist nach einem Strand auf Kuba benannt?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "party",
+      "alkohol",
+      "cocktails",
+      "rum"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Mai Tai",
+      "Zombie",
+      "Daiquiri",
+      "Hurricane"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-074",
+    "text": "Was bedeutet das chinesische Trinkwort „Gānbēi“ wörtlich?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "alkohol",
+      "prost",
+      "sprache"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Langes Leben",
+      "Trockenes Glas",
+      "Viel Glück",
+      "Frohes Fest"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-075",
+    "text": "Warum stoßen viele Ungarn der Überlieferung nach nicht mit Bier an?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "prost",
+      "geschichte"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Hinrichtungen nach der Revolution 1849",
+      "Ein Bierverbot von König Matthias",
+      "Die Niederlage bei Mohács 1526",
+      "Der Vertrag von Trianon 1920"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-076",
+    "text": "Welcher Verfassungszusatz beendete die Prohibition in den USA?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "geschichte"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Der 18.",
+      "Der 1.",
+      "Der 13.",
+      "Der 21."
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-077",
+    "text": "Wie hieß die sumerische Göttin des Bieres?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "geschichte"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Ischtar",
+      "Isis",
+      "Freya",
+      "Ninkasi"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-078",
+    "text": "Welches Hormon hemmt Alkohol – weshalb man ständig aufs Klo muss?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "alkohol",
+      "wissenschaft",
+      "kater"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Insulin",
+      "Adrenalin",
+      "ADH (Vasopressin)",
+      "Melatonin"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-079",
+    "text": "Welches Gas sorgt bei gezapftem Guinness für den cremigen Schaum?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "alkohol",
+      "bier",
+      "wissenschaft"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Helium",
+      "Stickstoff",
+      "Sauerstoff",
+      "Wasserstoff"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-080",
+    "text": "Wie viele verschiedene Wörter hat der Text des Hits „Tequila“ (1958)?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "party",
+      "alkohol",
+      "lieder"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Eins",
+      "Drei",
+      "Zwölf",
+      "Keins"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-081",
+    "text": "In welchem Jahr kam die Antibabypille in der Bundesrepublik auf den Markt?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "verhütung"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "1961",
+      "1975",
+      "1949",
+      "1968"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-082",
+    "text": "Welchen Beinamen bekam die Pille, die 1965 in der DDR auf den Markt kam?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "verhütung",
+      "ddr"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Sozialismuspille",
+      "Volkspille",
+      "Freiheitspille",
+      "Wunschkindpille"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-083",
+    "text": "Aus welchem Land stammt das Kamasutra?",
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "party",
+      "sex",
+      "literatur"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Persien",
+      "China",
+      "Japan",
+      "Indien"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-084",
+    "text": "Wer gilt als Verfasser des Kamasutra?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "sex",
+      "literatur"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Rumi",
+      "Konfuzius",
+      "Ovid",
+      "Vatsyayana"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-085",
+    "text": "Wofür wurde der Viagra-Wirkstoff Sildenafil ursprünglich erforscht?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "sex",
+      "medizin"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Gegen Herzbeschwerden",
+      "Gegen Schnupfen",
+      "Gegen Kater",
+      "Gegen Haarausfall"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-086",
+    "text": "Nach wem ist der G-Punkt benannt?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "sex",
+      "körper"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Ernst Gräfenberg",
+      "Sigmund Freud",
+      "Johann Gutenberg",
+      "Gustav Gans"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-087",
+    "text": "Wer schrieb die Romanreihe „Fifty Shades of Grey“?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "sex",
+      "literatur"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Charlotte Roche",
+      "Stephenie Meyer",
+      "J. K. Rowling",
+      "E. L. James"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-088",
+    "text": "Als Fan-Fiction zu welcher Buchreihe begann „Fifty Shades of Grey“?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "sex",
+      "literatur"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Die Tribute von Panem",
+      "Der Herr der Ringe",
+      "Harry Potter",
+      "Twilight"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-089",
+    "text": "Wer schrieb den lange verbotenen Roman „Lady Chatterley“?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "sex",
+      "literatur",
+      "zensur"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Henry Miller",
+      "D. H. Lawrence",
+      "James Joyce",
+      "Oscar Wilde"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-090",
+    "text": "Nach wem ist der Begriff „Sadismus“ benannt?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "sex",
+      "wortherkunft"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Iwan der Schreckliche",
+      "Marquis de Sade",
+      "Kaiser Nero",
+      "Graf Dracula"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-091",
+    "text": "Nach welchem Schriftsteller ist der „Masochismus“ benannt?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "sex",
+      "wortherkunft"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Leopold von Sacher-Masoch",
+      "Robert Musil",
+      "Karl May",
+      "Arthur Schnitzler"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-092",
+    "text": "Wie heißt die Wissenschaft vom Küssen?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "liebe",
+      "küssen",
+      "wortherkunft"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Philematologie",
+      "Osculistik",
+      "Amorologie",
+      "Labiologie"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-093",
+    "text": "Welcher Muskel wird umgangssprachlich „Kussmuskel“ genannt?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "liebe",
+      "küssen",
+      "körper"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Ringmuskel des Mundes",
+      "Zwerchfell",
+      "Bizeps",
+      "Großer Brustmuskel"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-094",
+    "text": "In welche Richtung neigen die meisten Menschen beim Küssen den Kopf?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "liebe",
+      "küssen"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Nach hinten",
+      "Nach links",
+      "Nach rechts",
+      "Gar nicht"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-095",
+    "text": "Wie viele Bakterien werden laut Studie bei einem 10-Sekunden-Zungenkuss übertragen?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "liebe",
+      "küssen"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Rund 8.000",
+      "Keine einzige",
+      "Rund 80 Millionen",
+      "Rund 80"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-096",
+    "text": "Was ist ein Knutschfleck medizinisch betrachtet?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "liebe",
+      "küssen",
+      "körper"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Ein Bluterguss",
+      "Ein Sonnenbrand",
+      "Ein Insektenstich",
+      "Ein Muttermal"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-097",
+    "text": "Was machen zwei Menschen bei einem „Eskimokuss“?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "liebe",
+      "küssen"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Stirn aneinander legen",
+      "Nasen aneinander reiben",
+      "Ohrläppchen knabbern",
+      "Durch Handschuhe küssen"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-098",
+    "text": "Wer malte das berühmte goldene Gemälde „Der Kuss“?",
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "party",
+      "liebe",
+      "küssen",
+      "kunst"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Claude Monet",
+      "Gustav Klimt",
+      "Egon Schiele",
+      "Pablo Picasso"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-099",
+    "text": "Welcher Bildhauer schuf die Marmorskulptur „Der Kuss“ (Le Baiser)?",
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "party",
+      "liebe",
+      "küssen",
+      "kunst"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Michelangelo",
+      "Auguste Rodin",
+      "Alberto Giacometti",
+      "Ernst Barlach"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-100",
+    "text": "Aus welchem Jahr stammt der erste Filmkuss der Kinogeschichte?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "liebe",
+      "küssen",
+      "film"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "1896",
+      "1939",
+      "1912",
+      "1927"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-101",
+    "text": "Woraus bestanden Kondome im 18. Jahrhundert meist?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "verhütung"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Latex",
+      "Seide",
+      "Tierdarm",
+      "Papier"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-102",
+    "text": "Wie nannten Briten das Kondom früher scherzhaft?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "sex",
+      "verhütung",
+      "wortherkunft"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "French letter",
+      "German helmet",
+      "Dutch cap",
+      "Spanish sock"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-103",
+    "text": "Welcher Chemiker wird oft als „Vater der Pille“ bezeichnet?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "sex",
+      "verhütung"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Carl Djerassi",
+      "Otto Hahn",
+      "Robert Koch",
+      "Justus von Liebig"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-104",
+    "text": "Aus welcher Stadt stammte der berühmte Verführer Giacomo Casanova?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "liebe",
+      "verführer"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Paris",
+      "Venedig",
+      "Rom",
+      "Neapel"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-105",
+    "text": "Aus welchem berüchtigten Gefängnis gelang Casanova 1756 die Flucht?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "liebe",
+      "verführer"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Bastille",
+      "Bleikammern von Venedig",
+      "Alcatraz",
+      "Tower of London"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-106",
+    "text": "Welche Speise soll Casanova dutzendweise zum Frühstück verspeist haben?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "aphrodisiaka"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Pfannkuchen",
+      "Austern",
+      "Spiegeleier",
+      "Weißwürste"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-107",
+    "text": "Welches Spurenelement steckt besonders reichlich in Austern?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "sex",
+      "aphrodisiaka"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Uran",
+      "Helium",
+      "Zink",
+      "Gold"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-108",
+    "text": "Was ist die als Liebesmittel verrufene „Spanische Fliege“ in Wahrheit?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "party",
+      "sex",
+      "aphrodisiaka"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Eine Stubenfliege",
+      "Eine Chilischote",
+      "Ein Käfer",
+      "Ein Pilz"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-109",
+    "text": "Nach welcher Göttin sind die „Aphrodisiaka“ benannt?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "aphrodisiaka",
+      "mythologie"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Aphrodite",
+      "Athene",
+      "Artemis",
+      "Hera"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-110",
+    "text": "Welcher römische Dichter schrieb die „Liebeskunst“ (Ars amatoria)?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "liebe",
+      "literatur",
+      "antike"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Caesar",
+      "Cicero",
+      "Ovid",
+      "Seneca"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-111",
+    "text": "Mit welchem Römer hatte Kleopatra nach Caesar eine berühmte Liebesaffäre?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "liebe",
+      "berühmte paare"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Nero",
+      "Marcus Antonius",
+      "Brutus",
+      "Augustus"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-112",
+    "text": "In welcher Stadt spielt Shakespeares „Romeo und Julia“?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "liebe",
+      "literatur"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Venedig",
+      "Florenz",
+      "Verona",
+      "Mailand"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-113",
+    "text": "Wie heißt Mozarts Oper über den Frauenhelden Don Juan?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "party",
+      "liebe",
+      "verführer",
+      "oper"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Die Zauberflöte",
+      "Don Giovanni",
+      "Idomeneo",
+      "Così fan tutte"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-114",
+    "text": "Für wen ließ Shah Jahan das Taj Mahal erbauen?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "liebe",
+      "berühmte paare"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Für sich selbst",
+      "Für seine Mutter",
+      "Für seine verstorbene Frau",
+      "Für seinen Lieblingselefanten"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-115",
+    "text": "Für welche Frau dankte der britische König Edward VIII. 1936 ab?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "liebe",
+      "berühmte paare"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Grace Kelly",
+      "Marilyn Monroe",
+      "Wallis Simpson",
+      "Coco Chanel"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-116",
+    "text": "An welchem Datum ist Valentinstag?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "liebe",
+      "valentinstag"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "1. Mai",
+      "14. Februar",
+      "29. Februar",
+      "14. März"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-117",
+    "text": "Wer beschenkt in Japan am Valentinstag traditionell mit Schokolade?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "liebe",
+      "valentinstag"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Chefs ihre Angestellten",
+      "Die Männer die Frauen",
+      "Die Frauen die Männer",
+      "Kinder ihre Eltern"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-118",
+    "text": "Was bedeutet bei Tinder ein Wisch nach rechts?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "liebe",
+      "dating"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Nein danke",
+      "Superlike",
+      "Profil melden",
+      "Gefällt mir"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-119",
+    "text": "Wie nennt man es, wenn jemand beim Dating plötzlich jeden Kontakt abbricht?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "liebe",
+      "dating",
+      "flirten"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Swiping",
+      "Bombing",
+      "Freezing",
+      "Ghosting"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-120",
+    "text": "Wie nennt man es, wenn jemand online mit gefälschter Identität flirtet?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "liebe",
+      "dating",
+      "flirten"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Phishing",
+      "Catfishing",
+      "Ducking",
+      "Crabbing"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-121",
+    "text": "Auf welche Tradition geht das Wort „Schäferstündchen“ zurück?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "sex",
+      "wortherkunft"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Das Kirchenläuten",
+      "Die Hundezucht",
+      "Die Schäferdichtung",
+      "Die Schafschur"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-122",
+    "text": "Nach welchem Philosophen ist die „platonische Liebe“ benannt?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "liebe",
+      "wortherkunft"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Aristoteles",
+      "Platon",
+      "Sokrates",
+      "Kant"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-123",
+    "text": "Was bedeutet das lateinische Wort „vagina“ wörtlich?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "sex",
+      "wortherkunft"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Tor",
+      "Blüte",
+      "Höhle",
+      "Schwertscheide"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-124",
+    "text": "Das lateinische „testis“ bedeutet Hoden und außerdem …?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "sex",
+      "wortherkunft"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Ei",
+      "Kopf",
+      "Zeuge",
+      "Prüfung"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-125",
+    "text": "Welches Hormon wird oft als „Kuschelhormon“ bezeichnet?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "liebe",
+      "hormone"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Cortisol",
+      "Oxytocin",
+      "Adrenalin",
+      "Insulin"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-126",
+    "text": "Wo wird beim Mann das meiste Testosteron gebildet?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "sex",
+      "hormone",
+      "körper"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Im Bizeps",
+      "In den Haarwurzeln",
+      "In der Leber",
+      "In den Hoden"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-127",
+    "text": "Wie viele Nervenenden hat die Klitoris ungefähr?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "sex",
+      "körper"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Rund 80",
+      "Rund 800",
+      "Genau 69",
+      "Mehr als 8.000"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-128",
+    "text": "Wie heißt das „Broken-Heart-Syndrom“ medizinisch?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "liebe",
+      "liebeskummer",
+      "medizin"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Takotsubo-Kardiomyopathie",
+      "Valentins-Tachykardie",
+      "Amor-Arrhythmie",
+      "Cupido-Infarkt"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-129",
+    "text": "Bei welchem Tier werden die Männchen schwanger?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "party",
+      "sex",
+      "tiere"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Seepferdchen",
+      "Känguru",
+      "Delfin",
+      "Pinguin"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-130",
+    "text": "Welche Menschenaffen lösen Konflikte bekanntlich gern mit Sex?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "party",
+      "sex",
+      "tiere"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Bonobos",
+      "Gibbons",
+      "Orang-Utans",
+      "Gorillas"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-131",
+    "text": "Welches Insekt ist berüchtigt, weil das Weibchen das Männchen beim Liebesakt mitunter frisst?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "party",
+      "sex",
+      "tiere"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Honigbiene",
+      "Stubenfliege",
+      "Marienkäfer",
+      "Gottesanbeterin"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-132",
+    "text": "Was passiert mit dem Männchen mancher Tiefsee-Anglerfische?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "party",
+      "sex",
+      "tiere"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Es verwächst mit dem Weibchen",
+      "Es wird zum Weibchen",
+      "Es legt die Eier",
+      "Es leuchtet grün"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-133",
+    "text": "Wie lange ist ein Pandaweibchen pro Jahr etwa empfängnisbereit?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "party",
+      "sex",
+      "tiere"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "2 bis 3 Tage",
+      "Das ganze Jahr",
+      "2 bis 3 Monate",
+      "2 bis 3 Wochen"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-134",
+    "text": "Was stoßen Weinbergschnecken ihrem Partner vor der Paarung in den Körper?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "party",
+      "sex",
+      "tiere"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Einen Schleimball",
+      "Einen Liebespfeil",
+      "Ein Sandkorn",
+      "Einen Giftstachel"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-135",
+    "text": "Wie heißen die „Lovebirds“ genannten Papageien auf Deutsch?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "party",
+      "liebe",
+      "tiere"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Schmusesittiche",
+      "Unzertrennliche",
+      "Turteltauben",
+      "Herzpapageien"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-136",
+    "text": "Was erforschte Alfred Kinsey, bevor er Sex-Studien berühmt machte?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "party",
+      "sex",
+      "forschung"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Pinguine",
+      "Gallwespen",
+      "Bierhefe",
+      "Vulkane"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-137",
+    "text": "Wer gründete 1919 in Berlin das Institut für Sexualwissenschaft?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "forschung"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Magnus Hirschfeld",
+      "Beate Uhse",
+      "Sigmund Freud",
+      "Oswalt Kolle"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-138",
+    "text": "In welcher Stadt eröffnete Beate Uhse 1962 den Laden, der als erster Sexshop der Welt gilt?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "geschichte"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Amsterdam",
+      "Berlin",
+      "Hamburg",
+      "Flensburg"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-139",
+    "text": "Welchen Beruf hatte Beate Uhse, bevor sie Erotik-Unternehmerin wurde?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "geschichte"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Hebamme",
+      "Schauspielerin",
+      "Pilotin",
+      "Lehrerin"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-140",
+    "text": "Welcher Journalist klärte ab den 60ern mit Filmen wie „Das Wunder der Liebe“ auf?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "sex",
+      "aufklärung"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Loriot",
+      "Oswalt Kolle",
+      "Rudi Carrell",
+      "Hans Rosenthal"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-141",
+    "text": "Wer sang 1969 das skandalumwitterte Stöhn-Duett „Je t'aime … moi non plus“?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "party",
+      "sex",
+      "songs"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Sonny & Cher",
+      "ABBA",
+      "Nina & Frederik",
+      "Gainsbourg & Birkin"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-142",
+    "text": "Welche Band sang den 1984 von der BBC boykottierten Hit „Relax“?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "party",
+      "sex",
+      "songs",
+      "zensur"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Depeche Mode",
+      "Queen",
+      "Duran Duran",
+      "Frankie Goes to Hollywood"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-143",
+    "text": "Wer sang 1991 „Let's Talk About Sex“?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "party",
+      "sex",
+      "songs"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Spice Girls",
+      "Destiny's Child",
+      "TLC",
+      "Salt-N-Pepa"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-144",
+    "text": "Wer sang 1982 „Sexual Healing“?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "party",
+      "sex",
+      "songs"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Marvin Gaye",
+      "Barry White",
+      "Lionel Richie",
+      "Prince"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-145",
+    "text": "Welcher Waliser sang den Hit „Sex Bomb“?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "party",
+      "sex",
+      "songs"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Tom Jones",
+      "Elton John",
+      "Sting",
+      "Rod Stewart"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-146",
+    "text": "Welche Band sang 1981 über einen „Skandal im Sperrbezirk“?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "party",
+      "sex",
+      "songs"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Die Toten Hosen",
+      "Die Ärzte",
+      "Münchener Freiheit",
+      "Spider Murphy Gang"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-147",
+    "text": "Wer sang „Sexy, was hast du bloß aus mir gemacht“?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "party",
+      "sex",
+      "songs"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Peter Maffay",
+      "Herbert Grönemeyer",
+      "Udo Lindenberg",
+      "Marius Müller-Westernhagen"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-148",
+    "text": "In welchem Restaurant spielt die gespielte Ekstase-Szene aus „Harry und Sally“?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "sex",
+      "film"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Hard Rock Café",
+      "Central Perk",
+      "Katz's Delicatessen",
+      "Tiffany's"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-149",
+    "text": "Wer spielte Tanzlehrer Johnny Castle in „Dirty Dancing“?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "liebe",
+      "film"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Patrick Swayze",
+      "Richard Gere",
+      "John Travolta",
+      "Tom Cruise"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-party-150",
+    "text": "Worüber schreibt Carrie Bradshaw in „Sex and the City“ ihre Kolumne?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "sex",
+      "serie"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Über Mode",
+      "Über Immobilien",
+      "Über Sex und Beziehungen",
+      "Über Kochrezepte"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-151",
+    "text": "Welcher Song läuft in „Ghost“ bei der berühmten Töpferszene?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "liebe",
+      "film",
+      "songs"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "I Will Always Love You",
+      "Careless Whisper",
+      "Unchained Melody",
+      "Take My Breath Away"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-152",
+    "text": "Wie hängt Spider-Man beim berühmten Kuss im Regen (2002)?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "liebe",
+      "film",
+      "küssen"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Gar nicht, er sitzt",
+      "An einem Hubschrauber",
+      "Kopfüber",
+      "Am Laternenmast"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-153",
+    "text": "Wer spielte die Hauptrollen im Erotikdrama „9½ Wochen“?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "sex",
+      "film"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Sharon Stone & Michael Douglas",
+      "Meg Ryan & Tom Hanks",
+      "Kim Basinger & Mickey Rourke",
+      "Demi Moore & Bruce Willis"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-154",
+    "text": "Welche Mrs. verführt in „Die Reifeprüfung“ den jungen Absolventen?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "party",
+      "sex",
+      "film"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Mrs. Doubtfire",
+      "Mrs. Brown",
+      "Mrs. Smith",
+      "Mrs. Robinson"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-155",
+    "text": "Was wird beim Polterabend traditionell zerschlagen?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "liebe",
+      "hochzeit"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Fensterscheiben",
+      "Porzellan",
+      "Spiegel",
+      "Das Ehebett"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-party-156",
+    "text": "Wie hieß das Geschenk, das die Braut früher am Morgen nach der Hochzeitsnacht erhielt?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "party",
+      "sex",
+      "hochzeit"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Frühstücksgabe",
+      "Brautgeld",
+      "Mitgift",
+      "Morgengabe"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-party-157",
+    "text": "Wie viele Ehejahre feiert man bei der Silberhochzeit?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "party",
+      "liebe",
+      "hochzeit"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "10",
+      "50",
+      "25",
+      "40"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-158",
+    "text": "Welche Dichterin lebte auf Lesbos, der Insel, auf die das Wort „lesbisch“ zurückgeht?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "liebe",
+      "wortherkunft",
+      "antike"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Penelope",
+      "Kleopatra",
+      "Sappho",
+      "Medea"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-party-159",
+    "text": "In welche Frau ist Goethes junger Werther unglücklich verliebt?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "party",
+      "liebe",
+      "literatur"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "options": [
+      "Effi",
+      "Lotte",
+      "Emilia",
+      "Gretchen"
+    ],
+    "correctIndex": 1
   }
 ]

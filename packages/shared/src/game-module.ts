@@ -180,6 +180,8 @@ export interface ModuleInitOptions {
   options?: Readonly<Record<string, boolean>>;
   /** Global game mode: filters the questions (eligibleForMode) and weights difficulty. */
   mode?: GameModeSettings;
+  /** Server log for content problems (e.g. a party pool that ran dry). Optional. */
+  log?: (message: string, data?: Record<string, unknown>) => void;
 }
 
 export interface ModuleUpdate<TState> {
@@ -317,6 +319,8 @@ export interface RevealFacts {
   answers: Record<string, RevealedAnswer>;
   /** Extra hints for the commentary (no names – those come from `note`). */
   highlights?: string[];
+  /** The item came from the party pool (alcohol, love, sex) – the host may get cheekier. */
+  partyItem?: boolean;
 }
 
 /** The round summary as plain facts (server only). Show only – it never changes points. */
