@@ -35,7 +35,7 @@ export function StageIntro({ children }: { children: React.ReactNode }) {
     setState("play");
   }
 
-  // Position logo + host from the background's cover scale; recompute on resize.
+  // Position the host + logo group from the background's cover scale; recompute on resize.
   useLayoutEffect(() => {
     const place = () => {
       const actions = actionsRef.current;
@@ -76,7 +76,14 @@ export function StageIntro({ children }: { children: React.ReactNode }) {
       }
     : { visibility: "hidden" as const };
   const hostStyle = layout
-    ? { left: layout.host.left, top: layout.host.top, height: layout.host.height, width: layout.host.width }
+    ? ({
+        left: layout.host.left,
+        top: layout.host.top,
+        height: layout.host.height,
+        width: layout.host.width,
+        // Walk-in from fully outside the screen (left edge + his width + 40 px).
+        "--host-start-x": `${layout.hostStartX}px`,
+      } as React.CSSProperties)
     : { visibility: "hidden" as const };
 
   return (

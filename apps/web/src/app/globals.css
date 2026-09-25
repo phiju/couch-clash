@@ -193,8 +193,15 @@ body {
   position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(ellipse at center, transparent 55%, rgb(0 0 0 / 0.55) 100%);
 }
-.intro-logo { position: absolute; z-index: 3; filter: drop-shadow(0 18px 30px rgb(0 0 0 / 0.45)); }
-.intro-host { position: absolute; z-index: 2; filter: drop-shadow(0 20px 25px rgb(0 0 0 / 0.45)); transform-origin: 50% 100%; }
+.intro-logo { position: absolute; z-index: 2; filter: drop-shadow(0 18px 30px rgb(0 0 0 / 0.45)); }
+/* The host stands IN FRONT of the logo (slight overlap, see lib/stage-layout.ts). */
+.intro-host {
+  --host-start-x: -120vw;
+  position: absolute;
+  z-index: 3;
+  filter: drop-shadow(0 20px 25px rgb(0 0 0 / 0.45));
+  transform-origin: 50% 100%;
+}
 .intro-confetti { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
 .intro-actions { position: absolute; z-index: 6; }
 
@@ -215,7 +222,9 @@ body {
 .intro[data-state="welcome"] .intro-logo,
 .intro[data-state="play"] .intro-logo { transform: scale(0); }
 .intro[data-state="welcome"] .intro-host,
-.intro[data-state="play"] .intro-host { transform: translateX(-140%); }
+.intro[data-state="play"] .intro-host { transform: translateX(var(--host-start-x)); }
+/* Not visible at all before the show starts. */
+.intro[data-state="welcome"] .intro-host { visibility: hidden; }
 .intro[data-state="welcome"] .intro-actions > *,
 .intro[data-state="play"] .intro-actions > * { opacity: 0; transform: translateY(40px); }
 .intro[data-state="welcome"] .intro-actions,
@@ -236,7 +245,17 @@ body {
     logo-glow 1.6s 3.2s ease-in-out infinite;
 }
 .intro[data-state="play"] .intro-host {
-  animation: mascot-walk 1.6s 3s cubic-bezier(0.3, 0.7, 0.4, 1) forwards, sway 2.6s 4.6s ease-in-out infinite;
+  animation: intro-host-walk 1.6s 3s cubic-bezier(0.3, 0.7, 0.4, 1) forwards, sway 2.6s 4.6s ease-in-out infinite;
+}
+/* Same bouncy steps as mascot-walk, from fully off-screen (--host-start-x) to his place. */
+@keyframes intro-host-walk {
+  0% { transform: translateX(var(--host-start-x)) rotate(0); }
+  20% { transform: translateX(calc(var(--host-start-x) * 0.79)) translateY(-10px) rotate(-3deg); }
+  40% { transform: translateX(calc(var(--host-start-x) * 0.54)) rotate(2deg); }
+  60% { transform: translateX(calc(var(--host-start-x) * 0.29)) translateY(-10px) rotate(-3deg); }
+  80% { transform: translateX(calc(var(--host-start-x) * 0.06)) rotate(2deg); }
+  90% { transform: translateX(calc(var(--host-start-x) * -0.02)) rotate(-1deg); }
+  100% { transform: translateX(0) rotate(0); }
 }
 .intro[data-state="play"] .intro-actions > * { animation: intro-rise 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) forwards; }
 .intro[data-state="play"] .intro-actions > :nth-child(1) { animation-delay: 4.6s; }
