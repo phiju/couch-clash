@@ -28,6 +28,12 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.9.1",
+    date: "2026-09-25",
+    title: "Die Couch zieht ein",
+    items: [{ emoji: "🛋️", text: "Neues Couch-Icon im Browser-Tab" }],
+  },
+  {
     version: "0.9.0",
     date: "2026-09-25",
     title: "Bluffen mit Köpfchen",
