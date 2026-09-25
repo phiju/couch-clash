@@ -9,15 +9,15 @@
  */
 
 export const STAGE_IMAGES = {
-  /** stage-wide.webp */
-  wide: { w: 1672, h: 941, floorX: 836, floorY: 735, logoW: 760 },
-  /** stage-tall.webp */
-  tall: { w: 941, h: 1672, floorX: 470, floorY: 1040, logoW: 860 },
+  /** stage-wide.webp – the host stands on the round stage left of the logo. */
+  wide: { w: 1672, h: 941, floorX: 836, floorY: 735, logoW: 760, hostX: 420, hostY: 790, hostH: 520 },
+  /** stage-tall.webp – may cut the host slightly at the left edge on narrow phones. */
+  tall: { w: 941, h: 1672, floorX: 470, floorY: 1040, logoW: 860, hostX: 180, hostY: 1060, hostH: 500 },
 } as const;
 
 /** logo.webp: 1100×731, sofa center at 64 % width, sofa feet at 98.8 % height. */
 export const LOGO_IMAGE = { w: 1100, h: 731, sofaX: 0.64, feetY: 0.988 } as const;
-/** host.webp: 520×1123 */
+/** host.webp: 520×1123, shoes at the very bottom, figure centered horizontally. */
 export const HOST_IMAGE = { w: 520, h: 1123 } as const;
 
 export interface Rect {
@@ -33,6 +33,8 @@ export interface StageLayout {
   host: Rect;
   /** Point on screen where the sofa feet stand (transform-origin for the pop). */
   feet: { x: number; y: number };
+  /** Point on screen where the host's shoes stand (on the round stage). */
+  hostFeet: { x: number; y: number };
 }
 
 /**
@@ -82,17 +84,12 @@ export function computeStageLayout(width: number, height: number, actionsTop = h
 
   const logo: Rect = { left, top: fy - lh * LOGO_IMAGE.feetY, width: lw, height: lh };
 
-  let host: Rect;
-  if (portrait) {
-    // Host left of the logo, at most ~25 % cut off by the screen edge.
-    const hh = Math.min(H * 0.42, fy + H * 0.06);
-    const hw = hh * (HOST_IMAGE.w / HOST_IMAGE.h);
-    host = { left: Math.max(left - hw * 0.8, -hw * 0.25), top: fy + H * 0.05 - hh, width: hw, height: hh };
-  } else {
-    const hh = Math.min(H * 0.8, 780);
-    const hw = hh * (HOST_IMAGE.w / HOST_IMAGE.h);
-    host = { left: W * 0.06, top: H * 0.97 - hh, width: hw, height: hh };
-  }
+  // The host stands ON the round stage: his shoes (bottom center of host.webp)
+  // on a fixed point of the background, his height in background pixels.
+  const hh = bg.hostH * s;
+  const hw = hh * (HOST_IMAGE.w / HOST_IMAGE.h);
+  const hostFeet = { x: ox + bg.hostX * s, y: oy + bg.hostY * s };
+  const host: Rect = { left: hostFeet.x - hw / 2, top: hostFeet.y - hh, width: hw, height: hh };
 
-  return { portrait, logo, host, feet: { x: left + lw * LOGO_IMAGE.sofaX, y: fy } };
+  return { portrait, logo, host, feet: { x: left + lw * LOGO_IMAGE.sofaX, y: fy }, hostFeet };
 }

@@ -56,7 +56,7 @@ describe("computeStageLayout", () => {
       expect(portrait).toBe(true);
       expect(logo.width).toBeLessThanOrEqual(W * 0.74 + 0.01);
       expect(logo.left + logo.width).toBeCloseTo(W * 0.96, 3);
-      expect(host.left).toBeGreaterThanOrEqual(-host.width * 0.25 - 0.01);
+      expect(host.left).toBeGreaterThanOrEqual(-host.width * 0.5); // at most slightly cut at the left edge
       expect(host.left).toBeLessThan(logo.left); // host stands left of the logo
     }
   });
@@ -79,5 +79,27 @@ describe("computeStageLayout", () => {
     const normal = computeStageLayout(3840, 1080);
     const constrained = computeStageLayout(3840, 1080, 1080 * 0.8);
     expect(constrained.logo.width).toBeLessThan(normal.logo.width);
+  });
+});
+
+describe("host on the stage", () => {
+  it.each([
+    ["1280x720", 1280, 720],
+    ["1920x1080", 1920, 1080],
+    ["2560x1080", 2560, 1080],
+    ["390x844", 390, 844],
+    ["360x780", 360, 780],
+  ] as const)("%s: shoes on the background anchor, height from the image", (_n, W, H) => {
+    const { host, hostFeet, portrait } = computeStageLayout(W, H);
+    const bg = portrait ? STAGE_IMAGES.tall : STAGE_IMAGES.wide;
+    const anchor = coverPoint(W, H, bg.hostX, bg.hostY);
+    expect(hostFeet.x).toBeCloseTo(anchor.x, 3);
+    expect(hostFeet.y).toBeCloseTo(anchor.y, 3);
+    // host.webp: shoes at the bottom, figure centered
+    expect(host.top + host.height).toBeCloseTo(anchor.y, 3);
+    expect(host.left + host.width / 2).toBeCloseTo(anchor.x, 3);
+    expect(host.height).toBeCloseTo(bg.hostH * anchor.s, 3);
+    // Shoes are visible on screen.
+    expect(hostFeet.y).toBeLessThanOrEqual(H);
   });
 });

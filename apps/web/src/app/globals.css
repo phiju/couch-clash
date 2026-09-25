@@ -337,3 +337,17 @@ body {
 @media (prefers-reduced-motion: reduce) {
   [data-talking] > .mascot { animation: none !important; }
 }
+
+/* ── Host lobby: columns (settings open / collapsed) and the player grid ── */
+@media (width >= 64rem) {
+  .lobby-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1.15fr); }
+  .lobby-grid[data-settings="closed"] { grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr) minmax(0, 0fr); }
+}
+@media (min-width: 1700px) and (min-height: 880px) {
+  .lobby-grid { grid-template-columns: minmax(0, 0.55fr) minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1.15fr); }
+  .lobby-grid[data-settings="closed"] { grid-template-columns: minmax(0, 0.55fr) minmax(0, 1fr) minmax(0, 2.4fr) minmax(0, 0fr); }
+}
+.lobby-grid[data-settings="closed"] { column-gap: 0; }
+.lobby-grid[data-settings="closed"] > :not(:last-child) { margin-right: 1.6vw; }
+.player-grid { --card: clamp(100px, 7.8vw, 150px); grid-template-columns: repeat(auto-fill, var(--card)); }
+.player-grid[data-big] { --card: clamp(130px, 14vw, 230px); }
