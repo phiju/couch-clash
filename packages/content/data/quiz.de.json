@@ -729,5 +729,2801 @@
       "3"
     ],
     "correctIndex": 2
+  },
+  {
+    "id": "quiz-044",
+    "text": "Wie viele Beine hat ein Insekt?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "6",
+      "8",
+      "4",
+      "10"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-045",
+    "text": "Welches Tier ist das größte an Land lebende Säugetier?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Afrikanischer Elefant",
+      "Giraffe",
+      "Nashorn",
+      "Flusspferd"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-046",
+    "text": "Wie nennt man ein junges Pferd?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Kalb",
+      "Lamm",
+      "Fohlen",
+      "Ferkel"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-047",
+    "text": "Welches Tier ist das höchste der Welt?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Elefant",
+      "Giraffe",
+      "Strauß",
+      "Kamel"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-048",
+    "text": "Wovon ernähren sich Pandas hauptsächlich?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Fisch",
+      "Bambus",
+      "Eukalyptus",
+      "Beeren"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-049",
+    "text": "Wovon ernähren sich Koalas hauptsächlich?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Bambus",
+      "Eukalyptusblätter",
+      "Insekten",
+      "Gras"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-050",
+    "text": "Wie heißt das Männchen des Huhns?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Hahn",
+      "Erpel",
+      "Ganter",
+      "Kater"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-051",
+    "text": "Welcher Vogel kann nicht fliegen?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Pinguin",
+      "Adler",
+      "Spatz",
+      "Möwe"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-052",
+    "text": "Wie viele Arme hat ein Oktopus?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "6",
+      "10",
+      "12",
+      "8"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-053",
+    "text": "Was frisst eine Raupe, bevor sie ein Schmetterling wird, vor allem?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder",
+      "natur"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Blätter",
+      "Nektar",
+      "Insekten",
+      "Samen"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-054",
+    "text": "Welches Tier baut Dämme in Flüssen?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Biber",
+      "Otter",
+      "Bisamratte",
+      "Fischreiher"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-055",
+    "text": "Wie nennt man die Jungen einer Kuh?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Kälber",
+      "Fohlen",
+      "Welpen",
+      "Zicklein"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-056",
+    "text": "Welches Tier hat einen Beutel für seine Jungen?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Nilpferd",
+      "Känguru",
+      "Zebra",
+      "Gorilla"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-057",
+    "text": "Welches Säugetier kann aktiv fliegen?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Flughörnchen",
+      "Fledermaus",
+      "Pinguin",
+      "Maulwurf"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-058",
+    "text": "Wie viele Herzen hat ein Oktopus?",
+    "ageRating": 12,
+    "tags": [
+      "tiere",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "options": [
+      "3",
+      "1",
+      "2",
+      "4"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-059",
+    "text": "Welches Tier gilt als das schnellste im Sturzflug?",
+    "ageRating": 12,
+    "tags": [
+      "tiere",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Steinadler",
+      "Wanderfalke",
+      "Mauersegler",
+      "Albatros"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-060",
+    "text": "Zu welcher Tiergruppe gehört der Wal?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Fische",
+      "Reptilien",
+      "Amphibien",
+      "Säugetiere"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-061",
+    "text": "Zu welcher Tiergruppe gehört der Frosch?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Reptilien",
+      "Amphibien",
+      "Fische",
+      "Säugetiere"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-062",
+    "text": "Was ist ein Axolotl?",
+    "ageRating": 12,
+    "tags": [
+      "tiere",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Ein Fisch",
+      "Eine Echse",
+      "Ein Krebs",
+      "Ein Schwanzlurch"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-063",
+    "text": "Welches Tier hat die längste Tragzeit aller Landsäugetiere?",
+    "ageRating": 12,
+    "tags": [
+      "tiere",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Giraffe",
+      "Nashorn",
+      "Elefant",
+      "Pferd"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-064",
+    "text": "Welche Farbe hat die Haut eines Eisbären unter dem Fell?",
+    "ageRating": 12,
+    "tags": [
+      "tiere",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "options": [
+      "Schwarz",
+      "Weiß",
+      "Rosa",
+      "Grau"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-065",
+    "text": "Wie heißt die Larve des Froschs?",
+    "ageRating": 6,
+    "tags": [
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Made",
+      "Kaulquappe",
+      "Raupe",
+      "Puppe"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-066",
+    "text": "Welcher Baum trägt Eicheln?",
+    "ageRating": 6,
+    "tags": [
+      "natur",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Buche",
+      "Linde",
+      "Kastanie",
+      "Eiche"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-067",
+    "text": "Welcher Baum verliert im Winter als einziger heimischer Nadelbaum seine Nadeln?",
+    "ageRating": 12,
+    "tags": [
+      "natur",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "options": [
+      "Fichte",
+      "Kiefer",
+      "Lärche",
+      "Tanne"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-068",
+    "text": "Welche Blume ist das Symbol der Niederlande?",
+    "ageRating": 6,
+    "tags": [
+      "natur",
+      "geografie"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Rose",
+      "Sonnenblume",
+      "Tulpe",
+      "Lilie"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-069",
+    "text": "Aus welchem Teil der Pflanze stammen Kartoffeln?",
+    "ageRating": 12,
+    "tags": [
+      "natur",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "options": [
+      "Wurzel",
+      "Knolle (Spross unter der Erde)",
+      "Frucht",
+      "Samen"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-070",
+    "text": "Welches ist das größte Organ des Menschen?",
+    "ageRating": 12,
+    "tags": [
+      "körper",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Leber",
+      "Haut",
+      "Lunge",
+      "Darm"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-071",
+    "text": "Wie viele Kammern hat das menschliche Herz?",
+    "ageRating": 12,
+    "tags": [
+      "körper",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "2",
+      "3",
+      "4",
+      "6"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-072",
+    "text": "Welcher ist der längste Knochen im menschlichen Körper?",
+    "ageRating": 12,
+    "tags": [
+      "körper",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Oberschenkelknochen",
+      "Schienbein",
+      "Oberarmknochen",
+      "Wirbelsäule"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-073",
+    "text": "Mit welchem Organ atmen Menschen?",
+    "ageRating": 6,
+    "tags": [
+      "körper",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Lunge",
+      "Leber",
+      "Niere",
+      "Magen"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-074",
+    "text": "Wo im Körper befindet sich der kleinste Knochen des Menschen?",
+    "ageRating": 12,
+    "tags": [
+      "körper",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "In der Nase",
+      "Im Finger",
+      "Im Zeh",
+      "Im Ohr"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-075",
+    "text": "Welche Blutgruppe gilt als Universalspender für rote Blutkörperchen?",
+    "ageRating": 12,
+    "tags": [
+      "körper",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "options": [
+      "0 negativ",
+      "AB positiv",
+      "A positiv",
+      "B negativ"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-076",
+    "text": "Welches Vitamin bildet der Körper mithilfe von Sonnenlicht?",
+    "ageRating": 12,
+    "tags": [
+      "körper",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Vitamin C",
+      "Vitamin A",
+      "Vitamin D",
+      "Vitamin B12"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-077",
+    "text": "Welcher ist der größte Planet unseres Sonnensystems?",
+    "ageRating": 6,
+    "tags": [
+      "weltall",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Saturn",
+      "Neptun",
+      "Jupiter",
+      "Erde"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-078",
+    "text": "Welcher Planet ist für seine auffälligen Ringe bekannt?",
+    "ageRating": 6,
+    "tags": [
+      "weltall",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Mars",
+      "Venus",
+      "Saturn",
+      "Merkur"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-079",
+    "text": "Wie heißt der Stern, um den die Erde kreist?",
+    "ageRating": 6,
+    "tags": [
+      "weltall",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Sonne",
+      "Polarstern",
+      "Sirius",
+      "Mond"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-080",
+    "text": "Wie heißt unsere Galaxie?",
+    "ageRating": 6,
+    "tags": [
+      "weltall",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Andromeda",
+      "Sombrero",
+      "Große Magellansche Wolke",
+      "Milchstraße"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-081",
+    "text": "Welcher Planet ist der heißeste in unserem Sonnensystem?",
+    "ageRating": 12,
+    "tags": [
+      "weltall",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "options": [
+      "Venus",
+      "Merkur",
+      "Mars",
+      "Jupiter"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-082",
+    "text": "Welcher Himmelskörper wurde 2006 vom Planeten zum Zwergplaneten herabgestuft?",
+    "ageRating": 12,
+    "tags": [
+      "weltall",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Ceres",
+      "Neptun",
+      "Eris",
+      "Pluto"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-083",
+    "text": "Wie heißt der erste Mensch im Weltall?",
+    "ageRating": 12,
+    "tags": [
+      "weltall",
+      "geschichte"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Juri Gagarin",
+      "Neil Armstrong",
+      "Buzz Aldrin",
+      "John Glenn"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-084",
+    "text": "Wie heißt der erste Deutsche im Weltall?",
+    "ageRating": 12,
+    "tags": [
+      "weltall",
+      "deutschland"
+    ],
+    "difficulty": 3,
+    "options": [
+      "Ulf Merbold",
+      "Alexander Gerst",
+      "Sigmund Jähn",
+      "Thomas Reiter"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-085",
+    "text": "Wie lange braucht das Licht der Sonne ungefähr bis zur Erde?",
+    "ageRating": 12,
+    "tags": [
+      "weltall",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Etwa 8 Sekunden",
+      "Etwa 8 Stunden",
+      "Etwa 8 Minuten",
+      "Etwa 1 Tag"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-086",
+    "text": "Wie lautet die chemische Formel von Wasser?",
+    "ageRating": 6,
+    "tags": [
+      "wissenschaft",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "CO₂",
+      "H₂O",
+      "O₂",
+      "NaCl"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-087",
+    "text": "Welches Gas macht den größten Teil unserer Luft aus?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Stickstoff",
+      "Sauerstoff",
+      "Kohlendioxid",
+      "Argon"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-088",
+    "text": "Welches chemische Symbol hat Eisen?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Fe",
+      "Ei",
+      "Ir",
+      "E"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-089",
+    "text": "Welches chemische Symbol hat Silber?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Si",
+      "Ag",
+      "Sr",
+      "Au"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-090",
+    "text": "Welches ist das leichteste chemische Element?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Helium",
+      "Sauerstoff",
+      "Wasserstoff",
+      "Lithium"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-091",
+    "text": "Bei wie viel Grad Celsius gefriert Wasser?",
+    "ageRating": 6,
+    "tags": [
+      "wissenschaft",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "0 °C",
+      "-10 °C",
+      "4 °C",
+      "10 °C"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-092",
+    "text": "Wer formulierte die Gesetze der Schwerkraft, der Legende nach inspiriert von einem Apfel?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "geschichte"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Galileo Galilei",
+      "Isaac Newton",
+      "Albert Einstein",
+      "Nikolaus Kopernikus"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-093",
+    "text": "Wer entdeckte das Penicillin?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "geschichte"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Alexander Fleming",
+      "Louis Pasteur",
+      "Robert Koch",
+      "Marie Curie"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-094",
+    "text": "Wie heißt die Einheit der elektrischen Stromstärke?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Volt",
+      "Watt",
+      "Ohm",
+      "Ampere"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-095",
+    "text": "In welcher Einheit misst man Frequenz?",
+    "ageRating": 12,
+    "tags": [
+      "wissenschaft",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Dezibel",
+      "Newton",
+      "Hertz",
+      "Joule"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-096",
+    "text": "Welche Farbe entsteht beim Mischen von Rot und Gelb?",
+    "ageRating": 6,
+    "tags": [
+      "kunst",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Grün",
+      "Lila",
+      "Braun",
+      "Orange"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-097",
+    "text": "Welche Form hat ein Stoppschild?",
+    "ageRating": 6,
+    "tags": [
+      "alltag",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Sechseck",
+      "Dreieck",
+      "Achteck",
+      "Kreis"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-098",
+    "text": "Wie viele Seiten hat ein Dreieck?",
+    "ageRating": 6,
+    "tags": [
+      "mathe",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "4",
+      "3",
+      "5",
+      "6"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-099",
+    "text": "Was ist die Quadratwurzel aus 144?",
+    "ageRating": 12,
+    "tags": [
+      "mathe",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "11",
+      "14",
+      "12",
+      "16"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-100",
+    "text": "Wie viel ist 7 mal 8?",
+    "ageRating": 6,
+    "tags": [
+      "mathe",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "54",
+      "58",
+      "56",
+      "63"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-101",
+    "text": "Welche Zahl ist eine Primzahl?",
+    "ageRating": 12,
+    "tags": [
+      "mathe",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "15",
+      "13",
+      "21",
+      "27"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-102",
+    "text": "Wie viele Grad hat ein rechter Winkel?",
+    "ageRating": 12,
+    "tags": [
+      "mathe",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "45",
+      "180",
+      "90",
+      "360"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-103",
+    "text": "Wie viele Minuten hat ein Tag?",
+    "ageRating": 12,
+    "tags": [
+      "mathe",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "1440",
+      "1200",
+      "1340",
+      "1640"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-104",
+    "text": "Wie heißt die römische Zahl für 50?",
+    "ageRating": 12,
+    "tags": [
+      "mathe",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "C",
+      "L",
+      "D",
+      "X"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-105",
+    "text": "Wie heißt die Hauptstadt von Italien?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Mailand",
+      "Rom",
+      "Venedig",
+      "Neapel"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-106",
+    "text": "Wie heißt die Hauptstadt von Spanien?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Barcelona",
+      "Madrid",
+      "Sevilla",
+      "Valencia"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-107",
+    "text": "Wie heißt die Hauptstadt von Österreich?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Salzburg",
+      "Graz",
+      "Innsbruck",
+      "Wien"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-108",
+    "text": "Wie heißt die Hauptstadt der Schweiz (Bundesstadt)?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Zürich",
+      "Genf",
+      "Basel",
+      "Bern"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-109",
+    "text": "Wie heißt die Hauptstadt der Türkei?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Istanbul",
+      "Izmir",
+      "Ankara",
+      "Antalya"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-110",
+    "text": "Wie heißt die Hauptstadt von Brasilien?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Rio de Janeiro",
+      "Brasília",
+      "São Paulo",
+      "Salvador"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-111",
+    "text": "Wie heißt die Hauptstadt von Norwegen?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Bergen",
+      "Stockholm",
+      "Oslo",
+      "Helsinki"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-112",
+    "text": "Wie heißt die Hauptstadt von Neuseeland?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "options": [
+      "Wellington",
+      "Auckland",
+      "Christchurch",
+      "Queenstown"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-113",
+    "text": "Wie heißt die Hauptstadt von Marokko?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "options": [
+      "Casablanca",
+      "Rabat",
+      "Marrakesch",
+      "Fès"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-114",
+    "text": "Wie heißt die Hauptstadt von Portugal?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Lissabon",
+      "Porto",
+      "Faro",
+      "Coimbra"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-115",
+    "text": "Wie heißt die Hauptstadt von Polen?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Krakau",
+      "Danzig",
+      "Warschau",
+      "Breslau"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-116",
+    "text": "Wie heißt die Hauptstadt von Ägypten?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Alexandria",
+      "Luxor",
+      "Gizeh",
+      "Kairo"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-117",
+    "text": "Wie heißt die Hauptstadt von Vietnam?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "options": [
+      "Ho-Chi-Minh-Stadt",
+      "Da Nang",
+      "Hanoi",
+      "Hue"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-118",
+    "text": "Welches ist der längste Fluss Europas?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "options": [
+      "Wolga",
+      "Donau",
+      "Rhein",
+      "Dnepr"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-119",
+    "text": "Durch wie viele Hauptstädte fließt die Donau?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "options": [
+      "2",
+      "4",
+      "3",
+      "5"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-120",
+    "text": "Welches Land hat die Form eines Stiefels?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Griechenland",
+      "Portugal",
+      "Italien",
+      "Chile"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-121",
+    "text": "Auf welchem Kontinent liegt Kenia?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Asien",
+      "Afrika",
+      "Südamerika",
+      "Australien"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-122",
+    "text": "Welches ist die größte Wüste der Welt, wenn man Kältewüsten mitzählt?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "options": [
+      "Sahara",
+      "Gobi",
+      "Arabische Wüste",
+      "Antarktis"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-123",
+    "text": "Welches ist die größte heiße Wüste der Welt?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Gobi",
+      "Kalahari",
+      "Atacama",
+      "Sahara"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-124",
+    "text": "Welcher ist der größte See Deutschlands (vollständig auf deutschem Gebiet)?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "deutschland"
+    ],
+    "difficulty": 3,
+    "options": [
+      "Chiemsee",
+      "Starnberger See",
+      "Ammersee",
+      "Müritz"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-125",
+    "text": "An welchen drei Ländern grenzt der Bodensee?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Deutschland, Frankreich, Schweiz",
+      "Deutschland, Österreich, Schweiz",
+      "Deutschland, Österreich, Liechtenstein",
+      "Schweiz, Österreich, Italien"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-126",
+    "text": "Welche Stadt ist die Hauptstadt von Bayern?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "deutschland",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Nürnberg",
+      "Augsburg",
+      "München",
+      "Regensburg"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-127",
+    "text": "Welche Stadt ist die Hauptstadt von Nordrhein-Westfalen?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Köln",
+      "Düsseldorf",
+      "Dortmund",
+      "Bonn"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-128",
+    "text": "Welche Stadt ist die Hauptstadt von Niedersachsen?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Braunschweig",
+      "Hannover",
+      "Osnabrück",
+      "Oldenburg"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-129",
+    "text": "Welche Stadt ist die Hauptstadt von Sachsen?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Leipzig",
+      "Chemnitz",
+      "Dresden",
+      "Zwickau"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-130",
+    "text": "Welche Stadt ist die Hauptstadt von Hessen?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Frankfurt am Main",
+      "Kassel",
+      "Darmstadt",
+      "Wiesbaden"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-131",
+    "text": "Welche Stadt ist die Hauptstadt von Baden-Württemberg?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "deutschland"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Karlsruhe",
+      "Freiburg",
+      "Mannheim",
+      "Stuttgart"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-132",
+    "text": "Welche Insel ist die größte Deutschlands?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Sylt",
+      "Usedom",
+      "Rügen",
+      "Fehmarn"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-133",
+    "text": "Wie heißt der höchste Berg Afrikas?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Mount Kenia",
+      "Kilimandscharo",
+      "Atlas",
+      "Tafelberg"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-134",
+    "text": "In welchem Land steht der Schiefe Turm?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "bauwerke",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Frankreich",
+      "Italien",
+      "Spanien",
+      "Griechenland"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-135",
+    "text": "In welcher Stadt steht das Kolosseum?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "bauwerke",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Athen",
+      "Neapel",
+      "Florenz",
+      "Rom"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-136",
+    "text": "In welcher Stadt steht die Sagrada Família?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "bauwerke"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Barcelona",
+      "Madrid",
+      "Lissabon",
+      "Valencia"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-137",
+    "text": "In welchem Land stehen die Pyramiden von Gizeh?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "bauwerke",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Ägypten",
+      "Mexiko",
+      "Sudan",
+      "Irak"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-138",
+    "text": "In welchem Land steht die Chinesische Mauer?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "bauwerke",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "China",
+      "Japan",
+      "Mongolei",
+      "Korea"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-139",
+    "text": "In welcher Stadt steht der Big Ben?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "bauwerke",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Paris",
+      "London",
+      "Dublin",
+      "Edinburgh"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-140",
+    "text": "In welchem Land liegt das Taj Mahal?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "bauwerke"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Pakistan",
+      "Indien",
+      "Iran",
+      "Bangladesch"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-141",
+    "text": "In welchem Bundesland steht Schloss Neuschwanstein?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "deutschland",
+      "bauwerke"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Baden-Württemberg",
+      "Thüringen",
+      "Sachsen",
+      "Bayern"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-142",
+    "text": "Wie heißt die Meerenge zwischen Europa und Afrika?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Straße von Gibraltar",
+      "Bosporus",
+      "Ärmelkanal",
+      "Straße von Messina"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-143",
+    "text": "Welches Land hat die meisten Einwohner in der Europäischen Union?",
+    "ageRating": 12,
+    "tags": [
+      "geografie",
+      "deutschland"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Frankreich",
+      "Italien",
+      "Spanien",
+      "Deutschland"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-144",
+    "text": "Welche Farben hat die Flagge Italiens?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Blau, Weiß, Rot",
+      "Rot, Weiß, Rot",
+      "Grün, Gelb, Rot",
+      "Grün, Weiß, Rot"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-145",
+    "text": "Welches Land hat ein Ahornblatt auf der Flagge?",
+    "ageRating": 6,
+    "tags": [
+      "geografie",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Schweiz",
+      "Österreich",
+      "Japan",
+      "Kanada"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-146",
+    "text": "Welche Farben hat die deutsche Flagge (von oben nach unten)?",
+    "ageRating": 6,
+    "tags": [
+      "deutschland",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Rot, Schwarz, Gold",
+      "Schwarz, Gold, Rot",
+      "Schwarz, Rot, Gold",
+      "Gold, Rot, Schwarz"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-147",
+    "text": "Wer war der erste Bundeskanzler der Bundesrepublik Deutschland?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "deutschland"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Konrad Adenauer",
+      "Willy Brandt",
+      "Ludwig Erhard",
+      "Helmut Schmidt"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-148",
+    "text": "In welchem Jahr wurde Deutschland wiedervereinigt?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "deutschland"
+    ],
+    "difficulty": 1,
+    "options": [
+      "1990",
+      "1989",
+      "1991",
+      "1993"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-149",
+    "text": "Wer erreichte 1492 mit seinen Schiffen Amerika?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Vasco da Gama",
+      "Ferdinand Magellan",
+      "Christoph Kolumbus",
+      "Amerigo Vespucci"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-150",
+    "text": "Wer erfand den Buchdruck mit beweglichen Lettern in Europa?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "deutschland"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Martin Luther",
+      "Albrecht Dürer",
+      "Johannes Gutenberg",
+      "Leonardo da Vinci"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-151",
+    "text": "Wer schlug 1517 der Überlieferung nach Thesen an eine Kirchentür in Wittenberg?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Martin Luther",
+      "Johannes Calvin",
+      "Huldrych Zwingli",
+      "Philipp Melanchthon"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-152",
+    "text": "Wie hieß der erste römische Kaiser?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "wissen"
+    ],
+    "difficulty": 3,
+    "options": [
+      "Julius Caesar",
+      "Nero",
+      "Augustus",
+      "Tiberius"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-153",
+    "text": "Welche antike Stadt wurde 79 n. Chr. vom Vesuv verschüttet?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Troja",
+      "Karthago",
+      "Sparta",
+      "Pompeji"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-154",
+    "text": "Wie hieß die ägyptische Königin, die mit Julius Caesar und Marcus Antonius verbunden war?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Nofretete",
+      "Kleopatra",
+      "Hatschepsut",
+      "Nefertari"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-155",
+    "text": "In welchem Jahr endete der Zweite Weltkrieg in Europa?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "1944",
+      "1946",
+      "1939",
+      "1945"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-156",
+    "text": "Wer war der erste Präsident der USA?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "George Washington",
+      "Abraham Lincoln",
+      "Thomas Jefferson",
+      "John Adams"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-157",
+    "text": "Welches Schiff sank 1912 nach einer Kollision mit einem Eisberg?",
+    "ageRating": 6,
+    "tags": [
+      "geschichte",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Lusitania",
+      "Britannic",
+      "Titanic",
+      "Queen Mary"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-158",
+    "text": "Wer baute das erste benzinbetriebene Automobil, das 1886 patentiert wurde?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Gottlieb Daimler",
+      "Carl Benz",
+      "Henry Ford",
+      "Rudolf Diesel"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-159",
+    "text": "Welche Brüder gelten als Pioniere des Motorflugs (1903)?",
+    "ageRating": 12,
+    "tags": [
+      "geschichte",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Die Gebrüder Wright",
+      "Die Gebrüder Grimm",
+      "Die Gebrüder Lumière",
+      "Die Gebrüder Montgolfier"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-160",
+    "text": "Wer sammelte Märchen wie „Hänsel und Gretel“ und „Rotkäppchen“?",
+    "ageRating": 6,
+    "tags": [
+      "literatur",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Hans Christian Andersen",
+      "Wilhelm Hauff",
+      "Die Brüder Grimm",
+      "Charles Perrault"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-161",
+    "text": "Wer malte „Die Sternennacht“?",
+    "ageRating": 12,
+    "tags": [
+      "kunst",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Claude Monet",
+      "Vincent van Gogh",
+      "Pablo Picasso",
+      "Paul Cézanne"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-162",
+    "text": "Wer schuf die Deckenfresken der Sixtinischen Kapelle?",
+    "ageRating": 12,
+    "tags": [
+      "kunst",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Raffael",
+      "Michelangelo",
+      "Leonardo da Vinci",
+      "Botticelli"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-163",
+    "text": "Von wem stammt das Gemälde „Der Schrei“?",
+    "ageRating": 12,
+    "tags": [
+      "kunst",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Gustav Klimt",
+      "Egon Schiele",
+      "Edvard Munch",
+      "Salvador Dalí"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-164",
+    "text": "Wer schrieb „Romeo und Julia“?",
+    "ageRating": 12,
+    "tags": [
+      "literatur",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Charles Dickens",
+      "William Shakespeare",
+      "Friedrich Schiller",
+      "Molière"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-165",
+    "text": "Wer schrieb die „Harry Potter“-Bücher?",
+    "ageRating": 6,
+    "tags": [
+      "literatur",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "J. K. Rowling",
+      "Cornelia Funke",
+      "J. R. R. Tolkien",
+      "Roald Dahl"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-166",
+    "text": "Wer schrieb „Die unendliche Geschichte“?",
+    "ageRating": 12,
+    "tags": [
+      "literatur",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Cornelia Funke",
+      "Otfried Preußler",
+      "Michael Ende",
+      "Erich Kästner"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-167",
+    "text": "Wer schrieb „Emil und die Detektive“?",
+    "ageRating": 12,
+    "tags": [
+      "literatur",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Michael Ende",
+      "Astrid Lindgren",
+      "James Krüss",
+      "Erich Kästner"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-168",
+    "text": "Wer erfand die Figur Pippi Langstrumpf?",
+    "ageRating": 6,
+    "tags": [
+      "literatur",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Astrid Lindgren",
+      "Enid Blyton",
+      "Roald Dahl",
+      "Michael Ende"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-169",
+    "text": "Wie heißt der Hobbit, der in „Der Herr der Ringe“ den Ring zum Schicksalsberg trägt?",
+    "ageRating": 12,
+    "tags": [
+      "literatur",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Frodo",
+      "Bilbo",
+      "Sam",
+      "Pippin"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-170",
+    "text": "Wer komponierte die „Kleine Nachtmusik“?",
+    "ageRating": 12,
+    "tags": [
+      "musik",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Ludwig van Beethoven",
+      "Johann Sebastian Bach",
+      "Wolfgang Amadeus Mozart",
+      "Joseph Haydn"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-171",
+    "text": "Welcher Komponist wurde im Alter fast völlig taub, komponierte aber weiter?",
+    "ageRating": 12,
+    "tags": [
+      "musik",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Mozart",
+      "Bach",
+      "Ludwig van Beethoven",
+      "Chopin"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-172",
+    "text": "Wie viele Linien hat ein Notensystem?",
+    "ageRating": 12,
+    "tags": [
+      "musik",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-173",
+    "text": "Welches Instrument spielt man mit einem Bogen?",
+    "ageRating": 6,
+    "tags": [
+      "musik",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Cello",
+      "Harfe",
+      "Trompete",
+      "Klavier"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-174",
+    "text": "Aus welcher Stadt stammte die Band „The Beatles“?",
+    "ageRating": 12,
+    "tags": [
+      "musik",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "London",
+      "Liverpool",
+      "Manchester",
+      "Birmingham"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-175",
+    "text": "Welche schwedische Band gewann 1974 den Eurovision Song Contest mit „Waterloo“?",
+    "ageRating": 12,
+    "tags": [
+      "musik",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "ABBA",
+      "Roxette",
+      "Europe",
+      "Ace of Base"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-176",
+    "text": "Welche Farbe hat die Maus aus der „Sendung mit der Maus“?",
+    "ageRating": 6,
+    "tags": [
+      "kinder",
+      "alltag"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Orange",
+      "Grau",
+      "Blau",
+      "Gelb"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-177",
+    "text": "Wie heißt der Schneemann in „Die Eiskönigin“?",
+    "ageRating": 6,
+    "tags": [
+      "kinder",
+      "film"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Sven",
+      "Kristoff",
+      "Hans",
+      "Olaf"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-178",
+    "text": "Wie heißt der Clownfisch, der in einem bekannten Pixar-Film gesucht wird?",
+    "ageRating": 6,
+    "tags": [
+      "kinder",
+      "film"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Nemo",
+      "Dorie",
+      "Marlin",
+      "Gill"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-179",
+    "text": "Welcher Superheld wird auch „Die Spinne“ genannt?",
+    "ageRating": 6,
+    "tags": [
+      "kinder",
+      "film"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Batman",
+      "Spider-Man",
+      "Superman",
+      "Iron Man"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-180",
+    "text": "Wie heißt der Zauberer, der Harry Potter nach Hogwarts holt und Schulleiter ist?",
+    "ageRating": 12,
+    "tags": [
+      "film",
+      "literatur"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Severus Snape",
+      "Albus Dumbledore",
+      "Rubeus Hagrid",
+      "Gandalf"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-181",
+    "text": "Wie viele Spieler hat eine Basketballmannschaft gleichzeitig auf dem Feld?",
+    "ageRating": 6,
+    "tags": [
+      "sport",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "6",
+      "7",
+      "4",
+      "5"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-182",
+    "text": "Wie oft wurde Deutschland (Männer) Fußball-Weltmeister?",
+    "ageRating": 12,
+    "tags": [
+      "sport",
+      "deutschland"
+    ],
+    "difficulty": 1,
+    "options": [
+      "3",
+      "4",
+      "5",
+      "2"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-183",
+    "text": "Wie viele Punkte zählt ein Touchdown im American Football?",
+    "ageRating": 12,
+    "tags": [
+      "sport",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "3",
+      "7",
+      "6",
+      "5"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-184",
+    "text": "Alle wie viele Jahre finden die Olympischen Sommerspiele normalerweise statt?",
+    "ageRating": 6,
+    "tags": [
+      "sport",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "2",
+      "3",
+      "5",
+      "4"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-185",
+    "text": "In welcher Sportart gibt es den Begriff „Birdie“?",
+    "ageRating": 12,
+    "tags": [
+      "sport",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Tennis",
+      "Golf",
+      "Squash",
+      "Cricket"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-186",
+    "text": "Wie heißt das berühmteste Radrennen Frankreichs?",
+    "ageRating": 12,
+    "tags": [
+      "sport",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Giro d’Italia",
+      "Tour de France",
+      "Vuelta",
+      "Paris–Roubaix"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-187",
+    "text": "Auf welchem Belag wird das Tennisturnier in Wimbledon gespielt?",
+    "ageRating": 12,
+    "tags": [
+      "sport",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Sand",
+      "Hartplatz",
+      "Rasen",
+      "Teppich"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-188",
+    "text": "Wie viele Löcher hat eine normale Golfrunde?",
+    "ageRating": 12,
+    "tags": [
+      "sport",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "9",
+      "12",
+      "24",
+      "18"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-189",
+    "text": "Welche Farbe hat beim Schach die Seite, die immer den ersten Zug macht?",
+    "ageRating": 6,
+    "tags": [
+      "spiele",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Schwarz",
+      "Rot",
+      "Weiß",
+      "Das wird gelost"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-190",
+    "text": "Welche Schachfigur kann nur diagonal ziehen?",
+    "ageRating": 12,
+    "tags": [
+      "spiele",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Turm",
+      "Springer",
+      "König",
+      "Läufer"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-191",
+    "text": "Aus welchem Land stammt Sushi?",
+    "ageRating": 6,
+    "tags": [
+      "essen",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "China",
+      "Korea",
+      "Thailand",
+      "Japan"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "quiz-192",
+    "text": "Was ist die Hauptzutat von Guacamole?",
+    "ageRating": 12,
+    "tags": [
+      "essen",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Avocado",
+      "Tomate",
+      "Paprika",
+      "Gurke"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-193",
+    "text": "Aus welcher Frucht wird Ketchup hauptsächlich gemacht?",
+    "ageRating": 6,
+    "tags": [
+      "essen",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Paprika",
+      "Tomate",
+      "Erdbeere",
+      "Rote Bete"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-194",
+    "text": "Aus welchem Getreide wird Popcorn gemacht?",
+    "ageRating": 6,
+    "tags": [
+      "essen",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Weizen",
+      "Mais",
+      "Reis",
+      "Hafer"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-195",
+    "text": "Aus welchem Land kommt die Paella?",
+    "ageRating": 12,
+    "tags": [
+      "essen",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Spanien",
+      "Italien",
+      "Portugal",
+      "Mexiko"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-196",
+    "text": "Welches Gewürz ist das teuerste der Welt (nach Gewicht)?",
+    "ageRating": 12,
+    "tags": [
+      "essen",
+      "wissen"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Vanille",
+      "Zimt",
+      "Safran",
+      "Kardamom"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-197",
+    "text": "Aus welcher Pflanze wird Schokolade hergestellt?",
+    "ageRating": 6,
+    "tags": [
+      "essen",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Kakaobaum",
+      "Kaffeestrauch",
+      "Zuckerrohr",
+      "Vanille"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-198",
+    "text": "Wie heißt das Frühlingsfest, bei dem Kinder bunte Eier suchen?",
+    "ageRating": 6,
+    "tags": [
+      "alltag",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Pfingsten",
+      "Ostern",
+      "Erntedank",
+      "Fasching"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-199",
+    "text": "Wie viele Tage hat der Februar in einem normalen Jahr?",
+    "ageRating": 6,
+    "tags": [
+      "alltag",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "29",
+      "28",
+      "30",
+      "27"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-200",
+    "text": "Welcher Monat hat seinen Namen vom römischen Kaiser Augustus?",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "geschichte"
+    ],
+    "difficulty": 2,
+    "options": [
+      "August",
+      "Juli",
+      "März",
+      "Mai"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-201",
+    "text": "Was bedeutet das englische Wort „butterfly“?",
+    "ageRating": 6,
+    "tags": [
+      "sprache",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Schmetterling",
+      "Butterbrot",
+      "Libelle",
+      "Biene"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-202",
+    "text": "Wie viele Buchstaben hat das Wort „Couch“?",
+    "ageRating": 6,
+    "tags": [
+      "sprache",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "5",
+      "4",
+      "6",
+      "3"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-203",
+    "text": "Welches Wort ist ein Palindrom (vorwärts und rückwärts gleich)?",
+    "ageRating": 6,
+    "tags": [
+      "sprache",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Anna-Lena",
+      "Otto",
+      "Emil",
+      "Hanna-Maria"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "quiz-204",
+    "text": "Welche Sprache wird in Brasilien hauptsächlich gesprochen?",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "geografie"
+    ],
+    "difficulty": 2,
+    "options": [
+      "Portugiesisch",
+      "Spanisch",
+      "Brasilianisch",
+      "Englisch"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-205",
+    "text": "Wie viele Sprachen sind in der Schweiz Landessprachen?",
+    "ageRating": 12,
+    "tags": [
+      "sprache",
+      "geografie"
+    ],
+    "difficulty": 2,
+    "options": [
+      "4",
+      "2",
+      "3",
+      "5"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "quiz-206",
+    "text": "Wofür steht die Abkürzung „WWW“?",
+    "ageRating": 12,
+    "tags": [
+      "technik",
+      "wissen"
+    ],
+    "difficulty": 1,
+    "options": [
+      "World Wide Window",
+      "Wide Web World",
+      "World Wide Web",
+      "World Web Wire"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "quiz-207",
+    "text": "Welche Firma stellt das iPhone her?",
+    "ageRating": 6,
+    "tags": [
+      "technik",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "options": [
+      "Apple",
+      "Samsung",
+      "Google",
+      "Nokia"
+    ],
+    "correctIndex": 0
   }
 ]
