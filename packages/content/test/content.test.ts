@@ -57,10 +57,15 @@ describe("estimate schema: zeroRange rules", () => {
 });
 
 describe("bluff words", () => {
-  it("has 200 nouns with article, unique ids and words", () => {
-    expect(BLUFF_WORDS_DE).toHaveLength(200);
-    expect(new Set(BLUFF_WORDS_DE.map((w) => w.id)).size).toBe(200);
-    expect(new Set(BLUFF_WORDS_DE.map((w) => w.word.toLowerCase())).size).toBe(200);
+  it("has 200 family words + 60 party words (nouns with article, unique ids and words)", () => {
+    const family = BLUFF_WORDS_DE.filter((w) => !w.adult);
+    const party = BLUFF_WORDS_DE.filter((w) => w.adult);
+    expect(family).toHaveLength(200);
+    expect(party).toHaveLength(60);
+    for (const w of family) expect(w.ageRating).toBe(12);
+    for (const w of party) expect(w.ageRating).toBe(18);
+    expect(new Set(BLUFF_WORDS_DE.map((w) => w.id)).size).toBe(260);
+    expect(new Set(BLUFF_WORDS_DE.map((w) => w.word.toLowerCase())).size).toBe(260);
     for (const w of BLUFF_WORDS_DE) {
       expect(["der", "die", "das"]).toContain(w.article);
       expect(w.word).toMatch(/^\p{Lu}/u); // nouns are capitalized
@@ -74,7 +79,6 @@ describe("bluff words", () => {
       expect(w.definition.toLowerCase()).not.toContain(w.word.toLowerCase());
       expect(w.definition).not.toMatch(/\((österr|nordd|südd|bair|ugs|veraltet)/);
       expect([2, 3]).toContain(w.difficulty);
-      expect(w.ageRating).toBe(12);
     }
   });
 

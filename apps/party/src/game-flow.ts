@@ -19,6 +19,7 @@ import {
   type ModuleTask,
   type GameMode,
   type GameModeSettings,
+  DEFAULT_PER_QUESTION_CAP,
   MODE_CHEEKINESS,
   type ModuleUpdate,
   type Phase,
@@ -75,9 +76,24 @@ function addPoints(target: Record<string, number>, delta: Record<string, number>
   return out;
 }
 
+/**
+ * Global per-question cap (default 200 per player), applied after every
+ * category's own scoring – future categories can't break the balance either.
+ */
+export function capScoreDelta(
+  delta: Record<string, number> | undefined,
+  scoring: { perQuestionCap?: number } | undefined,
+): Record<string, number> | undefined {
+  if (!delta) return delta;
+  const cap = scoring?.perQuestionCap ?? DEFAULT_PER_QUESTION_CAP;
+  return Object.fromEntries(Object.entries(delta).map(([id, points]) => [id, Math.min(points, cap)]));
+}
+
 /** Applies a module result to the room: state, points, timers, "done". */
-function applyModuleUpdate(room: RoomRecord, update: ModuleUpdate<unknown>, now: number): RoomRecord {
+function applyModuleUpdate(room: RoomRecord, raw: ModuleUpdate<unknown>, now: number): RoomRecord {
   const game = room.game!;
+  const round = game.rounds[game.roundIndex];
+  const update = { ...raw, scoreDelta: capScoreDelta(raw.scoreDelta, round?.scoring) };
   const usedContentIds = update.usedContentIds?.length
     ? [...new Set([...room.usedContentIds, ...update.usedContentIds])].slice(-MAX_USED_CONTENT_IDS)
     : room.usedContentIds;

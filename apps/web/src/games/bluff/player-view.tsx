@@ -166,7 +166,7 @@ function Result({ state, me }: PlayerViewProps<BluffPublicState>) {
   const reveal = state.reveal;
   const r = reveal?.results[me.id];
   const points = r?.finalScore ?? 0;
-  const parts = r ? resultParts(r, state.maxPoints, BLUFF_CONFIG.perFooledShare) : [];
+  const parts = r ? resultParts(r) : [];
   return (
     <div className="panel flex w-full flex-col items-center gap-3 p-6 text-center">
       <div className="animate-pop text-8xl">{points > 0 ? "🎉" : r ? "😬" : "⏰"}</div>

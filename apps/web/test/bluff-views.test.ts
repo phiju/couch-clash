@@ -23,13 +23,35 @@ describe("Bluff-Lexikon views", () => {
   });
 
   it("explains the points", () => {
-    const base = { baseScore: 0, speedModifier: 1, finalScore: 0 };
-    expect(resultParts({ ...base, votedCorrect: true, knewIt: false, fooled: 2 }, 100, 0.5)).toEqual([
+    const base = {
+      baseScore: 0,
+      speedModifier: 1,
+      finalScore: 0,
+      votedCorrect: false,
+      knewIt: false,
+      fooled: 0,
+      eligibleVoters: 9,
+      realPickers: 0,
+      findPoints: 0,
+      foolBonus: 0,
+      knowPoints: 0,
+      knowBonus: 0,
+    };
+    expect(resultParts({ ...base, votedCorrect: true, findPoints: 100, fooled: 5, foolBonus: 56, finalScore: 156 })).toEqual([
       "Richtig getippt +100",
-      "2 reingelegt +100",
+      "+56 (5 von 9 reingelegt)",
     ]);
-    expect(resultParts({ ...base, votedCorrect: false, knewIt: true, fooled: 0 }, 100, 0.5)).toEqual(["Gewusst! +100"]);
-    expect(resultParts({ ...base, votedCorrect: false, knewIt: false, fooled: 0 }, 100, 0.5)).toEqual([]);
+    expect(resultParts({ ...base, knewIt: true, knowPoints: 100, realPickers: 3, knowBonus: 33, finalScore: 133 })).toEqual([
+      "Gewusst! +100",
+      "+33 (3 von 9 fanden die echte)",
+    ]);
+    expect(resultParts(base)).toEqual([]);
+    // Capped at 200 per word
+    expect(resultParts({ ...base, votedCorrect: true, findPoints: 100, fooled: 9, foolBonus: 150, finalScore: 200 })).toEqual([
+      "Richtig getippt +100",
+      "+150 (9 von 9 reingelegt)",
+      "Höchstens 200 pro Wort",
+    ]);
   });
 
   it("music: think while writing, sting for the real definition", () => {

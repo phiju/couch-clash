@@ -9,6 +9,10 @@
  */
 import { BLUFF_WORDS_DE, BluffWordSchema, type BluffWord } from "@couch-clash/content";
 import {
+  DEFAULT_PER_QUESTION_CAP,
+  difficultyWeight,
+  type GameMode,
+  type ModuleInitOptions,
   REVEAL_LEADERBOARD_MS,
   type ContentEntry,
   type GameModule,
@@ -19,8 +23,8 @@ import {
   type Viewer,
 } from "@couch-clash/shared";
 import { z } from "zod";
-import { listEntries, parseWith, pickForRound } from "../content-pool";
-import { shuffle } from "../random";
+import { listEntries, parseWith, pickForRound, playablePool } from "../content-pool";
+import { pickFresh, shuffle } from "../random";
 import { normalizeScoring, scoreAnswer } from "../scoring";
 import {
   judgePrompt,
@@ -61,9 +65,13 @@ export interface BluffState {
   shown: Record<string, string>;
   /** Host option: show the authors' original texts at the reveal. */
   showOriginals: boolean;
+  /** Game mode (the judge's "offensive" rule depends on it). */
+  mode: GameMode;
 }
 
 const WRITE_MS = bluffMeta.secondsPerQuestion * 1000;
+/** Party mode: share of words from the party set. */
+const PARTY_SHARE = 1 / 3;
 const VOTE_MS = BLUFF_CONFIG.voteSeconds * 1000;
 
 /** Single line, no control characters, max 80 characters. */
@@ -191,10 +199,14 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
     return ctx.players.filter((p) => p.connected && canVote(state, p.id));
   }
 
+  function voterIds(state: State, ctx: ModuleContext): string[] {
+    return voters(state, ctx).map((p) => p.id);
+  }
+
   function afterPresent(state: State, ctx: ModuleContext): ModuleUpdate<State> {
     const playerOptions = state.options?.filter((o) => !o.correct).length ?? 0;
     // Only the real definition, or nobody who could vote → no voting.
-    if (playerOptions === 0 || voters(state, ctx).length === 0) return reveal(state, ctx.now);
+    if (playerOptions === 0 || voters(state, ctx).length === 0) return reveal(state, ctx);
     return update(at(state, "vote", ctx.now, VOTE_MS));
   }
 
@@ -203,30 +215,57 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
     return eligible.length > 0 && eligible.every((p) => p.id in state.votes);
   }
 
-  function score(state: State): Record<string, BluffResult> {
-    const options = state.options ?? [];
+  function pointSettings(state: State) {
     const scoring = normalizeScoring(bluffMeta, state.scoring);
+    const p = scoring.points ?? {};
+    return {
+      scoring,
+      points: { find: p.find ?? 100, know: p.know ?? 100, fool: p.fool ?? 100 },
+      cap: scoring.perQuestionCap ?? DEFAULT_PER_QUESTION_CAP,
+    };
+  }
+
+  /**
+   * Scaled bluff scoring: the fooling bonus is the SHARE of players fooled,
+   * so it doesn't grow with the number of players; capped per question.
+   */
+  function score(state: State, ctx: ModuleContext): Record<string, BluffResult> {
+    const options = state.options ?? [];
+    const { scoring, points } = pointSettings(state);
+    // Everyone allowed to vote in this word (connected, not knowers) – plus whoever voted.
+    const voters = new Set([...voterIds(state, ctx), ...Object.keys(state.votes)]);
+    const realIndex = options.findIndex((o) => o.correct);
+    const realPickers = Object.values(state.votes).filter((v) => v.option === realIndex).length;
     const participants = new Set([...Object.keys(state.submissions), ...Object.keys(state.votes), ...state.knewIt]);
     const results: Record<string, BluffResult> = {};
     for (const id of participants) {
       const vote = state.votes[id];
-      const votedCorrect = vote !== undefined && !!options[vote.option]?.correct;
-      const knewIt = state.knewIt.includes(id);
-      const fooled = Object.entries(state.votes).filter(
-        ([voter, v]) => voter !== id && options[v.option]?.authors.includes(id),
-      ).length;
-      const r = scoreAnswer(
-        scoring,
-        { votedCorrect, knewIt, fooled, perFooledShare: BLUFF_CONFIG.perFooledShare, knewItShare: BLUFF_CONFIG.knewItShare },
-        { responseTimeMs: 0, timeLimitMs: 1 },
-      );
-      results[id] = { ...r, votedCorrect, knewIt, fooled };
+      const found = vote !== undefined && vote.option === realIndex;
+      const knew = state.knewIt.includes(id);
+      const pickers = Object.entries(state.votes).filter(([voter, v]) => voter !== id && options[v.option]?.authors.includes(id)).length;
+      const eligibleVoters = [...voters].filter((v) => v !== id).length;
+      const input = { found, knew, pickers, realPickers, eligibleVoters, points };
+      const r = scoreAnswer(scoring, input, { responseTimeMs: 0, timeLimitMs: 1 });
+      const share = (n: number) => (eligibleVoters > 0 ? Math.min(n, eligibleVoters) / eligibleVoters : 0);
+      results[id] = {
+        ...r,
+        votedCorrect: found,
+        knewIt: knew,
+        fooled: pickers,
+        eligibleVoters,
+        realPickers: knew ? realPickers : 0,
+        findPoints: found ? points.find : 0,
+        foolBonus: Math.round(points.fool * share(pickers)),
+        knowPoints: knew ? points.know : 0,
+        knowBonus: knew ? Math.round(points.fool * share(realPickers)) : 0,
+      };
     }
     return results;
   }
 
-  function reveal(state: State, now: number): ModuleUpdate<State> {
-    const results = score(state);
+  function reveal(state: State, ctx: ModuleContext): ModuleUpdate<State> {
+    const now = ctx.now;
+    const results = score(state, ctx);
     const scoreDelta: Record<string, number> = {};
     for (const [id, r] of Object.entries(results)) if (r.finalScore > 0) scoreDelta[id] = r.finalScore;
     const fakes = state.options?.filter((o) => !o.correct).length ?? 0;
@@ -239,10 +278,34 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
     return {
       id: `bluff-check:${state.index}`,
       kind: "llm_json" as const,
-      input: judgePrompt(`${word.article} ${word.word}`, word.definition, judgeSubmissions(state)),
+      input: judgePrompt(`${word.article} ${word.word}`, word.definition, judgeSubmissions(state), state.mode),
       timeoutMs: BLUFF_CONFIG.checkTimeoutMs,
       model: "strong" as const,
     };
+  }
+
+  /**
+   * The words of a round. Party mode: about every third word comes from the
+   * party set (adult: true); the others – and all words in Familie – are family words.
+   */
+  function pickWords(options: ModuleInitOptions, random: () => number): BluffWord[] {
+    if (options.mode?.mode !== "party") return pickForRound(pool, BluffWordSchema, options, random);
+    const all = playablePool(pool, BluffWordSchema, options);
+    const pick = (items: BluffWord[], n: number) =>
+      pickFresh(items, n, options.excludeContentIds, random, (w) => difficultyWeight(w.difficulty, options.mode));
+    const adult = all.filter((w) => w.adult);
+    const family = all.filter((w) => !w.adult);
+    const nAdult = Math.min(adult.length, Math.round(options.questionCount * PARTY_SHARE));
+    const party = pick(adult, nAdult);
+    const rest = pick(family, options.questionCount - party.length);
+    // Spread them: positions 2, 5, 8, … get a party word.
+    const out: BluffWord[] = [];
+    while (party.length || rest.length) {
+      const wantParty = out.length % 3 === 1;
+      const next = (wantParty && party.length ? party : rest.length ? rest : party).shift()!;
+      out.push(next);
+    }
+    return out;
   }
 
   const module: GameModule<State, BluffAction, BluffPublicState> = {
@@ -250,7 +313,7 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
     actionSchema,
 
     init(ctx, options) {
-      const words = pickForRound(pool, BluffWordSchema, options, ctx.random);
+      const words = pickWords(options, ctx.random);
       const initial: State = {
         words,
         index: 0,
@@ -266,6 +329,7 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
         scoring: normalizeScoring(bluffMeta, options.scoring),
         shown: {},
         showOriginals: options.options?.showOriginals === true,
+        mode: options.mode?.mode ?? "family",
       };
       if (words.length === 0) return { state: initial, phaseEndsAt: null, done: true };
       return { ...openWord(initial, 0, ctx.now), usedContentIds: words.map((w) => w.id) };
@@ -292,7 +356,7 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
       if (!option) return { error: "INVALID_MESSAGE" };
       if (option.authors.includes(playerId)) return { error: "OWN_ANSWER" };
       const next: State = { ...state, votes: { ...state.votes, [playerId]: { option: action.option, at: ctx.now } } };
-      if (allVoted(next, ctx)) return reveal(next, ctx.now);
+      if (allVoted(next, ctx)) return reveal(next, ctx);
       return update(next);
     },
 
@@ -306,7 +370,7 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
         case "present":
           return afterPresent(state, ctx);
         case "vote":
-          return reveal(state, ctx.now);
+          return reveal(state, ctx);
         case "reveal":
           return update(at(state, "solution", ctx.now, BLUFF_CONFIG.solutionMs));
         case "solution":
@@ -326,7 +390,7 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
           return endWriting(state, ctx);
         }
       }
-      if (state.step === "vote" && allVoted(state, ctx)) return reveal(state, ctx.now);
+      if (state.step === "vote" && allVoted(state, ctx)) return reveal(state, ctx);
       return null;
     },
 
@@ -456,7 +520,10 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
         canVote: !!me && canVote(state, me),
         votedPlayerIds: Object.keys(state.votes),
         myVote: me ? (state.votes[me]?.option ?? null) : null,
-        maxPoints: normalizeScoring(bluffMeta, state.scoring).maxPoints,
+        points: (() => {
+          const { points, cap } = pointSettings(state);
+          return { ...points, cap };
+        })(),
         presentLeadMs: BLUFF_CONFIG.presentLeadMs,
         presentMsPerOption: BLUFF_CONFIG.presentMsPerOption,
         reveal,
