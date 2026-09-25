@@ -13,10 +13,10 @@ import type { CategoryId } from "./meta";
 import { quizModule } from "./quiz/module";
 import { skurrilModule } from "./skurril/module";
 import { stealModule } from "./steal/module";
+import { survivalModule } from "./survival/module";
 
 export * from "./meta";
 export * from "./scoring";
-// Survival-Finale (not in the registry yet – the host picks it as the last round in stage 2).
 export { createSurvivalModule, survivalModule, type SurvivalModule, type SurvivalState } from "./survival/module";
 export { defaultSuddenDeath, type SuddenDeathRule } from "./survival/sudden-death";
 
@@ -31,6 +31,7 @@ export const GAME_MODULES: Record<CategoryId, GameModule> = {
   fuehrerschein: fuehrerscheinModule as unknown as GameModule,
   bluff: bluffModule as unknown as GameModule,
   skurril: skurrilModule as unknown as GameModule,
+  survival: survivalModule as unknown as GameModule,
 };
 
 export type ModuleRegistry = Readonly<Record<string, GameModule>>;

@@ -13,6 +13,8 @@ export interface VoicePlayerDeps {
   onCurrent(line: HostLine | null): void;
   /** Server time (Date.now() + clock offset). */
   serverNow(): number;
+  /** Fades the playing line out quickly (a more important one preempts it); its `ended` then resolves. */
+  interrupt?(): void;
   sleep?: (ms: number) => Promise<void>;
 }
 
@@ -32,7 +34,9 @@ export class VoicePlayer {
 
   enqueue(line: HostLine) {
     if (this.stopped) return;
+    const interrupt = this.queue.shouldInterrupt(line);
     this.queue.enqueue(line, Date.now());
+    if (interrupt) this.deps.interrupt?.();
     void this.pump();
   }
 
@@ -44,7 +48,10 @@ export class VoicePlayer {
   private async pump() {
     const line = this.queue.next(Date.now());
     if (!line) return;
-    const played = await this.deps.play(line);
+    // E.g. "PLATSCH!" waits for the splash – never longer than the line may wait anyway.
+    const wait = line.playAt !== undefined ? Math.min(line.playAt - this.deps.serverNow(), line.staleAfterMs ?? 3_000) : 0;
+    if (wait > 0) await this.sleep(wait);
+    const played = this.stopped ? null : await this.deps.play(line);
     if (played && !this.stopped) {
       this.deps.onCurrent(line);
       this.deps.report({ lineId: line.id, event: "started", endsAt: this.deps.serverNow() + played.durationMs });

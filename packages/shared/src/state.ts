@@ -101,6 +101,8 @@ export interface PublicGameState {
   waitingPlayerIds: string[];
   /** Host ended the game early ("Spiel beenden") – the finale shows the standings so far. */
   endedEarly: boolean;
+  /** The finale shows a placing from a finale category (Survival-Finale) instead of the points order. */
+  rankedFinale: boolean;
 }
 
 /** Room state sent to a client. Built per viewer – may differ between clients. */

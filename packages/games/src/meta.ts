@@ -12,6 +12,7 @@ import { fuehrerscheinMeta } from "./fuehrerschein/meta";
 import { quizMeta } from "./quiz/meta";
 import { skurrilMeta } from "./skurril/meta";
 import { stealMeta } from "./steal/meta";
+import { survivalMeta } from "./survival/meta";
 
 /** ── Register new categories here (1/2) ── The order is the order of the game library. */
 export const CATEGORY_METAS = [
@@ -24,6 +25,8 @@ export const CATEGORY_METAS = [
   fuehrerscheinMeta,
   bluffMeta,
   skurrilMeta,
+  // The finale (not a card in the library – its own switch in the settings).
+  survivalMeta,
 ] as const satisfies readonly CategoryMeta[];
 
 export type CategoryId = (typeof CATEGORY_METAS)[number]["id"];
@@ -32,7 +35,7 @@ export function getCategoryMeta(id: string): CategoryMeta | undefined {
   return CATEGORY_METAS.find((m) => m.id === id);
 }
 
-export { betMeta, bluffMeta, categoryPickMeta, doubleMeta, estimateMeta, fuehrerscheinMeta, quizMeta, skurrilMeta, stealMeta };
+export { betMeta, bluffMeta, categoryPickMeta, doubleMeta, estimateMeta, fuehrerscheinMeta, quizMeta, skurrilMeta, stealMeta, survivalMeta };
 export { BET_CONFIG } from "./bet/meta";
 export { CATEGORY_PICK_CONFIG } from "./category-pick/meta";
 export { DOUBLE_CONFIG } from "./double/meta";
@@ -53,4 +56,3 @@ export type * from "./fuehrerschein/types";
 export * from "./survival/config";
 export * from "./survival/rules";
 export * from "./survival/types";
-export { survivalMeta } from "./survival/meta";

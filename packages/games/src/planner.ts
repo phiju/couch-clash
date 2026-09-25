@@ -40,6 +40,8 @@ export interface PlannedGame {
 export function plannableCategories(input: Omit<PlanInput, "random" | "targetMinutes">): CategoryMeta[] {
   return input.categories.filter(
     (c) =>
+      // The finale is switched on separately and always comes last.
+      !c.finale &&
       c.modes.includes(input.mode) &&
       (input.pools[c.id] ?? 0) >= c.questionsPerRound.min,
   );

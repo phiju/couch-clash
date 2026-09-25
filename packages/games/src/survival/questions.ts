@@ -50,12 +50,9 @@ export interface SurvivalQuestionSource {
   mode: GameMode;
 }
 
-/** Content ids of the running game (never repeated in the finale). */
-export type SurvivalInitOptions = ModuleInitOptions & { currentGameContentIds?: readonly string[] };
-
 export function buildQuestionSource(
   pools: SurvivalQuestionPools,
-  options: SurvivalInitOptions,
+  options: ModuleInitOptions,
   random: () => number,
   meta: ModeFilterMeta,
   estimateMeta: ModeFilterMeta,

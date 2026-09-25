@@ -11,7 +11,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "e2e:reconnect": "node e2e/reconnect.e2e.mjs",
-    "e2e:end-game": "node e2e/end-game.e2e.mjs"
+    "e2e:end-game": "node e2e/end-game.e2e.mjs",
+    "e2e:survival": "node e2e/survival.e2e.mjs"
   },
   "dependencies": {
     "@couch-clash/games": "workspace:*",

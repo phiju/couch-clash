@@ -33,7 +33,6 @@ import {
   buildQuestionSource,
   drawEstimate,
   drawQuestion,
-  type SurvivalInitOptions,
   type SurvivalQuestionPools,
   type SurvivalQuestionSource,
 } from "./questions";
@@ -471,7 +470,12 @@ export function createSurvivalModule(opts: SurvivalModuleOptions = {}): Survival
 
   function update(s: SurvivalState, now: number, ops: Ops): ModuleUpdate<SurvivalState> {
     const phaseEndsAt = s.step === "question" && s.question ? nextTick(s, now) : s.stepEndsAt;
-    return { state: s, phaseEndsAt, ...(ops.used.length ? { usedContentIds: ops.used } : {}) };
+    return {
+      state: s,
+      phaseEndsAt,
+      ...(ops.used.length ? { usedContentIds: ops.used } : {}),
+      ...(s.ranking ? { ranking: s.ranking } : {}),
+    };
   }
 
   const ops = (ctx: ModuleContext): Ops => ({ used: [], random: ctx.random });
@@ -515,7 +519,7 @@ export function createSurvivalModule(opts: SurvivalModuleOptions = {}): Survival
         ranking: null,
         events: [],
         eventSeq: 0,
-        source: buildQuestionSource(pools, options as SurvivalInitOptions, ctx.random, survivalMeta, estimateMeta, config),
+        source: buildQuestionSource(pools, options, ctx.random, survivalMeta, estimateMeta, config),
       };
       if (ids.length === 0) return { state: s, phaseEndsAt: null, done: true };
       emit(s, { type: "FINALE_STARTED", at: ctx.now, playerIds: lanes });
@@ -591,7 +595,7 @@ export function createSurvivalModule(opts: SurvivalModuleOptions = {}): Survival
           afterTiebreak(s, now, o);
           break;
         case "winner":
-          return { state: s, phaseEndsAt: null, done: true };
+          return { state: s, phaseEndsAt: null, done: true, ...(s.ranking ? { ranking: s.ranking } : {}) };
       }
       return update(s, now, o);
     },
@@ -750,6 +754,7 @@ export function createSurvivalModule(opts: SurvivalModuleOptions = {}): Survival
           wrongAnswerPenalty: s.config.wrongAnswerPenalty,
           scoreDecayPerSecond: s.config.scoreDecayPerSecond,
           moderatorCaptions: s.config.moderatorCaptions,
+          danger: s.config.danger,
         },
       };
     },

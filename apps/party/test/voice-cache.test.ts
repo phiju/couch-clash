@@ -8,6 +8,7 @@ import { clearUsageCache, fetchElevenLabsUsage } from "../src/voice/elevenlabs";
 import { accountLow } from "../src/voice/rules";
 import type { VoiceServices } from "../src/voice/service";
 import { allSnarkLines } from "../src/voice/snark";
+import { namelessLines } from "../src/voice/survival-lines";
 import { memoryStore } from "./avatar-helpers";
 import { mockSpeech } from "./voice-helpers";
 
@@ -56,7 +57,8 @@ describe("ElevenLabs account usage", () => {
 });
 
 describe("admin: Moderator-Sprüche vertonen", () => {
-  const total = allSnarkLines(SNARK_LINES_DE).length;
+  // The snark library plus the Survival-Finale's nameless lines (one per decay threshold where needed).
+  const total = allSnarkLines(SNARK_LINES_DE).length + namelessLines([10, 8, 6, 4]).length;
   const services = (over: Partial<VoiceServices> = {}): VoiceServices & { store: ReturnType<typeof memoryStore> } => ({
     text: null,
     speech: mockSpeech(),

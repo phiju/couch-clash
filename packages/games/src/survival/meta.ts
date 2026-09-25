@@ -30,4 +30,5 @@ export const survivalMeta = {
   capExempt: true,
   risk: true,
   needsStandings: true,
+  finale: true,
 } as const satisfies CategoryMeta;

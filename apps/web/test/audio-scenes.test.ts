@@ -4,7 +4,7 @@ import { audioSceneFor, questionRoundAudio } from "../src/lib/audio/scenes";
 
 type Room = Pick<PublicRoomState, "phase" | "game">;
 const game = (roundIndex = 0) =>
-  ({ rounds: [], roundIndex, scores: {}, roundGain: {}, module: null, leaderboard: null, currentQuestion: null, waitingPlayerIds: [], endedEarly: false }) as PublicRoomState["game"];
+  ({ rounds: [], roundIndex, scores: {}, roundGain: {}, module: null, leaderboard: null, currentQuestion: null, waitingPlayerIds: [], endedEarly: false, rankedFinale: false }) as PublicRoomState["game"];
 const room = (phase: PublicRoomState["phase"], roundIndex = 0): Room => ({
   phase,
   game: phase === "lobby" ? null : game(roundIndex),

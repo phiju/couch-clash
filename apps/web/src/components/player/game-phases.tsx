@@ -95,7 +95,7 @@ function PhaseContent({ room, me, sendAction, onRate, lobbyExtra }: Omit<Props, 
       const final = room.phase === "finale";
       const early = final && game.endedEarly;
       const won = final && mine?.rankAfter === 1;
-      const place = final ? placeText(game.leaderboard, me.id) : null;
+      const place = final ? placeText(game.leaderboard, me.id, { points: !game.rankedFinale }) : null;
       return (
         <Screen className="max-w-lg gap-5">
           <div className="panel flex w-full flex-col items-center gap-2 p-5 text-center">

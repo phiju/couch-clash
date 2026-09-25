@@ -1,18 +1,27 @@
 /**
  * Survival-Finale through the room's real game flow (alarms = advance at
- * phaseEndsAt, answers = handlePlayerAction, presence changes). The module
- * is not in the default registry yet, so the tests pass their own.
+ * phaseEndsAt, answers = handlePlayerAction, presence changes).
  */
 import { GAME_MODULES, SURVIVAL_CONFIG, survivalModule, type SurvivalPublicState, type SurvivalState } from "@couch-clash/games";
 import type { ScoringSettings } from "@couch-clash/shared";
 import { describe, expect, it } from "vitest";
-import { advance, beginGame, handlePlayerAction, handlePresenceChange, isTimerDue, publicGame, updateSettings, type FlowDeps } from "../src/game-flow";
+import {
+  advance,
+  beginGame,
+  handlePlayerAction,
+  handlePresenceChange,
+  isTimerDue,
+  publicGame,
+  sanitizeSettings,
+  updateSettings,
+  type FlowDeps,
+} from "../src/game-flow";
 import type { Result } from "../src/result";
 import { createRoomRecord, joinPlayer, type RoomRecord } from "../src/room-logic";
 
 const T0 = 1_700_000_000_000;
 const avatar = { character: "fox", color: "red" } as const;
-const registry = { ...GAME_MODULES, survival: survivalModule as unknown as (typeof GAME_MODULES)["quiz"] };
+const registry = GAME_MODULES;
 const scoring: ScoringSettings = survivalModule.meta.scoring;
 
 function unwrap<T>(r: Result<T>): T {
@@ -92,12 +101,49 @@ describe("Survival-Finale in the room", () => {
     // Ben (250) never answered: −100 decay, −200 → out.
     expect(s.players.find((p) => p.id === ben)!.eliminatedAt).not.toBeNull();
     expect(room.game!.scores).toEqual({ [anna]: 2000, [ben]: 90 });
-    // Winner moment, then the finale is done → scoreboard.
+    // Winner moment, then straight to the game's finale – placed by the elimination order.
     room = unwrap(advance(room, deps(room.phaseEndsAt!, ids)));
     expect(state(room).step).toBe("winner");
     expect(state(room).winnerId).toBe(anna);
     room = unwrap(advance(room, deps(room.phaseEndsAt!, ids)));
-    expect(room.phase).toBe("scoreboard");
+    expect(room.phase).toBe("finale");
+    const pub = publicGame(room, { role: "host" }, registry)!;
+    expect(pub.rankedFinale).toBe(true);
+    expect(pub.leaderboard!.map((e) => [e.playerId, e.rankAfter, e.scoreAfter])).toEqual([
+      [anna, 1, 2000],
+      [ben, 2, 90],
+    ]);
+  });
+
+  it("the survival round always comes last and only once", () => {
+    const quiz = { categoryId: "quiz", questionCount: 3, scoring: GAME_MODULES.quiz.meta.scoring };
+    const survival = { categoryId: "survival", questionCount: 1, scoring };
+    const rounds = unwrap(sanitizeSettings([survival, quiz, survival, { ...quiz, categoryId: "estimate", scoring: GAME_MODULES.estimate.meta.scoring }]));
+    expect(rounds.map((r) => r.categoryId)).toEqual(["quiz", "estimate", "survival"]);
+  });
+
+  it("never plays a question of the running game", () => {
+    let room = createRoomRecord("SUR2", "host-token-0123456789abcdef", T0);
+    const r = unwrap(joinPlayer(room, { name: "Anna", avatar }, { now: T0 }));
+    room = r.room;
+    const ids = [r.player.id];
+    room = unwrap(
+      updateSettings(room, [
+        { categoryId: "quiz", questionCount: 5, scoring: GAME_MODULES.quiz.meta.scoring },
+        { categoryId: "survival", questionCount: 1, scoring },
+      ]),
+    );
+    room = unwrap(beginGame(room, deps(T0, ids)));
+    // Play through the quiz with the host's "Weiter".
+    let now = T0;
+    for (let i = 0; i < 50 && !(room.phase === "play" && room.game!.roundIndex === 1); i++) {
+      now += 1000;
+      room = unwrap(advance(room, deps(now, ids)));
+    }
+    const played = room.game!.contentIds!;
+    expect(played.length).toBe(5);
+    const s = state(room);
+    expect(s.source.queue.some((id) => played.includes(id))).toBe(false);
   });
 
   it("reconnect: same start time, the decay keeps running, no second answer", () => {

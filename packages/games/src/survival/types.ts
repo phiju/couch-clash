@@ -149,7 +149,13 @@ export interface SurvivalPublicState {
   ranking: SurvivalRankingEntry[] | null;
   events: SurvivalEvent[];
   /** Rule numbers the screens need to show live values. */
-  rules: { wrongAnswerPenalty: number; scoreDecayPerSecond: number; moderatorCaptions: boolean };
+  rules: {
+    wrongAnswerPenalty: number;
+    scoreDecayPerSecond: number;
+    moderatorCaptions: boolean;
+    /** Danger thresholds (× wrongAnswerPenalty) – the TV shows live danger with them. */
+    danger: { warning: number; critical: number; imminent: number };
+  };
 }
 
 export interface SurvivalRankingEntry {

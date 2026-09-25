@@ -56,8 +56,10 @@ const POOLS: Record<CategoryId, readonly { id: string; adult?: boolean }[]> = {
   fuehrerschein: FUEHRERSCHEIN_QUESTIONS_DE,
   bluff: BLUFF_WORDS_DE,
   skurril: SKURRIL_STORIES_DE,
+  survival: QUIZ_QUESTIONS_DE,
 };
-const GAMES = Object.keys(GAME_MODULES) as CategoryId[];
+// The Survival-Finale has no fixed round (it draws questions one by one) – tested in survival.test.ts.
+const GAMES = (Object.keys(GAME_MODULES) as CategoryId[]).filter((id) => !GAME_MODULES[id].meta.finale);
 const partyIds = (id: CategoryId) => POOLS[id].filter((x) => x.adult).map((x) => x.id);
 
 /** The items a round plays, in order (Kategorienvorgabe draws them one by one after each pick). */

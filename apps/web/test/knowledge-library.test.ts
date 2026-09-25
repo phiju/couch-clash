@@ -1,8 +1,10 @@
 import { CATEGORY_METAS } from "@couch-clash/games/meta";
+import type { CategoryMeta } from "@couch-clash/shared";
 import { describe, expect, it } from "vitest";
 import { SETUP_VERSION, mergeLibraryOrder, migrateQuizScoring } from "../src/lib/setup-rules";
 
-const REGISTRY = CATEGORY_METAS.map((m) => m.id as string);
+// The library cards (the finale has its own switch).
+const REGISTRY = (CATEGORY_METAS as readonly CategoryMeta[]).filter((m) => !m.finale).map((m) => m.id);
 
 describe("game library", () => {
   it("a saved order from before keeps its order; the new games land at their library position", () => {

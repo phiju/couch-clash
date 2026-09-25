@@ -124,6 +124,12 @@ export interface CategoryMeta {
   risk?: boolean;
   /** Plays with the standings (e.g. robs the leader): Zufall never plans it as the first round. */
   needsStandings?: boolean;
+  /**
+   * The big last round of a game (Survival-Finale): always played last, at
+   * most once, never planned by Zufall, switched on separately in the settings.
+   * When it is done the game goes straight to the finale with its placing.
+   */
+  finale?: boolean;
 }
 
 /** The category whose questions a category plays (CategoryMeta.contentPool). */
@@ -182,6 +188,8 @@ export interface ModuleInitOptions {
   mode?: GameModeSettings;
   /** Server log for content problems (e.g. a party pool that ran dry). Optional. */
   log?: (message: string, data?: Record<string, unknown>) => void;
+  /** Content played in the running game so far – never again in this game (e.g. the finale). */
+  currentGameContentIds?: readonly string[];
 }
 
 export interface ModuleUpdate<TState> {
@@ -194,6 +202,12 @@ export interface ModuleUpdate<TState> {
   scoreDelta?: Record<string, number>;
   /** Content ids used, so later rounds/games in this room avoid repeats. */
   usedContentIds?: string[];
+  /**
+   * Final placing decided by the category (finale categories, e.g. the
+   * Survival-Finale's elimination order) – the game's finale shows it instead
+   * of the points order. Ties share a place.
+   */
+  ranking?: { playerId: string; place: number }[];
 }
 
 export type ModuleActionResult<TState> = ModuleUpdate<TState> | { error: ErrorCode };
