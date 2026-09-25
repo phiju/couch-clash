@@ -99,6 +99,16 @@ Scoring (strategy `bluff`, no speed bonus, all amounts editable in „Punkte-Ein
 
 Needs at least 2 players. The judge's „offensive“ rule depends on the mode (Party allows suggestive, never explicit or hateful).
 
+## Skurrile Ereignisse
+
+Same mechanics as the Bluff-Lexikon, but with **true, bizarre stories**: the TV shows the start of a story (context, ≈ 3 lines, year as a badge) and a question („Warum wurde er disqualifiziert?“); everyone invents the ending, then finds the truth among the answers. Own game in the library (right after the Bluff-Lexikon), own settings and statistics.
+
+- **One engine, two adapters:** `packages/games/src/bluff/engine.ts` is content-agnostic; each game is a `BluffContentAdapter` (`bluff/module.ts` for the Lexikon, `skurril/module.ts` for the stories): items + mode filter / party mix, prompt text, real answer, reveal lead and extra, what the judge gets, polishing rules (`JudgeStyle` in `bluff/judge.ts`), phone placeholder. The web views (`apps/web/src/games/bluff/`) are shared and only get their texts per game. A golden-master test (`packages/games/test/bluff-golden.test.ts`) pins the Bluff-Lexikon to its behaviour before the refactor.
+- **Content:** `packages/content/data/skurril.de.json` – 139 stories with sources (30 Kids `skurril-kids-*` age 6, 80 Familie `skurril-*` age 12, 29 Party `skurril-party-*` age 18 + adult). Schema `SkurrilStorySchema`: context ≤ 230, question ≤ 100, answer ≤ 80 without final full stop, fact ≤ 220, year or null, http(s) source, adult ⇔ 18.
+- **Modes:** Kids (only age 6, any difficulty), Familie (≤ 12, no adult), Party (family pool + ~30 % party stories, spread out). 2+ players, 75 s writing, 3–10 stories (default 5).
+- **Judge:** an answer is correct when it describes the same core event / reason (vaguer is fine; a different detail, mechanism or number is a bluff). Bluffs are polished into the same grammatical form and tone as the real answer so it doesn't stand out. Same fallbacks as the Lexikon.
+- **Voice / reveal:** the host reads context + question when the writing starts (fixed text, no AI line). The solution shows „Die Wahrheit: …“, the fact and „Quelle: domain“ (no link on the TV); the admin page links the source. No AI replacement generator – the stories are verified by hand.
+
 **Per-question cap:** every category has „Höchstens pro Frage“ (default 200) in the Punkte-Einstellungen; the room applies it once more to every score update as a safety net.
 
 ## Führerscheinprüfung
@@ -359,6 +369,8 @@ The TV/laptop plays music and effects; phones never do.
 **Photo avatars (AI)** ✅ Selfie/photo → cartoon in the show style via OpenAI, 3 expressions for the leaderboard, emoji fallback, R2 storage with cleanup, "⭐ Meine Figur" for next time.
 
 **Bluff-Lexikon** ✅ New category: invent definitions for very rare Latin/Greek nouns, find the real one – AI judge with polished answers, host reads the options, 200 words.
+
+**Skurrile Ereignisse** ✅ New game on the bluff engine: 139 true, bizarre stories (Kids, Familie, Party) – invent the ending, find the truth; fact and source at the reveal.
 
 **Führerscheinprüfung** ✅ New category: real traffic signs and junction scenes („Wer fährt zuerst?“) with a drive-through at the reveal, driving-instructor host and a BESTANDEN / DURCHGEFALLEN stamp at the end – 155 questions.
 

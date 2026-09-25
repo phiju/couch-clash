@@ -1,4 +1,4 @@
-/** Pure helpers for the Bluff-Lexikon views (tested). */
+/** Pure helpers for the bluff views – Bluff-Lexikon and Skurrile Ereignisse (tested). */
 import type { BluffPublicState, BluffResult } from "@couch-clash/games/meta";
 import type { ModuleAudioScene } from "@/lib/audio/scenes";
 
@@ -33,7 +33,7 @@ export function knowText(r: Pick<BluffResult, "knowBonus" | "realPickers" | "eli
 }
 
 /** "Richtig getippt +100 · +56 (5 von 9 reingelegt) · Gewusst! +100 · …" – and a note when capped. */
-export function resultParts(r: BluffResult): string[] {
+export function resultParts(r: BluffResult, per = "Wort"): string[] {
   const parts: string[] = [];
   if (r.knewIt) {
     parts.push(`Gewusst! +${r.knowPoints}`);
@@ -42,7 +42,7 @@ export function resultParts(r: BluffResult): string[] {
   if (r.votedCorrect) parts.push(`Richtig getippt +${r.findPoints}`);
   if (r.fooled > 0) parts.push(foolText(r));
   const sum = r.findPoints + r.foolBonus + r.knowPoints + r.knowBonus;
-  if (sum > r.finalScore) parts.push(`Höchstens ${r.finalScore} pro Wort`);
+  if (sum > r.finalScore) parts.push(`Höchstens ${r.finalScore} pro ${per}`);
   return parts;
 }
 

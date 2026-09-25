@@ -285,6 +285,8 @@ export interface ContentEntry {
   errorMetric?: boolean;
   alcohol?: boolean;
   adult?: boolean;
+  /** Where the content comes from (URL), e.g. the true stories of Skurrile Ereignisse. */
+  source?: string;
 }
 
 export interface ModuleProgress {

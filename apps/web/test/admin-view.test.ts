@@ -7,6 +7,7 @@ const q = (over: Partial<AdminQuestion>): AdminQuestion => ({
   categoryId: "quiz",
   text: "Frage",
   answer: "A",
+  source: null,
   difficulty: 2,
   ageRating: 6,
   tags: ["wissen"],

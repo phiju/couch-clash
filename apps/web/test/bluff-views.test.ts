@@ -1,6 +1,7 @@
-import { bluffMeta, categoryAvailable, quizMeta } from "@couch-clash/games/meta";
+import { bluffMeta, categoryAvailable, quizMeta, skurrilMeta } from "@couch-clash/games/meta";
 import { describe, expect, it } from "vitest";
 import { bluffAudio, presentHighlight, resultParts } from "../src/games/bluff/logic";
+import { LEXIKON_TEXTS, SKURRIL_TEXTS } from "../src/games/bluff/texts";
 
 const T0 = 1_000_000;
 const present = {
@@ -64,5 +65,38 @@ describe("Bluff-Lexikon views", () => {
     expect(categoryAvailable(bluffMeta, 1)).toBe(false);
     expect(categoryAvailable(bluffMeta, 2)).toBe(true);
     expect(categoryAvailable(quizMeta, 1)).toBe(true);
+  });
+});
+
+describe("Skurrile Ereignisse views", () => {
+  it("own texts for the shared bluff components; the Bluff-Lexikon texts stay", () => {
+    expect(LEXIKON_TEXTS.writeLabel).toBe("Deine erfundene Erklärung:");
+    expect(LEXIKON_TEXTS.hints.write).toBe("Schreibt eine glaubwürdige Erklärung aufs Handy!");
+    expect(SKURRIL_TEXTS.counter).toBe("Geschichte");
+    expect(SKURRIL_TEXTS.writeLabel).toBe("Deine erfundene Antwort:");
+  });
+
+  it("points per story", () => {
+    const capped = {
+      baseScore: 0,
+      speedModifier: 1,
+      finalScore: 200,
+      votedCorrect: true,
+      knewIt: false,
+      fooled: 2,
+      eligibleVoters: 2,
+      realPickers: 0,
+      findPoints: 150,
+      foolBonus: 100,
+      knowPoints: 0,
+      knowBonus: 0,
+    };
+    expect(resultParts(capped, SKURRIL_TEXTS.counter).at(-1)).toBe("Höchstens 200 pro Geschichte");
+  });
+
+  it("needs 2 players, also offered in Kids", () => {
+    expect(categoryAvailable(skurrilMeta, 1)).toBe(false);
+    expect(categoryAvailable(skurrilMeta, 2)).toBe(true);
+    expect(skurrilMeta.modes).toContain("kids");
   });
 });

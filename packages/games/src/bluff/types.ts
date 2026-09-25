@@ -1,4 +1,7 @@
-/** Client-safe types for the Bluff-Lexikon (no logic, no content). */
+/**
+ * Client-safe types for the bluff engine (no logic, no content) – shared by
+ * the Bluff-Lexikon and Skurrile Ereignisse.
+ */
 import type { ScoreResult } from "../scoring/final";
 
 /**
@@ -42,6 +45,10 @@ export interface BluffPublicState {
   word: string;
   /** "Ein Borborygmus ist …?" – the word with the right article as a question. */
   question: string;
+  /** Skurrile Ereignisse: the start of the true story (shown above the question). */
+  story?: BluffStory;
+  /** Phone input placeholder. */
+  placeholder: string;
   stepStartedAt: number;
   stepEndsAt: number;
   /** Who has written a definition (not what). */
@@ -74,5 +81,19 @@ export interface BluffPublicState {
     results: Record<string, BluffResult>;
     /** Authors' original texts (host option, default off), else null. */
     originals: Record<string, string> | null;
+    /** Skurrile Ereignisse: the fact behind the story and where it comes from. */
+    extra?: BluffRevealExtra;
   } | null;
+}
+
+export interface BluffStory {
+  context: string;
+  /** Shown as a small badge. */
+  year: number | null;
+}
+
+export interface BluffRevealExtra {
+  fact: string;
+  /** Domain of the source ("de.wikipedia.org"), not a link. */
+  source: string | null;
 }

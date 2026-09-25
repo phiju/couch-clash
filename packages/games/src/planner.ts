@@ -127,12 +127,31 @@ export function applyOrderRules(list: readonly CategoryMeta[]): CategoryMeta[] {
   return out;
 }
 
-/** `count` rounds: every category once first, then again in the same order (balanced repeats). */
-function pickCategories(available: CategoryMeta[], count: number, random: () => number): CategoryMeta[] {
+/** The shortest possible game with these rounds (every round at its minimum). */
+const minSeconds = (rounds: readonly CategoryMeta[]) =>
+  estimateGameSeconds(rounds.map((meta) => ({ meta, questionCount: meta.questionsPerRound.min })));
+
+/**
+ * `count` rounds: every category once first, then again in the same order
+ * (balanced repeats). A category whose minimum no longer fits into the time
+ * is skipped (e.g. two slow bluff games in a 15-minute game).
+ */
+function pickCategories(available: CategoryMeta[], count: number, random: () => number, targetSec: number): CategoryMeta[] {
   const distinct = shuffle(available, random);
-  const chosen = distinct.slice(0, Math.min(count, distinct.length));
+  const limit = targetSec * (1 + PLANNER_CONFIG.tolerance);
+  const chosen: CategoryMeta[] = [];
+  const fits = (c: CategoryMeta) => minSeconds([...chosen, c]) <= limit;
+  for (const c of distinct) if (chosen.length < count && fits(c)) chosen.push(c);
+  // Too few fit: fill up anyway (at least two rounds, as before).
+  for (const c of distinct) if (chosen.length < Math.min(2, count) && !chosen.includes(c)) chosen.push(c);
   let i = 0;
-  while (chosen.length < count && distinct.length > 1) chosen.push(distinct[i++ % distinct.length]!);
+  for (let misses = 0; chosen.length < count && distinct.length > 1 && misses < distinct.length; i++) {
+    const c = distinct[i % distinct.length]!;
+    if (fits(c)) {
+      chosen.push(c);
+      misses = 0;
+    } else misses++;
+  }
   return chosen;
 }
 
@@ -204,7 +223,7 @@ export function planGame(input: PlanInput): PlannedGame {
   let best: PlannedGame | null = null;
   // More rounds when the categories are too short to fill the time (long games, small maxima).
   for (let attempt = 0; attempt < 12; attempt++) {
-    const rounds = applyOrderRules(arrange(pickCategories(available, count, input.random), input.random));
+    const rounds = applyOrderRules(arrange(pickCategories(available, count, input.random, targetSec), input.random));
     const counts = fillQuestions(rounds, input.pools, targetSec);
     const plan = finalize(rounds, counts);
     if (!best || Math.abs(plan.estimatedSeconds - targetSec) < Math.abs(best.estimatedSeconds - targetSec)) best = plan;

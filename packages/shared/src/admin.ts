@@ -12,6 +12,8 @@ export interface AdminQuestion {
   text: string;
   /** Correct answer as displayed (option text, number with unit, …). */
   answer: string;
+  /** Source link of the content (e.g. Skurrile Ereignisse), null when there is none. */
+  source: string | null;
   difficulty: 1 | 2 | 3;
   ageRating: number;
   tags: string[];

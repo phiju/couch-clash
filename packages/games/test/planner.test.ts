@@ -141,7 +141,8 @@ describe("planGame with the knowledge games", () => {
   it("may pick all six knowledge games (and the others)", () => {
     const seen = new Set<string>();
     for (let seed = 1; seed <= 200; seed++) {
-      const plan = planGame({ mode: "family", targetMinutes: 90, categories: METAS, pools: ALL_POOLS, random: seeded(seed), playerCount: 4 });
+      // Spread seeds: the LCG's first value hardly changes for 1, 2, 3, … (9 games, 8 rounds → always the same one left out).
+      const plan = planGame({ mode: "family", targetMinutes: 90, categories: METAS, pools: ALL_POOLS, random: seeded(seed * 7919), playerCount: 4 });
       for (const r of plan.rounds) seen.add(r.categoryId);
     }
     expect(seen).toEqual(new Set(METAS.map((m) => m.id)));

@@ -23,7 +23,7 @@ function unwrap<T>(r: Result<T>): T {
 type BState = { step: string; index: number; options: { text: string; correct: boolean; authors: string[] }[] | null; knewIt: string[]; stepEndsAt: number };
 const bstate = (room: RoomRecord) => room.game!.moduleState as BState;
 
-function setup(names: string[], opts: { model?: JsonModel | null; voice?: boolean } = {}) {
+function setup(names: string[], opts: { model?: JsonModel | null; voice?: boolean; categoryId?: "bluff" | "skurril" } = {}) {
   let room = createRoomRecord("ABCD", "host-token-0123456789abcdef", T0);
   const ids: string[] = [];
   for (const name of names) {
@@ -77,7 +77,7 @@ function setup(names: string[], opts: { model?: JsonModel | null; voice?: boolea
     while (rt.tasks.length) await Promise.all(rt.tasks.splice(0));
   };
   const start = async () => {
-    await commit(unwrap(updateSettings(rt.room!, [{ categoryId: "bluff", questionCount: 3, scoring }])));
+    await commit(unwrap(updateSettings(rt.room!, [{ categoryId: opts.categoryId ?? "bluff", questionCount: 3, scoring }])));
     await commit(unwrap(beginGame(rt.room!, deps())));
     await commit(unwrap(advance(rt.room!, deps()))); // intro → write
     await settle();
@@ -192,5 +192,56 @@ describe("Bluff-Lexikon in the room", () => {
     expect(game.rounds.map((r) => r.categoryId)).toEqual(["quiz"]);
     room = unwrap(updateSettings(t.rt.room!, [{ categoryId: "bluff", questionCount: 3, scoring }]));
     expect(beginGame(room, t.deps())).toEqual({ ok: false, error: "NOT_ENOUGH_PLAYERS" });
+  });
+});
+
+describe("Skurrile Ereignisse in the room", () => {
+  type Story = { context: string; question: string };
+  const story = (room: RoomRecord) => {
+    const s = room.game!.moduleState as { words: Story[]; index: number };
+    return s.words[s.index]!;
+  };
+
+  it("the host reads the story and the question when the writing starts (fixed text, no AI line)", async () => {
+    const t = setup(["Anna", "Ben"], { model: null, voice: true, categoryId: "skurril" });
+    await t.start();
+    const s = story(t.rt.room!);
+    // (The intro card's description is read too – "Skurrile Ereignisse! Wahre Geschichten, …")
+    const reads = t.rt.sent.filter((l) => l.kind === "read" && l.cue);
+    expect(reads.map((l) => [l.cue, l.text])).toEqual([["prompt", `${s.context} ${s.question}`]]);
+    expect(t.rt.room!.voice.linesUsed).toBe(1); // only the game-start line
+  });
+
+  it("the Bluff-Lexikon still reads nothing while writing", async () => {
+    const t = setup(["Anna", "Ben"], { model: null, voice: true });
+    await t.start();
+    expect(t.rt.sent.filter((l) => l.kind === "read" && l.cue)).toEqual([]);
+  });
+
+  it("the room runs the event check with the strong model and the story as data", async () => {
+    const systems: string[] = [];
+    const users: string[] = [];
+    const model: JsonModel = async (system, user) => {
+      systems.push(system);
+      users.push(user);
+      return {
+        results: [
+          { id: "s1", verdict: "bluff", polished: "Er ist eingeschlafen", sameIdea: true, group: 1 },
+          { id: "s2", verdict: "bluff", polished: "Er ist mit dem Zug gefahren", sameIdea: true, group: 2 },
+        ],
+      };
+    };
+    const t = setup(["Anna", "Ben"], { model, categoryId: "skurril" });
+    await t.start();
+    const s = story(t.rt.room!);
+    await t.define(0, "er is eingeschlafen");
+    await t.define(1, "mit dem zug");
+    await t.settle();
+    expect(bstate(t.rt.room!).step).toBe("present");
+    expect(bstate(t.rt.room!).options!.map((o) => o.text)).toContain("Er ist mit dem Zug gefahren");
+    expect(systems[0]).toContain("Skurrile Ereignisse");
+    expect(JSON.parse(users[0]!.split("\n")[1]!)).toMatchObject({ context: s.context, question: s.question });
+    expect(users[0]).not.toContain("Anna");
+    expect(t.rt.qualities).toContain("strong");
   });
 });

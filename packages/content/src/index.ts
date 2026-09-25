@@ -7,7 +7,8 @@ import bluffDe from "../data/bluff.de.json";
 import estimateDe from "../data/estimate.de.json";
 import fuehrerscheinDe from "../data/fuehrerschein.de.json";
 import quizDe from "../data/quiz.de.json";
-import { BluffWordSchema, EstimateQuestionSchema, FuehrerscheinQuestionSchema, QuizQuestionSchema } from "./schema";
+import skurrilDe from "../data/skurril.de.json";
+import { BluffWordSchema, EstimateQuestionSchema, FuehrerscheinQuestionSchema, QuizQuestionSchema, SkurrilStorySchema } from "./schema";
 
 export * from "./schema";
 
@@ -25,3 +26,4 @@ export const QUIZ_QUESTIONS_DE = load(QuizQuestionSchema, quizDe, "quiz.de.json"
 export const ESTIMATE_QUESTIONS_DE = load(EstimateQuestionSchema, estimateDe, "estimate.de.json");
 export const FUEHRERSCHEIN_QUESTIONS_DE = load(FuehrerscheinQuestionSchema, fuehrerscheinDe, "fuehrerschein.de.json");
 export const BLUFF_WORDS_DE = load(BluffWordSchema, bluffDe, "bluff.de.json");
+export const SKURRIL_STORIES_DE = load(SkurrilStorySchema, skurrilDe, "skurril.de.json");

@@ -1,0 +1,2605 @@
+[
+  {
+    "id": "skurril-kids-001",
+    "context": "Bei der Fußball-WM 2010 wurde ein Krake namens Paul aus Oberhausen weltberühmt. Er sagte vorher, wer die Spiele gewinnt.",
+    "question": "Wie hat Paul verraten, wer gewinnt?",
+    "answer": "Er fraß aus einer Futterbox mit der Flagge des Siegers",
+    "fact": "Paul lag achtmal hintereinander richtig – sogar beim Finale, als Spanien gegen die Niederlande gewann.",
+    "year": 2010,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "krake",
+      "fußball",
+      "wm",
+      "oberhausen",
+      "tiere"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Paul_(Krake)"
+  },
+  {
+    "id": "skurril-kids-002",
+    "context": "Im Zoo von Edinburgh in Schottland lebt ein Königspinguin namens Nils Olav. Die norwegische Königsgarde hat ihn 2008 besonders geehrt.",
+    "question": "Was wurde der Pinguin 2008?",
+    "answer": "Er wurde zum Ritter geschlagen",
+    "fact": "Inzwischen ist er sogar Generalmajor – laut Guinness der ranghöchste Pinguin der Welt.",
+    "year": 2008,
+    "primaryCategory": "NATURE",
+    "tags": [
+      "pinguin",
+      "zoo",
+      "schottland",
+      "norwegen",
+      "tiere"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Nils_Olav"
+  },
+  {
+    "id": "skurril-kids-003",
+    "context": "Mr. Potato Head, der Kartoffelkopf zum Zusammenstecken, kam 1952 in die Läden. Doch in der Packung fehlte etwas Wichtiges.",
+    "question": "Was fehlte in der ersten Packung?",
+    "answer": "Die Kartoffel – man nahm eine echte aus der Küche",
+    "fact": "Erst ab 1964 lag eine Plastikkartoffel bei, weil echte Kartoffeln zu schimmeln anfingen. Er war auch das erste Spielzeug mit Fernsehwerbung.",
+    "year": 1952,
+    "primaryCategory": "GAMES",
+    "tags": [
+      "spielzeug",
+      "kartoffel",
+      "erfindung"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Mr._Potato_Head"
+  },
+  {
+    "id": "skurril-kids-004",
+    "context": "Die bunte Knete Play-Doh gibt es seit den 1950ern als Spielzeug. Erfunden wurde die weiche Masse aber schon in den 1930ern für etwas ganz anderes.",
+    "question": "Wofür war Play-Doh ursprünglich gedacht?",
+    "answer": "Zum Putzen von Tapeten",
+    "fact": "Damit wischte man Ruß von Kohleöfen von der Tapete. Als niemand mehr Kohle nutzte, wurde daraus Spielknete.",
+    "year": 1956,
+    "primaryCategory": "GAMES",
+    "tags": [
+      "knete",
+      "spielzeug",
+      "erfindung",
+      "putzen"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Play-Doh"
+  },
+  {
+    "id": "skurril-kids-005",
+    "context": "Im Jahr 1905 vergaß der 11-jährige Frank aus Kalifornien abends sein Limo-Getränk mit einem Rührstäbchen darin draußen. In der Nacht wurde es sehr kalt.",
+    "question": "Was hatte Frank am nächsten Morgen erfunden?",
+    "answer": "Das Eis am Stiel",
+    "fact": "Er nannte es zuerst „Epsicle“. Seine Kinder tauften es später in „Popsicle“ um.",
+    "year": 1905,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "eis",
+      "erfindung",
+      "kinder",
+      "sommer"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Popsicle_(brand)"
+  },
+  {
+    "id": "skurril-kids-006",
+    "context": "Der 15-jährige Chester Greenwood aus den USA probierte 1873 neue Schlittschuhe aus. Dabei ärgerte er sich sehr über die Kälte.",
+    "question": "Was erfand Chester daraufhin?",
+    "answer": "Ohrenschützer",
+    "fact": "Seine Oma nähte Fell auf zwei Drahtbügel. In Maine gibt es heute sogar einen Chester-Greenwood-Tag.",
+    "year": 1873,
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "erfindung",
+      "winter",
+      "kinder",
+      "kälte"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Chester_Greenwood"
+  },
+  {
+    "id": "skurril-kids-007",
+    "context": "1968 flogen die Astronauten von Apollo 8 als erste Menschen um den Mond. Mit an Bord: die Hüpfknete Silly Putty.",
+    "question": "Wofür brauchten die Astronauten die Knete?",
+    "answer": "Damit ihr Werkzeug nicht herumschwebt",
+    "fact": "In der Schwerelosigkeit klebten sie Werkzeuge damit fest. Auf der Erde wird die Knete in einem Plastik-Ei verkauft.",
+    "year": 1968,
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "weltraum",
+      "knete",
+      "astronauten",
+      "mond"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Silly_Putty"
+  },
+  {
+    "id": "skurril-kids-008",
+    "context": "Die NASA-Raumsonde Juno flog 2011 los zum Planeten Jupiter. An Bord waren drei ungewöhnliche Mitreisende.",
+    "question": "Wer flog mit zum Jupiter?",
+    "answer": "Drei Lego-Männchen",
+    "fact": "Sie zeigten Galileo, Jupiter und Juno – extra aus Aluminium statt Plastik gebaut, damit sie das All aushalten.",
+    "year": 2011,
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "lego",
+      "weltraum",
+      "jupiter",
+      "spielzeug"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Juno_(spacecraft)"
+  },
+  {
+    "id": "skurril-kids-009",
+    "context": "Von 2008 bis 2009 lebte ein Weltraum-Held 15 Monate lang auf der Internationalen Raumstation ISS. Die NASA nannte ihn „dienstältesten Astronauten“.",
+    "question": "Wer war dieser Weltraum-Held?",
+    "answer": "Eine Buzz-Lightyear-Spielfigur",
+    "fact": "Die Figur aus Toy Story flog mit dem Space Shuttle Discovery hin und steht heute in einem Museum in Washington.",
+    "year": 2008,
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "toy story",
+      "weltraum",
+      "spielzeug",
+      "iss"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Buzz_Lightyear"
+  },
+  {
+    "id": "skurril-kids-010",
+    "context": "1965 flog Astronaut John Young mit der Kapsel Gemini 3 ins All. Heimlich hatte er etwas in seinem Raumanzug versteckt.",
+    "question": "Was schmuggelte er mit ins All?",
+    "answer": "Ein Corned-Beef-Sandwich",
+    "fact": "Die Krümel hätten die Technik stören können – nach dem Flug gab es Ärger von der NASA.",
+    "year": 1965,
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "weltraum",
+      "sandwich",
+      "astronauten",
+      "essen"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Gemini_3"
+  },
+  {
+    "id": "skurril-kids-011",
+    "context": "1971 landete Astronaut Alan Shepard mit Apollo 14 auf dem Mond. Bevor er zurückflog, machte er dort noch etwas Sportliches.",
+    "question": "Was machte Alan Shepard auf dem Mond?",
+    "answer": "Er schlug Golfbälle",
+    "fact": "Er hatte einen Golfschläger-Kopf eingeschmuggelt. Der zweite Ball flog etwa 37 Meter weit.",
+    "year": 1971,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "golf",
+      "mond",
+      "weltraum",
+      "astronauten"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Moon_golf"
+  },
+  {
+    "id": "skurril-kids-012",
+    "context": "1930 entdeckten Forscher einen neuen Himmelskörper am Rand unseres Sonnensystems. Den Namen dafür schlug jemand ganz Besonderes vor.",
+    "question": "Wer schlug den Namen Pluto vor?",
+    "answer": "Ein elfjähriges Mädchen aus England",
+    "fact": "Venetia aus Oxford erzählte die Idee beim Frühstück ihrem Opa. Heute ist sogar ein Asteroid nach ihr benannt.",
+    "year": 1930,
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "pluto",
+      "weltraum",
+      "kinder",
+      "planet"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Venetia_Burney"
+  },
+  {
+    "id": "skurril-kids-013",
+    "context": "Der Oktopus Inky lebte in einem Aquarium in Neuseeland. 2016 war sein Becken eines Morgens leer.",
+    "question": "Wie war Inky verschwunden?",
+    "answer": "Er kroch durch ein Abflussrohr zurück ins Meer",
+    "fact": "Nachts schlüpfte er aus dem Becken, krabbelte über den Boden und rutschte durch ein 50 Meter langes Rohr in den Ozean.",
+    "year": 2016,
+    "primaryCategory": "NATURE",
+    "tags": [
+      "oktopus",
+      "aquarium",
+      "neuseeland",
+      "tiere",
+      "flucht"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Inky_(octopus)"
+  },
+  {
+    "id": "skurril-kids-014",
+    "context": "Am Bahnhof Kishi in Japan bekam die Katze Tama 2007 einen richtigen Job mit eigener Mütze und Namensschild.",
+    "question": "Welchen Job hatte Tama?",
+    "answer": "Sie war Bahnhofsvorsteherin",
+    "fact": "Später wurde sie sogar zur „Super-Bahnhofsvorsteherin“ befördert und lockte viele Touristen an.",
+    "year": 2007,
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "katze",
+      "bahnhof",
+      "japan",
+      "tiere",
+      "zug"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Tama_(cat)"
+  },
+  {
+    "id": "skurril-kids-015",
+    "context": "In Neuseeland versteckte sich das Merinoschaf Shrek sechs Jahre lang in Höhlen. 2004 wurde es endlich gefunden.",
+    "question": "Wie schwer war Shreks Wolle am Ende?",
+    "answer": "27 Kilogramm",
+    "fact": "Normal sind etwa 4 Kilo. Das Scheren wurde live im Fernsehen gezeigt und dauerte 20 Minuten.",
+    "year": 2004,
+    "primaryCategory": "NATURE",
+    "tags": [
+      "schaf",
+      "wolle",
+      "neuseeland",
+      "tiere"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Shrek_(sheep)"
+  },
+  {
+    "id": "skurril-kids-016",
+    "context": "2009 spielte Sunderland in England gegen den FC Liverpool. Das einzige Tor des Spiels war ein ziemlich schräges.",
+    "question": "Was war an dem Tor so seltsam?",
+    "answer": "Der Ball prallte von einem Wasserball ab ins Tor",
+    "fact": "Ein Fan hatte den Wasserball aufs Feld geworfen. Heute liegt er im Fußballmuseum in Manchester.",
+    "year": 2009,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "fußball",
+      "tor",
+      "wasserball",
+      "england"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Sunderland_A.F.C._1%E2%80%930_Liverpool_F.C._(2009)"
+  },
+  {
+    "id": "skurril-kids-017",
+    "context": "Beim Tennisturnier in Wimbledon hat ein Vogel namens Rufus einen wichtigen Job. Er trägt dabei sogar eine Haube in Wimbledon-Farben.",
+    "question": "Welchen Job hat Rufus?",
+    "answer": "Er verscheucht Tauben vom Rasen",
+    "fact": "Rufus ist ein Wüstenbussard. Als Belohnung fürs Tauben-Verjagen bekommt er Hühnchen.",
+    "year": null,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "tennis",
+      "wimbledon",
+      "vogel",
+      "tauben",
+      "tiere"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://www.npr.org/2014/07/05/328203629/pigeons-fly-in-fear-as-rufus-the-hawk-guards-wimbledons-grass"
+  },
+  {
+    "id": "skurril-kids-018",
+    "context": "1962 erfand Sam Panopoulos in seinem Restaurant eine Pizza mit Schinken und Ananas: die Pizza Hawaii.",
+    "question": "In welchem Land wurde die Pizza Hawaii erfunden?",
+    "answer": "In Kanada",
+    "fact": "Sam kam aus Griechenland, sein Restaurant lag in Ontario, Kanada. Mit Hawaii hatte die Pizza nichts zu tun.",
+    "year": 1962,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "pizza",
+      "ananas",
+      "kanada",
+      "essen"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Hawaiian_pizza"
+  },
+  {
+    "id": "skurril-kids-019",
+    "context": "In den USA verkauften Geschäftemacher ab 1837 „Tomatenpillen“ als Medizin gegen Bauchweh und Kopfschmerzen. Später wurden sie genauer untersucht.",
+    "question": "Was kam dabei heraus?",
+    "answer": "In den Pillen war gar keine Tomate drin",
+    "fact": "Die Tomatenpillen waren ein Schwindel. Aber danach aßen viel mehr Amerikaner echte Tomaten.",
+    "year": 1837,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "tomate",
+      "medizin",
+      "usa",
+      "essen"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://www.atlasobscura.com/articles/tomato-pill"
+  },
+  {
+    "id": "skurril-kids-020",
+    "context": "1922 erfand Hans Riegel aus Bonn Fruchtgummi in Bärenform. Heute heißen sie Goldbären, doch zuerst hatten sie einen anderen Namen.",
+    "question": "Wie hießen die Gummibärchen zuerst?",
+    "answer": "Tanzbären",
+    "fact": "Den Namen Goldbär bekamen sie erst 1960. Haribo steht für HAns RIegel BOnn.",
+    "year": 1922,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "gummibärchen",
+      "haribo",
+      "bonn",
+      "süßigkeiten"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Gummib%C3%A4r"
+  },
+  {
+    "id": "skurril-kids-021",
+    "context": "2011 stellte ein Tierfotograf in Indonesien seine Kamera im Dschungel auf. Dann kam ein neugieriger Schopfmakake vorbei.",
+    "question": "Was machte der Affe mit der Kamera?",
+    "answer": "Er machte ein grinsendes Selfie",
+    "fact": "Das Affen-Selfie wurde weltberühmt. Später stritten sogar Gerichte darüber, wem das Foto gehört.",
+    "year": 2011,
+    "primaryCategory": "NATURE",
+    "tags": [
+      "affe",
+      "selfie",
+      "foto",
+      "indonesien",
+      "tiere"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Monkey_selfie_copyright_dispute"
+  },
+  {
+    "id": "skurril-kids-022",
+    "context": "Um 1904 staunte ganz Berlin über das Pferd „Kluger Hans“. Es konnte scheinbar rechnen und klopfte die Lösung mit dem Huf.",
+    "question": "Wie wusste Hans die richtige Antwort?",
+    "answer": "Er las sie an den Gesichtern der Menschen ab",
+    "fact": "Die Fragesteller entspannten sich unbewusst, wenn er oft genug geklopft hatte. Wusste niemand die Lösung, lag Hans falsch.",
+    "year": 1904,
+    "primaryCategory": "NATURE",
+    "tags": [
+      "pferd",
+      "berlin",
+      "rechnen",
+      "tiere"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Kluger_Hans"
+  },
+  {
+    "id": "skurril-kids-023",
+    "context": "Am 5. August 2013 hatte der Mars-Rover Curiosity seinen ersten Jahrestag auf dem Mars. Er feierte das auf besondere Weise.",
+    "question": "Was machte Curiosity an diesem Tag?",
+    "answer": "Er spielte sich selbst „Happy Birthday“ vor",
+    "fact": "Die NASA ließ ein Messgerät in verschiedenen Tönen brummen. So klang das Geburtstagslied auf dem Mars.",
+    "year": 2013,
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "mars",
+      "roboter",
+      "geburtstag",
+      "weltraum"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://www.upi.com/Science_News/2013/08/07/Curiosity-sings-itself-Happy-Birthday-on-Mars/8131375882554/"
+  },
+  {
+    "id": "skurril-kids-024",
+    "context": "Der Japaner Kenichi Ito stellte 2015 einen Guinness-Weltrekord über 100 Meter auf. Er schaffte sie in 15,71 Sekunden – aber nicht auf normale Weise.",
+    "question": "Wie lief Kenichi Ito die 100 Meter?",
+    "answer": "Auf Händen und Füßen wie ein Affe",
+    "fact": "Er studierte jahrelang, wie Husarenaffen laufen, und übte ihre Bewegungen.",
+    "year": 2015,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "weltrekord",
+      "laufen",
+      "japan",
+      "affe"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Kenichi_Ito_(athlete)"
+  },
+  {
+    "id": "skurril-kids-025",
+    "context": "Die Wurfscheibe Frisbee hieß 1957 zuerst „Pluto Platter“. Den neuen Namen hatten sich Studenten ausgedacht.",
+    "question": "Woher kommt der Name Frisbee?",
+    "answer": "Von einer Kuchenfirma, deren Blechformen man warf",
+    "fact": "Studenten der Uni Yale warfen sich leere Kuchenbleche der Frisbie Pie Company zu.",
+    "year": 1957,
+    "primaryCategory": "GAMES",
+    "tags": [
+      "frisbee",
+      "spielzeug",
+      "kuchen",
+      "erfindung"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Frisbee"
+  },
+  {
+    "id": "skurril-kids-026",
+    "context": "Der Schweizer Ingenieur George de Mestral ging oft mit seinem Hund spazieren. Dabei brachte ihn etwas auf eine Erfindung.",
+    "question": "Was erfand er – und wodurch?",
+    "answer": "Den Klettverschluss – wegen Kletten im Hundefell",
+    "fact": "Unter dem Mikroskop sah er winzige Häkchen an den Kletten. Klett ist heute an Schuhen und Jacken.",
+    "year": 1951,
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "erfindung",
+      "schweiz",
+      "hund",
+      "klett"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Klettverschluss"
+  },
+  {
+    "id": "skurril-kids-027",
+    "context": "2019 wählte die Stadt Fair Haven in den USA einen neuen Ehrenbürgermeister. Gewonnen hat Lincoln, eine dreijährige Ziege.",
+    "question": "Was passierte bei Lincolns Amtseinführung?",
+    "answer": "Sie machte ein Häufchen auf den Boden",
+    "fact": "Wegräumen musste das unter anderem der Polizeichef. Die Wahl war eine Spendenaktion für einen Spielplatz.",
+    "year": 2019,
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "ziege",
+      "bürgermeister",
+      "usa",
+      "tiere"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://www.nbcnews.com/politics/politics-news/goat-elected-honorary-mayor-sworn-first-term-leaves-mess-police-n983116"
+  },
+  {
+    "id": "skurril-kids-028",
+    "context": "Wombats sind pummelige Beuteltiere aus Australien. Ihr Kot ist einzigartig auf der Welt.",
+    "question": "Was ist am Wombat-Kot so besonders?",
+    "answer": "Er ist würfelförmig",
+    "fact": "Die Würfel rollen nicht weg und markieren so das Revier. Die Forschung dazu bekam 2019 einen Ig-Nobelpreis.",
+    "year": null,
+    "primaryCategory": "NATURE",
+    "tags": [
+      "wombat",
+      "australien",
+      "kot",
+      "tiere"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Wombat"
+  },
+  {
+    "id": "skurril-kids-029",
+    "context": "Im März 2020 musste das Shedd Aquarium in Chicago schließen. Keine Besucher weit und breit.",
+    "question": "Was durften die Pinguine in dieser Zeit machen?",
+    "answer": "Einen Ausflug durchs leere Aquarium",
+    "fact": "Pinguin Wellington watschelte zu den Fischen im Amazonas-Becken und bestaunte sie ausgiebig.",
+    "year": 2020,
+    "primaryCategory": "NATURE",
+    "tags": [
+      "pinguin",
+      "aquarium",
+      "chicago",
+      "tiere"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://www.cbsnews.com/news/penguins-chicago-shedd-aquarium-closed-over-coronavirus-fears/"
+  },
+  {
+    "id": "skurril-kids-030",
+    "context": "1828 kam die erste Giraffe nach Wien in den Tiergarten Schönbrunn. Sie war ein Geschenk aus Ägypten.",
+    "question": "Was passierte danach in Wien?",
+    "answer": "Alle wollten Sachen im Giraffen-Look",
+    "fact": "Es gab Giraffen-Kaffee, Giraffen-Stoffe, Giraffen-Schmuck und sogar ein Parfüm „à la Giraffe“.",
+    "year": 1828,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "giraffe",
+      "wien",
+      "zoo",
+      "österreich",
+      "mode"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "adult": false,
+    "source": "https://magazin.wienmuseum.at/die-erste-giraffe-in-wien"
+  },
+  {
+    "id": "skurril-001",
+    "context": "Der kubanische Briefträger Andarín Carvajal lief 1904 den olympischen Marathon in St. Louis – in einer abgeschnittenen Straßenhose.",
+    "question": "Welchen Zwischenstopp legte er mitten im Rennen ein?",
+    "answer": "Er aß faule Äpfel und hielt danach ein Nickerchen",
+    "fact": "Trotz Äpfeln und Schläfchen wurde er noch Vierter. Sein Reisegeld hatte er vorher in New Orleans verspielt und war per Anhalter angereist.",
+    "year": 1904,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "olympia",
+      "marathon",
+      "kuba"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Andar%C3%ADn_Carvajal"
+  },
+  {
+    "id": "skurril-002",
+    "context": "Bei den Olympischen Spielen 1900 in Paris gab es im Schwimmen einen Wettbewerb über 200 Meter mit Hindernissen – ausgetragen in der Seine.",
+    "question": "Welche Hindernisse mussten die Schwimmer bewältigen?",
+    "answer": "Sie mussten über Boote klettern und unter Booten hindurchtauchen",
+    "fact": "Erst ging es über eine Stange und eine Reihe Boote, dann unter einer zweiten Bootsreihe hindurch.",
+    "year": 1900,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "olympia",
+      "schwimmen",
+      "paris"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Swimming_at_the_1900_Summer_Olympics_%E2%80%93_Men%27s_200_metre_obstacle_event"
+  },
+  {
+    "id": "skurril-003",
+    "context": "Von 1912 bis 1948 gab es bei Olympia auch Kunstwettbewerbe. 1912 gewann ein Gedicht namens „Ode an den Sport“ Gold in Literatur.",
+    "question": "Wer steckte hinter dem Siegergedicht?",
+    "answer": "Olympia-Gründer Pierre de Coubertin unter falschem Namen",
+    "fact": "Coubertin reichte die Ode unter dem Pseudonym „Georges Hohrod und M. Eschbach“ ein – zwei erfundene Autoren.",
+    "year": 1912,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "olympia",
+      "kunstwettbewerb",
+      "coubertin"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Art_competitions_at_the_Summer_Olympics"
+  },
+  {
+    "id": "skurril-004",
+    "context": "Bei Olympia 1936 landeten die Japaner Shūhei Nishida und Sueo Ōe im Stabhochsprung gleichauf auf Platz zwei. Ihr Team gab einem Silber, dem anderen Bronze.",
+    "question": "Was machten die beiden nach der Rückkehr mit ihren Medaillen?",
+    "answer": "Sie ließen beide Medaillen halbieren und neu zusammensetzen",
+    "fact": "Ein Juwelier fügte je eine halbe Silber- und eine halbe Bronzemedaille zusammen – bekannt als „Freundschaftsmedaillen“.",
+    "year": 1936,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "olympia",
+      "stabhochsprung",
+      "japan"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Shuhei_Nishida"
+  },
+  {
+    "id": "skurril-005",
+    "context": "Im olympischen Finale über 3000 m Hindernis 1932 in Los Angeles liefen am Ende alle Starter 3460 Meter.",
+    "question": "Wie kam es zu den zusätzlichen 460 Metern?",
+    "answer": "Der Rundenzähler hatte sich verzählt",
+    "fact": "Wegen eines Fehlers beim Rundenzählen drehten alle eine Extrarunde. Gold holte trotzdem der Finne Volmari Iso-Hollo.",
+    "year": 1932,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "olympia",
+      "leichtathletik",
+      "panne"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Athletics_at_the_1932_Summer_Olympics_%E2%80%93_Men%27s_3000_metres_steeplechase"
+  },
+  {
+    "id": "skurril-006",
+    "context": "Beim Caribbean Cup 1994 musste Barbados gegen Grenada mit zwei Toren Unterschied gewinnen. Kurz vor Schluss stand es nur 2:1.",
+    "question": "Was tat Barbados in der 87. Minute, um doch weiterzukommen?",
+    "answer": "Sie schossen absichtlich ein Eigentor zum 2:2",
+    "fact": "Ein Golden Goal in der Verlängerung zählte laut Turnierregel doppelt. Barbados erzwang die Verlängerung und gewann 4:2.",
+    "year": 1994,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "fußball",
+      "eigentor",
+      "karibik"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Barbados_4%E2%80%932_Grenada"
+  },
+  {
+    "id": "skurril-007",
+    "context": "Im März 1966, wenige Monate vor der Fußball-WM in England, wurde der WM-Pokal in London gestohlen.",
+    "question": "Wer fand die Trophäe eine Woche später wieder?",
+    "answer": "Ein Hund namens Pickles beim Gassigehen",
+    "fact": "Der Pokal lag in Zeitungspapier gewickelt neben einem geparkten Auto im Süden Londons.",
+    "year": 1966,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "fußball",
+      "wm",
+      "hund"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Pickles_(dog)"
+  },
+  {
+    "id": "skurril-008",
+    "context": "Der Japaner Shizō Kanakuri gab 1912 beim olympischen Marathon in Stockholm erschöpft auf und reiste heim, ohne sich abzumelden.",
+    "question": "Was geschah 1967 mit seinem Lauf?",
+    "answer": "Er lief in Stockholm doch noch ins Ziel – 54 Jahre später",
+    "fact": "Das schwedische Fernsehen lud ihn ein. Endzeit: über 54 Jahre, 8 Monate und 6 Tage. Unterwegs habe er geheiratet und sechs Kinder bekommen.",
+    "year": 1912,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "olympia",
+      "marathon",
+      "japan"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Shizo_Kanakuri"
+  },
+  {
+    "id": "skurril-009",
+    "context": "2010 spielten John Isner und Nicolas Mahut in Wimbledon das längste Tennismatch der Geschichte: 11 Stunden und 5 Minuten an drei Tagen.",
+    "question": "Was passierte im fünften Satz mit der Anzeigetafel?",
+    "answer": "Sie blieb bei 47:47 stehen und ging dann aus",
+    "fact": "Die Tafel war nur bis 47:47 programmiert. Der fünfte Satz endete erst 70:68 für Isner.",
+    "year": 2010,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "tennis",
+      "wimbledon",
+      "rekord"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Isner%E2%80%93Mahut_match_at_the_2010_Wimbledon_Championships"
+  },
+  {
+    "id": "skurril-010",
+    "context": "1939 spielten Südafrika und England in Durban ein Cricket-Testmatch ohne Zeitlimit – es sollte dauern, bis ein Sieger feststeht.",
+    "question": "Warum endete es nach zwölf Tagen trotzdem ohne Sieger?",
+    "answer": "Englands Team musste sein Schiff nach Hause erwischen",
+    "fact": "Nach neun Spieltagen, verteilt über zwölf Kalendertage, wurde abgebrochen – sonst hätten die Engländer das Schiff verpasst.",
+    "year": 1939,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "cricket",
+      "rekord",
+      "südafrika"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Timeless_Test"
+  },
+  {
+    "id": "skurril-011",
+    "context": "Am 3. April 1971 wurde das Bundesligaspiel Mönchengladbach gegen Werder Bremen beim Stand von 1:1 in der 88. Minute abgebrochen.",
+    "question": "Was war passiert?",
+    "answer": "Ein Stürmer landete im Tornetz und der Pfosten brach",
+    "fact": "Herbert Laumen verfing sich im Netz, das Tor brach zusammen. Das DFB-Sportgericht wertete das Spiel 2:0 für Bremen.",
+    "year": 1971,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "fußball",
+      "bundesliga",
+      "gladbach"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Pfostenbruch_vom_B%C3%B6kelberg"
+  },
+  {
+    "id": "skurril-012",
+    "context": "Im April 1994 zählte ein Tor von Thomas Helmer für Bayern gegen Nürnberg, obwohl der Ball neben dem Pfosten ins Aus gerollt war.",
+    "question": "Welche Folge hatte das „Phantomtor“?",
+    "answer": "Das Spiel wurde komplett wiederholt",
+    "fact": "Der DFB erklärte das Tor für ungültig und ließ neu spielen. Bayern gewann die Wiederholung am 3. Mai 1994 mit 5:0.",
+    "year": 1994,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "fußball",
+      "bundesliga",
+      "bayern"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Phantomtor"
+  },
+  {
+    "id": "skurril-013",
+    "context": "Beim Eidgenössischen Schwing- und Älplerfest in der Schweiz wird der Schwingerkönig gekürt – der beste Ringer im Sägemehl.",
+    "question": "Was bekommt der Sieger traditionell als Hauptpreis?",
+    "answer": "Einen lebenden Stier",
+    "fact": "Der „Muni“ ist der sogenannte Lebendpreis. 2013 konnte der Sieger stattdessen auch einen Hochlader für 20 000 Franken wählen.",
+    "year": null,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "schweiz",
+      "schwingen",
+      "tradition"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Eidgen%C3%B6ssisches_Schwing-_und_%C3%84lplerfest"
+  },
+  {
+    "id": "skurril-014",
+    "context": "Bei den Olympischen Spielen 1900 in Paris stand erstmals Krocket auf dem Programm. Alle zehn Teilnehmenden kamen aus Frankreich.",
+    "question": "Wie viele zahlende Zuschauer verfolgten das Turnier?",
+    "answer": "Ein einziger",
+    "fact": "Unter den zehn Teilnehmenden waren sieben Männer und drei Frauen.",
+    "year": 1900,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "olympia",
+      "krocket",
+      "paris"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Croquet_at_the_1900_Summer_Olympics"
+  },
+  {
+    "id": "skurril-015",
+    "context": "1888 fuhr Bertha Benz mit dem Motorwagen ihres Mannes von Mannheim nach Pforzheim – die erste Fernfahrt mit einem Automobil.",
+    "question": "Wo tankte sie unterwegs?",
+    "answer": "In der Stadt-Apotheke in Wiesloch",
+    "fact": "Treibstoff gab es damals nur in Apotheken. Sie kaufte Ligroin – die Apotheke gilt heute als erste Tankstelle der Welt.",
+    "year": 1888,
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "auto",
+      "benz",
+      "pionier"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Bertha_Benz"
+  },
+  {
+    "id": "skurril-016",
+    "context": "Im Juli 1950 fuhr bei einer Zirkus-Werbeaktion ein besonderer Fahrgast mit der Wuppertaler Schwebebahn – und sprang aus dem Wagen in die Wupper.",
+    "question": "Wer war der Fahrgast?",
+    "answer": "Ein junger Zirkuselefant namens Tuffi",
+    "fact": "Die vierjährige Elefantenkuh landete im Schlamm und hatte nur Schrammen. Ein Gericht befand: Die Schwebebahn ist für Elefanten ungeeignet.",
+    "year": 1950,
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "wuppertal",
+      "schwebebahn",
+      "elefant"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Tuffi"
+  },
+  {
+    "id": "skurril-017",
+    "context": "Die Airline Loganair fliegt auf den schottischen Orkney-Inseln zwischen Westray und Papa Westray – die kürzeste Linienflugstrecke der Welt.",
+    "question": "Wie lange dauert der Flug laut Flugplan?",
+    "answer": "Eineinhalb Minuten",
+    "fact": "Die Strecke ist nur 2,7 Kilometer lang. Der Rekord liegt bei 53 Sekunden.",
+    "year": null,
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "flug",
+      "schottland",
+      "rekord"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Westray_to_Papa_Westray_flight"
+  },
+  {
+    "id": "skurril-018",
+    "context": "1899 knackte der Belgier Camille Jenatzy als erster Mensch in einem Auto die 100-km/h-Marke. Sein Wagen hieß „La Jamais Contente“.",
+    "question": "Was war das Besondere am Antrieb des Rekordautos?",
+    "answer": "Es war ein Elektroauto",
+    "fact": "Zwei Elektromotoren brachten das torpedoförmige Gefährt auf 105,88 km/h.",
+    "year": 1899,
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "auto",
+      "rekord",
+      "elektro"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/La_Jamais_Contente"
+  },
+  {
+    "id": "skurril-019",
+    "context": "Die Karosserie des DDR-Autos Trabant bestand nicht aus Blech, sondern aus dem Kunststoff Duroplast.",
+    "question": "Womit war dieser Kunststoff verstärkt?",
+    "answer": "Mit Baumwollabfällen aus der Sowjetunion",
+    "fact": "Nicht spinnbare Baumwollfasern wurden zu Matten gelegt, mit Phenolharz getränkt und gepresst. 32 kg Duroplast steckten in jeder Karosserie.",
+    "year": null,
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "ddr",
+      "trabant",
+      "auto"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Trabant_(Pkw)"
+  },
+  {
+    "id": "skurril-020",
+    "context": "Am 3. September 1967 um 4:50 Uhr mussten in Schweden alle Autos anhalten. Um 5 Uhr ging es weiter – aber anders als vorher.",
+    "question": "Was hatte sich um 5 Uhr geändert?",
+    "answer": "Ab sofort galt Rechtsverkehr statt Linksverkehr",
+    "fact": "Der „Dagen H“ kam, obwohl 1955 bei einer Volksabstimmung 83 Prozent für den Linksverkehr gestimmt hatten.",
+    "year": 1967,
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "schweden",
+      "verkehr",
+      "straße"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Dagen_H"
+  },
+  {
+    "id": "skurril-021",
+    "context": "Ein britisches Gesetz von 1865 regelte streng, wie sich dampfgetriebene Fahrzeuge auf öffentlichen Straßen bewegen durften.",
+    "question": "Was musste vor jedem fahrenden Fahrzeug passieren?",
+    "answer": "Ein Mann musste mit roter Fahne vorauslaufen",
+    "fact": "Er ging mindestens 60 Yards voraus. Tempolimit: 4 Meilen pro Stunde auf dem Land, 2 in der Stadt.",
+    "year": 1865,
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "gesetz",
+      "england",
+      "verkehr"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Locomotive_Acts"
+  },
+  {
+    "id": "skurril-022",
+    "context": "2012 bemerkten die Schweizerischen Bundesbahnen, dass Apple in iOS 6 für iPads ein Design nutzte, das der SBB gehörte.",
+    "question": "Welches Design hatte Apple übernommen?",
+    "answer": "Das der Schweizer Bahnhofsuhr",
+    "fact": "Hans Hilfiker hatte die Uhr 1944 entworfen. Apple einigte sich mit der SBB auf eine Lizenz – die Summe blieb geheim.",
+    "year": 2012,
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "schweiz",
+      "apple",
+      "design"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://www.swissinfo.ch/ger/sbb-und-apple-einigen-sich-ueber-nutzung-der-bahnhofsuhr/33715056"
+  },
+  {
+    "id": "skurril-023",
+    "context": "In einem Pepsi-Werbespot der 1990er wurde scherzhaft ein Harrier-Kampfjet für 7 Millionen „Pepsi Points“ angeboten.",
+    "question": "Was machte ein junger Amerikaner daraufhin?",
+    "answer": "Er schickte rund 700 000 Dollar und verlangte den Jet",
+    "fact": "John Leonard kaufte Punkte für 10 Cent das Stück und klagte. Das Gericht urteilte: Der Spot war offensichtlich ein Scherz.",
+    "year": 1996,
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "werbung",
+      "pepsi",
+      "gericht"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Leonard_v._Pepsico,_Inc."
+  },
+  {
+    "id": "skurril-024",
+    "context": "Das japanische Unternehmen Nintendo wurde bereits 1889 gegründet – lange bevor es Videospiele gab.",
+    "question": "Was stellte Nintendo ursprünglich her?",
+    "answer": "Japanische Spielkarten",
+    "fact": "Vor allem Hanafuda, sogenannte „Blumenkarten“. Spielzeug und Videospiele kamen erst viel später dazu.",
+    "year": 1889,
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "japan",
+      "nintendo",
+      "firmengeschichte"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Nintendo"
+  },
+  {
+    "id": "skurril-025",
+    "context": "1957 wollten die US-Erfinder Alfred Fielding und Marc Chavannes aus zwei verschweißten Plastikfolien mit Luftblasen ein neues Produkt machen.",
+    "question": "Was sollte die spätere Luftpolsterfolie ursprünglich werden?",
+    "answer": "Eine dreidimensionale Tapete",
+    "fact": "Als Tapete floppte die Idee – als Verpackungsmaterial wurde sie ein Welterfolg.",
+    "year": 1957,
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "erfindung",
+      "verpackung",
+      "tapete"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Bubble_wrap"
+  },
+  {
+    "id": "skurril-026",
+    "context": "Ein US-Unternehmer verkaufte zunächst Seife, später Backpulver. Jeder Dose Backpulver legte er eine Gratiszugabe bei.",
+    "question": "Welche Gratiszugabe wurde bald beliebter als das Backpulver?",
+    "answer": "Kaugummi",
+    "fact": "Der Unternehmer war William Wrigley junior: Pro Dose gab es zwei Päckchen Kaugummi – bald stieg er ganz auf Kaugummi um.",
+    "year": null,
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "kaugummi",
+      "marketing",
+      "firmengeschichte"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Wrigley_Company"
+  },
+  {
+    "id": "skurril-027",
+    "context": "Einer der ersten Artikel, die 1995 auf eBay (damals AuctionWeb) verkauft wurden, war ein kaputter Laserpointer für 14,83 Dollar.",
+    "question": "Wie erklärte der Käufer, warum er ein defektes Gerät wollte?",
+    "answer": "Er sammle kaputte Laserpointer",
+    "fact": "Gründer Pierre Omidyar hatte extra nachgefragt, ob dem Käufer klar sei, dass das Gerät nicht funktioniert.",
+    "year": 1995,
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "ebay",
+      "internet",
+      "auktion"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/EBay"
+  },
+  {
+    "id": "skurril-028",
+    "context": "Jeff Bezos gründete 1994 einen Online-Buchhandel, der zunächst „Cadabra“ hieß. Nach wenigen Monaten benannte er ihn in Amazon um.",
+    "question": "Warum musste der erste Name weg?",
+    "answer": "Ein Anwalt hatte „cadaver“ verstanden – also Leiche",
+    "fact": "„Amazon“ gefiel ihm, weil der Amazonas der größte Fluss der Welt ist – und weil der Name mit A in Listen weit oben steht.",
+    "year": 1994,
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "amazon",
+      "firmenname",
+      "internet"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/History_of_Amazon"
+  },
+  {
+    "id": "skurril-029",
+    "context": "Jahrelang stritten das Wiener Hotel Sacher und die Konditorei Demel vor Gericht, wer die „Original Sacher-Torte“ verkaufen darf. 1963 einigte man sich.",
+    "question": "Unter welchem Namen darf Demel seine Torte seitdem verkaufen?",
+    "answer": "Als Eduard-Sacher-Torte",
+    "fact": "Das Hotel bekam das „Original“. Demel kennzeichnet seine Torte mit einem dreieckigen Siegel, das Sacher mit einem runden.",
+    "year": 1963,
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "österreich",
+      "wien",
+      "torte"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Sachertorte"
+  },
+  {
+    "id": "skurril-030",
+    "context": "Volkswagen stellt in Wolfsburg seit 1973 ein Produkt her, das eine eigene Originalteilenummer hat: 199 398 500 A.",
+    "question": "Um welches Produkt handelt es sich?",
+    "answer": "Eine Currywurst",
+    "fact": "2023 wurden 8,33 Millionen VW-Currywürste produziert. In manchen Jahren stellte VW mehr Würste her als Autos.",
+    "year": 1973,
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "vw",
+      "wolfsburg",
+      "wurst"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Volkswagen_currywurst"
+  },
+  {
+    "id": "skurril-031",
+    "context": "1940 konnte die Coca-Cola GmbH in Essen wegen Rohstoffmangels kaum noch produzieren. Deshalb erfand man dort ein Ersatzgetränk: Fanta.",
+    "question": "Woraus bestand die erste Fanta hauptsächlich?",
+    "answer": "Aus Molke und Apfelresten",
+    "fact": "Dazu kamen Fruchtsaftkonzentrate aus Italien. Der Name leitet sich von „Fantasie“ ab.",
+    "year": 1940,
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "getränk",
+      "essen",
+      "limonade"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Fanta"
+  },
+  {
+    "id": "skurril-032",
+    "context": "Am 16. Oktober 1906 besetzte ein falscher Hauptmann mit echten Soldaten das Rathaus von Köpenick und ließ den Bürgermeister verhaften.",
+    "question": "Woher hatte der Schuhmacher Wilhelm Voigt seine Uniform?",
+    "answer": "Aus Einzelteilen, die er bei Händlern zusammenkaufte",
+    "fact": "Er beschlagnahmte die Stadtkasse mit 3557,45 Mark. Vor Gericht sagte er, er habe einen Pass gewollt – doch Pässe gab es im Rathaus gar nicht.",
+    "year": 1906,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "berlin",
+      "hochstapler",
+      "preußen"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Hauptmann_von_K%C3%B6penick"
+  },
+  {
+    "id": "skurril-033",
+    "context": "Schweden wollte ab 1700 schrittweise auf den gregorianischen Kalender umstellen, vergaß aber im Großen Nordischen Krieg einige Schritte.",
+    "question": "Welches ungewöhnliche Datum gab es deshalb 1712?",
+    "answer": "Einen 30. Februar",
+    "fact": "Um zum julianischen Kalender zurückzukehren, bekam 1712 zwei Schalttage. Die endgültige Umstellung folgte erst 1753.",
+    "year": 1712,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "kalender",
+      "schweden",
+      "datum"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/February_30"
+  },
+  {
+    "id": "skurril-034",
+    "context": "Zar Peter der Große führte 1698 in Russland eine Steuer auf Bärte ein. Wer seinen Bart behalten wollte, musste zahlen.",
+    "question": "Was mussten Bartträger als Nachweis bei sich tragen?",
+    "answer": "Eine Marke mit einem aufgeprägten Bart",
+    "fact": "Die „Bartmarke“ zeigte Nase, Mund und Bart, auf manchen stand „Geld erhalten“.",
+    "year": 1698,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "russland",
+      "steuer",
+      "bart"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Beard_tax"
+  },
+  {
+    "id": "skurril-035",
+    "context": "Der Eiffelturm war nur als vorübergehender Bau für die Weltausstellung 1889 gedacht und sollte 1909 wieder abgebaut werden.",
+    "question": "Was rettete ihn vor dem Abriss?",
+    "answer": "Er wurde als Antenne für den Funk gebraucht",
+    "fact": "Seine Nützlichkeit für die Funktelegrafie überzeugte. Ab 1910 diente er sogar dem internationalen Zeitdienst.",
+    "year": 1909,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "paris",
+      "eiffelturm",
+      "funk"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Eiffel_Tower"
+  },
+  {
+    "id": "skurril-036",
+    "context": "Am 9. November 1989 verlas SED-Politiker Günter Schabowski auf einer Pressekonferenz eine neue Reiseregelung für DDR-Bürger.",
+    "question": "Was antwortete er auf die Frage, ab wann die Regel gilt?",
+    "answer": "Sofort, unverzüglich",
+    "fact": "Die Antwort löste noch am selben Abend einen Ansturm auf die Grenze aus – die Mauer öffnete sich ungeplant.",
+    "year": 1989,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "ddr",
+      "mauerfall",
+      "berlin"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/G%C3%BCnter_Schabowski"
+  },
+  {
+    "id": "skurril-037",
+    "context": "1867 kauften die USA Alaska für 7,2 Millionen Dollar von Russland. Kritiker hielten das für eine riesige Fehlinvestition.",
+    "question": "Welchen Spottnamen verpassten sie Alaska?",
+    "answer": "Sewards Eisschrank",
+    "fact": "„Seward's Icebox“ – nach Außenminister William Seward. Andere spotteten über „Seward's Folly“ oder „Walrussia“.",
+    "year": 1867,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "usa",
+      "alaska",
+      "russland"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Alaska_Purchase"
+  },
+  {
+    "id": "skurril-038",
+    "context": "Bei der Stadtratswahl 1959 in São Paulo bekam eine Kandidatin rund 100 000 Stimmen – mehr als jede Partei.",
+    "question": "Wer war die Kandidatin?",
+    "answer": "Ein Nashorn aus dem Zoo",
+    "fact": "Nashorndame Cacareco war eine Leihgabe aus dem Zoo von Rio de Janeiro. Die Stimmen galten als Protest gegen die Politik.",
+    "year": 1959,
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "brasilien",
+      "wahl",
+      "nashorn"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Cacareco"
+  },
+  {
+    "id": "skurril-039",
+    "context": "An der Landsgemeinde in Appenzell Innerrhoden stimmen die Bürger unter freiem Himmel per Handzeichen ab. Das Stimmrecht muss man belegen.",
+    "question": "Was dürfen Männer statt der Stimmkarte als Ausweis vorzeigen?",
+    "answer": "Einen Degen",
+    "fact": "Das „Seitengewehr“ gilt als Stimmrechtsausweis – meist ein vererbter Degen, aber auch Bajonett oder Säbel.",
+    "year": null,
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "schweiz",
+      "appenzell",
+      "demokratie"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Landsgemeinde"
+  },
+  {
+    "id": "skurril-040",
+    "context": "In der Schweiz schreibt der Tierschutz genau vor, wie Haustiere gehalten werden müssen – auch Meerschweinchen.",
+    "question": "Was ist Meerschweinchenhaltern in der Schweiz verboten?",
+    "answer": "Ein Meerschweinchen allein zu halten",
+    "fact": "Die geselligen Tiere brauchen Artgenossen. Dasselbe gilt in der Schweiz für andere gesellige Arten, etwa Wellensittiche.",
+    "year": null,
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "schweiz",
+      "gesetz",
+      "haustier"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://www.tierwelt.ch/artikel/ziervoegel-gefluegel/voegel-und-meerschweinchen-duerfen-nicht-alleine-gehalten-werden-466782"
+  },
+  {
+    "id": "skurril-041",
+    "context": "Seit 1992 ist in Singapur der Verkauf eines alltäglichen Produkts verboten. Auslöser waren Probleme bei der U-Bahn.",
+    "question": "Welches Produkt ist betroffen?",
+    "answer": "Kaugummi",
+    "fact": "Vandalen klebten Kaugummi auf Türsensoren der Züge. Seit 2004 gibt es medizinischen Kaugummi in der Apotheke.",
+    "year": 1992,
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "singapur",
+      "gesetz",
+      "verbot"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Chewing_gum_sales_ban_in_Singapore"
+  },
+  {
+    "id": "skurril-042",
+    "context": "Eine Pariser Polizeiverordnung von 1800 schrieb vor: Frauen, die Männerkleidung wie Hosen tragen wollten, brauchten eine Genehmigung.",
+    "question": "Wann wurde die Vorschrift offiziell für ungültig erklärt?",
+    "answer": "Erst im Jahr 2013",
+    "fact": "Frauenministerin Najat Vallaud-Belkacem erklärte sie für stillschweigend aufgehoben – angewendet wurde sie längst nicht mehr.",
+    "year": 2013,
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "paris",
+      "gesetz",
+      "mode"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://musea-archive.univ-angers.fr/exhibits/show/femmes-au-masculin/interdire"
+  },
+  {
+    "id": "skurril-043",
+    "context": "1967 ließ sich der Brite Paddy Roy Bates vor der englischen Küste nieder und rief dort das „Fürstentum Sealand“ aus.",
+    "question": "Worauf liegt der selbst ernannte Staat?",
+    "answer": "Auf einer alten Seefestung aus dem Zweiten Weltkrieg",
+    "fact": "HM Fort Roughs ist eine Plattform auf zwei hohlen Türmen. Bates wollte dort eigentlich einen Piratensender betreiben.",
+    "year": 1967,
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "mikronation",
+      "england",
+      "meer"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Principality_of_Sealand"
+  },
+  {
+    "id": "skurril-044",
+    "context": "Die Orte Baarle-Hertog (Belgien) und Baarle-Nassau (Niederlande) sind ein Flickenteppich aus Dutzenden Enklaven.",
+    "question": "Warum hat dort ein Haus gleich zwei Hausnummern?",
+    "answer": "Die Staatsgrenze verläuft mitten durch seine Haustür",
+    "fact": "Wer in welchem Land wohnt, zeigen oft kleine Flaggen neben der Hausnummer. Eiserne Markierungen machen die Grenze auf den Straßen sichtbar.",
+    "year": null,
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "grenze",
+      "enklave",
+      "belgien",
+      "niederlande"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Baarle-Nassau"
+  },
+  {
+    "id": "skurril-045",
+    "context": "Die Fasaneninsel im Grenzfluss Bidasoa gehört seit dem Pyrenäenfrieden von 1659 gemeinsam Spanien und Frankreich.",
+    "question": "Wie ist die Verwaltung der winzigen Insel geregelt?",
+    "answer": "Sie wechselt alle sechs Monate das Land",
+    "fact": "Vom 1. Februar bis 31. Juli ist Spanien zuständig, vom 1. August bis 31. Januar Frankreich – so gilt es seit 1902.",
+    "year": 1659,
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "grenze",
+      "insel",
+      "spanien",
+      "frankreich"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Pheasant_Island"
+  },
+  {
+    "id": "skurril-046",
+    "context": "Büsingen am Hochrhein ist ein deutsches Dorf, das vollständig vom Schweizer Staatsgebiet umschlossen ist.",
+    "question": "Was ist am örtlichen Fußballverein FC Büsingen besonders?",
+    "answer": "Er spielt als einziges deutsches Team im Schweizer Ligabetrieb",
+    "fact": "Bezahlt wird im Dorf meist mit Franken, und Büsingen hat zwei Postleitzahlen: eine deutsche und eine Schweizer.",
+    "year": null,
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "exklave",
+      "schweiz",
+      "deutschland",
+      "fußball"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/B%C3%BCsingen_am_Hochrhein"
+  },
+  {
+    "id": "skurril-047",
+    "context": "Die Inseln Groß- und Klein-Diomedes in der Beringstraße liegen nur etwa 3,8 km auseinander – eine gehört Russland, die andere den USA.",
+    "question": "Welche Spitznamen tragen die beiden Inseln?",
+    "answer": "Morgen-Insel und Gestern-Insel",
+    "fact": "Zwischen ihnen verläuft die Datumsgrenze: Groß-Diomedes ist Klein-Diomedes 21 Stunden voraus, im Sommer 20.",
+    "year": null,
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "datumsgrenze",
+      "insel",
+      "russland",
+      "usa"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Diomede_Islands"
+  },
+  {
+    "id": "skurril-048",
+    "context": "Um die winzige, unbewohnte Hans-Insel zwischen Grönland und Kanada stritten Dänemark und Kanada jahrzehntelang.",
+    "question": "Was ließen Soldaten beider Länder bei Besuchen auf der Insel zurück?",
+    "answer": "Jeweils eine Flasche Schnaps oder Whisky",
+    "fact": "Kanada legte zum Whisky noch ein Schild 'Welcome to Canada' dazu. 2022 wurde die Insel friedlich geteilt.",
+    "year": 2022,
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "grenzstreit",
+      "whisky",
+      "dänemark",
+      "kanada"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Hans_Island"
+  },
+  {
+    "id": "skurril-049",
+    "context": "Seit Jahrzehnten kursiert der Witz, die Stadt Bielefeld existiere gar nicht. Im August 2019 reagierte die Stadt offiziell darauf.",
+    "question": "Was bot Bielefeld im August 2019 an?",
+    "answer": "1 Million Euro für den Beweis, dass es Bielefeld nicht gibt",
+    "fact": "Niemand konnte den Beweis erbringen – die Stadt erklärte die Verschwörung für beendet und stellte einen Gedenkstein auf.",
+    "year": 2019,
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "bielefeld",
+      "verschwörung",
+      "deutschland",
+      "witz"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Bielefeld_conspiracy"
+  },
+  {
+    "id": "skurril-050",
+    "context": "An der University of Queensland tropft seit 1930 Pech aus einem Trichter – bislang fielen erst neun Tropfen.",
+    "question": "Warum verpasste Betreuer John Mainstone 1988 den fallenden Tropfen?",
+    "answer": "Er war gerade kurz etwas trinken gegangen",
+    "fact": "In Brisbane hat noch nie jemand einen Tropfen direkt fallen sehen. Im Jahr 2000 versagte ausgerechnet die Webcam.",
+    "year": 1988,
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "experiment",
+      "physik",
+      "australien",
+      "geduld"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Pitch_drop_experiment"
+  },
+  {
+    "id": "skurril-051",
+    "context": "2017 wurde eine Studie mit dem satirischen Ig-Nobelpreis für Physik ausgezeichnet, die Methoden der Strömungsmechanik nutzte.",
+    "question": "Welcher Frage ging die Studie nach?",
+    "answer": "Ob eine Katze fest und flüssig zugleich sein kann",
+    "fact": "Der Ig-Nobelpreis ehrt Forschung, die erst zum Lachen und dann zum Nachdenken bringt.",
+    "year": 2017,
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "ig-nobelpreis",
+      "katze",
+      "physik",
+      "forschung"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/List_of_Ig_Nobel_Prize_winners"
+  },
+  {
+    "id": "skurril-052",
+    "context": "1947 lieferte der Großrechner Harvard Mark II, an dem auch Grace Hopper arbeitete, plötzlich fehlerhafte Ergebnisse.",
+    "question": "Was fand das Team als Ursache in einem Relais?",
+    "answer": "Eine echte Motte",
+    "fact": "Die Motte wurde ins Logbuch geklebt: 'First actual case of bug being found'. Den Begriff 'Bug' gab es aber schon vorher.",
+    "year": 1947,
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "computer",
+      "bug",
+      "insekt",
+      "informatik"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Software_bug"
+  },
+  {
+    "id": "skurril-053",
+    "context": "Ab Mai 2006 sorgte auf dem Aasee in Münster eine Schwänin namens Petra bundesweit für Schlagzeilen.",
+    "question": "In wen hatte sich die Schwänin verliebt?",
+    "answer": "In ein weißes Tretboot in Schwanenform",
+    "fact": "Monatelang wich sie dem Boot nicht von der Seite – selbst wenn es gerade an Ausflügler vermietet war.",
+    "year": 2006,
+    "primaryCategory": "NATURE",
+    "tags": [
+      "schwan",
+      "münster",
+      "liebe",
+      "tiere"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Petra_(Schwan)"
+  },
+  {
+    "id": "skurril-054",
+    "context": "Im Georgianischen England des 18. Jahrhunderts galten Ananas als Luxus schlechthin – eine kostete bis zu 80 Pfund.",
+    "question": "Welches Geschäftsmodell entstand rund um die teure Frucht?",
+    "answer": "Man konnte Ananas stundenweise für Partys mieten",
+    "fact": "Die geliehene Ananas wurde auf der Feier herumgetragen und danach zurückgegeben – ein Statussymbol wie heute ein Sportwagen.",
+    "year": null,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "ananas",
+      "luxus",
+      "england",
+      "party"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://www.cnn.com/style/pineapples-luxury-symbol-britain/index.html"
+  },
+  {
+    "id": "skurril-055",
+    "context": "Am 4. September 1949 verkaufte Herta Heuwer in West-Berlin erstmals ihre 'Spezial Curry-Bratwurst' mit eigener Soße.",
+    "question": "Unter welchem Namen ließ sie ihre Soße später schützen?",
+    "answer": "Chillup",
+    "fact": "Ein Kofferwort aus Chili und Ketchup – 1959 als Warenzeichen für 'Spezial-Sosse' eingetragen.",
+    "year": 1949,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "currywurst",
+      "berlin",
+      "soße",
+      "erfindung"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Herta_Heuwer"
+  },
+  {
+    "id": "skurril-056",
+    "context": "Am 22. Mai 2010 bezahlte der Programmierer Laszlo Hanyecz in Florida zum ersten Mal eine reale Ware mit Bitcoin.",
+    "question": "Was bekam er für 10.000 Bitcoin?",
+    "answer": "Zwei Pizzen",
+    "fact": "Damals waren die Coins etwa 41 Dollar wert. Heute wird der 22. Mai als 'Bitcoin Pizza Day' gefeiert.",
+    "year": 2010,
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "bitcoin",
+      "pizza",
+      "krypto",
+      "internet"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Bitcoin_Pizza_Day"
+  },
+  {
+    "id": "skurril-057",
+    "context": "Für Spielbergs 'Der weiße Hai' (1975) wurden drei lebensgroße, pneumatisch betriebene Hai-Attrappen gebaut.",
+    "question": "Nach wem benannte die Crew den Hai 'Bruce'?",
+    "answer": "Nach Spielbergs Anwalt",
+    "fact": "Der Anwalt hieß Bruce Ramer. Der Spitzname hat sich bis heute unter Filmfans gehalten.",
+    "year": 1975,
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "spielberg",
+      "hai",
+      "film",
+      "spitzname"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Jaws_(film)"
+  },
+  {
+    "id": "skurril-058",
+    "context": "Für 'Krieg der Sterne' (1977) suchte Sounddesigner Ben Burtt nach dem passenden Summen der Lichtschwerter.",
+    "question": "Woraus entstand das typische Lichtschwert-Geräusch?",
+    "answer": "Aus dem Brummen alter Filmprojektoren und TV-Störgeräuschen",
+    "fact": "Den Schwung-Effekt erzeugte Burtt, indem er den Ton über Lautsprecher abspielte und mit bewegtem Mikrofon aufnahm.",
+    "year": 1977,
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "star wars",
+      "sound",
+      "film",
+      "lichtschwert"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Lightsaber"
+  },
+  {
+    "id": "skurril-059",
+    "context": "1998 gab bei Pixar jemand versehentlich einen Löschbefehl ein – rund 90 % der Arbeit an 'Toy Story 2' verschwanden.",
+    "question": "Wodurch wurde der Film gerettet?",
+    "answer": "Eine Mitarbeiterin hatte eine Kopie auf ihrem Heimcomputer",
+    "fact": "Technical Director Galyn Susman arbeitete nach der Geburt ihres Kindes von zu Hause aus – ihr Backup rettete fast alles.",
+    "year": 1998,
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "pixar",
+      "animation",
+      "backup",
+      "panne"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Toy_Story_2"
+  },
+  {
+    "id": "skurril-060",
+    "context": "Seit 1970 zeigt der 'Tatort'-Vorspann Augen und Beine eines Mannes: des Schauspielers Horst Lettenmayer.",
+    "question": "Wie viel Honorar bekam er für die legendäre Szene?",
+    "answer": "Einmalig 400 D-Mark",
+    "fact": "Zu sehen sind nur seine Augen und Beine – der Vorspann von 1970 wird bis heute verwendet.",
+    "year": 1970,
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "tatort",
+      "krimi",
+      "fernsehen",
+      "deutschland"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Horst_Lettenmayer"
+  },
+  {
+    "id": "skurril-061",
+    "context": "In einer Kirche in Halberstadt wird seit 2001 John Cages Orgelstück 'ORGAN²/ASLSP' in extrem langsamem Tempo aufgeführt.",
+    "question": "Wann soll die Aufführung enden?",
+    "answer": "Im Jahr 2640",
+    "fact": "Das Stück begann mit einer Pause: Die ersten Töne erklangen erst im Februar 2003. Tonwechsel sind seltene Ereignisse.",
+    "year": 2001,
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "john cage",
+      "orgel",
+      "halberstadt",
+      "langsam"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/As_Slow_as_Possible"
+  },
+  {
+    "id": "skurril-062",
+    "context": "1977 schickte die NASA mit den Voyager-Sonden goldene Schallplatten mit Klängen und Musik der Erde ins All.",
+    "question": "Welcher Rock-'n'-Roll-Song ist als einziger darauf?",
+    "answer": "Johnny B. Goode von Chuck Berry",
+    "fact": "Ein Kritiker nannte Rock 'adoleszent'. Carl Sagan konterte: Es gebe eben viele Adoleszente auf dem Planeten.",
+    "year": 1977,
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "voyager",
+      "nasa",
+      "rock",
+      "weltall"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Voyager_Golden_Record"
+  },
+  {
+    "id": "skurril-063",
+    "context": "Beim Eurovision Song Contest 1969 in Madrid hatten am Ende gleich mehrere Länder exakt gleich viele Punkte.",
+    "question": "Welches praktische Problem entstand bei der Siegerehrung?",
+    "answer": "Es gab nicht genug Medaillen für alle Sieger",
+    "fact": "Spanien, Großbritannien, die Niederlande und Frankreich siegten gemeinsam. Ab 1970 galt eine Regel für den Gleichstand.",
+    "year": 1969,
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "eurovision",
+      "gleichstand",
+      "medaillen",
+      "wettbewerb"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Eurovision_Song_Contest_1969"
+  },
+  {
+    "id": "skurril-064",
+    "context": "1995 brachte das Arditti Quartet beim Holland Festival ein Werk von Karlheinz Stockhausen zur Uraufführung, das enormen Aufwand erforderte.",
+    "question": "Wo saßen die vier Musiker während des Konzerts?",
+    "answer": "Jeder in einem eigenen fliegenden Hubschrauber",
+    "fact": "Die Helikopter stellte die niederländische Luftwaffe. Bild und Ton wurden live aus der Luft übertragen.",
+    "year": 1995,
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "stockhausen",
+      "streichquartett",
+      "hubschrauber",
+      "avantgarde"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Helicopter_String_Quartet"
+  },
+  {
+    "id": "skurril-065",
+    "context": "Bis 2015 beanspruchte der Musikverlag Warner/Chappell das Urheberrecht am Lied 'Happy Birthday to You'.",
+    "question": "Wie viel nahm der Verlag damit 2008 ungefähr pro Jahr ein?",
+    "answer": "Rund 2 Millionen Dollar",
+    "fact": "2015 erklärte ein Gericht das Copyright für ungültig. Der Verlag zahlte 14 Millionen Dollar an Lizenznehmer zurück.",
+    "year": 2008,
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "happy birthday",
+      "urheberrecht",
+      "lied",
+      "geld"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Happy_Birthday_to_You"
+  },
+  {
+    "id": "skurril-066",
+    "context": "2019 klebte Maurizio Cattelan auf der Art Basel Miami Beach eine Banane an die Wand und verkaufte das Werk für 120.000 Dollar.",
+    "question": "Was geschah kurz darauf mit der Banane?",
+    "answer": "Ein Performancekünstler aß sie einfach auf",
+    "fact": "2024 ersteigerte ein Krypto-Unternehmer ein Exemplar für 6,2 Millionen Dollar – und aß die Banane ebenfalls.",
+    "year": 2019,
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "banane",
+      "kunst",
+      "auktion",
+      "performance"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Comedian_(artwork)"
+  },
+  {
+    "id": "skurril-067",
+    "context": "Im Oktober 2018 wurde Banksys 'Girl with Balloon' bei Sotheby's in London für gut 1 Million Pfund versteigert.",
+    "question": "Was passierte direkt nach dem Zuschlag?",
+    "answer": "Das Bild schredderte sich im Rahmen selbst",
+    "fact": "Der Schredder stoppte auf halber Strecke. Als 'Love Is in the Bin' brachte das Werk 2021 rund 18,6 Mio. Pfund.",
+    "year": 2018,
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "banksy",
+      "auktion",
+      "schredder",
+      "kunst"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Love_Is_in_the_Bin"
+  },
+  {
+    "id": "skurril-068",
+    "context": "2022 fand eine Kuratorin in Düsseldorf Hinweise, dass Mondrians Bild 'New York City I' seit Jahrzehnten falsch herum hängt.",
+    "question": "Was beschloss das Museum daraufhin?",
+    "answer": "Das Bild bleibt verkehrt herum hängen",
+    "fact": "Die Klebebänder auf dem Bild sind so lose, dass sie beim Umdrehen abrutschen könnten. Der Fehler sei nun Teil der Geschichte.",
+    "year": 2022,
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "mondrian",
+      "düsseldorf",
+      "museum",
+      "kopfüber"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://www.smithsonianmag.com/smart-news/whoopsiefamous-modern-art-painting-has-been-displayed-upside-down-for-75-years-180981049/"
+  },
+  {
+    "id": "skurril-069",
+    "context": "1964 lobten Kritiker in Göteborg die Werke des bis dahin unbekannten französischen Malers 'Pierre Brassau'.",
+    "question": "Wer steckte in Wahrheit hinter den Bildern?",
+    "answer": "Ein vierjähriger Schimpanse",
+    "fact": "Ein Journalist hatte den Schimpansen Peter aus einem Tierpark malen lassen. Ein Kritiker lobte die 'kraftvollen Pinselstriche'.",
+    "year": 1964,
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "schimpanse",
+      "kunstkritik",
+      "schweden",
+      "schwindel"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Pierre_Brassau"
+  },
+  {
+    "id": "skurril-070",
+    "context": "1973 lagerte auf Schloss Morsbroich in Leverkusen eine alte Badewanne von Joseph Beuys, beklebt mit Mullbinden und Pflastern.",
+    "question": "Was machten zwei Gäste einer Parteifeier mit dem Kunstwerk?",
+    "answer": "Sie schrubbten es sauber und spülten darin Gläser",
+    "fact": "Sie hielten die Wanne für Gerümpel. Der Besitzer erhielt später 40.000 D-Mark Schadensersatz.",
+    "year": 1973,
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "beuys",
+      "kunst",
+      "badewanne",
+      "missverständnis"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://www.srf.ch/kultur/kunst/meisterwerke-im-muell-ach-so-das-war-ein-kunstwerk"
+  },
+  {
+    "id": "skurril-071",
+    "context": "In Webster's großem Wörterbuch von 1934 stand das Wort 'dord' – angeblich ein Fachbegriff aus Physik und Chemie für 'Dichte'.",
+    "question": "Wie war das Wort ins Wörterbuch gelangt?",
+    "answer": "Ein Zettel mit 'D or d' wurde als ein Wort gelesen",
+    "fact": "Gemeint war: 'D oder d' als Abkürzung für Dichte. Das Geisterwort hielt sich bis 1947 im Wörterbuch.",
+    "year": 1934,
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "wörterbuch",
+      "fehler",
+      "englisch",
+      "geisterwort"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Dord"
+  },
+  {
+    "id": "skurril-072",
+    "context": "Im medizinischen Wörterbuch Pschyrembel steht seit 1983 ein ausführlicher Eintrag über ein Tier namens Steinlaus.",
+    "question": "Was hat es mit dieser Laus auf sich?",
+    "answer": "Sie ist ein erfundenes Tier aus einem Loriot-Sketch",
+    "fact": "Laut Sketch frisst das Männchen täglich 28 kg Beton. Ihr zeitweiliges Verschwinden erklärte man mit dem Fall der Berliner Mauer.",
+    "year": 1983,
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "loriot",
+      "wörterbuch",
+      "steinlaus",
+      "medizin"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Steinlaus"
+  },
+  {
+    "id": "skurril-073",
+    "context": "1939 veröffentlichte Ernest Vincent Wright den Roman 'Gadsby' mit über 50.000 Wörtern.",
+    "question": "Welche Besonderheit hat der Text?",
+    "answer": "Er kommt ohne den Buchstaben E aus",
+    "fact": "Wright band die E-Taste seiner Schreibmaschine fest. Trotzdem rutschten in die Erstausgabe vier E hinein.",
+    "year": 1939,
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "roman",
+      "lipogramm",
+      "buchstabe",
+      "englisch"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Gadsby_(novel)"
+  },
+  {
+    "id": "skurril-074",
+    "context": "Verleger Bennett Cerf schloss mit dem Kinderbuchautor Dr. Seuss eine Wette über 50 Dollar ab.",
+    "question": "Worum ging es bei der Wette?",
+    "answer": "Ein Kinderbuch mit nur 50 verschiedenen Wörtern zu schreiben",
+    "fact": "Seuss schaffte es: Heraus kam der Klassiker 'Green Eggs and Ham', auf Deutsch 'Grünes Ei mit Speck'.",
+    "year": 1960,
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "dr. seuss",
+      "wette",
+      "kinderbuch",
+      "wortschatz"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Green_Eggs_and_Ham"
+  },
+  {
+    "id": "skurril-075",
+    "context": "Karl May begeisterte Millionen mit Abenteuern im Wilden Westen, etwa seinen Winnetou-Romanen.",
+    "question": "Wann reiste er zum ersten Mal selbst nach Amerika?",
+    "answer": "Erst 1908, lange nach den Winnetou-Büchern",
+    "fact": "Sechs Wochen lang besuchte er mit seiner Frau u. a. Albany, Buffalo und die Niagarafälle – also den Osten der USA.",
+    "year": 1908,
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "karl may",
+      "winnetou",
+      "amerika",
+      "reise"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://de.wikipedia.org/wiki/Karl_May"
+  },
+  {
+    "id": "skurril-076",
+    "context": "1991 installierten Informatiker der Universität Cambridge eine Kamera im sogenannten Trojan Room und übertrugen das Bild ins Uni-Netzwerk.",
+    "question": "Was zeigte die Kamera?",
+    "answer": "Die Kaffeemaschine, damit niemand umsonst hinläuft",
+    "fact": "Ab 1993 war das Bild im Web – ein Urahn der Webcam. 2001 wurde die Maschine für 3.350 Pfund bei eBay versteigert und steht heute in Paderborn.",
+    "year": 1991,
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "webcam",
+      "kaffee",
+      "cambridge",
+      "internet"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Trojan_Room_coffee_pot"
+  },
+  {
+    "id": "skurril-077",
+    "context": "1904 ließ sich Elizabeth Magie in den USA ein Brettspiel patentieren, aus dem später Monopoly hervorging.",
+    "question": "Was wollte sie mit ihrem Spiel eigentlich zeigen?",
+    "answer": "Wie Grundbesitzer Mieter arm und sich selbst reich machen",
+    "fact": "Magies 'Landlord's Game' sollte vor Landspekulation warnen. Kinder sollten dabei ein Gespür für Ungerechtigkeit entwickeln.",
+    "year": 1904,
+    "primaryCategory": "GAMES",
+    "tags": [
+      "monopoly",
+      "brettspiel",
+      "patent",
+      "wirtschaft"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/The_Landlord%27s_Game"
+  },
+  {
+    "id": "skurril-078",
+    "context": "Der Architekt Alfred Butts erfand ein Wortspiel, das später als Scrabble weltberühmt wurde.",
+    "question": "Wie legte er fest, wie oft jeder Buchstabe vorkommt?",
+    "answer": "Er zählte Buchstaben in der New York Times",
+    "fact": "Ursprünglich hieß das Spiel 'Lexiko', dann 'Criss-Crosswords'. Den Namen Scrabble gab es erst ab 1948.",
+    "year": null,
+    "primaryCategory": "GAMES",
+    "tags": [
+      "scrabble",
+      "brettspiel",
+      "buchstaben",
+      "zeitung"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Scrabble"
+  },
+  {
+    "id": "skurril-079",
+    "context": "1966 spielte Schauspielerin Eva Gabor in der 'Tonight Show' mit Johnny Carson ein neues Spiel – danach wurde es ein Riesenerfolg.",
+    "question": "Unter welchem Namen hatte der Erfinder das Spiel Twister entwickelt?",
+    "answer": "Pretzel",
+    "fact": "Der Name war schon für einen Spielzeughund geschützt – also taufte Milton Bradley es in Twister um.",
+    "year": 1966,
+    "primaryCategory": "GAMES",
+    "tags": [
+      "twister",
+      "spiel",
+      "fernsehen",
+      "name"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Twister_(game)"
+  },
+  {
+    "id": "skurril-080",
+    "context": "1951 geriet Sir Hugh Beaver von der Guinness-Brauerei bei einer Jagdgesellschaft in Irland in einen Streit, den kein Nachschlagewerk klären konnte.",
+    "question": "Worum ging es in dem Streit?",
+    "answer": "Welcher Jagdvogel der schnellste Europas ist",
+    "fact": "Goldregenpfeifer oder Moorschneehuhn? Aus der Frage entstand 1955 das erste Guinness-Buch der Rekorde.",
+    "year": 1951,
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "rekorde",
+      "buch",
+      "irland"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "adult": false,
+    "source": "https://en.wikipedia.org/wiki/Guinness_World_Records"
+  },
+  {
+    "id": "skurril-party-001",
+    "context": "In Zagreb eröffneten zwei Künstler 2010 ein Museum, das 2011 den Kenneth-Hudson-Preis als ungewöhnlichstes Museum Europas erhielt.",
+    "question": "Was wird dort ausgestellt?",
+    "answer": "Andenken, die nach gescheiterten Liebesbeziehungen übrig blieben",
+    "fact": "Die Gründer hatten sich selbst getrennt. Heute zeigt das Museum der zerbrochenen Beziehungen Tausende gespendete Objekte, jeweils mit der anonymen Geschichte dazu.",
+    "year": 2010,
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "museum",
+      "liebe",
+      "trennung",
+      "kroatien"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Museum_of_Broken_Relationships"
+  },
+  {
+    "id": "skurril-party-002",
+    "context": "Das Isländische Phallusmuseum in Reykjavík zeigt über 300 Exponate von mehr als 100 Säugetierarten – dazu einige aus der isländischen Folklore.",
+    "question": "Warum kann man die Exponate von Elfen und Trollen nicht sehen?",
+    "answer": "Elfen und Trolle gelten in der Folklore als unsichtbar",
+    "fact": "Das kleinste echte Stück ist ein 2 mm großer Hamsterknochen, der nur unter der Lupe zu erkennen ist. Das größte stammt von einem Pottwal: 170 cm.",
+    "year": 1997,
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "museum",
+      "island",
+      "folklore",
+      "kurios"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Icelandic_Phallological_Museum"
+  },
+  {
+    "id": "skurril-party-003",
+    "context": "Seit 1992 findet im finnischen Sonkajärvi jedes Jahr die Weltmeisterschaft im Frauentragen statt, ein Hindernislauf mit Wassergraben.",
+    "question": "Was bekommt das Siegerteam als Preis?",
+    "answer": "Bier im Gewicht der getragenen Frau",
+    "fact": "Die Getragene muss mindestens 49 kg wiegen, sonst gibt es einen Zusatzrucksack. Und sie muss nicht die eigene Ehefrau sein.",
+    "year": 1992,
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "finnland",
+      "wettkampf",
+      "bier",
+      "ehe"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://vinepair.com/articles/finland-wife-carrying-competition-beer-prize/"
+  },
+  {
+    "id": "skurril-party-004",
+    "context": "Finnland veröffentlichte als erstes Land der Welt offizielle Länder-Emojis, darunter eines für das Wort „Kalsarikännit“.",
+    "question": "Was bedeutet dieses Wort?",
+    "answer": "Sich allein zu Hause in Unterhose betrinken",
+    "fact": "Wichtig ist der Zusatz: ohne die Absicht, noch auszugehen. Das Emoji stammt vom finnischen Außenministerium, 2018 erschien sogar ein Ratgeber dazu.",
+    "year": null,
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "finnland",
+      "wort",
+      "trinken",
+      "emoji"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://finland.fi/emoji/kalsarikannit/"
+  },
+  {
+    "id": "skurril-party-005",
+    "context": "Alfred Heineken ärgerte sich auf Curaçao über Strände voller leerer Bierflaschen. 1963 ließ er deshalb eine eckige Flasche namens WOBO produzieren.",
+    "question": "Wofür sollte die leere Flasche weiterverwendet werden?",
+    "answer": "Als Ziegelstein zum Häuserbauen",
+    "fact": "Heineken wünschte sich „einen Ziegel, der Bier enthält“, entworfen hat ihn Architekt John Habraken. Es gab nur eine Testserie von 60.000 bis 100.000 Stück.",
+    "year": 1963,
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "bier",
+      "flasche",
+      "architektur",
+      "niederlande"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Heineken_World_Bottle_(WOBO)"
+  },
+  {
+    "id": "skurril-party-006",
+    "context": "Der norwegische Linie Aquavit wird seit über 200 Jahren auf eine besondere Art gereift, bevor er in den Handel kommt.",
+    "question": "Was passiert mit dem Schnaps vor dem Verkauf?",
+    "answer": "Er fährt in Fässern per Schiff zweimal über den Äquator",
+    "fact": "Die Seereise dauert mehrere Monate. Über die Chargennummer auf der Flasche kann man nachschlagen, mit welchem Schiff sie unterwegs war.",
+    "year": 1805,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "schnaps",
+      "norwegen",
+      "schiff",
+      "äquator"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://linie.com/en/thejourney"
+  },
+  {
+    "id": "skurril-party-007",
+    "context": "Die Sängerin Björk erschien 2001 zur Oscar-Verleihung in einem Kleid, das aussah wie ein Schwan, dessen Hals sich um ihren eigenen Hals legte.",
+    "question": "Was tat sie damit auf dem roten Teppich?",
+    "answer": "Sie tat so, als würde sie ein Ei legen",
+    "fact": "Das Kleid des Designers Marjan Pejoski wurde erst verspottet und ist heute eines der berühmtesten Oscar-Outfits aller Zeiten.",
+    "year": 2001,
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "oscars",
+      "mode",
+      "promi",
+      "björk"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Swan_dress"
+  },
+  {
+    "id": "skurril-party-008",
+    "context": "Jennifer Lopez trug bei den Grammys 2000 ein tief ausgeschnittenes grünes Versace-Kleid, nach dem danach Millionen Menschen googelten.",
+    "question": "Welche Erfindung soll das Kleid ausgelöst haben?",
+    "answer": "Die Google-Bildersuche",
+    "fact": "Laut Ex-Google-Chef Eric Schmidt war das Kleid die beliebteste Suchanfrage, und Textergebnisse reichten dafür nicht. 2001 startete Google Images.",
+    "year": 2000,
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "mode",
+      "google",
+      "promi",
+      "grammys"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Green_Versace_dress_of_Jennifer_Lopez"
+  },
+  {
+    "id": "skurril-party-009",
+    "context": "1965 gründeten Harvard-Studenten „Operation Match“, eine Partnervermittlung für Studierende. Für 3 Dollar füllte man einen Fragebogen aus.",
+    "question": "Wer suchte die passenden Dates aus?",
+    "answer": "Ein IBM-Großrechner per Lochkarte",
+    "fact": "Der Fragebogen hatte 75 Fragen, auch zur Einstellung zu Sex. Man bekam fünf Namen samt Telefonnummer als Computerausdruck.",
+    "year": 1965,
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "dating",
+      "computer",
+      "harvard",
+      "liebe"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Operation_Match"
+  },
+  {
+    "id": "skurril-party-010",
+    "context": "Im 18. Jahrhundert durften junge Paare in Neuengland beim sogenannten „Bundling“ mit Erlaubnis der Eltern gemeinsam im Bett übernachten.",
+    "question": "Was sollte dabei Unanständiges verhindern?",
+    "answer": "Ein Holzbrett, das mitten ins Bett gestellt wurde",
+    "fact": "Alternativ gab es einen in der Mitte zugenähten Sack. Bei manchen konservativen Amischen hielt sich der Brauch bis ins 21. Jahrhundert.",
+    "year": null,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "dating",
+      "brauch",
+      "usa",
+      "bett"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Bundling_(tradition)"
+  },
+  {
+    "id": "skurril-party-011",
+    "context": "Der spätere Kaiser Maximilian I. verlobte sich 1477 mit Maria von Burgund und schrieb damit ungewollt Hochzeitsgeschichte.",
+    "question": "Welcher Brauch ist bei ihm zum ersten Mal gut dokumentiert?",
+    "answer": "Der Verlobungsring mit Diamant",
+    "fact": "Es ist der erste gut dokumentierte Diamant-Verlobungsring. Danach begannen Adlige und Wohlhabende, es ihm nachzumachen.",
+    "year": 1477,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "hochzeit",
+      "österreich",
+      "habsburg",
+      "ring"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Engagement_ring"
+  },
+  {
+    "id": "skurril-party-012",
+    "context": "Das erste Münchner Oktoberfest fand 1810 zur Hochzeit von Kronprinz Ludwig und Prinzessin Therese statt. Von Bierzelten war damals noch keine Rede.",
+    "question": "Was war die Hauptattraktion des ersten Festes?",
+    "answer": "Ein Pferderennen",
+    "fact": "Der siegreiche Kutscher Franz Baumgartner bekam eine Goldmedaille. Die Festwiese wurde noch 1810 nach der Braut Theresienwiese benannt.",
+    "year": 1810,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "oktoberfest",
+      "münchen",
+      "hochzeit",
+      "bayern"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Oktoberfest"
+  },
+  {
+    "id": "skurril-party-013",
+    "context": "Im Historischen Museum der Pfalz in Speyer steht die älteste bekannte noch verschlossene Weinflasche der Welt. Sie stammt aus dem 4. Jahrhundert.",
+    "question": "Womit wurde der Wein luftdicht verschlossen?",
+    "answer": "Mit einer dicken Schicht Olivenöl und Wachs",
+    "fact": "Die Flasche wurde 1867 bei Speyer ausgegraben. Geöffnet wird sie nicht, weil keiner weiß, wie der Inhalt auf Luft reagiert.",
+    "year": 1867,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "wein",
+      "speyer",
+      "römer",
+      "museum"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Speyer_wine_bottle"
+  },
+  {
+    "id": "skurril-party-014",
+    "context": "2013 küssten sich Ekkachai und Laksana Tiranarat in Thailand 58 Stunden und 35 Minuten am Stück und stellten damit einen Guinness-Weltrekord auf.",
+    "question": "Warum wird dieser Rekord heute nicht mehr vergeben?",
+    "answer": "Er gilt als zu gefährlich für die Gesundheit",
+    "fact": "Frühere Teilnehmende brachen zusammen oder mussten mit Sauerstoff versorgt werden. Heute gibt es einen Kussmarathon mit Pausen.",
+    "year": 2013,
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "kuss",
+      "weltrekord",
+      "thailand",
+      "guinness"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.guinnessworldrecords.com/news/2023/7/why-did-we-deactivate-the-longest-kiss-world-record-754853"
+  },
+  {
+    "id": "skurril-party-015",
+    "context": "2009 stellte der Bahnhof Warrington Bank Quay in England an seiner engen Vorfahrt für Autos ein ungewöhnliches Verbotsschild auf.",
+    "question": "Was war dort nicht mehr erwünscht?",
+    "answer": "Sich zum Abschied zu küssen",
+    "fact": "Wegen Staus sollten Paare schnell weiterfahren. Wer ausgiebig knutschen wollte, wurde auf den Kurzzeitparkplatz verwiesen.",
+    "year": 2009,
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "kuss",
+      "bahnhof",
+      "verbot",
+      "england"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.abc.net.au/news/2009-02-20/kissing-banned-at-british-train-station/301744"
+  },
+  {
+    "id": "skurril-party-016",
+    "context": "Britney Spears heiratete im Januar 2004 spontan einen Jugendfreund in der Little White Wedding Chapel in Las Vegas.",
+    "question": "Wie lange hielt diese Ehe?",
+    "answer": "55 Stunden",
+    "fact": "Danach wurde sie annulliert. Im Antrag stand, Spears habe nicht verstanden, was sie da tat.",
+    "year": 2004,
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "hochzeit",
+      "las vegas",
+      "promi",
+      "ehe"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Britney_Spears"
+  },
+  {
+    "id": "skurril-party-017",
+    "context": "Im Nordosten Schottlands wird das Brautpaar vor der Hochzeit oft von Freunden „entführt“. Der Brauch heißt „Blackening“.",
+    "question": "Was passiert dann mit den beiden?",
+    "answer": "Sie werden mit klebrigen Essensresten beschmiert und herumgefahren",
+    "fact": "Meist geht es auf einem offenen Lkw durchs Dorf, die Freunde schlagen dazu auf Töpfe. Möglichst viele Leute sollen zusehen.",
+    "year": null,
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "hochzeit",
+      "schottland",
+      "brauch",
+      "junggesellenabschied"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Blackening_(Scottish_wedding_custom)"
+  },
+  {
+    "id": "skurril-party-018",
+    "context": "In Japan schenken am Valentinstag vor allem Frauen den Männern Schokolade. Seit 1978 gibt es dafür am 14. März den „White Day“.",
+    "question": "Was wird an diesem Tag von Männern erwartet?",
+    "answer": "Ein Gegengeschenk, das zwei- bis dreimal so viel wert ist",
+    "fact": "Die Regel heißt „Sanbai Kaeshi“ (dreifache Rückgabe). Vorläufer war 1977 ein „Marshmallow-Tag“, mit dem eine Süßwarenfirma bei Männern warb.",
+    "year": 1978,
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "valentinstag",
+      "japan",
+      "geschenke",
+      "liebe"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/White_Day"
+  },
+  {
+    "id": "skurril-party-019",
+    "context": "2011 hörte ein Mann in Sárö südlich von Göteborg nachts seltsame Geräusche aus dem Garten der Nachbarin. Dort fand er einen betrunkenen Elch.",
+    "question": "Wo genau steckte der Elch?",
+    "answer": "Festgeklemmt in einem Apfelbaum",
+    "fact": "Er hatte sich an gegorenen Äpfeln betrunken. Die Feuerwehr bog den Baum mit einer Winde herunter, danach schlief der Elch seinen Rausch aus.",
+    "year": 2011,
+    "primaryCategory": "NATURE",
+    "tags": [
+      "elch",
+      "schweden",
+      "äpfel",
+      "rausch"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.cnn.com/2011/WORLD/europe/09/08/sweden.drunken.moose/index.html"
+  },
+  {
+    "id": "skurril-party-020",
+    "context": "Ab 1780 stellte Friedrich der Große in Preußen rund 400 Kriegsinvaliden in Uniform als Kontrolleure ein. Man nannte sie „Kaffeeriecher“.",
+    "question": "Was war ihre Aufgabe?",
+    "answer": "Illegal gerösteten Kaffee am Geruch aufspüren",
+    "fact": "Privates Kaffeerösten war verboten, weil der König am Kaffeemonopol verdiente. Die Schnüffler waren verhasst, verdienten aber gut.",
+    "year": 1780,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "kaffee",
+      "preußen",
+      "friedrich",
+      "verbot"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://de.wikipedia.org/wiki/Kaffeeriecher"
+  },
+  {
+    "id": "skurril-party-021",
+    "context": "Im Münchner Hofbräuhaus haben über 600 Stammgäste ihren eigenen Maßkrug im Tresor. Viele von ihnen bezahlen dort nicht mit Euro.",
+    "question": "Womit zahlen sie stattdessen?",
+    "answer": "Mit Bierzeichen, die immer genau eine Maß wert sind",
+    "fact": "Die Marken gelten nur im Hofbräuhaus und dazugehörigen Wirtschaften. Stammgäste scherzen, sie seien eine bessere Geldanlage als jedes Sparbuch.",
+    "year": null,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "bier",
+      "münchen",
+      "hofbräuhaus",
+      "stammtisch"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.muenchen.travel/artikel/essen-trinken/sieben-fakten-hofbraeuhaus"
+  },
+  {
+    "id": "skurril-party-022",
+    "context": "Das 1993 gegründete „Museum of Bad Art“ bei Boston sammelt absichtlich schlechte Gemälde. Ab 1995 hing die Sammlung im Keller eines Theaters in Dedham.",
+    "question": "Wo genau hingen die Bilder dort?",
+    "answer": "Direkt vor der Herrentoilette",
+    "fact": "Das ständige Spülen sollte angeblich für gleichmäßige Luftfeuchtigkeit sorgen. Heute ist das Museum im Schankraum einer Brauerei.",
+    "year": 1995,
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "museum",
+      "kunst",
+      "usa",
+      "kurios"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Museum_of_Bad_Art"
+  },
+  {
+    "id": "skurril-party-023",
+    "context": "Winston Churchill erholte sich 1931 in New York von einem Autounfall, mitten in der amerikanischen Prohibition. Sein Arzt stellte ihm ein Attest aus.",
+    "question": "Was stand darin?",
+    "answer": "Er braucht mindestens 250 ml Alkohol pro Tag",
+    "fact": "Laut Attest brauchte er die Spirituosen „besonders zu den Mahlzeiten“. Die Menge sei „naturgemäß unbestimmt“ – 250 ml seien nur das Minimum.",
+    "year": 1931,
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "churchill",
+      "prohibition",
+      "alkohol",
+      "usa"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://winstonchurchill.org/resources/myths/alcohol-abuser/"
+  },
+  {
+    "id": "skurril-party-024",
+    "context": "In Island feiert man jedes Jahr am 1. März den „Bjórdagur“. Dann sind die Bars besonders voll.",
+    "question": "Woran erinnert dieser Tag?",
+    "answer": "An das Ende des Bierverbots im Jahr 1989",
+    "fact": "Wein war schon ab 1921, Schnaps ab 1935 wieder erlaubt – nur Bier über 2,25 % blieb bis 1989 verboten.",
+    "year": 1989,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "bier",
+      "island",
+      "verbot",
+      "feiertag"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Beer_in_Iceland"
+  },
+  {
+    "id": "skurril-party-025",
+    "context": "In England und Wales gilt immer noch der Licensing Act von 1872. Laut Paragraf 12 ist in Pubs etwas strafbar, das dort ständig passiert.",
+    "question": "Was ist dort eigentlich verboten?",
+    "answer": "Betrunken zu sein",
+    "fact": "Wer „auf lizenzierten Gaststätten betrunken angetroffen“ wird, dem droht ein Bußgeld. Das Gesetz ist bis heute in Kraft.",
+    "year": 1872,
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "gesetz",
+      "pub",
+      "england",
+      "alkohol"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.legislation.gov.uk/ukpga/Vict/35-36/94/section/12"
+  },
+  {
+    "id": "skurril-party-026",
+    "context": "Im Schweizer Val-de-Travers wurde ein Getränk, das 1910 verboten wurde, fast 100 Jahre lang heimlich weitergebrannt, bis es 2005 wieder legal wurde.",
+    "question": "Welches Getränk war verboten?",
+    "answer": "Absinth",
+    "fact": "Die Schwarzbrenner machten ihn farblos und nannten ihn „La Bleue“, damit er weniger auffiel. Seit 2005 ist er wieder erlaubt.",
+    "year": 1910,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "absinth",
+      "schweiz",
+      "verbot",
+      "schnaps"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Absinthe"
+  },
+  {
+    "id": "skurril-party-027",
+    "context": "In Altbayern und Österreich gab es früher einen Brauch, bei dem junge Männer nachts heimlich ihre Liebste in ihrer Kammer besuchten.",
+    "question": "Wie gelangten sie zu ihr?",
+    "answer": "Mit einer Leiter zum Schlafzimmerfenster",
+    "fact": "Der Brauch hieß Fensterln oder Kammerfensterln. Tagsüber waren Liebesbekundungen verpönt, nachts wurde das Klettern geduldet. In Bern hieß er „Kiltgang“.",
+    "year": null,
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "dating",
+      "bayern",
+      "österreich",
+      "brauch"
+    ],
+    "difficulty": 1,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://de.wikipedia.org/wiki/Fensterln"
+  },
+  {
+    "id": "skurril-party-028",
+    "context": "Ein Töpfer in Avanos in Kappadokien betreibt in einer Höhle unter seinem Laden ein Museum, das im Guinness-Buch der Rekorde steht.",
+    "question": "Was wird dort gesammelt?",
+    "answer": "Haarlocken von Besucherinnen",
+    "fact": "Es sind rund 16.000 Locken mit Namen und Adresse. Zweimal im Jahr werden zehn davon gezogen und bekommen eine Gratisreise nach Kappadokien.",
+    "year": null,
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "museum",
+      "türkei",
+      "haare",
+      "kurios"
+    ],
+    "difficulty": 3,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://en.wikipedia.org/wiki/Hair_museum"
+  },
+  {
+    "id": "skurril-party-029",
+    "context": "Zum Jahreswechsel 2021/22 bauten Moët & Chandon und ein Hotel in Dubai einen Champagnerturm, der mit 8,23 m ins Guinness-Buch kam.",
+    "question": "Aus wie vielen Gläsern bestand der Turm?",
+    "answer": "54.740",
+    "fact": "Ein Team baute 55 Stunden an fünf Tagen daran. Danach wurden die Gläser von einem örtlichen Glasbläser recycelt.",
+    "year": 2022,
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "champagner",
+      "weltrekord",
+      "dubai",
+      "party"
+    ],
+    "difficulty": 2,
+    "ageRating": 18,
+    "adult": true,
+    "source": "https://www.guinnessworldrecords.com/news/commercial/2022/1/8-metre-tall-champagne-glass-pyramid-breaks-record-in-dubai-687915"
+  }
+]
