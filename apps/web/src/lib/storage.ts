@@ -74,3 +74,9 @@ export const savedFigureStore = {
   set: (id: string) => write("saved-figure", id),
   clear: () => remove("saved-figure"),
 };
+
+/** Host lobby: settings column open or collapsed – remembered per device. */
+export const lobbySettingsStore = {
+  get: () => read<boolean>("lobby-settings-open"),
+  set: (open: boolean) => write("lobby-settings-open", open),
+};

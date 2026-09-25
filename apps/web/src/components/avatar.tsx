@@ -18,6 +18,8 @@ const sizes = {
   /** Host screens: scales with the viewport (width and height). */
   fluid: "size-[clamp(3rem,min(5.5vw,9.5vh),7rem)] text-[clamp(1.7rem,min(3vw,5.2vh),3.8rem)] ring-4",
   fluidSm: "size-[clamp(2.25rem,min(3.4vw,6vh),4.5rem)] text-[clamp(1.2rem,min(1.9vw,3.3vh),2.5rem)] ring-[3px]",
+  /** Lobby player card: scales with the grid's card width (--card). */
+  card: "size-[calc(var(--card)*0.54)] text-[calc(var(--card)*0.3)] ring-4",
 } as const;
 
 /**
