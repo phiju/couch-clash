@@ -105,7 +105,7 @@ export function Leaderboard({
           const isMe = entry.playerId === meId;
           const rank = reordered ? entry.rankAfter : entry.rankBefore;
           const leader = reordered && entry.rankAfter === 1;
-          const gainVisible = showGains && stage >= 1 && entry.pointsGained > 0;
+          const gainVisible = showGains && stage >= 1 && entry.pointsGained !== 0;
           return (
             <motion.li
               key={entry.playerId}
@@ -141,9 +141,9 @@ export function Leaderboard({
               <span
                 className={`font-bold tabular-nums transition-opacity duration-300 ${tv ? "fs-lg w-[5ch] text-right" : "text-lg"} ${
                   gainVisible ? "opacity-100" : "opacity-0"
-                } ${leader ? "text-brown/70" : "text-bulb"}`}
+                } ${leader ? "text-brown/70" : entry.pointsGained < 0 ? "text-orange" : "text-bulb"}`}
               >
-                +{entry.pointsGained}
+                {entry.pointsGained < 0 ? `−${Math.abs(entry.pointsGained)}` : `+${entry.pointsGained}`}
               </span>
               <span className={`text-right font-bold tabular-nums ${tv ? "fs-xl w-[5ch]" : "w-16 text-2xl"}`}>
                 <CountUp from={entry.scoreBefore} to={entry.scoreAfter} animated={run} start={stage >= 1} />

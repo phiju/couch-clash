@@ -56,6 +56,7 @@ export interface VoiceRuntime {
 
 export type VoiceEvent =
   | { type: "game_start" }
+  | { type: "intro"; roundIndex: number }
   | { type: "reveal"; key: string; roundIndex: number; index: number; total: number }
   | { type: "leaderboard"; key: string }
   | { type: "summary"; key: string }
@@ -70,6 +71,9 @@ export function detectVoiceEvents(
   const events: VoiceEvent[] = [];
   if (prev && (prev.phase === "lobby" || prev.phase === "setup") && next.phase === "intro") {
     events.push({ type: "game_start" });
+  }
+  if (next.phase === "intro" && next.game && (prev?.phase !== "intro" || prev.game?.roundIndex !== next.game.roundIndex)) {
+    events.push({ type: "intro", roundIndex: next.game.roundIndex });
   }
   const before = progressOf(prev, registry);
   const after = progressOf(next, registry);
@@ -248,12 +252,21 @@ export class VoiceDirector {
   // ── Room changes ─────────────────────────────────────────────────────
   roomChanged(prev: RoomRecord | null, next: RoomRecord) {
     this.readAloudChanged(next);
-    for (const event of detectVoiceEvents(prev, next, this.registry)) {
+    const events = detectVoiceEvents(prev, next, this.registry);
+    const starting = events.some((e) => e.type === "game_start");
+    for (const event of events) {
       switch (event.type) {
         case "game_start":
           this.readyComment = null;
           this.hold = null;
-          this.run(() => this.gameStart());
+          // The first game's explanation follows the opening line.
+          this.run(async () => {
+            await this.gameStart();
+            await this.introduce(0);
+          });
+          break;
+        case "intro":
+          if (!starting) this.run(() => this.introduce(event.roundIndex));
           break;
         case "reveal":
           this.run(() => this.reveal(event));
@@ -284,6 +297,18 @@ export class VoiceDirector {
       startTemplate(count),
     );
     this.deliver(produced);
+  }
+
+  /** Intro card of a game that explains itself (CategoryMeta.announceIntro): the host reads the explanation. */
+  private async introduce(roundIndex: number) {
+    const room = this.rt.read();
+    const round = room?.game?.rounds[roundIndex];
+    const meta = round ? getModule(round.categoryId, this.registry)?.meta : undefined;
+    if (!this.enabled(room) || !meta?.announceIntro) return;
+    const produced = await this.produce("read", "fast", { system: "", user: "" }, `${meta.name}! ${meta.description}`, null, false);
+    const now = this.rt.read();
+    // Only while this game is still being introduced (or has just started).
+    if (now?.game?.roundIndex === roundIndex && (now.phase === "intro" || now.phase === "play")) this.deliver(produced);
   }
 
   // ── Part B: commentary ───────────────────────────────────────────────

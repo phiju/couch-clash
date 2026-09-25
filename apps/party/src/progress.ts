@@ -1,10 +1,13 @@
 import { GAME_MODULES, getModule, type ModuleRegistry } from "@couch-clash/games";
+import { contentPoolOf } from "@couch-clash/shared";
 import type { RoomRecord } from "./room-logic";
 
 export interface Progress {
   key: string;
   roundIndex: number;
   categoryId: string;
+  /** Category the question belongs to (statistics, ratings, reports) – e.g. "quiz" for every knowledge game. */
+  contentCategoryId: string;
   index: number;
   total: number;
   step: string;
@@ -28,6 +31,7 @@ export function progressOf(room: RoomRecord | null, registry: ModuleRegistry = G
     revealed: !!p.revealed,
     roundIndex: game.roundIndex,
     categoryId: round.categoryId,
+    contentCategoryId: module ? contentPoolOf(module.meta) : round.categoryId,
     key: `${game.roundIndex}:${p.index}`,
   };
 }

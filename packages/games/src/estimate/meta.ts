@@ -2,9 +2,9 @@ import type { CategoryMeta } from "@couch-clash/shared";
 
 export const estimateMeta = {
   id: "estimate",
-  name: "Schätzfragen",
-  description: "Tippt eine Zahl ein. Je näher dran, desto mehr Punkte.",
-  emoji: "🎯",
+  name: "Wer ist am nächsten dran?",
+  description: "Schätzt die Zahl – wer am nächsten dran ist, bekommt die meisten Punkte.",
+  emoji: "📏",
   ageRating: 6,
   tags: ["wissen", "familie", "party"],
   inputType: "number",

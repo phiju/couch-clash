@@ -87,6 +87,46 @@ function arrange(chosen: CategoryMeta[], random: () => number): CategoryMeta[] {
   return out;
 }
 
+/** Rule breaks at position i: same category again, two risk games in a row, standings needed in round 1. */
+function breaksRule(list: readonly CategoryMeta[], i: number): boolean {
+  const c = list[i]!;
+  const prev = list[i - 1];
+  if (i === 0) return !!c.needsStandings;
+  return prev!.id === c.id || (!!c.risk && !!prev!.risk);
+}
+
+const ruleBreaks = (list: readonly CategoryMeta[]) => list.reduce((n, _, i) => n + (breaksRule(list, i) ? 1 : 0), 0);
+
+/**
+ * Zufall rules: never two risk games (Double or Nothing, Bet, Punkteklau)
+ * back to back, Punkteklau only after a scored round. Repaired with the
+ * nearest swap that helps; what still breaks a rule is left out.
+ */
+export function applyOrderRules(list: readonly CategoryMeta[]): CategoryMeta[] {
+  let out = [...list];
+  for (let guard = 0; guard < out.length * out.length && ruleBreaks(out) > 0; guard++) {
+    const i = out.findIndex((_, k) => breaksRule(out, k));
+    const current = ruleBreaks(out);
+    let fixed: CategoryMeta[] | null = null;
+    for (let d = 1; d < out.length && !fixed; d++) {
+      for (const j of [i + d, i - d]) {
+        if (j < 0 || j >= out.length) continue;
+        const swapped = [...out];
+        [swapped[i], swapped[j]] = [swapped[j]!, swapped[i]!];
+        if (ruleBreaks(swapped) < current) {
+          fixed = swapped;
+          break;
+        }
+      }
+    }
+    if (!fixed) break;
+    out = fixed;
+  }
+  // Nothing helps (e.g. only risk games left) → drop the round that breaks the rule.
+  while (ruleBreaks(out) > 0) out.splice(out.findIndex((_, k) => breaksRule(out, k)), 1);
+  return out;
+}
+
 /** `count` rounds: every category once first, then again in the same order (balanced repeats). */
 function pickCategories(available: CategoryMeta[], count: number, random: () => number): CategoryMeta[] {
   const distinct = shuffle(available, random);
@@ -140,6 +180,13 @@ function finalize(rounds: CategoryMeta[], counts: number[]): PlannedGame {
     if (last?.meta.id === meta.id) last.questionCount = Math.min(meta.questionsPerRound.max, last.questionCount + n);
     else kept.push({ meta, questionCount: n });
   });
+  // A dropped round may have separated two risk games – still no rule breaks.
+  for (let i = 1; i <= kept.length; i++) {
+    const metas = kept.map((r) => r.meta);
+    const k = metas.findIndex((_, j) => breaksRule(metas, j));
+    if (k < 0) break;
+    kept.splice(k, 1);
+  }
   return {
     rounds: kept.map((r) => ({ categoryId: r.meta.id, questionCount: r.questionCount })),
     estimatedSeconds: estimateGameSeconds(kept),
@@ -157,7 +204,7 @@ export function planGame(input: PlanInput): PlannedGame {
   let best: PlannedGame | null = null;
   // More rounds when the categories are too short to fill the time (long games, small maxima).
   for (let attempt = 0; attempt < 12; attempt++) {
-    const rounds = arrange(pickCategories(available, count, input.random), input.random);
+    const rounds = applyOrderRules(arrange(pickCategories(available, count, input.random), input.random));
     const counts = fillQuestions(rounds, input.pools, targetSec);
     const plan = finalize(rounds, counts);
     if (!best || Math.abs(plan.estimatedSeconds - targetSec) < Math.abs(best.estimatedSeconds - targetSec)) best = plan;

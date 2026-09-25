@@ -1,38 +1,15 @@
 import { QUIZ_QUESTIONS_DE, QuizQuestionSchema, type QuizQuestion } from "@couch-clash/content";
-import type { CategoryMeta, ContentEntry, ModuleContext, ModuleInitOptions, QuestionMedia } from "@couch-clash/shared";
-import { listEntries, parseWith, pickForRound } from "../content-pool";
+import type { CategoryMeta, ContentEntry, ModuleContext, ModuleInitOptions } from "@couch-clash/shared";
 import { z } from "zod";
+import { listEntries, parseWith, pickForRound } from "../content-pool";
+import { createKnowledgeModule, upfrontQuestions, type KnowledgeGame } from "../knowledge/engine";
+import { prepareQuizQuestion, type PreparedQuizQuestion, type QuizLikeQuestion } from "../knowledge/questions";
+import { scoreCorrectAnswers } from "../knowledge/scoring";
 import { createQuestionRoundModule, type QuestionRoundConfig, type RoundSummaryConfig } from "../question-round/engine";
-import { shuffle } from "../random";
 import { quizMeta } from "./meta";
 import type { QuizPublicQuestion, QuizSolution } from "./types";
 
-/** A multiple-choice question as stored; categories built on the quiz may add a picture and an explanation. */
-export type QuizLikeQuestion = QuizQuestion & { media?: QuestionMedia | null; explanation?: string };
-
-/** Question as played: options shuffled, correctIndex adjusted. */
-export interface PreparedQuizQuestion {
-  id: string;
-  text: string;
-  options: string[];
-  correctIndex: number;
-  media?: QuestionMedia | null;
-  explanation?: string;
-  /** Scenes: who drives in which order at the reveal (vehicle ids, "ped:<arm>" for pedestrians). */
-  driveOrder?: string[];
-}
-
-export function prepareQuizQuestion(q: QuizLikeQuestion, random: () => number): PreparedQuizQuestion {
-  const order = shuffle([0, 1, 2, 3], random);
-  return {
-    id: q.id,
-    text: q.text,
-    options: order.map((i) => q.options[i]!),
-    correctIndex: order.indexOf(q.correctIndex),
-    ...(q.media ? { media: q.media } : {}),
-    ...(q.explanation ? { explanation: q.explanation } : {}),
-  };
-}
+export { prepareQuizQuestion, type PreparedQuizQuestion, type QuizLikeQuestion } from "../knowledge/questions";
 
 const entry = (q: QuizLikeQuestion): ContentEntry => ({
   id: q.id,
@@ -45,6 +22,31 @@ const entry = (q: QuizLikeQuestion): ContentEntry => ({
   alcohol: q.alcohol,
   adult: q.adult,
 });
+
+/** Punktesammler: everyone answers, +100 per correct answer, next. */
+export const punktesammler: KnowledgeGame<null> = {
+  meta: quizMeta,
+  init: (ctx, options, pool) => ({ game: null, questions: upfrontQuestions(ctx, options, pool, quizMeta) }),
+  score: scoreCorrectAnswers,
+  publicExtra: () => null,
+};
+
+/**
+ * The "quiz" module also owns the multiple-choice content: the admin page,
+ * statistics and generated questions of every knowledge game are kept here.
+ */
+export function createQuizModule(pool: readonly QuizQuestion[] = QUIZ_QUESTIONS_DE) {
+  return {
+    ...createKnowledgeModule(punktesammler, pool),
+    listContent: (extra?: readonly unknown[]) => listEntries(pool, QuizQuestionSchema, extra, entry),
+    parseContent: (raw: unknown) => parseWith(QuizQuestionSchema, raw),
+  };
+}
+
+export const quizModule = createQuizModule();
+
+// ── Quiz-like categories with their own content and flow on the question-round
+// engine (Führerscheinprüfung: pictures, explanations, exam summary). ──
 
 /** Everything a multiple-choice category may change; the defaults are the plain quiz. */
 export interface QuizModuleConfig<T extends QuizLikeQuestion, TSummary> {
@@ -96,9 +98,3 @@ export function createQuizLikeModule<T extends QuizLikeQuestion, TSummary = neve
     parseContent: (raw: unknown) => parseWith(schema, raw),
   };
 }
-
-export function createQuizModule(pool: readonly QuizQuestion[] = QUIZ_QUESTIONS_DE) {
-  return createQuizLikeModule({ meta: quizMeta, schema: QuizQuestionSchema, pool });
-}
-
-export const quizModule = createQuizModule();

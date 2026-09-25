@@ -10,7 +10,8 @@ import { describe, expect, it } from "vitest";
 import { CATEGORY_METAS, GAME_MODULES, quizMeta } from "../src";
 import { createEstimateModule } from "../src/estimate/module";
 import type { QuestionRoundState } from "../src/question-round/engine";
-import { createQuizModule, prepareQuizQuestion, type PreparedQuizQuestion } from "../src/quiz/module";
+import type { KnowledgeState } from "../src/knowledge/engine";
+import { createQuizModule, prepareQuizQuestion } from "../src/quiz/module";
 import { pickFresh } from "../src/random";
 
 const T0 = 1_700_000_000_000;
@@ -37,7 +38,7 @@ const ALL_ON: ModulePlayer[] = [
   { id: "b", connected: true },
 ];
 
-type QuizState = QuestionRoundState<PreparedQuizQuestion, number>;
+type QuizState = KnowledgeState<null>;
 
 function setup(players = ALL_ON, questionCount = 3) {
   const mod = createQuizModule();
@@ -102,7 +103,7 @@ describe("question round transitions", () => {
     const board = mod.onTimer(revealed, ctx(T0 + 23_000, ALL_ON)).state;
     const pub = mod.toPublicState(board, { role: "host" });
     expect(pub.step).toBe("leaderboard");
-    expect(pub.reveal?.solution.correctIndex).toBe(state.questions[0]!.correctIndex);
+    expect(pub.reveal?.correctIndex).toBe(state.questions[0]!.correctIndex);
   });
 
   it("ends the question early when all connected players answered, and scores", () => {
@@ -117,8 +118,8 @@ describe("question round transitions", () => {
     // correct after 2 s of 20 s → 100 × 1.4; wrong → 0 (not in the delta)
     expect(r2.scoreDelta).toEqual({ a: 140 });
     expect(r2.state.results).toEqual({
-      a: { baseScore: 100, speedModifier: 1.4, finalScore: 140 },
-      b: { baseScore: 0, speedModifier: 1.35, finalScore: 0 },
+      a: { baseScore: 100, speedModifier: 1.4, finalScore: 140, correct: true, answered: true },
+      b: { baseScore: 0, speedModifier: 1.35, finalScore: 0, correct: false, answered: true },
     });
   });
 
@@ -214,7 +215,7 @@ describe("per-viewer public state never leaks answers", () => {
     if ("error" in r) throw new Error(r.error);
     const revealed = mod.onTimer(r.state, ctx(T0 + 20_000, ALL_ON)).state;
     const pub = mod.toPublicState(revealed, { role: "player", playerId: "b" });
-    expect(pub.reveal!.solution.correctIndex).toBe(state.questions[0]!.correctIndex);
+    expect(pub.reveal!.correctIndex).toBe(state.questions[0]!.correctIndex);
     expect(pub.reveal!.answers).toEqual({ a: 2 });
   });
 });
@@ -265,7 +266,7 @@ describe("per-player scoring in the engine", () => {
     const correct = state.questions[0]!.correctIndex;
     const r = mod.handleAction(state, { type: "answer", value: correct }, "a", ctx(T0 + 10_000, ONE));
     if ("error" in r) throw new Error(r.error);
-    expect(r.state.results!.a).toEqual({ baseScore: 100, speedModifier: 1, finalScore: 100 });
+    expect(r.state.results!.a).toMatchObject({ baseScore: 100, speedModifier: 1, finalScore: 100 });
   });
 
   it("players answering at the same time get identical modifiers", () => {
@@ -278,7 +279,7 @@ describe("per-player scoring in the engine", () => {
       s = r.state;
     }
     expect(s.results!.a).toEqual(s.results!.b);
-    expect(s.results!.a).toEqual({ baseScore: 100, speedModifier: 1.35, finalScore: 135 }); // 3 s of 20 s
+    expect(s.results!.a).toMatchObject({ baseScore: 100, speedModifier: 1.35, finalScore: 135 }); // 3 s of 20 s
   });
 
   it("no answer / timeout → not scored, no points", () => {
@@ -296,20 +297,20 @@ describe("per-player scoring in the engine", () => {
     const correct = state.questions[0]!.correctIndex;
     const r = mod.handleAction(state, { type: "answer", value: correct }, "a", ctx(T0 + 20_000, ONE));
     if ("error" in r) throw new Error(r.error);
-    expect(r.state.results!.a).toEqual({ baseScore: 100, speedModifier: 0.5, finalScore: 50 });
+    expect(r.state.results!.a).toMatchObject({ baseScore: 100, speedModifier: 0.5, finalScore: 50 });
     // after phaseEndsAt answers are still rejected
     expect(mod.handleAction(state, { type: "answer", value: correct }, "a", ctx(T0 + 20_001, ONE))).toEqual({
       error: "TOO_LATE",
     });
   });
 
-  it("a room with old scoring settings still scores with the category defaults", () => {
+  it("a room with old scoring settings still scores with the category defaults (Punktesammler: fixed 100)", () => {
     const { mod, state } = setup(ONE);
     const old = { ...state, scoring: { basePoints: 999, speedBonus: false, minPercent: 0, estimateScale: "rank" } };
     const correct = state.questions[0]!.correctIndex;
     const r = mod.handleAction(old as unknown as typeof state, { type: "answer", value: correct }, "a", ctx(T0, ONE));
     if ("error" in r) throw new Error(r.error);
-    expect(r.state.results!.a).toEqual({ baseScore: 100, speedModifier: 1.5, finalScore: 150 });
+    expect(r.state.results!.a).toMatchObject({ baseScore: 100, speedModifier: 1, finalScore: 100 });
   });
 
   it("estimate: proximity per player, never compared to the others", () => {

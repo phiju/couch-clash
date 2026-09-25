@@ -105,7 +105,7 @@ export function HostPlay({ room, send }: { room: PublicRoomState; send: Send }) 
   return (
     <Screen fit className="max-w-[2000px]">
       <GameBar room={room} send={send} skipLabel={skipLabel} questionMenu />
-      <views.HostView state={moduleState} room={room} />
+      <views.HostView state={moduleState} room={room} sendAction={(action) => send({ type: "action", action })} />
     </Screen>
   );
 }

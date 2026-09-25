@@ -133,3 +133,44 @@ describe("mode pools on the real content", () => {
     expect(hard).toBeGreaterThan(easy);
   });
 });
+
+describe("planGame with the knowledge games", () => {
+  const ALL_POOLS = Object.fromEntries(METAS.map((m) => [m.id, 500]));
+  const risky = (id: string) => !!byId.get(id)?.risk;
+
+  it("may pick all six knowledge games (and the others)", () => {
+    const seen = new Set<string>();
+    for (let seed = 1; seed <= 200; seed++) {
+      const plan = planGame({ mode: "family", targetMinutes: 90, categories: METAS, pools: ALL_POOLS, random: seeded(seed), playerCount: 4 });
+      for (const r of plan.rounds) seen.add(r.categoryId);
+    }
+    expect(seen).toEqual(new Set(METAS.map((m) => m.id)));
+  });
+
+  for (const mode of GAME_MODES) {
+    it(`${mode}: never two risk games back to back, Punkteklau never first, still on time`, () => {
+      for (let seed = 1; seed <= 150; seed++) {
+        for (const minutes of [15, 30, 45, 60, 90]) {
+          const plan = planGame({ mode, targetMinutes: minutes, categories: METAS, pools: ALL_POOLS, random: seeded(seed), playerCount: 5 });
+          const ids = plan.rounds.map((r) => r.categoryId);
+          expect(ids.length).toBeGreaterThanOrEqual(2);
+          expect(ids[0]).not.toBe("steal");
+          for (let i = 1; i < ids.length; i++) {
+            expect(risky(ids[i]!) && risky(ids[i - 1]!), ids.join(",")).toBe(false);
+            expect(ids[i]).not.toBe(ids[i - 1]);
+          }
+          expect(Math.abs(plan.estimatedSeconds - minutes * 60)).toBeLessThanOrEqual(minutes * 60 * 0.1);
+        }
+      }
+    });
+  }
+
+  it("only risk games offered → the rules still hold (rounds are dropped instead)", () => {
+    const riskOnly = METAS.filter((m) => m.risk);
+    for (let seed = 1; seed <= 30; seed++) {
+      const plan = planGame({ mode: "family", targetMinutes: 30, categories: riskOnly, pools: ALL_POOLS, random: seeded(seed) });
+      expect(plan.rounds.length).toBeLessThanOrEqual(1);
+      expect(plan.rounds[0]?.categoryId).not.toBe("steal");
+    }
+  });
+});

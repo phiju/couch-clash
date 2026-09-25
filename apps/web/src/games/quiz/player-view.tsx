@@ -1,6 +1,6 @@
 "use client";
 
-import type { QuizPublicState } from "@couch-clash/games/meta";
+import type { QuizLikePublicState } from "@couch-clash/games/meta";
 import { useState } from "react";
 import { Explanation } from "../fuehrerschein/exam";
 import { MediaView } from "../fuehrerschein/media";
@@ -8,7 +8,7 @@ import { AnswerSent, Countdown, PlayerRevealResult, QuestionLeaderboard } from "
 import type { PlayerViewProps } from "../types";
 import { QUIZ_OPTION_STYLES } from "./options";
 
-export function QuizPlayerView({ state, room, me, sendAction }: PlayerViewProps<QuizPublicState>) {
+export function QuizPlayerView({ state, room, me, sendAction }: PlayerViewProps<QuizLikePublicState>) {
   // Optimistic: show "sent" right away; the server state confirms it.
   const [sentFor, setSentFor] = useState<number | null>(null);
   const reveal = state.reveal;

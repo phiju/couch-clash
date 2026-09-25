@@ -53,7 +53,7 @@ export class StatsRecorder {
       const game = next.game!;
       const module = getModule(after.categoryId, this.registry);
       const stats = game.moduleState != null ? module?.toStats?.(game.moduleState) : null;
-      if (stats) this.write("play", (store) => store.recordPlay(after.categoryId, stats, this.rt.now()));
+      if (stats) this.write("play", (store) => store.recordPlay(after.contentCategoryId, stats, this.rt.now()));
     }
 
     // 2. The rated question is over (next question, scoreboard, …) → write the votes.
@@ -84,7 +84,7 @@ export class StatsRecorder {
     if (!room.players.some((pl) => pl.id === playerId)) return fail("UNKNOWN_PLAYER");
     await this.rt.commit({
       ...room,
-      questionVotes: applyVote(room.questionVotes, { contentId, categoryId: p.categoryId }, playerId, vote),
+      questionVotes: applyVote(room.questionVotes, { contentId, categoryId: p.contentCategoryId }, playerId, vote),
     });
     return ok(undefined);
   }
@@ -96,7 +96,7 @@ export class StatsRecorder {
     if (this.reported.has(contentId)) return ok(undefined);
     this.reported.set(contentId, this.rt.now());
     invalidateContentFilter();
-    this.write("report", (store) => store.report(p.categoryId, contentId, this.rt.now()));
+    this.write("report", (store) => store.report(p.contentCategoryId, contentId, this.rt.now()));
     return ok(undefined);
   }
 

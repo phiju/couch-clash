@@ -1,6 +1,10 @@
 import type { QuestionMedia } from "@couch-clash/shared";
 import type { QuestionRoundPublicState } from "../question-round/types";
 
+/** Punktesammler plays the shared knowledge-game state without extras. */
+export type { QuizPublicState } from "../knowledge/types";
+
+/** Quiz-like categories on the question-round engine (Führerscheinprüfung). */
 export interface QuizPublicQuestion {
   text: string;
   options: string[];
@@ -19,4 +23,4 @@ export interface QuizSolution {
 /** Index of the chosen option. */
 export type QuizAnswer = number;
 
-export type QuizPublicState = QuestionRoundPublicState<QuizPublicQuestion, QuizAnswer, QuizSolution>;
+export type QuizLikePublicState = QuestionRoundPublicState<QuizPublicQuestion, QuizAnswer, QuizSolution>;

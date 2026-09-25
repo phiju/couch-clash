@@ -5,6 +5,8 @@ import type { ModuleAudioScene } from "@/lib/audio/scenes";
 export interface HostViewProps<TState> {
   state: TState;
   room: PublicRoomState;
+  /** Category action from the host screen (e.g. the host picks the category). */
+  sendAction?: (action: unknown) => void;
 }
 
 export interface PlayerViewProps<TState> {

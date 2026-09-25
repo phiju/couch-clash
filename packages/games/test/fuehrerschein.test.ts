@@ -32,10 +32,15 @@ type State = QuestionRoundState<PreparedQuizQuestion, number>;
 const scenes = FUEHRERSCHEIN_QUESTIONS_DE.filter((q) => q.media?.kind === "scene");
 
 describe("Führerschein: registry + meta", () => {
-  it("is registered with the quiz's scoring and 5–10 questions (default 8)", () => {
+  it("is registered with its own quiz-style scoring (speed bonus on) and 5–10 questions (default 8)", () => {
     expect(GAME_MODULES.fuehrerschein.meta).toBe(fuehrerscheinMeta);
     expect(fuehrerscheinMeta.questionsPerRound).toEqual({ min: 5, default: 8, max: 10 });
-    expect(fuehrerscheinMeta.scoring).toEqual(GAME_MODULES.quiz.meta.scoring);
+    // Unchanged when Wissensfragen became the Punktesammler (fixed 100, speed bonus off).
+    expect(fuehrerscheinMeta.scoring).toEqual({
+      mode: "absolute",
+      maxPoints: 100,
+      speedModifier: { enabled: true, fastestMultiplier: 1.5, slowestMultiplier: 0.5 },
+    });
     expect(fuehrerscheinMeta.modes).toEqual(["kids", "family", "party"]);
     expect(fuehrerscheinMeta.secondsPerQuestion).toBe(15);
     expect(FUEHRERSCHEIN_CONFIG.sceneSeconds).toBe(20);

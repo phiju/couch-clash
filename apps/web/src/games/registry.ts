@@ -1,8 +1,12 @@
 import type { CategoryId } from "@couch-clash/games/meta";
+import { betViews } from "./bet";
 import { bluffViews } from "./bluff";
+import { categoryPickViews } from "./category-pick";
+import { doubleViews } from "./double";
 import { estimateViews } from "./estimate";
 import { fuehrerscheinViews } from "./fuehrerschein";
 import { quizViews } from "./quiz";
+import { stealViews } from "./steal";
 import type { GameViews } from "./types";
 
 /**
@@ -13,6 +17,10 @@ import type { GameViews } from "./types";
 export const GAME_VIEWS: Record<CategoryId, GameViews<any>> = {
   quiz: quizViews,
   estimate: estimateViews,
+  "category-pick": categoryPickViews,
+  "double-or-nothing": doubleViews,
+  bet: betViews,
+  steal: stealViews,
   fuehrerschein: fuehrerscheinViews,
   bluff: bluffViews,
 };

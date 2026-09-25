@@ -28,6 +28,19 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.12.0",
+    date: "2026-09-25",
+    title: "Neu: Kategorienvorgabe, Double or Nothing, Bet und Punkteklau – und aus Wissensfragen wird der Punktesammler!",
+    items: [
+      { emoji: "🎯", text: "Kategorienvorgabe: Wer hinten liegt, sucht die Kategorie aus" },
+      { emoji: "🎲", text: "Double or Nothing: Heimlich verdoppeln – doppelt gewinnen oder doppelt verlieren" },
+      { emoji: "💰", text: "Bet: Setzt eure Punkte auf die nächste Kategorie – bis ALL IN" },
+      { emoji: "🦹", text: "Punkteklau: Richtig antworten und dem Spitzenreiter Punkte stibitzen" },
+      { emoji: "🧠", text: "Aus Wissensfragen wird der Punktesammler – 100 Punkte pro richtiger Antwort" },
+      { emoji: "📏", text: "Schätzfragen heißen jetzt „Wer ist am nächsten dran?“" },
+    ],
+  },
+  {
     version: "0.11.0",
     date: "2026-09-25",
     title: "Ab in die Fahrschule",
