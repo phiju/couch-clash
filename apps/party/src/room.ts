@@ -25,6 +25,9 @@ import { playerPrefix, r2AvatarStore, roomPrefix } from "./avatar/store";
 import { styleReference } from "./avatar/style";
 import { createVoiceProviders } from "./voice";
 import { VoiceDirector } from "./voice/director";
+import { loadContentFilter, type ContentFilter } from "./stats/content-filter";
+import { StatsRecorder } from "./stats/recorder";
+import { d1StatsStore } from "./stats/store";
 import { Server, type Connection, type WSMessage } from "partyserver";
 import {
   advance,
@@ -86,6 +89,18 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     random: Math.random,
     newId: () => generateSecret(8),
   });
+
+  /** Question statistics (D1): plays, 👍/👎, "Stimmt nicht?". */
+  private readonly stats = new StatsRecorder({
+    read: () => this.activeRoom(),
+    commit: (room) => this.commit(room),
+    store: () => this.statsStore(),
+    waitUntil: (promise) => this.ctx.waitUntil(promise),
+    now: () => Date.now(),
+  });
+
+  /** Blocked ids + generated questions, refreshed before each round starts. */
+  private content: ContentFilter | null = null;
 
   /** Read/commit access for background avatar jobs. */
   private readonly roomAccess: RoomAccess = {
@@ -159,6 +174,12 @@ export class Room extends Server<Env> implements AvatarRoomApi {
       this.broadcastState();
     }
     if (isTimerDue(room, now)) {
+      if (room.phase === "intro") {
+        // Loading the filter yields – re-read the room afterwards.
+        await this.refreshContent();
+        room = this.activeRoom();
+        if (!room || !isTimerDue(room, now)) return;
+      }
       const result = advance(room, this.flowDeps(now));
       if (result.ok) {
         await this.commit(result.value);
@@ -330,13 +351,43 @@ export class Room extends Server<Env> implements AvatarRoomApi {
         if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
         return this.apply(conn, updateSettings(room, msg.rounds));
 
-      case "start_game":
+      case "start_game": {
         if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
-        return this.apply(conn, beginGame(room, this.flowDeps(now)));
+        await this.refreshContent();
+        const current = this.activeRoom();
+        if (!current) return;
+        return this.apply(conn, beginGame(current, this.flowDeps(now)));
+      }
 
-      case "skip":
+      case "skip": {
         if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
-        return this.apply(conn, advance(room, this.flowDeps(now)));
+        if (room.phase === "intro") await this.refreshContent();
+        const current = this.activeRoom();
+        if (!current) return;
+        return this.apply(conn, advance(current, this.flowDeps(now)));
+      }
+
+      case "rate_question": {
+        const state = conn.state;
+        if (state?.role !== "player") return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        const result = await this.stats.rate(state.playerId, msg.contentId, msg.vote);
+        if (!result.ok) return this.send(conn, errorMessage(result.error));
+        return;
+      }
+
+      case "report_question": {
+        if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        const result = this.stats.report(msg.contentId);
+        if (!result.ok) return this.send(conn, errorMessage(result.error));
+        return;
+      }
+
+      case "undo_report": {
+        if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        const result = this.stats.undoReport(msg.contentId);
+        if (!result.ok) return this.send(conn, errorMessage(result.error));
+        return;
+      }
 
       case "play_again":
         if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
@@ -382,6 +433,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     this.broadcastState();
     // The host may have something to say about it (welcome, commentary, …).
     this.voice.roomChanged(prev, room);
+    this.stats.roomChanged(prev, room);
   }
 
   /** Host lines never go to phones. */
@@ -412,7 +464,17 @@ export class Room extends Server<Env> implements AvatarRoomApi {
       now,
       random: Math.random,
       connectedPlayerIds: this.presence(excludeConnId).playerIds,
+      content: this.content,
     };
+  }
+
+  private statsStore() {
+    return this.env.STATS ? d1StatsStore(this.env.STATS) : null;
+  }
+
+  /** Cached ~5 min; keeps the last filter (or none) when D1 is unavailable. */
+  private async refreshContent() {
+    this.content = await loadContentFilter(this.statsStore(), Date.now());
   }
 
   private activeRoom(): RoomRecord | null {

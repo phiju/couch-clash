@@ -14,9 +14,19 @@
   // Generated photo avatars (never the original photos). Create the bucket
   // first (see README) and add a lifecycle rule that deletes objects after 1 day.
   "r2_buckets": [{ "binding": "AVATARS", "bucket_name": "couch-clash-avatars" }],
+  // Question statistics + generated questions. Create the database first
+  // (see README); apply migrations before deploying.
+  "d1_databases": [
+    {
+      "binding": "STATS",
+      "database_name": "couch-clash-stats",
+      "database_id": "3e37178b-ccae-4c06-a926-d633fc3bf531",
+      "migrations_dir": "migrations"
+    }
+  ],
   // Scales avatars down to 256 px WebP.
   "images": { "binding": "IMAGES" },
   // The host artwork (style reference) is bundled as binary data.
   "rules": [{ "type": "Data", "globs": ["**/*.webp"], "fallthrough": true }]
-  // Secret (not in this file): OPENAI_API_KEY
+  // Secrets (not in this file): OPENAI_API_KEY, ELEVENLABS_API_KEY, ADMIN_TOKEN
 }

@@ -1,16 +1,30 @@
-import { ESTIMATE_QUESTIONS_DE, type EstimateQuestion } from "@couch-clash/content";
+import { ESTIMATE_QUESTIONS_DE, EstimateQuestionSchema, type EstimateQuestion } from "@couch-clash/content";
+import type { ContentEntry } from "@couch-clash/shared";
+import { listEntries, parseWith, playablePool } from "../content-pool";
 import { z } from "zod";
 import { createQuestionRoundModule } from "../question-round/engine";
 import { pickFresh } from "../random";
 import { estimateMeta } from "./meta";
 import type { EstimatePublicQuestion, EstimateSolution } from "./types";
 
+const entry = (q: EstimateQuestion): ContentEntry => ({
+  id: q.id,
+  text: q.text,
+  answer: formatEstimate(q.answer, q.unit, q.format),
+  difficulty: q.difficulty,
+  ageRating: q.ageRating,
+  tags: q.tags,
+  payload: q,
+  errorMetric: true,
+});
+
 export function createEstimateModule(pool: readonly EstimateQuestion[] = ESTIMATE_QUESTIONS_DE) {
-  return createQuestionRoundModule<EstimateQuestion, number, EstimatePublicQuestion, EstimateSolution>({
+  const module = createQuestionRoundModule<EstimateQuestion, number, EstimatePublicQuestion, EstimateSolution>({
     meta: estimateMeta,
     answerSchema: z.number().finite().min(-1e12).max(1e12),
-    pickQuestions: (ctx, { questionCount, excludeContentIds }) =>
-      pickFresh(pool, questionCount, excludeContentIds, ctx.random),
+    pickQuestions: (ctx, options) =>
+      pickFresh(playablePool(pool, EstimateQuestionSchema, options), options.questionCount, options.excludeContentIds, ctx.random),
+    errorShare: (q, a) => Math.abs(a - q.answer) / (q.zeroRange ?? Math.max(Math.abs(q.answer), 1e-9)),
     baseScoreInput: (question, answer) => ({
       answer,
       correctAnswer: question.answer,
@@ -24,6 +38,11 @@ export function createEstimateModule(pool: readonly EstimateQuestion[] = ESTIMAT
       answer: (q, a) => formatEstimate(a, q.unit, q.format),
     },
   });
+  return {
+    ...module,
+    listContent: (extra?: readonly unknown[]) => listEntries(pool, EstimateQuestionSchema, extra, entry),
+    parseContent: (raw: unknown) => parseWith(EstimateQuestionSchema, raw),
+  };
 }
 
 /** "12.000 km" / "1989" – German number format, for the host's commentary. */

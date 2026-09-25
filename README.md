@@ -22,6 +22,10 @@ couch-clash/
 │       ├── src/game-flow.ts         Pure game flow (setup → intro → play → scoreboard → finale)
 │       ├── src/avatar/              Photo avatars: provider interface + OpenAI, R2 store, routes, state logic
 │       ├── src/voice/               Host mascot's voice: text + speech providers, prompts, rules, director
+│       ├── src/stats/               Question statistics (D1): recorder, votes, content filter
+│       ├── src/generate/            AI replacement questions (per-category generators, verify, daily limit)
+│       ├── src/admin/               Admin API for /admin/fragen (ADMIN_TOKEN)
+│       ├── migrations/              D1 migrations (couch-clash-stats)
 │       └── test/
 └── packages/
     ├── shared/                  Types + zod schemas: messages, room state, GameModule interface, duration
@@ -92,9 +96,9 @@ Deploy Cloudflare first, because Vercel needs the worker URL.
 3. Settings:
    - **Project name:** `couch-clash`. This must match `name` in `apps/party/wrangler.jsonc`.
    - **Build command:** leave empty
-   - **Deploy command:** `cd apps/party && npx wrangler deploy`
+   - **Deploy command:** `cd apps/party && npx wrangler d1 migrations apply couch-clash-stats --remote && npx wrangler deploy`
    - **Root directory (path):** `/`
-4. **Before the first deploy**, set up R2 and the OpenAI secret (see [Photo avatars](#photo-avatars-ai)). The worker config binds the R2 bucket `couch-clash-avatars`, and the deploy fails if it doesn't exist.
+4. **Before the first deploy**, set up R2 and the OpenAI secret (see [Photo avatars](#photo-avatars-ai)) and the D1 database (see [Question statistics](#question-statistics--admin)). The worker config binds the R2 bucket `couch-clash-avatars` and the D1 database `couch-clash-stats`, and the deploy fails if they don't exist.
 5. Click **Create and deploy**.
 6. Afterwards the worker is live at `https://couch-clash.<your-subdomain>.workers.dev`. Opening the URL should show "Couch Clash party server 🎉".
    Note the host part without `https://`. You need it for Vercel.
@@ -124,6 +128,7 @@ The option "Include source files outside of the Root Directory" must stay on (it
 
 | `OPENAI_API_KEY`         | `apps/party`, Cloudflare Worker **secret** | Photo avatars + the host's texts (never sent to the browser) |
 | `ELEVENLABS_API_KEY`     | `apps/party`, Cloudflare Worker **secret** | The host's voice (never sent to the browser) |
+| `ADMIN_TOKEN`            | `apps/party`, Cloudflare Worker **secret** | Password for `/admin/fragen` (long random string) |
 
 No secrets are committed to the repository. For local photo avatars, put `OPENAI_API_KEY=…` into `apps/party/.dev.vars` (git-ignored). Without the key, photo avatars answer "not available" and everyone plays with emojis.
 
@@ -245,6 +250,31 @@ The mascot welcomes every player by name and comments on the leaderboard. Every 
 
 **Storage:** the mp3s live in R2 under `rooms/<code>/voice/<id>.mp3`, are deleted with the room, and are covered by the 1-day rule on `rooms/`.
 
+## Question statistics & admin
+
+Every played question is counted in **Cloudflare D1** (database `couch-clash-stats`, binding `STATS`). Aggregated numbers only – never player names or answers.
+
+- **At the reveal** the room writes one upsert per question (`question_stats`): plays, answers, correct answers (estimates: very close), sum of response times, sum of error shares (estimates). Runs in the background (`waitUntil`) and never blocks the game.
+- **👍 / 👎** on the phones during the reveal and the leaderboard: one vote per player, tapping the other thumb changes it. Written as counts when the question is over. Nothing is shown on the TV. Thumbs never change a question's status.
+- **"⚠️ Stimmt nicht?"** in the host's "⋯" menu during the reveal: the question is quarantined right away (+1 report), toast "Zur Prüfung markiert" with 10 s "Rückgängig".
+- **Status** `active` / `quarantined` / `removed`. When a round starts, the room loads the non-active ids and the generated questions (cached ~5 min). If D1 is unreachable, the game plays without the filter.
+- Categories provide the numbers via the module hook `toStats`, and their catalog via `listContent` / `parseContent`. The room has no category-specific code.
+
+### Admin page `/admin/fragen`
+
+Asks for the `ADMIN_TOKEN` (kept in `sessionStorage` of that tab only); the worker checks it on every `/api/admin/*` request (`401` if wrong, `503` if not set). Table of all questions joined with the content: text, correct answer, difficulty, plays, correct rate / average error, average time, 👍/👎, reports, status, last played. Sortable, filter by category, search, quick filters (Quarantäne, rausgeworfen, neu generiert, gemeldet, viele 👎, Schwierigkeit passt nicht, nie gespielt), actions per row and in bulk, CSV export of the current view.
+
+**Rauswerfen** (with confirmation) removes a question for good and writes a replacement automatically: a generator per category (`apps/party/src/generate/generators.ts`) asks OpenAI for a question in the same category with the same age rating, difficulty and tags (similar questions are passed on to avoid duplicates), a second call checks it (yes/no + reason; estimates must be stable facts), up to 3 attempts. The result is validated with the category's zod schema, stored in `generated_questions` and played from the next round on (flag "neu generiert", editable in the admin). Max 50 replacements per day (`GENERATION_CONFIG`); errors are listed in the admin page.
+
+### Setup (once)
+
+1. **D1 database:** Cloudflare dashboard → **Storage & databases** → **D1** → **Create** → name `couch-clash-stats`. Or `cd apps/party && npx wrangler d1 create couch-clash-stats`. Put the Database ID into `apps/party/wrangler.jsonc` (`d1_databases`).
+2. **Tables:** migrations live in `apps/party/migrations/`. The deploy command applies them (`npx wrangler d1 migrations apply couch-clash-stats --remote`); nothing to do by hand.
+3. **Secret:** Workers & Pages → `couch-clash` → **Settings** → **Variables and Secrets** → add **Secret** `ADMIN_TOKEN` (long random string, e.g. `openssl rand -hex 24`).
+4. **Deploy command** (Settings → Builds): `cd apps/party && npx wrangler d1 migrations apply couch-clash-stats --remote && npx wrangler deploy`.
+
+Locally: `cd apps/party && npx wrangler d1 migrations apply couch-clash-stats --local`, and `ADMIN_TOKEN=…` in `apps/party/.dev.vars`.
+
 ## Sound (host only)
 
 The TV/laptop plays music and effects; phones never do.
@@ -273,5 +303,7 @@ The TV/laptop plays music and effects; phones never do.
 **The host speaks (AI voice)** ✅ Welcome by name, game start, leaderboard commentary with "Frechheit" levels, winner announcement – voice by ElevenLabs, host device only, no speech bubbles, character budget per room.
 
 **Photo avatars (AI)** ✅ Selfie/photo → cartoon in the show style via OpenAI, 3 expressions for the leaderboard, emoji fallback, R2 storage with cleanup, "⭐ Meine Figur" for next time.
+
+**Question statistics** ✅ Plays and 👍/👎 per question in D1, "⚠️ Stimmt nicht?" with undo, admin page `/admin/fragen` with quick filters and CSV, automatic AI replacement for removed questions.
 
 **Milestone 0.3 – Show look & intro** ✅ Retro stage look on all screens, start page intro, host mascot, QR code via `NEXT_PUBLIC_SITE_URL`.

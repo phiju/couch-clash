@@ -4,6 +4,7 @@ import { getCategoryMeta } from "@couch-clash/games/meta";
 import type { ClientMessage, PublicRoomState } from "@couch-clash/shared";
 import { AvatarBadge } from "@/components/avatar";
 import { Mascot } from "@/components/mascot";
+import { QuestionMenu } from "./question-menu";
 import { useHostSpeech } from "./voice";
 import { Button, Screen } from "@/components/ui";
 import { getGameViews } from "@/games/registry";
@@ -19,7 +20,7 @@ function currentRound(room: PublicRoomState) {
 }
 
 /** Top bar during a game: category, progress, host controls. */
-function GameBar({ room, send, skipLabel }: { room: PublicRoomState; send: Send; skipLabel?: string }) {
+function GameBar({ room, send, skipLabel, questionMenu }: { room: PublicRoomState; send: Send; skipLabel?: string; questionMenu?: boolean }) {
   const { game, meta } = currentRound(room);
   return (
     <header className="flex w-full shrink-0 flex-wrap items-center justify-between gap-4 pr-14">
@@ -33,6 +34,7 @@ function GameBar({ room, send, skipLabel }: { room: PublicRoomState; send: Send;
         )}
       </div>
       <div className="flex items-center gap-3">
+        {questionMenu && <QuestionMenu room={room} send={send} />}
         <button
           type="button"
           onClick={() => {
@@ -96,7 +98,7 @@ export function HostPlay({ room, send }: { room: PublicRoomState; send: Send }) 
     moduleState.step === "question" ? "Auflösen ⏭" : moduleState.step === "reveal" ? "Rangliste ⏭" : "Weiter ⏭";
   return (
     <Screen fit className="max-w-[2000px]">
-      <GameBar room={room} send={send} skipLabel={skipLabel} />
+      <GameBar room={room} send={send} skipLabel={skipLabel} questionMenu />
       <views.HostView state={moduleState} room={room} />
     </Screen>
   );

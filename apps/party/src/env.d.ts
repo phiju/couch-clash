@@ -8,6 +8,10 @@ interface Env {
   OPENAI_API_KEY?: string;
   /** Worker secret for the host's voice (ElevenLabs). Never sent to clients. */
   ELEVENLABS_API_KEY?: string;
+  /** D1 database couch-clash-stats (question statistics, generated questions). */
+  STATS?: D1Database;
+  /** Worker secret protecting the admin API (/api/admin/*). */
+  ADMIN_TOKEN?: string;
 }
 
 declare namespace Cloudflare {
@@ -18,6 +22,8 @@ declare namespace Cloudflare {
     IMAGES?: ImagesBinding;
     OPENAI_API_KEY?: string;
     ELEVENLABS_API_KEY?: string;
+    STATS?: D1Database;
+    ADMIN_TOKEN?: string;
   }
 }
 

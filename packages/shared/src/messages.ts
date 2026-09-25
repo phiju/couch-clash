@@ -74,6 +74,12 @@ export const ClientMessageSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("voice_test") }),
   /** Host: "Stimme erneut versuchen" after the voice service refused. */
   z.object({ type: z.literal("voice_retry") }),
+  /** Player: 👍 / 👎 for the current question (after the reveal). */
+  z.object({ type: z.literal("rate_question"), contentId: id, vote: z.enum(["up", "down"]) }),
+  /** Host: "⚠️ Stimmt nicht?" – quarantines the current question. */
+  z.object({ type: z.literal("report_question"), contentId: id }),
+  /** Host: undo the report within 10 s. */
+  z.object({ type: z.literal("undo_report"), contentId: id }),
   /** Player: a category-specific action. Validated by the module's own schema. */
   z.object({ type: z.literal("action"), action: z.unknown() }),
 ]);

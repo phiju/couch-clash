@@ -20,6 +20,7 @@ import { GAME_MODULES, getModule, normalizeScoring, type ModuleRegistry } from "
 import { publicGame, settingsSummary } from "./game-flow";
 import { fail, ok, type Result } from "./result";
 import { publicPhoto, type PhotoRecord, type PhotoUsage } from "./avatar/photo-logic";
+import type { QuestionVotes } from "./stats/votes";
 import { VOICE_CONFIG } from "./voice/config";
 import { defaultRoomVoice, effectiveCheekiness, hasKidsCategory, normalizeRoomVoice, type RoomVoice } from "./voice/rules";
 
@@ -58,6 +59,8 @@ export interface RoomRecord {
   photoUsage: PhotoUsage;
   /** The host mascot's voice: settings, budget, commentary memory. */
   voice: RoomVoice;
+  /** 👍/👎 for the current question (written to the statistics when it is over). */
+  questionVotes: QuestionVotes | null;
 }
 
 /** One category of the game settings (sanitized against the registry). */
@@ -98,6 +101,7 @@ export function normalizeRoomRecord(room: RoomRecord, registry: ModuleRegistry =
     photoAvatars: room.photoAvatars ?? true,
     photoUsage: room.photoUsage ?? { base: 0, expressions: 0 },
     voice: normalizeRoomVoice(room.voice),
+    questionVotes: room.questionVotes ?? null,
   };
 }
 
@@ -124,6 +128,7 @@ export function createRoomRecord(code: string, hostToken: string, now: number): 
     photoAvatars: true,
     photoUsage: { base: 0, expressions: 0 },
     voice: defaultRoomVoice(),
+    questionVotes: null,
   };
 }
 
