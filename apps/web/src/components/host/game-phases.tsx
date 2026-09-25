@@ -1,7 +1,8 @@
 "use client";
 
 import { getCategoryMeta } from "@couch-clash/games/meta";
-import type { ClientMessage, PublicRoomState } from "@couch-clash/shared";
+import type { ClientMessage, LeaderboardEntry, PublicPlayer, PublicRoomState } from "@couch-clash/shared";
+import { useEffect, useRef, useState } from "react";
 import { AvatarBadge } from "@/components/avatar";
 import { Mascot } from "@/components/mascot";
 import { QuestionMenu } from "./question-menu";
@@ -9,6 +10,7 @@ import { useHostSpeech } from "./voice";
 import { Button, Screen } from "@/components/ui";
 import { getGameViews } from "@/games/registry";
 import { useServerNow } from "@/lib/clock";
+import { EARLY_FINALE_TITLE, podiumOrder, splitPodium } from "@/lib/finale";
 import { Leaderboard } from "@/components/leaderboard";
 
 type Send = (msg: ClientMessage) => void;
@@ -35,15 +37,7 @@ function GameBar({ room, send, skipLabel, questionMenu }: { room: PublicRoomStat
       </div>
       <div className="flex items-center gap-3">
         {questionMenu && <QuestionMenu room={room} send={send} />}
-        <button
-          type="button"
-          onClick={() => {
-            if (window.confirm("Spiel beenden und zurück zur Auswahl?")) send({ type: "play_again" });
-          }}
-          className="fs-sm rounded-full px-4 py-2 font-bold text-cream/60 hover:bg-petrol-dark/70 hover:text-cream"
-        >
-          Spiel beenden
-        </button>
+        <EndGameButton room={room} send={send} />
         {skipLabel && (
           <Button variant="secondary" onClick={() => send({ type: "skip" })} className="fs-md !px-[1.4vw] !py-[0.9vh] whitespace-nowrap">
             {skipLabel}
@@ -51,6 +45,71 @@ function GameBar({ room, send, skipLabel, questionMenu }: { room: PublicRoomStat
         )}
       </div>
     </header>
+  );
+}
+
+/** "Spiel beenden" with its own confirm dialog (big enough for the TV, no browser popup). */
+function EndGameButton({ room, send }: { room: PublicRoomState; send: Send }) {
+  const [open, setOpen] = useState(false);
+  const confirmRef = useRef<HTMLButtonElement>(null);
+  const anyScores = Object.values(room.game?.scores ?? {}).some((points) => points !== 0);
+  useEffect(() => {
+    if (!open) return;
+    confirmRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="fs-sm rounded-full px-4 py-2 font-bold text-cream/60 hover:bg-petrol-dark/70 hover:text-cream"
+      >
+        Spiel beenden
+      </button>
+      {open && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="end-game-title"
+          onClick={() => setOpen(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-brown/70 p-4 backdrop-blur-sm"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="panel flex max-w-[min(48rem,90vw)] animate-pop flex-col items-center gap-[3vh] p-[4vh] text-center"
+          >
+            <h2 id="end-game-title" className="fs-title font-bold text-bulb">
+              Spiel jetzt beenden?
+            </h2>
+            <p className="fs-lg text-cream/90">
+              {anyScores
+                ? "Es gibt eine Siegerehrung mit dem aktuellen Stand."
+                : "Noch hat niemand Punkte – es geht direkt zurück in die Lobby."}
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button
+                ref={confirmRef}
+                onClick={() => {
+                  setOpen(false);
+                  send({ type: "end_game" });
+                }}
+                className="fs-lg !px-[2vw] !py-[1.2vh]"
+              >
+                Beenden
+              </Button>
+              <Button variant="secondary" onClick={() => setOpen(false)} className="fs-lg !px-[2vw] !py-[1.2vh]">
+                Weiter spielen
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -155,8 +214,10 @@ export function HostFinale({ room, send }: { room: PublicRoomState; send: Send }
   const entries = room.game?.leaderboard;
   const speech = useHostSpeech();
   if (!entries) return <Screen />;
+  const early = room.game?.endedEarly ?? false;
   const byId = new Map(room.players.map((p) => [p.id, p]));
   const winners = entries.filter((e) => e.rankAfter === 1).flatMap((e) => byId.get(e.playerId) ?? []);
+  const { podium, rest } = splitPodium(entries);
   return (
     <Screen fit className="max-w-[1500px]">
       <Confetti />
@@ -166,25 +227,82 @@ export function HostFinale({ room, send }: { room: PublicRoomState; send: Send }
           pose="cheer"
           talking={!!speech}
           className="z-10 hidden md:flex"
-          imageClassName="h-[min(34vh,460px)]"
+          imageClassName={early ? "h-[min(26vh,340px)]" : "h-[min(34vh,460px)]"}
         />
         <div className="flex flex-col items-center gap-[1.5vh] pb-[1.5vh] text-center">
-          <div className="flex -space-x-6">
-            {winners.map((w) => (
-              <AvatarBadge key={w.id} avatar={w.avatar} size="fluid" className="animate-float" />
-            ))}
-          </div>
+          {!early && (
+            <div className="flex -space-x-6">
+              {winners.map((w) => (
+                <AvatarBadge key={w.id} avatar={w.avatar} size="fluid" className="animate-float" />
+              ))}
+            </div>
+          )}
           <h2 className="fs-title font-bold text-bulb drop-shadow-[0_6px_0_var(--color-brown)]">
-            🏆 {winners.map((w) => w.name).join(" & ")} {winners.length > 1 ? "gewinnen" : "gewinnt"}!
+            {early
+              ? `🏁 ${EARLY_FINALE_TITLE}`
+              : `🏆 ${winners.map((w) => w.name).join(" & ")} ${winners.length > 1 ? "gewinnen" : "gewinnt"}!`}
           </h2>
         </div>
       </div>
-      <div className="panel min-h-0 w-full flex-1 overflow-y-auto p-[2.5vh]">
-        <Leaderboard entries={entries} players={room.players} animated={false} showGains={false} />
+      {early ? (
+        <>
+          <Podium entries={podium} byId={byId} />
+          {rest.length > 0 && (
+            <div className="panel min-h-0 w-full flex-1 overflow-y-auto p-[2vh]">
+              <Leaderboard entries={rest} players={room.players} animated={false} showGains={false} />
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="panel min-h-0 w-full flex-1 overflow-y-auto p-[2.5vh]">
+          <Leaderboard entries={entries} players={room.players} animated={false} showGains={false} />
+        </div>
+      )}
+      <div className="flex shrink-0 flex-col items-center gap-[0.8vh]">
+        <Button
+          onClick={() => send({ type: "back_to_lobby" })}
+          glow
+          className="fs-xl !px-[2.5vw] !py-[1.3vh] whitespace-nowrap"
+        >
+          {early ? "Weiter ⏭" : "Zurück zur Lobby"}
+        </Button>
+        {room.phaseEndsAt && (
+          <p className="fs-sm text-cream/60">
+            Zurück zur Lobby in <SecondsLeft endsAt={room.phaseEndsAt} /> s
+          </p>
+        )}
       </div>
-      <Button onClick={() => send({ type: "play_again" })} glow className="fs-xl shrink-0 !px-[2.5vw] !py-[1.3vh] whitespace-nowrap">
-        Nochmal spielen
-      </Button>
     </Screen>
+  );
+}
+
+const PODIUM_STEP: Record<number, string> = { 1: "h-[18vh]", 2: "h-[13vh]", 3: "h-[9vh]" };
+
+/** Early finale: the top 3 on their steps (2nd · 1st · 3rd). */
+function Podium({ entries, byId }: { entries: LeaderboardEntry[]; byId: Map<string, PublicPlayer> }) {
+  return (
+    <ol className="flex w-full shrink-0 items-end justify-center gap-[1.5vw]" aria-label="Siegertreppchen">
+      {podiumOrder(entries).map((entry) => {
+        const player = byId.get(entry.playerId);
+        if (!player) return null;
+        const first = entry.rankAfter === 1;
+        return (
+          <li key={entry.playerId} className="flex w-[min(22vw,340px)] animate-pop flex-col items-center gap-[1vh]">
+            <AvatarBadge avatar={player.avatar} size="fluid" className={first ? "animate-float" : ""} />
+            <span className="fs-lg line-clamp-2 w-full text-center leading-tight font-bold [overflow-wrap:anywhere]">
+              {player.name}
+            </span>
+            <div
+              className={`flex w-full flex-col items-center justify-center rounded-t-3xl border-4 border-b-0 ${PODIUM_STEP[entry.rankAfter] ?? PODIUM_STEP[3]} ${
+                first ? "border-orange bg-bulb text-brown" : "border-bulb/60 bg-petrol-dark/85"
+              }`}
+            >
+              <span className="fs-title leading-none font-bold">{entry.rankAfter}.</span>
+              <span className="fs-md font-bold tabular-nums">{entry.scoreAfter.toLocaleString("de-DE")} Punkte</span>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
   );
 }

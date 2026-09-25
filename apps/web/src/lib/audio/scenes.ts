@@ -62,8 +62,6 @@ export function audioSceneFor(
   const round = room.game?.roundIndex ?? 0;
   switch (room.phase) {
     case "lobby":
-    case "setup":
-      // Same key: going from lobby to setup ("Nochmal spielen") keeps the loop running.
       return { key: "lobby", music: "lobby" };
     case "intro":
       return { key: `intro:${round}`, music: "lobby", enter: "sting-short" };

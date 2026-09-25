@@ -1,4 +1,11 @@
-import { INTRO_MS, REVEAL_ANSWER_MS, SCOREBOARD_MS, type ScoringSettings } from "@couch-clash/shared";
+import {
+  EARLY_FINALE_MS,
+  FINALE_MS,
+  INTRO_MS,
+  REVEAL_ANSWER_MS,
+  SCOREBOARD_MS,
+  type ScoringSettings,
+} from "@couch-clash/shared";
 import { describe, expect, it } from "vitest";
 import {
   advance,
@@ -6,14 +13,14 @@ import {
   beginGame,
   handlePlayerAction,
   handlePresenceChange,
+  endGame,
   isTimerDue,
-  playAgain,
   publicGame,
   updateSettings,
   type FlowDeps,
 } from "../src/game-flow";
 import type { Result } from "../src/result";
-import { createRoomRecord, joinPlayer, type GameRound, type RoomRecord } from "../src/room-logic";
+import { createRoomRecord, joinPlayer, normalizeRoomRecord, type GameRound, type RoomRecord } from "../src/room-logic";
 
 const T0 = 1_700_000_000_000;
 const avatar = { character: "fox", color: "red" } as const;
@@ -35,7 +42,7 @@ const random = () => {
   return seed / 4294967296;
 };
 
-/** Room in setup with players Anna + Ben, both connected. */
+/** Lobby with players Anna + Ben, both connected. */
 function setupRoom() {
   let room = createRoomRecord("ABCD", "host-token-0123456789abcdef", T0);
   const ids: string[] = [];
@@ -117,7 +124,7 @@ describe("settings + beginGame", () => {
 });
 
 describe("full game flow", () => {
-  it("intro → play (questions, reveals) → scoreboard → intro → … → finale → setup", () => {
+  it("intro → play (questions, reveals) → scoreboard → intro → … → finale → lobby", () => {
     const { room: setup, ids } = setupRoom();
     const [a, b] = ids as [string, string];
     const all = [a, b];
@@ -169,12 +176,14 @@ describe("full game flow", () => {
     expect(room.phase).toBe("scoreboard");
     room = unwrap(advance(room, deps((now += 1000), all)));
     expect(room.phase).toBe("finale");
-    expect(room.phaseEndsAt).toBeNull();
+    expect(room.phaseEndsAt).toBe(now + FINALE_MS);
     expect(room.game!.scores[a]).toBe(100);
+    expect(publicGame(room, { role: "host" })!.endedEarly).toBe(false);
 
-    // Nochmal spielen: back to setup, scores reset, settings + played questions remembered.
-    room = unwrap(playAgain(room, now));
-    expect(room.phase).toBe("setup");
+    // "Zurück zur Lobby": the normal lobby, scores reset, settings + played questions remembered.
+    room = unwrap(backToLobby(room, now));
+    expect(room.phase).toBe("lobby");
+    expect(room.phaseEndsAt).toBeNull();
     expect(room.settings).toHaveLength(2);
     expect(room.game).toBeNull();
     expect(room.usedContentIds).toHaveLength(6);
@@ -188,7 +197,8 @@ describe("full game flow", () => {
       begin(setup, plan, deps(T0, ids)));
     room = unwrap(advance(room, deps(T0 + INTRO_MS, ids)));
     const first = new Set(room.usedContentIds);
-    room = unwrap(playAgain(room, T0 + 10_000));
+    room = unwrap(endGame(room, T0 + 10_000));
+    expect(room.phase).toBe("lobby");
     room = unwrap(
       begin(room, plan, deps(T0 + 11_000, ids)));
     room = unwrap(advance(room, deps(T0 + 20_000, ids)));
@@ -241,9 +251,140 @@ describe("timers, early end and presence", () => {
   it("advance is rejected outside the game", () => {
     const { room, ids } = setupRoom();
     expect(advance(room, deps(T0, ids))).toEqual({ ok: false, error: "WRONG_PHASE" });
-    expect(backToLobby({ ...room, phase: "setup" }, T0).ok).toBe(true);
     expect(backToLobby(room, T0).ok).toBe(false);
-    expect(playAgain(room, T0).ok).toBe(false);
+    expect(endGame(room, T0).ok).toBe(false);
+  });
+});
+
+describe("ending a game: award ceremony, then the lobby", () => {
+  const plan: GameRound[] = [
+    { categoryId: "quiz", questionCount: 3, scoring },
+    { categoryId: "estimate", questionCount: 3, scoring },
+  ];
+
+  /** Anna answered Q1 correctly (100), Ben wrong; now in the reveal of Q1. */
+  function scored() {
+    const { room: lobby, ids } = setupRoom();
+    const [a, b] = ids as [string, string];
+    let room = unwrap(begin(lobby, plan, deps(T0, ids)));
+    let now = T0 + INTRO_MS;
+    room = unwrap(advance(room, deps(now, ids)));
+    const correct = moduleState(room).questions[0]!.correctIndex;
+    room = unwrap(handlePlayerAction(room, a, { type: "answer", value: correct }, deps((now += 1000), ids)));
+    room = unwrap(handlePlayerAction(room, b, { type: "answer", value: (correct + 1) % 4 }, deps((now += 1000), ids)));
+    return { room, ids: [a, b] as [string, string], now };
+  }
+
+  function expectLobbyAfter(room: RoomRecord, ids: readonly string[]) {
+    expect(room.phase).toBe("lobby");
+    expect(room.phaseEndsAt).toBeNull();
+    expect(room.game).toBeNull();
+    expect(room.players.map((p) => p.id)).toEqual([...ids]);
+    expect(room.settings.map((r) => r.categoryId)).toEqual(["quiz", "estimate"]);
+  }
+
+  it("from play: short finale with the current scores, the running question is dropped", () => {
+    const { room: reveal, ids, now } = scored();
+    // Q2 is running – Ben answers correctly, but the game ends before the reveal.
+    let room = unwrap(advance(reveal, deps(now + 1000, ids)));
+    room = unwrap(advance(room, deps(now + 2000, ids)));
+    expect(moduleState(room).step).toBe("question");
+    const correct = moduleState(room).questions[1]!.correctIndex;
+    room = unwrap(handlePlayerAction(room, ids[1], { type: "answer", value: correct }, deps(now + 3000, ids)));
+
+    room = unwrap(endGame(room, now + 4000));
+    expect(room.phase).toBe("finale");
+    expect(room.phaseEndsAt).toBe(now + 4000 + EARLY_FINALE_MS);
+    expect(room.game!.moduleState).toBeNull();
+    expect(room.game!.scores).toEqual({ [ids[0]]: 100, [ids[1]]: 0 });
+    const pub = publicGame(room, { role: "host" })!;
+    expect(pub.endedEarly).toBe(true);
+    expect(pub.module).toBeNull();
+    expect(pub.leaderboard!.map((e) => [e.playerId, e.rankAfter, e.scoreAfter])).toEqual([
+      [ids[0], 1, 100],
+      [ids[1], 2, 0],
+    ]);
+    // No actions for the dropped question.
+    expect(handlePlayerAction(room, ids[0], { type: "answer", value: 0 }, deps(now + 5000, ids)).ok).toBe(false);
+
+    // Timer (or "Weiter") → lobby.
+    expect(isTimerDue(room, now + 4000 + EARLY_FINALE_MS)).toBe(true);
+    room = unwrap(advance(room, deps(now + 4000 + EARLY_FINALE_MS, ids)));
+    expectLobbyAfter(room, ids);
+  });
+
+  it("from the intro and the scoreboard", () => {
+    const { room: reveal, ids, now } = scored();
+    let room = reveal;
+    let t = now;
+    while (room.phase !== "scoreboard") room = unwrap(advance(room, deps((t += 1000), ids)));
+    const fromScoreboard = unwrap(endGame(room, t));
+    expect(fromScoreboard.phase).toBe("finale");
+    expect(fromScoreboard.game!.endedEarly).toBe(true);
+    expect(publicGame(fromScoreboard, { role: "host" })!.leaderboard![0]).toMatchObject({ playerId: ids[0], pointsGained: 0, scoreAfter: 100 });
+
+    room = unwrap(advance(room, deps((t += 1000), ids)));
+    expect(room.phase).toBe("intro");
+    const fromIntro = unwrap(endGame(room, t));
+    expect(fromIntro.phase).toBe("finale");
+    expect(fromIntro.game!.scores[ids[0]]).toBe(100);
+    expectLobbyAfter(unwrap(backToLobby(fromIntro, t + 1)), ids);
+  });
+
+  it("nobody scored yet: no ceremony, straight to the lobby", () => {
+    const { room: lobby, ids } = setupRoom();
+    const intro = unwrap(begin(lobby, plan, deps(T0, ids)));
+    expectLobbyAfter(unwrap(endGame(intro, T0 + 1000)), ids);
+    const play = unwrap(advance(intro, deps(T0 + INTRO_MS, ids)));
+    expectLobbyAfter(unwrap(endGame(play, T0 + INTRO_MS + 1000)), ids);
+  });
+
+  it("regular finale → lobby by button or after 60 s; the next game starts at 0", () => {
+    const { room: reveal, ids, now } = scored();
+    let room = reveal;
+    let t = now;
+    while (room.phase !== "finale") room = unwrap(advance(room, deps((t += 1000), ids)));
+    expect(room.game!.endedEarly).toBeUndefined();
+    expect(room.phaseEndsAt).toBe(t + FINALE_MS);
+    expectLobbyAfter(unwrap(backToLobby(room, t + 1)), ids);
+    const lobby = unwrap(advance(room, deps(t + FINALE_MS, ids)));
+    expectLobbyAfter(lobby, ids);
+
+    const next = unwrap(beginGame(lobby, deps(t + FINALE_MS + 1000, ids)));
+    expect(next.game!.scores).toEqual({ [ids[0]]: 0, [ids[1]]: 0 });
+    expect(next.game!.endedEarly).toBeUndefined();
+  });
+
+  it("end_game is only possible during a game, back_to_lobby only from the finale", () => {
+    const { room: reveal, ids, now } = scored();
+    const finale = unwrap(endGame(reveal, now));
+    expect(endGame(finale, now)).toEqual({ ok: false, error: "WRONG_PHASE" });
+    expect(backToLobby(reveal, now)).toEqual({ ok: false, error: "WRONG_PHASE" });
+    const lobby = unwrap(backToLobby(finale, now));
+    expect(backToLobby(lobby, now)).toEqual({ ok: false, error: "WRONG_PHASE" });
+    expect(updateSettings(lobby, plan).ok).toBe(true);
+    expect(updateSettings(finale, plan).ok).toBe(false);
+    void ids;
+  });
+
+  it("late joiners of the old game play the next game's first question", () => {
+    const { room: lobby, ids } = setupRoom();
+    let room = unwrap(begin(lobby, plan, deps(T0, ids)));
+    room = unwrap(advance(room, deps(T0 + INTRO_MS, ids)));
+    const joined = unwrap(joinPlayer(room, { name: "Cleo", avatar }, { now: T0 + INTRO_MS + 1 }));
+    expect(joined.player.joinedDuring).toBe("0:0");
+    room = unwrap(endGame(joined.room, T0 + INTRO_MS + 2));
+    expect(room.phase).toBe("lobby");
+    expect(room.players.find((p) => p.id === joined.player.id)!.joinedDuring).toBeUndefined();
+  });
+
+  it("rooms stored in the old \"setup\" phase load as the lobby", () => {
+    const { room } = setupRoom();
+    const stored = { ...room, phase: "setup" } as unknown as RoomRecord;
+    const loaded = normalizeRoomRecord(stored);
+    expect(loaded.phase).toBe("lobby");
+    expect(loaded.game).toBeNull();
+    expect(loaded.players).toHaveLength(2);
   });
 });
 

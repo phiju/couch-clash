@@ -69,7 +69,7 @@ export function detectVoiceEvents(
   registry: ModuleRegistry = GAME_MODULES,
 ): VoiceEvent[] {
   const events: VoiceEvent[] = [];
-  if (prev && (prev.phase === "lobby" || prev.phase === "setup") && next.phase === "intro") {
+  if (prev && prev.phase === "lobby" && next.phase === "intro") {
     events.push({ type: "game_start" });
   }
   if (next.phase === "intro" && next.game && (prev?.phase !== "intro" || prev.game?.roundIndex !== next.game.roundIndex)) {

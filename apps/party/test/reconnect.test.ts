@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import {
   advance,
   beginGame,
+  endGame,
   handlePlayerAction,
   handlePresenceChange,
   publicGame,
@@ -230,5 +231,35 @@ describe("persistence (Durable Object storage)", () => {
     const restored = normalizeRoomRecord(old as RoomRecord);
     expect(restored.lateJoin).toBe(true);
     expect(restored.graceUntil).toEqual({});
+  });
+});
+
+describe("host reload / rejoin during the early finale", () => {
+  it("the restored room still shows the ceremony with the current scores, then goes to the lobby", () => {
+    const { room: open, ids, start } = playing();
+    const [a, b, c] = ids as [string, string, string];
+    let room = unwrap(answer(open, a, start + 500, ids));
+    room = unwrap(answer(room, b, start + 600, ids, false));
+    room = unwrap(answer(room, c, start + 700, ids, false));
+    room = unwrap(endGame(room, start + 1000));
+    expect(room.phase).toBe("finale");
+
+    // Durable Object restarted / host screen reloaded: state comes from storage.
+    const restored = normalizeRoomRecord(JSON.parse(JSON.stringify(room)) as RoomRecord);
+    const host = toPublicState(restored, { host: true, playerIds: new Set(ids) }, { role: "host" });
+    expect(host.phase).toBe("finale");
+    expect(host.phaseEndsAt).toBe(room.phaseEndsAt);
+    expect(host.game!.endedEarly).toBe(true);
+    expect(host.game!.leaderboard!.map((e) => e.playerId)[0]).toBe(a);
+
+    // A phone that reconnects sees its place as well.
+    const phone = toPublicState(restored, { host: true, playerIds: new Set(ids) }, { role: "player", playerId: b });
+    expect(phone.game!.leaderboard!.find((e) => e.playerId === b)!.rankAfter).toBe(2);
+
+    // Timer → lobby with everyone still in.
+    const lobby = unwrap(advance(restored, deps(restored.phaseEndsAt!, ids)));
+    expect(lobby.phase).toBe("lobby");
+    expect(lobby.players.map((p) => p.id)).toEqual(ids);
+    expect(authenticatePlayer(lobby, b, restored.players[1]!.secret).ok).toBe(true);
   });
 });

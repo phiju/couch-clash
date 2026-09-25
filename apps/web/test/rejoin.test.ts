@@ -63,7 +63,8 @@ describe("\"Wer bist du?\"", () => {
   it("TV toasts and the corner chip", () => {
     expect(noticeText({ kind: "rejoined", playerId: "p", name: "Philip" })).toBe("Philip ist wieder da 👋");
     expect(noticeText({ kind: "late_join", playerId: "t", name: "Tina" })).toBe("Neu dabei: Tina 🎉");
-    expect(["lobby", "setup", "intro", "play", "scoreboard", "finale"].filter((ph) => showJoinChip(ph as never))).toEqual([
+    expect(noticeText({ kind: "game_ended" })).toBe("🏁 Spiel beendet");
+    expect(["lobby", "intro", "play", "scoreboard", "finale"].filter((ph) => showJoinChip(ph as never))).toEqual([
       "play",
       "scoreboard",
     ]);

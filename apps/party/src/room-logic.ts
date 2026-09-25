@@ -57,9 +57,9 @@ export interface RoomRecord {
   phaseStartedAt: number;
   phaseEndsAt: number | null;
   players: PlayerRecord[];
-  /** Game settings, edited by the host in lobby/setup. */
+  /** Game settings, edited by the host in the lobby (kept across games). */
   settings: GameRound[];
-  /** Running game (from "Spiel starten" until back to setup), else null. */
+  /** Running game (from "Spiel starten" until back in the lobby), else null. */
   game: GameRecord | null;
   /** Content ids played in this room (across games) – avoids repeats. */
   usedContentIds: string[];
@@ -97,6 +97,8 @@ export interface GameRecord {
   roundGain: Record<string, number>;
   /** Leaderboard snapshot of the last scored question (current category). */
   questionLeaderboard: LeaderboardEntry[] | null;
+  /** "Spiel beenden": the finale shows the standings so far. */
+  endedEarly?: boolean;
 }
 
 /** Old scoring shapes (before the scoring refactor) → category defaults. */
@@ -109,10 +111,13 @@ function normalizeRounds(rounds: readonly GameRound[] | undefined, registry: Mod
 
 /** Fills fields added later for rooms stored by an older version. */
 export function normalizeRoomRecord(room: RoomRecord, registry: ModuleRegistry = GAME_MODULES): RoomRecord {
+  // The separate "setup" phase (after "Nochmal spielen") is gone – those rooms wait in the lobby.
+  const legacySetup = (room.phase as string) === "setup";
   return {
     ...room,
+    ...(legacySetup ? { phase: "lobby" as const, phaseEndsAt: null, game: null } : {}),
     settings: normalizeRounds(room.settings, registry),
-    game: room.game
+    game: room.game && !legacySetup
       ? {
           ...room.game,
           rounds: normalizeRounds(room.game.rounds, registry),
@@ -199,7 +204,7 @@ function nameKey(name: string): string {
 }
 
 /** Phases in which a new player may join when the host allows late joins. */
-const LATE_JOIN_PHASES: readonly Phase[] = ["setup", "intro", "play", "scoreboard"];
+const LATE_JOIN_PHASES: readonly Phase[] = ["intro", "play", "scoreboard"];
 
 /**
  * A new player. In the lobby always; later only with "Neue Spieler während
@@ -349,8 +354,8 @@ function publicVoice(room: RoomRecord): PublicRoomState["voice"] {
   };
 }
 
-/** Host changes the moderator settings (lobby / setup). */
+/** Host changes the moderator settings (lobby). */
 export function updateVoiceSettings(room: RoomRecord, settings: VoiceSettings): Result<RoomRecord> {
-  if (room.phase !== "lobby" && room.phase !== "setup") return fail("WRONG_PHASE");
+  if (room.phase !== "lobby") return fail("WRONG_PHASE");
   return ok({ ...room, voice: { ...room.voice, settings } });
 }

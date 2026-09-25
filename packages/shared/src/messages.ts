@@ -47,19 +47,19 @@ export const ClientMessageSchema = z.discriminatedUnion("type", [
   }),
   /** Host: remove a player. */
   z.object({ type: z.literal("kick"), playerId: id }),
-  /** Host: setup → back to the lobby (lets more people join). */
+  /** Host: finale → back to the lobby ("Zurück zur Lobby"). */
   z.object({ type: z.literal("back_to_lobby") }),
-  /** Host: change the game settings (lobby or setup). */
+  /** Host: change the game settings (lobby). */
   z.object({
     type: z.literal("update_settings"),
     rounds: z.array(GameRoundSettingsSchema).max(20),
   }),
-  /** Host: start the game with the stored settings (from lobby or setup). */
+  /** Host: start the game with the stored settings (from the lobby). */
   z.object({ type: z.literal("start_game") }),
   /** Host: skip the current timer ("Weiter"). */
   z.object({ type: z.literal("skip") }),
-  /** Host: end the game / play again → back to setup, scores reset. */
-  z.object({ type: z.literal("play_again") }),
+  /** Host: "Spiel beenden" during a game → short award ceremony with the current scores. */
+  z.object({ type: z.literal("end_game") }),
   /** Host: allow or forbid photo avatars (lobby setting). */
   z.object({ type: z.literal("set_photo_avatars"), enabled: z.boolean() }),
   /** Player: "Passt!" – keep the photo avatar (starts the extra expressions). */
@@ -70,7 +70,7 @@ export const ClientMessageSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("photo_use_saved"), savedId: z.string().regex(SAVED_AVATAR_ID_PATTERN) }),
   /** Host (any player) or a player (themselves): back to the emoji avatar. */
   z.object({ type: z.literal("photo_reset"), playerId: id.optional() }),
-  /** Host: moderator voice settings (lobby / setup). */
+  /** Host: moderator voice settings (lobby). */
   z.object({ type: z.literal("update_voice_settings"), settings: VoiceSettingsSchema }),
   /** Host screen: a line started/ended playing. */
   VoiceEventSchema,

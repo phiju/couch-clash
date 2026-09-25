@@ -42,8 +42,8 @@ import {
   beginGame,
   handlePlayerAction,
   handlePresenceChange,
+  endGame,
   isTimerDue,
-  playAgain,
   updateMode,
   updateSettings,
   type FlowDeps,
@@ -433,7 +433,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
 
       case "voice_test":
         if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
-        if (room.phase !== "lobby" && room.phase !== "setup") return this.send(conn, errorMessage("WRONG_PHASE"));
+        if (room.phase !== "lobby") return this.send(conn, errorMessage("WRONG_PHASE"));
         this.voice.testLine();
         return;
 
@@ -523,9 +523,13 @@ export class Room extends Server<Env> implements AvatarRoomApi {
         return;
       }
 
-      case "play_again":
+      case "end_game": {
         if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
-        return this.apply(conn, playAgain(room, now));
+        const result = endGame(room, now);
+        // Nobody scored yet: no ceremony – the TV says so with a toast.
+        if (result.ok && result.value.phase === "lobby") this.notifyHosts({ kind: "game_ended" });
+        return this.apply(conn, result);
+      }
 
       case "action": {
         const state = conn.state;

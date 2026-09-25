@@ -84,10 +84,14 @@ export function useHostToasts() {
   return { toasts, push };
 }
 
-export function HostToasts({ toasts }: { toasts: Toast[] }) {
+/** In the game above the corner chip; elsewhere (no chip, "Spiel starten" bottom right) bottom center. */
+export function HostToasts({ toasts, centered = false }: { toasts: Toast[]; centered?: boolean }) {
   if (toasts.length === 0) return null;
+  const place = centered
+    ? "bottom-[3vh] left-1/2 -translate-x-1/2 items-center"
+    : "right-[1vw] bottom-[calc(1.5vh+clamp(2.5rem,6vh,4.5rem)+2.5vh)] items-end";
   return (
-    <div role="status" className="pointer-events-none fixed right-[1vw] bottom-[calc(1.5vh+clamp(2.5rem,6vh,4.5rem)+2.5vh)] z-40 flex flex-col items-end gap-2">
+    <div role="status" className={`pointer-events-none fixed z-40 flex flex-col gap-2 ${place}`}>
       {toasts.map((t) => (
         <p key={t.id} className="fs-lg animate-pop rounded-full border-2 border-bulb bg-petrol-dark/95 px-5 py-2 font-bold shadow-xl">
           {t.text}
