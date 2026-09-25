@@ -10,6 +10,7 @@
  */
 import { z } from "zod";
 import type { ErrorCode } from "./messages";
+import type { BotContext } from "./bots";
 import type { GameMode, GameModeSettings } from "./modes";
 
 export const AGE_RATINGS = [0, 6, 12, 16, 18] as const;
@@ -95,8 +96,6 @@ export interface CategoryMeta {
   /** Average seconds per question incl. reveal – for the duration estimate. */
   estimatedSecondsPerQuestion: number;
   contentSource: ContentSource;
-  /** Fewer players → the category cannot be selected (e.g. bluffing needs someone to fool). */
-  minPlayers?: number;
   /** Game modes this category is offered in. */
   modes: readonly GameMode[];
   /** Kids mode: highest question difficulty that is still child-friendly (default 1). */
@@ -220,8 +219,18 @@ export interface GameModule<TState = unknown, TAction = unknown, TPublic = unkno
   revealFacts?(state: TState): RevealFacts | null;
   /** Facts about the round summary (e.g. exam passed / failed) while it shows, for the host. Optional. */
   summaryFacts?(state: TState): RoundSummaryFacts | null;
-  /** Aggregated numbers for the question just revealed (question statistics). Optional. */
-  toStats?(state: TState): QuestionStatsPayload | null;
+  /**
+   * Aggregated numbers for the question just revealed (question statistics).
+   * `exclude`: players whose answers don't count (test bots). Null when no
+   * answer is left to count. Optional.
+   */
+  toStats?(state: TState, exclude?: ReadonlySet<string>): QuestionStatsPayload | null;
+  /**
+   * Test bots: what this bot does right now (an action for handleAction), or
+   * null when it has nothing to do (already answered, not its turn, …).
+   * Optional – without it bots just wait and the timers move the game on.
+   */
+  botAction?(state: TState, botId: string, ctx: ModuleContext, bot: BotContext): unknown;
   /** All content of this category (static + extra) for the admin page. Optional. */
   listContent?(extraContent?: readonly unknown[]): ContentEntry[];
   /** Validates one content item (AI-generated or edited in the admin page). Optional. */

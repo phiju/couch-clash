@@ -8,6 +8,8 @@
  * - Several leaders: each thief's `steal` is split evenly between the
  *   leaders who were wrong.
  * - Nobody has points yet → plays like Punktesammler (+correct).
+ * - Everyone is a leader (alone, or all tied) → nobody could steal: also
+ *   plays like Punktesammler ("Solo: kein Klau möglich").
  * Wrong answers of the others: 0.
  */
 import { QUIZ_QUESTIONS_DE, type QuizQuestion } from "@couch-clash/content";
@@ -39,6 +41,8 @@ export interface StealGame {
   targetScore: number;
   outcome: StealOutcome | null;
   names: Record<string, string>;
+  /** Everyone leads – no heist possible this question (see StealExtra). Missing in older rooms. */
+  noHeist?: "solo" | "tied" | null;
 }
 
 type TargetFn = (ctx: ModuleContext, scores: Readonly<Record<string, number>>) => string[];
@@ -110,6 +114,7 @@ export const stealGame: KnowledgeGame<StealGame> = {
         targetScore: 0,
         outcome: null,
         names: {},
+        noHeist: null,
       },
       questions: upfrontQuestions(ctx, options, pool, stealMeta),
     };
@@ -117,9 +122,14 @@ export const stealGame: KnowledgeGame<StealGame> = {
 
   // Fresh before every question: the standings change during the game.
   startQuestion(game, { ctx, scores }) {
-    const targetIds = TARGET_STRATEGY_FNS[game.strategy](ctx, scores);
+    const leaders = TARGET_STRATEGY_FNS[game.strategy](ctx, scores);
+    // The only possible targets would be the answering players themselves.
+    const everyoneLeads = leaders.length > 0 && ctx.players.every((p) => leaders.includes(p.id));
+    const noHeist = everyoneLeads ? (ctx.players.length === 1 ? "solo" : "tied") : null;
+    const targetIds = noHeist ? [] : leaders;
     return {
       ...game,
+      noHeist,
       targetIds,
       targetScore: targetIds.length > 0 ? (scores[targetIds[0]!] ?? 0) : 0,
       outcome: null,
@@ -136,6 +146,7 @@ export const stealGame: KnowledgeGame<StealGame> = {
     targetIds: game.targetIds,
     targetScore: game.targetScore,
     outcome: revealed ? game.outcome : null,
+    noHeist: game.noHeist ?? null,
   }),
 
   announce: (state) => announceSteal(state),

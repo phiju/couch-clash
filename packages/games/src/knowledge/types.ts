@@ -113,6 +113,11 @@ export interface StealExtra {
   targetScore: number;
   /** At the reveal: what happened. */
   outcome: StealOutcome | null;
+  /**
+   * Nobody could steal – everyone is a leader: alone ("solo") or all tied
+   * ("tied"). The question plays like Punktesammler. Null otherwise.
+   */
+  noHeist: "solo" | "tied" | null;
 }
 
 export interface StealOutcome {

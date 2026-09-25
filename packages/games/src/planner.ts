@@ -29,8 +29,6 @@ export interface PlanInput {
   /** Eligible questions per category in this mode. */
   pools: Readonly<Record<string, number>>;
   random: () => number;
-  /** Categories with a higher minPlayers are left out. */
-  playerCount?: number;
 }
 
 export interface PlannedGame {
@@ -38,12 +36,11 @@ export interface PlannedGame {
   estimatedSeconds: number;
 }
 
-/** Categories that may come up: offered in this mode, enough players, enough questions. */
+/** Categories that may come up: offered in this mode, enough questions. Every category works with one player. */
 export function plannableCategories(input: Omit<PlanInput, "random" | "targetMinutes">): CategoryMeta[] {
   return input.categories.filter(
     (c) =>
       c.modes.includes(input.mode) &&
-      (input.playerCount === undefined || input.playerCount >= (c.minPlayers ?? 1)) &&
       (input.pools[c.id] ?? 0) >= c.questionsPerRound.min,
   );
 }

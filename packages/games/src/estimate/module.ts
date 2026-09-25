@@ -1,5 +1,5 @@
 import { ESTIMATE_QUESTIONS_DE, EstimateQuestionSchema, type EstimateQuestion } from "@couch-clash/content";
-import type { ContentEntry } from "@couch-clash/shared";
+import { botEstimate, type ContentEntry } from "@couch-clash/shared";
 import { listEntries, parseWith, pickForRound } from "../content-pool";
 import { z } from "zod";
 import { createQuestionRoundModule } from "../question-round/engine";
@@ -25,6 +25,7 @@ export function createEstimateModule(pool: readonly EstimateQuestion[] = ESTIMAT
     answerSchema: z.number().finite().min(-1e12).max(1e12),
     pickQuestions: (ctx, options) =>
       pickForRound(pool, EstimateQuestionSchema, options, ctx.random, estimateMeta),
+    botAnswer: (q, bot) => botEstimate(q.answer, bot),
     errorShare: (q, a) => Math.abs(a - q.answer) / (q.zeroRange ?? Math.max(Math.abs(q.answer), 1e-9)),
     baseScoreInput: (question, answer) => ({
       answer,

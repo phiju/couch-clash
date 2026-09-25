@@ -2,7 +2,6 @@
 
 import {
   CATEGORY_METAS,
-  categoryAvailable,
   getCategoryMeta,
   normalizeCategoryOptions,
   normalizeScoring,
@@ -121,15 +120,10 @@ function planToCards(s: SetupState): SetupState {
   return { ...s, choices, order: [...firstIds, ...s.order.filter((id) => !firstIds.includes(id))], plan: null };
 }
 
-function toRounds(
-  setup: SetupState,
-  playerCount: number,
-  mode: GameModeSettings,
-  pools: Record<string, number> | null,
-): GameRoundSettings[] {
+function toRounds(setup: SetupState, mode: GameModeSettings, pools: Record<string, number> | null): GameRoundSettings[] {
   const ok = (id: string) => {
     const meta = getCategoryMeta(id);
-    return !!meta && isAvailable(meta, playerCount, mode, pools);
+    return !!meta && isAvailable(meta, mode, pools);
   };
   if (setup.plan) {
     return setup.plan
@@ -166,7 +160,6 @@ export function GameSettingsPanel({
   canSend,
   compact = false,
   startRef,
-  playerCount,
   mode,
   partyConfirmed,
   poolSizes,
@@ -178,8 +171,6 @@ export function GameSettingsPanel({
   compact?: boolean;
   /** Set to a function that flushes pending changes and starts the game. */
   startRef: RefObject<(() => void) | null>;
-  /** Players in the room – categories with a minimum are hidden from the plan below it. */
-  playerCount: number;
   /** Global game mode (server state). */
   mode: GameModeSettings;
   partyConfirmed: boolean;
@@ -194,35 +185,35 @@ export function GameSettingsPanel({
     if (!canSend) return;
     pending.current = setTimeout(() => {
       pending.current = null;
-      send({ type: "update_settings", rounds: toRounds(setup, playerCount, mode, poolSizes) });
+      send({ type: "update_settings", rounds: toRounds(setup, mode, poolSizes) });
     }, 250);
     return () => {
       if (pending.current) clearTimeout(pending.current);
       pending.current = null;
     };
-  }, [setup, send, canSend, playerCount, mode, poolSizes]);
+  }, [setup, send, canSend, mode, poolSizes]);
 
   useEffect(() => {
     startRef.current = () => {
       if (pending.current) clearTimeout(pending.current);
       pending.current = null;
       // Same socket, in order: the room has the latest settings before it starts.
-      send({ type: "update_settings", rounds: toRounds(setup, playerCount, mode, poolSizes) });
+      send({ type: "update_settings", rounds: toRounds(setup, mode, poolSizes) });
       send({ type: "start_game" });
     };
-  }, [setup, send, startRef, playerCount, mode, poolSizes]);
+  }, [setup, send, startRef, mode, poolSizes]);
 
   const metas: CategoryMeta[] = setup.order
     .map((id) => CATEGORY_METAS.find((m) => m.id === id))
     .filter((m): m is (typeof CATEGORY_METAS)[number] => !!m);
-  const available = (m: CategoryMeta) => isAvailable(m, playerCount, mode, poolSizes);
+  const available = (m: CategoryMeta) => isAvailable(m, mode, poolSizes);
   // The panel only lists categories offered in the current mode.
   const listed = metas.filter((m) => m.modes.includes(mode.mode));
   // Checked before, but not offered in this mode → note (kept for when the mode changes back).
   const droppedByMode = metas.filter((m) => setup.choices[m.id]?.enabled && !m.modes.includes(mode.mode));
   const view = setup.plan ? planToCards(setup) : setup;
   const selected = listed.filter((m) => view.choices[m.id]?.enabled && available(m));
-  const rounds = toRounds(setup, playerCount, mode, poolSizes);
+  const rounds = toRounds(setup, mode, poolSizes);
   const seconds = estimateGameSeconds(
     rounds.flatMap((r) => {
       const meta = getCategoryMeta(r.categoryId);
@@ -251,7 +242,6 @@ export function GameSettingsPanel({
         categories: CATEGORY_METAS,
         pools: poolSizes ?? {},
         random: Math.random,
-        playerCount,
       });
       if (planned.rounds.length === 0) return { ...s, minutes };
       const plan = planned.rounds.map((r) => ({ ...r, scoring: s.choices[r.categoryId]!.scoring }));
@@ -382,11 +372,7 @@ export function GameSettingsPanel({
                 </label>
               )}
 
-              {!categoryAvailable(meta, playerCount) ? (
-                <p className={`font-bold text-cream/80 ${compact ? "fs-sm" : "text-lg"}`}>
-                  👥 Erst ab {meta.minPlayers} Spielern spielbar
-                </p>
-              ) : pool < meta.questionsPerRound.min ? (
+              {pool < meta.questionsPerRound.min ? (
                 <p className={`font-bold text-orange ${compact ? "fs-sm" : "text-lg"}`}>
                   ⚠️ Zu wenige passende Fragen im Modus {GAME_MODE_INFO[mode.mode].label}
                 </p>

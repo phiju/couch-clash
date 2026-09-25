@@ -65,6 +65,7 @@ export const doubleGame: KnowledgeGame<DoubleGame, RiskAction> = {
     },
     // No decision → NORMAL (riskModeOf).
     finish: (game) => game,
+    bot: (_game, _botId, _ctx, bot) => ({ type: "risk", mode: bot.random() < 0.5 ? "normal" : "double" }),
   },
 
   score({ game, question, answers, playerIds }) {

@@ -28,11 +28,13 @@ export const bluffMeta = {
   /** Writing, check, reading, voting, reveal, leaderboard. */
   estimatedSecondsPerQuestion: 150,
   contentSource: "static",
-  /** Somebody has to be fooled. */
-  minPlayers: 2,
   /** Not for kids: very rare words, free writing. */
   modes: ["family", "party"],
-  options: [{ id: "showOriginals", label: "Originaltexte der Spieler bei der Auflösung zeigen", default: false }],
+  options: [
+    { id: "showOriginals", label: "Originaltexte der Spieler bei der Auflösung zeigen", default: false },
+    /** Few players (or alone): the host invents extra wrong answers. */
+    { id: "aiDecoys", label: "KI-Lügen ergänzen (immer mind. 3 falsche Antworten)", default: true },
+  ],
 } as const satisfies CategoryMeta;
 
 /** Timings (points: see scoring.points in bluffMeta). */
@@ -54,6 +56,10 @@ export const BLUFF_CONFIG = {
   revealMaxMs: 12_000,
   /** The real definition with a sting. */
   solutionMs: 4_500,
+  /** "KI-Lügen ergänzen": at least this many wrong options (player bluffs + AI decoys). */
+  minWrongOptions: 3,
+  /** Decoys are asked for (in the same AI check call) when fewer players than this wrote something. */
+  decoysBelowSubmissions: 5,
 } as const;
 
 export const OPTION_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

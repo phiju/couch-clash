@@ -8,7 +8,7 @@
 import { GAME_MODULES, getModule, type ModuleRegistry } from "@couch-clash/games";
 import { progressOf } from "../progress";
 import { fail, ok, type Result } from "../result";
-import type { RoomRecord } from "../room-logic";
+import { botIds, type RoomRecord } from "../room-logic";
 import { invalidateContentFilter } from "./content-filter";
 import type { StatsStore } from "./store";
 import { applyVote, voteCounts, type Vote } from "./votes";
@@ -52,7 +52,8 @@ export class StatsRecorder {
     if (after?.revealed && after.contentId && !(before?.key === after.key && before.revealed)) {
       const game = next.game!;
       const module = getModule(after.categoryId, this.registry);
-      const stats = game.moduleState != null ? module?.toStats?.(game.moduleState) : null;
+      // Test bots don't count – their answers are random.
+      const stats = game.moduleState != null ? module?.toStats?.(game.moduleState, botIds(next)) : null;
       if (stats) this.write("play", (store) => store.recordPlay(after.contentCategoryId, stats, this.rt.now()));
     }
 
@@ -81,7 +82,9 @@ export class StatsRecorder {
     const room = this.rt.read();
     const p = this.currentRevealed(contentId);
     if (!room || !p) return fail("WRONG_PHASE");
-    if (!room.players.some((pl) => pl.id === playerId)) return fail("UNKNOWN_PLAYER");
+    const player = room.players.find((pl) => pl.id === playerId);
+    if (!player) return fail("UNKNOWN_PLAYER");
+    if (player.bot) return fail("NOT_AUTHORIZED");
     await this.rt.commit({
       ...room,
       questionVotes: applyVote(room.questionVotes, { contentId, categoryId: p.contentCategoryId }, playerId, vote),

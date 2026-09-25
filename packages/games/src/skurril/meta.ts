@@ -29,12 +29,14 @@ export const skurrilMeta = {
   /** Reading the story, writing, check, reading the options, voting, reveal, leaderboard. */
   estimatedSecondsPerQuestion: 170,
   contentSource: "static",
-  /** Somebody has to be fooled. */
-  minPlayers: 2,
   /** Unlike the Bluff-Lexikon also for kids: the kids stories are written for children. */
   modes: ["kids", "family", "party"],
   /** Kids: every story rated 6, whatever its difficulty. */
   kidsMaxDifficulty: 3,
   announceIntro: true,
-  options: [{ id: "showOriginals", label: "Originaltexte der Spieler bei der Auflösung zeigen", default: false }],
+  options: [
+    { id: "showOriginals", label: "Originaltexte der Spieler bei der Auflösung zeigen", default: false },
+    /** Few players (or alone): the host invents extra wrong answers. */
+    { id: "aiDecoys", label: "KI-Lügen ergänzen (immer mind. 3 falsche Antworten)", default: true },
+  ],
 } as const satisfies CategoryMeta;

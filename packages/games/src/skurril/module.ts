@@ -49,6 +49,14 @@ export const skurrilAdapter: BluffContentAdapter<SkurrilStory> = {
     highlight:
       "Skurrile Ereignisse: Zu einer wahren, skurrilen Geschichte haben alle eine Antwort erfunden und auf die wahre getippt. Lob oder necke den besten Lügner (wer die meisten reingelegt hat) oder wer auf eine Lüge reingefallen ist. Wer die Geschichte kannte: frag scherzhaft, ob die Person etwa dabei war (z. B. „Philip, warst du etwa dabei?“ – mit dem echten Namen).",
   },
+  botTexts: [
+    "Er ist unterwegs eingeschlafen",
+    "Ein Papagei hat alles verraten",
+    "Weil es an dem Tag Pudding gab",
+    "Sie wurde zur Bürgermeisterin gewählt",
+    "Der Hund hat die Beweise gefressen",
+    "Er hat sich im Datum geirrt",
+  ],
   toEntry: (s) => ({
     id: s.id,
     text: `${s.context} ${s.question}`,

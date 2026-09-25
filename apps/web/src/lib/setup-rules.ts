@@ -1,15 +1,12 @@
-import { categoryAvailable } from "@couch-clash/games/meta";
 import type { CategoryMeta, GameModeSettings } from "@couch-clash/shared";
 
-/** Category may be played: enough players, offered in the game mode, enough questions in the mode. */
-export function isAvailable(
-  meta: CategoryMeta,
-  playerCount: number,
-  mode: GameModeSettings,
-  pools: Record<string, number> | null,
-): boolean {
+/**
+ * Category may be played: offered in the game mode, enough questions in the
+ * mode. Never depends on the player count – every game works with one player,
+ * and the host can set up the evening before anyone joined.
+ */
+export function isAvailable(meta: CategoryMeta, mode: GameModeSettings, pools: Record<string, number> | null): boolean {
   return (
-    categoryAvailable(meta, playerCount) &&
     (meta.modes as readonly string[]).includes(mode.mode) &&
     (pools?.[meta.id] ?? Infinity) >= meta.questionsPerRound.min
   );

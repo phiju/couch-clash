@@ -5,6 +5,7 @@
  */
 import { QUIZ_QUESTIONS_DE, type QuizQuestion } from "@couch-clash/content";
 import { z } from "zod";
+import { BOT_CONFIG, botPick } from "@couch-clash/shared";
 import { normalizeScoring, type ScoreResult } from "../scoring";
 import {
   createKnowledgeModule,
@@ -95,6 +96,12 @@ export const betGame: KnowledgeGame<BetGame, WagerAction> = {
         if (p.connected && max !== undefined && wagers[p.id] === undefined) wagers[p.id] = defaultWager(game, max);
       }
       return { ...game, wagers };
+    },
+    // 50 / 100 / 200 at random – never more than allowed.
+    bot: (game, botId, _ctx, bot) => {
+      const max = game.maxWagers[botId];
+      if (max === undefined || max < 1) return null;
+      return { type: "wager", amount: Math.min(max, botPick(BOT_CONFIG.wagers, bot.random) ?? 100) };
     },
   },
 

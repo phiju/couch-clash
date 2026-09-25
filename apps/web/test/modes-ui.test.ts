@@ -1,4 +1,4 @@
-import { bluffMeta, quizMeta } from "@couch-clash/games/meta";
+import { CATEGORY_METAS, bluffMeta, quizMeta } from "@couch-clash/games/meta";
 import { DEFAULT_MODE_SETTINGS, type GameModeSettings } from "@couch-clash/shared";
 import { describe, expect, it } from "vitest";
 import { isAvailable } from "../src/lib/setup-rules";
@@ -15,12 +15,15 @@ describe("game mode in the UI helpers", () => {
     );
   });
 
-  it("availability per mode: bluff not in Kids, the pool must reach the minimum, 2+ players for bluff", () => {
+  it("availability per mode: bluff not in Kids, the pool must reach the minimum – never the player count", () => {
     const kids: GameModeSettings = { mode: "kids", allow16: false, difficulty: "mixed" };
-    expect(isAvailable(quizMeta, 3, kids, { quiz: 2 })).toBe(false);
-    expect(isAvailable(quizMeta, 3, kids, { quiz: 85 })).toBe(true);
-    expect(isAvailable(bluffMeta, 3, kids, { bluff: 200 })).toBe(false);
-    expect(isAvailable(bluffMeta, 3, DEFAULT_MODE_SETTINGS, { bluff: 200 })).toBe(true);
-    expect(isAvailable(bluffMeta, 1, DEFAULT_MODE_SETTINGS, { bluff: 200 })).toBe(false);
+    expect(isAvailable(quizMeta, kids, { quiz: 2 })).toBe(false);
+    expect(isAvailable(quizMeta, kids, { quiz: 85 })).toBe(true);
+    expect(isAvailable(bluffMeta, kids, { bluff: 200 })).toBe(false);
+    expect(isAvailable(bluffMeta, DEFAULT_MODE_SETTINGS, { bluff: 200 })).toBe(true);
+    // Every game can be picked before anyone joined and played alone.
+    for (const meta of CATEGORY_METAS) {
+      if (meta.modes.includes("family")) expect(isAvailable(meta, DEFAULT_MODE_SETTINGS, null), meta.id).toBe(true);
+    }
   });
 });

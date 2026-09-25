@@ -128,7 +128,7 @@ describe("Bluff-Lexikon in the room", () => {
         updateSettings(t.rt.room!, [{ categoryId: "bluff", questionCount: 3, scoring, options: { showOriginals: true, hack: true } }]),
       ),
     );
-    expect(t.rt.room!.settings[0]!.options).toEqual({ showOriginals: true });
+    expect(t.rt.room!.settings[0]!.options).toEqual({ showOriginals: true, aiDecoys: true });
     await t.commit(unwrap(beginGame(t.rt.room!, t.deps())));
     await t.commit(unwrap(advance(t.rt.room!, t.deps())));
     expect((t.rt.room!.game!.moduleState as { showOriginals: boolean }).showOriginals).toBe(true);
@@ -180,18 +180,39 @@ describe("Bluff-Lexikon in the room", () => {
     expect(t.rt.room!.phaseEndsAt).toBe(end + 3000 + 700);
   });
 
-  it("categories that need 2 players are skipped with 1 player", () => {
-    const t = setup(["Solo"]);
-    let room = unwrap(
-      updateSettings(t.rt.room!, [
-        { categoryId: "bluff", questionCount: 3, scoring },
-        { categoryId: "quiz", questionCount: 3, scoring: { ...scoring, mode: "absolute" } },
-      ]),
-    );
-    const game = unwrap(beginGame(room, t.deps())).game!;
-    expect(game.rounds.map((r) => r.categoryId)).toEqual(["quiz"]);
-    room = unwrap(updateSettings(t.rt.room!, [{ categoryId: "bluff", questionCount: 3, scoring }]));
-    expect(beginGame(room, t.deps())).toEqual({ ok: false, error: "NOT_ENOUGH_PLAYERS" });
+  it("one player plays the whole round to the finale: AI decoys fill the options", async () => {
+    const systems: string[] = [];
+    const model: JsonModel = async (system) => {
+      systems.push(system);
+      return {
+        results: [{ id: "s1", verdict: "bluff", polished: "Ein Hut für Pferde", sameIdea: true, group: 1 }],
+        decoys: ["Eine Suppe aus Tirol", "Ein Tanz der Seeleute", "Ein Kartenspiel"],
+      };
+    };
+    const t = setup(["Solo"], { model });
+    // Starts with 1 player – nothing is skipped.
+    let room = unwrap(updateSettings(t.rt.room!, [{ categoryId: "bluff", questionCount: 3, scoring }]));
+    expect(unwrap(beginGame(room, t.deps())).game!.rounds.map((r) => r.categoryId)).toEqual(["bluff"]);
+    await t.start();
+    for (let word = 0; word < 3; word++) {
+      expect(bstate(t.rt.room!).step).toBe("write");
+      await t.define(0, "ein hut für pferde");
+      await t.settle();
+      const options = bstate(t.rt.room!).options!;
+      expect(options.filter((o) => !o.correct)).toHaveLength(3);
+      await t.commit(unwrap(advance(t.rt.room!, t.deps()))); // present → vote
+      expect(bstate(t.rt.room!).step).toBe("vote");
+      t.rt.now += 1000;
+      await t.commit(unwrap(handlePlayerAction(t.rt.room!, t.ids[0]!, { type: "vote", option: options.findIndex((o) => o.correct) }, t.deps())));
+      expect(bstate(t.rt.room!).step).toBe("reveal");
+      for (let i = 0; i < 3; i++) await t.commit(unwrap(advance(t.rt.room!, t.deps())));
+    }
+    expect(systems[0]).toContain("FALSCHE Antworten");
+    room = t.rt.room!;
+    expect(room.phase).toBe("scoreboard");
+    expect(room.game!.scores[t.ids[0]!]).toBe(300);
+    room = unwrap(advance(room, t.deps()));
+    expect(room.phase).toBe("finale");
   });
 });
 

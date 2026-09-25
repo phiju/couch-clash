@@ -1,6 +1,6 @@
 "use client";
 
-import type { ClientMessage, PublicRoomState } from "@couch-clash/shared";
+import { BOT_CONFIG, type ClientMessage, type PublicRoomState } from "@couch-clash/shared";
 import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { AvatarBadge } from "@/components/avatar";
@@ -8,7 +8,9 @@ import { Mascot } from "@/components/mascot";
 import { Sparkle } from "@/components/sparkle";
 import { Button, Logo, Screen } from "@/components/ui";
 import { displayJoinLink, joinUrl as buildJoinUrl } from "@/lib/config";
+import { adminTokenStore } from "@/lib/admin-api";
 import { initialLobbySettingsOpen } from "@/lib/lobby-panel";
+import { testModeEnabled } from "@/lib/test-mode";
 import { summaryText } from "@/lib/summary";
 import { usePhotoCelebration } from "./photo-celebration";
 import { GameSettingsPanel } from "./settings-panel";
@@ -16,6 +18,8 @@ import { useHostSpeech } from "./voice";
 import { VoiceSettingsPanel } from "./voice-settings";
 
 const subscribeNoop = () => () => {};
+
+const START_HINT = "Mindestens 1 Spieler:in nötig";
 
 export function HostLobby({
   room,
@@ -39,6 +43,10 @@ export function HostLobby({
     () => (code ? buildJoinUrl(code) : null),
     () => null,
   );
+  const search = useSyncExternalStore(subscribeNoop, () => window.location.search, () => "");
+  const adminToken = useSyncExternalStore(adminTokenStore.subscribe, adminTokenStore.get, adminTokenStore.getServer);
+  const testMode = testModeEnabled(search, adminToken);
+  const botCount = players.filter((p) => p.bot).length;
 
   return (
     <Screen fit className="max-w-[2400px]">
@@ -129,6 +137,17 @@ export function HostLobby({
                 🚪 Neue Spieler während des Spiels zulassen
               </label>
             )}
+            {room && testMode && (
+              <button
+                type="button"
+                onClick={() => send({ type: "add_bot" })}
+                disabled={!canSend || botCount >= BOT_CONFIG.maxBots}
+                className="fs-sm rounded-full border-2 border-bulb/60 bg-petrol-dark/80 px-3 py-1 font-bold transition hover:bg-petrol disabled:opacity-50"
+                title={`Spielt automatisch mit – höchstens ${BOT_CONFIG.maxBots}`}
+              >
+                🤖 Testspieler hinzufügen
+              </button>
+            )}
           </div>
 
           <PlayerGrid playerCount={players.length} big={!settingsOpen}>
@@ -156,7 +175,7 @@ export function HostLobby({
                   className={`flex items-center gap-1.5 text-[calc(var(--card)*0.075)] font-bold ${player.connected ? "text-bulb" : "text-cream/50"}`}
                 >
                   <span className={`size-2.5 rounded-full ${player.connected ? "bg-bulb" : "bg-cream/40"}`} />
-                  {player.connected ? "verbunden" : "getrennt"}
+                  {player.bot ? "🤖 Testspieler" : player.connected ? "verbunden" : "getrennt"}
                 </span>
                 {player.avatar.photo && (
                   <button
@@ -194,11 +213,14 @@ export function HostLobby({
             <Button
               onClick={() => startRef.current?.()}
               disabled={players.length === 0 || !canSend || !room?.settingsSummary}
+              title={players.length === 0 ? START_HINT : undefined}
               glow
               className="fs-xl !px-[2.2vw] !py-[1.3vh] whitespace-nowrap"
             >
               Spiel starten
             </Button>
+            {/* The only player-count rule: one player is enough for every game. */}
+            {room && players.length === 0 && <p className="fs-sm font-bold text-cream/70">{START_HINT}</p>}
           </div>
         </section>
 
@@ -219,7 +241,6 @@ export function HostLobby({
                 send={send}
                 canSend={canSend}
                 startRef={startRef}
-                playerCount={room.players.length}
                 mode={room.mode}
                 partyConfirmed={room.partyConfirmed}
                 poolSizes={room.poolSizes}

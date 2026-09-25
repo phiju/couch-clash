@@ -6,7 +6,7 @@ import { Button } from "@/components/ui";
 import { AnswerSent, Countdown, QuestionLeaderboard } from "../question-round/components";
 import type { PlayerViewProps } from "../types";
 import { resultParts } from "./logic";
-import type { BluffUiTexts } from "./texts";
+import { DECOY_LABEL, type BluffUiTexts } from "./texts";
 
 type Props = PlayerViewProps<BluffPublicState> & { texts: BluffUiTexts };
 
@@ -200,6 +200,9 @@ function Result({ state, me, texts }: Props) {
         </p>
       ))}
       {!r && <p className="text-xl text-cream/70">Diesmal nicht mitgemacht</p>}
+      {state.myVote !== null && reveal?.options[state.myVote]?.decoy && (
+        <p className="text-lg font-bold text-cream/85">Reingefallen auf: {DECOY_LABEL}</p>
+      )}
       {reveal && state.step === "solution" && (
         <p className="text-xl">
           {reveal.lead} <span className="font-bold text-bulb">{reveal.definition}</span>

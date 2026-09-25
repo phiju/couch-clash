@@ -34,6 +34,7 @@ import { loadContentFilter, type ContentFilter } from "./stats/content-filter";
 import { StatsRecorder } from "./stats/recorder";
 import { createOpenAIJsonModel } from "./generate/model";
 import { ModuleTaskRunner } from "./tasks/runner";
+import { BotDriver } from "./bots";
 import { d1StatsStore } from "./stats/store";
 import { Server, type Connection, type WSMessage } from "partyserver";
 import {
@@ -50,7 +51,9 @@ import {
 } from "./game-flow";
 import type { Result } from "./result";
 import {
+  addBot,
   authenticateHost,
+  botIds,
   authenticatePlayer,
   claimSeat,
   createRoomRecord,
@@ -129,6 +132,15 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     store: () => this.statsStore(),
     waitUntil: (promise) => this.ctx.waitUntil(promise),
     now: () => Date.now(),
+  });
+
+  /** Test bots: they act on their own after a short random delay. */
+  private readonly bots = new BotDriver({
+    read: () => this.activeRoom(),
+    commit: (room) => this.commit(room),
+    flowDeps: () => this.flowDeps(Date.now()),
+    waitUntil: (promise) => this.ctx.waitUntil(promise),
+    random: Math.random,
   });
 
   /** Server work for category modules (e.g. the AI check in the Bluff-Lexikon). */
@@ -392,6 +404,13 @@ export class Room extends Server<Env> implements AvatarRoomApi {
         return this.join(conn, room, msg.name, msg.avatar, msg.savedFigureId);
       }
 
+      case "add_bot": {
+        if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        const result = addBot(room, { now, random: Math.random });
+        if (!result.ok) return this.send(conn, errorMessage(result.error));
+        return this.commit(result.value.room);
+      }
+
       case "kick": {
         if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
         const result = kickPlayer(room, msg.playerId);
@@ -577,6 +596,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     this.voice.roomChanged(prev, room);
     this.stats.roomChanged(prev, room);
     this.tasks.roomChanged(room);
+    this.bots.roomChanged(room);
   }
 
   /** Host lines never go to phones. */
@@ -705,6 +725,8 @@ export class Room extends Server<Env> implements AvatarRoomApi {
       else if (s?.role === "player" && !this.isStale(c, now)) online.add(s.playerId);
     }
     const room = this.activeRoom();
+    // Test bots never need a phone: always online.
+    for (const id of room ? botIds(room) : []) online.add(id);
     const playerIds = room ? effectivePresence(room, online, now) : online;
     return { host, online, playerIds };
   }

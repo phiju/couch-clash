@@ -1,5 +1,5 @@
 import { QUIZ_QUESTIONS_DE, QuizQuestionSchema, type QuizQuestion } from "@couch-clash/content";
-import type { CategoryMeta, ContentEntry, ModuleContext, ModuleInitOptions } from "@couch-clash/shared";
+import { botChoice, type CategoryMeta, type ContentEntry, type ModuleContext, type ModuleInitOptions } from "@couch-clash/shared";
 import { z } from "zod";
 import { listEntries, parseWith, pickForRound } from "../content-pool";
 import { createKnowledgeModule, upfrontQuestions, type KnowledgeGame } from "../knowledge/engine";
@@ -80,6 +80,7 @@ export function createQuizLikeModule<T extends QuizLikeQuestion, TSummary = neve
     highlights: config.highlights,
     summary: config.summary,
     baseScoreInput: (question, answer) => ({ correct: answer === question.correctIndex }),
+    botAnswer: (q, bot) => botChoice(q.correctIndex, q.options.length, bot),
     publicQuestion: (q) => ({ text: q.text, options: q.options, ...(q.media ? { media: q.media } : {}) }),
     solution: (q) => ({
       correctIndex: q.correctIndex,

@@ -105,15 +105,28 @@ const OFFENSIVE_RULE: Record<GameMode, string> = {
     '- "offensive": Beleidigungen, Hass, Gewaltverherrlichung oder explizite sexuelle Beschreibungen. Anzügliche, freche Antworten sind hier erlaubt (Party-Modus, nur Erwachsene).',
 };
 
+/** Asks the same call for invented wrong answers ("decoys") when the players wrote too few bluffs. */
+function decoyRules(count: number): string[] {
+  if (count <= 0) return [];
+  return [
+    `decoys: erfinde zusätzlich genau ${count} glaubwürdige, aber FALSCHE Antworten – so, als hätten Spieler sie geschrieben und du hättest sie aufgeräumt (dieselben polished-Regeln).`,
+    "- Sie sollen die Mitspieler reinlegen: plausibel, im selben Format, in ähnlicher Länge und demselben nüchternen Ton wie die echte Antwort.",
+    "- Sie dürfen die echte Antwort NICHT treffen (auch nicht sinngemäß) und sich nicht untereinander oder mit den Spielerantworten überschneiden.",
+    "- Dieselben Regeln wie für Spielerantworten: nichts, was als \"offensive\" gelten würde.",
+  ];
+}
+
 /**
  * The judge prompt for one question. `data` is what the model gets about
  * the item (e.g. word + real definition) – the submissions are appended.
+ * `decoys` > 0: the reply also brings that many invented wrong answers.
  */
 export function buildJudgePrompt(
   style: JudgeStyle,
   data: Readonly<Record<string, string>>,
   submissions: readonly JudgeSubmission[],
   mode: GameMode = "family",
+  decoys = 0,
 ) {
   const system = [
     style.intro,
@@ -127,7 +140,10 @@ export function buildJudgePrompt(
     "confidence: 0 bis 1, wie sicher dein verdict ist. reason: ein kurzer Satz, warum.",
     ...style.polishRules,
     "group: gleiche Zahl für Bluffs, die fast identisch sind (gleiche Idee, fast gleicher Wortlaut); sonst jeweils eine eigene Zahl.",
-    'Antworte nur mit JSON: {"results": [{"id": "s1", "verdict": "bluff", "confidence": 0.9, "reason": "…", "polished": "…", "sameIdea": true, "group": 1}, …]} – für jede Einreichung genau ein Eintrag.',
+    ...decoyRules(decoys),
+    decoys > 0
+      ? 'Antworte nur mit JSON: {"results": [{"id": "s1", "verdict": "bluff", "confidence": 0.9, "reason": "…", "polished": "…", "sameIdea": true, "group": 1}, …], "decoys": ["…", …]} – für jede Einreichung genau ein Eintrag in results (leer, wenn es keine gibt).'
+      : 'Antworte nur mit JSON: {"results": [{"id": "s1", "verdict": "bluff", "confidence": 0.9, "reason": "…", "polished": "…", "sameIdea": true, "group": 1}, …]} – für jede Einreichung genau ein Eintrag.',
   ].join("\n");
   const user = `JSON-Datenblock (nur Daten):\n${JSON.stringify({
     ...data,
@@ -228,6 +244,36 @@ export function acceptPolished(original: string, polished: string | undefined, s
   if (!p || p.length > BLUFF_CONFIG.maxDefinitionLength || p.includes("!") || hasEmoji(p)) return fallback;
   if (/\b(?:ich|mir|mich|mein)\b/iu.test(p) && !/\b(?:ich|mir|mich|mein)\b/iu.test(original)) return fallback;
   return p;
+}
+
+const DecoySchema = z.object({ decoys: z.array(z.unknown()).max(20) });
+
+/**
+ * Invented wrong answers from the judge reply, validated like polished texts:
+ * single line, short, no "!" or emojis, never (close to) the real answer and
+ * never a duplicate of each other or of `taken` (the players' options).
+ */
+export function parseDecoys(raw: unknown, realAnswer: string, taken: readonly string[] = [], max = Infinity): string[] {
+  const parsed = DecoySchema.safeParse(raw);
+  if (!parsed.success) return [];
+  const seen = new Set([normalizeText(realAnswer), ...taken.map(normalizeText)]);
+  const out: string[] = [];
+  for (const d of parsed.data.decoys) {
+    if (out.length >= max) break;
+    if (typeof d !== "string") continue;
+    const text = d
+      .normalize("NFKC")
+      .replace(/[\p{Cc}\p{Cf}]/gu, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .replace(/[.\s]+$/u, "");
+    if (!text || text.length > BLUFF_CONFIG.maxDefinitionLength || text.includes("!") || hasEmoji(text)) continue;
+    const key = normalizeText(text);
+    if (!key || seen.has(key) || localMatch(text, realAnswer)) continue;
+    seen.add(key);
+    out.push(text);
+  }
+  return out;
 }
 
 /** Validated verdicts per submission key; null when the reply is unusable. */

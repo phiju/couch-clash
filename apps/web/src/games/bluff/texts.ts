@@ -1,6 +1,9 @@
 /** UI texts of the bluff views per game (the engine and the components are shared). */
 import type { BluffPublicState } from "@couch-clash/games/meta";
 
+/** Reveal tag of an AI decoy ("KI-Lügen ergänzen"). */
+export const DECOY_LABEL = "🤖 Erfunden vom Moderator";
+
 export interface BluffUiTexts {
   /** Counter on the TV: "Wort 2 / 5". */
   counter: string;

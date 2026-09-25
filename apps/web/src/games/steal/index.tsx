@@ -18,7 +18,7 @@ function TargetBanner({ state, room }: AddonHostProps<StealExtra>) {
   if (targets.length === 0) {
     return (
       <p className="fs-md shrink-0 self-center rounded-full chip px-5 py-[0.6vh] font-bold text-cream/80">
-        Noch führt niemand – jede richtige Antwort zählt!
+        {noHeistText(state.extra) ?? "Noch führt niemand – jede richtige Antwort zählt!"}
       </p>
     );
   }
@@ -44,8 +44,17 @@ function TargetBanner({ state, room }: AddonHostProps<StealExtra>) {
   );
 }
 
+/** Nobody could steal this question – it plays like Punktesammler. */
+export function noHeistText(extra: StealExtra): string | null {
+  if (extra.noHeist === "solo") return "Solo: kein Klau möglich – richtig = Punkte!";
+  if (extra.noHeist === "tied") return "Alle gleichauf: kein Klau möglich – richtig = Punkte!";
+  return null;
+}
+
 function PhoneTarget({ state, room, me }: AddonPlayerProps<StealExtra>) {
   const targets = targetsOf(state.extra, room);
+  const noHeist = noHeistText(state.extra);
+  if (noHeist && !state.extra.outcome) return <p className="rounded-2xl chip px-4 py-2 text-center text-lg font-bold">{noHeist}</p>;
   if (targets.length === 0) return null;
   const outcome = state.extra.outcome;
   const iAmTarget = state.extra.targetIds.includes(me.id);

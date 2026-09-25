@@ -49,6 +49,8 @@ export function recordBluffRun(mod: AnyModule, mode: GameModeSettings["mode"], s
     scoring: bluffMeta.scoring,
     excludeContentIds: [],
     mode: { mode, allow16: false, difficulty: "mixed" },
+    // Recorded before "KI-Lügen ergänzen" existed.
+    options: { aiDecoys: false },
   });
   state = init.state;
   snap("init", { usedContentIds: init.usedContentIds, done: init.done ?? false });
