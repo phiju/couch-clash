@@ -28,6 +28,12 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.9.2",
+    date: "2026-09-25",
+    title: "Mehr Platz in der Lobby",
+    items: [{ emoji: "🧹", text: "Die Einstellungen sind jetzt eingeklappt – mehr Platz für eure Mitspieler:innen" }],
+  },
+  {
     version: "0.9.1",
     date: "2026-09-25",
     title: "Die Couch zieht ein",
