@@ -7,6 +7,10 @@ const base = {
   ageRating: z.union(AGE_RATINGS.map((a) => z.literal(a))),
   tags: z.array(z.string().min(1)).min(1),
   difficulty: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+  /** Game mode filter: alcohol topics (not in Kids). */
+  alcohol: z.boolean().default(false),
+  /** Game mode filter: sexual / suggestive (Party only, never explicit). */
+  adult: z.boolean().default(false),
 };
 
 export const QuizQuestionSchema = z
@@ -59,6 +63,8 @@ export const BluffWordSchema = z.object({
   ageRating: z.union(AGE_RATINGS.map((a) => z.literal(a))),
   tags: z.array(z.string().min(1)).min(1),
   difficulty: z.union([z.literal(2), z.literal(3)]),
+  alcohol: z.boolean().default(false),
+  adult: z.boolean().default(false),
   sourceNote: z.string().max(120).optional(),
 });
 

@@ -1,15 +1,9 @@
-import { DEFAULT_VOICE_SETTINGS, type ScoringSettings } from "@couch-clash/shared";
+import { DEFAULT_VOICE_SETTINGS } from "@couch-clash/shared";
 import { describe, expect, it } from "vitest";
-import { updateSettings } from "../src/game-flow";
+import { updateMode } from "../src/game-flow";
 import { createRoomRecord, toPublicState, updateVoiceSettings } from "../src/room-logic";
 import { handleVoiceGet } from "../src/voice/routes";
 import { memoryStore } from "./avatar-helpers";
-
-const scoring: ScoringSettings = {
-  mode: "absolute",
-  maxPoints: 100,
-  speedModifier: { enabled: false, fastestMultiplier: 1.5, slowestMultiplier: 0.5 },
-};
 
 describe("voice settings", () => {
   it("defaults: moderator on, normal, frech – visible to the host only", () => {
@@ -24,18 +18,21 @@ describe("voice settings", () => {
     expect(toPublicState(room, connected, { role: "guest" }).voice).toBeNull();
   });
 
-  it("shows the automatic 'nett' for kids' categories", () => {
+  it("Frechheit follows the game mode (Kids: nett or frech)", () => {
     let room = createRoomRecord("ABCD", "host-token-0123456789abcdef", 0);
-    const r = updateSettings(room, [{ categoryId: "quiz", questionCount: 5, scoring }]); // quiz: age rating 6
-    if (!r.ok) throw new Error(r.error);
-    room = r.value;
-    const host = toPublicState(room, { host: true, playerIds: new Set() }, { role: "host" }).voice!;
-    expect(host).toMatchObject({ kidsCategories: true, effectiveCheekiness: "nett" });
-    const overridden = updateVoiceSettings(room, { ...DEFAULT_VOICE_SETTINGS, cheekiness: "gnadenlos", cheekinessOverride: true });
-    if (!overridden.ok) throw new Error(overridden.error);
-    expect(toPublicState(overridden.value, { host: true, playerIds: new Set() }, { role: "host" }).voice).toMatchObject({
-      effectiveCheekiness: "gnadenlos",
+    const kids = updateMode(room, { mode: "kids", allow16: false, difficulty: "mixed" }, false);
+    if (!kids.ok) throw new Error(kids.error);
+    room = kids.value;
+    expect(toPublicState(room, { host: true, playerIds: new Set() }, { role: "host" }).voice).toMatchObject({
+      effectiveCheekiness: "nett",
+      allowedCheekiness: ["nett", "frech"],
     });
+    const gnadenlos = updateVoiceSettings(room, { ...DEFAULT_VOICE_SETTINGS, cheekiness: "gnadenlos" });
+    if (!gnadenlos.ok) throw new Error(gnadenlos.error);
+    expect(toPublicState(gnadenlos.value, { host: true, playerIds: new Set() }, { role: "host" }).voice!.effectiveCheekiness).toBe("nett");
+    const frech = updateVoiceSettings(room, { ...DEFAULT_VOICE_SETTINGS, cheekiness: "frech" });
+    if (!frech.ok) throw new Error(frech.error);
+    expect(toPublicState(frech.value, { host: true, playerIds: new Set() }, { role: "host" }).voice!.effectiveCheekiness).toBe("frech");
   });
 
   it("can only be changed in lobby or setup", () => {

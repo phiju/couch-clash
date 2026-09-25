@@ -1,9 +1,9 @@
 import { QUIZ_QUESTIONS_DE, QuizQuestionSchema, type QuizQuestion } from "@couch-clash/content";
 import type { ContentEntry } from "@couch-clash/shared";
-import { listEntries, parseWith, playablePool } from "../content-pool";
+import { listEntries, parseWith, pickForRound } from "../content-pool";
 import { z } from "zod";
 import { createQuestionRoundModule } from "../question-round/engine";
-import { pickFresh, shuffle } from "../random";
+import { shuffle } from "../random";
 import { quizMeta } from "./meta";
 import type { QuizPublicQuestion, QuizSolution } from "./types";
 
@@ -33,6 +33,8 @@ const entry = (q: QuizQuestion): ContentEntry => ({
   ageRating: q.ageRating,
   tags: q.tags,
   payload: q,
+  alcohol: q.alcohol,
+  adult: q.adult,
 });
 
 export function createQuizModule(pool: readonly QuizQuestion[] = QUIZ_QUESTIONS_DE) {
@@ -40,7 +42,7 @@ export function createQuizModule(pool: readonly QuizQuestion[] = QUIZ_QUESTIONS_
     meta: quizMeta,
     answerSchema: z.number().int().min(0).max(3),
     pickQuestions: (ctx, options) =>
-      pickFresh(playablePool(pool, QuizQuestionSchema, options), options.questionCount, options.excludeContentIds, ctx.random).map((q) =>
+      pickForRound(pool, QuizQuestionSchema, options, ctx.random).map((q) =>
         prepareQuizQuestion(q, ctx.random),
       ),
     baseScoreInput: (question, answer) => ({ correct: answer === question.correctIndex }),

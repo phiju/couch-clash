@@ -18,4 +18,5 @@ export const quizMeta = {
   scoringFields: ["maxPoints", "speedModifier"],
   estimatedSecondsPerQuestion: 22,
   contentSource: "static",
+  modes: ["kids", "family", "party"],
 } as const satisfies CategoryMeta;

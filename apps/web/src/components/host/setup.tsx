@@ -36,6 +36,9 @@ export function HostSetup({
           canSend={canSend}
           startRef={startRef}
           playerCount={room.players.length}
+          mode={room.mode}
+          partyConfirmed={room.partyConfirmed}
+          poolSizes={room.poolSizes}
         />
         <div className="mt-6 max-w-xl">
           <VoiceSettingsPanel voice={room.voice} send={send} canSend={canSend} />

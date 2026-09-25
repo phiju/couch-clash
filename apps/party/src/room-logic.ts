@@ -15,6 +15,10 @@ import {
   type LeaderboardEntry,
   type Viewer,
   type VoiceSettings,
+  DEFAULT_MODE_SETTINGS,
+  MODE_CHEEKINESS,
+  normalizeModeSettings,
+  type GameModeSettings,
 } from "@couch-clash/shared";
 import { GAME_MODULES, getModule, normalizeScoring, type ModuleRegistry } from "@couch-clash/games";
 import { publicGame, settingsSummary } from "./game-flow";
@@ -22,7 +26,8 @@ import { fail, ok, type Result } from "./result";
 import { publicPhoto, type PhotoRecord, type PhotoUsage } from "./avatar/photo-logic";
 import type { QuestionVotes } from "./stats/votes";
 import { VOICE_CONFIG } from "./voice/config";
-import { defaultRoomVoice, effectiveCheekiness, hasKidsCategory, normalizeRoomVoice, type RoomVoice } from "./voice/rules";
+import { defaultRoomVoice, effectiveCheekiness, normalizeRoomVoice, type RoomVoice } from "./voice/rules";
+import { poolSizesFor } from "./pools";
 
 export interface PlayerRecord {
   id: string;
@@ -61,6 +66,10 @@ export interface RoomRecord {
   voice: RoomVoice;
   /** 👍/👎 for the current question (written to the statistics when it is over). */
   questionVotes: QuestionVotes | null;
+  /** Global game mode (Kids / Familie / Party). */
+  mode: GameModeSettings;
+  /** The host confirmed "alle über 18" for Party mode in this room. */
+  partyConfirmed: boolean;
 }
 
 /** One category of the game settings (sanitized against the registry). */
@@ -102,6 +111,9 @@ export function normalizeRoomRecord(room: RoomRecord, registry: ModuleRegistry =
     photoUsage: room.photoUsage ?? { base: 0, expressions: 0 },
     voice: normalizeRoomVoice(room.voice),
     questionVotes: room.questionVotes ?? null,
+    // Rooms saved before game modes → Familie.
+    mode: normalizeModeSettings(room.mode),
+    partyConfirmed: room.partyConfirmed ?? false,
   };
 }
 
@@ -129,6 +141,8 @@ export function createRoomRecord(code: string, hostToken: string, now: number): 
     photoUsage: { base: 0, expressions: 0 },
     voice: defaultRoomVoice(),
     questionVotes: null,
+    mode: { ...DEFAULT_MODE_SETTINGS },
+    partyConfirmed: false,
   };
 }
 
@@ -218,18 +232,20 @@ export function toPublicState(
     })),
     game: publicGame(room, viewer, registry),
     settings: viewer.role === "host" ? room.settings : null,
-    settingsSummary: settingsSummary(room.settings, registry),
+    settingsSummary: settingsSummary(room.settings, registry, room.mode.mode),
+    mode: room.mode,
+    partyConfirmed: viewer.role === "host" && room.partyConfirmed,
+    poolSizes: viewer.role === "host" ? poolSizesFor(room.mode, registry) : null,
     photoAvatars: room.photoAvatars,
-    voice: viewer.role === "host" ? publicVoice(room, registry) : null,
+    voice: viewer.role === "host" ? publicVoice(room) : null,
   };
 }
 
-function publicVoice(room: RoomRecord, registry: ModuleRegistry): PublicRoomState["voice"] {
-  const metas = room.settings.flatMap((r) => getModule(r.categoryId, registry)?.meta ?? []);
+function publicVoice(room: RoomRecord): PublicRoomState["voice"] {
   return {
     ...room.voice.settings,
-    effectiveCheekiness: effectiveCheekiness(room.voice.settings, metas),
-    kidsCategories: hasKidsCategory(metas),
+    effectiveCheekiness: effectiveCheekiness(room.voice.settings, room.mode.mode),
+    allowedCheekiness: MODE_CHEEKINESS[room.mode.mode].allowed,
     status: room.voice.status,
     errorCode: room.voice.errorCode,
     charsUsed: room.voice.charsUsed,

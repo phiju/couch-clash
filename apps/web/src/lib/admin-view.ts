@@ -1,5 +1,5 @@
 /** Pure helpers for "/admin/fragen": filter, search, sort, CSV. */
-import { matchesQuickFilter, type AdminQuestion, type QuickFilter } from "@couch-clash/shared";
+import { matchesQuickFilter, type AdminQuestion, type GameMode, type QuickFilter } from "@couch-clash/shared";
 
 export type SortKey =
   | "id"
@@ -16,13 +16,15 @@ export type SortKey =
 
 export interface AdminView {
   category: string | null;
+  /** Only questions that can come up in this game mode. */
+  mode: GameMode | null;
   quick: QuickFilter | null;
   search: string;
   sort: SortKey;
   desc: boolean;
 }
 
-export const DEFAULT_VIEW: AdminView = { category: null, quick: null, search: "", sort: "id", desc: false };
+export const DEFAULT_VIEW: AdminView = { category: null, mode: null, quick: null, search: "", sort: "id", desc: false };
 
 /** Correct rate, or 1 − average error for estimates (higher = easier). */
 export function scoreOf(q: AdminQuestion): number | null {
@@ -48,6 +50,7 @@ export function applyView(questions: readonly AdminQuestion[], view: AdminView):
   const rows = questions.filter(
     (q) =>
       (!view.category || q.categoryId === view.category) &&
+      (!view.mode || q.modes.includes(view.mode)) &&
       (!view.quick || matchesQuickFilter(q, view.quick)) &&
       (!needle || fold(`${q.id} ${q.text} ${q.answer} ${q.tags.join(" ")}`).includes(needle)),
   );

@@ -89,6 +89,7 @@ describe("admin questions", () => {
       status: "active",
       generated: false,
       payload: null,
+      modes: ["kids", "family", "party"],
     });
     expect(body.questions.find((q) => q.id === "estimate-001")).toMatchObject({ avgErrorPct: 0.25, correctRate: 0 });
     expect(body.questions.find((q) => q.id === "quiz-002")).toMatchObject({ plays: 0, correctRate: null, lastPlayedAt: null });
@@ -170,6 +171,7 @@ describe("quick filters", () => {
     replacesId: null,
     createdAt: null,
     payload: null,
+    modes: ["kids", "family", "party"],
     ...over,
   });
 

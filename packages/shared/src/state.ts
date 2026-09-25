@@ -1,3 +1,4 @@
+import type { GameMode, GameModeSettings } from "./modes";
 import type { Avatar } from "./avatar";
 import type { ScoringSettings } from "./game-module";
 import type { LeaderboardEntry } from "./leaderboard";
@@ -62,6 +63,8 @@ export interface GameRoundSettings {
 
 /** What players see of the settings: a short summary. */
 export interface SettingsSummary {
+  /** Global game mode ("Familie · 3 Kategorien · ca. 15 Min"). */
+  mode: GameMode;
   categoryIds: string[];
   questionCount: number;
   estimatedSeconds: number;
@@ -102,13 +105,20 @@ export interface PublicRoomState {
   settings: GameRoundSettings[] | null;
   /** Short summary for everyone, null if nothing is selected. */
   settingsSummary: SettingsSummary | null;
+  /** Global game mode (Kids / Familie / Party) with its options. */
+  mode: GameModeSettings;
+  /** Host only: Party mode confirmed ("alle über 18") in this room. */
+  partyConfirmed: boolean;
+  /** Host only: eligible questions per category in the current mode (warning + slider cap). */
+  poolSizes: Record<string, number> | null;
   /** Host setting "Foto-Avatare erlauben". */
   photoAvatars: boolean;
   /** Moderator voice settings – host only (null for everyone else). */
   voice:
     | (VoiceSettings & {
         effectiveCheekiness: Cheekiness;
-        kidsCategories: boolean;
+        /** Levels the host may pick in the current game mode. */
+        allowedCheekiness: readonly Cheekiness[];
         /** Silent because the voice service refused (quota, key) or the room's character budget is used up. */
         status: VoiceStatus;
         /** Error code of the last refusal, e.g. "401 missing_permissions". */

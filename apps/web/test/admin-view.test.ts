@@ -24,6 +24,7 @@ const q = (over: Partial<AdminQuestion>): AdminQuestion => ({
   replacesId: null,
   createdAt: null,
   payload: null,
+  modes: ["family", "party"],
   ...over,
 });
 
@@ -41,6 +42,12 @@ describe("admin view", () => {
     expect(applyView(ROWS, { ...DEFAULT_VIEW, quick: "generated" }).map((r) => r.id)).toEqual(["quiz-gen-a"]);
     expect(applyView(ROWS, { ...DEFAULT_VIEW, search: "NACHSTEN" }).map((r) => r.id)).toEqual(["quiz-002"]);
     expect(applyView(ROWS, { ...DEFAULT_VIEW, search: "330" }).map((r) => r.id)).toEqual(["estimate-001"]);
+  });
+
+  it("filters by game mode", () => {
+    const rows = [q({ id: "k", modes: ["kids", "family", "party"] }), q({ id: "p", modes: ["party"] })];
+    expect(applyView(rows, { ...DEFAULT_VIEW, mode: "kids" }).map((r) => r.id)).toEqual(["k"]);
+    expect(applyView(rows, { ...DEFAULT_VIEW, mode: "party" }).map((r) => r.id)).toEqual(["k", "p"]);
   });
 
   it("sorts by plays and by score (empty values last)", () => {

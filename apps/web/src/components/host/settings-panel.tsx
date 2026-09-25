@@ -6,18 +6,24 @@ import {
   getCategoryMeta,
   normalizeCategoryOptions,
   normalizeScoring,
+  PLANNER_CONFIG,
+  planGame,
 } from "@couch-clash/games/meta";
 import {
   estimateGameSeconds,
   formatDuration,
   type CategoryMeta,
   type ClientMessage,
+  type GameModeSettings,
   type GameRoundSettings,
+  GAME_MODE_INFO,
   type ScoringSettings,
 } from "@couch-clash/shared";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { Button } from "@/components/ui";
 import { setupStore } from "@/lib/storage";
+import { isAvailable } from "@/lib/setup-rules";
+import { ModePicker } from "./mode-picker";
 
 interface CategoryChoice {
   enabled: boolean;
@@ -28,9 +34,12 @@ interface CategoryChoice {
 }
 
 interface SetupState {
-  /** Category ids in play order. */
   order: string[];
   choices: Record<string, CategoryChoice>;
+  /** "Spieldauer" for Zufall (minutes). */
+  minutes: number;
+  /** The Zufall plan (may repeat a category) – null once the host edits by hand ("manuell"). */
+  plan: GameRoundSettings[] | null;
 }
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
@@ -63,7 +72,11 @@ function loadStoredSetup(): SetupState {
   for (const meta of CATEGORY_METAS) choices[meta.id] = sanitizeChoice(meta, stored?.choices?.[meta.id]);
   const ids = CATEGORY_METAS.map((m) => m.id as string);
   const storedOrder = (stored?.order ?? []).filter((id) => ids.includes(id));
-  return { order: [...storedOrder, ...ids.filter((id) => !storedOrder.includes(id))], choices };
+  const minutes = (PLANNER_CONFIG.durations as readonly number[]).includes(Number(stored?.minutes))
+    ? Number(stored!.minutes)
+    : PLANNER_CONFIG.defaultMinutes;
+  const plan = Array.isArray(stored?.plan) ? (stored!.plan as GameRoundSettings[]).filter((r) => !!getCategoryMeta(r.categoryId)) : null;
+  return { order: [...storedOrder, ...ids.filter((id) => !storedOrder.includes(id))], choices, minutes, plan: plan?.length ? plan : null };
 }
 
 /** Server settings win (e.g. after a reload); otherwise the device's last settings. */
@@ -76,16 +89,47 @@ function initialSetup(server: GameRoundSettings[] | null): SetupState {
     const meta = getCategoryMeta(round.categoryId);
     if (meta) choices[meta.id] = sanitizeChoice(meta, { ...round, enabled: true });
   }
-  const serverIds = server.map((r) => r.categoryId).filter((id) => base.order.includes(id));
-  return { order: [...serverIds, ...base.order.filter((id) => !serverIds.includes(id))], choices };
+  const serverIds = [...new Set(server.map((r) => r.categoryId))].filter((id) => base.order.includes(id));
+  // A category twice → it was a Zufall plan.
+  const plan = serverIds.length < server.length ? server : null;
+  return { ...base, order: [...serverIds, ...base.order.filter((id) => !serverIds.includes(id))], choices, plan };
 }
 
-function toRounds(setup: SetupState, playerCount: number): GameRoundSettings[] {
+/** The plan as cards: every planned category checked, with its first round's question count. */
+function planToCards(s: SetupState): SetupState {
+  if (!s.plan) return s;
+  const choices = { ...s.choices };
+  for (const id of s.order) choices[id] = { ...choices[id]!, enabled: false };
+  const firstIds: string[] = [];
+  for (const round of s.plan) {
+    if (firstIds.includes(round.categoryId)) continue;
+    firstIds.push(round.categoryId);
+    choices[round.categoryId] = { ...choices[round.categoryId]!, enabled: true, questionCount: round.questionCount };
+  }
+  return { ...s, choices, order: [...firstIds, ...s.order.filter((id) => !firstIds.includes(id))], plan: null };
+}
+
+function toRounds(
+  setup: SetupState,
+  playerCount: number,
+  mode: GameModeSettings,
+  pools: Record<string, number> | null,
+): GameRoundSettings[] {
+  const ok = (id: string) => {
+    const meta = getCategoryMeta(id);
+    return !!meta && isAvailable(meta, playerCount, mode, pools);
+  };
+  if (setup.plan) {
+    return setup.plan
+      .filter((r) => ok(r.categoryId))
+      .map((r) => {
+        const c = setup.choices[r.categoryId]!;
+        const meta = getCategoryMeta(r.categoryId);
+        return { ...r, scoring: c.scoring, ...(meta?.options?.length ? { options: c.options } : {}) };
+      });
+  }
   return setup.order
-    .filter((id) => {
-      const meta = getCategoryMeta(id);
-      return setup.choices[id]?.enabled && !!meta && categoryAvailable(meta, playerCount);
-    })
+    .filter((id) => setup.choices[id]?.enabled && ok(id))
     .map((id) => {
       const c = setup.choices[id]!;
       const meta = getCategoryMeta(id);
@@ -98,14 +142,6 @@ function toRounds(setup: SetupState, playerCount: number): GameRoundSettings[] {
     });
 }
 
-function shuffled<T>(items: T[]): T[] {
-  const out = [...items];
-  for (let i = out.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [out[i], out[j]] = [out[j]!, out[i]!];
-  }
-  return out;
-}
 
 
 /**
@@ -119,6 +155,9 @@ export function GameSettingsPanel({
   compact = false,
   startRef,
   playerCount,
+  mode,
+  partyConfirmed,
+  poolSizes,
 }: {
   serverSettings: GameRoundSettings[] | null;
   send: (msg: ClientMessage) => void;
@@ -129,6 +168,11 @@ export function GameSettingsPanel({
   startRef: RefObject<(() => void) | null>;
   /** Players in the room – categories with a minimum are hidden from the plan below it. */
   playerCount: number;
+  /** Global game mode (server state). */
+  mode: GameModeSettings;
+  partyConfirmed: boolean;
+  /** Eligible questions per category in this mode (server). */
+  poolSizes: Record<string, number> | null;
 }) {
   const [setup, setSetup] = useState<SetupState>(() => initialSetup(serverSettings));
   const pending = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -138,68 +182,131 @@ export function GameSettingsPanel({
     if (!canSend) return;
     pending.current = setTimeout(() => {
       pending.current = null;
-      send({ type: "update_settings", rounds: toRounds(setup, playerCount) });
+      send({ type: "update_settings", rounds: toRounds(setup, playerCount, mode, poolSizes) });
     }, 250);
     return () => {
       if (pending.current) clearTimeout(pending.current);
       pending.current = null;
     };
-  }, [setup, send, canSend, playerCount]);
+  }, [setup, send, canSend, playerCount, mode, poolSizes]);
 
   useEffect(() => {
     startRef.current = () => {
       if (pending.current) clearTimeout(pending.current);
       pending.current = null;
       // Same socket, in order: the room has the latest settings before it starts.
-      send({ type: "update_settings", rounds: toRounds(setup, playerCount) });
+      send({ type: "update_settings", rounds: toRounds(setup, playerCount, mode, poolSizes) });
       send({ type: "start_game" });
     };
-  }, [setup, send, startRef, playerCount]);
+  }, [setup, send, startRef, playerCount, mode, poolSizes]);
 
   const metas: CategoryMeta[] = setup.order
     .map((id) => CATEGORY_METAS.find((m) => m.id === id))
     .filter((m): m is (typeof CATEGORY_METAS)[number] => !!m);
-  const selected = metas.filter((m) => setup.choices[m.id]?.enabled && categoryAvailable(m, playerCount));
+  const available = (m: CategoryMeta) => isAvailable(m, playerCount, mode, poolSizes);
+  // The panel only lists categories offered in the current mode.
+  const listed = metas.filter((m) => m.modes.includes(mode.mode));
+  // Checked before, but not offered in this mode → note (kept for when the mode changes back).
+  const droppedByMode = metas.filter((m) => setup.choices[m.id]?.enabled && !m.modes.includes(mode.mode));
+  const view = setup.plan ? planToCards(setup) : setup;
+  const selected = listed.filter((m) => view.choices[m.id]?.enabled && available(m));
+  const rounds = toRounds(setup, playerCount, mode, poolSizes);
   const seconds = estimateGameSeconds(
-    selected.map((meta) => ({ meta, questionCount: setup.choices[meta.id]!.questionCount })),
+    rounds.flatMap((r) => {
+      const meta = getCategoryMeta(r.categoryId);
+      return meta ? [{ meta, questionCount: r.questionCount }] : [];
+    }),
   );
 
+  // Any manual change ends the Zufall plan ("manuell").
   const update = (id: string, patch: Partial<CategoryChoice>) =>
-    setSetup((s) => ({ ...s, choices: { ...s.choices, [id]: { ...s.choices[id]!, ...patch } } }));
+    setSetup((prev) => {
+      const s = planToCards(prev);
+      return { ...s, choices: { ...s.choices, [id]: { ...s.choices[id]!, ...patch } } };
+    });
   const updateScoring = (id: string, patch: Partial<ScoringSettings>) =>
-    setSetup((s) => ({
-      ...s,
-      choices: { ...s.choices, [id]: { ...s.choices[id]!, scoring: { ...s.choices[id]!.scoring, ...patch } } },
-    }));
+    setSetup((prev) => {
+      const s = planToCards(prev);
+      return { ...s, choices: { ...s.choices, [id]: { ...s.choices[id]!, scoring: { ...s.choices[id]!.scoring, ...patch } } } };
+    });
 
-  function randomize() {
+  /** Zufall: a random plan that fills the chosen Spieldauer. */
+  function randomize(minutes = setup.minutes) {
     setSetup((s) => {
-      const order = shuffled(s.order);
-      const available = order.filter((id) => {
-        const meta = getCategoryMeta(id);
-        return !!meta && categoryAvailable(meta, playerCount);
+      const planned = planGame({
+        mode: mode.mode,
+        targetMinutes: minutes,
+        categories: CATEGORY_METAS,
+        pools: poolSizes ?? {},
+        random: Math.random,
+        playerCount,
       });
-      const pick = new Set(available.slice(0, 1 + Math.floor(Math.random() * available.length)));
-      const choices = Object.fromEntries(
-        Object.entries(s.choices).map(([id, c]) => [id, { ...c, enabled: pick.has(id) }]),
-      );
-      return { order, choices };
+      if (planned.rounds.length === 0) return { ...s, minutes };
+      const plan = planned.rounds.map((r) => ({ ...r, scoring: s.choices[r.categoryId]!.scoring }));
+      return { ...s, minutes, plan };
     });
   }
+  const setMinutes = (minutes: number) => {
+    if (setup.plan) randomize(minutes);
+    else setSetup((s) => ({ ...s, minutes }));
+  };
 
   return (
     <div className={`flex w-full flex-col ${compact ? "gap-[1.4vh]" : "gap-4"}`}>
+      <ModePicker mode={mode} partyConfirmed={partyConfirmed} send={send} canSend={canSend} compact={compact} />
+
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className={`font-bold ${compact ? "fs-xl" : "text-4xl lg:text-6xl"}`}>Was spielen wir?</h2>
-        <Button variant="secondary" onClick={randomize} className={compact ? "fs-md !px-4 !py-1.5" : "px-4 py-2 text-lg"}>
+        <Button variant="secondary" onClick={() => randomize()} className={compact ? "fs-md !px-4 !py-1.5" : "px-4 py-2 text-lg"}>
           🎲 Zufall
         </Button>
       </div>
+      <div className={`flex flex-wrap items-center justify-between gap-2 ${compact ? "fs-sm" : "text-base"}`}>
+        <span className="font-bold text-cream/80">Spieldauer {setup.plan ? "" : <span className="font-normal text-cream/60">· manuell</span>}</span>
+        <div className="flex flex-wrap gap-1" role="radiogroup" aria-label="Spieldauer">
+          {PLANNER_CONFIG.durations.map((m) => (
+            <button
+              key={m}
+              type="button"
+              role="radio"
+              aria-checked={setup.minutes === m}
+              onClick={() => setMinutes(m)}
+              className={`rounded-full px-3 py-1 font-bold ${
+                setup.minutes === m && setup.plan ? "bg-bulb text-brown" : setup.minutes === m ? "bg-cream/30" : "bg-petrol-dark/70 text-cream/80"
+              }`}
+            >
+              {m} Min
+            </button>
+          ))}
+        </div>
+      </div>
+      {setup.plan && (
+        <ol className={`flex flex-col gap-1 rounded-2xl bg-petrol-dark/60 p-3 ${compact ? "fs-sm" : "text-base"}`} aria-label="Spielplan">
+          {rounds.map((r, i) => {
+            const meta = getCategoryMeta(r.categoryId);
+            return (
+              <li key={i} className="flex items-center gap-2">
+                <span className="w-6 text-right font-bold text-bulb">{i + 1}.</span>
+                <span>{meta?.emoji}</span>
+                <span className="flex-1 font-bold">{meta?.name}</span>
+                <span className="text-cream/70">{r.questionCount} Fragen</span>
+              </li>
+            );
+          })}
+        </ol>
+      )}
+      {droppedByMode.length > 0 && (
+        <p className={`rounded-xl bg-petrol-dark/60 px-3 py-2 text-cream/80 ${compact ? "fs-sm" : "text-base"}`}>
+          Im Modus {GAME_MODE_INFO[mode.mode].label} nicht dabei: {droppedByMode.map((m) => `${m.emoji} ${m.name}`).join(", ")}
+        </p>
+      )}
 
       <ul className={`grid w-full ${compact ? "gap-[1.4vh]" : "gap-4 lg:grid-cols-2"}`}>
-        {metas.map((meta) => {
-          const available = categoryAvailable(meta, playerCount);
-          const c = { ...setup.choices[meta.id]!, enabled: setup.choices[meta.id]!.enabled && available };
+        {listed.map((meta) => {
+          const ok = available(meta);
+          const c = { ...view.choices[meta.id]!, enabled: view.choices[meta.id]!.enabled && ok };
+          const pool = poolSizes?.[meta.id] ?? Infinity;
+          const maxQuestions = Math.min(meta.questionsPerRound.max, pool);
           const position = selected.indexOf(meta);
           return (
             <li
@@ -214,7 +321,7 @@ export function GameSettingsPanel({
                   <input
                     type="checkbox"
                     checked={c.enabled}
-                    disabled={!available}
+                    disabled={!ok}
                     onChange={(e) => update(meta.id, { enabled: e.target.checked })}
                     className="size-[clamp(1.1rem,2.6vh,1.75rem)] shrink-0 accent-[var(--color-orange)]"
                     aria-label={meta.name}
@@ -237,7 +344,7 @@ export function GameSettingsPanel({
                   <input
                     type="checkbox"
                     checked={c.enabled}
-                    disabled={!available}
+                    disabled={!ok}
                     onChange={(e) => update(meta.id, { enabled: e.target.checked })}
                     className="mt-1.5 size-7 shrink-0 accent-[var(--color-orange)]"
                     aria-label={meta.name}
@@ -263,23 +370,33 @@ export function GameSettingsPanel({
                 </label>
               )}
 
-              {!available && (
+              {!categoryAvailable(meta, playerCount) ? (
                 <p className={`font-bold text-cream/80 ${compact ? "fs-sm" : "text-lg"}`}>
                   👥 Erst ab {meta.minPlayers} Spielern spielbar
                 </p>
+              ) : pool < meta.questionsPerRound.min ? (
+                <p className={`font-bold text-orange ${compact ? "fs-sm" : "text-lg"}`}>
+                  ⚠️ Zu wenige passende Fragen im Modus {GAME_MODE_INFO[mode.mode].label}
+                </p>
+              ) : (
+                pool < meta.questionsPerRound.max && (
+                  <p className={`text-cream/70 ${compact ? "fs-sm" : "text-base"}`}>
+                    ⚠️ Nur {pool} passende Fragen in diesem Modus
+                  </p>
+                )
               )}
               {c.enabled && (
                 <>
                   <label className="flex flex-col gap-1">
                     <span className={`flex justify-between font-bold ${compact ? "fs-md" : "text-lg"}`}>
                       <span>Fragen</span>
-                      <span className="text-bulb">{c.questionCount}</span>
+                      <span className="text-bulb">{Math.min(c.questionCount, maxQuestions)}</span>
                     </span>
                     <input
                       type="range"
                       min={meta.questionsPerRound.min}
-                      max={meta.questionsPerRound.max}
-                      value={c.questionCount}
+                      max={maxQuestions}
+                      value={Math.min(c.questionCount, maxQuestions)}
                       onChange={(e) => update(meta.id, { questionCount: Number(e.target.value) })}
                       className="w-full accent-[var(--color-orange)]"
                       aria-label={`Fragen ${meta.name}`}

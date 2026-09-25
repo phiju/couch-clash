@@ -4,10 +4,10 @@
  */
 import {
   DEFAULT_VOICE_SETTINGS,
-  KIDS_AGE_RATING_LIMIT,
+  cheekinessForMode,
+  type GameMode,
   VoiceSettingsSchema,
   type Cheekiness,
-  type CategoryMeta,
   type CommentFrequency,
   type LeaderboardEntry,
   type RevealFacts,
@@ -59,14 +59,9 @@ export function normalizeRoomVoice(voice: Partial<RoomVoice> | undefined): RoomV
   };
 }
 
-/** Kids' categories (age rating < 12) → "nett", unless the host explicitly overrides. */
-export function effectiveCheekiness(settings: VoiceSettings, categories: readonly Pick<CategoryMeta, "ageRating">[]): Cheekiness {
-  if (!settings.cheekinessOverride && hasKidsCategory(categories)) return "nett";
-  return settings.cheekiness;
-}
-
-export function hasKidsCategory(categories: readonly Pick<CategoryMeta, "ageRating">[]): boolean {
-  return categories.some((c) => c.ageRating < KIDS_AGE_RATING_LIMIT);
+/** The global game mode decides which levels are allowed (Kids: nett or frech). */
+export function effectiveCheekiness(settings: VoiceSettings, mode: GameMode): Cheekiness {
+  return cheekinessForMode(settings.cheekiness, mode);
 }
 
 /** Questions between two comments: "oft" = every 2nd (the maximum), "selten" = only at the end of a category. */

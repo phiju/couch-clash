@@ -80,3 +80,9 @@ export const lobbySettingsStore = {
   get: () => read<boolean>("lobby-settings-open"),
   set: (open: boolean) => write("lobby-settings-open", open),
 };
+
+/** Last game mode on this device (Party is confirmed again in every room). */
+export const modeStore = {
+  get: <T>() => read<T>("game-mode"),
+  set: (mode: unknown) => write("game-mode", mode),
+};

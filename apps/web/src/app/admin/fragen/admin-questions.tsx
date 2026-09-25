@@ -4,7 +4,10 @@ import { CATEGORY_METAS, getCategoryMeta } from "@couch-clash/games/meta";
 import {
   QUICK_FILTER_LABELS,
   QUICK_FILTERS,
+  GAME_MODE_INFO,
+  GAME_MODES,
   type AdminQuestion,
+  type GameMode,
   type AdminQuestionsResponse,
   type QuestionStatus,
   type QuickFilter,
@@ -225,6 +228,19 @@ function AdminTable({ token, onLogout }: { token: string; onLogout: (message?: s
           {CATEGORY_METAS.map((m) => (
             <option key={m.id} value={m.id}>
               {m.emoji} {m.name}
+            </option>
+          ))}
+        </select>
+        <select
+          value={view.mode ?? ""}
+          onChange={(e) => setView((v) => ({ ...v, mode: (e.target.value || null) as GameMode | null }))}
+          className="rounded-xl border-2 border-cream/25 bg-petrol-dark px-3 py-2"
+          aria-label="Spielmodus"
+        >
+          <option value="">Alle Modi</option>
+          {GAME_MODES.map((m) => (
+            <option key={m} value={m}>
+              {GAME_MODE_INFO[m].emoji} {GAME_MODE_INFO[m].label}
             </option>
           ))}
         </select>

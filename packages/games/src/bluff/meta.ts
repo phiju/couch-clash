@@ -23,6 +23,8 @@ export const bluffMeta = {
   contentSource: "static",
   /** Somebody has to be fooled. */
   minPlayers: 2,
+  /** Not for kids: very rare words, free writing. */
+  modes: ["family", "party"],
   options: [{ id: "showOriginals", label: "Originaltexte der Spieler bei der Auflösung zeigen", default: false }],
 } as const satisfies CategoryMeta;
 

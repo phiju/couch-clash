@@ -308,13 +308,13 @@ export class VoiceDirector {
       players,
       highlights: [...(facts.highlights ?? []), ...commentHighlights(players)],
     };
-    const cheekiness = effectiveCheekiness(room.voice.settings, game.rounds.flatMap((r) => getModule(r.categoryId, this.registry)?.meta ?? []));
+    const cheekiness = effectiveCheekiness(room.voice.settings, room.mode.mode);
     const lastTarget = room.players.find((p) => p.id === room.voice.lastTargets[0]);
     const leader = players.find((p) => p.rankAfter === 1)?.name ?? null;
     const produced = await this.produce(
       "comment",
       "fast",
-      commentPrompt(commentFacts, cheekiness, lastTarget ? [lastTarget.name] : [], this.variant()),
+      commentPrompt(commentFacts, cheekiness, lastTarget ? [lastTarget.name] : [], this.variant(), room.mode.mode),
       commentTemplate(leader ? sanitizeName(leader) : null, this.rt.random),
       // Must be ready when the leaderboard starts – otherwise it is skipped.
       room.phaseEndsAt,
@@ -348,11 +348,11 @@ export class VoiceDirector {
       .map((e) => ({ name: room.players.find((p) => p.id === e.playerId)?.name ?? "", score: e.scoreAfter, rank: e.rankAfter }))
       .filter((s) => s.name);
     const winners = standings.filter((s) => s.rank === 1).map((s) => sanitizeName(s.name));
-    const cheekiness = effectiveCheekiness(room.voice.settings, game.rounds.flatMap((r) => getModule(r.categoryId, this.registry)?.meta ?? []));
+    const cheekiness = effectiveCheekiness(room.voice.settings, room.mode.mode);
     const produced = await this.produce(
       "finale",
       "expressive",
-      finalePrompt(standings, cheekiness, this.variant(), this.tags("expressive")),
+      finalePrompt(standings, cheekiness, this.variant(), this.tags("expressive"), room.mode.mode),
       finaleTemplate(winners),
     );
     this.deliver(produced);
@@ -385,14 +385,11 @@ export class VoiceDirector {
       try {
         const current = this.rt.read();
         if (!current) return;
-        const cheekiness = effectiveCheekiness(
-          current.voice.settings,
-          current.settings.flatMap((r) => getModule(r.categoryId, this.registry)?.meta ?? []),
-        );
+        const cheekiness = effectiveCheekiness(current.voice.settings, current.mode.mode);
         const produced = await this.produce(
           "test",
           "expressive",
-          testPrompt(cheekiness, this.variant(), this.tags("expressive")),
+          testPrompt(cheekiness, this.variant(), this.tags("expressive"), current.mode.mode),
           "Meine Damen und Herren – hier spricht Ihr Moderator!",
         );
         const line = produced?.line;
