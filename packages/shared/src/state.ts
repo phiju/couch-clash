@@ -10,16 +10,18 @@ import type { Cheekiness, VoiceSettings, VoiceStatus } from "./voice";
  * timestamps (phaseEndsAt) that Durable Object alarms act on – never by
  * in-memory setTimeout, which does not survive hibernation.
  *
- *   lobby ──────→ [intro → play → scoreboard] × categories → finale
- *   setup ──↗                                                   |
- *     ↑________________________ "Nochmal spielen" _____________|
+ *   lobby ──→ [intro → play → scoreboard] × categories ──→ finale
+ *     ↑                     |  "Spiel beenden"                  |
+ *     |                     └──→ finale (early, current scores) |
+ *     └──────────── "Zurück zur Lobby" / timer ─────────────────┘
  *
- * Settings are edited in the lobby (and in setup, after a game).
+ * Settings are edited in the lobby, before and between games. Players,
+ * settings and photo avatars stay; scores start at 0 in every game.
  *
  * During "play" the category module owns the flow (e.g. question → reveal)
  * and reports its own phaseEndsAt.
  */
-export const PHASES = ["lobby", "setup", "intro", "play", "scoreboard", "finale"] as const;
+export const PHASES = ["lobby", "intro", "play", "scoreboard", "finale"] as const;
 export type Phase = (typeof PHASES)[number];
 
 export const ROOM_TTL_MS = 24 * 60 * 60 * 1000;
@@ -34,6 +36,10 @@ export const SCOREBOARD_MS = 10_000;
 /** After each question: correct answer, then the animated leaderboard. */
 export const REVEAL_ANSWER_MS = 3_000;
 export const REVEAL_LEADERBOARD_MS = 7_000;
+/** Finale: back to the lobby automatically after this long (host can skip). */
+export const FINALE_MS = 60_000;
+/** Short award ceremony after "Spiel beenden" (host can skip). */
+export const EARLY_FINALE_MS = 10_000;
 
 /** Emoji avatar plus the optional AI photo avatar (emoji stays the fallback). */
 export type PublicAvatar = Avatar & { photo?: PublicPhotoAvatar };
@@ -91,6 +97,8 @@ export interface PublicGameState {
   currentQuestion: { contentId: string; revealed: boolean } | null;
   /** Joined during a running question – playing from the next one. */
   waitingPlayerIds: string[];
+  /** Host ended the game early ("Spiel beenden") – the finale shows the standings so far. */
+  endedEarly: boolean;
 }
 
 /** Room state sent to a client. Built per viewer – may differ between clients. */

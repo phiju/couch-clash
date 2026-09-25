@@ -4,10 +4,10 @@ import { audioSceneFor, questionRoundAudio } from "../src/lib/audio/scenes";
 
 type Room = Pick<PublicRoomState, "phase" | "game">;
 const game = (roundIndex = 0) =>
-  ({ rounds: [], roundIndex, scores: {}, roundGain: {}, module: null, leaderboard: null, currentQuestion: null, waitingPlayerIds: [] }) as PublicRoomState["game"];
+  ({ rounds: [], roundIndex, scores: {}, roundGain: {}, module: null, leaderboard: null, currentQuestion: null, waitingPlayerIds: [], endedEarly: false }) as PublicRoomState["game"];
 const room = (phase: PublicRoomState["phase"], roundIndex = 0): Room => ({
   phase,
-  game: phase === "lobby" || phase === "setup" ? null : game(roundIndex),
+  game: phase === "lobby" ? null : game(roundIndex),
 });
 const scene = (phase: PublicRoomState["phase"], step?: string, index = 0) =>
   audioSceneFor(room(phase), step ? questionRoundAudio({ step, index }) : null);
@@ -17,9 +17,8 @@ describe("phase → music mapping", () => {
     expect(audioSceneFor(null)).toBeNull();
   });
 
-  it("lobby and setup: lobby loop, same key so 'Nochmal spielen' does not restart it", () => {
+  it("lobby (before and between games): lobby loop", () => {
     expect(scene("lobby")).toEqual({ key: "lobby", music: "lobby" });
-    expect(scene("setup")).toEqual({ key: "lobby", music: "lobby" });
   });
 
   it("category intro: short sting over the (ducked) lobby loop", () => {

@@ -11,13 +11,20 @@ export function showJoinChip(phase: PublicRoomState["phase"] | undefined): boole
   return phase === "play" || phase === "scoreboard";
 }
 
-/** "Philip ist wieder da 👋" / "Neu dabei: Tina 🎉" */
+/** "Philip ist wieder da 👋" / "Neu dabei: Tina 🎉" / "🏁 Spiel beendet" */
 export function noticeText(notice: RoomNotice): string {
-  return notice.kind === "rejoined" ? `${notice.name} ist wieder da 👋` : `Neu dabei: ${notice.name} 🎉`;
+  switch (notice.kind) {
+    case "rejoined":
+      return `${notice.name} ist wieder da 👋`;
+    case "late_join":
+      return `Neu dabei: ${notice.name} 🎉`;
+    case "game_ended":
+      return "🏁 Spiel beendet";
+  }
 }
 
 /** Phases in which the host's late-join setting lets new players in (same rule as the server). */
-export const LATE_JOIN_PHASES: readonly PublicRoomState["phase"][] = ["setup", "intro", "play", "scoreboard"];
+export const LATE_JOIN_PHASES: readonly PublicRoomState["phase"][] = ["intro", "play", "scoreboard"];
 
 /** "Wer bist du?": seats that can be claimed (no open connection), and whether joining as new is possible. */
 export function claimOptions(room: Pick<PublicRoomState, "players" | "lateJoin" | "phase">) {

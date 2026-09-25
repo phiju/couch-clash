@@ -1,6 +1,6 @@
 /**
- * Pure game flow on top of the room: setup → intro → play → scoreboard →
- * … → finale. Category-agnostic: everything category-specific happens in
+ * Pure game flow on top of the room: lobby → intro → play → scoreboard →
+ * … → finale → lobby. Category-agnostic: everything category-specific happens in
  * the module looked up from the registry.
  *
  * Timers are timestamps (phaseEndsAt). The Durable Object sets an alarm for
@@ -20,6 +20,8 @@ import {
   type GameMode,
   type GameModeSettings,
   DEFAULT_PER_QUESTION_CAP,
+  EARLY_FINALE_MS,
+  FINALE_MS,
   MODE_CHEEKINESS,
   type ModuleUpdate,
   contentPoolOf,
@@ -188,13 +190,13 @@ export function sanitizeSettings(
   return ok(planned);
 }
 
-/** Host changes the settings – allowed while nothing is running (lobby, setup). */
+/** Host changes the settings – allowed while nothing is running (lobby). */
 export function updateSettings(
   room: RoomRecord,
   rounds: readonly GameRound[],
   registry: ModuleRegistry = GAME_MODULES,
 ): Result<RoomRecord> {
-  if (room.phase !== "lobby" && room.phase !== "setup") return fail("WRONG_PHASE");
+  if (room.phase !== "lobby") return fail("WRONG_PHASE");
   const settings = sanitizeSettings(rounds, registry, room.mode);
   if (!settings.ok) return settings;
   return ok({ ...room, settings: settings.value });
@@ -211,7 +213,7 @@ export function updateMode(
   confirmAdult: boolean,
   registry: ModuleRegistry = GAME_MODULES,
 ): Result<RoomRecord> {
-  if (room.phase !== "lobby" && room.phase !== "setup") return fail("WRONG_PHASE");
+  if (room.phase !== "lobby") return fail("WRONG_PHASE");
   if (mode.mode === "party" && !room.partyConfirmed && !confirmAdult) return fail("PARTY_CONFIRM_REQUIRED");
   const changed = mode.mode !== room.mode.mode;
   const voice = changed
@@ -245,10 +247,10 @@ export function settingsSummary(
   };
 }
 
-/** "Spiel starten": from the lobby or setup, with the stored settings. */
+/** "Spiel starten": from the lobby, with the stored settings. */
 export function beginGame(room: RoomRecord, deps: FlowDeps): Result<RoomRecord> {
   const registry = deps.registry ?? GAME_MODULES;
-  if (room.phase !== "lobby" && room.phase !== "setup") return fail("WRONG_PHASE");
+  if (room.phase !== "lobby") return fail("WRONG_PHASE");
   if (room.players.length < MIN_PLAYERS_TO_START) return fail("NOT_ENOUGH_PLAYERS");
   const settings = sanitizeSettings(room.settings, registry, room.mode);
   if (!settings.ok) return settings;
@@ -316,8 +318,10 @@ export function advance(room: RoomRecord, deps: FlowDeps): Result<RoomRecord> {
           setPhase({ ...room, game: { ...game, roundIndex: nextIndex } }, "intro", deps.now, deps.now + INTRO_MS),
         );
       }
-      return ok(setPhase(room, "finale", deps.now, null));
+      return ok(setPhase(room, "finale", deps.now, deps.now + FINALE_MS));
     }
+    case "finale":
+      return backToLobby(room, deps.now);
     default:
       return fail("WRONG_PHASE");
   }
@@ -365,15 +369,42 @@ export function handlePresenceChange(room: RoomRecord, deps: FlowDeps): RoomReco
   return update ? applyModuleUpdate(room, update, deps.now, registry) : null;
 }
 
-/** "Nochmal spielen" / end game: back to setup with the same players, scores reset. */
-export function playAgain(room: RoomRecord, now: number): Result<RoomRecord> {
-  if (!["intro", "play", "scoreboard", "finale"].includes(room.phase)) return fail("WRONG_PHASE");
-  return ok(setPhase({ ...room, game: null }, "setup", now, null));
+/** Anyone scored (positive or negative) in this game? Otherwise there is nothing to celebrate. */
+export function hasScores(room: RoomRecord): boolean {
+  return Object.values(room.game?.scores ?? {}).some((points) => points !== 0);
 }
 
+/**
+ * "Spiel beenden" during intro/play/scoreboard: a short award ceremony with
+ * the current scores. A running question is dropped (no points for it).
+ * Nobody scored yet → straight back to the lobby.
+ */
+export function endGame(room: RoomRecord, now: number): Result<RoomRecord> {
+  if (room.phase !== "intro" && room.phase !== "play" && room.phase !== "scoreboard") return fail("WRONG_PHASE");
+  if (!room.game || !hasScores(room)) return ok(toLobby(room, now));
+  const game: GameRecord = { ...room.game, moduleState: null, roundGain: {}, questionLeaderboard: null, endedEarly: true };
+  return ok(setPhase({ ...room, game }, "finale", now, now + EARLY_FINALE_MS));
+}
+
+/**
+ * Finale over ("Zurück zur Lobby" or its timer): the normal lobby with the
+ * same players and settings. The game (and its scores) is dropped – the next
+ * one starts at 0.
+ */
 export function backToLobby(room: RoomRecord, now: number): Result<RoomRecord> {
-  if (room.phase !== "setup") return fail("WRONG_PHASE");
-  return ok(setPhase(room, "lobby", now, null));
+  if (room.phase !== "finale") return fail("WRONG_PHASE");
+  return ok(toLobby(room, now));
+}
+
+function toLobby(room: RoomRecord, now: number): RoomRecord {
+  // Late-join markers belong to the finished game ("0:0" would match the next game's first question).
+  const players = room.players.map((p) => {
+    if (!p.joinedDuring) return p;
+    const rest = { ...p };
+    delete rest.joinedDuring;
+    return rest;
+  });
+  return setPhase({ ...room, players, game: null }, "lobby", now, null);
 }
 
 /** Timer due? (Alarms can fire a few ms early/late; the room checks this.) */
@@ -398,6 +429,7 @@ export function publicGame(
     leaderboard: publicLeaderboard(room, game),
     currentQuestion: currentQuestion(module?.progress?.(game.moduleState)),
     waitingPlayerIds: waitingPlayerIds(room, registry),
+    endedEarly: !!game.endedEarly,
   };
 }
 

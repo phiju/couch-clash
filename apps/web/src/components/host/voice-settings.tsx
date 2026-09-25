@@ -18,7 +18,7 @@ const TEMPO_LABEL = { normal: "normal", schnell: "schnell", turbo: "turbo" } as 
 export const VOICE_UNAVAILABLE_NOTE = "Moderator-Stimme gerade nicht verfügbar (ElevenLabs-Kontingent?)";
 export const VOICE_BUDGET_NOTE = "Zeichen-Budget für diesen Raum aufgebraucht – der Moderator schweigt.";
 
-/** "🎙️ Moderator spricht", Kommentare, Frechheit, Sprechtempo and "Moderator testen" (lobby / setup). */
+/** "🎙️ Moderator spricht", Kommentare, Frechheit, Sprechtempo and "Moderator testen" (lobby). */
 export function VoiceSettingsPanel({
   voice,
   send,

@@ -212,7 +212,7 @@ function PlayerRoom({ code }: { code: string }) {
 
   if (view === "joined" && me) {
     const photo = me.avatar.photo;
-    const inLobby = state.phase === "lobby" || state.phase === "setup";
+    const inLobby = state.phase === "lobby";
     // Also resumes after a reload: a running job or an unconfirmed result.
     const showProgress =
       inLobby && (photoFlow || photo?.status === "pending" || (photo?.status === "ready" && !photo.accepted));

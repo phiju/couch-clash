@@ -4,7 +4,6 @@ import { isValidRoomCode, type HostLine, type ServerMessage } from "@couch-clash
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { HostFinale, HostIntro, HostPlay, HostScoreboard } from "@/components/host/game-phases";
 import { HostLobby } from "@/components/host/lobby";
-import { HostSetup } from "@/components/host/setup";
 import { HostToasts, JoinCornerChip, showJoinChip, useHostToasts } from "@/components/host/rejoin";
 import { HostSpeaker, HostSpeechContext, useHostVoice } from "@/components/host/voice";
 import { ButtonLink, ConnectionBadge, Notice, Screen } from "@/components/ui";
@@ -97,9 +96,6 @@ function HostRoom({ code, token }: { code: string; token: string }) {
     case "lobby":
       content = <HostLobby room={state} send={send} canSend={canSend} />;
       break;
-    case "setup":
-      content = <HostSetup room={state} send={send} canSend={canSend} />;
-      break;
     case "intro":
       content = <HostIntro room={state} send={send} />;
       break;
@@ -140,7 +136,7 @@ function HostRoom({ code, token }: { code: string; token: string }) {
         </div>
       )}
       {showJoinChip(state?.phase) && <JoinCornerChip code={code} />}
-      <HostToasts toasts={toasts} />
+      <HostToasts toasts={toasts} centered={!showJoinChip(state?.phase)} />
       <ConnectionBadge status={status} stuck={stuck} onReconnect={reconnect} />
     </ClockContext.Provider>
   );

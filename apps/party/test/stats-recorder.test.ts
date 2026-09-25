@@ -1,6 +1,6 @@
 import type { ScoringSettings } from "@couch-clash/shared";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { advance, beginGame, handlePlayerAction, playAgain, updateSettings, type FlowDeps } from "../src/game-flow";
+import { advance, beginGame, endGame, handlePlayerAction, updateSettings, type FlowDeps } from "../src/game-flow";
 import { progressOf } from "../src/progress";
 import type { Result } from "../src/result";
 import { createRoomRecord, joinPlayer, type RoomRecord } from "../src/room-logic";
@@ -114,7 +114,7 @@ describe("stats recorder", () => {
     await t.answerAll();
     const id = t.current().contentId!;
     await t.recorder.rate(t.ids[0]!, id, "up");
-    await t.commit(unwrap(playAgain(t.rt.room!, t.rt.now)));
+    await t.commit(unwrap(endGame(t.rt.room!, t.rt.now)));
     await t.settle();
     expect((await store.listStats()).find((r) => r.question_id === id)?.thumbs_up).toBe(1);
   });

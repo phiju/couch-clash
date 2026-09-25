@@ -28,6 +28,17 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.15.0",
+    date: "2026-09-25",
+    title: "Spiel vorzeitig beendet? Jetzt gibt's trotzdem eine Siegerehrung – und danach geht's direkt zurück in die Lobby.",
+    items: [
+      { emoji: "🏁", text: "Spiel vorzeitig beendet? Kurze Siegerehrung mit dem aktuellen Stand" },
+      { emoji: "🥇", text: "Siegertreppchen für die besten Drei – auch mittendrin" },
+      { emoji: "🛋️", text: "Nach dem Finale geht's zurück in die Lobby – alle bleiben dabei" },
+      { emoji: "📱", text: "Aufs Handy: dein Platz und deine Punkte zum Schluss" },
+    ],
+  },
+  {
     version: "0.14.0",
     date: "2026-09-25",
     title: "Rausgeflogen? Kein Problem mehr – einfach den QR-Code scannen und deinen Namen antippen, schon bist du wieder im Spiel.",

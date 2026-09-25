@@ -229,7 +229,7 @@ export function applySavedPhoto(
 }
 
 export function setPhotoAvatars(room: RoomRecord, enabled: boolean): Result<RoomRecord> {
-  if (room.phase !== "lobby" && room.phase !== "setup") return fail("WRONG_PHASE");
+  if (room.phase !== "lobby") return fail("WRONG_PHASE");
   return ok({ ...room, photoAvatars: enabled });
 }
 

@@ -4,6 +4,7 @@ import { getCategoryMeta } from "@couch-clash/games/meta";
 import type { PublicPlayer, PublicRoomState } from "@couch-clash/shared";
 import { useEffect, useState, type ReactNode } from "react";
 import { AvatarBadge } from "@/components/avatar";
+import { placeText } from "@/lib/finale";
 import { summaryText } from "@/lib/summary";
 import { Leaderboard } from "@/components/leaderboard";
 import { Screen } from "@/components/ui";
@@ -42,6 +43,9 @@ export function PlayerGame({ room, me, sendAction, onRate, error, onErrorShown, 
 }
 
 function PhaseContent({ room, me, sendAction, onRate, lobbyExtra }: Omit<Props, "error" | "onErrorShown">) {
+  // Back in the lobby after a game on this phone → "Warte auf das nächste Spiel …".
+  const [playedHere, setPlayedHere] = useState(false);
+  if (room.phase !== "lobby" && !playedHere) setPlayedHere(true);
   const game = room.game;
   const round = game?.rounds[game.roundIndex];
   const meta = round ? getCategoryMeta(round.categoryId) : undefined;
@@ -89,15 +93,22 @@ function PhaseContent({ room, me, sendAction, onRate, lobbyExtra }: Omit<Props, 
       if (!game?.leaderboard) return <Screen />;
       const mine = game.leaderboard.find((e) => e.playerId === me.id);
       const final = room.phase === "finale";
+      const early = final && game.endedEarly;
       const won = final && mine?.rankAfter === 1;
+      const place = final ? placeText(game.leaderboard, me.id) : null;
       return (
         <Screen className="max-w-lg gap-5">
           <div className="panel flex w-full flex-col items-center gap-2 p-5 text-center">
-            <p className="text-xl text-cream/80">{final ? "Endstand" : "Zwischenstand"}</p>
-            <p className="text-5xl font-bold text-bulb">
-              {won ? "🏆 " : ""}
-              {mine?.rankAfter}. Platz
-            </p>
+            <p className="text-xl text-cream/80">{early ? "Spiel beendet – Zwischenstand" : final ? "Endstand" : "Zwischenstand"}</p>
+            {place ? (
+              // "Platz 2 von 5 – 740 Punkte"
+              <p className="text-3xl font-bold text-bulb">
+                {won ? "🏆 " : ""}
+                {place}
+              </p>
+            ) : (
+              <p className="text-5xl font-bold text-bulb">{mine?.rankAfter}. Platz</p>
+            )}
             {won && <p className="text-2xl font-bold">Glückwunsch! 🎉</p>}
           </div>
           <Leaderboard
@@ -109,20 +120,25 @@ function PhaseContent({ room, me, sendAction, onRate, lobbyExtra }: Omit<Props, 
             animated={!final}
             showGains={!final}
           />
-          {final && <p className="text-center text-lg text-cream/80">Der Host kann gleich nochmal starten.</p>}
+          {final && <p className="text-center text-lg text-cream/80">Gleich geht&apos;s zurück in die Lobby.</p>}
         </Screen>
       );
     }
 
     default: {
-      // lobby, setup
+      // lobby
       const others = room.players.length - 1;
       return (
         <Screen dim="soft" className="justify-center">
           <div className="panel flex w-full max-w-md flex-col items-center gap-6 p-8 text-center">
           <AvatarBadge avatar={me.avatar} size="lg" className="animate-float" />
           <p className="text-4xl font-bold">{me.name}</p>
-          {room.phase === "lobby" ? (
+          {playedHere ? (
+            <>
+              <p className="text-3xl font-bold text-bulb">Warte auf das nächste Spiel …</p>
+              <p className="text-xl text-cream/85">Du bleibst dabei. Es geht los, sobald der Host startet.</p>
+            </>
+          ) : (
             <>
               <p className="text-2xl font-bold text-bulb">Du bist dabei! 🎉</p>
               <p className="text-xl text-cream/85">
@@ -135,8 +151,6 @@ function PhaseContent({ room, me, sendAction, onRate, lobbyExtra }: Omit<Props, 
                 )}
               </p>
             </>
-          ) : (
-            <p className="text-3xl font-bold text-bulb">Der Host wählt die Spiele aus … 👀</p>
           )}
           {room.settingsSummary && (
             <p className="rounded-2xl border-2 border-bulb/60 bg-petrol/60 px-5 py-2 text-lg font-bold">

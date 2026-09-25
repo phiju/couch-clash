@@ -29,8 +29,7 @@ export const HEARTBEAT_PING = "ping";
 export const HEARTBEAT_PONG = "pong";
 
 /** Something the host screen shows as a short toast. */
-export interface RoomNotice {
-  kind: "rejoined" | "late_join";
-  playerId: string;
-  name: string;
-}
+export type RoomNotice =
+  | { kind: "rejoined" | "late_join"; playerId: string; name: string }
+  /** "Spiel beenden" before anyone scored – straight back to the lobby, no ceremony. */
+  | { kind: "game_ended" };
