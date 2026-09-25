@@ -24,7 +24,7 @@ export function HostSetup({
         <Logo className="w-36" />
         <div className="flex -space-x-3">
           {room.players.map((p) => (
-            <AvatarBadge key={p.id} avatar={p.avatar} size="sm" dimmed={!p.connected} />
+            <AvatarBadge key={p.id} avatar={p.avatar} size="sm" offline={!p.connected} />
           ))}
         </div>
       </header>

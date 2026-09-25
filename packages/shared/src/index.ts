@@ -11,3 +11,4 @@ export * from "./admin";
 export * from "./modes";
 export * from "./knowledge-categories";
 export * from "./traffic";
+export * from "./connection";

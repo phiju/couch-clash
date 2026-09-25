@@ -87,10 +87,15 @@ describe("joinPlayer", () => {
     expect(joinPlayer(room, { name: "x".repeat(20), avatar }, deps()).ok).toBe(true);
   });
 
-  it("only allows joining in the lobby", () => {
+  it("after the lobby only with late join (default on), never in the finale", () => {
     const { room } = join(newRoom(), "Anna");
     const started = { ...room, phase: "intro" as const };
-    expect(joinPlayer(started, { name: "Ben", avatar }, deps())).toEqual({
+    expect(joinPlayer(started, { name: "Ben", avatar }, deps())).toMatchObject({ ok: true, value: { late: true } });
+    expect(joinPlayer({ ...started, lateJoin: false }, { name: "Ben", avatar }, deps())).toEqual({
+      ok: false,
+      error: "LATE_JOIN_CLOSED",
+    });
+    expect(joinPlayer({ ...room, phase: "finale" as const }, { name: "Ben", avatar }, deps())).toEqual({
       ok: false,
       error: "GAME_ALREADY_STARTED",
     });

@@ -303,6 +303,28 @@ describe("bluff flow", () => {
     expect(mod.onPlayersChanged!(s, ctx(T0 + 2, gone))!.state.step).toBe("check");
   });
 
+  it("an author who disconnects keeps the option – the others can still fall for it", () => {
+    const g = setup(["a", "b", "c"]);
+    g.act("a", { type: "define", text: "ein Hut" });
+    g.act("b", { type: "define", text: "ein Boot" });
+    g.act("c", { type: "define", text: "ein Tanz" });
+    g.resolve(null);
+    g.timer(); // present → vote
+    const options = g.state.options!;
+    const ofA = optionOf(g.state, "a");
+    // a's phone is gone: the option stays, a just can't vote.
+    const gone = [{ id: "a", connected: false }, { id: "b", connected: true }, { id: "c", connected: true }];
+    expect(g.mod.onPlayersChanged!(g.state, ctx(g.now + 1, gone))).toBeNull();
+    expect(g.state.options).toEqual(options);
+    const vb = g.mod.handleAction(g.state, { type: "vote", option: ofA }, "b", ctx(g.now + 2, gone));
+    if ("error" in vb) throw new Error(vb.error);
+    const vc = g.mod.handleAction(vb.state, { type: "vote", option: ofA }, "c", ctx(g.now + 3, gone));
+    if ("error" in vc) throw new Error(vc.error);
+    // Everyone connected voted → reveal; a fooled both.
+    expect(vc.state.step).toBe("reveal");
+    expect(vc.state.results!.a!.fooled).toBe(2);
+  });
+
   it("options look alike: capital first letter, no full stop", async () => {
     const { displayDefinition } = await import("../src/bluff/module");
     expect(displayDefinition("eitler Mann.")).toBe("Eitler Mann");
