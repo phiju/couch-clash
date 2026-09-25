@@ -29,7 +29,7 @@ import { fail, ok, type Result } from "./result";
 import { publicPhoto, type PhotoRecord, type PhotoUsage } from "./avatar/photo-logic";
 import type { QuestionVotes } from "./stats/votes";
 import { VOICE_CONFIG } from "./voice/config";
-import { defaultRoomVoice, effectiveCheekiness, normalizeRoomVoice, type RoomVoice } from "./voice/rules";
+import { accountLow, defaultRoomVoice, effectiveCheekiness, normalizeRoomVoice, type RoomVoice } from "./voice/rules";
 import { poolSizesFor } from "./pools";
 
 export interface PlayerRecord {
@@ -389,8 +389,10 @@ function publicVoice(room: RoomRecord): PublicRoomState["voice"] {
     allowedCheekiness: MODE_CHEEKINESS[room.mode.mode].allowed,
     status: room.voice.status,
     errorCode: room.voice.errorCode,
-    charsUsed: room.voice.charsUsed,
-    charBudget: VOICE_CONFIG.charBudgetPerRoom,
+    creditsUsed: room.voice.creditsUsed,
+    creditBudget: VOICE_CONFIG.creditBudgetPerRoom,
+    account: room.voice.account,
+    accountLow: accountLow(room.voice.account),
   };
 }
 

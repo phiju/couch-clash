@@ -294,6 +294,8 @@ export function createQuestionRoundModule<
         answers,
         ...(highlights.length ? { highlights } : {}),
         ...(isPartyItem(question) ? { partyItem: true } : {}),
+        // Scored by closeness (error share) → the host can spot wild estimates and bullseyes.
+        ...(config.errorShare ? { answerKind: "estimate" as const } : {}),
       };
     },
 

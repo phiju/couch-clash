@@ -13,6 +13,7 @@ import {
   type QuickFilter,
 } from "@couch-clash/shared";
 import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { AdminVoicePanel } from "./admin-voice";
 import { Button, Screen } from "@/components/ui";
 import { AdminApiError, adminApi, adminTokenStore, saveAdminToken } from "@/lib/admin-api";
 import { applyView, DEFAULT_VIEW, partyCounters, quickCounts, scoreOf, STATUS_LABELS, toCsv, type AdminView, type SortKey } from "@/lib/admin-view";
@@ -114,6 +115,7 @@ function AdminTable({ token, onLogout }: { token: string; onLogout: (message?: s
     setReloadKey((k) => k + 1);
   };
 
+  const unauthorized = useCallback(() => onLogout("Token ungültig."), [onLogout]);
   const rows = useMemo(() => (data ? applyView(data.questions, view) : []), [data, view]);
   const counts = useMemo(() => quickCounts(data?.questions ?? [], QUICK_FILTERS), [data]);
   const party = useMemo(() => partyCounters(data?.questions ?? []), [data]);
@@ -177,6 +179,8 @@ function AdminTable({ token, onLogout }: { token: string; onLogout: (message?: s
           </button>
         </div>
       </header>
+
+      <AdminVoicePanel token={token} onUnauthorized={unauthorized} />
 
       {error && <p className="rounded-xl bg-rust px-4 py-2 font-bold">{error}</p>}
       {notice && (

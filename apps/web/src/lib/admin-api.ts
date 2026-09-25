@@ -1,5 +1,5 @@
 /** Admin API client. The token lives in sessionStorage only (never in the code). */
-import type { AdminQuestionsResponse, AdminStatusRequest } from "@couch-clash/shared";
+import type { AdminQuestionsResponse, AdminStatusRequest, AdminVoiceResponse, AdminVoiceRunResponse } from "@couch-clash/shared";
 import { PARTY_HTTP_URL } from "./config";
 
 const TOKEN_KEY = "couch-clash:admin-token";
@@ -67,4 +67,7 @@ export const adminApi = {
     call<{ ok: true; replacing: number }>(token, "/api/admin/questions/status", { method: "POST", body: JSON.stringify(req) }),
   edit: (token: string, id: string, payload: unknown) =>
     call<{ ok: true }>(token, `/api/admin/questions/${encodeURIComponent(id)}`, { method: "PUT", body: JSON.stringify({ payload }) }),
+  voice: (token: string) => call<AdminVoiceResponse>(token, "/api/admin/voice"),
+  /** Voices the next batch of library lines ("Moderator-Sprüche vertonen"). */
+  voiceSnark: (token: string) => call<AdminVoiceRunResponse>(token, "/api/admin/voice/snark", { method: "POST" }),
 };

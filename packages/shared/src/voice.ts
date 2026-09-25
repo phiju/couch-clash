@@ -32,7 +32,7 @@ export type VoiceSettings = z.output<typeof VoiceSettingsSchema>;
 
 export const DEFAULT_VOICE_SETTINGS: VoiceSettings = {
   enabled: true,
-  frequency: "normal",
+  frequency: "oft",
   cheekiness: "frech",
   cheekinessOverride: false,
   tempo: "schnell",
@@ -43,8 +43,23 @@ export const TEMPO_SPEED: Record<SpeechTempo, number> = { normal: 1.0, schnell: 
 /** Extra playback rate on the host (pitch preserved) – only "turbo". */
 export const TEMPO_PLAYBACK_RATE: Record<SpeechTempo, number> = { normal: 1, schnell: 1, turbo: 1.1 };
 
-/** Why the host's voice is silent in this room (shown to the host), null = available. */
+/**
+ * Whether the host can make NEW audio in this room (shown to the host):
+ * "unavailable" = the voice service refused, "budget" = the room's budget is
+ * used up. Cached lines keep playing either way – the host never goes silent.
+ */
 export type VoiceStatus = "ok" | "unavailable" | "budget";
+
+/** ElevenLabs account usage this month (GET /v1/user/subscription), in credits. */
+export interface AccountUsage {
+  used: number;
+  limit: number;
+}
+
+/** "ElevenLabs: 18.400 / 30.000 Credits diesen Monat" */
+export function accountUsageText(usage: AccountUsage): string {
+  return `ElevenLabs: ${usage.used.toLocaleString("de-DE")} / ${usage.limit.toLocaleString("de-DE")} Credits diesen Monat`;
+}
 
 /** Categories below this age rating are "kids' categories". */
 export const KIDS_AGE_RATING_LIMIT = 12;
@@ -65,6 +80,9 @@ export interface HostLine {
   staleAfterMs: number | null;
   /** Read-aloud lines: which item is being read (the category highlights it). */
   cue?: string;
+  /** Played right before audioPath (the player's name clip "Max …"), with prefixGapMs in between. */
+  prefixAudioPath?: string;
+  prefixGapMs?: number;
 }
 
 /** Host screen → server: playback progress (queue and leaderboard hold). */

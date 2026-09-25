@@ -1,8 +1,10 @@
+import type { AccountUsage } from "@couch-clash/shared";
 import {
   ELEVENLABS_MODELS,
   ELEVENLABS_OUTPUT_FORMAT,
   ELEVENLABS_VOICE_ID,
   ELEVENLABS_VOICE_SETTINGS,
+  VOICE_CONFIG,
 } from "./config";
 import { VoiceProviderError, type SpeechProvider } from "./provider";
 import { keepAllowedTags, stripTags } from "./tags";
@@ -69,4 +71,41 @@ export function createElevenLabsProvider(apiKey: string, fetchFn: typeof fetch =
       return { bytes, mimeType: "audio/mpeg" };
     },
   };
+}
+
+const usageCache = new Map<string, { at: number; usage: AccountUsage | null }>();
+
+/**
+ * The account's credits this month (GET /v1/user/subscription →
+ * character_count / character_limit), cached for VOICE_CONFIG.accountCacheMs.
+ * Null when unknown (no permission "User read", network, …) – never throws.
+ */
+export async function fetchElevenLabsUsage(
+  apiKey: string,
+  fetchFn: typeof fetch = fetch,
+  now: number = Date.now(),
+): Promise<AccountUsage | null> {
+  const hit = usageCache.get(apiKey);
+  if (hit && now - hit.at < VOICE_CONFIG.accountCacheMs) return hit.usage;
+  let usage: AccountUsage | null = null;
+  try {
+    const res = await fetchFn("https://api.elevenlabs.io/v1/user/subscription", { headers: { "xi-api-key": apiKey } });
+    if (res.ok) {
+      const body = (await res.json()) as { character_count?: unknown; character_limit?: unknown };
+      if (typeof body.character_count === "number" && typeof body.character_limit === "number") {
+        usage = { used: body.character_count, limit: body.character_limit };
+      }
+    } else {
+      console.warn(`voice: account usage unavailable (${res.status})`);
+    }
+  } catch {
+    console.warn("voice: account usage unavailable (network)");
+  }
+  usageCache.set(apiKey, { at: now, usage });
+  return usage;
+}
+
+/** Tests: forget cached usage. */
+export function clearUsageCache() {
+  usageCache.clear();
 }

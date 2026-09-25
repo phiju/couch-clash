@@ -550,6 +550,8 @@ export function createBluffEngine<Item extends BluffItem>(adapter: BluffContentA
           points: r.finalScore,
           responseMs: Math.max(0, (state.votes[id]?.at ?? state.stepStartedAt) - state.stepStartedAt),
           ...(note ? { note } : {}),
+          // Only players who wrote something can fool anyone.
+          ...(own ? { fooled: r.fooled } : {}),
         };
       }
       const story = adapter.story?.(item);

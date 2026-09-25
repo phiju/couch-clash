@@ -11,10 +11,12 @@ import {
   type CommentFrequency,
   type LeaderboardEntry,
   type RevealFacts,
+  type AccountUsage,
   type VoiceSettings,
   type VoiceStatus,
 } from "@couch-clash/shared";
-import { VOICE_CONFIG } from "./config";
+import { CREDITS_PER_CHAR, VOICE_CONFIG } from "./config";
+import type { SpeechStyle } from "./provider";
 import type { CommentPlayerFacts } from "./prompt";
 
 /** Persisted in the room record. */
@@ -28,9 +30,20 @@ export interface RoomVoice {
   lastTargets: string[];
   /** Last commented question in the current category. */
   lastComment: { roundIndex: number; index: number } | null;
-  /** Characters sent to the voice service in this room. */
-  charsUsed: number;
-  /** "unavailable": the voice service refused (quota, key, …) – silent for the rest of the room. */
+  /** ElevenLabs credits spent on NEW audio in this room (cached audio is free). */
+  creditsUsed: number;
+  /** Wrong answers in a row per player id (current game). */
+  wrongStreaks: Record<string, number>;
+  /** Library lines used in the current game (never twice). */
+  usedSnark: string[];
+  /** Name clip ("Max …") per player id: the cached audio path. */
+  nameClips: Record<string, string>;
+  /** Last known ElevenLabs account usage this month (credits). */
+  account: AccountUsage | null;
+  /**
+   * "unavailable": the voice service refused (quota, key, …); "budget": the
+   * room's budget is used up. Both: no NEW audio – cached lines still play.
+   */
   status: VoiceStatus;
   /** Short error code of the last refusal, e.g. "401 missing_permissions" (shown to the host). */
   errorCode: string | null;
@@ -43,7 +56,11 @@ export function defaultRoomVoice(): RoomVoice {
     streaks: {},
     lastTargets: [],
     lastComment: null,
-    charsUsed: 0,
+    creditsUsed: 0,
+    wrongStreaks: {},
+    usedSnark: [],
+    nameClips: {},
+    account: null,
     status: "ok",
     errorCode: null,
   };
@@ -52,9 +69,12 @@ export function defaultRoomVoice(): RoomVoice {
 export function normalizeRoomVoice(voice: Partial<RoomVoice> | undefined): RoomVoice {
   // Settings from before a field existed keep their values, the new field gets its default.
   const settings = VoiceSettingsSchema.safeParse({ ...DEFAULT_VOICE_SETTINGS, ...voice?.settings });
+  // Rooms saved before credits counted characters.
+  const { charsUsed, ...rest } = (voice ?? {}) as Partial<RoomVoice> & { charsUsed?: number };
   return {
     ...defaultRoomVoice(),
-    ...voice,
+    ...rest,
+    ...(rest.creditsUsed === undefined && charsUsed !== undefined ? { creditsUsed: charsUsed } : {}),
     settings: settings.success ? settings.data : DEFAULT_VOICE_SETTINGS,
   };
 }
@@ -64,23 +84,26 @@ export function effectiveCheekiness(settings: VoiceSettings, mode: GameMode): Ch
   return cheekinessForMode(settings.cheekiness, mode);
 }
 
-/** Questions between two comments: "oft" = every 2nd (the maximum), "selten" = only at the end of a category. */
-const COMMENT_GAP: Record<CommentFrequency, number> = { oft: 2, normal: 3, selten: Number.POSITIVE_INFINITY };
+/** At the latest every n-th question: "oft" every question, "normal" every 2nd, "selten" every 3rd. */
+export const COMMENT_EVERY: Record<CommentFrequency, number> = { oft: 1, normal: 2, selten: 3 };
 
 /**
- * Comment after this question? Never after every question; always after
- * the last question of a category.
+ * Comment after this question? "oft": always. "normal": whenever something
+ * noteworthy happened (streaks, new leader, all wrong, …) and at least
+ * every 2nd question. "selten": every 3rd. Always after the last question
+ * of a category.
  */
 export function shouldComment(
   frequency: CommentFrequency,
   index: number,
   total: number,
   lastCommentIndex: number | null,
+  noteworthy = false,
 ): boolean {
   if (index === total - 1) return true;
-  const gap = COMMENT_GAP[frequency];
+  if (frequency === "normal" && noteworthy) return true;
   const since = lastCommentIndex === null ? index + 1 : index - lastCommentIndex;
-  return since >= gap;
+  return since >= COMMENT_EVERY[frequency];
 }
 
 /**
@@ -183,8 +206,23 @@ export function commentHighlights(players: readonly CommentPlayerFacts[]): strin
   return out;
 }
 
-/** Reserves `count` characters from the room's voice budget; null if it does not fit. */
-export function reserveChars(voice: RoomVoice, count: number, budget: number = VOICE_CONFIG.charBudgetPerRoom): RoomVoice | null {
-  if (voice.status !== "ok" || voice.charsUsed + count > budget) return null;
-  return { ...voice, charsUsed: voice.charsUsed + count };
+/** ElevenLabs credits for a text: characters × the model's rate (flash ½, v3 1). */
+export function creditsFor(chars: number, style: SpeechStyle): number {
+  return Math.ceil(chars * CREDITS_PER_CHAR[style]);
+}
+
+/** Reserves `credits` from the room's budget; null if it does not fit (then only cached audio). */
+export function reserveCredits(voice: RoomVoice, credits: number, budget: number = VOICE_CONFIG.creditBudgetPerRoom): RoomVoice | null {
+  if (voice.status !== "ok" || voice.creditsUsed + credits > budget) return null;
+  return { ...voice, creditsUsed: voice.creditsUsed + credits };
+}
+
+/**
+ * The account is nearly used up this month (less than
+ * VOICE_CONFIG.accountReserveShare left): no NEW audio, only cached.
+ * Unknown usage never blocks.
+ */
+export function accountLow(account: AccountUsage | null): boolean {
+  if (!account || account.limit <= 0) return false;
+  return account.limit - account.used < account.limit * VOICE_CONFIG.accountReserveShare;
 }

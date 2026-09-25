@@ -321,6 +321,8 @@ export interface RevealFacts {
   highlights?: string[];
   /** The item came from the party pool (alcohol, love, sex) – the host may get cheekier. */
   partyItem?: boolean;
+  /** "estimate": answers are numbers scored by closeness (wild estimates / bullseyes). */
+  answerKind?: "estimate";
 }
 
 /** The round summary as plain facts (server only). Show only – it never changes points. */
@@ -342,4 +344,6 @@ export interface RevealedAnswer {
   responseMs: number;
   /** Extra fact about this player, e.g. "hat 2 Mitspieler reingelegt". */
   note?: string;
+  /** Bluff games: how many players this player's invented answer fooled. */
+  fooled?: number;
 }

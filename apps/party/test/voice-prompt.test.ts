@@ -1,6 +1,10 @@
+import { SNARK_LINES_DE } from "@couch-clash/content";
 import { describe, expect, it } from "vitest";
 import {
   commentPrompt,
+  FEW_SHOTS,
+  libraryExamples,
+  praiseTurn,
   parseCommentReply,
   parseTextLine,
   sanitizeName,
@@ -91,6 +95,57 @@ describe("comment prompt", () => {
     expect(data.players[0]!.name).toBe(sanitizeName(INJECTION));
     expect(data.players[0]!.answer).toBe("5 m");
     expect(data.avoidTargets).toEqual(["Max"]);
+  });
+
+  it("style: one sentence, max 14 words, name first or last; 12 library + 6 fact few-shots", () => {
+    const p = commentPrompt(facts, "frech", [], 1);
+    expect(p.system).toMatch(/MAX 14 WORDS/);
+    expect(p.system).toMatch(/name FIRST or LAST/);
+    const library = libraryExamples("family", 1);
+    expect(library).toHaveLength(FEW_SHOTS.library);
+    expect(new Set(library).size).toBe(FEW_SHOTS.library);
+    for (const line of library) expect(p.system).toContain(`„${line}“`);
+    expect(p.system.match(/Examples of turning facts into a line: (.*)/)![1]!.match(/„/g)).toHaveLength(FEW_SHOTS.facts);
+    expect(p.system).toContain("Eiffelturm 5 Meter, Tina? Das ist ein Gartenzwerg.");
+  });
+
+  it("few-shots come from the mode's pools: Kids only kids lines", () => {
+    const kids = new Set(Object.values(SNARK_LINES_DE).flatMap((m) => m.kids));
+    const family = new Set(Object.values(SNARK_LINES_DE).flatMap((m) => m.family));
+    const party = new Set(Object.values(SNARK_LINES_DE).flatMap((m) => [...m.family, ...m.party]));
+    for (let v = 0; v < 30; v++) {
+      for (const l of libraryExamples("kids", v)) expect(kids.has(l)).toBe(true);
+      for (const l of libraryExamples("family", v)) expect(family.has(l)).toBe(true);
+      for (const l of libraryExamples("party", v)) expect(party.has(l)).toBe(true);
+    }
+    expect(commentPrompt(facts, "frech", [], 1, "kids").system).toContain("Gar nicht schlimm");
+  });
+
+  it("tone per Frechheit and mode: dry and snarky for Familie, warm for Kids, innuendo + mild swearing only in Party", () => {
+    const family = commentPrompt(facts, "frech", [], 1, "family").system;
+    expect(family).toMatch(/dry, snarky, deadpan/);
+    expect(family).not.toMatch(/Family friendly/);
+    expect(family).toMatch(/No swear words/);
+    expect(commentPrompt(facts, "gnadenlos", [], 1, "family").system).toMatch(/sharper/);
+    const kids = commentPrompt(facts, "frech", [], 1, "kids").system;
+    expect(kids).toMatch(/warm, encouraging and playful/);
+    expect(kids).not.toMatch(/snarky/);
+    const party = commentPrompt(facts, "gnadenlos", [], 1, "party").system;
+    expect(party).toMatch(/alcohol or flirting innuendo/);
+    expect(party).toMatch(/mild swear words/);
+    expect(party).toMatch(/never explicit/);
+    // The hard limits stay in every mode.
+    for (const system of [family, kids, party]) {
+      expect(system).toMatch(/HARD LIMITS/);
+      expect(system).toMatch(/Never about looks, body, weight, age, gender, origin, religion, family, health or intelligence/);
+    }
+  });
+
+  it("about one comment in four is over-the-top praise", () => {
+    const praised = Array.from({ length: 400 }, (_, v) => praiseTurn(v)).filter(Boolean).length;
+    expect(praised).toBe(100);
+    expect(commentPrompt(facts, "frech", [], 4).system).toMatch(/THIS TIME: over-the-top praise/);
+    expect(commentPrompt(facts, "frech", [], 5).system).not.toMatch(/THIS TIME/);
   });
 
   it("'nett' asks for no roasting", () => {

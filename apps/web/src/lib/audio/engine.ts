@@ -11,6 +11,7 @@
  *   sources → effects bus (1.0) ───────────┤
  *   host voice → voice bus (1.8) ──────────┴→ master (volume slider) → speakers
  */
+import { sequenceSchedule } from "../voice/sequence";
 import { loopPoints, parseAudioManifest, AUDIO_BASE, type AudioEntry } from "./manifest";
 import { EFFECT_IDS, MUSIC_IDS, type AudioId, type AudioScene, type EffectId, type MusicId } from "./scenes";
 
@@ -54,6 +55,8 @@ export class AudioEngine {
   private voiceBus!: GainNode;
   private voiceSource: AudioBufferSourceNode | null = null;
   private voiceElement: HTMLAudioElement | null = null;
+  /** Clips scheduled back to back (name clip + line). */
+  private voiceSequence: AudioBufferSourceNode[] = [];
 
   private manifest: Record<AudioId, AudioEntry> | null = null;
   private buffers = new Map<AudioId, AudioBuffer>();
@@ -307,6 +310,52 @@ export class AudioEngine {
     return { durationMs: Math.round(buffer.duration * 1000), ended: ended.promise };
   }
 
+  /**
+   * Several clips seamlessly one after another (the player's name clip, a
+   * short gap, the line) – all decoded first, then scheduled on the audio
+   * clock, so there is no loading pause in between. A missing name clip is
+   * skipped; without the line nothing plays.
+   */
+  async playVoiceSequence(
+    urls: readonly string[],
+    gapMs: number,
+    playbackRate = 1,
+  ): Promise<{ durationMs: number; ended: Promise<void> } | null> {
+    if (urls.length <= 1) return urls[0] ? this.playVoice(urls[0], playbackRate) : null;
+    const ctx = this.ctx;
+    if (!ctx) return null;
+    const decoded = await Promise.all(
+      urls.map(async (url) => {
+        try {
+          const res = await fetch(url);
+          return res.ok ? await ctx.decodeAudioData(await res.arrayBuffer()) : null;
+        } catch {
+          return null;
+        }
+      }),
+    );
+    if (!decoded.at(-1)) return null;
+    const buffers = decoded.filter((b): b is AudioBuffer => b !== null);
+    if (this.ctx !== ctx) return null;
+    this.stopVoice();
+    const { offsets, totalMs } = sequenceSchedule(buffers.map((b) => b.duration), gapMs, playbackRate);
+    const t0 = ctx.currentTime + 0.02;
+    const sources = buffers.map((buffer, i) => {
+      const source = ctx.createBufferSource();
+      source.buffer = buffer;
+      source.playbackRate.value = playbackRate;
+      source.connect(this.voiceBus);
+      source.start(t0 + offsets[i]!);
+      return source;
+    });
+    this.voiceSequence = sources;
+    const ended = this.voiceStarted(() => {
+      if (this.voiceSequence === sources) this.voiceSequence = [];
+    });
+    sources.at(-1)!.onended = ended.done;
+    return { durationMs: totalMs, ended: ended.promise };
+  }
+
   private async playVoiceElement(
     ctx: AudioContext,
     url: string,
@@ -367,6 +416,17 @@ export class AudioEngine {
       // already stopped
     }
     this.voiceSource = null;
+    const sequence = this.voiceSequence;
+    this.voiceSequence = [];
+    for (const source of sequence) {
+      try {
+        source.stop();
+      } catch {
+        // not started / already stopped
+      }
+    }
+    // A stopped sequence must still end (the last clip's onended resolves it).
+    if (sequence.length) sequence.at(-1)!.onended?.(new Event("ended"));
     if (this.voiceElement) {
       this.voiceElement.pause();
       this.voiceElement.dispatchEvent(new Event("ended"));

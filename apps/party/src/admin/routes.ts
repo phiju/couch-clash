@@ -17,6 +17,8 @@ import { replaceQuestion, startOfUtcDay, type ReplaceDeps } from "../generate/re
 import { json } from "../http";
 import { invalidateContentFilter } from "../stats/content-filter";
 import type { GeneratedRow, StatsRow, StatsStore } from "../stats/store";
+import { voiceSnarkBatch, voiceStatus } from "../voice/admin";
+import type { VoiceServices } from "../voice/service";
 
 export interface AdminDeps {
   adminToken: string | undefined;
@@ -26,6 +28,8 @@ export interface AdminDeps {
   replaceDeps(store: StatsStore): ReplaceDeps;
   now(): number;
   registry?: ModuleRegistry;
+  /** The host's voice (library task, ElevenLabs usage); absent → not set up. */
+  voice?: () => VoiceServices;
 }
 
 const MAX_BULK = 200;
@@ -133,6 +137,15 @@ export async function handleAdmin(request: Request, url: URL, deps: AdminDeps): 
   if (!url.pathname.startsWith("/api/admin/")) return null;
   if (!deps.adminToken) return json({ error: "ADMIN_TOKEN ist nicht gesetzt." }, 503);
   if (!isAuthorized(request, deps.adminToken)) return json({ error: "Nicht berechtigt." }, 401);
+
+  // The voice needs no database.
+  if (url.pathname === "/api/admin/voice" || url.pathname === "/api/admin/voice/snark") {
+    const services = deps.voice?.() ?? { text: null, speech: null, store: null, usage: null };
+    if (request.method === "GET" && url.pathname === "/api/admin/voice") return json(await voiceStatus(services));
+    if (request.method === "POST" && url.pathname === "/api/admin/voice/snark") return json(await voiceSnarkBatch(services));
+    return json({ error: "Not found" }, 404);
+  }
+
   const store = deps.store;
   if (!store) return json({ error: "Datenbank (STATS) ist nicht eingerichtet." }, 503);
   const registry: ModuleRegistry = deps.registry ?? GAME_MODULES;
