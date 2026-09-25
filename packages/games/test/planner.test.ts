@@ -19,7 +19,7 @@ describe("planGame", () => {
     for (const minutes of [15, 30, 60, 90]) {
       it(`${mode}, ${minutes} min: within ±10 %, min/max respected, only available categories`, () => {
         for (let seed = 1; seed <= 20; seed++) {
-          const plan = planGame({ mode, targetMinutes: minutes, categories: METAS, pools: BIG_POOLS, random: seeded(seed), playerCount: 4 });
+          const plan = planGame({ mode, targetMinutes: minutes, categories: METAS, pools: BIG_POOLS, random: seeded(seed) });
           expect(plan.rounds.length).toBeGreaterThanOrEqual(2);
           expect(Math.abs(plan.estimatedSeconds - minutes * 60)).toBeLessThanOrEqual(minutes * 60 * 0.1);
           for (const r of plan.rounds) {
@@ -43,14 +43,14 @@ describe("planGame", () => {
     for (let seed = 1; seed <= 20; seed++) {
       const kids = planGame({ mode: "kids", targetMinutes: 45, categories: METAS, pools: BIG_POOLS, random: seeded(seed) });
       expect(kids.rounds.map((r) => r.categoryId)).not.toContain("bluff");
-      const family = planGame({ mode: "family", targetMinutes: 45, categories: METAS, pools: BIG_POOLS, random: seeded(seed), playerCount: 3 });
+      const family = planGame({ mode: "family", targetMinutes: 45, categories: METAS, pools: BIG_POOLS, random: seeded(seed) });
       if (family.rounds.some((r) => r.categoryId === "bluff")) expect(family.rounds.at(-1)!.categoryId).toBe("bluff");
     }
   });
 
   it("stable with the same seed", () => {
-    const a = planGame({ mode: "party", targetMinutes: 60, categories: METAS, pools: BIG_POOLS, random: seeded(42), playerCount: 5 });
-    const b = planGame({ mode: "party", targetMinutes: 60, categories: METAS, pools: BIG_POOLS, random: seeded(42), playerCount: 5 });
+    const a = planGame({ mode: "party", targetMinutes: 60, categories: METAS, pools: BIG_POOLS, random: seeded(42) });
+    const b = planGame({ mode: "party", targetMinutes: 60, categories: METAS, pools: BIG_POOLS, random: seeded(42) });
     expect(a).toEqual(b);
   });
 
@@ -69,13 +69,11 @@ describe("planGame", () => {
     expect(plan).toEqual({ rounds: [], estimatedSeconds: 0 });
   });
 
-  it("categories per mode and player count", () => {
-    const ids = (mode: GameMode, playerCount?: number) =>
-      plannableCategories({ mode, categories: METAS, pools: BIG_POOLS, playerCount }).map((c) => c.id);
+  it("categories per mode – never limited by the player count", () => {
+    const ids = (mode: GameMode) => plannableCategories({ mode, categories: METAS, pools: BIG_POOLS }).map((c) => c.id);
     expect(ids("kids")).toEqual(["quiz", "estimate"]);
-    expect(ids("family", 3)).toEqual(["quiz", "estimate", "bluff"]);
-    expect(ids("family", 1)).toEqual(["quiz", "estimate"]);
-    expect(ids("party", 2)).toContain("bluff");
+    expect(ids("family")).toEqual(["quiz", "estimate", "bluff"]);
+    expect(ids("party")).toContain("bluff");
   });
 });
 
@@ -142,7 +140,7 @@ describe("planGame with the knowledge games", () => {
     const seen = new Set<string>();
     for (let seed = 1; seed <= 200; seed++) {
       // Spread seeds: the LCG's first value hardly changes for 1, 2, 3, … (9 games, 8 rounds → always the same one left out).
-      const plan = planGame({ mode: "family", targetMinutes: 90, categories: METAS, pools: ALL_POOLS, random: seeded(seed * 7919), playerCount: 4 });
+      const plan = planGame({ mode: "family", targetMinutes: 90, categories: METAS, pools: ALL_POOLS, random: seeded(seed * 7919) });
       for (const r of plan.rounds) seen.add(r.categoryId);
     }
     expect(seen).toEqual(new Set(METAS.map((m) => m.id)));
@@ -152,7 +150,7 @@ describe("planGame with the knowledge games", () => {
     it(`${mode}: never two risk games back to back, Punkteklau never first, still on time`, () => {
       for (let seed = 1; seed <= 150; seed++) {
         for (const minutes of [15, 30, 45, 60, 90]) {
-          const plan = planGame({ mode, targetMinutes: minutes, categories: METAS, pools: ALL_POOLS, random: seeded(seed), playerCount: 5 });
+          const plan = planGame({ mode, targetMinutes: minutes, categories: METAS, pools: ALL_POOLS, random: seeded(seed) });
           const ids = plan.rounds.map((r) => r.categoryId);
           expect(ids.length).toBeGreaterThanOrEqual(2);
           expect(ids[0]).not.toBe("steal");

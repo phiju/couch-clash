@@ -91,7 +91,7 @@ describe("one bluff engine, two games", () => {
 
 describe("Skurrile Ereignisse meta", () => {
   it("own game: Kids/Familie/Party, 2+ players, 75 s writing, 3–10 stories, Bluff-Lexikon scoring", () => {
-    expect(skurrilMeta).toMatchObject({ id: "skurril", name: "Skurrile Ereignisse", emoji: "🤯", minPlayers: 2, secondsPerQuestion: 75 });
+    expect(skurrilMeta).toMatchObject({ id: "skurril", name: "Skurrile Ereignisse", emoji: "🤯", secondsPerQuestion: 75 });
     expect(skurrilMeta.modes).toEqual(["kids", "family", "party"]);
     expect(skurrilMeta.questionsPerRound).toEqual({ min: 3, default: 5, max: 10 });
     expect(skurrilMeta.scoring).toEqual(bluffMeta.scoring);
@@ -112,9 +112,9 @@ describe("Skurrile Ereignisse meta", () => {
     for (let seed = 1; seed <= 100; seed++) {
       let s = seed * 7919;
       const random = () => ((s = (s * 1664525 + 1013904223) % 4294967296) / 4294967296);
-      const short = planGame({ mode: "family", targetMinutes: 15, categories: metas, pools, random, playerCount: 4 }).rounds.map((r) => r.categoryId);
+      const short = planGame({ mode: "family", targetMinutes: 15, categories: metas, pools, random }).rounds.map((r) => r.categoryId);
       expect(short.includes("bluff") && short.includes("skurril"), short.join(",")).toBe(false);
-      const kids = planGame({ mode: "kids", targetMinutes: 45, categories: metas, pools, random, playerCount: 4 }).rounds.map((r) => r.categoryId);
+      const kids = planGame({ mode: "kids", targetMinutes: 45, categories: metas, pools, random }).rounds.map((r) => r.categoryId);
       expect(kids).not.toContain("bluff");
       kidsGotIt ||= kids.includes("skurril");
     }

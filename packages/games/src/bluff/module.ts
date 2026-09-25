@@ -56,6 +56,14 @@ export const lexikonAdapter: BluffContentAdapter<BluffWord> = {
     highlight:
       "Bluff-Runde: Alle haben Erklärungen erfunden und auf die echte getippt. Lob oder necke den besten Bluffer (wer die meisten reingelegt hat) oder wer auf einen Bluff reingefallen ist.",
   },
+  botTexts: [
+    "Ein Hut für besonders kleine Hunde",
+    "Wenn jemand beim Niesen pfeift",
+    "Ein Werkzeug zum Knödelrollen",
+    "Eine Tanzfigur aus Bayern",
+    "Ein Kuchen ohne Boden",
+    "Wenn jemand rückwärts einparkt",
+  ],
   toEntry: entry,
 };
 

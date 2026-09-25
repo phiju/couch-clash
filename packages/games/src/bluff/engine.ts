@@ -13,6 +13,7 @@
  * is shown as written (local check and cleanup).
  */
 import {
+  botPick,
   DEFAULT_PER_QUESTION_CAP,
   difficultyWeight,
   type CategoryMeta,
@@ -37,6 +38,7 @@ import {
   lightCleanup,
   localMatch,
   normalizeText,
+  parseDecoys,
   parseJudgeReply,
   type JudgeStyle,
   type JudgeSubmission,
@@ -107,6 +109,8 @@ export interface BluffContentAdapter<Item extends BluffItem> {
   /** Prefix of the AI check task id. */
   taskPrefix: string;
   texts: BluffEngineTexts;
+  /** Test bots: silly answers they "write". */
+  botTexts: readonly string[];
   /** Admin catalog entry. */
   toEntry(item: Item): ContentEntry;
 }
@@ -115,6 +119,8 @@ interface Option {
   text: string;
   correct: boolean;
   authors: string[];
+  /** AI decoy ("KI-Lügen ergänzen"): no author, no fool points, 0 for whoever picks it. */
+  decoy?: boolean;
 }
 
 export interface BluffEngineState<Item> {
@@ -140,6 +146,8 @@ export interface BluffEngineState<Item> {
   showOriginals: boolean;
   /** Game mode (the judge's "offensive" rule depends on it). */
   mode: GameMode;
+  /** Host option "KI-Lügen ergänzen": top up to BLUFF_CONFIG.minWrongOptions with AI decoys. Missing in older rooms. */
+  aiDecoys?: boolean;
 }
 
 const VOTE_MS = BLUFF_CONFIG.voteSeconds * 1000;
@@ -235,9 +243,15 @@ export function createBluffEngine<Item extends BluffItem>(adapter: BluffContentA
       .map(([playerId, s], i) => ({ key: `s${i + 1}`, text: s.text, playerId }));
   }
 
-  /** Writing is over: check (AI) – or straight to the options when nobody wrote anything. */
+  /** Decoys to ask the AI check for: few submissions and the host option on. */
+  function decoysWanted(state: State): number {
+    const few = Object.keys(state.submissions).length < BLUFF_CONFIG.decoysBelowSubmissions;
+    return state.aiDecoys && few ? BLUFF_CONFIG.minWrongOptions : 0;
+  }
+
+  /** Writing is over: check (AI) – or straight to the options when there is nothing to check or invent. */
   function endWriting(state: State, ctx: ModuleContext): ModuleUpdate<State> {
-    if (Object.keys(state.submissions).length === 0) return present(state, null, ctx);
+    if (Object.keys(state.submissions).length === 0 && decoysWanted(state) === 0) return present(state, null, ctx);
     return update(at(state, "check", ctx.now, BLUFF_CONFIG.checkMaxMs));
   }
 
@@ -246,7 +260,12 @@ export function createBluffEngine<Item extends BluffItem>(adapter: BluffContentA
    * failed) with a local check and cleanup – and starts reading them out.
    * Options only ever contain polished texts, never the raw player text.
    */
-  function present(state: State, judged: Map<string, JudgedSubmission> | null, ctx: ModuleContext): ModuleUpdate<State> {
+  function present(
+    state: State,
+    judged: Map<string, JudgedSubmission> | null,
+    ctx: ModuleContext,
+    decoys: readonly string[] = [],
+  ): ModuleUpdate<State> {
     const answer = adapter.realAnswer(state.words[state.index]!);
     const real = normalizeText(answer);
     const knewIt: string[] = [];
@@ -274,7 +293,19 @@ export function createBluffEngine<Item extends BluffItem>(adapter: BluffContentA
       else groups.set(key, { text, correct: false, authors: [s.playerId] });
     }
     const realOption = { text: displayDefinition(answer), correct: true, authors: [] };
-    const options = shuffle([...groups.values(), realOption], ctx.random);
+    // Too few player bluffs: the host's invented ones fill up (never duplicates of the players' texts).
+    const bluffs = [...groups.values()];
+    const need = state.aiDecoys ? Math.max(0, BLUFF_CONFIG.minWrongOptions - bluffs.length) : 0;
+    const taken = new Set([real, ...bluffs.map((o) => normalizeText(o.text))]);
+    const fill: Option[] = [];
+    for (const d of decoys) {
+      if (fill.length >= need) break;
+      const text = displayDefinition(d);
+      if (taken.has(normalizeText(text))) continue;
+      taken.add(normalizeText(text));
+      fill.push({ text, correct: false, authors: [], decoy: true });
+    }
+    const options = shuffle([...bluffs, ...fill, realOption], ctx.random);
     const ms = BLUFF_CONFIG.presentLeadMs + options.length * BLUFF_CONFIG.presentMsPerOption;
     return update(at({ ...state, knewIt, rejected, options, shown }, "present", ctx.now, ms));
   }
@@ -368,7 +399,7 @@ export function createBluffEngine<Item extends BluffItem>(adapter: BluffContentA
     return {
       id: `${adapter.taskPrefix}:${state.index}`,
       kind: "llm_json" as const,
-      input: buildJudgePrompt(adapter.polishStyle, adapter.judgeContext(item), judgeSubmissions(state), state.mode),
+      input: buildJudgePrompt(adapter.polishStyle, adapter.judgeContext(item), judgeSubmissions(state), state.mode, decoysWanted(state)),
       timeoutMs: BLUFF_CONFIG.checkTimeoutMs,
       model: "strong" as const,
     };
@@ -396,6 +427,7 @@ export function createBluffEngine<Item extends BluffItem>(adapter: BluffContentA
         shown: {},
         showOriginals: options.options?.showOriginals === true,
         mode: options.mode?.mode ?? "family",
+        aiDecoys: options.options?.aiDecoys !== false,
       };
       if (words.length === 0) return { state: initial, phaseEndsAt: null, done: true };
       return { ...openItem(initial, 0, ctx.now), usedContentIds: words.map((w) => w.id) };
@@ -467,7 +499,9 @@ export function createBluffEngine<Item extends BluffItem>(adapter: BluffContentA
     resolveTask(state, taskId, result, ctx) {
       if (state.step !== "check" || taskId !== checkTask(state).id) return null;
       const judged = result == null ? null : parseJudgeReply(result, judgeSubmissions(state));
-      return present(state, judged, ctx);
+      // Decoys are validated on their own: a broken verdict list doesn't cost the decoys (and vice versa).
+      const decoys = decoysWanted(state) > 0 ? parseDecoys(result, adapter.realAnswer(state.words[state.index]!)) : [];
+      return present(state, judged, ctx, decoys);
     },
 
     readAloud(state): ReadAloud | null {
@@ -496,9 +530,25 @@ export function createBluffEngine<Item extends BluffItem>(adapter: BluffContentA
       };
     },
 
-    toStats(state) {
+    botAction(state, botId, _ctx, bot) {
+      if (state.step === "write") {
+        if (botId in state.submissions) return null;
+        const text = botPick(adapter.botTexts, bot.random);
+        return text ? { type: "define", text } : null;
+      }
+      if (state.step !== "vote" || botId in state.votes || !canVote(state, botId) || !state.options) return null;
+      const choices = state.options.flatMap((o, i) => (o.authors.includes(botId) ? [] : [i]));
+      const option = botPick(choices, bot.random);
+      return option === undefined ? null : { type: "vote", option };
+    },
+
+    toStats(state, exclude) {
       if (!REVEALED_STEPS.includes(state.step) || !state.results || !state.options) return null;
-      const votes = Object.values(state.votes);
+      const votes = Object.entries(state.votes)
+        .filter(([id]) => !exclude?.has(id))
+        .map(([, v]) => v);
+      const submissions = Object.keys(state.submissions).filter((id) => !exclude?.has(id)).length;
+      if (exclude?.size && votes.length === 0 && submissions === 0) return null;
       const fooledVotes = votes.filter((v) => !state.options![v.option]?.correct).length;
       return {
         contentId: state.words[state.index]!.id,
@@ -506,7 +556,7 @@ export function createBluffEngine<Item extends BluffItem>(adapter: BluffContentA
         correct: votes.length - fooledVotes,
         sumResponseMs: votes.reduce((sum, v) => sum + Math.max(0, v.at - state.stepStartedAt), 0),
         sumErrorPct: null,
-        extra: { submissions: Object.keys(state.submissions).length, knewIt: state.knewIt.length, fooledVotes },
+        extra: { submissions, knewIt: state.knewIt.filter((id) => !exclude?.has(id)).length, fooledVotes },
       };
     },
 
@@ -554,6 +604,7 @@ export function createBluffEngine<Item extends BluffItem>(adapter: BluffContentA
           text: o.text,
           correct: o.correct,
           authors: o.authors,
+          ...(o.decoy ? { decoy: true } : {}),
           voters: Object.entries(state.votes)
             .filter(([, v]) => v.option === i)
             .map(([id]) => id),

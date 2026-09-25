@@ -47,6 +47,8 @@ export const ClientMessageSchema = z.discriminatedUnion("type", [
   }),
   /** Host: remove a player. */
   z.object({ type: z.literal("kick"), playerId: id }),
+  /** Host (test mode): add a test bot – removed again with "kick". */
+  z.object({ type: z.literal("add_bot") }),
   /** Host: finale → back to the lobby ("Zurück zur Lobby"). */
   z.object({ type: z.literal("back_to_lobby") }),
   /** Host: change the game settings (lobby). */
@@ -132,6 +134,7 @@ export const ERROR_CODES = [
   "PARTY_CONFIRM_REQUIRED",
   "SEAT_TAKEN",
   "LATE_JOIN_CLOSED",
+  "BOT_LIMIT",
 ] as const;
 export type ErrorCode = (typeof ERROR_CODES)[number];
 
@@ -164,6 +167,7 @@ export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   PARTY_CONFIRM_REQUIRED: "Party-Modus: Bitte zuerst bestätigen, dass alle über 18 sind.",
   SEAT_TAKEN: "Dieser Platz ist gerade verbunden. Wähle deinen eigenen Namen.",
   LATE_JOIN_CLOSED: "Neue Spieler können gerade nicht einsteigen. Warte auf die nächste Runde.",
+  BOT_LIMIT: "Mehr Testspieler gehen nicht.",
 };
 
 export type ServerMessage =

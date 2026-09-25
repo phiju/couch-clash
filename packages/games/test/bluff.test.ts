@@ -26,10 +26,10 @@ const players = (ids: string[], connected = true): ModulePlayer[] => ids.map((id
 /** random() = 0 → shuffle keeps a predictable order. */
 const ctx = (now: number, ps: ModulePlayer[], random = () => 0.999): ModuleContext => ({ now, players: ps, random });
 
-function setup(ids = ["a", "b", "c"], words = [WORD, WORD2]) {
+function setup(ids = ["a", "b", "c"], words = [WORD, WORD2], aiDecoys = false) {
   const mod = createBluffModule(words);
   const ps = players(ids);
-  const init = mod.init(ctx(T0, ps), { questionCount: words.length, scoring, excludeContentIds: [] });
+  const init = mod.init(ctx(T0, ps), { questionCount: words.length, scoring, excludeContentIds: [], options: { aiDecoys } });
   let state = init.state;
   let now = T0;
   const act = (playerId: string, action: BluffAction, dt = 1000) => {
@@ -91,10 +91,9 @@ describe("bluff scoring strategy", () => {
     expect(r.finalScore).toBe(200);
   });
 
-  it("meta: speed modifier off, 2+ players, registered", () => {
+  it("meta: speed modifier off, registered", () => {
     expect(bluffMeta.scoring.speedModifier.enabled).toBe(false);
     expect(bluffMeta.scoringFields).not.toContain("speedModifier");
-    expect(bluffMeta.minPlayers).toBe(2);
     expect(GAME_MODULES.bluff.meta).toBe(bluffMeta);
   });
 });
@@ -379,3 +378,116 @@ describe("bluff public state never leaks", () => {
   });
 });
 
+
+describe("KI-Lügen ergänzen (AI decoys)", () => {
+  const DECOYS = ["Ein Werkzeug zum Hufeisen-Biegen", "Eine Mütze für Kutscher", "Ein Kartenspiel aus Tirol", "Ein Kuchen"];
+  const withDecoys = (results: ReturnType<typeof reply>["results"], decoys: unknown[] = DECOYS) => ({ results, decoys });
+
+  it("solo: the player's bluff + decoys up to 3 wrong options; find points only, a decoy gives 0", () => {
+    const t = setup(["solo"], [WORD, WORD2], true);
+    t.act("solo", { type: "define", text: "ein Pferdegeschirr für Kinder" });
+    expect(t.state.step).toBe("check");
+    const task = t.mod.pendingTask!(t.state)!;
+    expect(task.input.system).toContain(`genau ${BLUFF_CONFIG.minWrongOptions} glaubwürdige, aber FALSCHE Antworten`);
+    expect(task.timeoutMs).toBe(6_000);
+    t.resolve(withDecoys(reply(["bluff", "Ein Pferdegeschirr für Kinder"]).results));
+    const options = t.state.options!;
+    expect(options).toHaveLength(4);
+    expect(options.filter((o) => o.decoy).map((o) => o.text)).toEqual(DECOYS.slice(0, 2));
+    expect(options.filter((o) => o.decoy).every((o) => o.authors.length === 0 && !o.correct)).toBe(true);
+    t.timer(); // present → vote
+    expect(t.state.step).toBe("vote");
+    const decoy = options.findIndex((o) => o.decoy);
+    t.act("solo", { type: "vote", option: decoy });
+    expect(t.state.step).toBe("reveal");
+    expect(t.state.results!.solo).toMatchObject({ finalScore: 0, votedCorrect: false, fooled: 0, foolBonus: 0 });
+    const pub = t.mod.toPublicState(t.state, { role: "host" });
+    expect(pub.reveal!.options[decoy]).toMatchObject({ decoy: true, authors: [], voters: ["solo"] });
+    // Next word: the real one → find points (nobody else to fool).
+    for (let i = 0; i < 3; i++) t.timer();
+    t.act("solo", { type: "define", text: "Wassereimer" });
+    t.resolve(withDecoys(reply(["correct"]).results));
+    expect(t.state.knewIt).toEqual(["solo"]);
+  });
+
+  it("solo, the real one found: find points, no fool bonus", () => {
+    const t = setup(["solo"], [WORD], true);
+    t.act("solo", { type: "define", text: "ein Pferdegeschirr für Kinder" });
+    t.resolve(withDecoys(reply(["bluff", "Ein Pferdegeschirr für Kinder"]).results));
+    t.timer();
+    t.act("solo", { type: "vote", option: t.state.options!.findIndex((o) => o.correct) });
+    expect(t.state.results!.solo).toMatchObject({ finalScore: 100, findPoints: 100, foolBonus: 0 });
+  });
+
+  it("2 players: one decoy fills up to 3 wrong options; fooling a player still counts, decoys fool nobody", () => {
+    const t = setup(["a", "b"], [WORD], true);
+    t.act("a", { type: "define", text: "Ein Hut" });
+    t.act("b", { type: "define", text: "Eine Suppe" });
+    t.resolve(withDecoys(reply(["bluff", "Ein Hut"], ["bluff", "Eine Suppe"]).results));
+    expect(t.state.options!.filter((o) => o.decoy)).toHaveLength(1);
+    expect(t.state.options!.filter((o) => !o.correct)).toHaveLength(3);
+    t.timer();
+    const idx = (text: string) => t.state.options!.findIndex((o) => o.text === text);
+    t.act("a", { type: "vote", option: idx("Eine Suppe") }); // fooled by b
+    t.act("b", { type: "vote", option: t.state.options!.findIndex((o) => o.decoy) }); // fooled by the host
+    expect(t.state.results!.b).toMatchObject({ fooled: 1, foolBonus: 100, findPoints: 0 });
+    expect(t.state.results!.a).toMatchObject({ fooled: 0, foolBonus: 0, finalScore: 0 });
+  });
+
+  it("enough player bluffs → no decoys asked for or used", () => {
+    const ids = ["a", "b", "c", "d", "e"];
+    const t = setup(ids, [WORD], true);
+    ids.forEach((id, i) => t.act(id, { type: "define", text: `Bluff Nummer ${i + 1} über Pferde` }));
+    expect(t.mod.pendingTask!(t.state)!.input.system).not.toContain("decoys");
+    t.resolve(withDecoys(reply(...ids.map((_, i) => ["bluff", `Bluff Nummer ${i + 1} über Pferde`] as [string, string])).results));
+    expect(t.state.options!.some((o) => o.decoy)).toBe(false);
+  });
+
+  it("nobody wrote anything: the check still runs for decoys, then everyone votes", () => {
+    const t = setup(["a"], [WORD], true);
+    t.timer(); // writing time over
+    expect(t.state.step).toBe("check");
+    expect(t.mod.pendingTask!(t.state)!.input.user).toContain('"submissions":[]');
+    t.resolve({ results: [], decoys: DECOYS });
+    expect(t.state.options!.filter((o) => o.decoy)).toHaveLength(3);
+    t.timer();
+    expect(t.state.step).toBe("vote");
+  });
+
+  it("AI timeout: the available options only (real + the player's bluff)", () => {
+    const t = setup(["solo"], [WORD], true);
+    t.act("solo", { type: "define", text: "Ein Hut" });
+    t.timer(); // check timed out
+    expect(t.state.options!.map((o) => !!o.decoy)).toEqual([false, false]);
+    t.timer();
+    expect(t.state.step).toBe("vote");
+    expect(t.mod.toPublicState(t.state, { role: "player", playerId: "solo" }).canVote).toBe(true);
+  });
+
+  it("host option off: never asks for decoys, nobody wrote → straight to the real one", () => {
+    const t = setup(["solo"], [WORD], false);
+    t.timer();
+    expect(t.state.step).toBe("present");
+    expect(t.state.options).toHaveLength(1);
+  });
+
+  it("decoys are validated: not the real answer, no duplicates, no emojis/!, not too long", async () => {
+    const { parseDecoys } = await import("../src/bluff/judge");
+    const raw = {
+      decoys: [
+        "Gepolsterter Halsring für Zugpferde.",
+        "Ein Hut",
+        "ein hut",
+        "Tolle Sache!",
+        "Pferd 🐴",
+        "x".repeat(81),
+        42,
+        "Eine Mütze für Kutscher.",
+      ],
+    };
+    expect(parseDecoys(raw, WORD.definition, ["Ein Hut"])).toEqual(["Eine Mütze für Kutscher"]);
+    expect(parseDecoys({ nope: 1 }, WORD.definition)).toEqual([]);
+    expect(parseDecoys(null, WORD.definition)).toEqual([]);
+    expect(bluffMeta.options.find((o) => o.id === "aiDecoys")).toMatchObject({ default: true });
+  });
+});

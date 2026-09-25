@@ -1,4 +1,4 @@
-import { bluffMeta, categoryAvailable, quizMeta, skurrilMeta } from "@couch-clash/games/meta";
+import { skurrilMeta } from "@couch-clash/games/meta";
 import { describe, expect, it } from "vitest";
 import { bluffAudio, presentHighlight, resultParts } from "../src/games/bluff/logic";
 import { LEXIKON_TEXTS, SKURRIL_TEXTS } from "../src/games/bluff/texts";
@@ -61,11 +61,6 @@ describe("Bluff-Lexikon views", () => {
     expect(bluffAudio({ step: "leaderboard", index: 0 })).toMatchObject({ music: "lobby" });
   });
 
-  it("is not selectable with fewer than 2 players", () => {
-    expect(categoryAvailable(bluffMeta, 1)).toBe(false);
-    expect(categoryAvailable(bluffMeta, 2)).toBe(true);
-    expect(categoryAvailable(quizMeta, 1)).toBe(true);
-  });
 });
 
 describe("Skurrile Ereignisse views", () => {
@@ -94,9 +89,7 @@ describe("Skurrile Ereignisse views", () => {
     expect(resultParts(capped, SKURRIL_TEXTS.counter).at(-1)).toBe("Höchstens 200 pro Geschichte");
   });
 
-  it("needs 2 players, also offered in Kids", () => {
-    expect(categoryAvailable(skurrilMeta, 1)).toBe(false);
-    expect(categoryAvailable(skurrilMeta, 2)).toBe(true);
+  it("also offered in Kids", () => {
     expect(skurrilMeta.modes).toContain("kids");
   });
 });

@@ -32,8 +32,10 @@ export interface BluffResult extends ScoreResult {
 export interface BluffRevealOption {
   text: string;
   correct: boolean;
-  /** Player ids who wrote it (several when merged). Empty for the real one. */
+  /** Player ids who wrote it (several when merged). Empty for the real one and for decoys. */
   authors: string[];
+  /** Invented by the host (AI) – "🤖 Erfunden vom Moderator"; nobody gets points for it. */
+  decoy?: boolean;
   /** Player ids who voted for it. */
   voters: string[];
 }

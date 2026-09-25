@@ -8,6 +8,7 @@ export * from "./state";
 export * from "./photo";
 export * from "./voice";
 export * from "./admin";
+export * from "./bots";
 export * from "./modes";
 export * from "./knowledge-categories";
 export * from "./traffic";

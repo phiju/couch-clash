@@ -60,7 +60,7 @@ couch-clash/
 2. **Register** the category in `packages/games/src/meta.ts` (`CATEGORY_METAS`) and `packages/games/src/index.ts` (`GAME_MODULES`).
 3. **UI:** create `apps/web/src/games/<id>/` with `HostView` and `PlayerView`, and add them to `apps/web/src/games/registry.ts`. TypeScript reports an error if a registered category has no views.
 4. **Content:** add `packages/content/data/<id>.de.json`, a zod schema in `packages/content/src/schema.ts` and an export in `packages/content/src/index.ts`.
-5. **Optional hooks:** `minPlayers` in the meta (not selectable below it), `pendingTask`/`resolveTask` for server work such as an AI check (the room runs it generically, `null` on timeout – the module falls back), `readAloud` for texts the host reads out (one voice clip per item, the category highlights the item via the line's `cue`), `revealFacts`/`toStats` for commentary and statistics.
+5. **Every game works with ONE player** – never gate a category on the player count; no step may wait for "others". **Optional hooks:** `botAction` (what a test bot does now – the room times it, 1–6 s), `pendingTask`/`resolveTask` for server work such as an AI check (the room runs it generically, `null` on timeout – the module falls back), `readAloud` for texts the host reads out (one voice clip per item, the category highlights the item via the line's `cue`), `revealFacts`/`toStats` for commentary and statistics.
 
 ## Game modes (Kids / Familie / Party)
 

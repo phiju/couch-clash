@@ -19,6 +19,8 @@ import {
   type ModuleTask,
   type GameMode,
   type GameModeSettings,
+  BOT_CONFIG,
+  type BotContext,
   DEFAULT_PER_QUESTION_CAP,
   EARLY_FINALE_MS,
   FINALE_MS,
@@ -32,7 +34,6 @@ import {
 } from "@couch-clash/shared";
 import {
   GAME_MODULES,
-  categoryAvailable,
   getModule,
   normalizeCategoryOptions,
   normalizeScoring,
@@ -255,12 +256,7 @@ export function beginGame(room: RoomRecord, deps: FlowDeps): Result<RoomRecord> 
   const settings = sanitizeSettings(room.settings, registry, room.mode);
   if (!settings.ok) return settings;
   if (settings.value.length === 0) return fail("INVALID_PLAN");
-  // Categories that need more players (e.g. bluffing) are skipped.
-  const rounds = settings.value.filter((r) => {
-    const meta = getModule(r.categoryId, registry)?.meta;
-    return !!meta && categoryAvailable(meta, room.players.length);
-  });
-  if (rounds.length === 0) return fail("NOT_ENOUGH_PLAYERS");
+  const rounds = settings.value;
 
   const game: GameRecord = {
     rounds,
@@ -343,6 +339,33 @@ export function handlePlayerAction(
   const result = module.handleAction(room.game.moduleState, parsed.data, playerId, moduleContext(room, deps));
   if ("error" in result) return fail(result.error);
   return ok(applyModuleUpdate(room, result, deps.now, registry));
+}
+
+/**
+ * Test bots: what each bot would do right now (the module decides), or
+ * nothing outside a running question step. `key` names the step – a bot
+ * acts at most once per key.
+ */
+export function botMoves(
+  room: RoomRecord,
+  deps: FlowDeps,
+  bot: Omit<BotContext, "random"> = BOT_CONFIG,
+): { key: string; moves: { botId: string; action: unknown }[] } | null {
+  const registry = deps.registry ?? GAME_MODULES;
+  const game = room.game;
+  if (room.phase !== "play" || game?.moduleState == null) return null;
+  const module = currentModule(room, registry);
+  if (!module?.botAction) return null;
+  const progress = module.progress?.(game.moduleState);
+  const key = `${game.roundIndex}:${progress?.index ?? "-"}:${progress?.step ?? "-"}`;
+  const ctx = moduleContext(room, deps);
+  const moves: { botId: string; action: unknown }[] = [];
+  for (const p of room.players) {
+    if (!p.bot || !ctx.players.some((cp) => cp.id === p.id)) continue;
+    const action = module.botAction(game.moduleState, p.id, ctx, { ...bot, random: deps.random });
+    if (action != null) moves.push({ botId: p.id, action });
+  }
+  return { key, moves };
 }
 
 /** Server work the current module waits for (e.g. an AI check), or null. */

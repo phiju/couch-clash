@@ -28,6 +28,17 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.16.0",
+    date: "2026-09-25",
+    title: "Allein zu Hause? Jetzt lässt sich jedes Spiel auch solo spielen – der Moderator schummelt ein paar Lügen dazu.",
+    items: [
+      { emoji: "🙋", text: "Jedes Spiel klappt jetzt schon mit einer Person" },
+      { emoji: "🗓️", text: "Spiele auswählen, bevor überhaupt jemand da ist" },
+      { emoji: "🤖", text: "Bluff-Spiele: Der Moderator erfindet eigene Lügen dazu – fall nicht drauf rein" },
+      { emoji: "🦹", text: "Punkteklau allein: Niemand zum Beklauen? Dann gibt's einfach Punkte" },
+    ],
+  },
+  {
     version: "0.15.0",
     date: "2026-09-25",
     title: "Spiel vorzeitig beendet? Jetzt gibt's trotzdem eine Siegerehrung – und danach geht's direkt zurück in die Lobby.",

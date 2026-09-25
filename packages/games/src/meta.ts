@@ -28,11 +28,6 @@ export const CATEGORY_METAS = [
 
 export type CategoryId = (typeof CATEGORY_METAS)[number]["id"];
 
-/** Enough players for this category (e.g. bluffing needs at least 2)? */
-export function categoryAvailable(meta: CategoryMeta, playerCount: number): boolean {
-  return playerCount >= (meta.minPlayers ?? 1);
-}
-
 export function getCategoryMeta(id: string): CategoryMeta | undefined {
   return CATEGORY_METAS.find((m) => m.id === id);
 }

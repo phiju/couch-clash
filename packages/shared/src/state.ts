@@ -54,6 +54,8 @@ export interface PublicPlayer {
   connected: boolean;
   /** Has an open connection right now. Seats without one can be claimed ("Ich war schon dabei"). */
   online: boolean;
+  /** Test bot ("🤖 Testspieler") – plays on its own, never needs a phone. */
+  bot?: boolean;
 }
 
 export interface PublicRound {

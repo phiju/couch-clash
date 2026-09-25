@@ -7,7 +7,7 @@ import { recordBluffRun } from "./fixtures/bluff-run";
  * Fields the engine added to the public state since the recording. The
  * placeholder is the text the phone showed before (then hard-coded there).
  */
-const ADDED = new Set(["placeholder"]);
+const ADDED = new Set(["placeholder", "aiDecoys"]);
 const strip = (value: unknown): unknown =>
   Array.isArray(value)
     ? value.map(strip)

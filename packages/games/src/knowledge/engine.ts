@@ -14,9 +14,11 @@
  */
 import { QUIZ_QUESTIONS_DE, type QuizQuestion } from "@couch-clash/content";
 import {
+  botChoice,
   HOST_ACTOR_ID,
   REVEAL_ANSWER_MS,
   REVEAL_LEADERBOARD_MS,
+  type BotContext,
   type CategoryMeta,
   type ErrorCode,
   type GameMode,
@@ -111,6 +113,8 @@ export interface KnowledgePrePhase<G, A extends { type: string }> {
   act(game: G, action: A, actorId: string, ctx: ModuleContext): G | { error: ErrorCode };
   /** The step is over (all acted or time up): defaults for everyone missing. */
   finish(game: G, ctx: ModuleContext): G;
+  /** Test bots: the bot's move in this step (it is an actor and hasn't acted yet). */
+  bot?(game: G, botId: string, ctx: ModuleContext, bot: BotContext): A | null;
 }
 
 export interface KnowledgeGame<G, A extends { type: string } = never> {
@@ -350,11 +354,25 @@ export function createKnowledgeModule<G, A extends { type: string } = never>(
       };
     },
 
-    toStats(raw) {
+    botAction(raw, botId, ctx, bot) {
+      const state = upgrade(raw);
+      if (pre && state.step === pre.step) {
+        if (!pre.actors(state.game, ctx).includes(botId) || pre.acted(state.game).includes(botId)) return null;
+        return pre.bot?.(state.game, botId, ctx, bot) ?? null;
+      }
+      const question = state.questions[state.index];
+      if (state.step !== "question" || !question || botId in state.answers) return null;
+      return { type: "answer", value: botChoice(question.correctIndex, question.options.length, bot) };
+    },
+
+    toStats(raw, exclude) {
       const state = upgrade(raw);
       const question = state.questions[state.index];
       if (!question || !REVEALED_STEPS.includes(state.step) || !state.results) return null;
-      const entries = Object.values(state.answers);
+      const entries = Object.entries(state.answers)
+        .filter(([id]) => !exclude?.has(id))
+        .map(([, a]) => a);
+      if (exclude?.size && entries.length === 0) return null;
       return {
         contentId: question.id,
         answers: entries.length,

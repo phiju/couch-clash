@@ -4,6 +4,9 @@
  * functions so they can be unit-tested without a Workers runtime.
  */
 import {
+  AVATAR_COLORS,
+  BOT_CONFIG,
+  BOT_NAMES,
   MAX_PLAYERS,
   NAME_MAX_LENGTH,
   ROOM_TTL_MS,
@@ -45,6 +48,8 @@ export interface PlayerRecord {
    * (`currentQuestionKey`) – they play from the next one. Cleared then.
    */
   joinedDuring?: string;
+  /** Test bot ("🤖 Testspieler hinzufügen"): always connected, acts on its own, not in the statistics. */
+  bot?: true;
 }
 
 /** Everything persisted in Durable Object storage for one room. */
@@ -302,6 +307,39 @@ export function setLateJoin(room: RoomRecord, enabled: boolean): Result<RoomReco
   return ok({ ...room, lateJoin: enabled });
 }
 
+/** Emoji avatars for test bots. */
+const BOT_CHARACTERS = ["robot", "alien", "ghost", "octopus", "dino", "owl"] as const;
+const BOT_COLORS = AVATAR_COLORS.map((c) => c.id);
+
+/**
+ * Host (test mode): a test bot joins – in the lobby, at most BOT_CONFIG.maxBots.
+ * A normal player with `bot: true`; removed again with the normal kick.
+ */
+export function addBot(room: RoomRecord, deps: Deps & { random?: () => number }): Result<{ room: RoomRecord; player: PlayerRecord }> {
+  if (room.phase !== "lobby") return fail("WRONG_PHASE");
+  const bots = room.players.filter((p) => p.bot);
+  if (bots.length >= BOT_CONFIG.maxBots) return fail("BOT_LIMIT");
+  if (room.players.length >= MAX_PLAYERS) return fail("ROOM_FULL");
+  const taken = new Set(room.players.map((p) => nameKey(p.name)));
+  const name = BOT_NAMES.find((n) => !taken.has(nameKey(n))) ?? `Bot-${bots.length + 1}`;
+  const random = deps.random ?? Math.random;
+  const newSecret = deps.secret ?? (() => generateSecret());
+  const player: PlayerRecord = {
+    id: newSecret().slice(0, 12),
+    secret: newSecret(),
+    name,
+    avatar: { character: BOT_CHARACTERS[bots.length % BOT_CHARACTERS.length]!, color: BOT_COLORS[Math.floor(random() * BOT_COLORS.length)]! },
+    joinedAt: deps.now,
+    bot: true,
+  };
+  return ok({ room: { ...room, players: [...room.players, player] }, player });
+}
+
+/** Test bots in this room. */
+export function botIds(room: RoomRecord): Set<string> {
+  return new Set(room.players.filter((p) => p.bot).map((p) => p.id));
+}
+
 export function kickPlayer(room: RoomRecord, playerId: string): Result<RoomRecord> {
   if (!room.players.some((p) => p.id === playerId)) return fail("UNKNOWN_PLAYER");
   return ok(endGrace({ ...room, players: room.players.filter((p) => p.id !== playerId) }, playerId));
@@ -327,8 +365,10 @@ export function toPublicState(
       name: p.name,
       avatar: p.photo ? { ...p.avatar, photo: publicPhoto(p, room.code) } : p.avatar,
       joinedAt: p.joinedAt,
-      connected: connected.playerIds.has(p.id),
-      online: (connected.online ?? connected.playerIds).has(p.id),
+      // Bots never need a phone: always there.
+      connected: !!p.bot || connected.playerIds.has(p.id),
+      online: !!p.bot || (connected.online ?? connected.playerIds).has(p.id),
+      ...(p.bot ? { bot: true } : {}),
     })),
     game: publicGame(room, viewer, registry),
     settings: viewer.role === "host" ? room.settings : null,

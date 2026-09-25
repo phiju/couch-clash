@@ -8,7 +8,7 @@ import { useServerNow } from "@/lib/clock";
 import { AnsweredStrip, Countdown, QuestionLeaderboard } from "../question-round/components";
 import type { HostViewProps } from "../types";
 import { foolText, presentHighlight } from "./logic";
-import type { BluffUiTexts } from "./texts";
+import { DECOY_LABEL, type BluffUiTexts } from "./texts";
 
 function WordCounter({ state, label }: { state: BluffPublicState; label: string }) {
   return (
@@ -172,6 +172,9 @@ function Options({ state, room }: { state: BluffPublicState; room: PublicRoomSta
               </div>
               {r && (
                 <div className="flex flex-wrap items-center gap-x-[1.2vw] gap-y-[0.6vh] pl-[calc(clamp(2.2rem,5.5vh,4rem)+1vw)]">
+                  {r.decoy && (
+                    <span className="fs-md rounded-full chip px-3 py-0.5 font-bold text-cream/85">{DECOY_LABEL}</span>
+                  )}
                   {r.authors.length > 0 && (
                     <Authors
                       players={people(r.authors)}

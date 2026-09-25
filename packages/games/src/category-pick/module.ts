@@ -6,6 +6,7 @@
  */
 import { QUIZ_QUESTIONS_DE, type QuizQuestion } from "@couch-clash/content";
 import {
+  botPick,
   HOST_ACTOR_ID,
   KNOWLEDGE_CATEGORIES,
   type KnowledgeCategory,
@@ -143,6 +144,10 @@ export function categoryPickGame(pool: readonly QuizQuestion[]): KnowledgeGame<C
         if (game.selectedCategory || game.offer.length === 0) return game;
         // No pick in time → a random card.
         return { ...game, selectedCategory: game.offer[Math.floor(ctx.random() * game.offer.length)]!, pickedBy: "random" };
+      },
+      bot: (game, _botId, _ctx, bot) => {
+        const category = botPick(game.offer, bot.random);
+        return category ? { type: "pick", category } : null;
       },
     },
 

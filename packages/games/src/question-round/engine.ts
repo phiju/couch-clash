@@ -7,6 +7,7 @@
 import {
   REVEAL_ANSWER_MS,
   REVEAL_LEADERBOARD_MS,
+  type BotContext,
   type CategoryMeta,
   type GameModule,
   type ModuleContext,
@@ -84,6 +85,8 @@ export interface QuestionRoundConfig<TQuestion extends { id: string }, TAnswer, 
   };
   /** Extra commentary hints for a revealed question (no names – the answers carry those). */
   highlights?(question: TQuestion, answers: RevealFacts["answers"]): string[];
+  /** Test bots: a bot's answer to this question (without it bots don't answer). */
+  botAnswer?(question: TQuestion, bot: BotContext): TAnswer;
 }
 
 export type QuestionRoundModule<TQuestion, TAnswer, TPublicQ, TSolution, TSummary = never> = GameModule<
@@ -236,14 +239,21 @@ export function createQuestionRoundModule<
       };
     },
 
-    toStats(state) {
+    botAction(state, botId, _ctx, bot) {
+      const question = state.questions[state.index];
+      if (state.step !== "question" || !question || !config.botAnswer || botId in state.answers) return null;
+      return { type: "answer", value: config.botAnswer(question, bot) };
+    },
+
+    toStats(state, exclude) {
       if (state.step === "question" || !state.results) return null;
       const question = state.questions[state.index]!;
       const maxPoints = Math.max(1, normalizeScoring(config.meta, state.scoring).maxPoints);
       let correct = 0;
       let sumResponseMs = 0;
       let sumErrorPct = 0;
-      const entries = Object.entries(state.answers);
+      const entries = Object.entries(state.answers).filter(([id]) => !exclude?.has(id));
+      if (exclude?.size && entries.length === 0) return null;
       for (const [id, a] of entries) {
         if ((state.results[id]?.baseScore ?? 0) / maxPoints >= CORRECT_SHARE) correct++;
         sumResponseMs += Math.max(0, a.at - state.questionStartedAt);
