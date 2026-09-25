@@ -7,6 +7,7 @@ import {
   randomAvatar,
   secureRandomInt,
   type Avatar,
+  type PublicRoomState,
   type ServerMessage,
 } from "@couch-clash/shared";
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
@@ -14,9 +15,11 @@ import { PlayerGame } from "@/components/player/game-phases";
 import { DisabledHint, PhotoChooser, PhotoProgress, SavedFigureChoice } from "@/components/player/photo-avatar";
 import { deleteSavedFigure, savedFigureUrl, uploadPhoto } from "@/lib/api";
 import { ClockContext } from "@/lib/clock";
+import { AvatarBadge } from "@/components/avatar";
 import { AvatarBuilder } from "@/components/avatar-builder";
 import { Button, ButtonLink, ConnectionBadge, Logo, Notice, Screen } from "@/components/ui";
 import { playerStore, profileStore, savedFigureStore, type PlayerCredentials } from "@/lib/storage";
+import { claimOptions } from "@/lib/rejoin";
 import { useRoom } from "@/lib/use-room";
 
 export function PlayerScreen({ code }: { code: string }) {
@@ -42,7 +45,7 @@ function ClientOnly({ children }: { children: React.ReactNode }) {
 
 /**
  * - "restoring": we have stored credentials and wait for the server to confirm
- * - "form": name + avatar
+ * - "form": name + avatar – or, once the game runs, "Wer bist du?" (claim a seat / join late)
  * - "joined": waiting screen
  * - "kicked": removed by the host
  */
@@ -69,6 +72,8 @@ function PlayerRoom({ code }: { code: string }) {
   const [playerId, setPlayerId] = useState<string | null>(creds?.playerId ?? null);
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  /** Running game: "Als neuer Spieler mitspielen" was tapped. */
+  const [lateForm, setLateForm] = useState(false);
 
   const [actionError, setActionError] = useState<string | null>(null);
   const clearActionError = useCallback(() => setActionError(null), []);
@@ -99,7 +104,7 @@ function PlayerRoom({ code }: { code: string }) {
     },
     [code],
   );
-  const { state, status, fatalError, send, clockOffset } = useRoom(code, {
+  const { state, status, stuck, fatalError, send, reconnect, clockOffset } = useRoom(code, {
     hello: () => {
       const c = playerStore.get(code);
       return c ? { type: "hello_player", playerId: c.playerId, playerSecret: c.playerSecret } : null;
@@ -135,8 +140,9 @@ function PlayerRoom({ code }: { code: string }) {
           break;
         case "error":
           if (msg.code === "PHOTO_SAVED_GONE") forgetSavedFigure();
-          if (msg.code === "UNKNOWN_PLAYER") {
-            // Stored credentials are stale (e.g. removed while offline).
+          if (msg.code === "UNKNOWN_PLAYER" && view !== "form") {
+            // Stored credentials are stale (removed, or the seat was claimed from another phone):
+            // lobby → join form, running game → "Wer bist du?".
             playerStore.clear(code);
             setCreds(null);
             setPlayerId(null);
@@ -177,14 +183,32 @@ function PlayerRoom({ code }: { code: string }) {
 
   if (view === "restoring" || !state) {
     return (
-      <Screen dim="soft" className="justify-center">
+      <Screen dim="soft" className="justify-center gap-4">
         <p className="panel animate-pulse px-6 py-4 text-2xl font-bold">Verbinde mit Raum {code}…</p>
-        <ConnectionBadge status={status} />
+        {stuck && (
+          <div className="panel flex max-w-sm flex-col items-center gap-3 p-5 text-center">
+            <p className="text-lg text-cream/85">Das dauert länger als sonst. Prüf dein WLAN oder mobile Daten – wir versuchen es weiter.</p>
+            <Button type="button" onClick={reconnect}>
+              Neu verbinden
+            </Button>
+          </div>
+        )}
       </Screen>
     );
   }
 
   const me = playerId ? state.players.find((p) => p.id === playerId) : undefined;
+
+  if (view === "joined" && me && state.phase === "play" && state.game?.waitingPlayerIds.includes(me.id)) {
+    return (
+      <Screen dim="soft" className="justify-center">
+        <Notice title="Du bist dabei!" emoji="🎉">
+          <p className="text-xl text-cream/85">Die laufende Frage schaust du dir auf dem Fernseher an – ab der nächsten spielst du mit.</p>
+        </Notice>
+        <ConnectionBadge status={status} stuck={stuck} onReconnect={reconnect} />
+      </Screen>
+    );
+  }
 
   if (view === "joined" && me) {
     const photo = me.avatar.photo;
@@ -268,18 +292,44 @@ function PlayerRoom({ code }: { code: string }) {
             }}
           />
         )}
-        <ConnectionBadge status={status} />
+        <ConnectionBadge status={status} stuck={stuck} onReconnect={reconnect} />
       </ClockContext.Provider>
     );
   }
 
-  if (state.phase !== "lobby") {
+  const submitJoin = (profile: Profile, photo: Blob | null, useSaved?: boolean) => {
+    setFormError(null);
+    setSubmitting(true);
+    profileStore.set(profile);
+    joinPhotoRef.current = photo;
+    send({
+      type: "join",
+      name: profile.name,
+      avatar: profile.avatar,
+      ...(useSaved && savedFigure ? { savedFigureId: savedFigure } : {}),
+    });
+  };
+
+  // Running game, no (valid) credentials on this phone: never a dead end.
+  if (state.phase !== "lobby" && !lateForm) {
     return (
-      <Screen dim="soft" className="justify-center">
-        <Notice title="Das Spiel läuft schon." emoji="⏳">
-          <p className="text-lg text-cream/70">Beitreten geht nur, solange die Lobby offen ist.</p>
-        </Notice>
-      </Screen>
+      <ClaimSeat
+        room={state}
+        error={formError}
+        busy={submitting || status !== "open"}
+        onClaim={(id) => {
+          setFormError(null);
+          setSubmitting(true);
+          send({ type: "claim_seat", playerId: id });
+        }}
+        onJoinLate={() => {
+          setFormError(null);
+          setLateForm(true);
+        }}
+        status={status}
+        stuck={stuck}
+        onReconnect={reconnect}
+      />
     );
   }
 
@@ -295,20 +345,79 @@ function PlayerRoom({ code }: { code: string }) {
         forgetSavedFigure();
       }}
       onSavedFigureGone={forgetSavedFigure}
-      onSubmit={(profile, photo, useSaved) => {
-        setFormError(null);
-        setSubmitting(true);
-        profileStore.set(profile);
-        joinPhotoRef.current = photo;
-        send({
-          type: "join",
-          name: profile.name,
-          avatar: profile.avatar,
-          ...(useSaved && savedFigure ? { savedFigureId: savedFigure } : {}),
-        });
-      }}
+      onSubmit={submitJoin}
       status={status}
+      stuck={stuck}
+      onReconnect={reconnect}
+      onBack={state.phase !== "lobby" ? () => setLateForm(false) : undefined}
     />
+  );
+}
+
+/**
+ * "Das Spiel läuft schon. Wer bist du?" – tap your name to get back in
+ * (only players whose phone is gone can be picked), or join as a new player.
+ */
+function ClaimSeat({
+  room,
+  error,
+  busy,
+  onClaim,
+  onJoinLate,
+  status,
+  stuck,
+  onReconnect,
+}: {
+  room: PublicRoomState;
+  error: string | null;
+  busy: boolean;
+  onClaim: (playerId: string) => void;
+  onJoinLate: () => void;
+  status: "connecting" | "open" | "closed";
+  stuck: boolean;
+  onReconnect: () => void;
+}) {
+  const { free, canJoinLate } = claimOptions(room);
+  return (
+    <Screen dim="soft" className="max-w-lg justify-center gap-4">
+      <div className="panel flex w-full flex-col items-center gap-4 p-6 text-center">
+        <div className="text-6xl">👋</div>
+        <h2 className="text-3xl font-bold">Das Spiel läuft schon. Wer bist du?</h2>
+        {error && <p className="w-full rounded-2xl bg-rust px-4 py-2 text-lg font-bold">{error}</p>}
+        {free.length > 0 ? (
+          <>
+            <p className="text-lg text-cream/80">Tipp auf deinen Namen – du spielst mit deinen Punkten weiter.</p>
+            <ul className="grid w-full grid-cols-2 gap-3">
+              {free.map((p) => (
+                <li key={p.id}>
+                  <button
+                    type="button"
+                    disabled={busy}
+                    onClick={() => onClaim(p.id)}
+                    className="flex w-full flex-col items-center gap-2 rounded-[1.6rem] border-4 border-bulb bg-orange px-3 py-4 text-2xl font-bold shadow-[0_6px_0_var(--color-brown)] transition active:translate-y-1 disabled:opacity-60"
+                  >
+                    <AvatarBadge avatar={p.avatar} size="md" />
+                    <span className="max-w-full truncate">{p.name}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <p className="text-lg text-cream/80">
+            Gerade sind alle verbunden. Hat dein Handy die Verbindung verloren? Warte kurz – dein Name taucht hier auf.
+          </p>
+        )}
+        {canJoinLate ? (
+          <Button type="button" variant="secondary" onClick={onJoinLate} disabled={busy} className="w-full !text-2xl">
+            Als neuer Spieler mitspielen
+          </Button>
+        ) : (
+          free.length === 0 && <p className="text-lg text-cream/70">Neue Spieler können gerade nicht einsteigen – warte auf die nächste Runde.</p>
+        )}
+      </div>
+      <ConnectionBadge status={status} stuck={stuck} onReconnect={onReconnect} />
+    </Screen>
   );
 }
 
@@ -322,6 +431,9 @@ function JoinForm({
   onSavedFigureGone,
   onSubmit,
   status,
+  stuck,
+  onReconnect,
+  onBack,
 }: {
   code: string;
   error: string | null;
@@ -333,6 +445,10 @@ function JoinForm({
   /** `photo`: prepared photo after "Verwandeln!", null → emoji only. `useSaved`: "⭐ Meine Figur". */
   onSubmit: (profile: Profile, photo: Blob | null, useSaved?: boolean) => void;
   status: "connecting" | "open" | "closed";
+  stuck: boolean;
+  onReconnect: () => void;
+  /** Late join: back to "Wer bist du?". */
+  onBack?: () => void;
 }) {
   const [profile, setProfile] = useState<Profile>(loadProfile);
   // Without photo avatars the emoji builder is the only option → always open.
@@ -448,7 +564,12 @@ function JoinForm({
           </section>
         )}
       </form>
-      <ConnectionBadge status={status} />
+      {onBack && (
+        <button type="button" onClick={onBack} className="text-lg font-bold text-cream/75 underline">
+          ← Ich war schon dabei
+        </button>
+      )}
+      <ConnectionBadge status={status} stuck={stuck} onReconnect={onReconnect} />
     </Screen>
   );
 }

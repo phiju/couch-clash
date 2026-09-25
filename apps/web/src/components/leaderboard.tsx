@@ -124,7 +124,7 @@ export function Leaderboard({
               <AvatarBadge
                 avatar={player.avatar}
                 size={tv ? "fluidSm" : "xs"}
-                dimmed={!player.connected}
+                offline={!player.connected}
                 // Photo avatars react to the change: cheering, disappointed, shocked.
                 expression={
                   showGains && reordered

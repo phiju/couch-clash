@@ -1,4 +1,4 @@
-import { SAVED_AVATAR_ID_PATTERN } from "@couch-clash/shared";
+import { CONNECTION_CONFIG, SAVED_AVATAR_ID_PATTERN } from "@couch-clash/shared";
 
 /**
  * localStorage helpers. Every access is wrapped in try/catch because storage
@@ -41,10 +41,67 @@ export interface PlayerCredentials {
   playerSecret: string;
 }
 
+/** Only well-formed credentials count (a cookie can be edited by hand). */
+export function parseCredentials(raw: unknown): PlayerCredentials | null {
+  if (!raw || typeof raw !== "object") return null;
+  const { playerId, playerSecret } = raw as Record<string, unknown>;
+  if (typeof playerId !== "string" || typeof playerSecret !== "string") return null;
+  if (!/^[\w-]{1,64}$/.test(playerId) || !/^[\w-]{8,256}$/.test(playerSecret)) return null;
+  return { playerId, playerSecret };
+}
+
+const credsCookie = (code: string) => `cc_player_${code.replace(/[^A-Za-z0-9]/g, "")}`;
+
+/** Cookie string for the credentials fallback (SameSite=Lax, per room, 24 h). */
+export function credentialsCookie(code: string, creds: PlayerCredentials | null, secure: boolean): string {
+  const value = creds ? encodeURIComponent(`${creds.playerId}.${creds.playerSecret}`) : "";
+  const maxAge = creds ? CONNECTION_CONFIG.credsCookieMaxAgeSec : 0;
+  return `${credsCookie(code)}=${value}; Path=/; Max-Age=${maxAge}; SameSite=Lax${secure ? "; Secure" : ""}`;
+}
+
+/** Reads the fallback cookie from `document.cookie`. */
+export function credentialsFromCookie(code: string, cookie: string): PlayerCredentials | null {
+  const name = `${credsCookie(code)}=`;
+  const part = cookie.split(/;\s*/).find((c) => c.startsWith(name));
+  if (!part) return null;
+  try {
+    const [playerId, playerSecret] = decodeURIComponent(part.slice(name.length)).split(".");
+    return parseCredentials({ playerId, playerSecret });
+  } catch {
+    return null;
+  }
+}
+
+function writeCookie(code: string, creds: PlayerCredentials | null) {
+  try {
+    document.cookie = credentialsCookie(code, creds, window.location.protocol === "https:");
+  } catch {
+    // ignore
+  }
+}
+
+function readCookie(code: string): PlayerCredentials | null {
+  try {
+    return credentialsFromCookie(code, document.cookie);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Reconnect credentials per room: localStorage AND a fallback cookie – some
+ * in-app browsers (opened from the camera's QR scanner) drop localStorage.
+ */
 export const playerStore = {
-  get: (code: string) => read<PlayerCredentials>(`player:${code}`),
-  set: (code: string, creds: PlayerCredentials) => write(`player:${code}`, creds),
-  clear: (code: string) => remove(`player:${code}`),
+  get: (code: string) => parseCredentials(read<PlayerCredentials>(`player:${code}`)) ?? readCookie(code),
+  set: (code: string, creds: PlayerCredentials) => {
+    write(`player:${code}`, creds);
+    writeCookie(code, creds);
+  },
+  clear: (code: string) => {
+    remove(`player:${code}`);
+    writeCookie(code, null);
+  },
 };
 
 /** Remembers the last name/avatar so rejoining (e.g. next game night) is quick. */

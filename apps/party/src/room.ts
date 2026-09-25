@@ -1,5 +1,8 @@
 import {
+  CONNECTION_CONFIG,
   ClientMessageSchema,
+  HEARTBEAT_PING,
+  HEARTBEAT_PONG,
   errorMessage,
   HOST_ACTOR_ID,
   generateSecret,
@@ -7,6 +10,7 @@ import {
   type Avatar,
   type PhotoExpression,
   type PhotoUploadResponse,
+  type RoomNotice,
   type ServerMessage,
   type Viewer,
 } from "@couch-clash/shared";
@@ -48,11 +52,18 @@ import type { Result } from "./result";
 import {
   authenticateHost,
   authenticatePlayer,
+  claimSeat,
   createRoomRecord,
+  effectivePresence,
+  endGrace,
+  expireGrace,
   isExpired,
   joinPlayer,
   kickPlayer,
+  nextGraceDeadline,
   normalizeRoomRecord,
+  setLateJoin,
+  startGrace,
   toPublicState,
   updateVoiceSettings,
   type RoomRecord,
@@ -65,8 +76,17 @@ const STORAGE_KEY = "room";
  */
 const TASK_MODELS = { fast: "gpt-4.1-mini", strong: "gpt-4.1" } as const;
 
-/** Per-connection identity; persisted in the WebSocket attachment (survives hibernation). */
-type ConnState = { role: "guest" } | { role: "host" } | { role: "player"; playerId: string };
+/**
+ * Per-connection identity; persisted in the WebSocket attachment (survives
+ * hibernation). `since`: when the player connection was attached (heartbeat).
+ */
+type ConnState = { role: "guest" } | { role: "host" } | { role: "player"; playerId: string; since?: number };
+
+/** WebSocket.readyState OPEN. */
+const WS_OPEN = 1;
+
+/** Phases in which dead player sockets are looked for (every heartbeat). */
+const GAME_PHASES = new Set(["intro", "play", "scoreboard"]);
 
 type Conn = Connection<ConnState>;
 
@@ -82,6 +102,9 @@ export class Room extends Server<Env> implements AvatarRoomApi {
   private room: RoomRecord | null = null;
 
   async onStart() {
+    // Heartbeat: answered by the runtime without waking the room.
+    this.ctx.setWebSocketAutoResponse(new WebSocketRequestResponsePair(HEARTBEAT_PING, HEARTBEAT_PONG));
+    // Everything (players, secrets, scores, phase, grace periods) comes back after an eviction/restart.
     const stored = await this.ctx.storage.get<RoomRecord>(STORAGE_KEY);
     this.room = stored ? normalizeRoomRecord(stored) : null;
   }
@@ -194,6 +217,12 @@ export class Room extends Server<Env> implements AvatarRoomApi {
       await this.save(room);
       this.broadcastState();
     }
+    // Phones gone silent (half-open sockets) and grace periods that are over.
+    const presence = await this.checkPresence(room, now);
+    if (presence) {
+      await this.commit(presence);
+      room = presence;
+    }
     if (isTimerDue(room, now)) {
       if (room.phase === "intro") {
         // Loading the filter yields – re-read the room afterwards.
@@ -232,7 +261,68 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     const state = conn.state;
     // Only presence changes are interesting for the others.
     if (!state || state.role === "guest") return;
+    if (state.role === "player") return this.playerDropped(state.playerId, conn.id);
     await this.presenceChanged(conn.id);
+  }
+
+  /**
+   * A player's connection closed. With no other connection left they get a
+   * grace period: still "connected" for the game (no question ends early),
+   * but their seat can be claimed from another phone right away.
+   */
+  private async playerDropped(playerId: string, connId: string) {
+    const room = this.activeRoom();
+    if (!room) return;
+    if (this.presence(connId).online.has(playerId)) return this.broadcastState(connId);
+    const next = startGrace(room, playerId, Date.now(), CONNECTION_CONFIG.graceMs);
+    await this.save(next);
+    await this.scheduleAlarm(next);
+    this.broadcastState(connId);
+  }
+
+  /**
+   * Alarm: closes player sockets without a heartbeat (dead phones), ends
+   * grace periods that are over and lets the module re-check the question
+   * ("all answered" = all connected players). Null when nothing changed.
+   */
+  private async checkPresence(room: RoomRecord, now: number): Promise<RoomRecord | null> {
+    let changed = false;
+    for (const conn of this.getConnections<ConnState>()) {
+      if (conn.state?.role === "player" && conn.readyState === WS_OPEN && this.isStale(conn, now)) {
+        // Silent for 45 s already – no extra grace period.
+        conn.close(4002, "No heartbeat");
+        changed = true;
+      }
+    }
+    const graceOver = expireGrace(room, now);
+    if (!graceOver && !changed) return null;
+    const next = graceOver ?? room;
+    return handlePresenceChange(next, this.flowDeps(now)) ?? next;
+  }
+
+  /**
+   * A player socket that is closing, or pinged once but not for
+   * `serverStaleAfterMs` (old clients never ping → never stale).
+   */
+  private isStale(conn: Conn, now: number): boolean {
+    if (conn.readyState !== WS_OPEN) return true;
+    const last = this.lastPing(conn);
+    return last !== null && now - last > CONNECTION_CONFIG.serverStaleAfterMs;
+  }
+
+  private lastPing(conn: Conn): number | null {
+    try {
+      return this.ctx.getWebSocketAutoResponseTimestamp(conn as unknown as WebSocket)?.getTime() ?? null;
+    } catch {
+      return null;
+    }
+  }
+
+  /** Only to host screens: "Philip ist wieder da 👋" / "Neu dabei: Tina". */
+  private notifyHosts(notice: RoomNotice) {
+    for (const conn of this.getConnections<ConnState>()) {
+      if (conn.state?.role === "host") this.send(conn, { type: "notice", notice });
+    }
   }
 
   async onMessage(conn: Conn, raw: WSMessage) {
@@ -271,10 +361,29 @@ export class Room extends Server<Env> implements AvatarRoomApi {
       case "hello_player": {
         const result = authenticatePlayer(room, msg.playerId, msg.playerSecret);
         if (!result.ok) return this.send(conn, errorMessage(result.error));
-        conn.setState({ role: "player", playerId: result.value.id });
-        this.send(conn, { type: "welcome_player", playerId: result.value.id });
-        return this.broadcastState();
+        const player = result.value;
+        const wasGone = !this.presence().playerIds.has(player.id);
+        conn.setState({ role: "player", playerId: player.id, since: now });
+        this.send(conn, { type: "welcome_player", playerId: player.id });
+        if (wasGone && room.phase !== "lobby") this.notifyHosts({ kind: "rejoined", playerId: player.id, name: player.name });
+        return this.commit(endGrace(room, player.id));
       }
+
+      case "claim_seat": {
+        if (conn.state?.role === "player" || isHost) return this.send(conn, errorMessage("ALREADY_JOINED"));
+        const result = claimSeat(room, msg.playerId, this.presence().online, { now });
+        if (!result.ok) return this.send(conn, errorMessage(result.error));
+        const { room: claimed, player } = result.value;
+        conn.setState({ role: "player", playerId: player.id, since: now });
+        // The new secret goes to this phone only; the old one no longer works.
+        this.send(conn, { type: "joined", playerId: player.id, playerSecret: player.secret });
+        this.notifyHosts({ kind: "rejoined", playerId: player.id, name: player.name });
+        return this.commit(endGrace(claimed, player.id));
+      }
+
+      case "set_late_join":
+        if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        return this.apply(conn, setLateJoin(room, msg.enabled));
 
       case "join": {
         if (conn.state?.role === "player") {
@@ -433,11 +542,13 @@ export class Room extends Server<Env> implements AvatarRoomApi {
   // -------------------------------------------------------------------------
 
   private async join(conn: Conn, room: RoomRecord, name: string, avatar: Avatar, savedFigureId?: string) {
-    const result = joinPlayer(room, { name, avatar }, { now: Date.now() });
+    const now = Date.now();
+    const result = joinPlayer(room, { name, avatar }, { now });
     if (!result.ok) return this.send(conn, errorMessage(result.error));
-    const { room: next, player } = result.value;
-    conn.setState({ role: "player", playerId: player.id });
+    const { room: next, player, late } = result.value;
+    conn.setState({ role: "player", playerId: player.id, since: now });
     this.send(conn, { type: "joined", playerId: player.id, playerSecret: player.secret });
+    if (late) this.notifyHosts({ kind: "late_join", playerId: player.id, name: player.name });
     await this.commit(next);
     this.voice.playerJoined(player.id);
     // Joined with the emoji first; the saved figure replaces it a moment later.
@@ -491,6 +602,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     return {
       now,
       random: Math.random,
+      // Connected incl. the grace period: a short blip never ends a question early.
       connectedPlayerIds: this.presence(excludeConnId).playerIds,
       content: this.content,
     };
@@ -516,7 +628,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
   }
 
   private async scheduleAlarm(room: RoomRecord) {
-    const candidates = [room.expiresAt, room.phaseEndsAt, nextPhotoDeadline(room)];
+    const candidates = [room.expiresAt, room.phaseEndsAt, nextPhotoDeadline(room), nextGraceDeadline(room), this.nextStaleCheck(room)];
     const next = Math.min(...candidates.filter((t): t is number => t !== null));
     await this.ctx.storage.setAlarm(next);
   }
@@ -559,17 +671,38 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     this.ctx.waitUntil(this.deleteAvatarsNow(prefix));
   }
 
-  /** `excludeConnId`: a connection that is closing but may still be listed. */
+  /** During a game: when the next player socket could go stale (heartbeat check), else null. */
+  private nextStaleCheck(room: RoomRecord): number | null {
+    if (!GAME_PHASES.has(room.phase)) return null;
+    let next: number | null = null;
+    for (const c of this.getConnections<ConnState>()) {
+      if (c.state?.role !== "player" || c.readyState !== WS_OPEN) continue;
+      const last = this.lastPing(c);
+      if (last === null) continue;
+      const due = last + CONNECTION_CONFIG.serverStaleAfterMs + 1_000;
+      next = next === null ? due : Math.min(next, due);
+    }
+    return next;
+  }
+
+  /**
+   * `online`: players with an open (not stale) connection. `playerIds`:
+   * connected for the game – online or within their grace period.
+   * `excludeConnId`: a connection that is closing but may still be listed.
+   */
   private presence(excludeConnId?: string) {
+    const now = Date.now();
     let host = false;
-    const playerIds = new Set<string>();
+    const online = new Set<string>();
     for (const c of this.getConnections<ConnState>()) {
       if (c.id === excludeConnId) continue;
       const s = c.state;
       if (s?.role === "host") host = true;
-      else if (s?.role === "player") playerIds.add(s.playerId);
+      else if (s?.role === "player" && !this.isStale(c, now)) online.add(s.playerId);
     }
-    return { host, playerIds };
+    const room = this.activeRoom();
+    const playerIds = room ? effectivePresence(room, online, now) : online;
+    return { host, online, playerIds };
   }
 
   private viewerOf(conn: Conn): Viewer {

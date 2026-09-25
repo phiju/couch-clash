@@ -44,7 +44,10 @@ export interface PublicPlayer {
   name: string;
   avatar: PublicAvatar;
   joinedAt: number;
+  /** Connected – or dropped less than the grace period ago (short blips don't count). */
   connected: boolean;
+  /** Has an open connection right now. Seats without one can be claimed ("Ich war schon dabei"). */
+  online: boolean;
 }
 
 export interface PublicRound {
@@ -86,6 +89,8 @@ export interface PublicGameState {
   leaderboard: LeaderboardEntry[] | null;
   /** The current question (for 👍/👎 on phones and "Stimmt nicht?" on the host), null outside questions. */
   currentQuestion: { contentId: string; revealed: boolean } | null;
+  /** Joined during a running question – playing from the next one. */
+  waitingPlayerIds: string[];
 }
 
 /** Room state sent to a client. Built per viewer – may differ between clients. */
@@ -113,6 +118,8 @@ export interface PublicRoomState {
   poolSizes: Record<string, number> | null;
   /** Host setting "Foto-Avatare erlauben". */
   photoAvatars: boolean;
+  /** Host setting "Neue Spieler während des Spiels zulassen". */
+  lateJoin: boolean;
   /** Moderator voice settings – host only (null for everyone else). */
   voice:
     | (VoiceSettings & {

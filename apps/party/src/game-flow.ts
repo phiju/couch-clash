@@ -58,12 +58,48 @@ function setPhase(room: RoomRecord, phase: Phase, now: number, phaseEndsAt: numb
   return { ...room, phase, phaseStartedAt: now, phaseEndsAt };
 }
 
+/**
+ * The question running right now ("round:question"), or null outside a
+ * question. Late joiners are remembered with it and play from the next one.
+ */
+export function currentQuestionKey(room: RoomRecord, registry: ModuleRegistry = GAME_MODULES): string | null {
+  const game = room.game;
+  if (room.phase !== "play" || !game || game.moduleState == null) return null;
+  const progress = currentModule(room, registry)?.progress?.(game.moduleState);
+  return `${game.roundIndex}:${progress ? progress.index : "round"}`;
+}
+
+/** Players who joined during the running question (they neither answer nor block it). */
+export function waitingPlayerIds(room: RoomRecord, registry: ModuleRegistry = GAME_MODULES): string[] {
+  const key = currentQuestionKey(room, registry);
+  return key ? room.players.filter((p) => p.joinedDuring === key).map((p) => p.id) : [];
+}
+
 function moduleContext(room: RoomRecord, deps: FlowDeps): ModuleContext {
+  const waiting = new Set(waitingPlayerIds(room, deps.registry ?? GAME_MODULES));
   return {
     now: deps.now,
     random: deps.random,
-    players: room.players.map((p) => ({ id: p.id, connected: deps.connectedPlayerIds.has(p.id), name: p.name })),
+    players: room.players
+      .filter((p) => !waiting.has(p.id))
+      .map((p) => ({ id: p.id, connected: deps.connectedPlayerIds.has(p.id), name: p.name })),
     scores: room.game?.scores ?? {},
+  };
+}
+
+/** Late joiners whose question is over now play along (their marker is dropped). */
+function settleLateJoiners(room: RoomRecord, registry: ModuleRegistry): RoomRecord {
+  if (!room.players.some((p) => p.joinedDuring)) return room;
+  const key = currentQuestionKey(room, registry);
+  if (!room.players.some((p) => p.joinedDuring && p.joinedDuring !== key)) return room;
+  return {
+    ...room,
+    players: room.players.map((p) => {
+      if (!p.joinedDuring || p.joinedDuring === key) return p;
+      const rest = { ...p };
+      delete rest.joinedDuring;
+      return rest;
+    }),
   };
 }
 
@@ -118,8 +154,8 @@ function applyModuleUpdate(
       : game.questionLeaderboard,
   };
   const next: RoomRecord = { ...room, game: nextGame, usedContentIds };
-  if (update.done) return setPhase(next, "scoreboard", now, now + SCOREBOARD_MS);
-  return { ...next, phaseEndsAt: update.phaseEndsAt };
+  if (update.done) return settleLateJoiners(setPhase(next, "scoreboard", now, now + SCOREBOARD_MS), registry);
+  return settleLateJoiners({ ...next, phaseEndsAt: update.phaseEndsAt }, registry);
 }
 
 
@@ -361,6 +397,7 @@ export function publicGame(
     module: module ? module.toPublicState(game.moduleState, viewer) : null,
     leaderboard: publicLeaderboard(room, game),
     currentQuestion: currentQuestion(module?.progress?.(game.moduleState)),
+    waitingPlayerIds: waitingPlayerIds(room, registry),
   };
 }
 

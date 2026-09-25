@@ -120,6 +120,20 @@ Traffic signs, right of way and road rules – 155 questions (`packages/content/
 - **Reveal:** the explanation („Merke: …“) under the right answer (shown, not read out). Scenes: the vehicles drive through in the answer's order (`driveOrder`, read from the correct option: an order „Blau, Rot, Grün“, the first vehicle, or the waiting one last) – 3–5 s, a click skips it, reduced motion shows numbers instead.
 - **Driving-school show:** FAHRSCHULE roof sign on the category intro, the host holds a clipboard and plays the know-it-all driving instructor (`hostPersona` in the meta), exam-sheet styling. After the last question every player gets a **Prüfungsergebnis** – a BESTANDEN / DURCHGEFALLEN stamp (from 70 % right, `FUEHRERSCHEIN_CONFIG.passShare`) on TV and phone, and the host comments it. Show only: it never changes points. Generic engine hook: `summary` (step `"summary"`, `GameModule.summaryFacts`).
 
+## Reconnect & rejoin
+
+A phone that drops out always gets back in (timings in `CONNECTION_CONFIG`, `packages/shared/src/connection.ts`):
+
+- **Same phone:** partysocket retries forever (backoff 0.5–5 s). On wake-up (`visibilitychange`, `online`, `pageshow`, `focus`) a closed socket is replaced by a fresh one right away. A heartbeat (raw `"ping"` every 15 s, answered by the runtime's auto-response `"pong"` without waking the room) finds sockets that died silently, e.g. on a WLAN ↔ mobile switch: no pong within 5 s → new socket. `hello_player` brings the phone back into exactly the current step. After 8 s on „Verbinde …“ the phone shows „Neu verbinden“ (retrying goes on).
+- **Credentials** live in localStorage **and** a fallback cookie `cc_player_<CODE>` (SameSite=Lax, 24 h) for in-app browsers that drop localStorage.
+- **Grace period:** a player whose last connection closed still counts as connected for 20 s (`RoomRecord.graceUntil`, persisted, alarm when it ends) – short blips never end a question early. The server closes player sockets without a ping for 45 s (half-open). „All answered“ = all connected players answered; a player who is back in time can still answer; a bluff author's option stays.
+- **Another phone / lost credentials („Ich war schon dabei“):** during the game the join link shows „Das Spiel läuft schon. Wer bist du?“ with every player **without an open connection** (`PublicPlayer.online`). Tapping a name sends `claim_seat`: same id, score, avatar and history, a **new secret** (the old one stops working). A connected player can't be taken over. The TV shows „Philip ist wieder da 👋“; the host can kick as usual.
+- **Late join:** host setting „Neue Spieler während des Spiels zulassen“ (default on). New players start with 0 points; during a running question they wait (`joinedDuring`, excluded from the module context) and play from the next one. The TV shows „Neu dabei: Tina“.
+- **TV:** room code + mini QR in the corner during play and the scoreboard (tap or „Q“ enlarges it), 📵 on avatars of disconnected players.
+- **Restarts:** the whole room (players, secrets, scores, phase, grace periods) is saved in Durable Object storage after every change and restored in `onStart`.
+
+End-to-end check (needs `pnpm dev:party` + `pnpm dev:web`): `pnpm --filter @couch-clash/web e2e:reconnect` – reload, offline (`OFFLINE_SECONDS=30,180,900`), closed tab, other browser, rejected credentials, cookie fallback, seat claiming, late join, network switch, „Neu verbinden“, host reload and a worker restart. Screenshots: `docs/screenshots/reconnect/`.
+
 ## Local development
 
 Requirements: Node.js ≥ 20 and pnpm (`corepack enable` activates the version set in `package.json`).

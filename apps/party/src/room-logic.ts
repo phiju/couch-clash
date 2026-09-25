@@ -21,7 +21,7 @@ import {
   type GameModeSettings,
 } from "@couch-clash/shared";
 import { GAME_MODULES, getModule, normalizeScoring, type ModuleRegistry } from "@couch-clash/games";
-import { publicGame, settingsSummary } from "./game-flow";
+import { currentQuestionKey, publicGame, settingsSummary } from "./game-flow";
 import { fail, ok, type Result } from "./result";
 import { publicPhoto, type PhotoRecord, type PhotoUsage } from "./avatar/photo-logic";
 import type { QuestionVotes } from "./stats/votes";
@@ -40,6 +40,11 @@ export interface PlayerRecord {
   photo?: PhotoRecord;
   /** Base images generated for this player (also counts after a reset). */
   photoGenerations?: number;
+  /**
+   * Late join: the question that was running when the player joined
+   * (`currentQuestionKey`) – they play from the next one. Cleared then.
+   */
+  joinedDuring?: string;
 }
 
 /** Everything persisted in Durable Object storage for one room. */
@@ -70,6 +75,14 @@ export interface RoomRecord {
   mode: GameModeSettings;
   /** The host confirmed "alle über 18" for Party mode in this room. */
   partyConfirmed: boolean;
+  /** Host setting "Neue Spieler während des Spiels zulassen" (default on). */
+  lateJoin: boolean;
+  /**
+   * Players whose connection dropped: still counted as connected until this
+   * time (grace period, CONNECTION_CONFIG.graceMs). Persisted, so a restarted
+   * room keeps the same view.
+   */
+  graceUntil: Record<string, number>;
 }
 
 /** One category of the game settings (sanitized against the registry). */
@@ -114,6 +127,8 @@ export function normalizeRoomRecord(room: RoomRecord, registry: ModuleRegistry =
     // Rooms saved before game modes → Familie.
     mode: normalizeModeSettings(room.mode),
     partyConfirmed: room.partyConfirmed ?? false,
+    lateJoin: room.lateJoin ?? true,
+    graceUntil: room.graceUntil ?? {},
   };
 }
 
@@ -143,6 +158,8 @@ export function createRoomRecord(code: string, hostToken: string, now: number): 
     questionVotes: null,
     mode: { ...DEFAULT_MODE_SETTINGS },
     partyConfirmed: false,
+    lateJoin: true,
+    graceUntil: {},
   };
 }
 
@@ -181,12 +198,23 @@ function nameKey(name: string): string {
   return cleanName(name).toLocaleLowerCase("de-DE");
 }
 
+/** Phases in which a new player may join when the host allows late joins. */
+const LATE_JOIN_PHASES: readonly Phase[] = ["setup", "intro", "play", "scoreboard"];
+
+/**
+ * A new player. In the lobby always; later only with "Neue Spieler während
+ * des Spiels zulassen": 0 points, and during a running question they play
+ * from the next one (`joinedDuring`).
+ */
 export function joinPlayer(
   room: RoomRecord,
   input: { name: string; avatar: Avatar },
   deps: Deps,
-): Result<{ room: RoomRecord; player: PlayerRecord }> {
-  if (room.phase !== "lobby") return fail("GAME_ALREADY_STARTED");
+  registry: ModuleRegistry = GAME_MODULES,
+): Result<{ room: RoomRecord; player: PlayerRecord; late: boolean }> {
+  const late = room.phase !== "lobby";
+  if (late && !LATE_JOIN_PHASES.includes(room.phase)) return fail("GAME_ALREADY_STARTED");
+  if (late && !room.lateJoin) return fail("LATE_JOIN_CLOSED");
   const name = cleanName(input.name);
   if (name.length < 1 || name.length > NAME_MAX_LENGTH) return fail("INVALID_NAME");
   const key = nameKey(name);
@@ -194,24 +222,90 @@ export function joinPlayer(
   if (room.players.length >= MAX_PLAYERS) return fail("ROOM_FULL");
 
   const newSecret = deps.secret ?? (() => generateSecret());
+  const running = room.phase === "play" ? currentQuestionKey(room, registry) : null;
   const player: PlayerRecord = {
     id: newSecret().slice(0, 12),
     secret: newSecret(),
     name,
     avatar: input.avatar,
     joinedAt: deps.now,
+    ...(running ? { joinedDuring: running } : {}),
   };
-  return ok({ room: { ...room, players: [...room.players, player] }, player });
+  const game = room.game ? { ...room.game, scores: { ...room.game.scores, [player.id]: 0 } } : null;
+  return ok({ room: { ...room, game, players: [...room.players, player] }, player, late });
+}
+
+/**
+ * "Ich war schon dabei": a phone without valid credentials takes over a
+ * player's seat. Only seats without an open connection (`online`) can be
+ * claimed – a connected player can't be hijacked. The secret is rotated,
+ * so the old one stops working; id, score, avatar and history stay.
+ */
+export function claimSeat(
+  room: RoomRecord,
+  playerId: string,
+  online: ReadonlySet<string>,
+  deps: Deps,
+): Result<{ room: RoomRecord; player: PlayerRecord }> {
+  const player = room.players.find((p) => p.id === playerId);
+  if (!player) return fail("UNKNOWN_PLAYER");
+  if (online.has(playerId)) return fail("SEAT_TAKEN");
+  const secret = (deps.secret ?? (() => generateSecret()))();
+  const claimed = { ...player, secret };
+  return ok({ room: { ...room, players: room.players.map((p) => (p.id === playerId ? claimed : p)) }, player: claimed });
+}
+
+/**
+ * Who counts as connected: an open connection, or dropped less than the
+ * grace period ago. Short network blips change nothing.
+ */
+export function effectivePresence(room: RoomRecord, online: ReadonlySet<string>, now: number): Set<string> {
+  const out = new Set(online);
+  for (const [id, until] of Object.entries(room.graceUntil)) if (until > now) out.add(id);
+  return out;
+}
+
+/** A player's last connection closed: counted as connected for the grace period. */
+export function startGrace(room: RoomRecord, playerId: string, now: number, graceMs: number): RoomRecord {
+  if (!room.players.some((p) => p.id === playerId)) return room;
+  return { ...room, graceUntil: { ...room.graceUntil, [playerId]: now + graceMs } };
+}
+
+/** Back online (or removed): no grace needed any more. */
+export function endGrace(room: RoomRecord, playerId: string): RoomRecord {
+  if (!(playerId in room.graceUntil)) return room;
+  const graceUntil = { ...room.graceUntil };
+  delete graceUntil[playerId];
+  return { ...room, graceUntil };
+}
+
+/** Grace periods that are over (the room then re-checks the question). Null when none. */
+export function expireGrace(room: RoomRecord, now: number): RoomRecord | null {
+  const entries = Object.entries(room.graceUntil);
+  const kept = entries.filter(([, until]) => until > now);
+  return kept.length === entries.length ? null : { ...room, graceUntil: Object.fromEntries(kept) };
+}
+
+/** When the next grace period ends (alarm), or null. */
+export function nextGraceDeadline(room: RoomRecord): number | null {
+  const times = Object.values(room.graceUntil);
+  return times.length ? Math.min(...times) : null;
+}
+
+/** Host: "Neue Spieler während des Spiels zulassen". */
+export function setLateJoin(room: RoomRecord, enabled: boolean): Result<RoomRecord> {
+  return ok({ ...room, lateJoin: enabled });
 }
 
 export function kickPlayer(room: RoomRecord, playerId: string): Result<RoomRecord> {
   if (!room.players.some((p) => p.id === playerId)) return fail("UNKNOWN_PLAYER");
-  return ok({ ...room, players: room.players.filter((p) => p.id !== playerId) });
+  return ok(endGrace({ ...room, players: room.players.filter((p) => p.id !== playerId) }, playerId));
 }
 
 export function toPublicState(
   room: RoomRecord,
-  connected: { host: boolean; playerIds: ReadonlySet<string> },
+  /** playerIds: connected incl. grace period; online: open connection right now. */
+  connected: { host: boolean; playerIds: ReadonlySet<string>; online?: ReadonlySet<string> },
   viewer: Viewer,
   registry: ModuleRegistry = GAME_MODULES,
 ): PublicRoomState {
@@ -229,6 +323,7 @@ export function toPublicState(
       avatar: p.photo ? { ...p.avatar, photo: publicPhoto(p, room.code) } : p.avatar,
       joinedAt: p.joinedAt,
       connected: connected.playerIds.has(p.id),
+      online: (connected.online ?? connected.playerIds).has(p.id),
     })),
     game: publicGame(room, viewer, registry),
     settings: viewer.role === "host" ? room.settings : null,
@@ -237,6 +332,7 @@ export function toPublicState(
     partyConfirmed: viewer.role === "host" && room.partyConfirmed,
     poolSizes: viewer.role === "host" ? poolSizesFor(room.mode, registry) : null,
     photoAvatars: room.photoAvatars,
+    lateJoin: room.lateJoin,
     voice: viewer.role === "host" ? publicVoice(room) : null,
   };
 }

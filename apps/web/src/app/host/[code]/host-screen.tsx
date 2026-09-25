@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { HostFinale, HostIntro, HostPlay, HostScoreboard } from "@/components/host/game-phases";
 import { HostLobby } from "@/components/host/lobby";
 import { HostSetup } from "@/components/host/setup";
+import { HostToasts, JoinCornerChip, showJoinChip, useHostToasts } from "@/components/host/rejoin";
 import { HostSpeaker, HostSpeechContext, useHostVoice } from "@/components/host/voice";
 import { ButtonLink, ConnectionBadge, Notice, Screen } from "@/components/ui";
 import { getGameViews } from "@/games/registry";
@@ -57,10 +58,12 @@ function HostRoom({ code, token }: { code: string; token: string }) {
   const [authed, setAuthed] = useState(false);
   // The host mascot's lines (host device only) – `onLine` is filled in below.
   const lineHandler = useRef<(line: HostLine) => void>(() => {});
-  const { state, status, fatalError, send, clockOffset } = useRoom(code, {
+  const { toasts, push: pushToast } = useHostToasts();
+  const { state, status, stuck, fatalError, send, reconnect, clockOffset } = useRoom(code, {
     hello: () => ({ type: "hello_host", hostToken: token }),
     onMessage: (msg: ServerMessage) => {
       if (msg.type === "host_line") lineHandler.current(msg.line);
+      if (msg.type === "notice") pushToast(msg.notice);
       if (msg.type === "welcome_host") {
         setAuthFailed(false);
         setAuthed(true);
@@ -136,7 +139,9 @@ function HostRoom({ code, token }: { code: string; token: string }) {
           {error}
         </div>
       )}
-      <ConnectionBadge status={status} />
+      {showJoinChip(state?.phase) && <JoinCornerChip code={code} />}
+      <HostToasts toasts={toasts} />
+      <ConnectionBadge status={status} stuck={stuck} onReconnect={reconnect} />
     </ClockContext.Provider>
   );
 }

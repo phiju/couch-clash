@@ -30,12 +30,15 @@ export function AvatarBadge({
   avatar,
   size = "md",
   dimmed = false,
+  offline = false,
   expression = "neutral",
   className = "",
 }: {
   avatar: Avatar | PublicAvatar;
   size?: keyof typeof sizes;
   dimmed?: boolean;
+  /** Phone disconnected: dimmed with a small 📵 (the score stays). */
+  offline?: boolean;
   /** Face of the photo avatar (falls back to neutral). */
   expression?: PhotoExpression;
   className?: string;
@@ -45,11 +48,11 @@ export function AvatarBadge({
   const url = "photo" in avatar ? photoAvatarUrl(PARTY_HTTP_URL, avatar.photo, expression) : null;
   const [failedUrl, setFailedUrl] = useState<string | null>(null);
   const showPhoto = url !== null && failedUrl !== url;
-  return (
+  const badge = (
     <div
       className={`flex shrink-0 items-center justify-center overflow-hidden rounded-full transition ${sizes[size]} ${
         showPhoto ? "bg-cream" : "ring-bulb/80"
-      } ${dimmed ? "opacity-40 grayscale" : ""} ${className}`}
+      } ${dimmed || offline ? "opacity-40 grayscale" : ""} ${offline ? "" : className}`}
       style={showPhoto ? { ["--tw-ring-color" as string]: color } : { backgroundColor: color }}
       aria-label={character?.label}
       role="img"
@@ -68,5 +71,14 @@ export function AvatarBadge({
         <span className="leading-none">{character?.value ?? "❓"}</span>
       )}
     </div>
+  );
+  if (!offline) return badge;
+  return (
+    <span className={`relative inline-flex shrink-0 ${className}`} title="Verbindung weg">
+      {badge}
+      <span className="absolute -right-1 -bottom-1 rounded-full bg-petrol-dark px-0.5 text-[clamp(0.8rem,min(1.6vw,2.8vh),1.6rem)] leading-none" aria-label="Verbindung weg">
+        📵
+      </span>
+    </span>
   );
 }

@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "e2e:reconnect": "node e2e/reconnect.e2e.mjs"
   },
   "dependencies": {
     "@couch-clash/games": "workspace:*",
@@ -28,6 +29,7 @@
     "@types/react-dom": "^19.3.0",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.6",
+    "playwright-core": "1.56.1",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.3",
     "vitest": "^5.0.1"

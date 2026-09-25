@@ -116,6 +116,19 @@ export function HostLobby({
                 📸 Foto-Avatare erlauben
               </label>
             )}
+            {room && (
+              <label className="fs-sm flex cursor-pointer items-center gap-2 font-bold text-cream/85">
+                <input
+                  type="checkbox"
+                  role="switch"
+                  checked={room.lateJoin}
+                  disabled={!canSend}
+                  onChange={(e) => send({ type: "set_late_join", enabled: e.target.checked })}
+                  className="size-5 accent-orange"
+                />
+                🚪 Neue Spieler während des Spiels zulassen
+              </label>
+            )}
           </div>
 
           <PlayerGrid playerCount={players.length} big={!settingsOpen}>

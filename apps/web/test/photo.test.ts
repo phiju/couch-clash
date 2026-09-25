@@ -20,6 +20,7 @@ function player(id: string, readyVersion: number | null): PublicPlayer {
     name: id,
     joinedAt: 0,
     connected: true,
+    online: true,
     avatar: {
       character: "fox",
       color: "red",

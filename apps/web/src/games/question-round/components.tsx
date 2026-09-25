@@ -73,6 +73,7 @@ export function AnsweredStrip({ state, room }: { state: AnyRoundState; room: Pub
             avatar={p.avatar}
             size="fluidSm"
             dimmed={!answered.has(p.id)}
+            offline={!p.connected}
             className={answered.has(p.id) ? "animate-pop" : ""}
           />
           <span className={`fs-sm max-w-[9rem] truncate font-bold ${answered.has(p.id) ? "" : "text-cream/40"}`}>

@@ -105,8 +105,30 @@ export function Notice({
   );
 }
 
-export function ConnectionBadge({ status }: { status: "connecting" | "open" | "closed" }) {
+/**
+ * Small connection hint at the bottom. `stuck` (connecting for a while):
+ * a "Neu verbinden" button – retrying goes on in the background anyway.
+ */
+export function ConnectionBadge({
+  status,
+  stuck = false,
+  onReconnect,
+}: {
+  status: "connecting" | "open" | "closed";
+  stuck?: boolean;
+  onReconnect?: () => void;
+}) {
   if (status === "open") return null;
+  if (stuck && onReconnect && status === "connecting") {
+    return (
+      <div className="fixed bottom-4 left-1/2 z-40 flex -translate-x-1/2 items-center gap-3 rounded-full border-2 border-bulb bg-petrol-dark py-1.5 pr-1.5 pl-4 text-sm font-bold whitespace-nowrap">
+        Verbindung hakt …
+        <button type="button" onClick={onReconnect} className="rounded-full bg-bulb px-3 py-1 text-brown">
+          Neu verbinden
+        </button>
+      </div>
+    );
+  }
   return (
     <div className="fixed bottom-4 left-1/2 z-40 -translate-x-1/2 rounded-full border-2 border-bulb bg-petrol-dark px-4 py-2 text-sm font-bold">
       {status === "connecting" ? "Verbinde…" : "Verbindung getrennt"}

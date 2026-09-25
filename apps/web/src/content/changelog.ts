@@ -28,6 +28,17 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.14.0",
+    date: "2026-09-25",
+    title: "Rausgeflogen? Kein Problem mehr – einfach den QR-Code scannen und deinen Namen antippen, schon bist du wieder im Spiel.",
+    items: [
+      { emoji: "👋", text: "Handy weg? QR-Code scannen, Namen antippen – mit allen Punkten zurück" },
+      { emoji: "📶", text: "Kurze Funklöcher merkt keiner mehr – das Handy verbindet sich von selbst" },
+      { emoji: "🚪", text: "Zu spät gekommen? Einfach mitten im Spiel einsteigen" },
+      { emoji: "📵", text: "Der Fernseher zeigt, wessen Handy gerade weg ist" },
+    ],
+  },
+  {
     version: "0.13.0",
     date: "2026-09-25",
     title: "Neues Spiel: Skurrile Ereignisse – wahre Geschichten, die keiner glaubt. Erfindet die beste Lüge!",

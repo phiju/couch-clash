@@ -1,3 +1,4 @@
+import type { RoomNotice } from "./connection";
 import { GameModeSettingsSchema } from "./modes";
 import { z } from "zod";
 import { AvatarSchema } from "./avatar";
@@ -87,6 +88,13 @@ export const ClientMessageSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("undo_report"), contentId: id }),
   /** Player: a category-specific action. Validated by the module's own schema. */
   z.object({ type: z.literal("action"), action: z.unknown() }),
+  /**
+   * "Ich war schon dabei": a phone without (valid) credentials takes over a
+   * DISCONNECTED player's seat – same id, score and avatar, new secret.
+   */
+  z.object({ type: z.literal("claim_seat"), playerId: id }),
+  /** Host: "Neue Spieler während des Spiels zulassen". */
+  z.object({ type: z.literal("set_late_join"), enabled: z.boolean() }),
 ]);
 
 export type ClientMessage = z.infer<typeof ClientMessageSchema>;
@@ -122,6 +130,8 @@ export const ERROR_CODES = [
   "PHOTO_SAVED_GONE",
   "OWN_ANSWER",
   "PARTY_CONFIRM_REQUIRED",
+  "SEAT_TAKEN",
+  "LATE_JOIN_CLOSED",
 ] as const;
 export type ErrorCode = (typeof ERROR_CODES)[number];
 
@@ -152,6 +162,8 @@ export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   PHOTO_SAVED_GONE: "Deine gespeicherte Figur gibt es nicht mehr. Mach einfach ein neues Selfie!",
   OWN_ANSWER: "Für deine eigene Erklärung kannst du nicht stimmen.",
   PARTY_CONFIRM_REQUIRED: "Party-Modus: Bitte zuerst bestätigen, dass alle über 18 sind.",
+  SEAT_TAKEN: "Dieser Platz ist gerade verbunden. Wähle deinen eigenen Namen.",
+  LATE_JOIN_CLOSED: "Neue Spieler können gerade nicht einsteigen. Warte auf die nächste Runde.",
 };
 
 export type ServerMessage =
@@ -164,6 +176,8 @@ export type ServerMessage =
   | { type: "kicked" }
   /** Only to host screens: the mascot says something. */
   | { type: "host_line"; line: HostLine }
+  /** Only to host screens: a short toast ("Philip ist wieder da 👋", "Neu dabei: Tina"). */
+  | { type: "notice"; notice: RoomNotice }
   /** Only to the owner: the id of the saved figure (stored on the phone). */
   | { type: "photo_saved"; savedId: string }
   | { type: "error"; code: ErrorCode; message: string };
