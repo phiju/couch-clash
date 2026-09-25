@@ -154,6 +154,7 @@ describe("quick filters", () => {
     categoryId: "quiz",
     text: "",
     answer: "",
+    source: null,
     difficulty: 2,
     ageRating: 6,
     tags: [],

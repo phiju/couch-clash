@@ -6,10 +6,26 @@ import { Button } from "@/components/ui";
 import { AnswerSent, Countdown, QuestionLeaderboard } from "../question-round/components";
 import type { PlayerViewProps } from "../types";
 import { resultParts } from "./logic";
+import type { BluffUiTexts } from "./texts";
 
-function Question({ text }: { text: string }) {
+type Props = PlayerViewProps<BluffPublicState> & { texts: BluffUiTexts };
+
+function Question({ state }: { state: BluffPublicState }) {
+  const story = state.story;
+  if (!story) {
+    return (
+      <p className="panel px-5 py-4 text-center text-3xl leading-tight font-bold text-bulb [overflow-wrap:anywhere]">{state.question}</p>
+    );
+  }
+  // Skurrile Ereignisse: the start of the story, then the question.
   return (
-    <p className="panel px-5 py-4 text-center text-3xl leading-tight font-bold text-bulb [overflow-wrap:anywhere]">{text}</p>
+    <div className="panel flex flex-col gap-3 px-5 py-4 text-center">
+      {story.year !== null && (
+        <span className="self-center rounded-full bg-bulb px-3 py-0.5 text-lg font-bold text-brown">{story.year}</span>
+      )}
+      <p className="text-xl leading-snug">{story.context}</p>
+      <p className="text-2xl leading-tight font-bold text-bulb [overflow-wrap:anywhere]">{state.question}</p>
+    </div>
   );
 }
 
@@ -23,7 +39,14 @@ function Note({ emoji, title, children }: { emoji: string; title: string; childr
   );
 }
 
-export function BluffPlayerView({ state, room, me, sendAction }: PlayerViewProps<BluffPublicState>) {
+/** The phone view of the bluff engine, with the texts of one game. */
+export function createBluffPlayerView(texts: BluffUiTexts) {
+  return function PlayerView(props: PlayerViewProps<BluffPublicState>) {
+    return <BluffPlayerView {...props} texts={texts} />;
+  };
+}
+
+function BluffPlayerView({ state, room, me, sendAction, texts }: Props) {
   if (state.step === "leaderboard") {
     return <QuestionLeaderboard state={state as never} room={room} variant="phone" meId={me.id} />;
   }
@@ -32,22 +55,22 @@ export function BluffPlayerView({ state, room, me, sendAction }: PlayerViewProps
       {(state.step === "write" || state.step === "vote") && (
         <Countdown startedAt={state.stepStartedAt} endsAt={state.stepEndsAt} size="sm" />
       )}
-      <Question text={state.question} />
-      <StepContent state={state} room={room} me={me} sendAction={sendAction} />
+      <Question state={state} />
+      <StepContent state={state} room={room} me={me} sendAction={sendAction} texts={texts} />
     </div>
   );
 }
 
-function StepContent({ state, room, me, sendAction }: PlayerViewProps<BluffPublicState>) {
+function StepContent({ state, room, me, sendAction, texts }: Props) {
   switch (state.step) {
     case "write":
-      return <WriteForm key={state.index} state={state} sendAction={sendAction} />;
+      return <WriteForm key={state.index} state={state} sendAction={sendAction} texts={texts} />;
     case "check":
       return <Note emoji="🔎" title="Gleich geht's weiter …" />;
     case "present":
       return state.iKnewIt ? (
         <Note emoji="🧠" title="Gewusst!">
-          <p className="text-xl">Deine Erklärung war richtig. Lehn dich zurück.</p>
+          <p className="text-xl">{texts.knewIt}</p>
         </Note>
       ) : (
         <Note emoji="👂" title="Hör gut zu!">
@@ -55,13 +78,13 @@ function StepContent({ state, room, me, sendAction }: PlayerViewProps<BluffPubli
         </Note>
       );
     case "vote":
-      return <VoteForm key={state.index} state={state} sendAction={sendAction} />;
+      return <VoteForm key={state.index} state={state} sendAction={sendAction} texts={texts} />;
     default:
-      return <Result state={state} room={room} me={me} sendAction={sendAction} />;
+      return <Result state={state} room={room} me={me} sendAction={sendAction} texts={texts} />;
   }
 }
 
-function WriteForm({ state, sendAction }: Pick<PlayerViewProps<BluffPublicState>, "state" | "sendAction">) {
+function WriteForm({ state, sendAction, texts }: Pick<Props, "state" | "sendAction" | "texts">) {
   const [text, setText] = useState("");
   const [sent, setSent] = useState<string | null>(null);
   const mine = state.mySubmission ?? sent;
@@ -85,14 +108,14 @@ function WriteForm({ state, sendAction }: Pick<PlayerViewProps<BluffPublicState>
       }}
     >
       <label className="flex flex-col gap-2">
-        <span className="text-2xl font-bold">Deine erfundene Erklärung:</span>
+        <span className="text-2xl font-bold">{texts.writeLabel}</span>
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value.replace(/\n/g, " ").slice(0, max))}
           maxLength={max}
           rows={3}
           autoFocus
-          placeholder="… z. B. ein Werkzeug, das …"
+          placeholder={state.placeholder}
           className="rounded-2xl border-4 border-bulb bg-cream px-4 py-3 text-2xl text-brown outline-none placeholder:text-brown/40"
         />
         <span className={`self-end text-lg font-bold ${text.length >= max ? "text-orange" : "text-cream/70"}`}>
@@ -106,7 +129,7 @@ function WriteForm({ state, sendAction }: Pick<PlayerViewProps<BluffPublicState>
   );
 }
 
-function VoteForm({ state, sendAction }: Pick<PlayerViewProps<BluffPublicState>, "state" | "sendAction">) {
+function VoteForm({ state, sendAction, texts }: Pick<Props, "state" | "sendAction" | "texts">) {
   const [picked, setPicked] = useState<number | null>(null);
   const [showTexts, setShowTexts] = useState(false);
   const options = state.options ?? [];
@@ -131,7 +154,7 @@ function VoteForm({ state, sendAction }: Pick<PlayerViewProps<BluffPublicState>,
   }
   return (
     <div className="flex flex-col gap-4">
-      <p className="text-center text-2xl font-bold">Welche Erklärung ist echt?</p>
+      <p className="text-center text-2xl font-bold">{texts.voteQuestion}</p>
       <div className={`grid gap-3 ${showTexts ? "grid-cols-1" : "grid-cols-2"}`}>
         {options.map((o, i) => {
           const own = state.myOptions.includes(i);
@@ -162,11 +185,11 @@ function VoteForm({ state, sendAction }: Pick<PlayerViewProps<BluffPublicState>,
   );
 }
 
-function Result({ state, me }: PlayerViewProps<BluffPublicState>) {
+function Result({ state, me, texts }: Props) {
   const reveal = state.reveal;
   const r = reveal?.results[me.id];
   const points = r?.finalScore ?? 0;
-  const parts = r ? resultParts(r) : [];
+  const parts = r ? resultParts(r, texts.counter) : [];
   return (
     <div className="panel flex w-full flex-col items-center gap-3 p-6 text-center">
       <div className="animate-pop text-8xl">{points > 0 ? "🎉" : r ? "😬" : "⏰"}</div>
@@ -182,6 +205,7 @@ function Result({ state, me }: PlayerViewProps<BluffPublicState>) {
           {reveal.lead} <span className="font-bold text-bulb">{reveal.definition}</span>
         </p>
       )}
+      {reveal?.extra && state.step === "solution" && <p className="text-lg text-cream/85">{reveal.extra.fact}</p>}
       <p className="text-lg text-cream/60">Schau auf den Fernseher!</p>
     </div>
   );

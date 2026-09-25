@@ -11,6 +11,7 @@ import { estimateModule } from "./estimate/module";
 import { fuehrerscheinModule } from "./fuehrerschein/module";
 import type { CategoryId } from "./meta";
 import { quizModule } from "./quiz/module";
+import { skurrilModule } from "./skurril/module";
 import { stealModule } from "./steal/module";
 
 export * from "./meta";
@@ -26,6 +27,7 @@ export const GAME_MODULES: Record<CategoryId, GameModule> = {
   steal: stealModule as unknown as GameModule,
   fuehrerschein: fuehrerscheinModule as unknown as GameModule,
   bluff: bluffModule as unknown as GameModule,
+  skurril: skurrilModule as unknown as GameModule,
 };
 
 export type ModuleRegistry = Readonly<Record<string, GameModule>>;

@@ -156,3 +156,34 @@ export const BluffWordSchema = z.object({
 });
 
 export type BluffWord = z.infer<typeof BluffWordSchema>;
+
+/**
+ * Skurrile Ereignisse: a true, bizarre story. The players read the context
+ * and the question, invent an answer and look for the true one.
+ */
+export const SkurrilStorySchema = z
+  .object({
+    id: z.string().regex(/^[a-z0-9-]+$/),
+    /** The start of the story (≈ 3 lines on a TV). */
+    context: z.string().min(10).max(230),
+    question: z.string().min(5).max(100),
+    /** Short and polished like a player answer: no final full stop. */
+    answer: z
+      .string()
+      .min(1)
+      .max(80)
+      .refine((a) => !/[.!]$/u.test(a.trim()), "No final full stop"),
+    /** Shown at the reveal. */
+    fact: z.string().min(5).max(220),
+    year: z.number().int().min(-3000).max(2100).nullable(),
+    primaryCategory: z.enum(KNOWLEDGE_CATEGORIES),
+    tags: z.array(z.string().min(1)).min(1),
+    difficulty: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+    ageRating: z.union([z.literal(6), z.literal(12), z.literal(18)]),
+    /** Party stories (only with ageRating 18). */
+    adult: z.boolean(),
+    source: z.url({ protocol: /^https?$/ }),
+  })
+  .refine((s) => s.adult === (s.ageRating === 18), { message: "adult ⇔ ageRating 18", path: ["adult"] });
+
+export type SkurrilStory = z.infer<typeof SkurrilStorySchema>;

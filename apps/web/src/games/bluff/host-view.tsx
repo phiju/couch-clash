@@ -8,24 +8,24 @@ import { useServerNow } from "@/lib/clock";
 import { AnsweredStrip, Countdown, QuestionLeaderboard } from "../question-round/components";
 import type { HostViewProps } from "../types";
 import { foolText, presentHighlight } from "./logic";
+import type { BluffUiTexts } from "./texts";
 
-function WordCounter({ state }: { state: BluffPublicState }) {
+function WordCounter({ state, label }: { state: BluffPublicState; label: string }) {
   return (
     <span className="fs-md shrink-0 rounded-full border-2 border-bulb bg-petrol-dark/85 px-4 py-[0.6vh] font-bold whitespace-nowrap">
-      Wort {state.index + 1} / {state.total}
+      {label} {state.index + 1} / {state.total}
     </span>
   );
 }
 
-const STEP_HINT: Partial<Record<BluffPublicState["step"], string>> = {
-  write: "Schreibt eine glaubwürdige Erklärung aufs Handy!",
-  check: "Die Erklärungen werden gemischt …",
-  present: "Hört gut zu – eine davon ist echt!",
-  vote: "Welche Erklärung ist die echte? Stimmt auf dem Handy ab!",
-  reveal: "Wer hat wen reingelegt?",
-};
+/** The TV view of the bluff engine, with the texts of one game. */
+export function createBluffHostView(texts: BluffUiTexts) {
+  return function HostView(props: HostViewProps<BluffPublicState>) {
+    return <BluffHostView {...props} texts={texts} />;
+  };
+}
 
-export function BluffHostView({ state, room }: HostViewProps<BluffPublicState>) {
+function BluffHostView({ state, room, texts }: HostViewProps<BluffPublicState> & { texts: BluffUiTexts }) {
   if (state.step === "leaderboard") {
     return <QuestionLeaderboard state={{ ...state, answeredPlayerIds: [] } as never} room={room} variant="tv" />;
   }
@@ -35,7 +35,7 @@ export function BluffHostView({ state, room }: HostViewProps<BluffPublicState>) 
   return (
     <div className="flex min-h-0 w-full flex-1 flex-col gap-[2vh]">
       <div className="flex shrink-0 items-center justify-between gap-[1.5vw]">
-        <WordCounter state={state} />
+        <WordCounter state={state} label={texts.counter} />
         {timed && (
           <div className="flex-1">
             <Countdown startedAt={state.stepStartedAt} endsAt={state.stepEndsAt} />
@@ -43,22 +43,26 @@ export function BluffHostView({ state, room }: HostViewProps<BluffPublicState>) 
         )}
       </div>
 
-      <div className={`panel flex shrink-0 flex-col items-center text-center ${compactWord ? "gap-[0.5vh] px-[2vw] py-[1.4vh]" : "gap-[2vh] px-[2vw] py-[5vh]"}`}>
-        <h2
-          className={`font-bold tracking-wide text-bulb drop-shadow-[0_6px_0_var(--color-brown)] [overflow-wrap:anywhere] ${state.step === "solution" ? "fs-xl" : compactWord ? "fs-title" : "fs-hero animate-pop"}`}
-        >
-          {state.step === "solution" && state.reveal ? (
-            <>
-              {state.reveal.lead} <span className="text-cream">{state.reveal.definition}</span>
-            </>
-          ) : (
-            state.question
+      {state.story ? (
+        <StoryCard state={state} story={state.story} compact={compactWord} hint={texts.hints[state.step]} />
+      ) : (
+        <div className={`panel flex shrink-0 flex-col items-center text-center ${compactWord ? "gap-[0.5vh] px-[2vw] py-[1.4vh]" : "gap-[2vh] px-[2vw] py-[5vh]"}`}>
+          <h2
+            className={`font-bold tracking-wide text-bulb drop-shadow-[0_6px_0_var(--color-brown)] [overflow-wrap:anywhere] ${state.step === "solution" ? "fs-xl" : compactWord ? "fs-title" : "fs-hero animate-pop"}`}
+          >
+            {state.step === "solution" && state.reveal ? (
+              <>
+                {state.reveal.lead} <span className="text-cream">{state.reveal.definition}</span>
+              </>
+            ) : (
+              state.question
+            )}
+          </h2>
+          {state.step !== "solution" && (
+            <p className={`${compactWord ? "fs-md" : "fs-xl"} text-cream/85`}>{texts.hints[state.step]}</p>
           )}
-        </h2>
-        {state.step !== "solution" && (
-          <p className={`${compactWord ? "fs-md" : "fs-xl"} text-cream/85`}>{STEP_HINT[state.step]}</p>
-        )}
-      </div>
+        </div>
+      )}
 
       {state.step === "write" && <AnsweredStrip state={{ ...state, answeredPlayerIds: state.submittedPlayerIds } as never} room={room} />}
       {state.step === "check" && (
@@ -70,6 +74,56 @@ export function BluffHostView({ state, room }: HostViewProps<BluffPublicState>) 
       {state.step === "vote" && (
         <AnsweredStrip state={{ ...state, answeredPlayerIds: state.votedPlayerIds } as never} room={room} />
       )}
+    </div>
+  );
+}
+
+/**
+ * Skurrile Ereignisse: the start of the story in a big readable card, the
+ * question highlighted below, the year as a badge. At the solution: the
+ * truth, the fact behind it and the source (domain only – no link on a TV).
+ */
+function StoryCard({
+  state,
+  story,
+  compact,
+  hint,
+}: {
+  state: BluffPublicState;
+  story: NonNullable<BluffPublicState["story"]>;
+  compact: boolean;
+  hint: string | undefined;
+}) {
+  const reveal = state.reveal;
+  if (state.step === "solution" && reveal) {
+    return (
+      <div className="panel flex shrink-0 flex-col items-center gap-[0.6vh] px-[2.5vw] py-[1.2vh] text-center">
+        <h2 className="fs-xl font-bold text-bulb drop-shadow-[0_6px_0_var(--color-brown)] [overflow-wrap:anywhere]">
+          {reveal.lead} <span className="text-cream">{reveal.definition}</span>
+        </h2>
+        {reveal.extra && (
+          <>
+            <p className="fs-md max-w-[80ch] leading-snug text-cream/90">{reveal.extra.fact}</p>
+            {reveal.extra.source && <p className="fs-sm text-cream/60">Quelle: {reveal.extra.source}</p>}
+          </>
+        )}
+      </div>
+    );
+  }
+  return (
+    <div
+      className={`panel flex shrink-0 flex-col items-center text-center ${compact ? "gap-[0.8vh] px-[2.5vw] py-[1.4vh]" : "gap-[2vh] px-[3vw] py-[3.5vh]"}`}
+    >
+      {story.year !== null && (
+        <span className="fs-sm rounded-full bg-bulb px-3 py-0.5 font-bold text-brown">{story.year}</span>
+      )}
+      <p className={`${compact ? "fs-md" : "fs-xl animate-pop"} max-w-[60ch] leading-snug text-cream`}>{story.context}</p>
+      <h2
+        className={`${compact ? "fs-lg" : "fs-title"} rounded-2xl bg-petrol-dark/70 px-[1.5vw] py-[0.6vh] font-bold text-bulb drop-shadow-[0_4px_0_var(--color-brown)] [overflow-wrap:anywhere]`}
+      >
+        {state.question}
+      </h2>
+      {hint && <p className={`${compact ? "fs-sm" : "fs-md"} text-cream/85`}>{hint}</p>}
     </div>
   );
 }

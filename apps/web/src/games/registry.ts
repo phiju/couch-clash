@@ -1,6 +1,6 @@
 import type { CategoryId } from "@couch-clash/games/meta";
 import { betViews } from "./bet";
-import { bluffViews } from "./bluff";
+import { bluffViews, skurrilViews } from "./bluff";
 import { categoryPickViews } from "./category-pick";
 import { doubleViews } from "./double";
 import { estimateViews } from "./estimate";
@@ -23,6 +23,7 @@ export const GAME_VIEWS: Record<CategoryId, GameViews<any>> = {
   steal: stealViews,
   fuehrerschein: fuehrerscheinViews,
   bluff: bluffViews,
+  skurril: skurrilViews,
 };
 
 export function getGameViews(categoryId: string): GameViews<unknown> | undefined {

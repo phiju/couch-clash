@@ -320,6 +320,11 @@ function AdminTable({ token, onLogout }: { token: string; onLogout: (message?: s
                 <td className="p-2">
                   <div>{q.text}</div>
                   <div className="text-cream/70">✔ {q.answer}</div>
+                  {q.source && (
+                    <a href={q.source} target="_blank" rel="noopener noreferrer" className="text-xs text-bulb underline break-all">
+                      Quelle
+                    </a>
+                  )}
                 </td>
                 <td className="p-2 text-center">{q.difficulty}</td>
                 <td className="p-2 text-right">{q.plays}</td>

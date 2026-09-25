@@ -82,6 +82,7 @@ export async function listAdminQuestions(store: StatsStore, now: number, registr
         categoryId,
         text: entry.text,
         answer: entry.answer,
+        source: entry.source ?? null,
         difficulty: entry.difficulty as 1 | 2 | 3,
         ageRating: entry.ageRating,
         tags: entry.tags,

@@ -28,6 +28,17 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.13.0",
+    date: "2026-09-25",
+    title: "Neues Spiel: Skurrile Ereignisse – wahre Geschichten, die keiner glaubt. Erfindet die beste Lüge!",
+    items: [
+      { emoji: "🤯", text: "139 wahre, verrückte Geschichten – nur das Ende fehlt" },
+      { emoji: "🤥", text: "Erfindet ein glaubwürdiges Ende und legt die anderen rein" },
+      { emoji: "🧸", text: "Auch für Kids: 30 Geschichten extra für Kinder" },
+      { emoji: "📚", text: "Bei der Auflösung: die Wahrheit, der Hintergrund und die Quelle" },
+    ],
+  },
+  {
     version: "0.12.0",
     date: "2026-09-25",
     title: "Neu: Kategorienvorgabe, Double or Nothing, Bet und Punkteklau – und aus Wissensfragen wird der Punktesammler!",
