@@ -86,3 +86,9 @@ export const modeStore = {
   get: <T>() => read<T>("game-mode"),
   set: (mode: unknown) => write("game-mode", mode),
 };
+
+/** Newest release-notes version this device has seen ("Neuigkeiten" popup, start page only). */
+export const lastSeenVersionStore = {
+  get: () => read<string>("lastSeenVersion"),
+  set: (version: string) => write("lastSeenVersion", version),
+};

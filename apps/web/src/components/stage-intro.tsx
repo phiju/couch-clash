@@ -21,7 +21,7 @@ const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)"
  * (children). Any click, tap or key during the intro skips to the end.
  * The welcome card shows on every fresh visit of the start page.
  */
-export function StageIntro({ children }: { children: React.ReactNode }) {
+export function StageIntro({ children, onDone }: { children: React.ReactNode; onDone?: () => void }) {
   // Coming back to "/" within the app (audio already on): skip the welcome card.
   const [state, setState] = useState<IntroState>(() => (getAudioEngine().unlocked ? "done" : "welcome"));
   const [layout, setLayout] = useState<StageLayout | null>(null);
@@ -50,6 +50,11 @@ export function StageIntro({ children }: { children: React.ReactNode }) {
       window.removeEventListener("orientationchange", place);
     };
   }, []);
+
+  // Intro finished (or skipped): the page may show things on top (e.g. "Neuigkeiten").
+  useEffect(() => {
+    if (state === "done") onDone?.();
+  }, [state, onDone]);
 
   // While playing: skip on any input, finish after the sequence, confetti burst.
   useEffect(() => {

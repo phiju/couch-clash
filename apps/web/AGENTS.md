@@ -7,3 +7,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+# Release notes ("Neuigkeiten")
+
+Every pull request that changes something visible for players or hosts adds or updates an entry in `apps/web/src/content/changelog.ts` – German, for players, fun and non-technical (see the examples in the file). Bump the version: new feature → minor, fixes only → patch.
