@@ -17,6 +17,9 @@ import {
   type ModuleContext,
   type ModuleProgress,
   type ModuleTask,
+  type GameMode,
+  type GameModeSettings,
+  MODE_CHEEKINESS,
   type ModuleUpdate,
   type Phase,
   type PublicGameState,
@@ -32,6 +35,7 @@ import {
   type ModuleRegistry,
 } from "@couch-clash/games";
 import { fail, ok, type Result } from "./result";
+import { poolSizesFor } from "./pools";
 import type { GameRecord, GameRound, RoomRecord } from "./room-logic";
 import type { ContentFilter } from "./stats/content-filter";
 
@@ -97,13 +101,21 @@ function applyModuleUpdate(room: RoomRecord, update: ModuleUpdate<unknown>, now:
 export function sanitizeSettings(
   rounds: readonly GameRound[],
   registry: ModuleRegistry = GAME_MODULES,
+  mode?: GameModeSettings,
 ): Result<GameRound[]> {
   const planned: GameRound[] = [];
+  const pools = mode ? poolSizesFor(mode, registry) : null;
   for (const round of rounds) {
     const module = getModule(round.categoryId, registry);
     if (!module) return fail("INVALID_PLAN");
-    if (planned.some((p) => p.categoryId === round.categoryId)) return fail("INVALID_PLAN");
-    const { min, max } = module.meta.questionsPerRound;
+    // A category may come up more than once (Zufall plans for long games), never directly again.
+    if (planned.at(-1)?.categoryId === round.categoryId) return fail("INVALID_PLAN");
+    // Categories not offered in the game mode are left out.
+    if (mode && !module.meta.modes.includes(mode.mode)) continue;
+    const { min } = module.meta.questionsPerRound;
+    // Never more questions than the mode's pool has.
+    const max = Math.min(module.meta.questionsPerRound.max, pools?.[round.categoryId] ?? Infinity);
+    if (max < min) continue;
     planned.push({
       categoryId: round.categoryId,
       questionCount: Math.min(max, Math.max(min, round.questionCount)),
@@ -121,14 +133,42 @@ export function updateSettings(
   registry: ModuleRegistry = GAME_MODULES,
 ): Result<RoomRecord> {
   if (room.phase !== "lobby" && room.phase !== "setup") return fail("WRONG_PHASE");
-  const settings = sanitizeSettings(rounds, registry);
+  const settings = sanitizeSettings(rounds, registry, room.mode);
   if (!settings.ok) return settings;
   return ok({ ...room, settings: settings.value });
+}
+
+/**
+ * Host picks the game mode. Party needs a one-time confirmation per room.
+ * A new mode sets the host voice's default "Frechheit" and drops categories
+ * the mode doesn't offer.
+ */
+export function updateMode(
+  room: RoomRecord,
+  mode: GameModeSettings,
+  confirmAdult: boolean,
+  registry: ModuleRegistry = GAME_MODULES,
+): Result<RoomRecord> {
+  if (room.phase !== "lobby" && room.phase !== "setup") return fail("WRONG_PHASE");
+  if (mode.mode === "party" && !room.partyConfirmed && !confirmAdult) return fail("PARTY_CONFIRM_REQUIRED");
+  const changed = mode.mode !== room.mode.mode;
+  const voice = changed
+    ? { ...room.voice, settings: { ...room.voice.settings, cheekiness: MODE_CHEEKINESS[mode.mode].default } }
+    : room.voice;
+  const settings = sanitizeSettings(room.settings, registry, mode);
+  return ok({
+    ...room,
+    mode,
+    partyConfirmed: room.partyConfirmed || (mode.mode === "party" && confirmAdult),
+    voice,
+    settings: settings.ok ? settings.value : room.settings,
+  });
 }
 
 export function settingsSummary(
   settings: readonly GameRound[],
   registry: ModuleRegistry = GAME_MODULES,
+  mode: GameMode = "family",
 ): SettingsSummary | null {
   if (settings.length === 0) return null;
   const planned = settings.flatMap((r) => {
@@ -136,6 +176,7 @@ export function settingsSummary(
     return module ? [{ meta: module.meta, questionCount: r.questionCount }] : [];
   });
   return {
+    mode,
     categoryIds: settings.map((r) => r.categoryId),
     questionCount: settings.reduce((sum, r) => sum + r.questionCount, 0),
     estimatedSeconds: estimateGameSeconds(planned),
@@ -147,7 +188,7 @@ export function beginGame(room: RoomRecord, deps: FlowDeps): Result<RoomRecord> 
   const registry = deps.registry ?? GAME_MODULES;
   if (room.phase !== "lobby" && room.phase !== "setup") return fail("WRONG_PHASE");
   if (room.players.length < MIN_PLAYERS_TO_START) return fail("NOT_ENOUGH_PLAYERS");
-  const settings = sanitizeSettings(room.settings, registry);
+  const settings = sanitizeSettings(room.settings, registry, room.mode);
   if (!settings.ok) return settings;
   if (settings.value.length === 0) return fail("INVALID_PLAN");
   // Categories that need more players (e.g. bluffing) are skipped.
@@ -180,6 +221,7 @@ function startRound(room: RoomRecord, deps: FlowDeps, registry: ModuleRegistry):
     blockedContentIds: deps.content?.blocked,
     extraContent: deps.content?.extra[round.categoryId],
     options: normalizeCategoryOptions(module.meta, round.options),
+    mode: room.mode,
   });
   const playing = setPhase(
     { ...room, game: { ...game, roundGain: {}, questionLeaderboard: null } },

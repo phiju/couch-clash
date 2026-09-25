@@ -3,7 +3,7 @@
  * only ever placed inside a JSON block, and the model is told to ignore
  * anything that looks like an instruction in there.
  */
-import type { Cheekiness } from "@couch-clash/shared";
+import type { Cheekiness, GameMode } from "@couch-clash/shared";
 import { AUDIO_TAG_WHITELIST } from "./config";
 import type { LinePrompt } from "./provider";
 
@@ -91,6 +91,13 @@ const TONE: Record<Cheekiness, string> = {
     "TONE: sharper and more sarcastic roasts about the GAME PERFORMANCE (wrong answers, slowness, wild estimates) – still within all hard limits. Also tease the leader.",
 };
 
+/** What the game mode allows on top of the hard limits (they stay in every mode). */
+const MODE_RULE: Record<GameMode, string> = {
+  kids: "AUDIENCE: children (about 6–11). Simple words, warm and playful, no sarcasm, never anything sexual, no alcohol.",
+  family: "AUDIENCE: families, children may be present. Never sexual jokes or innuendo.",
+  party: "AUDIENCE: adults only. Cheeky, suggestive innuendo is allowed – never explicit, never degrading.",
+};
+
 const HARD_LIMITS = [
   "HARD LIMITS (always): only about answers and scores in this game.",
   "Never about looks, body, weight, age, gender, origin, religion, family, health or intelligence as a person. No swear words.",
@@ -130,6 +137,7 @@ export function commentPrompt(
   cheekiness: Cheekiness,
   avoidTargets: readonly string[],
   variant: number,
+  mode: GameMode = "family",
 ): LinePrompt {
   return {
     system: [
@@ -137,6 +145,7 @@ export function commentPrompt(
       "The answers of the last question were just revealed. Write ONE short German comment (max 15 words) about the most interesting thing: a big jump, a new leader, a close race, someone on a streak, everyone wrong, a wild estimate. Use the concrete facts (the actual wrong answer, the estimate vs. the correct value, rank changes).",
       "ALWAYS address the player(s) by name.",
       TONE[cheekiness],
+      MODE_RULE[mode],
       HARD_LIMITS,
       "Do not pick on the players listed in avoidTargets again – rotate targets so nobody gets piled on (praise for them is fine).",
       DATA_RULE,
@@ -153,12 +162,14 @@ export function finalePrompt(
   cheekiness: Cheekiness,
   variant: number,
   tags = false,
+  mode: GameMode = "family",
 ): LinePrompt {
   return {
     system: [
       SHOW,
       "The game is over. Announce the winner(s) by name with big game-show drama in max 2 short German sentences (max 30 words). You may add a wink at the other players.",
       TONE[cheekiness],
+      MODE_RULE[mode],
       HARD_LIMITS,
       DATA_RULE,
       output(tags),
@@ -168,12 +179,13 @@ export function finalePrompt(
 }
 
 /** "▶ Probe-Spruch" in the moderator panel: a sample line in the chosen tone. */
-export function testPrompt(cheekiness: Cheekiness, variant: number, tags = false): LinePrompt {
+export function testPrompt(cheekiness: Cheekiness, variant: number, tags = false, mode: GameMode = "family"): LinePrompt {
   return {
     system: [
       SHOW,
       "The host is testing his voice before the show. Write ONE short German sample line (max 18 words) as if commenting on a round: pick one of the fictional facts from the data and address the player by name.",
       TONE[cheekiness],
+      MODE_RULE[mode],
       HARD_LIMITS,
       DATA_RULE,
       output(tags),

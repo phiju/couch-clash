@@ -2,6 +2,7 @@
  * Admin page "/admin/fragen": question statistics joined with the content.
  * Aggregated numbers only – never player names or answers.
  */
+import type { GameMode } from "./modes";
 export const QUESTION_STATUSES = ["active", "quarantined", "removed"] as const;
 export type QuestionStatus = (typeof QUESTION_STATUSES)[number];
 
@@ -32,6 +33,8 @@ export interface AdminQuestion {
   createdAt: number | null;
   /** Raw content item – only for generated questions (edit form). */
   payload: unknown;
+  /** Game modes this question can come up in (Familie with questions up to 16 counts as Familie). */
+  modes: GameMode[];
 }
 
 export interface AdminGenerationLogEntry {

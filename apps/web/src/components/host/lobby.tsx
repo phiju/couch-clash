@@ -211,6 +211,9 @@ export function HostLobby({
                 canSend={canSend}
                 startRef={startRef}
                 playerCount={room.players.length}
+                mode={room.mode}
+                partyConfirmed={room.partyConfirmed}
+                poolSizes={room.poolSizes}
                 compact
               />
               <div className="mt-[1.4vh]">

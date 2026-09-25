@@ -34,19 +34,16 @@ describe("commentary frequency", () => {
 });
 
 describe("Frechheit", () => {
-  const adults = [{ ageRating: 12 as const }, { ageRating: 16 as const }];
-  const kids = [{ ageRating: 6 as const }, { ageRating: 16 as const }];
-
-  it("uses the host's level for grown-up categories", () => {
-    expect(effectiveCheekiness({ ...DEFAULT_VOICE_SETTINGS, cheekiness: "gnadenlos" }, adults)).toBe("gnadenlos");
-    expect(effectiveCheekiness(DEFAULT_VOICE_SETTINGS, adults)).toBe("frech");
+  it("Familie and Party: the host's level", () => {
+    expect(effectiveCheekiness({ ...DEFAULT_VOICE_SETTINGS, cheekiness: "gnadenlos" }, "family")).toBe("gnadenlos");
+    expect(effectiveCheekiness({ ...DEFAULT_VOICE_SETTINGS, cheekiness: "gnadenlos" }, "party")).toBe("gnadenlos");
+    expect(effectiveCheekiness(DEFAULT_VOICE_SETTINGS, "family")).toBe("frech");
   });
 
-  it("switches to 'nett' automatically for kids' categories unless overridden", () => {
-    expect(effectiveCheekiness({ ...DEFAULT_VOICE_SETTINGS, cheekiness: "gnadenlos" }, kids)).toBe("nett");
-    expect(
-      effectiveCheekiness({ ...DEFAULT_VOICE_SETTINGS, cheekiness: "gnadenlos", cheekinessOverride: true }, kids),
-    ).toBe("gnadenlos");
+  it("Kids: nett or frech, never gnadenlos (the old ageRating rule is gone)", () => {
+    expect(effectiveCheekiness({ ...DEFAULT_VOICE_SETTINGS, cheekiness: "gnadenlos" }, "kids")).toBe("nett");
+    expect(effectiveCheekiness({ ...DEFAULT_VOICE_SETTINGS, cheekiness: "frech" }, "kids")).toBe("frech");
+    expect(effectiveCheekiness({ ...DEFAULT_VOICE_SETTINGS, cheekiness: "nett" }, "kids")).toBe("nett");
   });
 
   it("defaults to frech and repairs broken settings", () => {

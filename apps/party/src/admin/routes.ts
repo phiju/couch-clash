@@ -5,6 +5,7 @@
  */
 import {
   QUESTION_STATUSES,
+  modesFor,
   type AdminQuestion,
   type AdminQuestionsResponse,
   type QuestionStatus,
@@ -98,6 +99,7 @@ export async function listAdminQuestions(store: StatsStore, now: number, registr
         replacesId: gen?.replaces_id ?? null,
         createdAt: gen?.created_at ?? null,
         payload: gen ? entry.payload : null,
+        modes: modesFor(entry, true),
       });
     }
   }

@@ -314,7 +314,7 @@ describe("per-player scoring in the engine", () => {
 
   it("estimate: proximity per player, never compared to the others", () => {
     const est = createEstimateModule([
-      { id: "e1", text: "Wie hoch ist der Eiffelturm?", ageRating: 6, tags: ["t"], difficulty: 1, answer: 330, unit: "m", format: "number" },
+      { id: "e1", text: "Wie hoch ist der Eiffelturm?", ageRating: 6, tags: ["t"], difficulty: 1, answer: 330, unit: "m", format: "number", alcohol: false, adult: false },
     ]);
     const opts = { questionCount: 1, scoring: estimateScoring(), excludeContentIds: [] };
     const init = est.init(ctx(T0, ALL_ON), opts);

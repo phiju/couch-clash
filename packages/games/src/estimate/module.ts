@@ -1,9 +1,8 @@
 import { ESTIMATE_QUESTIONS_DE, EstimateQuestionSchema, type EstimateQuestion } from "@couch-clash/content";
 import type { ContentEntry } from "@couch-clash/shared";
-import { listEntries, parseWith, playablePool } from "../content-pool";
+import { listEntries, parseWith, pickForRound } from "../content-pool";
 import { z } from "zod";
 import { createQuestionRoundModule } from "../question-round/engine";
-import { pickFresh } from "../random";
 import { estimateMeta } from "./meta";
 import type { EstimatePublicQuestion, EstimateSolution } from "./types";
 
@@ -15,6 +14,8 @@ const entry = (q: EstimateQuestion): ContentEntry => ({
   ageRating: q.ageRating,
   tags: q.tags,
   payload: q,
+  alcohol: q.alcohol,
+  adult: q.adult,
   errorMetric: true,
 });
 
@@ -23,7 +24,7 @@ export function createEstimateModule(pool: readonly EstimateQuestion[] = ESTIMAT
     meta: estimateMeta,
     answerSchema: z.number().finite().min(-1e12).max(1e12),
     pickQuestions: (ctx, options) =>
-      pickFresh(playablePool(pool, EstimateQuestionSchema, options), options.questionCount, options.excludeContentIds, ctx.random),
+      pickForRound(pool, EstimateQuestionSchema, options, ctx.random),
     errorShare: (q, a) => Math.abs(a - q.answer) / (q.zeroRange ?? Math.max(Math.abs(q.answer), 1e-9)),
     baseScoreInput: (question, answer) => ({
       answer,

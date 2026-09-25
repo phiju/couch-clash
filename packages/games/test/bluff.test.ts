@@ -16,6 +16,8 @@ const WORD: BluffWord = {
   ageRating: 12,
   tags: ["sprache"],
   difficulty: 3,
+  alcohol: false,
+  adult: false,
 };
 const WORD2: BluffWord = { ...WORD, id: "bluff-t2", word: "Pütz", definition: "Eimer" };
 const scoring: ScoringSettings = bluffMeta.scoring;

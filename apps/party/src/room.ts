@@ -39,6 +39,7 @@ import {
   handlePresenceChange,
   isTimerDue,
   playAgain,
+  updateMode,
   updateSettings,
   type FlowDeps,
 } from "./game-flow";
@@ -311,6 +312,10 @@ export class Room extends Server<Env> implements AvatarRoomApi {
         if (result.value) this.ctx.waitUntil(result.value);
         return;
       }
+
+      case "update_mode":
+        if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));
+        return this.apply(conn, updateMode(room, msg.mode, msg.confirmAdult === true));
 
       case "update_voice_settings":
         if (!isHost) return this.send(conn, errorMessage("NOT_AUTHORIZED"));

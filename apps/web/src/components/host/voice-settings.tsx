@@ -42,7 +42,6 @@ export function VoiceSettingsPanel({
   const silent = voice.status !== "ok";
   const update = (patch: Partial<VoiceSettings>) =>
     send({ type: "update_voice_settings", settings: { ...settings, ...patch } });
-  const autoNett = voice.kidsCategories && !voice.cheekinessOverride;
   const text = compact ? "fs-md" : "text-lg";
 
   return (
@@ -70,11 +69,14 @@ export function VoiceSettingsPanel({
           />
           <Segmented
             label="Frechheit"
-            options={CHEEKINESS_LEVELS.map((c) => ({ value: c, label: CHEEKINESS_LABEL[c] }))}
-            value={voice.cheekiness}
+            // The game mode decides which levels exist (Kids: nett or frech).
+            options={CHEEKINESS_LEVELS.filter((c) => voice.allowedCheekiness.includes(c)).map((c) => ({
+              value: c,
+              label: CHEEKINESS_LABEL[c],
+            }))}
+            value={voice.effectiveCheekiness}
             onChange={(cheekiness) => update({ cheekiness })}
             disabled={!canSend}
-            dimmed={autoNett}
             className={text}
           />
           <Segmented
@@ -85,23 +87,6 @@ export function VoiceSettingsPanel({
             disabled={!canSend}
             className={text}
           />
-          {voice.kidsCategories && voice.cheekiness !== "nett" && (
-            <label className={`flex cursor-pointer items-start gap-2 text-cream/80 ${compact ? "fs-sm" : "text-base"}`}>
-              <input
-                type="checkbox"
-                checked={voice.cheekinessOverride}
-                disabled={!canSend}
-                onChange={(e) => update({ cheekinessOverride: e.target.checked })}
-                className="mt-1 size-4 shrink-0 accent-orange"
-              />
-              <span>
-                {autoNett
-                  ? "Kinder-Kategorie gewählt → der Moderator bleibt automatisch nett. Trotzdem "
-                  : "Trotz Kinder-Kategorie "}
-                <b>{CHEEKINESS_LABEL[voice.cheekiness]}</b>
-              </span>
-            </label>
-          )}
           <div className={`flex flex-wrap items-center gap-2 ${text}`}>
             <span className="font-bold text-cream/80">Moderator testen</span>
             <button

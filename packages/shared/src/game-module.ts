@@ -10,6 +10,7 @@
  */
 import { z } from "zod";
 import type { ErrorCode } from "./messages";
+import type { GameMode, GameModeSettings } from "./modes";
 
 export const AGE_RATINGS = [0, 6, 12, 16, 18] as const;
 export type AgeRating = (typeof AGE_RATINGS)[number];
@@ -80,6 +81,8 @@ export interface CategoryMeta {
   contentSource: ContentSource;
   /** Fewer players → the category cannot be selected (e.g. bluffing needs someone to fool). */
   minPlayers?: number;
+  /** Game modes this category is offered in. */
+  modes: readonly GameMode[];
   /** Extra on/off settings the host may change for this category. */
   options?: readonly CategoryOption[];
 }
@@ -117,6 +120,8 @@ export interface ModuleInitOptions {
   extraContent?: readonly unknown[];
   /** Host settings from CategoryMeta.options (id → on/off). */
   options?: Readonly<Record<string, boolean>>;
+  /** Global game mode: filters the questions (eligibleForMode) and weights difficulty. */
+  mode?: GameModeSettings;
 }
 
 export interface ModuleUpdate<TState> {
@@ -217,6 +222,8 @@ export interface ContentEntry {
   payload: unknown;
   /** Stats show an average error (estimates) instead of only a correct rate. */
   errorMetric?: boolean;
+  alcohol?: boolean;
+  adult?: boolean;
 }
 
 export interface ModuleProgress {

@@ -26,6 +26,7 @@ export { BLUFF_CONFIG, OPTION_LETTERS } from "./bluff/meta";
 export { bluffLead, bluffQuestion, withIndefiniteArticle } from "./bluff/text";
 export { normalizeScoring } from "./scoring/normalize";
 export { normalizeCategoryOptions } from "./options";
+export { PLANNER_CONFIG, planGame, plannableCategories, type PlanInput, type PlannedGame } from "./planner";
 export * from "./question-round/types";
 export type * from "./quiz/types";
 export type * from "./estimate/types";

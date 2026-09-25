@@ -9,9 +9,9 @@ import type { BluffAction } from "../src/bluff/types";
 
 const T0 = 1_700_000_000_000;
 const scoring: ScoringSettings = bluffMeta.scoring;
-const SINGULTUS: BluffWord = { id: "t-singultus", article: "der", word: "Singultus", definition: "Schluckauf", ageRating: 12, tags: ["t"], difficulty: 3 };
+const SINGULTUS: BluffWord = { id: "t-singultus", article: "der", word: "Singultus", definition: "Schluckauf", ageRating: 12, tags: ["t"], difficulty: 3, alcohol: false, adult: false };
 /** The case from the test round: "Wenn's weh tut" must count as correct. */
-const ZIPPERLEIN: BluffWord = { id: "t-zipperlein", article: "das", word: "Zipperlein", definition: "Gicht; kleine Wehwehchen", ageRating: 12, tags: ["t"], difficulty: 2 };
+const ZIPPERLEIN: BluffWord = { id: "t-zipperlein", article: "das", word: "Zipperlein", definition: "Gicht; kleine Wehwehchen", ageRating: 12, tags: ["t"], difficulty: 2, alcohol: false, adult: false };
 
 describe("question text with the right indefinite article", () => {
   it.each([

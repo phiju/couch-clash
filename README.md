@@ -62,6 +62,21 @@ couch-clash/
 4. **Content:** add `packages/content/data/<id>.de.json`, a zod schema in `packages/content/src/schema.ts` and an export in `packages/content/src/index.ts`.
 5. **Optional hooks:** `minPlayers` in the meta (not selectable below it), `pendingTask`/`resolveTask` for server work such as an AI check (the room runs it generically, `null` on timeout – the module falls back), `readAloud` for texts the host reads out (one voice clip per item, the category highlights the item via the line's `cue`), `revealFacts`/`toStats` for commentary and statistics.
 
+## Game modes (Kids / Familie / Party)
+
+One global setting at the top of the host settings decides who is playing (default Familie, remembered on the device and stored in the room):
+
+| | Kids | Familie | Party |
+|---|---|---|---|
+| Questions | age ≤ 6, difficulty 1, no alcohol, nothing adult | age ≤ 12 (16 if allowed), nothing adult | everything |
+| Difficulty mix | – | leicht / gemischt / schwer | leicht / gemischt / schwer |
+| Host "Frechheit" | nett (or frech) | frech (nett / frech / gnadenlos) | frech (nett / frech / gnadenlos) |
+
+- Party asks once per room: „Party-Modus: Nur für Erwachsene – sind alle über 18?“. The host voice may make suggestive (never explicit) jokes only in Party; the hard limits stay in every mode.
+- Categories declare `modes` in their metadata (Bluff-Lexikon: Familie + Party). Content items have `alcohol` and `adult` flags (default false). `eligibleForMode()` in `@couch-clash/shared` is the one filter every category's pool goes through; Familie/Party weight the selection by difficulty.
+- The settings panel lists only categories of the current mode, warns when a mode has fewer questions than a round allows and caps the slider.
+- **Zufall + Spieldauer** (15–90 min): `planGame()` in `packages/games/src/planner.ts` builds a random plan within ±10 % of the target (overheads in `DURATION_CONFIG`), alternating quick and slow categories, a slow one last, repeating a category (never back to back) when the game is long or the mode has few categories. Manual changes switch to „manuell“.
+
 ## Bluff-Lexikon
 
 A very rare, real German noun – mostly Latin/Greek terms from medicine, biology, law, architecture, linguistics, book arts, music, geology and astronomy (200 in `packages/content/data/bluff.de.json`, each with article; at most ~5 % of adults know them). The screen asks „Ein Borborygmus ist …?“ / „Vibrissen sind …?“. Per word:

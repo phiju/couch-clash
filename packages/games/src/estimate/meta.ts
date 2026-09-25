@@ -18,4 +18,5 @@ export const estimateMeta = {
   scoringFields: ["maxPoints", "speedModifier"],
   estimatedSecondsPerQuestion: 32,
   contentSource: "static",
+  modes: ["kids", "family", "party"],
 } as const satisfies CategoryMeta;

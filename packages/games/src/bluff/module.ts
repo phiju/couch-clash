@@ -19,8 +19,8 @@ import {
   type Viewer,
 } from "@couch-clash/shared";
 import { z } from "zod";
-import { listEntries, parseWith, playablePool } from "../content-pool";
-import { pickFresh, shuffle } from "../random";
+import { listEntries, parseWith, pickForRound } from "../content-pool";
+import { shuffle } from "../random";
 import { normalizeScoring, scoreAnswer } from "../scoring";
 import {
   judgePrompt,
@@ -99,6 +99,8 @@ const entry = (w: BluffWord): ContentEntry => ({
   ageRating: w.ageRating,
   tags: w.tags,
   payload: w,
+  alcohol: w.alcohol,
+  adult: w.adult,
 });
 
 const REVEALED_STEPS: readonly BluffStep[] = ["reveal", "solution", "leaderboard"];
@@ -248,7 +250,7 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
     actionSchema,
 
     init(ctx, options) {
-      const words = pickFresh(playablePool(pool, BluffWordSchema, options), options.questionCount, options.excludeContentIds, ctx.random);
+      const words = pickForRound(pool, BluffWordSchema, options, ctx.random);
       const initial: State = {
         words,
         index: 0,

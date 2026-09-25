@@ -1,3 +1,4 @@
+import { GameModeSettingsSchema } from "./modes";
 import { z } from "zod";
 import { AvatarSchema } from "./avatar";
 import { ScoringSettingsSchema } from "./game-module";
@@ -76,6 +77,8 @@ export const ClientMessageSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("voice_test") }),
   /** Host: "Stimme erneut versuchen" after the voice service refused. */
   z.object({ type: z.literal("voice_retry") }),
+  /** Host: global game mode. Party needs confirmAdult once per room ("alle über 18?"). */
+  z.object({ type: z.literal("update_mode"), mode: GameModeSettingsSchema, confirmAdult: z.boolean().optional() }),
   /** Player: 👍 / 👎 for the current question (after the reveal). */
   z.object({ type: z.literal("rate_question"), contentId: id, vote: z.enum(["up", "down"]) }),
   /** Host: "⚠️ Stimmt nicht?" – quarantines the current question. */
@@ -118,6 +121,7 @@ export const ERROR_CODES = [
   "PHOTO_UNAVAILABLE",
   "PHOTO_SAVED_GONE",
   "OWN_ANSWER",
+  "PARTY_CONFIRM_REQUIRED",
 ] as const;
 export type ErrorCode = (typeof ERROR_CODES)[number];
 
@@ -147,6 +151,7 @@ export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   PHOTO_UNAVAILABLE: "Die Foto-Verwandlung ist gerade nicht verfügbar.",
   PHOTO_SAVED_GONE: "Deine gespeicherte Figur gibt es nicht mehr. Mach einfach ein neues Selfie!",
   OWN_ANSWER: "Für deine eigene Erklärung kannst du nicht stimmen.",
+  PARTY_CONFIRM_REQUIRED: "Party-Modus: Bitte zuerst bestätigen, dass alle über 18 sind.",
 };
 
 export type ServerMessage =
