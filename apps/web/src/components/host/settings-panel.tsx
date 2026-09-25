@@ -23,7 +23,7 @@ import {
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { Button } from "@/components/ui";
 import { setupStore } from "@/lib/storage";
-import { isAvailable } from "@/lib/setup-rules";
+import { SETUP_VERSION, isAvailable, mergeLibraryOrder, migrateQuizScoring } from "@/lib/setup-rules";
 import { ModePicker } from "./mode-picker";
 
 interface CategoryChoice {
@@ -41,6 +41,8 @@ interface SetupState {
   minutes: number;
   /** The Zufall plan (may repeat a category) – null once the host edits by hand ("manuell"). */
   plan: GameRoundSettings[] | null;
+  /** Saved-settings version (SETUP_VERSION). */
+  version?: number;
 }
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
@@ -70,14 +72,23 @@ function sanitizeChoice(meta: CategoryMeta, raw: Partial<CategoryChoice> | undef
 function loadStoredSetup(): SetupState {
   const stored = setupStore.get<Partial<SetupState>>();
   const choices: Record<string, CategoryChoice> = {};
-  for (const meta of CATEGORY_METAS) choices[meta.id] = sanitizeChoice(meta, stored?.choices?.[meta.id]);
+  for (const meta of CATEGORY_METAS) {
+    const raw = stored?.choices?.[meta.id];
+    const migrated = raw && meta.id === "quiz" ? { ...raw, scoring: migrateQuizScoring(raw.scoring, stored?.version) } : raw;
+    choices[meta.id] = sanitizeChoice(meta, migrated);
+  }
   const ids = CATEGORY_METAS.map((m) => m.id as string);
-  const storedOrder = (stored?.order ?? []).filter((id) => ids.includes(id));
   const minutes = (PLANNER_CONFIG.durations as readonly number[]).includes(Number(stored?.minutes))
     ? Number(stored!.minutes)
     : PLANNER_CONFIG.defaultMinutes;
   const plan = Array.isArray(stored?.plan) ? (stored!.plan as GameRoundSettings[]).filter((r) => !!getCategoryMeta(r.categoryId)) : null;
-  return { order: [...storedOrder, ...ids.filter((id) => !storedOrder.includes(id))], choices, minutes, plan: plan?.length ? plan : null };
+  return {
+    order: mergeLibraryOrder(stored?.order ?? [], ids),
+    choices,
+    minutes,
+    plan: plan?.length ? plan : null,
+    version: SETUP_VERSION,
+  };
 }
 
 /** Server settings win (e.g. after a reload); otherwise the device's last settings. */

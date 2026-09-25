@@ -1,6 +1,7 @@
 import {
   ClientMessageSchema,
   errorMessage,
+  HOST_ACTOR_ID,
   generateSecret,
   type HostLine,
   type Avatar,
@@ -419,6 +420,8 @@ export class Room extends Server<Env> implements AvatarRoomApi {
 
       case "action": {
         const state = conn.state;
+        // The host screen acts as HOST_ACTOR_ID (e.g. picks the category) – modules decide what it may do.
+        if (isHost) return this.apply(conn, handlePlayerAction(room, HOST_ACTOR_ID, msg.action, this.flowDeps(now)));
         if (state?.role !== "player") return this.send(conn, errorMessage("NOT_AUTHORIZED"));
         return this.apply(conn, handlePlayerAction(room, state.playerId, msg.action, this.flowDeps(now)));
       }

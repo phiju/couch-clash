@@ -103,6 +103,28 @@ export interface CategoryMeta {
   kidsMaxDifficulty?: 1 | 2 | 3;
   /** Extra on/off settings the host may change for this category. */
   options?: readonly CategoryOption[];
+  /**
+   * Scoring is exempt from the global per-question cap (risk games like
+   * Double or Nothing, Bet, Punkteklau – their points are part of the bet).
+   */
+  capExempt?: boolean;
+  /**
+   * Plays the questions of another category (e.g. every knowledge game plays
+   * the "quiz" questions): statistics, the admin page, generated questions and
+   * "Stimmt nicht?" are kept under that category. Default: its own id.
+   */
+  contentPool?: string;
+  /** The host reads the description aloud on the intro card (new games explain themselves). */
+  announceIntro?: boolean;
+  /** Risk game (points can be lost): Zufall never plans two of them back to back. */
+  risk?: boolean;
+  /** Plays with the standings (e.g. robs the leader): Zufall never plans it as the first round. */
+  needsStandings?: boolean;
+}
+
+/** The category whose questions a category plays (CategoryMeta.contentPool). */
+export function contentPoolOf(meta: Pick<CategoryMeta, "id" | "contentPool">): string {
+  return meta.contentPool ?? meta.id;
 }
 
 export interface CategoryOption {
@@ -117,6 +139,8 @@ export type Viewer = { role: "host" } | { role: "player"; playerId: string } | {
 export interface ModulePlayer {
   id: string;
   connected: boolean;
+  /** Display name – only for lines the host reads out (never sent to a text model). */
+  name?: string;
 }
 
 export interface ModuleContext {
@@ -125,7 +149,19 @@ export interface ModuleContext {
   players: readonly ModulePlayer[];
   /** Uniform random number in [0, 1). */
   random: () => number;
+  /**
+   * Current total scores per player id (before this update). Categories that
+   * play with the standings (last place picks, the leader gets robbed, bets
+   * up to your score) read them; missing ids count as 0.
+   */
+  scores?: Readonly<Record<string, number>>;
 }
+
+/**
+ * Player id the room uses for category actions sent by the host screen
+ * (e.g. the host picks a category). Never a real player id.
+ */
+export const HOST_ACTOR_ID = "@host";
 
 export interface ModuleInitOptions {
   questionCount: number;

@@ -3,10 +3,14 @@
  * content. Used by the party worker only.
  */
 import type { GameModule } from "@couch-clash/shared";
+import { betModule } from "./bet/module";
 import { bluffModule } from "./bluff/module";
+import { categoryPickModule } from "./category-pick/module";
+import { doubleModule } from "./double/module";
 import { estimateModule } from "./estimate/module";
 import type { CategoryId } from "./meta";
 import { quizModule } from "./quiz/module";
+import { stealModule } from "./steal/module";
 
 export * from "./meta";
 export * from "./scoring";
@@ -15,6 +19,10 @@ export * from "./scoring";
 export const GAME_MODULES: Record<CategoryId, GameModule> = {
   quiz: quizModule as unknown as GameModule,
   estimate: estimateModule as unknown as GameModule,
+  "category-pick": categoryPickModule as unknown as GameModule,
+  "double-or-nothing": doubleModule as unknown as GameModule,
+  bet: betModule as unknown as GameModule,
+  steal: stealModule as unknown as GameModule,
   bluff: bluffModule as unknown as GameModule,
 };
 

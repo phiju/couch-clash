@@ -6,7 +6,18 @@ import { AvatarBadge } from "@/components/avatar";
 import { Leaderboard } from "@/components/leaderboard";
 import { useServerNow } from "@/lib/clock";
 
-type AnyRoundState = QuestionRoundPublicState<unknown, unknown, unknown>;
+/** What the shared pieces need of a question-based category's state. */
+type AnyRoundState = Pick<QuestionRoundPublicState<unknown, unknown, unknown>, "index" | "total" | "answeredPlayerIds">;
+
+/** "+100", "−200", "+0" – risk games can take points away. */
+export function signedPoints(points: number): string {
+  return points < 0 ? `−${Math.abs(points)}` : `+${points}`;
+}
+
+function pointsColor(points: number | undefined): string {
+  if (points === undefined || points === 0) return "text-cream/40";
+  return points > 0 ? "text-bulb" : "text-orange";
+}
 
 /** Shrinking bar + seconds left. Uses the server clock. */
 export function Countdown({
@@ -88,19 +99,23 @@ export function RevealTable({
   room,
   results,
   renderAnswer,
+  renderTag,
 }: {
   room: PublicRoomState;
   results: Record<string, ScoreResult>;
   renderAnswer: (player: PublicPlayer) => React.ReactNode;
+  /** Optional chip next to the name (e.g. "DOUBLE", the wager). */
+  renderTag?: (player: PublicPlayer) => React.ReactNode;
 }) {
   const sorted = [...room.players].sort(
-    (a, b) => (results[b.id]?.finalScore ?? -1) - (results[a.id]?.finalScore ?? -1),
+    (a, b) => (results[b.id]?.finalScore ?? -0.5) - (results[a.id]?.finalScore ?? -0.5),
   );
   return (
     <ul className="grid min-h-0 w-full content-start gap-[1vh] overflow-y-auto">
       {sorted.map((p, i) => {
         const r = results[p.id];
         const text = r ? breakdownText(r) : "";
+        const tag = renderTag?.(p);
         return (
           <li
             key={p.id}
@@ -109,13 +124,14 @@ export function RevealTable({
           >
             <AvatarBadge avatar={p.avatar} size="fluidSm" />
             <div className="flex min-w-0 flex-1 flex-col">
-              <span className="fs-lg leading-tight font-bold [overflow-wrap:anywhere]">{p.name}</span>
+              <span className="fs-lg flex flex-wrap items-center gap-[0.5vw] leading-tight font-bold [overflow-wrap:anywhere]">
+                {p.name}
+                {tag}
+              </span>
               <span className="fs-md truncate text-cream/70">{renderAnswer(p)}</span>
             </div>
             <div className="flex flex-col items-end">
-              <span className={`fs-xl font-bold ${r && r.finalScore > 0 ? "text-bulb" : "text-cream/40"}`}>
-                +{r?.finalScore ?? 0}
-              </span>
+              <span className={`fs-xl font-bold ${pointsColor(r?.finalScore)}`}>{signedPoints(r?.finalScore ?? 0)}</span>
               {text && <span className="fs-sm text-cream/60">{text}</span>}
             </div>
           </li>
@@ -140,19 +156,24 @@ export function AnswerSent({ children }: { children?: React.ReactNode }) {
 /** Phone: own result at the reveal. */
 export function PlayerRevealResult({
   result,
+  answered = result !== undefined,
   children,
 }: {
   result: ScoreResult | undefined;
+  /** Default: there is a result. Risk games also score players who did not answer. */
+  answered?: boolean;
   children?: React.ReactNode;
 }) {
   const points = result?.finalScore ?? 0;
   const breakdown = result ? breakdownText(result) : "";
   return (
     <div className="panel flex w-full flex-col items-center gap-4 p-6 text-center">
-      <div className="animate-pop text-8xl">{points > 0 ? "🎉" : result ? "😬" : "⏰"}</div>
-      <p className={`text-6xl font-bold ${points > 0 ? "text-bulb" : "text-cream/60"}`}>+{points}</p>
+      <div className="animate-pop text-8xl">{points > 0 ? "🎉" : points < 0 ? "💸" : answered ? "😬" : "⏰"}</div>
+      <p className={`text-6xl font-bold ${points > 0 ? "text-bulb" : points < 0 ? "text-orange" : "text-cream/60"}`}>
+        {signedPoints(points)}
+      </p>
       {breakdown && <p className="text-lg text-cream/80">{breakdown}</p>}
-      {!result && <p className="text-xl text-cream/70">Keine Antwort abgegeben</p>}
+      {!answered && <p className="text-xl text-cream/70">Keine Antwort abgegeben</p>}
       {children}
       <p className="text-lg text-cream/60">Schau auf den Fernseher!</p>
     </div>

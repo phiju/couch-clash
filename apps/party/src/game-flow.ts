@@ -22,6 +22,7 @@ import {
   DEFAULT_PER_QUESTION_CAP,
   MODE_CHEEKINESS,
   type ModuleUpdate,
+  contentPoolOf,
   type Phase,
   type PublicGameState,
   type SettingsSummary,
@@ -61,7 +62,8 @@ function moduleContext(room: RoomRecord, deps: FlowDeps): ModuleContext {
   return {
     now: deps.now,
     random: deps.random,
-    players: room.players.map((p) => ({ id: p.id, connected: deps.connectedPlayerIds.has(p.id) })),
+    players: room.players.map((p) => ({ id: p.id, connected: deps.connectedPlayerIds.has(p.id), name: p.name })),
+    scores: room.game?.scores ?? {},
   };
 }
 
@@ -79,21 +81,29 @@ function addPoints(target: Record<string, number>, delta: Record<string, number>
 /**
  * Global per-question cap (default 200 per player), applied after every
  * category's own scoring – future categories can't break the balance either.
+ * Risk games (CategoryMeta.capExempt) are exempt: their points are the bet.
  */
 export function capScoreDelta(
   delta: Record<string, number> | undefined,
   scoring: { perQuestionCap?: number } | undefined,
+  capExempt = false,
 ): Record<string, number> | undefined {
-  if (!delta) return delta;
+  if (!delta || capExempt) return delta;
   const cap = scoring?.perQuestionCap ?? DEFAULT_PER_QUESTION_CAP;
   return Object.fromEntries(Object.entries(delta).map(([id, points]) => [id, Math.min(points, cap)]));
 }
 
 /** Applies a module result to the room: state, points, timers, "done". */
-function applyModuleUpdate(room: RoomRecord, raw: ModuleUpdate<unknown>, now: number): RoomRecord {
+function applyModuleUpdate(
+  room: RoomRecord,
+  raw: ModuleUpdate<unknown>,
+  now: number,
+  registry: ModuleRegistry = GAME_MODULES,
+): RoomRecord {
   const game = room.game!;
   const round = game.rounds[game.roundIndex];
-  const update = { ...raw, scoreDelta: capScoreDelta(raw.scoreDelta, round?.scoring) };
+  const capExempt = !!(round && getModule(round.categoryId, registry)?.meta.capExempt);
+  const update = { ...raw, scoreDelta: capScoreDelta(raw.scoreDelta, round?.scoring, capExempt) };
   const usedContentIds = update.usedContentIds?.length
     ? [...new Set([...room.usedContentIds, ...update.usedContentIds])].slice(-MAX_USED_CONTENT_IDS)
     : room.usedContentIds;
@@ -235,7 +245,8 @@ function startRound(room: RoomRecord, deps: FlowDeps, registry: ModuleRegistry):
     scoring: round.scoring,
     excludeContentIds: room.usedContentIds,
     blockedContentIds: deps.content?.blocked,
-    extraContent: deps.content?.extra[round.categoryId],
+    // Generated questions are stored under the category that owns the content (e.g. "quiz").
+    extraContent: deps.content?.extra[contentPoolOf(module.meta)],
     options: normalizeCategoryOptions(module.meta, round.options),
     mode: room.mode,
   });
@@ -245,7 +256,7 @@ function startRound(room: RoomRecord, deps: FlowDeps, registry: ModuleRegistry):
     deps.now,
     null,
   );
-  return ok(applyModuleUpdate(playing, update, deps.now));
+  return ok(applyModuleUpdate(playing, update, deps.now, registry));
 }
 
 /** Timer expired or host pressed "Weiter": move the game forward one step. */
@@ -260,7 +271,7 @@ export function advance(room: RoomRecord, deps: FlowDeps): Result<RoomRecord> {
     case "play": {
       const module = currentModule(room, registry);
       if (!module || game.moduleState == null) return fail("WRONG_PHASE");
-      return ok(applyModuleUpdate(room, module.onTimer(game.moduleState, moduleContext(room, deps)), deps.now));
+      return ok(applyModuleUpdate(room, module.onTimer(game.moduleState, moduleContext(room, deps)), deps.now, registry));
     }
     case "scoreboard": {
       const nextIndex = game.roundIndex + 1;
@@ -291,7 +302,7 @@ export function handlePlayerAction(
   if (!parsed.success) return fail("INVALID_MESSAGE");
   const result = module.handleAction(room.game.moduleState, parsed.data, playerId, moduleContext(room, deps));
   if ("error" in result) return fail(result.error);
-  return ok(applyModuleUpdate(room, result, deps.now));
+  return ok(applyModuleUpdate(room, result, deps.now, registry));
 }
 
 /** Server work the current module waits for (e.g. an AI check), or null. */
@@ -306,7 +317,7 @@ export function resolveModuleTask(room: RoomRecord, taskId: string, result: unkn
   if (room.phase !== "play" || room.game?.moduleState == null) return null;
   const module = currentModule(room, registry);
   const update = module?.resolveTask?.(room.game.moduleState, taskId, result, moduleContext(room, deps));
-  return update ? applyModuleUpdate(room, update, deps.now) : null;
+  return update ? applyModuleUpdate(room, update, deps.now, registry) : null;
 }
 
 /** Connection changes (disconnect, kick) may end a question early. Null = no change. */
@@ -315,7 +326,7 @@ export function handlePresenceChange(room: RoomRecord, deps: FlowDeps): RoomReco
   if (room.phase !== "play" || room.game?.moduleState == null) return null;
   const module = currentModule(room, registry);
   const update = module?.onPlayersChanged?.(room.game.moduleState, moduleContext(room, deps));
-  return update ? applyModuleUpdate(room, update, deps.now) : null;
+  return update ? applyModuleUpdate(room, update, deps.now, registry) : null;
 }
 
 /** "Nochmal spielen" / end game: back to setup with the same players, scores reset. */
