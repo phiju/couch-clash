@@ -16,6 +16,8 @@ import {
   finalePrompt,
   sanitizeName,
   startPrompt,
+  summaryFactsWithNames,
+  summaryPrompt,
   testPrompt,
   welcomePrompt,
   type CommentFacts,
@@ -34,7 +36,7 @@ import {
   type RoomVoice,
 } from "./rules";
 import { produceLine, type ProducedLine, type VoiceServices } from "./service";
-import { commentTemplate, finaleTemplate, startTemplate, welcomeTemplate } from "./templates";
+import { commentTemplate, finaleTemplate, startTemplate, summaryTemplate, welcomeTemplate } from "./templates";
 
 export interface VoiceRuntime {
   /** The current, active room (null when expired). */
@@ -57,6 +59,7 @@ export type VoiceEvent =
   | { type: "intro"; roundIndex: number }
   | { type: "reveal"; key: string; roundIndex: number; index: number; total: number }
   | { type: "leaderboard"; key: string }
+  | { type: "summary"; key: string }
   | { type: "finale" };
 
 /** What happened between two room states (for the voice). */
@@ -80,6 +83,9 @@ export function detectVoiceEvents(
   if (after && after.step === "leaderboard" && !(before?.key === after.key && before.step === "leaderboard")) {
     events.push({ type: "leaderboard", key: after.key });
   }
+  if (after && after.step === "summary" && !(before?.key === after.key && before.step === "summary")) {
+    events.push({ type: "summary", key: after.key });
+  }
   if (prev && prev.phase !== "finale" && next.phase === "finale") events.push({ type: "finale" });
   return events;
 }
@@ -94,8 +100,8 @@ export class VoiceDirector {
   private welcomesOnHost = new Map<string, number>();
   /** A commentary line that is ready and waits for the leaderboard to start. */
   private readyComment: { key: string; produced: ProducedLine } | null = null;
-  /** The commentary line currently shown with the leaderboard (for the hold extension). */
-  private hold: { lineId: string; key: string; baseEnd: number } | null = null;
+  /** The line currently shown with the leaderboard / round summary (for the hold extension). */
+  private hold: { lineId: string; key: string; step: string; baseEnd: number } | null = null;
   /** What the host is reading out (e.g. the Bluff-Lexikon options). */
   private reading: { key: string; lineIds: Set<string>; baseEnd: number } | null = null;
 
@@ -268,6 +274,9 @@ export class VoiceDirector {
         case "leaderboard":
           this.leaderboard(event.key, next);
           break;
+        case "summary":
+          this.run(() => this.summary(event.key));
+          break;
         case "finale":
           this.run(() => this.finale());
           break;
@@ -327,6 +336,7 @@ export class VoiceDirector {
     const players = commentPlayers(room.players, facts, leaderboard, streaks);
     const commentFacts: CommentFacts = {
       category: module.meta.name,
+      ...(module.meta.hostPersona ? { persona: module.meta.hostPersona } : {}),
       question: facts.question,
       correctAnswer: facts.correctAnswer,
       lastQuestionOfCategory: event.index === event.total - 1,
@@ -357,12 +367,36 @@ export class VoiceDirector {
     if (!ready || ready.key !== key || !this.enabled(room)) return;
     const line = ready.produced.line;
     if (!line || !this.rt.sendToHosts(line)) return;
-    this.hold = { lineId: line.id, key, baseEnd: room.phaseEndsAt ?? this.rt.now() };
+    this.hold = { lineId: line.id, key, step: "leaderboard", baseEnd: room.phaseEndsAt ?? this.rt.now() };
     const target = ready.produced.target;
     const targetId = target
       ? (room.players.find((p) => sanitizeName(p.name).toLowerCase() === sanitizeName(target).toLowerCase())?.id ?? null)
       : null;
     this.run(() => this.updateVoice((v) => ({ ...v, lastTargets: rememberTarget(v.lastTargets, targetId) })));
+  }
+
+  /** Round summary (e.g. BESTANDEN / DURCHGEFALLEN): one line right away; the step waits for it (bounded). */
+  private async summary(key: string) {
+    const room = this.rt.read();
+    const game = room?.game;
+    const round = game?.rounds[game.roundIndex];
+    const module = round ? getModule(round.categoryId, this.registry) : undefined;
+    const facts = game?.moduleState != null ? module?.summaryFacts?.(game.moduleState) : null;
+    if (!this.enabled(room) || !module || !facts) return;
+    const named = summaryFactsWithNames(module.meta.name, facts, room.players);
+    const cheekiness = effectiveCheekiness(room.voice.settings, room.mode.mode);
+    const produced = await this.produce(
+      "comment",
+      "expressive",
+      summaryPrompt(named, cheekiness, module.meta.hostPersona, this.variant(), this.tags("expressive"), room.mode.mode),
+      summaryTemplate(named.players),
+      room.phaseEndsAt,
+    );
+    const now = this.rt.read();
+    const progress = progressOf(now, this.registry);
+    if (!now || progress?.key !== key || progress.step !== "summary") return;
+    const sent = this.deliver(produced);
+    if (sent) this.hold = { lineId: sent.id, key, step: "summary", baseEnd: now.phaseEndsAt ?? this.rt.now() };
   }
 
   private async finale() {
@@ -475,7 +509,7 @@ export class VoiceDirector {
     if (!hold || hold.lineId !== lineId || endsAt === undefined) return;
     const room = this.rt.read();
     const progress = progressOf(room, this.registry);
-    if (!room || room.phaseEndsAt === null || progress?.key !== hold.key || progress.step !== "leaderboard") return;
+    if (!room || room.phaseEndsAt === null || progress?.key !== hold.key || progress.step !== hold.step) return;
     const end = extendedPhaseEnd(room.phaseEndsAt, hold.baseEnd, endsAt);
     if (end > room.phaseEndsAt) this.run(() => this.rt.commit({ ...room, phaseEndsAt: end }));
   }

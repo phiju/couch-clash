@@ -5,11 +5,12 @@ export type { ScoreResult };
 
 /**
  * Steps per question: question → reveal (correct answer, ~3 s) →
- * leaderboard (animated ranking, ~7 s) → next question.
+ * leaderboard (animated ranking, ~7 s) → next question. Categories with a
+ * round summary (e.g. the Führerschein exam result) end with "summary".
  */
-export type QuestionRoundStep = "question" | "reveal" | "leaderboard";
+export type QuestionRoundStep = "question" | "reveal" | "leaderboard" | "summary";
 
-export interface QuestionRoundPublicState<TQuestion, TAnswer, TSolution> {
+export interface QuestionRoundPublicState<TQuestion, TAnswer, TSolution, TSummary = unknown> {
   step: QuestionRoundStep;
   /** 0-based question index and total questions in this category. */
   index: number;
@@ -29,6 +30,8 @@ export interface QuestionRoundPublicState<TQuestion, TAnswer, TSolution> {
     answers: Record<string, TAnswer>;
     results: Record<string, ScoreResult>;
   } | null;
+  /** Only in the "summary" step (categories with a round summary). */
+  summary?: TSummary | null;
 }
 
 export interface AnswerAction<TAnswer> {

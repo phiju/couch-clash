@@ -6,17 +6,18 @@ const REGISTRY = CATEGORY_METAS.map((m) => m.id as string);
 
 describe("game library", () => {
   it("a saved order from before keeps its order; the new games land at their library position", () => {
-    expect(mergeLibraryOrder(["quiz", "estimate", "bluff"], REGISTRY)).toEqual([
+    expect(mergeLibraryOrder(["quiz", "estimate", "fuehrerschein", "bluff"], REGISTRY)).toEqual([
       "quiz",
       "estimate",
       "category-pick",
       "double-or-nothing",
       "bet",
       "steal",
+      "fuehrerschein",
       "bluff",
     ]);
     // Host moved bluff to the front: stays there.
-    expect(mergeLibraryOrder(["bluff", "quiz", "estimate"], REGISTRY)).toEqual([
+    expect(mergeLibraryOrder(["bluff", "quiz", "estimate", "fuehrerschein"], REGISTRY)).toEqual([
       "bluff",
       "quiz",
       "estimate",
@@ -24,6 +25,7 @@ describe("game library", () => {
       "double-or-nothing",
       "bet",
       "steal",
+      "fuehrerschein",
     ]);
     expect(mergeLibraryOrder([], REGISTRY)).toEqual(REGISTRY);
     expect(mergeLibraryOrder(["gone", "quiz", "quiz"], REGISTRY)).toEqual(REGISTRY);

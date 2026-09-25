@@ -12,7 +12,9 @@ import {
   type ModuleContext,
   type ModuleInitOptions,
   type ModuleUpdate,
+  type ModulePlayer,
   type RevealFacts,
+  type RoundSummaryFacts,
   type ScoringSettings,
   type Viewer,
 } from "@couch-clash/shared";
@@ -35,10 +37,28 @@ export interface QuestionRoundState<TQuestion, TAnswer> {
   answers: Record<string, RecordedAnswer<TAnswer>>;
   results: Record<string, ScoreResult> | null;
   scoring: ScoringSettings;
+  /** Right answers per player id in this round (for the round summary). Missing in old rooms. */
+  correctCounts?: Record<string, number>;
+  /** Built when the round ends (categories with a round summary). */
+  summary?: unknown;
 }
 
-export interface QuestionRoundConfig<TQuestion extends { id: string }, TAnswer, TPublicQ, TSolution> {
+/** Round summary after the last question (e.g. Führerschein: BESTANDEN / DURCHGEFALLEN). Show only – no points. */
+export interface RoundSummaryConfig<TSummary> {
+  build(input: { players: readonly ModulePlayer[]; correctCounts: Readonly<Record<string, number>>; total: number }): TSummary;
+  /** How long the summary step shows (ms). */
+  durationMs(summary: TSummary): number;
+  /** Plain facts for the host's line about the summary. */
+  facts?(summary: TSummary): RoundSummaryFacts;
+}
+
+export interface QuestionRoundConfig<TQuestion extends { id: string }, TAnswer, TPublicQ, TSolution, TSummary = never> {
   meta: CategoryMeta;
+  /** Answer time for this question (default: meta.secondsPerQuestion). Also the speed modifier's time limit. */
+  questionSeconds?(question: TQuestion): number;
+  /** How long the reveal step shows for this question (default REVEAL_ANSWER_MS). */
+  revealMs?(question: TQuestion): number;
+  summary?: RoundSummaryConfig<TSummary>;
   answerSchema: z.ZodType<TAnswer>;
   /** Choose `count` questions (already prepared, e.g. options shuffled). */
   pickQuestions(ctx: ModuleContext, options: ModuleInitOptions): TQuestion[];
@@ -62,24 +82,31 @@ export interface QuestionRoundConfig<TQuestion extends { id: string }, TAnswer, 
     solution(question: TQuestion): string;
     answer(question: TQuestion, answer: TAnswer): string;
   };
+  /** Extra commentary hints for a revealed question (no names – the answers carry those). */
+  highlights?(question: TQuestion, answers: RevealFacts["answers"]): string[];
 }
 
-export type QuestionRoundModule<TQuestion, TAnswer, TPublicQ, TSolution> = GameModule<
+export type QuestionRoundModule<TQuestion, TAnswer, TPublicQ, TSolution, TSummary = never> = GameModule<
   QuestionRoundState<TQuestion, TAnswer>,
   AnswerAction<TAnswer>,
-  QuestionRoundPublicState<TPublicQ, TAnswer, TSolution>
+  QuestionRoundPublicState<TPublicQ, TAnswer, TSolution, TSummary>
 >;
+
+/** An answer counts as right from 90 % of the maximum base score (estimates: very close). */
+const CORRECT_SHARE = 0.9;
 
 export function createQuestionRoundModule<
   TQuestion extends { id: string },
   TAnswer,
   TPublicQ,
   TSolution,
+  TSummary = never,
 >(
-  config: QuestionRoundConfig<TQuestion, TAnswer, TPublicQ, TSolution>,
-): QuestionRoundModule<TQuestion, TAnswer, TPublicQ, TSolution> {
+  config: QuestionRoundConfig<TQuestion, TAnswer, TPublicQ, TSolution, TSummary>,
+): QuestionRoundModule<TQuestion, TAnswer, TPublicQ, TSolution, TSummary> {
   type State = QuestionRoundState<TQuestion, TAnswer>;
-  const questionMs = config.meta.secondsPerQuestion * 1000;
+  const questionMs = (q: TQuestion) => (config.questionSeconds?.(q) ?? config.meta.secondsPerQuestion) * 1000;
+  const revealMs = (q: TQuestion) => config.revealMs?.(q) ?? REVEAL_ANSWER_MS;
 
   const actionSchema = z.object({
     type: z.literal("answer"),
@@ -92,7 +119,7 @@ export function createQuestionRoundModule<
       index,
       step: "question",
       questionStartedAt: now,
-      stepEndsAt: now + questionMs,
+      stepEndsAt: now + questionMs(state.questions[index]!),
       answers: {},
       results: null,
     };
@@ -112,7 +139,7 @@ export function createQuestionRoundModule<
     for (const [id, a] of Object.entries(state.answers)) {
       results[id] = scoreAnswer(scoring, config.baseScoreInput(question, a.value), {
         responseTimeMs: a.at - state.questionStartedAt,
-        timeLimitMs: questionMs,
+        timeLimitMs: questionMs(question),
       });
     }
     return results;
@@ -123,7 +150,13 @@ export function createQuestionRoundModule<
     // Always set (even if empty): the room builds the leaderboard snapshot from it.
     const scoreDelta: Record<string, number> = {};
     for (const [id, r] of Object.entries(results)) if (r.finalScore > 0) scoreDelta[id] = r.finalScore;
-    const next: State = { ...state, step: "reveal", stepEndsAt: now + REVEAL_ANSWER_MS, results };
+    const maxPoints = Math.max(1, normalizeScoring(config.meta, state.scoring).maxPoints);
+    const correctCounts = { ...state.correctCounts };
+    for (const [id, r] of Object.entries(results)) {
+      if (r.baseScore / maxPoints >= CORRECT_SHARE) correctCounts[id] = (correctCounts[id] ?? 0) + 1;
+    }
+    const stepEndsAt = now + revealMs(state.questions[state.index]!);
+    const next: State = { ...state, step: "reveal", stepEndsAt, results, correctCounts };
     return { state: next, phaseEndsAt: next.stepEndsAt, scoreDelta };
   }
 
@@ -175,7 +208,16 @@ export function createQuestionRoundModule<
       if (state.step === "question") return reveal(state, ctx.now);
       if (state.step === "reveal") return showLeaderboard(state, ctx.now);
       const nextIndex = state.index + 1;
-      if (nextIndex < state.questions.length) return openQuestion(state, nextIndex, ctx.now);
+      if (state.step === "leaderboard" && nextIndex < state.questions.length) return openQuestion(state, nextIndex, ctx.now);
+      if (state.step === "leaderboard" && config.summary) {
+        const summary = config.summary.build({
+          players: ctx.players,
+          correctCounts: state.correctCounts ?? {},
+          total: state.questions.length,
+        });
+        const next: State = { ...state, step: "summary", summary, stepEndsAt: ctx.now + config.summary.durationMs(summary) };
+        return { state: next, phaseEndsAt: next.stepEndsAt };
+      }
       return { state, phaseEndsAt: null, done: true };
     },
 
@@ -203,7 +245,7 @@ export function createQuestionRoundModule<
       let sumErrorPct = 0;
       const entries = Object.entries(state.answers);
       for (const [id, a] of entries) {
-        if ((state.results[id]?.baseScore ?? 0) / maxPoints >= 0.9) correct++;
+        if ((state.results[id]?.baseScore ?? 0) / maxPoints >= CORRECT_SHARE) correct++;
         sumResponseMs += Math.max(0, a.at - state.questionStartedAt);
         if (config.errorShare) sumErrorPct += Math.min(1, Math.max(0, config.errorShare(question, a.value)));
       }
@@ -228,13 +270,24 @@ export function createQuestionRoundModule<
         answers[id] = {
           text: describe.answer(question, a.value),
           // Estimates count as "right" when they are very close.
-          correct: accuracy >= 0.9,
+          correct: accuracy >= CORRECT_SHARE,
           accuracy: Math.round(accuracy * 100) / 100,
           points: result?.finalScore ?? 0,
           responseMs: Math.max(0, a.at - state.questionStartedAt),
         };
       }
-      return { question: describe.question(question), correctAnswer: describe.solution(question), answers };
+      const highlights = config.highlights?.(question, answers) ?? [];
+      return {
+        question: describe.question(question),
+        correctAnswer: describe.solution(question),
+        answers,
+        ...(highlights.length ? { highlights } : {}),
+      };
+    },
+
+    summaryFacts(state) {
+      if (state.step !== "summary" || state.summary === undefined || !config.summary?.facts) return null;
+      return config.summary.facts(state.summary as TSummary);
     },
 
     toPublicState(state, viewer: Viewer) {
@@ -259,6 +312,7 @@ export function createQuestionRoundModule<
               results: state.results ?? {},
             }
           : null,
+        summary: state.step === "summary" ? ((state.summary as TSummary | undefined) ?? null) : null,
       };
     },
   };

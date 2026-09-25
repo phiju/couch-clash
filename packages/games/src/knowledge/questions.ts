@@ -12,6 +12,7 @@ import {
   type KnowledgeCategory,
   type ModeFilterMeta,
   type ModuleInitOptions,
+  type QuestionMedia,
 } from "@couch-clash/shared";
 import { playablePool } from "../content-pool";
 import { pickFresh, shuffle } from "../random";
@@ -24,6 +25,9 @@ export const KNOWLEDGE_POOL_CONFIG = {
   partyShare: 0.3,
 } as const;
 
+/** A multiple-choice question as stored; categories built on the quiz may add a picture and an explanation. */
+export type QuizLikeQuestion = QuizQuestion & { media?: QuestionMedia | null; explanation?: string };
+
 /** A question as played: options shuffled, correctIndex adjusted. */
 export interface PreparedQuizQuestion {
   id: string;
@@ -32,9 +36,13 @@ export interface PreparedQuizQuestion {
   correctIndex: number;
   /** Topic (primaryCategory) – null for generated questions without one. */
   category?: KnowledgeCategory | null;
+  media?: QuestionMedia | null;
+  explanation?: string;
+  /** Scenes: who drives in which order at the reveal (vehicle ids, "ped:<arm>" for pedestrians). */
+  driveOrder?: string[];
 }
 
-export function prepareQuizQuestion(q: QuizQuestion, random: () => number): PreparedQuizQuestion {
+export function prepareQuizQuestion(q: QuizLikeQuestion, random: () => number): PreparedQuizQuestion {
   const order = shuffle([0, 1, 2, 3], random);
   return {
     id: q.id,
@@ -42,6 +50,8 @@ export function prepareQuizQuestion(q: QuizQuestion, random: () => number): Prep
     options: order.map((i) => q.options[i]!),
     correctIndex: order.indexOf(q.correctIndex),
     category: q.primaryCategory ?? null,
+    ...(q.media ? { media: q.media } : {}),
+    ...(q.explanation ? { explanation: q.explanation } : {}),
   };
 }
 

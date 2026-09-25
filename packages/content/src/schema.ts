@@ -1,4 +1,13 @@
-import { AGE_RATINGS, KNOWLEDGE_CATEGORIES } from "@couch-clash/shared";
+import {
+  AGE_RATINGS,
+  ARMS,
+  KNOWLEDGE_CATEGORIES,
+  TURNS,
+  VEHICLE_COLORS,
+  VEHICLE_TYPES,
+  exitArm,
+  type QuestionMedia,
+} from "@couch-clash/shared";
 import { z } from "zod";
 
 const base = {
@@ -55,6 +64,77 @@ export const EstimateQuestionSchema = z
   });
 
 export type QuizQuestion = z.infer<typeof QuizQuestionSchema>;
+
+/** Official sign number (VzKat), e.g. "206", "274-53", "242.1" – also the file name in public/signs. */
+const signNumber = z.string().regex(/^\d{3,4}(\.\d)?(-\d{2})?$/, "A VzKat sign number like 206 or 1020-30");
+const arm = z.enum(ARMS);
+
+export const SignMediaSchema = z.object({
+  kind: z.literal("sign"),
+  signs: z.array(signNumber).min(1).max(3),
+});
+
+export const SceneMediaSchema = z
+  .object({
+    kind: z.literal("scene"),
+    arms: z.array(arm).min(3).max(4),
+    signs: z.partialRecord(arm, z.array(signNumber).min(1).max(3)),
+    priorityPath: z.tuple([arm, arm]).nullable(),
+    vehicles: z
+      .array(
+        z.object({
+          id: z.string().min(1).max(20),
+          type: z.enum(VEHICLE_TYPES),
+          color: z.enum(VEHICLE_COLORS),
+          from: arm,
+          turn: z.enum(TURNS),
+          siren: z.boolean().optional(),
+        }),
+      )
+      .min(1)
+      .max(4),
+    pedestrians: z.array(z.object({ at: arm, crossing: z.boolean() })).max(2).optional(),
+  })
+  .superRefine((s, ctx) => {
+    const arms = new Set(s.arms);
+    const issue = (message: string) => ctx.addIssue({ code: "custom", message });
+    if (arms.size !== s.arms.length) issue("Arms must be distinct");
+    for (const a of Object.keys(s.signs)) if (!arms.has(a as never)) issue(`Signs at missing arm ${a}`);
+    if (s.priorityPath && (s.priorityPath[0] === s.priorityPath[1] || !s.priorityPath.every((a) => arms.has(a)))) {
+      issue("priorityPath must connect two existing arms");
+    }
+    if (new Set(s.vehicles.map((v) => v.id)).size !== s.vehicles.length) issue("Vehicle ids must be unique");
+    // Vehicles are named by colour in the question – two of one colour would be ambiguous.
+    if (new Set(s.vehicles.map((v) => v.color)).size !== s.vehicles.length) issue("Vehicle colours must be unique");
+    for (const v of s.vehicles) {
+      if (!arms.has(v.from)) issue(`Vehicle ${v.id} comes from missing arm ${v.from}`);
+      else if (!arms.has(exitArm(v.from, v.turn))) issue(`Vehicle ${v.id} turns into missing arm`);
+      if (v.siren && v.type !== "police") issue(`Only police cars have a siren (${v.id})`);
+    }
+    for (const p of s.pedestrians ?? []) if (!arms.has(p.at)) issue(`Pedestrian at missing arm ${p.at}`);
+  });
+
+export const QuestionMediaSchema = z.discriminatedUnion("kind", [SignMediaSchema, SceneMediaSchema]);
+
+/** Führerscheinprüfung: a quiz question with an explanation and an optional picture. */
+export const FuehrerscheinQuestionSchema = z
+  .object({
+    ...base,
+    ...knowledge,
+    text: z.string().min(5).max(120),
+    options: z.tuple([z.string().min(1).max(40), z.string().min(1).max(40), z.string().min(1).max(40), z.string().min(1).max(40)]),
+    correctIndex: z.number().int().min(0).max(3),
+    /** One short sentence why – shown at the reveal (not read out). */
+    explanation: z.string().min(5).max(140),
+    media: QuestionMediaSchema.nullable(),
+  })
+  .refine((q) => new Set(q.options).size === 4, "Options must be distinct");
+
+export type FuehrerscheinQuestion = z.infer<typeof FuehrerscheinQuestionSchema>;
+
+// The zod shape and the client-side type must stay the same.
+const mediaMatches: z.infer<typeof QuestionMediaSchema> extends QuestionMedia ? true : never = true;
+void mediaMatches;
 export type EstimateQuestion = z.infer<typeof EstimateQuestionSchema>;
 
 /** Bluff-Lexikon: a very rare real German NOUN (mostly Latin/Greek) and its meaning. */

@@ -5,6 +5,8 @@ import {
   parseTextLine,
   sanitizeName,
   startPrompt,
+  summaryFactsWithNames,
+  summaryPrompt,
   welcomePrompt,
   type CommentFacts,
 } from "../src/voice/prompt";
@@ -86,6 +88,33 @@ describe("comment prompt", () => {
   });
 });
 
+describe("persona + round summary", () => {
+  it("adds the category's host role as a rule", () => {
+    const p = commentPrompt({ category: "Führerscheinprüfung", persona: "ROLE: driving instructor", question: "q", correctAnswer: "a", lastQuestionOfCategory: false, players: [], highlights: [] }, "frech", [], 1);
+    expect(p.system).toMatch(/ROLE: driving instructor/);
+    expect(p.user).not.toMatch(/ROLE/);
+  });
+
+  it("summary: names from the room, sanitized, with verdicts; hard limits stay", () => {
+    const facts = summaryFactsWithNames(
+      "Führerscheinprüfung",
+      { title: "Prüfungsergebnis", highlights: ["Nur eine Person hat bestanden."], players: [
+        { playerId: "a", verdict: "bestanden", correct: 7, total: 8 },
+        { playerId: "b", verdict: "durchgefallen", correct: 2, total: 8 },
+        { playerId: "gone", verdict: "durchgefallen", correct: 0, total: 8 },
+      ] },
+      [{ id: "a", name: "Clara" }, { id: "b", name: INJECTION }],
+    );
+    expect(facts.players.map((p) => p.name)).toEqual(["Clara", sanitizeName(INJECTION)]);
+    const p = summaryPrompt(facts, "frech", "ROLE: instructor", 2, false, "kids");
+    expect(p.system).toMatch(/HARD LIMITS/);
+    expect(p.system).toMatch(/children/);
+    expect(p.system).toMatch(/ROLE: instructor/);
+    const data = dataBlock(p.user) as { players: { name: string; verdict: string }[] };
+    expect(data.players[1]).toMatchObject({ verdict: "durchgefallen" });
+  });
+});
+
 describe("parsing replies", () => {
   it("cleans plain lines", () => {
     expect(parseTextLine('"Applaus für Clara!"\n')).toBe("Applaus für Clara!");
@@ -98,5 +127,16 @@ describe("parsing replies", () => {
     expect(parseCommentReply('{"line":"Oh Max …","target":"Max"}')).toEqual({ line: "Oh Max …", target: "Max" });
     expect(parseCommentReply('{"line":"Alle super!","target":""}')).toEqual({ line: "Alle super!", target: null });
     expect(parseCommentReply("kein json")).toBeNull();
+  });
+});
+
+describe("summary template", () => {
+  it("Clara bestanden, Max … wir sehen uns nächste Woche wieder.", async () => {
+    const { summaryTemplate } = await import("../src/voice/templates");
+    expect(summaryTemplate([{ name: "Clara", verdict: "bestanden" }, { name: "Max", verdict: "durchgefallen" }])).toBe(
+      "Clara bestanden, Max … wir sehen uns nächste Woche wieder.",
+    );
+    expect(summaryTemplate([{ name: "Clara", verdict: "bestanden" }])).toMatch(/TÜV/);
+    expect(summaryTemplate([{ name: "Max", verdict: "durchgefallen" }])).toMatch(/nächste Woche/);
   });
 });
