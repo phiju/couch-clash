@@ -3,7 +3,7 @@ import { VOICE_CONFIG } from "../src/voice/config";
 import { createOpenAITextProvider } from "../src/voice/openai";
 import { welcomePrompt } from "../src/voice/prompt";
 import { VoiceProviderError, type TextProvider } from "../src/voice/provider";
-import { produceLine, type LineRequest } from "../src/voice/service";
+import { cachedClip, produceLine, type LineRequest } from "../src/voice/service";
 import { memoryStore } from "./avatar-helpers";
 import { mockSpeech } from "./voice-helpers";
 
@@ -30,7 +30,7 @@ function req(over: Partial<LineRequest> = {}): LineRequest {
     playbackRate: 1,
     deadline: null,
     now: () => Date.now(),
-    reserveChars: async () => true,
+    reserveCredits: async () => true,
     ...over,
   };
 }
@@ -98,20 +98,27 @@ describe("produceLine", () => {
     expect(out).toMatchObject({ line: null, voiceStatus: "unavailable", errorCode: "401 quota_exceeded" });
   });
 
-  it("counts the characters actually sent and stops at the budget", async () => {
+  it("counts the credits of the text actually sent (eleven_v3: 1 per character) and stops at the budget", async () => {
     const reserved: number[] = [];
     const speech = mockSpeech();
     const out = await produceLine(
       { text: text(async () => "[laughs] [dances] Hallo [shouting] Max [gasps]!"), speech, store: memoryStore() },
-      req({ reserveChars: async (n) => (reserved.push(n), true) }),
+      req({ reserveCredits: async (n) => (reserved.push(n), true) }),
     );
     const sent = speech.speak.mock.calls[0]![0] as string;
     expect(sent).toBe("[laughs] Hallo [shouting] Max!");
     expect(reserved).toEqual([sent.length]);
+    // eleven_flash costs half a credit per character.
+    const flash: number[] = [];
+    await produceLine(
+      { text: text(async () => "Hallo Max, das war nix!"), speech: mockSpeech(), store: memoryStore() },
+      req({ style: "fast", reserveCredits: async (n) => (flash.push(n), true) }),
+    );
+    expect(flash).toEqual([Math.ceil("Hallo Max, das war nix!".length * 0.5)]);
     expect(out.line?.text).toBe("Hallo Max!");
 
     const noBudget = mockSpeech();
-    const over = await produceLine({ text: okText(), speech: noBudget, store: memoryStore() }, req({ reserveChars: async () => false }));
+    const over = await produceLine({ text: okText(), speech: noBudget, store: memoryStore() }, req({ reserveCredits: async () => false }));
     expect(over).toMatchObject({ line: null, voiceStatus: "budget" });
     expect(noBudget.speak).not.toHaveBeenCalled();
   });
@@ -134,6 +141,54 @@ describe("produceLine", () => {
     expect(t.generateLine).not.toHaveBeenCalled();
     expect(speech.speak).not.toHaveBeenCalled();
     expect(out.line).toBeNull();
+  });
+});
+
+describe("global voice cache", () => {
+  const read = (over: Partial<LineRequest> = {}) =>
+    req({ kind: "read", useAi: false, cacheKind: "read", fallback: "A: Paris", style: "fast", ...over });
+
+  it("read-outs: generated once for every room, then free", async () => {
+    const store = memoryStore();
+    const speech = mockSpeech();
+    const reserved: number[] = [];
+    const first = await produceLine({ text: null, speech, store }, read({ reserveCredits: async (n) => (reserved.push(n), true) }));
+    expect(first).toMatchObject({ cached: false, line: { text: "A: Paris" } });
+    expect(first.line!.audioPath).toMatch(/^\/api\/voice-cache\/[\w-]+\/read\/[a-f0-9]{64}\.mp3$/);
+    expect(reserved).toEqual([Math.ceil("A: Paris".length * 0.5)]);
+    // Another room, same text: no speech call, no credits.
+    const again = await produceLine({ text: null, speech, store }, read({ code: "WXYZ", id: "fedcba9876543210", reserveCredits: async (n) => (reserved.push(n), true) }));
+    expect(again).toMatchObject({ cached: true, line: { audioPath: first.line!.audioPath } });
+    expect(speech.speak).toHaveBeenCalledTimes(1);
+    expect(reserved).toHaveLength(1);
+    // Different tempo = different audio.
+    const faster = await produceLine({ text: null, speech, store }, read({ speed: 1.2 }));
+    expect(faster.line!.audioPath).not.toBe(first.line!.audioPath);
+  });
+
+  it("no new audio allowed: cached clips still play, nothing new is made", async () => {
+    const store = memoryStore();
+    const speech = mockSpeech();
+    await produceLine({ text: null, speech, store }, read());
+    const cached = await produceLine({ text: null, speech, store }, read({ allowNew: false }));
+    expect(cached.line).not.toBeNull();
+    const missing = await produceLine({ text: null, speech, store }, read({ allowNew: false, fallback: "B: Rom" }));
+    expect(missing.line).toBeNull();
+    const live = await produceLine({ text: okText(), speech, store }, req({ allowNew: false }));
+    expect(live.line).toBeNull();
+    expect(speech.speak).toHaveBeenCalledTimes(1);
+  });
+
+  it("cachedClip: the same library line is voiced once; the budget blocks only new clips", async () => {
+    const store = memoryStore();
+    const speech = mockSpeech();
+    const clip = (allowNew: boolean, reserve = async () => true) =>
+      cachedClip({ text: null, speech, store }, { kind: "snark", text: "Mutig geraten. Und mutig falsch.", style: "fast", speed: 1.15, allowNew, reserveCredits: reserve });
+    expect(await clip(true, async () => false)).toMatchObject({ path: null, voiceStatus: "budget" });
+    const made = await clip(true);
+    expect(made).toMatchObject({ cached: false, path: expect.stringContaining("/api/voice-cache/") });
+    expect(await clip(false, async () => false)).toEqual({ path: made.path, cached: true });
+    expect(speech.speak).toHaveBeenCalledTimes(1);
   });
 });
 

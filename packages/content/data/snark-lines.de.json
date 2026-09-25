@@ -1,0 +1,195 @@
+{
+  "wrong": {
+    "family": [
+      "Wolltest du überhaupt hierher?",
+      "Warum tust du dir das an?",
+      "Du weißt, dass das hier freiwillig ist, oder?",
+      "Hast du dich freiwillig gemeldet – oder bist du reingerutscht?",
+      "Du könntest auch einfach zuschauen. Nur so als Idee.",
+      "Das war ein Statement. Leider kein gutes.",
+      "Mutig geraten. Und mutig falsch.",
+      "Das klang nicht nach Wissen. Eher nach Bauchgefühl. Einem schlechten.",
+      "Das war ein Moment der Klarheit. Leider der falschen.",
+      "Ich notiere mir das. Für die Nachwelt.",
+      "Das war mutig. Und falsch. Aber vor allem mutig.",
+      "Hast du dir das vorher überlegt?",
+      "Das war jetzt nicht dein Highlight heute Abend.",
+      "Du ratest mit Stil. Leider in die falsche Richtung.",
+      "Du hast dich entschieden. Irgendwie.",
+      "Knapp daneben ist auch vorbei. Und das war nicht mal knapp.",
+      "Interessante Theorie. Die Wissenschaft sieht das anders.",
+      "Ich hätte es auch nicht gewusst. Doch, hätte ich.",
+      "Das Sofa hat mehr gewusst als du.",
+      "Der Joker ist leider aus. Und das Wissen auch."
+    ],
+    "party": [
+      "Das war jetzt nicht der Grund, warum wir getrunken haben, oder?",
+      "War das die Antwort oder schon der dritte Aperol?",
+      "Das riecht nach Restalkohol.",
+      "Nüchtern wär's auch nicht besser geworden.",
+      "Prost. Auf die falsche Antwort.",
+      "Ich schenk dir nach. Wissen kann ich leider nicht nachschenken."
+    ],
+    "kids": [
+      "Ups! Das war knapp daneben – nächstes Mal!",
+      "Fast! Nur ganz woanders.",
+      "Gar nicht schlimm – die nächste Frage wartet schon!",
+      "Oh! Da hat sich die Antwort versteckt."
+    ]
+  },
+  "wrongStreak": {
+    "family": [
+      "Interessant, dass du immer noch da bist.",
+      "Ich bewundere deine Ausdauer. Wirklich. Die Punkte tun das nicht.",
+      "Du kämpfst dich durch. Irgendwie.",
+      "Du bist hier, um Punkte zu sammeln – oder um sie zu vermeiden?",
+      "Du bringst Abwechslung. Hauptsächlich nach unten.",
+      "Weiter so. Irgendwann wird's peinlich. Oh, warte.",
+      "Du hast einen eigenen Stil. Den Stil ‚konsequent daneben‘.",
+      "Ich bin beeindruckt, wie konstant du das durchziehst.",
+      "Du machst das absichtlich, stimmt's? Für den Unterhaltungswert?",
+      "Irgendwann wird's besser. Sagt man zumindest.",
+      "Du hältst das Niveau. Leider das niedrige.",
+      "Du bist eine Bereicherung. Für die Statistik der Falschantworten.",
+      "Zurück in die erste Klasse – Schulranzen nicht vergessen!"
+    ],
+    "party": [
+      "Noch eine falsche, dann gibt's Wasser statt Wein.",
+      "Vielleicht erst mal ein Glas Wasser?",
+      "Du trinkst das Spiel schön. Klappt nur nicht."
+    ],
+    "kids": [
+      "Nicht aufgeben – die nächste gehört dir!",
+      "Du schaffst das! Einmal tief durchatmen."
+    ]
+  },
+  "lastPlace": {
+    "family": [
+      "Schön, dass du dabei bist. Die Rangliste sieht das etwas anders.",
+      "Du bist noch da. Respekt. Oder Mitleid. Noch unklar.",
+      "Weiter so. Die anderen freuen sich.",
+      "Alles gut. Nicht jeder kann glänzen.",
+      "Du gibst dein Bestes. Das ist … sichtbar.",
+      "Kein Stress. Punkte sind überbewertet. Sagst du dir bestimmt gerade.",
+      "Du bist hier, um Spaß zu haben. Die Punkte haben anderen Spaß.",
+      "Schön, dass du dich nicht unterkriegen lässt. Auch wenn die Rangliste es versucht.",
+      "Die rote Laterne steht dir ausgezeichnet.",
+      "Von hinten hat man den besten Überblick. Sagt man."
+    ],
+    "party": [
+      "Letzter Platz – aber beim Trinken ganz vorne, oder?",
+      "Der Letzte zahlt die nächste Runde. Nur so ein Vorschlag."
+    ],
+    "kids": [
+      "Das Beste kommt zum Schluss – vielleicht ja du!",
+      "Hinten ist auch schön. Aber vorne ist schöner!"
+    ]
+  },
+  "allWrong": {
+    "family": [
+      "Null Treffer. Ich bin stolz auf euch. Nicht.",
+      "Alle daneben. Das nenne ich Teamgeist.",
+      "Einstimmig falsch. Das muss man auch erst mal schaffen.",
+      "Hat hier überhaupt jemand zugehört?",
+      "Gemeinsam scheitern verbindet."
+    ],
+    "party": [
+      "Alle falsch. Wer hat hier eigentlich was eingeschenkt?"
+    ],
+    "kids": [
+      "Oh, die war knifflig! Nächste Runde wird's besser."
+    ]
+  },
+  "allRight": {
+    "family": [
+      "Zu leicht? Wartet ab …",
+      "Alle richtig. Verdächtig.",
+      "Hat da jemand gegoogelt?"
+    ],
+    "party": [
+      "Alle richtig – die sind offenbar noch nüchtern."
+    ],
+    "kids": [
+      "Alle richtig – ihr seid ja richtige Profis!"
+    ]
+  },
+  "surpriseRight": {
+    "family": [
+      "Moment – richtig? Ich muss mich kurz setzen.",
+      "Na also. Geht doch. Überraschend.",
+      "Ein blindes Huhn findet auch mal ein Korn.",
+      "Ich sag's ungern: Das war richtig gut.",
+      "Wer hätte das gedacht? Ich jedenfalls nicht."
+    ],
+    "party": [
+      "Mit Promille klüger – interessante Studie."
+    ],
+    "kids": [
+      "Super! Das war richtig klasse!"
+    ]
+  },
+  "leader": {
+    "family": [
+      "Neue Spitze! Genieß es – lange hält das hier nie.",
+      "Ganz oben ist die Luft dünn. Und der Absturz tief.",
+      "Die Krone steht dir. Noch."
+    ],
+    "party": [
+      "Spitzenreiter! Die nächste Runde geht auf dich."
+    ],
+    "kids": [
+      "Du bist ganz vorne – wow!"
+    ]
+  },
+  "fooledMany": {
+    "family": [
+      "Die halbe Runde reingelegt – du gehörst in die Politik.",
+      "So viel Überzeugungskraft. Beängstigend.",
+      "Ich würde dir auch einen Gebrauchtwagen abkaufen."
+    ],
+    "party": [
+      "Mit der Masche klappt's bestimmt auch an der Bar."
+    ],
+    "kids": [
+      "Da hast du alle ausgetrickst – schlau!"
+    ]
+  },
+  "fooledNone": {
+    "family": [
+      "Das hat dir nicht mal deine Mama geglaubt.",
+      "Keiner drauf reingefallen. Gute Lügen gehen anders.",
+      "Nächstes Mal etwas weniger offensichtlich lügen."
+    ],
+    "party": [
+      "Mit der Anmache wärst du an der Bar auch allein geblieben."
+    ],
+    "kids": [
+      "Diesmal hat's keiner geglaubt – probier's gleich nochmal!"
+    ]
+  },
+  "wildEstimate": {
+    "family": [
+      "Knapp daneben ist auch vorbei. Das war nicht mal in der Nähe.",
+      "Mathe war nie so dein Ding, oder?",
+      "Schätzen ist eine Kunst. Die du nicht beherrschst."
+    ],
+    "party": [
+      "Hast du doppelt gesehen?"
+    ],
+    "kids": [
+      "Hui, das war eine riesige Zahl!"
+    ]
+  },
+  "bullseye": {
+    "family": [
+      "Auf den Punkt! Hast du nachgemessen?",
+      "Volltreffer. Unheimlich."
+    ],
+    "party": [
+      "Volltreffer – und das mit dem Pegel!"
+    ],
+    "kids": [
+      "Genau getroffen – super!"
+    ]
+  }
+}

@@ -229,6 +229,12 @@ describe("commentary: partyItem flag in the reveal facts", () => {
     return null;
   }
 
+  it("estimates are marked for the host (wild estimates / bullseyes), quiz answers are not", () => {
+    expect(factsOf("estimate", family)?.answerKind).toBe("estimate");
+    expect(factsOf("quiz", family)?.answerKind).toBeUndefined();
+    expect(factsOf("fuehrerschein", family)?.answerKind).toBeUndefined();
+  });
+
   it.each(GAMES.filter((id) => id !== "category-pick"))("%s: party item → partyItem: true, family item → none", (id) => {
     expect(factsOf(id, party(1))?.partyItem).toBe(true);
     const fam = factsOf(id, family);

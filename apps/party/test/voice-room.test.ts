@@ -6,12 +6,12 @@ import { handleVoiceGet } from "../src/voice/routes";
 import { memoryStore } from "./avatar-helpers";
 
 describe("voice settings", () => {
-  it("defaults: moderator on, normal, frech – visible to the host only", () => {
+  it("defaults: moderator on, oft, frech – visible to the host only", () => {
     const room = createRoomRecord("ABCD", "host-token-0123456789abcdef", 0);
     const connected = { host: true, playerIds: new Set<string>() };
     expect(toPublicState(room, connected, { role: "host" }).voice).toMatchObject({
       enabled: true,
-      frequency: "normal",
+      frequency: "oft",
       cheekiness: "frech",
       effectiveCheekiness: "frech",
     });

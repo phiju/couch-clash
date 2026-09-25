@@ -8,11 +8,17 @@ import { recordBluffRun } from "./fixtures/bluff-run";
  * placeholder is the text the phone showed before (then hard-coded there).
  */
 const ADDED = new Set(["placeholder", "aiDecoys"]);
-const strip = (value: unknown): unknown =>
+/** Added to the host's reveal facts since the recording (the public results always had `fooled`). */
+const ADDED_TO_FACTS = new Set(["fooled"]);
+const strip = (value: unknown, inFacts = false): unknown =>
   Array.isArray(value)
-    ? value.map(strip)
+    ? value.map((v) => strip(v, inFacts))
     : value && typeof value === "object"
-      ? Object.fromEntries(Object.entries(value).flatMap(([k, v]) => (ADDED.has(k) ? [] : [[k, strip(v)]])))
+      ? Object.fromEntries(
+          Object.entries(value).flatMap(([k, v]) =>
+            ADDED.has(k) || (inFacts && ADDED_TO_FACTS.has(k)) ? [] : [[k, strip(v, inFacts || k === "facts")]],
+          ),
+        )
       : value;
 
 describe("Bluff-Lexikon regression (golden master from before the engine refactor)", () => {

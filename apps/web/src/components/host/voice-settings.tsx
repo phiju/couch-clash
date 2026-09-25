@@ -8,6 +8,7 @@ import {
   type ClientMessage,
   type PublicRoomState,
   type VoiceSettings,
+  accountUsageText,
   voiceErrorHint,
 } from "@couch-clash/shared";
 
@@ -15,8 +16,9 @@ const FREQUENCY_LABEL = { selten: "selten", normal: "normal", oft: "oft" } as co
 const CHEEKINESS_LABEL = { nett: "😇 nett", frech: "😏 frech", gnadenlos: "😈 gnadenlos" } as const;
 const TEMPO_LABEL = { normal: "normal", schnell: "schnell", turbo: "turbo" } as const;
 
-export const VOICE_UNAVAILABLE_NOTE = "Moderator-Stimme gerade nicht verfügbar (ElevenLabs-Kontingent?)";
-export const VOICE_BUDGET_NOTE = "Zeichen-Budget für diesen Raum aufgebraucht – der Moderator schweigt.";
+export const VOICE_UNAVAILABLE_NOTE = "Neue Moderator-Sätze gerade nicht möglich (ElevenLabs-Kontingent?) – er nutzt seine gespeicherten Sprüche.";
+export const VOICE_BUDGET_NOTE = "Budget für diesen Raum aufgebraucht – der Moderator nutzt nur noch seine gespeicherten Sprüche.";
+export const VOICE_ACCOUNT_LOW_NOTE = "Weniger als 10 % der ElevenLabs-Credits übrig – bis zum Monatsende nur gespeicherte Sprüche.";
 
 /** "🎙️ Moderator spricht", Kommentare, Frechheit, Sprechtempo and "Moderator testen" (lobby). */
 export function VoiceSettingsPanel({
@@ -39,7 +41,8 @@ export function VoiceSettingsPanel({
     cheekinessOverride: voice.cheekinessOverride,
     tempo: voice.tempo,
   };
-  const silent = voice.status !== "ok";
+  // No NEW audio (refused / budget) – cached lines still play, but the test line needs new audio.
+  const noNewAudio = voice.status !== "ok";
   const update = (patch: Partial<VoiceSettings>) =>
     send({ type: "update_voice_settings", settings: { ...settings, ...patch } });
   const text = compact ? "fs-md" : "text-lg";
@@ -91,7 +94,7 @@ export function VoiceSettingsPanel({
             <span className="font-bold text-cream/80">Moderator testen</span>
             <button
               type="button"
-              disabled={!canSend || silent}
+              disabled={!canSend || noNewAudio}
               onClick={() => {
                 send({ type: "voice_test" });
                 setTested(true);
@@ -100,11 +103,19 @@ export function VoiceSettingsPanel({
             >
               {tested ? "▶ Nochmal" : "▶ Probe-Spruch"}
             </button>
-            <span className={`ml-auto text-cream/55 ${compact ? "fs-sm" : "text-sm"}`} title="Zeichen für die Stimme in diesem Raum">
-              {voice.charsUsed.toLocaleString("de-DE")} / {voice.charBudget.toLocaleString("de-DE")} Zeichen
+            <span className={`ml-auto text-cream/55 ${compact ? "fs-sm" : "text-sm"}`} title="ElevenLabs-Credits für neue Sätze in diesem Raum (gespeicherte Sprüche sind gratis)">
+              {voice.creditsUsed.toLocaleString("de-DE")} / {voice.creditBudget.toLocaleString("de-DE")} Credits
             </span>
           </div>
-          {silent && (
+          {voice.account && (
+            <p className={`text-cream/55 ${compact ? "fs-sm" : "text-sm"}`}>{accountUsageText(voice.account)}</p>
+          )}
+          {voice.accountLow && voice.status === "ok" && (
+            <p role="status" className={`rounded-2xl bg-petrol-dark/70 px-3 py-2 font-bold ${compact ? "fs-sm" : "text-base"}`}>
+              {VOICE_ACCOUNT_LOW_NOTE}
+            </p>
+          )}
+          {noNewAudio && (
             <div role="status" className={`flex flex-col gap-1.5 rounded-2xl bg-rust/80 px-3 py-2 ${compact ? "fs-sm" : "text-base"}`}>
               <p className="font-bold">{voice.status === "unavailable" ? VOICE_UNAVAILABLE_NOTE : VOICE_BUDGET_NOTE}</p>
               {voice.status === "unavailable" && (

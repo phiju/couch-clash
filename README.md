@@ -271,12 +271,12 @@ Players can take a selfie or pick a photo when joining. The party server turns i
 
 ## The host speaks (AI voice)
 
-The mascot welcomes every player by name and comments on the leaderboard. Every line is generated live, and the host device only plays it through the audio manager. The music is ducked; the voice has its own gain, clearly louder than the music, and the master volume still applies.
+The mascot welcomes every player by name and comments on the leaderboard – about half of the comments live (written from the facts), half from his own library of dry, snarky lines (`packages/content/data/snark-lines.de.json`) with the player's name clip in front. The host device only plays them through the audio manager. The music is ducked; the voice has its own gain, clearly louder than the music, and the master volume still applies.
 
 - **Text:** OpenAI **`gpt-4.1-mini`**.
 - **Voice:** **ElevenLabs**, voice `DQ4rTqXxHr077oQgsA9D`, mp3 44.1 kHz / 128 kbps.
-  - `eleven_v3` (expressive, audio tags) for welcome, game start, winner announcement and the test line.
-  - `eleven_flash_v2_5` (fast) for leaderboard comments.
+  - `eleven_v3` (expressive, audio tags, 1 credit per character) only for welcome, game start and the winner announcement.
+  - `eleven_flash_v2_5` (fast, ½ credit per character) for comments, read-outs, the round summary, the test line, library lines and name clips.
   - Voice settings: stability 0.35 (v3: preset 0.5 "natural"), similarity 0.8, style 0.6, speaker boost.
 - The OpenAI voice stays in the code: `VOICE_PROVIDER = "openai"` in `apps/party/src/voice/config.ts`.
 
@@ -285,9 +285,12 @@ The mascot welcomes every player by name and comments on the leaderboard. Every 
 **When he speaks**
 - **Welcome:** one short line per joining player. At most 3 welcome lines wait on the TV; further names are merged into one line.
 - **Game start:** with the number of players.
-- **Commentary:** prepared at the reveal from structured facts (answers, right/wrong, estimate vs. correct value, rank changes, fastest answer, streaks).
-  - It plays when the leaderboard starts or is skipped; a line still playing may keep the leaderboard up to 3 s longer.
-  - "Kommentare": `oft` = every 2nd question, `normal` = every 3rd, `selten` = only after the last question of a category. The last question of a category is always commented.
+- **Commentary:** the moment the answers lock (the reveal), the director prepares two things in parallel:
+  - a **live line** (~50 %, `liveCommentShare`) from structured facts (answers, right/wrong, estimate vs. correct value, rank changes, fastest answer, streaks), and
+  - a **cached library line**: the situation (`wrong`, `wrongStreak`, `lastPlace`, `allWrong`, `allRight`, `surpriseRight`, `leader`, `fooledMany`, `fooledNone`, `wildEstimate`, `bullseye`) picks the category and the target; the line is random, never twice in a game, never the same target twice in a row (if only the last target fits, the line is said without a name). Kids only use kids lines, Party family + party lines.
+  - When the leaderboard starts, the live line plays if it is ready, otherwise the cached one – never silence. A line still playing may keep the leaderboard up to 3 s longer.
+  - **Name clips:** when a player joins, one short clip with just the name ("Max …") is made once (reused globally for the same name). Library lines play as name clip + 150 ms + line.
+  - "Kommentare": `oft` (default) = after every question; `normal` = after every noteworthy question (streaks, all wrong/right, new leader, new last place, bluffs, wild estimates/bullseyes, surprise right) and at least every 2nd; `selten` = every 3rd question. The last question of a category is always commented.
 - **Finale:** winner announcement.
 
 **Host settings** (lobby / setup)
@@ -302,10 +305,13 @@ The mascot welcomes every player by name and comments on the leaderboard. Every 
 - For `eleven_flash_v2_5` all tags are removed before sending.
 
 **Limits / errors**
-- Per room: **3,000 characters** for the voice (`charBudgetPerRoom`; the ElevenLabs free tier has 10,000 per month). Only the characters actually sent are counted, and test lines count too.
-- Per room: max 60 generated texts; after that, template lines are spoken.
-- Quota exceeded / 401 / 402 / 429 / voice not available → the voice stops for this room, the game continues silently, and the settings panel shows "Moderator-Stimme gerade nicht verfügbar (ElevenLabs-Kontingent?)". Only the error code is logged.
-- Timeouts: text 4 s, speech 8 s. A comment that isn't ready in time is skipped.
+- Per room: **12,000 ElevenLabs credits** for NEW audio (`creditBudgetPerRoom`, Starter plan = 30,000 per month), counted per model (flash ½, v3 1 per character sent). **Cached audio is free** and never counted: library lines, name clips heard before, read-outs heard before.
+- Per room: max 150 generated texts; after that, library lines only.
+- **Monthly guard:** the real account usage (`GET /v1/user/subscription`, cached 10 min) is shown in the host's voice panel and on `/admin/fragen` ("ElevenLabs: 18.400 / 30.000 Credits diesen Monat"). With less than 10 % left: no new live lines or read-outs, only cached audio. The API key needs the "User → Read" permission for this; without it the usage is simply unknown and nothing is blocked.
+- Budget used up, quota exceeded / 401 / 402 / 429 / voice not available → **no new audio** for this room; cached library lines keep playing and the game continues. Only the error code is logged.
+- Timeouts: text 4 s, speech 8 s. A live comment that isn't ready in time is replaced by a cached one.
+
+**Voice cache (R2):** text that is the same in every room is generated once and stored globally under `voice-cache/<voiceId>/<snark|names|read>/<sha256>.mp3` (hash of model, speed and text), served at `/api/voice-cache/…` with an immutable cache header. The lifecycle rule on `rooms/` doesn't touch it. **Once after deploying:** `/admin/fragen` → **„Moderator-Sprüche vertonen“** voices the 105 library lines (~2,400 credits, batch by batch; never at game start). Lines still missing are voiced on first use.
 
 **Safety**
 - Player names are sanitized, only placed in a quoted JSON data block, and the model ignores instructions inside it.
@@ -319,8 +325,9 @@ The mascot welcomes every player by name and comments on the leaderboard. Every 
 - `elevenlabs.ts` / `openai.ts`
 - `tags.ts`
 - `prompt.ts`, `rules.ts`, `service.ts`, `director.ts`
+- `snark.ts` (situations, targets, library lines), `cache.ts` (global voice cache), `admin.ts` (library task)
 
-**Storage:** the mp3s live in R2 under `rooms/<code>/voice/<id>.mp3`, are deleted with the room, and are covered by the 1-day rule on `rooms/`.
+**Storage:** live lines live in R2 under `rooms/<code>/voice/<id>.mp3`, are deleted with the room, and are covered by the 1-day rule on `rooms/`. Cached audio lives under `voice-cache/` (see above).
 
 ## Question statistics & admin
 
@@ -378,7 +385,7 @@ The TV/laptop plays music and effects; phones never do.
 
 **Milestone 0.4 – Welcome screen, sound & laptop layout** ✅ Welcome card with "Los geht's!", host audio engine (jingle, loops, stings, fanfare), all host screens fit 1280×720 … 4K without scrolling.
 
-**The host speaks (AI voice)** ✅ Welcome by name, game start, leaderboard commentary with "Frechheit" levels, winner announcement – voice by ElevenLabs, host device only, no speech bubbles, character budget per room.
+**The host speaks (AI voice)** ✅ Welcome by name, game start, leaderboard commentary with "Frechheit" levels, winner announcement – voice by ElevenLabs, host device only, no speech bubbles, credit budget per room, snark library with name clips (never silent).
 
 **Photo avatars (AI)** ✅ Selfie/photo → cartoon in the show style via OpenAI, 3 expressions for the leaderboard, emoji fallback, R2 storage with cleanup, "⭐ Meine Figur" for next time.
 

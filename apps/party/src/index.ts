@@ -14,6 +14,8 @@ import {
   handleSavedAvatarGet,
 } from "./avatar/routes";
 import { r2AvatarStore } from "./avatar/store";
+import { createVoiceProviders } from "./voice";
+import { handleVoiceCacheGet } from "./voice/cache";
 import { handleVoiceGet } from "./voice/routes";
 import { handleAdmin } from "./admin/routes";
 import { createOpenAIJsonModel } from "./generate/model";
@@ -69,6 +71,7 @@ export default {
           newId: () => generateSecret(10),
         }),
         now: () => Date.now(),
+        voice: () => ({ ...createVoiceProviders(env), store: env.AVATARS ? r2AvatarStore(env.AVATARS) : null }),
       });
       if (admin) return admin;
       if (url.pathname === "/api/rooms" && request.method === "POST") return createRoom(env);
@@ -82,6 +85,10 @@ export default {
         const [, code, playerId, expression] = image.map((part) => decodeURIComponent(part));
         const store = env.AVATARS ? r2AvatarStore(env.AVATARS) : null;
         return handleAvatarGet(code!, playerId!, expression!, getRoom, store);
+      }
+      if (request.method === "GET") {
+        const cached = await handleVoiceCacheGet(url.pathname, env.AVATARS ? r2AvatarStore(env.AVATARS) : null);
+        if (cached) return cached;
       }
       const voice = url.pathname.match(/^\/api\/rooms\/([^/]+)\/voice\/([^/]+)$/);
       if (voice && request.method === "GET") {

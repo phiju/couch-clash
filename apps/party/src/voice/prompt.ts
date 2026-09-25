@@ -4,6 +4,7 @@
  * anything that looks like an instruction in there.
  */
 import type { Cheekiness, GameMode, RoundSummaryFacts } from "@couch-clash/shared";
+import { SNARK_LINES_DE, type SnarkLines } from "@couch-clash/content";
 import { AUDIO_TAG_WHITELIST } from "./config";
 import type { LinePrompt } from "./provider";
 
@@ -93,14 +94,14 @@ const TONE: Record<Cheekiness, string> = {
 
 /** What the game mode allows on top of the hard limits (they stay in every mode). */
 const MODE_RULE: Record<GameMode, string> = {
-  kids: "AUDIENCE: children (about 6–11). Simple words, warm and playful, no sarcasm, never anything sexual, no alcohol.",
-  family: "AUDIENCE: families, children may be present. Never sexual jokes or innuendo.",
-  party: "AUDIENCE: adults only. Cheeky, suggestive innuendo is allowed – never explicit, never degrading.",
+  kids: "AUDIENCE: children (about 6–11). Simple words, warm and playful, no sarcasm, never anything sexual, no alcohol. No swear words.",
+  family: "AUDIENCE: families, children may be present. Never sexual jokes or innuendo. No swear words.",
+  party: "AUDIENCE: adults only. Cheeky, suggestive innuendo is allowed, mild swear words too – never explicit, never degrading.",
 };
 
 const HARD_LIMITS = [
   "HARD LIMITS (always): only about answers and scores in this game.",
-  "Never about looks, body, weight, age, gender, origin, religion, family, health or intelligence as a person. No swear words.",
+  "Never about looks, body, weight, age, gender, origin, religion, family, health or intelligence as a person.",
   "Keep it light – the target should laugh too.",
 ].join(" ");
 
@@ -139,6 +140,63 @@ export interface CommentFacts {
 const PARTY_ITEM_RULE =
   "partyItem is true: this was a party question about alcohol, love or sex. You may add a cheeky, suggestive wink about the topic (drinking, flirting, dating) – still never explicit, never degrading, never about a player's own body or sex life.";
 
+/** Hand-written fact-based examples: they show how to turn the concrete facts into a line. */
+const FACT_EXAMPLES: Record<"adult" | "kids", readonly string[]> = {
+  adult: [
+    "Eiffelturm 5 Meter, Tina? Das ist ein Gartenzwerg.",
+    "1789 statt 1492, Clara? Nur knapp dreihundert Jahre daneben.",
+    "Oma Gerda: schnellste Antwort des Abends. Leider auch die falscheste.",
+    "Von Platz 4 auf 1 – Philip, hat der Rest heimlich Pause gemacht?",
+    "Drei falsche in Folge, Max. Das ist schon fast ein Talent.",
+    "Als Einziger richtig, Jonas – ich verneige mich. Ehrlich.",
+  ],
+  kids: [
+    "Tina, der Eiffelturm ist ein kleines bisschen größer als 5 Meter!",
+    "1789 statt 1492, Clara – fast! Nur ein paar Jahre daneben.",
+    "Schnell wie der Blitz, Oma Gerda – nächstes Mal auch noch richtig!",
+    "Von Platz 4 auf 1 – Philip, was für ein Sprung!",
+    "Max, nicht aufgeben – die nächste Frage gehört dir!",
+    "Als Einziger richtig, Jonas – super gemacht!",
+  ],
+};
+
+export const FEW_SHOTS = { library: 12, facts: 6 } as const;
+
+/** 12 lines from the host's library (the mode's pools), rotated by the variation seed. */
+export function libraryExamples(mode: GameMode, variant: number, library: SnarkLines = SNARK_LINES_DE): string[] {
+  const pools = mode === "kids" ? (["kids"] as const) : mode === "party" ? (["family", "party"] as const) : (["family"] as const);
+  const lines = Object.values(library).flatMap((m) => pools.flatMap((p) => m[p]));
+  if (lines.length <= FEW_SHOTS.library) return lines;
+  const start = Math.abs(variant) % lines.length;
+  // A stride spreads the examples over all situations.
+  const stride = Math.max(1, Math.floor(lines.length / FEW_SHOTS.library));
+  return Array.from({ length: FEW_SHOTS.library }, (_, i) => lines[(start + i * stride) % lines.length]!);
+}
+
+/** About one comment in four is over-the-top praise – so the roasting stays fun. */
+export function praiseTurn(variant: number): boolean {
+  return Math.abs(variant) % 4 === 0;
+}
+
+/** How the comment sounds: Frechheit × game mode. */
+export function commentTone(cheekiness: Cheekiness, mode: GameMode): string {
+  if (mode === "kids") {
+    return "TONE: warm, encouraging and playful – gentle teasing at most, lots of cheering. Never sarcastic, never mean.";
+  }
+  if (cheekiness === "nett") return TONE.nett;
+  const base = [
+    "TONE: dry, snarky, deadpan – like a bored TV host who has seen it all. Short, understated, a little mean about the GAME PERFORMANCE only (wrong answers, wild estimates, slowness, lucky guesses).",
+    cheekiness === "gnadenlos" ? "Level gnadenlos: sharper and more sarcastic – still within the hard limits." : "Level frech: cheeky, snarky roasting.",
+    "Also tease the leader, not only the last place.",
+  ];
+  if (mode === "party") {
+    base.push("Party: you may add alcohol or flirting innuendo; mild swear words are fine (e.g. „Mist“, „verdammt“) – never explicit, never degrading.");
+  } else {
+    base.push("No swear words.");
+  }
+  return base.join(" ");
+}
+
 /** One comment after a question. Reply: {"line": "...", "target": "<name or empty>"}. */
 export function commentPrompt(
   facts: CommentFacts,
@@ -147,16 +205,25 @@ export function commentPrompt(
   variant: number,
   mode: GameMode = "family",
 ): LinePrompt {
+  const kids = mode === "kids";
+  const praise = praiseTurn(variant);
   return {
     system: [
       SHOW,
-      "The answers of the last question were just revealed. Write ONE short German comment (max 15 words) about the most interesting thing: a big jump, a new leader, a close race, someone on a streak, everyone wrong, a wild estimate. Use the concrete facts (the actual wrong answer, the estimate vs. the correct value, rank changes).",
-      "ALWAYS address the player(s) by name.",
+      "The answers of the last question were just revealed. Write ONE German sentence, MAX 14 WORDS, about the most interesting thing: a wild estimate, a wrong streak, a new leader, everyone wrong, a lucky guess. Use the concrete facts (the actual wrong answer, the estimate vs. the correct value, rank changes).",
+      "Put the player's name FIRST or LAST in the sentence. ALWAYS address the player(s) by name.",
       ...(facts.persona ? [facts.persona] : []),
-      TONE[cheekiness],
+      commentTone(cheekiness, mode),
+      praise
+        ? "THIS TIME: over-the-top praise instead of a roast – for someone who did well (right answer, closest estimate, a jump up)."
+        : "Mostly roast – but when someone did something great, over-the-top praise is fine.",
       MODE_RULE[mode],
       ...(facts.partyItem && mode === "party" ? [PARTY_ITEM_RULE] : []),
       HARD_LIMITS,
+      `Style examples from the host's own lines (German – match this dry tone, never reuse them verbatim): ${libraryExamples(mode, variant)
+        .map((l) => `„${l}“`)
+        .join(" ")}`,
+      `Examples of turning facts into a line: ${FACT_EXAMPLES[kids ? "kids" : "adult"].map((l) => `„${l}“`).join(" ")}`,
       "Do not pick on the players listed in avoidTargets again – rotate targets so nobody gets piled on (praise for them is fine).",
       DATA_RULE,
       'Reply as JSON: {"line": "<the German comment>", "target": "<name of the player the joke is about, or empty>"}.',

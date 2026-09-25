@@ -13,6 +13,7 @@
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
+    "@couch-clash/content": "workspace:*",
     "@couch-clash/games": "workspace:*",
     "@couch-clash/shared": "workspace:*",
     "partyserver": "^0.5.10",

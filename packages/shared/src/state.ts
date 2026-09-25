@@ -3,7 +3,7 @@ import type { Avatar } from "./avatar";
 import type { ScoringSettings } from "./game-module";
 import type { LeaderboardEntry } from "./leaderboard";
 import type { PublicPhotoAvatar } from "./photo";
-import type { Cheekiness, VoiceSettings, VoiceStatus } from "./voice";
+import type { AccountUsage, Cheekiness, VoiceSettings, VoiceStatus } from "./voice";
 
 /**
  * Room state machine. Transitions are driven by client intents and by
@@ -136,12 +136,17 @@ export interface PublicRoomState {
         effectiveCheekiness: Cheekiness;
         /** Levels the host may pick in the current game mode. */
         allowedCheekiness: readonly Cheekiness[];
-        /** Silent because the voice service refused (quota, key) or the room's character budget is used up. */
+        /** No NEW audio because the voice service refused (quota, key) or the room's budget is used up – cached lines still play. */
         status: VoiceStatus;
         /** Error code of the last refusal, e.g. "401 missing_permissions". */
         errorCode: string | null;
-        charsUsed: number;
-        charBudget: number;
+        /** ElevenLabs credits spent on new audio in this room / the room's budget. */
+        creditsUsed: number;
+        creditBudget: number;
+        /** The ElevenLabs account this month (null: unknown). */
+        account: AccountUsage | null;
+        /** Less than 10 % of the month's credits left: only cached audio. */
+        accountLow: boolean;
       })
     | null;
 }

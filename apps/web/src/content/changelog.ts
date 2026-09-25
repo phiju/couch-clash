@@ -28,6 +28,18 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.18.0",
+    date: "2026-09-25",
+    title: "Der Moderator hat sich warmgeredet: Jetzt lästert er nach jeder Frage – trocken, frech und mit deinem Namen.",
+    items: [
+      { emoji: "🎙️", text: "Nach jeder Frage ein Spruch – der Moderator hält nicht mehr die Klappe" },
+      { emoji: "😏", text: "Über 100 neue trockene Sprüche: „Wolltest du überhaupt hierher?“" },
+      { emoji: "📛", text: "Er spricht dich mit deinem Namen an – auch bei den schnellen Sprüchen" },
+      { emoji: "🧸", text: "Kinder bekommen nur liebe Sprüche, Party-Runden die frechen" },
+      { emoji: "🍸", text: "Party-Modus: Jetzt auch mit Sprüchen über den Pegel" },
+    ],
+  },
+  {
     version: "0.17.0",
     date: "2026-09-25",
     title: "Party-Modus aufgedreht: fast 300 neue Fragen rund um Alkohol, Liebe und Sex – ab 18 und garantiert in jeder Runde.",

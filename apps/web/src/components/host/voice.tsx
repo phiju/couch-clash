@@ -6,6 +6,7 @@ import { Mascot } from "@/components/mascot";
 import { getAudioEngine } from "@/lib/audio/engine";
 import { PARTY_HTTP_URL } from "@/lib/config";
 import { VoicePlayer } from "@/lib/voice/player";
+import { lineAudioPaths } from "@/lib/voice/sequence";
 
 /** What the host mascot is saying right now (null = silent). */
 export const HostSpeechContext = createContext<HostLine | null>(null);
@@ -35,9 +36,10 @@ export function useHostVoice(send: (msg: ClientMessage) => void, clockOffset: nu
     const player = new VoicePlayer({
       play: (line) => {
         const engine = getAudioEngine();
-        return engine.unlocked
-          ? engine.playVoice(`${PARTY_HTTP_URL}${line.audioPath}`, line.playbackRate)
-          : Promise.resolve(null);
+        if (!engine.unlocked) return Promise.resolve(null);
+        // Name clip + line ("Max …" – "Wolltest du überhaupt hierher?"), seamlessly.
+        const urls = lineAudioPaths(line).map((path) => `${PARTY_HTTP_URL}${path}`);
+        return engine.playVoiceSequence(urls, line.prefixGapMs ?? 0, line.playbackRate);
       },
       report: (event) => sendRef.current({ type: "voice_event", ...event }),
       onCurrent: setCurrent,

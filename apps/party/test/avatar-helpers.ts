@@ -34,6 +34,9 @@ export function memoryStore(): AvatarStore & { objects: Map<string, Uint8Array> 
       const bytes = objects.get(key);
       return bytes ? { bytes, contentType: "image/webp" } : null;
     },
+    async has(key) {
+      return objects.has(key);
+    },
     async deletePrefix(prefix) {
       for (const key of [...objects.keys()]) if (key.startsWith(prefix)) objects.delete(key);
     },

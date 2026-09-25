@@ -13,11 +13,11 @@ import {
 import type { CommentPlayerFacts } from "../src/voice/prompt";
 
 describe("commentary frequency", () => {
-  const commented = (frequency: "selten" | "normal" | "oft", total: number) => {
+  const commented = (frequency: "selten" | "normal" | "oft", total: number, noteworthy: (i: number) => boolean = () => false) => {
     const out: number[] = [];
     let last: number | null = null;
     for (let i = 0; i < total; i++) {
-      if (shouldComment(frequency, i, total, last)) {
+      if (shouldComment(frequency, i, total, last, noteworthy(i))) {
         out.push(i);
         last = i;
       }
@@ -25,11 +25,25 @@ describe("commentary frequency", () => {
     return out;
   };
 
-  it("never after every question, always after the last one", () => {
-    expect(commented("oft", 8)).toEqual([1, 3, 5, 7]);
-    expect(commented("normal", 8)).toEqual([2, 5, 7]);
-    expect(commented("selten", 8)).toEqual([7]);
+  it("oft (the default): after EVERY question", () => {
+    expect(DEFAULT_VOICE_SETTINGS.frequency).toBe("oft");
+    expect(commented("oft", 8)).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
     expect(commented("oft", 1)).toEqual([0]);
+  });
+
+  it("normal: every noteworthy question, at least every 2nd, always the last", () => {
+    expect(commented("normal", 8)).toEqual([1, 3, 5, 7]);
+    expect(commented("normal", 8, () => true)).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
+    // Something happens at 0 and 1, nothing after: still every 2nd.
+    expect(commented("normal", 8, (i) => i < 2)).toEqual([0, 1, 3, 5, 7]);
+    // Typical game: 2 of 3 questions noteworthy → ~2/3 commented.
+    expect(commented("normal", 9, (i) => i % 3 !== 2)).toEqual([0, 1, 3, 4, 6, 7, 8]);
+  });
+
+  it("selten: every 3rd question and the end of the category", () => {
+    expect(commented("selten", 8)).toEqual([2, 5, 7]);
+    expect(commented("selten", 8, () => true)).toEqual([2, 5, 7]);
+    expect(commented("selten", 2)).toEqual([1]);
   });
 });
 

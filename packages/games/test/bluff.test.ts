@@ -375,6 +375,10 @@ describe("bluff public state never leaks", () => {
     const facts = t.mod.revealFacts!(t.state)!;
     expect(facts.correctAnswer).toBe(WORD.definition);
     expect(facts.answers.b).toMatchObject({ correct: true, points: 200, note: "hat 2 Mitspieler mit der erfundenen Erklärung reingelegt" });
+    // The host's library: who fooled how many (only players who wrote something).
+    expect(facts.answers.b!.fooled).toBe(2);
+    expect(facts.answers.a!.fooled).toBe(0);
+    expect(facts.answerKind).toBeUndefined();
   });
 });
 

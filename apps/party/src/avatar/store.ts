@@ -4,6 +4,8 @@ import type { PhotoExpression } from "@couch-clash/shared";
 export interface AvatarStore {
   put(key: string, bytes: Uint8Array, contentType: string): Promise<void>;
   get(key: string): Promise<{ bytes: Uint8Array; contentType: string } | null>;
+  /** Whether an object exists (no download). */
+  has(key: string): Promise<boolean>;
   /** Deletes every object under `prefix`. */
   deletePrefix(prefix: string): Promise<void>;
 }
@@ -33,6 +35,9 @@ export function r2AvatarStore(bucket: R2Bucket): AvatarStore {
         bytes: new Uint8Array(await obj.arrayBuffer()),
         contentType: obj.httpMetadata?.contentType ?? "image/webp",
       };
+    },
+    async has(key) {
+      return (await bucket.head(key)) !== null;
     },
     async deletePrefix(prefix) {
       // Re-list from the start after each delete (a cursor could skip keys

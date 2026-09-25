@@ -7,6 +7,9 @@ import { VOICE_CONFIG } from "../src/voice/config";
 import { VoiceDirector, detectVoiceEvents } from "../src/voice/director";
 import { VoiceProviderError, type LinePrompt, type TextProvider } from "../src/voice/provider";
 import type { VoiceServices } from "../src/voice/service";
+import { SNARK_LINES_DE } from "@couch-clash/content";
+import { voiceSnarkBatch } from "../src/voice/admin";
+import { allSnarkLines } from "../src/voice/snark";
 import { memoryStore } from "./avatar-helpers";
 import { mockSpeech } from "./voice-helpers";
 
@@ -45,14 +48,26 @@ function echoText(): TextProvider & { prompts: LinePrompt[] } {
   };
 }
 
-function setup(names: string[], opts: { text?: TextProvider; host?: boolean; speech?: VoiceServices["speech"] } = {}) {
+function setup(
+  names: string[],
+  opts: {
+    text?: TextProvider;
+    host?: boolean;
+    speech?: VoiceServices["speech"];
+    /** The director's random source: < 0.5 → live comments, ≥ 0.5 → cached library lines. */
+    random?: () => number;
+    store?: ReturnType<typeof memoryStore>;
+    usage?: VoiceServices["usage"];
+  } = {},
+) {
   let room = createRoomRecord("ABCD", "host-token-0123456789abcdef", T0);
   let n = 0;
   const text = opts.text ?? echoText();
   const services: VoiceServices = {
     text,
     speech: opts.speech === undefined ? mockSpeech() : opts.speech,
-    store: memoryStore(),
+    store: opts.store ?? memoryStore(),
+    usage: opts.usage ?? null,
   };
   const rt = {
     room: null as RoomRecord | null,
@@ -77,7 +92,7 @@ function setup(names: string[], opts: { text?: TextProvider; host?: boolean; spe
     waitUntil: (p) => rt.tasks.push(p),
     services: () => services,
     now: () => rt.now,
-    random: () => 0.5,
+    random: opts.random ?? (() => 0.5),
     newId: () => (++n).toString(16).padStart(16, "0"),
   });
   const ids: string[] = [];
@@ -95,7 +110,7 @@ function setup(names: string[], opts: { text?: TextProvider; host?: boolean; spe
     rt.room = next;
     director.roomChanged(prev, next);
   };
-  return { rt, director, ids, text, settle, commit };
+  return { rt, director, ids, text, settle, commit, services };
 }
 
 describe("welcome lines", () => {
@@ -172,7 +187,7 @@ describe("welcome lines", () => {
     expect(rt.sent[0]!.audioPath).toBeTruthy();
   });
 
-  it("stops the voice for the room on a quota error – the game continues silently", async () => {
+  it("a quota error stops NEW audio for the room – the game continues", async () => {
     vi.spyOn(console, "warn").mockImplementation(() => {});
     const speech = mockSpeech(async () => {
       throw new VoiceProviderError("unavailable", "ElevenLabs 401 quota_exceeded", "401 quota_exceeded");
@@ -185,13 +200,14 @@ describe("welcome lines", () => {
     expect(ctx.rt.sent).toHaveLength(0);
     // Nothing is generated any more (no text, no voice) – but the game runs.
     const promptsBefore = (ctx.text as ReturnType<typeof echoText>).prompts.length;
+    const callsBefore = speech.speak.mock.calls.length;
     const { answerAll, next } = await startGame(ctx, "oft", 3);
     await answerAll();
     await ctx.settle();
     await next();
     expect(ctx.rt.room!.phase).toBe("play");
     expect((ctx.text as ReturnType<typeof echoText>).prompts.length).toBe(promptsBefore);
-    expect(speech.speak).toHaveBeenCalledTimes(1);
+    expect(speech.speak).toHaveBeenCalledTimes(callsBefore);
   });
 
   it("'Stimme erneut versuchen' lifts the stop (e.g. after fixing the key)", async () => {
@@ -216,10 +232,10 @@ describe("welcome lines", () => {
     expect(ctx.rt.sent.map((l) => l.kind)).toEqual(["test"]);
   });
 
-  it("stops at the room's character budget", async () => {
+  it("stops NEW audio at the room's credit budget", async () => {
     vi.spyOn(console, "warn").mockImplementation(() => {});
     const ctx = setup(["Anna", "Ben"]);
-    ctx.rt.room = { ...ctx.rt.room!, voice: { ...ctx.rt.room!.voice, charsUsed: VOICE_CONFIG.charBudgetPerRoom - 5 } };
+    ctx.rt.room = { ...ctx.rt.room!, voice: { ...ctx.rt.room!.voice, creditsUsed: VOICE_CONFIG.creditBudgetPerRoom - 5 } };
     ctx.director.playerJoined(ctx.ids[0]!);
     await ctx.settle();
     expect(ctx.rt.sent).toHaveLength(0);
@@ -234,14 +250,17 @@ describe("welcome lines", () => {
     expect((ctx.text as ReturnType<typeof echoText>).prompts).toHaveLength(0);
   });
 
-  it("counts the characters sent and applies the tempo", async () => {
+  it("counts credits per model (v3 welcome ×1, flash name clip ×½) and applies the tempo", async () => {
     const speech = mockSpeech();
     const ctx = setup(["Clara"], { speech });
     ctx.rt.room = { ...ctx.rt.room!, voice: { ...ctx.rt.room!.voice, settings: { ...ctx.rt.room!.voice.settings, tempo: "turbo" } } };
     ctx.director.playerJoined(ctx.ids[0]!);
     await ctx.settle();
-    expect(ctx.rt.room!.voice.charsUsed).toBe("Willkommen Clara!".length);
     expect(speech.speak).toHaveBeenCalledWith("Willkommen Clara!", expect.objectContaining({ style: "expressive", speed: 1.2 }));
+    // The name clip for library lines: flash, the cached speed (same for every room).
+    expect(speech.speak).toHaveBeenCalledWith("Clara …", expect.objectContaining({ style: "fast", speed: VOICE_CONFIG.cachedSpeed }));
+    expect(ctx.rt.room!.voice.creditsUsed).toBe("Willkommen Clara!".length + Math.ceil("Clara …".length * 0.5));
+    expect(ctx.rt.room!.voice.nameClips[ctx.ids[0]!]).toMatch(/^\/api\/voice-cache\/.+\/names\//);
     expect(ctx.rt.sent[0]!.playbackRate).toBe(1.1);
   });
 
@@ -250,7 +269,7 @@ describe("welcome lines", () => {
     ctx.director.testLine();
     await ctx.settle();
     expect(ctx.rt.sent[0]).toMatchObject({ kind: "test" });
-    expect(ctx.rt.room!.voice.charsUsed).toBeGreaterThan(0);
+    expect(ctx.rt.room!.voice.creditsUsed).toBeGreaterThan(0);
     expect(ctx.rt.room!.voice.linesUsed).toBe(1);
   });
 
@@ -276,12 +295,13 @@ async function startGame(ctx: ReturnType<typeof setup>, frequency: "selten" | "n
   await commit(unwrap(beginGame(rt.room!, deps())));
   await commit(unwrap(advance(rt.room!, deps()))); // intro → first question
   await settle();
-  /** Both answer (Anna right, Ben wrong) → reveal. */
+  /** Everyone answers (Anna right, the others wrong) → reveal. */
   const answerAll = async () => {
     const s = qstate(rt.room!);
     const right = s.questions[s.index]!.correctIndex;
-    await commit(unwrap(handlePlayerAction(rt.room!, ids[0]!, { type: "answer", value: right }, deps())));
-    await commit(unwrap(handlePlayerAction(rt.room!, ids[1]!, { type: "answer", value: (right + 1) % 4 }, deps())));
+    for (const [i, id] of ids.entries()) {
+      await commit(unwrap(handlePlayerAction(rt.room!, id, { type: "answer", value: i === 0 ? right : (right + i) % 4 }, deps())));
+    }
   };
   const next = async () => commit(unwrap(advance(rt.room!, deps())));
   return { answerAll, next };
@@ -295,76 +315,95 @@ describe("game start", () => {
   });
 });
 
+const LIVE = () => 0.3;
+const CACHED = () => 0.9;
+const comments = (ctx: ReturnType<typeof setup>) => ctx.rt.sent.filter((l) => l.kind === "comment");
+const prompts = (ctx: ReturnType<typeof setup>) => (ctx.text as ReturnType<typeof echoText>).prompts.filter((p) => p.json);
+/** Library text of a cached comment ("Anna … Mutig geraten." → "Mutig geraten."). */
+const libraryText = (line: HostLine) => line.text.replace(/^.+? … /, "");
+const ALL_LINES = allSnarkLines(SNARK_LINES_DE);
+
+/** Answer, reveal, leaderboard – for `count` questions. */
+async function playQuestions(ctx: ReturnType<typeof setup>, game: Awaited<ReturnType<typeof startGame>>, count: number) {
+  for (let q = 0; q < count; q++) {
+    await game.answerAll();
+    await ctx.settle();
+    await game.next(); // leaderboard
+    await ctx.settle();
+    if (q < count - 1) {
+      await game.next();
+      await ctx.settle();
+    }
+  }
+}
+
+/** Voices the whole library into `store` (the admin task). */
+async function voiceLibrary(store: ReturnType<typeof memoryStore>) {
+  const services: VoiceServices = { text: null, speech: mockSpeech(), store, usage: null };
+  for (let i = 0; i < 20; i++) if ((await voiceSnarkBatch(services)).snark.cached === ALL_LINES.length) return;
+}
+
 describe("leaderboard commentary", () => {
-  it("is prepared at the reveal and played when the leaderboard starts", async () => {
-    const ctx = setup(["Anna", "Ben"]);
+  it("oft: a comment after EVERY question – prepared at the reveal, played when the leaderboard starts", async () => {
+    const ctx = setup(["Anna", "Ben"], { random: LIVE });
     const { answerAll, next } = await startGame(ctx, "oft");
-    // Question 1: no comment ("oft" = every 2nd question).
     await answerAll();
     await ctx.settle();
+    expect(comments(ctx)).toHaveLength(0); // waits for the leaderboard
     await next(); // → leaderboard
-    expect(ctx.rt.sent.filter((l) => l.kind === "comment")).toHaveLength(0);
+    const comment = comments(ctx)[0];
+    expect(comment).toMatchObject({ text: "Oh Ben … zurück in die erste Klasse!", staleAfterMs: 2500 });
+    // The facts are specific: actual answers, right/wrong, ranks.
+    expect(prompts(ctx)[0]!.user).toMatch(/"correct":false/);
+    expect(prompts(ctx)[0]!.user).toMatch(/"rankAfter"/);
     await next(); // → question 2
     await answerAll();
     await ctx.settle();
-    expect(ctx.rt.sent.filter((l) => l.kind === "comment")).toHaveLength(0); // waits for the leaderboard
     await next();
-    const comment = ctx.rt.sent.find((l) => l.kind === "comment");
-    expect(comment).toMatchObject({ text: "Oh Ben … zurück in die erste Klasse!", staleAfterMs: 2500 });
-    // The facts are specific: actual answers, right/wrong, ranks.
-    const prompt = (ctx.text as ReturnType<typeof echoText>).prompts.find((p) => p.json)!;
-    expect(prompt.user).toMatch(/"correct":false/);
-    expect(prompt.user).toMatch(/"rankAfter"/);
+    expect(comments(ctx)).toHaveLength(2);
     expect(ctx.rt.room!.voice.streaks[ctx.ids[0]!]).toBe(2);
-    expect(ctx.rt.room!.voice.streaks[ctx.ids[1]!]).toBe(0);
+    expect(ctx.rt.room!.voice.wrongStreaks[ctx.ids[1]!]).toBe(2);
   });
 
   it("party question in Party mode → partyItem in the facts, the host may wink", async () => {
-    const ctx = setup(["Anna", "Ben"]);
+    const ctx = setup(["Anna", "Ben"], { random: LIVE });
     ctx.rt.room = { ...ctx.rt.room!, mode: { mode: "party", allow16: false, difficulty: "mixed", partyShare: 1 }, partyConfirmed: true };
-    const { answerAll, next } = await startGame(ctx, "oft");
-    for (let q = 0; q < 2; q++) {
-      await answerAll();
-      await ctx.settle();
-      await next();
-      await ctx.settle();
-      if (q < 1) await next();
-    }
-    const prompt = (ctx.text as ReturnType<typeof echoText>).prompts.find((p) => p.json)!;
-    expect(prompt.user).toContain('"partyItem":true');
-    expect(prompt.system).toMatch(/partyItem is true/);
+    await playQuestions(ctx, await startGame(ctx, "oft"), 1);
+    expect(prompts(ctx)[0]!.user).toContain('"partyItem":true');
+    expect(prompts(ctx)[0]!.system).toMatch(/partyItem is true/);
   });
 
   it("family question → no partyItem", async () => {
-    const ctx = setup(["Anna", "Ben"]);
-    const { answerAll, next } = await startGame(ctx, "oft");
-    for (let q = 0; q < 2; q++) {
-      await answerAll();
-      await ctx.settle();
-      await next();
-      await ctx.settle();
-      if (q < 1) await next();
-    }
-    const prompt = (ctx.text as ReturnType<typeof echoText>).prompts.find((p) => p.json)!;
-    expect(prompt.user).not.toContain("partyItem");
+    const ctx = setup(["Anna", "Ben"], { random: LIVE });
+    await playQuestions(ctx, await startGame(ctx, "oft"), 1);
+    expect(prompts(ctx)[0]!.user).not.toContain("partyItem");
   });
 
-  it("rotates targets: the last target is passed as avoidTargets", async () => {
-    const ctx = setup(["Anna", "Ben"]);
-    const { answerAll, next } = await startGame(ctx, "oft", 4);
-    for (let q = 0; q < 4; q++) {
-      await answerAll();
-      await ctx.settle();
-      await next();
-      await ctx.settle();
-      if (q < 3) await next();
-    }
-    const comments = (ctx.text as ReturnType<typeof echoText>).prompts.filter((p) => p.json);
-    expect(comments).toHaveLength(2);
-    expect(comments[1]!.user).toMatch(/"avoidTargets":\["Ben"\]/);
+  it("live: rotates targets – the last target is passed as avoidTargets", async () => {
+    const ctx = setup(["Anna", "Ben"], { random: LIVE });
+    await playQuestions(ctx, await startGame(ctx, "oft", 4), 2);
+    expect(prompts(ctx)).toHaveLength(2);
+    expect(prompts(ctx)[1]!.user).toMatch(/"avoidTargets":\["Ben"\]/);
   });
 
-  it("is skipped when it is not ready before the leaderboard starts", async () => {
+  it("cached: the target's name clip, 150 ms, then the library line", async () => {
+    const ctx = setup(["Anna", "Ben"], { random: CACHED });
+    ctx.director.playerJoined(ctx.ids[0]!);
+    ctx.director.playerJoined(ctx.ids[1]!);
+    await ctx.settle();
+    await playQuestions(ctx, await startGame(ctx, "oft"), 1);
+    const [line] = comments(ctx);
+    expect(prompts(ctx)).toHaveLength(0); // no text model for library lines
+    // Ben answered wrong (Anna right) → about Ben.
+    expect(line!.text).toMatch(/^Ben … /);
+    expect(line!.prefixAudioPath).toBe(ctx.rt.room!.voice.nameClips[ctx.ids[1]!]);
+    expect(line!.prefixGapMs).toBe(150);
+    expect(line!.audioPath).toMatch(/^\/api\/voice-cache\/.+\/snark\/[a-f0-9]{64}\.mp3$/);
+    expect(ALL_LINES).toContain(libraryText(line!));
+    expect(ctx.rt.room!.voice.usedSnark).toEqual([libraryText(line!)]);
+  });
+
+  it("a live line that is not ready when the leaderboard starts → a cached line instead of silence", async () => {
     let release!: () => void;
     const base = echoText();
     const slow: TextProvider = {
@@ -375,32 +414,101 @@ describe("leaderboard commentary", () => {
             })
           : base.generateLine(p),
     };
-    const ctx = setup(["Anna", "Ben"], { text: slow });
-    const { answerAll, next } = await startGame(ctx, "selten", 3);
-    for (let q = 0; q < 2; q++) {
-      await answerAll();
-      await ctx.settle();
-      await next();
-      await next();
-    }
-    await answerAll(); // last question → always a comment
-    await next(); // leaderboard starts before the text is ready
+    const ctx = setup(["Anna", "Ben"], { text: slow, random: LIVE });
+    const { answerAll, next } = await startGame(ctx, "oft", 3);
+    await answerAll();
+    await next(); // leaderboard starts before the live text is ready
+    await vi.waitFor(() => expect(comments(ctx)).toHaveLength(1));
+    expect(ALL_LINES).toContain(libraryText(comments(ctx)[0]!));
     release();
     await ctx.settle();
-    expect(ctx.rt.sent.filter((l) => l.kind === "comment")).toHaveLength(0);
+    // The late live line is dropped – one comment per question.
+    expect(comments(ctx)).toHaveLength(1);
+    expect(comments(ctx)[0]!.text).not.toBe("Zu spät!");
+  });
+
+  it("budget used up → only cached lines, never silent, nothing new is paid for", async () => {
+    const store = memoryStore();
+    await voiceLibrary(store);
+    const speech = mockSpeech();
+    const ctx = setup(["Anna", "Ben"], { random: LIVE, store, speech });
+    ctx.rt.room = { ...ctx.rt.room!, voice: { ...ctx.rt.room!.voice, status: "budget" } };
+    await playQuestions(ctx, await startGame(ctx, "oft", 4), 4);
+    expect(comments(ctx)).toHaveLength(4);
+    for (const line of comments(ctx)) expect(ALL_LINES).toContain(libraryText(line));
+    expect(prompts(ctx)).toHaveLength(0);
+    expect(speech.speak).not.toHaveBeenCalled();
+    expect(ctx.rt.room!.voice.creditsUsed).toBe(0);
+  });
+
+  it("account nearly used up this month (< 10 %) → only cached audio", async () => {
+    const store = memoryStore();
+    await voiceLibrary(store);
+    const speech = mockSpeech();
+    const usage = async () => ({ used: 27_500, limit: 30_000 });
+    const ctx = setup(["Anna", "Ben"], { random: LIVE, store, speech, usage });
+    await playQuestions(ctx, await startGame(ctx, "oft", 3), 3);
+    expect(ctx.rt.room!.voice.account).toEqual({ used: 27_500, limit: 30_000 });
+    expect(comments(ctx)).toHaveLength(3);
+    expect(prompts(ctx)).toHaveLength(0);
+    expect(speech.speak).not.toHaveBeenCalled();
+  });
+
+  it("cached audio is not counted in the room budget", async () => {
+    const store = memoryStore();
+    await voiceLibrary(store);
+    const ctx = setup(["Anna", "Ben"], { random: CACHED, store });
+    // Name clips are made when the players join (new audio – counted).
+    for (const id of ctx.ids) ctx.director.playerJoined(id);
+    await ctx.settle();
+    const game = await startGame(ctx, "oft", 3);
+    await ctx.settle();
+    const before = ctx.rt.room!.voice.creditsUsed;
+    expect(before).toBeGreaterThan(0);
+    await playQuestions(ctx, game, 3);
+    expect(comments(ctx)).toHaveLength(3);
+    expect(comments(ctx).some((l) => l.prefixAudioPath)).toBe(true);
+    // Library lines and name clips from the cache: free.
+    expect(ctx.rt.room!.voice.creditsUsed).toBe(before);
+  });
+
+  it("never the same line twice in a game, never the same target twice in a row", async () => {
+    const store = memoryStore();
+    await voiceLibrary(store);
+    let n = 0;
+    // Deterministic but varied choices; ≥ 0.5 on the live/cached draw → cached.
+    const ctx = setup(["Anna", "Ben", "Cleo"], { random: () => ((n++ * 0.6180339) % 0.5) + 0.5, store });
+    const total = 12;
+    await playQuestions(ctx, await startGame(ctx, "oft", total), total);
+    const lines = comments(ctx);
+    expect(lines).toHaveLength(total);
+    const texts = lines.map(libraryText);
+    expect(new Set(texts).size).toBe(texts.length);
+    const targets = lines.map((l) => l.text.match(/^(\w+) … /)?.[1] ?? null);
+    for (let i = 1; i < targets.length; i++) if (targets[i] && targets[i - 1]) expect(targets[i]).not.toBe(targets[i - 1]);
+  });
+
+  it("Kids: only kids lines; Party: family + party lines", async () => {
+    const store = memoryStore();
+    await voiceLibrary(store);
+    const kidsLines = new Set(Object.values(SNARK_LINES_DE).flatMap((m) => m.kids));
+    const partyLines = new Set(Object.values(SNARK_LINES_DE).flatMap((m) => [...m.family, ...m.party]));
+    for (const [mode, allowed] of [
+      ["kids", kidsLines],
+      ["party", partyLines],
+    ] as const) {
+      const ctx = setup(["Anna", "Ben"], { random: CACHED, store });
+      ctx.rt.room = { ...ctx.rt.room!, mode: { mode, allow16: false, difficulty: "mixed" }, partyConfirmed: true };
+      await playQuestions(ctx, await startGame(ctx, "oft", 4), 4);
+      expect(comments(ctx).length).toBe(4);
+      for (const line of comments(ctx)) expect(allowed.has(libraryText(line)), line.text).toBe(true);
+    }
   });
 
   it("extends the leaderboard hold by at most 3 s while a line plays", async () => {
     const ctx = setup(["Anna", "Ben"]);
-    const { answerAll, next } = await startGame(ctx, "oft", 3);
-    await answerAll();
-    await ctx.settle();
-    await next();
-    await next();
-    await answerAll(); // 2nd question → comment
-    await ctx.settle();
-    await next();
-    const comment = ctx.rt.sent.find((l) => l.kind === "comment")!;
+    await playQuestions(ctx, await startGame(ctx, "oft", 3), 1);
+    const comment = comments(ctx)[0]!;
     const baseEnd = ctx.rt.room!.phaseEndsAt!;
     ctx.director.hostEvent(comment.id, "started", baseEnd + 10_000);
     await ctx.settle();
@@ -409,27 +517,21 @@ describe("leaderboard commentary", () => {
 
   it("announces the winner at the final ranking", async () => {
     const ctx = setup(["Anna", "Ben"]);
-    const { answerAll, next } = await startGame(ctx, "selten", 3);
-    for (let q = 0; q < 3; q++) {
-      await answerAll();
-      await ctx.settle();
-      await next(); // leaderboard
-      await ctx.settle();
-      if (q < 2) await next();
-    }
-    await next(); // → scoreboard
-    await next(); // → finale
+    const game = await startGame(ctx, "selten", 3);
+    await playQuestions(ctx, game, 3);
+    await game.next(); // → scoreboard
+    await game.next(); // → finale
     await ctx.settle();
     expect(ctx.rt.room!.phase).toBe("finale");
     expect(ctx.rt.sent.some((l) => l.kind === "finale")).toBe(true);
-    // "selten": only the last question of the category was commented.
-    expect(ctx.rt.sent.filter((l) => l.kind === "comment")).toHaveLength(1);
+    // "selten": every 3rd question – here only the last one.
+    expect(comments(ctx)).toHaveLength(1);
   });
 });
 
 describe("Führerscheinprüfung", () => {
   it("the host plays the driving instructor and announces the exam result", async () => {
-    const ctx = setup(["Anna", "Ben"]);
+    const ctx = setup(["Anna", "Ben"], { random: LIVE });
     const { answerAll, next } = await startGame(ctx, "selten", 5, "fuehrerschein");
     for (let q = 0; q < 5; q++) {
       await answerAll();

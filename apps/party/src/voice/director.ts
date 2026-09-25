@@ -5,6 +5,7 @@
  * background. Nothing here ever delays the game.
  */
 import { TEMPO_PLAYBACK_RATE, TEMPO_SPEED, buildLeaderboard, type HostLine } from "@couch-clash/shared";
+import { SNARK_LINES_DE } from "@couch-clash/content";
 import { GAME_MODULES, getModule, type ModuleRegistry } from "@couch-clash/games";
 import { progressOf } from "../progress";
 import type { RoomRecord } from "../room-logic";
@@ -24,18 +25,20 @@ import {
 } from "./prompt";
 import type { LinePrompt, SpeechStyle } from "./provider";
 import {
+  accountLow,
   commentHighlights,
   commentPlayers,
   effectiveCheekiness,
   extendedPhaseEnd,
   planWelcomes,
   rememberTarget,
-  reserveChars,
+  reserveCredits,
   shouldComment,
   updateStreaks,
   type RoomVoice,
 } from "./rules";
-import { produceLine, type ProducedLine, type VoiceServices } from "./service";
+import { cachedClip, produceLine, type ProducedLine, type VoiceServices } from "./service";
+import { chooseSnark, detectSituations, isNoteworthy, updateWrongStreaks, type SituationHit } from "./snark";
 import { commentTemplate, finaleTemplate, startTemplate, summaryTemplate, welcomeTemplate } from "./templates";
 
 export interface VoiceRuntime {
@@ -92,14 +95,32 @@ export function detectVoiceEvents(
 
 const WELCOME_ON_HOST_MS = 30_000;
 
+/** A cached library line ready to play (name clip + line). */
+interface CachedComment {
+  line: HostLine;
+  /** The library text (never twice in a game). */
+  text: string;
+  targetId: string | null;
+}
+
+/** The comment for one question: a live line and/or a cached one, whichever is ready at the leaderboard. */
+interface CommentJob {
+  key: string;
+  live: ProducedLine | null;
+  cached: CachedComment | null;
+  sent: boolean;
+  livePromise?: Promise<void>;
+  cachedPromise?: Promise<void>;
+}
+
 export class VoiceDirector {
   /** Player ids waiting for their welcome. */
   private pendingWelcomes: string[] = [];
   private welcomesInFlight = 0;
   /** Welcome lines sent to the host screen and not reported as ended yet (id → sent at). */
   private welcomesOnHost = new Map<string, number>();
-  /** A commentary line that is ready and waits for the leaderboard to start. */
-  private readyComment: { key: string; produced: ProducedLine } | null = null;
+  /** The comment being prepared for the current question (live and/or cached). */
+  private comments: CommentJob | null = null;
   /** The line currently shown with the leaderboard / round summary (for the hold extension). */
   private hold: { lineId: string; key: string; step: string; baseEnd: number } | null = null;
   /** What the host is reading out (e.g. the Bluff-Lexikon options). */
@@ -113,11 +134,12 @@ export class VoiceDirector {
 
   /** Speaking makes sense: switched on, a host screen listening, a voice available. */
   private enabled(room: RoomRecord | null = this.rt.read()): room is RoomRecord {
-    return !!room && room.voice.settings.enabled && this.canSpeak(room);
+    return !!room && room.voice.settings.enabled && this.canSpeak();
   }
 
-  private canSpeak(room: RoomRecord): boolean {
-    return room.voice.status === "ok" && this.rt.hostConnected() && this.rt.services().speech !== null;
+  /** Cached audio needs only a host screen and the store – even when no NEW audio can be made. */
+  private canSpeak(): boolean {
+    return this.rt.hostConnected() && this.rt.services().store !== null;
   }
 
   /** Whether the text model may add audio tags for this style. */
@@ -148,9 +170,9 @@ export class VoiceDirector {
 
   private log(kind: string, produced: ProducedLine) {
     const used = this.rt.read()?.voice.linesUsed ?? 0;
-    const chars = this.rt.read()?.voice.charsUsed ?? 0;
+    const credits = this.rt.read()?.voice.creditsUsed ?? 0;
     console.log(
-      `voice ${kind}: ${produced.source}${produced.line ? "" : " (silent)"} (${used}/${VOICE_CONFIG.maxLinesPerRoom} lines, ${chars}/${VOICE_CONFIG.charBudgetPerRoom} chars)`,
+      `voice ${kind}: ${produced.cached ? "cached" : produced.source}${produced.line ? "" : " (silent)"} (${used}/${VOICE_CONFIG.maxLinesPerRoom} lines, ${credits}/${VOICE_CONFIG.creditBudgetPerRoom} credits)`,
     );
   }
 
@@ -160,12 +182,13 @@ export class VoiceDirector {
     prompt: LinePrompt,
     fallback: string,
     deadline: number | null = null,
-    /** False: fixed text (e.g. reading out) – no text model, no line from the budget. */
+    /** False: fixed text (e.g. reading out) – no text model, no line from the budget, cached globally. */
     ai = true,
   ): Promise<ProducedLine | null> {
     const room = this.rt.read();
     if (!room) return null;
-    const useAi = ai ? await this.reserveLine() : false;
+    const allowNew = this.newAudioAllowed(room);
+    const useAi = ai && allowNew ? await this.reserveLine() : false;
     const tempo = room.voice.settings.tempo;
     const produced = await produceLine(this.rt.services(), {
       code: room.code,
@@ -174,27 +197,18 @@ export class VoiceDirector {
       prompt,
       fallback,
       useAi,
+      allowNew,
+      ...(ai ? {} : { cacheKind: "read" as const }),
       style,
       speed: TEMPO_SPEED[tempo],
       playbackRate: TEMPO_PLAYBACK_RATE[tempo],
       deadline,
       now: this.rt.now,
-      reserveChars: async (count) => {
-        const current = this.rt.read();
-        const next = current ? reserveChars(current.voice, count) : null;
-        if (!current || !next) return false;
-        await this.rt.commit({ ...current, voice: next });
-        return true;
-      },
+      reserveCredits: (credits) => this.reserveCredits(credits),
       staleAfterMs: kind === "comment" ? 2_500 : null,
     });
     this.log(kind, produced);
-    if (produced.voiceStatus) {
-      // Quota/key problem or budget used up: silent for the rest of this room, the game goes on.
-      const status = produced.voiceStatus;
-      console.warn(`voice: stopped for this room (${status}${produced.errorCode ? ` ${produced.errorCode}` : ""})`);
-      await this.updateVoice((v) => ({ ...v, status, errorCode: produced.errorCode ?? null }));
-    }
+    if (produced.voiceStatus) await this.stopNewAudio(produced.voiceStatus, produced.errorCode);
     return produced;
   }
 
@@ -214,6 +228,11 @@ export class VoiceDirector {
     if (!this.enabled()) return;
     this.pendingWelcomes.push(playerId);
     this.pumpWelcomes();
+    // The name clip for library lines ("Max …") – once per player, reused for the same name.
+    this.run(async () => {
+      await this.refreshAccount();
+      await this.nameClip(playerId);
+    });
   }
 
   private pumpWelcomes() {
@@ -257,7 +276,7 @@ export class VoiceDirector {
     for (const event of events) {
       switch (event.type) {
         case "game_start":
-          this.readyComment = null;
+          this.comments = null;
           this.hold = null;
           // The first game's explanation follows the opening line.
           this.run(async () => {
@@ -272,7 +291,7 @@ export class VoiceDirector {
           this.run(() => this.reveal(event));
           break;
         case "leaderboard":
-          this.leaderboard(event.key, next);
+          this.leaderboard(event.key);
           break;
         case "summary":
           this.run(() => this.summary(event.key));
@@ -285,7 +304,8 @@ export class VoiceDirector {
   }
 
   private async gameStart() {
-    await this.updateVoice((v) => ({ ...v, streaks: {}, lastTargets: [], lastComment: null }));
+    await this.updateVoice((v) => ({ ...v, streaks: {}, wrongStreaks: {}, usedSnark: [], lastTargets: [], lastComment: null }));
+    await this.refreshAccount();
     const room = this.rt.read();
     if (!this.enabled(room)) return;
     const categories = (room.game?.rounds ?? []).flatMap((r) => getModule(r.categoryId, this.registry)?.meta.name ?? []);
@@ -312,6 +332,12 @@ export class VoiceDirector {
   }
 
   // ── Part B: commentary ───────────────────────────────────────────────
+  /**
+   * The answers are locked the moment a question reveals – right then the
+   * live line (text model + voice) and a cached library line are prepared in
+   * parallel. The leaderboard plays the live line if it is ready, otherwise
+   * the cached one: the host never skips a comment.
+   */
   private async reveal(event: Extract<VoiceEvent, { type: "reveal" }>) {
     const room = this.rt.read();
     const game = room?.game;
@@ -320,61 +346,201 @@ export class VoiceDirector {
     const facts = game?.moduleState != null ? module?.revealFacts?.(game.moduleState) : null;
     if (!room || !game || !module || !facts) return;
 
-    const streaks = updateStreaks(room.voice.streaks, room.players.map((p) => p.id), facts);
+    const playerIds = room.players.map((p) => p.id);
+    const leaderboard = game.questionLeaderboard ?? buildLeaderboard(room.players, game.scores, {});
+    const hits = detectSituations({ playerIds, facts, leaderboard, wrongStreaksBefore: room.voice.wrongStreaks });
+    const streaks = updateStreaks(room.voice.streaks, playerIds, facts);
+    const wrongStreaks = updateWrongStreaks(room.voice.wrongStreaks, playerIds, facts);
     const last = room.voice.lastComment;
     const lastIndex = last?.roundIndex === event.roundIndex ? last.index : null;
     const comment =
-      this.enabled(room) && shouldComment(room.voice.settings.frequency, event.index, event.total, lastIndex);
+      this.enabled(room) &&
+      shouldComment(room.voice.settings.frequency, event.index, event.total, lastIndex, isNoteworthy(hits));
+
+    const job: CommentJob = { key: event.key, live: null, cached: null, sent: false };
+    if (comment) {
+      this.comments = job;
+      // Both start before any state is written – every millisecond counts until the leaderboard.
+      const wantLive = this.rt.random() < VOICE_CONFIG.liveCommentShare && this.liveAllowed(room);
+      if (wantLive) {
+        const players = commentPlayers(room.players, facts, leaderboard, streaks);
+        const commentFacts: CommentFacts = {
+          category: module.meta.name,
+          ...(module.meta.hostPersona ? { persona: module.meta.hostPersona } : {}),
+          question: facts.question,
+          correctAnswer: facts.correctAnswer,
+          lastQuestionOfCategory: event.index === event.total - 1,
+          players,
+          highlights: [...(facts.highlights ?? []), ...commentHighlights(players)],
+          // Only in Party mode – a party item can never reach Kids / Familie anyway.
+          ...(facts.partyItem && room.mode.mode === "party" ? { partyItem: true } : {}),
+        };
+        const cheekiness = effectiveCheekiness(room.voice.settings, room.mode.mode);
+        const lastTarget = room.players.find((p) => p.id === room.voice.lastTargets[0]);
+        const leader = players.find((p) => p.rankAfter === 1)?.name ?? null;
+        job.livePromise = this.produce(
+          "comment",
+          "fast",
+          commentPrompt(commentFacts, cheekiness, lastTarget ? [lastTarget.name] : [], this.variant(), room.mode.mode),
+          commentTemplate(leader ? sanitizeName(leader) : null, this.rt.random),
+          room.phaseEndsAt,
+        ).then((produced) => {
+          job.live = produced;
+          this.tryDeliverComment(job);
+        });
+      }
+      job.cachedPromise = this.cachedComment(room, hits).then((cached) => {
+        job.cached = cached;
+        this.tryDeliverComment(job);
+      });
+    }
+
     await this.updateVoice((v) => ({
       ...v,
       streaks,
+      wrongStreaks,
       lastComment: comment ? { roundIndex: event.roundIndex, index: event.index } : v.lastComment,
     }));
-    if (!comment) return;
+    // Keeps the monthly guard current during long games (the fetcher caches ~10 min).
+    this.run(() => this.refreshAccount());
+    await Promise.all([job.livePromise, job.cachedPromise]);
+  }
 
-    const leaderboard = game.questionLeaderboard ?? buildLeaderboard(room.players, game.scores, {});
-    const players = commentPlayers(room.players, facts, leaderboard, streaks);
-    const commentFacts: CommentFacts = {
-      category: module.meta.name,
-      ...(module.meta.hostPersona ? { persona: module.meta.hostPersona } : {}),
-      question: facts.question,
-      correctAnswer: facts.correctAnswer,
-      lastQuestionOfCategory: event.index === event.total - 1,
-      players,
-      highlights: [...(facts.highlights ?? []), ...commentHighlights(players)],
-      // Only in Party mode – a party item can never reach Kids / Familie anyway.
-      ...(facts.partyItem && room.mode.mode === "party" ? { partyItem: true } : {}),
-    };
-    const cheekiness = effectiveCheekiness(room.voice.settings, room.mode.mode);
-    const lastTarget = room.players.find((p) => p.id === room.voice.lastTargets[0]);
-    const leader = players.find((p) => p.rankAfter === 1)?.name ?? null;
-    const produced = await this.produce(
-      "comment",
-      "fast",
-      commentPrompt(commentFacts, cheekiness, lastTarget ? [lastTarget.name] : [], this.variant(), room.mode.mode),
-      commentTemplate(leader ? sanitizeName(leader) : null, this.rt.random),
-      // Must be ready when the leaderboard starts – otherwise it is skipped.
-      room.phaseEndsAt,
+  /** Live lines need the text model, budget, credits and a line from the room's line budget. */
+  private liveAllowed(room: RoomRecord): boolean {
+    return (
+      this.rt.services().text !== null &&
+      this.newAudioAllowed(room) &&
+      room.voice.linesUsed < VOICE_CONFIG.maxLinesPerRoom
     );
-    const now = progressOf(this.rt.read(), this.registry);
-    // Still revealing (some categories have several reveal steps) – not at the leaderboard yet.
-    if (produced?.line && now?.key === event.key && now.revealed && now.step !== "leaderboard") {
-      this.readyComment = { key: event.key, produced };
+  }
+
+  /** NEW audio may be generated (costs credits): service ok, room budget left, account not nearly used up. */
+  private newAudioAllowed(room: RoomRecord): boolean {
+    return room.voice.status === "ok" && this.rt.services().speech !== null && !accountLow(room.voice.account);
+  }
+
+  /** A library line for the situation, with the target's name clip in front. */
+  private async cachedComment(room: RoomRecord, hits: readonly SituationHit[]): Promise<CachedComment | null> {
+    const pick = chooseSnark(
+      hits,
+      room.voice.lastTargets[0] ?? null,
+      room.players.length,
+      SNARK_LINES_DE,
+      room.mode.mode,
+      room.voice.usedSnark,
+      this.rt.random,
+    );
+    if (!pick) return null;
+    const { text } = pick;
+    const allowNew = this.newAudioAllowed(room);
+    const [clip, name] = await Promise.all([
+      this.cachedClip("snark", text, allowNew),
+      pick.targetId ? this.nameClip(pick.targetId) : Promise.resolve(null),
+    ]);
+    if (!clip) return null;
+    const player = pick.targetId ? room.players.find((p) => p.id === pick.targetId) : undefined;
+    const line: HostLine = {
+      id: this.rt.newId(),
+      kind: "comment",
+      text: player && name ? `${sanitizeName(player.name)} … ${text}` : text,
+      audioPath: clip,
+      playbackRate: TEMPO_PLAYBACK_RATE[room.voice.settings.tempo],
+      staleAfterMs: 2_500,
+      ...(name ? { prefixAudioPath: name, prefixGapMs: VOICE_CONFIG.nameGapMs } : {}),
+    };
+    return { line, text, targetId: pick.targetId };
+  }
+
+  /** Sends the comment once the leaderboard shows: the live line if ready, else the cached one. */
+  private tryDeliverComment(job: CommentJob) {
+    if (job.sent || this.comments !== job) return;
+    const room = this.rt.read();
+    const progress = progressOf(room, this.registry);
+    if (!room || progress?.key !== job.key || progress.step !== "leaderboard" || !this.enabled(room)) return;
+    const live = job.live?.line ?? null;
+    // Live still being written but the cached one is ready → no waiting.
+    const choice = live ? "live" : job.cached ? "cached" : null;
+    if (!choice) return;
+    const line = choice === "live" ? live! : job.cached!.line;
+    if (!this.rt.sendToHosts(line)) return;
+    job.sent = true;
+    this.comments = null;
+    this.hold = { lineId: line.id, key: job.key, step: "leaderboard", baseEnd: room.phaseEndsAt ?? this.rt.now() };
+    if (choice === "live") {
+      const target = job.live!.target;
+      const targetId = target
+        ? (room.players.find((p) => sanitizeName(p.name).toLowerCase() === sanitizeName(target).toLowerCase())?.id ?? null)
+        : null;
+      this.run(() => this.updateVoice((v) => ({ ...v, lastTargets: rememberTarget(v.lastTargets, targetId) })));
+    } else {
+      const { text, targetId } = job.cached!;
+      this.run(() =>
+        this.updateVoice((v) => ({
+          ...v,
+          lastTargets: rememberTarget(v.lastTargets, targetId),
+          usedSnark: [...v.usedSnark, text],
+        })),
+      );
     }
   }
 
-  private leaderboard(key: string, room: RoomRecord) {
-    const ready = this.readyComment;
-    this.readyComment = null;
-    if (!ready || ready.key !== key || !this.enabled(room)) return;
-    const line = ready.produced.line;
-    if (!line || !this.rt.sendToHosts(line)) return;
-    this.hold = { lineId: line.id, key, step: "leaderboard", baseEnd: room.phaseEndsAt ?? this.rt.now() };
-    const target = ready.produced.target;
-    const targetId = target
-      ? (room.players.find((p) => sanitizeName(p.name).toLowerCase() === sanitizeName(target).toLowerCase())?.id ?? null)
-      : null;
-    this.run(() => this.updateVoice((v) => ({ ...v, lastTargets: rememberTarget(v.lastTargets, targetId) })));
+  private leaderboard(key: string) {
+    const job = this.comments;
+    if (job?.key === key) this.tryDeliverComment(job);
+  }
+
+  // ── Cached audio (library lines, name clips) ─────────────────────────
+  private async cachedClip(kind: "snark" | "names", text: string, allowNew: boolean): Promise<string | null> {
+    const clip = await cachedClip(this.rt.services(), {
+      kind,
+      text,
+      style: "fast",
+      speed: VOICE_CONFIG.cachedSpeed,
+      allowNew,
+      reserveCredits: (credits) => this.reserveCredits(credits),
+    });
+    if (clip.voiceStatus) await this.stopNewAudio(clip.voiceStatus, clip.errorCode);
+    return clip.path;
+  }
+
+  /** "Max …" – made once per player (reused globally for the same name), played in front of library lines. */
+  private async nameClip(playerId: string): Promise<string | null> {
+    const room = this.rt.read();
+    const known = room?.voice.nameClips[playerId];
+    if (!room || known) return known ?? null;
+    const player = room.players.find((p) => p.id === playerId);
+    if (!player) return null;
+    const path = await this.cachedClip("names", `${sanitizeName(player.name)} …`, this.newAudioAllowed(room));
+    if (path) await this.updateVoice((v) => ({ ...v, nameClips: { ...v.nameClips, [playerId]: path } }));
+    return path;
+  }
+
+  private async reserveCredits(credits: number): Promise<boolean> {
+    const current = this.rt.read();
+    const next = current ? reserveCredits(current.voice, credits) : null;
+    if (!current || !next) return false;
+    await this.rt.commit({ ...current, voice: next });
+    return true;
+  }
+
+  /** No more NEW audio in this room (refused / budget) – cached lines keep playing. */
+  private async stopNewAudio(status: "unavailable" | "budget", errorCode?: string) {
+    const room = this.rt.read();
+    // The first reason stays (a refused key is not "budget used up").
+    if (!room || room.voice.status !== "ok") return;
+    console.warn(`voice: no new audio in this room (${status}${errorCode ? ` ${errorCode}` : ""}) – cached lines only`);
+    await this.updateVoice((v) => ({ ...v, status, errorCode: errorCode ?? null }));
+  }
+
+  /** ElevenLabs usage this month (cached ~10 min by the fetcher); stored for the host panel and the guard. */
+  private async refreshAccount() {
+    const usage = await this.rt.services().usage?.();
+    const room = this.rt.read();
+    if (!usage || !room) return;
+    const known = room.voice.account;
+    if (known?.used === usage.used && known.limit === usage.limit) return;
+    await this.updateVoice((v) => ({ ...v, account: usage }));
   }
 
   /** Round summary (e.g. BESTANDEN / DURCHGEFALLEN): one line right away; the step waits for it (bounded). */
@@ -389,8 +555,8 @@ export class VoiceDirector {
     const cheekiness = effectiveCheekiness(room.voice.settings, room.mode.mode);
     const produced = await this.produce(
       "comment",
-      "expressive",
-      summaryPrompt(named, cheekiness, module.meta.hostPersona, this.variant(), this.tags("expressive"), room.mode.mode),
+      "fast",
+      summaryPrompt(named, cheekiness, module.meta.hostPersona, this.variant(), this.tags("fast"), room.mode.mode),
       summaryTemplate(named.players),
       room.phaseEndsAt,
     );
@@ -440,22 +606,23 @@ export class VoiceDirector {
   /** "▶ Probe-Spruch" / "▶ Nochmal": a sample line in the chosen tone (counts towards the budget). */
   testLine() {
     const room = this.rt.read();
-    if (!room || this.testing || !this.canSpeak(room)) return;
+    if (!room || this.testing || !this.canSpeak()) return;
     this.testing = true;
     this.run(async () => {
       try {
         const current = this.rt.read();
         if (!current) return;
         const cheekiness = effectiveCheekiness(current.voice.settings, current.mode.mode);
+        // Sounds like the comments in the game (eleven_flash).
         const produced = await this.produce(
           "test",
-          "expressive",
-          testPrompt(cheekiness, this.variant(), this.tags("expressive"), current.mode.mode),
+          "fast",
+          testPrompt(cheekiness, this.variant(), this.tags("fast"), current.mode.mode),
           "Meine Damen und Herren – hier spricht Ihr Moderator!",
         );
         const line = produced?.line;
         const now = this.rt.read();
-        if (line && now && this.canSpeak(now)) this.rt.sendToHosts(line);
+        if (line && now && this.canSpeak()) this.rt.sendToHosts(line);
       } finally {
         this.testing = false;
       }

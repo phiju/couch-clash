@@ -187,3 +187,44 @@ export const SkurrilStorySchema = z
   .refine((s) => s.adult === (s.ageRating === 18), { message: "adult ⇔ ageRating 18", path: ["adult"] });
 
 export type SkurrilStory = z.infer<typeof SkurrilStorySchema>;
+
+/**
+ * Snarky host lines without names (the host puts the player's name clip in
+ * front). Audio is generated once and cached globally – so lines never
+ * contain names or anything room-specific.
+ */
+export const SNARK_SITUATIONS = [
+  "wrong",
+  "wrongStreak",
+  "lastPlace",
+  "allWrong",
+  "allRight",
+  "surpriseRight",
+  "leader",
+  "fooledMany",
+  "fooledNone",
+  "wildEstimate",
+  "bullseye",
+] as const;
+export type SnarkSituation = (typeof SNARK_SITUATIONS)[number];
+
+export const SNARK_POOLS = ["family", "party", "kids"] as const;
+export type SnarkPool = (typeof SNARK_POOLS)[number];
+
+const snarkLine = z.string().min(3).max(100);
+
+export const SnarkLinesSchema = z
+  .strictObject(
+    Object.fromEntries(
+      SNARK_SITUATIONS.map((s) => [
+        s,
+        z.strictObject({ family: z.array(snarkLine).min(1), party: z.array(snarkLine), kids: z.array(snarkLine).min(1) }),
+      ]),
+    ) as Record<SnarkSituation, z.ZodObject<{ family: z.ZodArray<typeof snarkLine>; party: z.ZodArray<typeof snarkLine>; kids: z.ZodArray<typeof snarkLine> }>>,
+  )
+  .refine((d) => {
+    const all = Object.values(d).flatMap((m) => [...m.family, ...m.party, ...m.kids]);
+    return new Set(all).size === all.length;
+  }, "Snark lines must be unique");
+
+export type SnarkLines = z.infer<typeof SnarkLinesSchema>;

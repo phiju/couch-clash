@@ -3,6 +3,7 @@
  * Aggregated numbers only – never player names or answers.
  */
 import type { GameMode } from "./modes";
+import type { AccountUsage } from "./voice";
 export const QUESTION_STATUSES = ["active", "quarantined", "removed"] as const;
 export type QuestionStatus = (typeof QUESTION_STATUSES)[number];
 
@@ -113,4 +114,18 @@ export function matchesQuickFilter(q: AdminQuestion, filter: QuickFilter): boole
     case "party":
       return q.party;
   }
+}
+
+/** Admin: the host's voice (ElevenLabs usage this month, voiced library lines). */
+export interface AdminVoiceResponse {
+  account: AccountUsage | null;
+  snark: { total: number; cached: number };
+}
+
+/** One batch of "Moderator-Sprüche vertonen". */
+export interface AdminVoiceRunResponse extends AdminVoiceResponse {
+  ok: boolean;
+  error?: string;
+  generated: number;
+  failed: number;
 }
