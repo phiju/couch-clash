@@ -28,6 +28,12 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.11.0",
+    date: "2026-09-25",
+    title: "Ab in die Fahrschule",
+    items: [{ emoji: "🚗", text: "Neue Kategorie: Führerscheinprüfung – mit echten Verkehrsschildern und Kreuzungen. Wer fährt zuerst?" }],
+  },
+  {
     version: "0.10.0",
     date: "2026-09-25",
     title: "Fragen ohne Ende",

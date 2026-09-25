@@ -68,7 +68,7 @@ One global setting at the top of the host settings decides who is playing (defau
 
 | | Kids | Familie | Party |
 |---|---|---|---|
-| Questions | age ≤ 6, difficulty 1, no alcohol, nothing adult | age ≤ 12 (16 if allowed), nothing adult | everything |
+| Questions | age ≤ 6, difficulty 1 (`kidsMaxDifficulty`: Schätzfragen + Führerschein 2), no alcohol, nothing adult | age ≤ 12 (16 if allowed), nothing adult | everything |
 | Difficulty mix | – | leicht / gemischt / schwer | leicht / gemischt / schwer |
 | Host "Frechheit" | nett (or frech) | frech (nett / frech / gnadenlos) | frech (nett / frech / gnadenlos) |
 
@@ -100,6 +100,15 @@ Scoring (strategy `bluff`, no speed bonus, all amounts editable in „Punkte-Ein
 Needs at least 2 players. The judge's „offensive“ rule depends on the mode (Party allows suggestive, never explicit or hateful).
 
 **Per-question cap:** every category has „Höchstens pro Frage“ (default 200) in the Punkte-Einstellungen; the room applies it once more to every score update as a safety net.
+
+## Führerscheinprüfung
+
+Traffic signs, right of way and road rules – 155 questions (`packages/content/data/fuehrerschein.de.json`, format: `docs/fuehrerschein/SCHEMA.md`): 60 text, 55 sign and 40 junction-scene questions, 26 of them for Kids (age 6). It **is the quiz** (`createQuizLikeModule` in `packages/games/src/quiz/module.ts`): same scoring, speed bonus, cap, statistics, 👍/👎 and „Stimmt nicht?“, plus:
+
+- **Pictures:** `media` is `null`, `{ kind: "sign", signs: ["274-53", "1020-30"] }` (real sign SVGs in `apps/web/public/signs`, main sign first, Zusatzzeichen below) or a `scene` drawn by `<TrafficScene>` (`apps/web/src/games/fuehrerschein/`): top-down junction, N at the top, right-hand traffic, 3 or 4 arms, signs upright on posts at the right-hand side of each approach, vehicles (car, truck, bus, bike, tram on rails, police with blue light) with blinking indicators, dotted turn arrows and a colour chip each („Rot“ – never A/B/C/D, those are the answer buttons). Geometry lives in `scene-layout.ts` (pure, tested).
+- **Mix and timing:** a round mixes text / sign / scene evenly (5–10 questions, default 8). 15 s per text or sign question, 20 s per scene (`questionSeconds` in the engine, also the speed bonus's time limit).
+- **Reveal:** the explanation („Merke: …“) under the right answer (shown, not read out). Scenes: the vehicles drive through in the answer's order (`driveOrder`, read from the correct option: an order „Blau, Rot, Grün“, the first vehicle, or the waiting one last) – 3–5 s, a click skips it, reduced motion shows numbers instead.
+- **Driving-school show:** FAHRSCHULE roof sign on the category intro, the host holds a clipboard and plays the know-it-all driving instructor (`hostPersona` in the meta), exam-sheet styling. After the last question every player gets a **Prüfungsergebnis** – a BESTANDEN / DURCHGEFALLEN stamp (from 70 % right, `FUEHRERSCHEIN_CONFIG.passShare`) on TV and phone, and the host comments it. Show only: it never changes points. Generic engine hook: `summary` (step `"summary"`, `GameModule.summaryFacts`).
 
 ## Local development
 
@@ -178,6 +187,7 @@ Retro 1970s TV game show. Design tokens (petrol, petrol-dark, orange, rust, bulb
 - Intro reference prototype (not shipped): `docs/brand/intro-reference.html`
 - Start page intro: `components/stage-intro.tsx`. Logo/host positions on the stage are computed in `lib/stage-layout.ts` (tested), so the sofa always stands on the stage floor.
 - Mascot: `components/mascot.tsx`, one component with `pose` / `message`. To add a pose, add artwork and a keyframe rule.
+- Traffic signs: German traffic signs are official works (amtliche Werke, § 5 UrhG) and public domain; the SVGs come from Wikimedia Commons, see `apps/web/public/signs/SOURCES.md`.
 
 ## Scoring
 
@@ -349,6 +359,8 @@ The TV/laptop plays music and effects; phones never do.
 **Photo avatars (AI)** ✅ Selfie/photo → cartoon in the show style via OpenAI, 3 expressions for the leaderboard, emoji fallback, R2 storage with cleanup, "⭐ Meine Figur" for next time.
 
 **Bluff-Lexikon** ✅ New category: invent definitions for very rare Latin/Greek nouns, find the real one – AI judge with polished answers, host reads the options, 200 words.
+
+**Führerscheinprüfung** ✅ New category: real traffic signs and junction scenes („Wer fährt zuerst?“) with a drive-through at the reveal, driving-instructor host and a BESTANDEN / DURCHGEFALLEN stamp at the end – 155 questions.
 
 **Question statistics** ✅ Plays and 👍/👎 per question in D1, "⚠️ Stimmt nicht?" with undo, admin page `/admin/fragen` with quick filters and CSV, automatic AI replacement for removed questions.
 

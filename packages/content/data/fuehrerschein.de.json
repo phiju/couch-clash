@@ -1,0 +1,5199 @@
+[
+  {
+    "id": "fs-001",
+    "text": "Was bedeutet eine rote Ampel?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "ampel",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Anhalten und warten",
+      "Schnell noch drüberfahren",
+      "Hupen und weiterfahren",
+      "Nur für Lkw anhalten"
+    ],
+    "correctIndex": 0,
+    "explanation": "Rot heißt: Halt vor der Ampel – egal wie eilig man es hat.",
+    "media": null
+  },
+  {
+    "id": "fs-002",
+    "text": "Die Ampel zeigt Rot und Gelb gleichzeitig. Was heißt das?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "ampel",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Sofort losfahren",
+      "Gleich kommt Grün – noch warten",
+      "Ampel ist kaputt",
+      "Gleich kommt wieder Rot"
+    ],
+    "correctIndex": 1,
+    "explanation": "Rot-Gelb kündigt Grün an; losfahren darf man aber erst bei Grün.",
+    "media": null
+  },
+  {
+    "id": "fs-003",
+    "text": "Wer hat am Zebrastreifen Vorrang, wenn ein Kind erkennbar hinüber will?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "zebrastreifen",
+      "fußgänger",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Das Auto",
+      "Wer schneller ist",
+      "Das Kind",
+      "Wer zuerst hupt"
+    ],
+    "correctIndex": 2,
+    "explanation": "Am Fußgängerüberweg müssen Fahrzeuge Fußgänger, die hinüber wollen, gehen lassen.",
+    "media": null
+  },
+  {
+    "id": "fs-004",
+    "text": "Wer muss sich im Auto anschnallen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "anschnallen",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Alle, auch auf der Rückbank",
+      "Nur der Fahrer",
+      "Nur vorne Sitzende",
+      "Nur Erwachsene"
+    ],
+    "correctIndex": 0,
+    "explanation": "In Deutschland gilt Gurtpflicht auf allen Sitzplätzen, vorne wie hinten.",
+    "media": null
+  },
+  {
+    "id": "fs-005",
+    "text": "Gibt es in Deutschland eine Helmpflicht fürs normale Fahrrad?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "fahrrad",
+      "helm",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Ja, für alle",
+      "Ja, ab 18 Jahren",
+      "Nein, aber der Helm ist empfohlen",
+      "Nur auf Radwegen"
+    ],
+    "correctIndex": 2,
+    "explanation": "Für normale Fahrräder gibt es keine Helmpflicht – ein Helm wird aber dringend empfohlen.",
+    "media": null
+  },
+  {
+    "id": "fs-006",
+    "text": "Welche Farbe muss das Rücklicht am Fahrrad haben?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "fahrrad",
+      "beleuchtung",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Weiß",
+      "Rot",
+      "Gelb",
+      "Blau"
+    ],
+    "correctIndex": 1,
+    "explanation": "Vorne leuchtet es weiß, hinten rot – so ist das Fahrrad gut erkennbar.",
+    "media": null
+  },
+  {
+    "id": "fs-007",
+    "text": "Was muss seit 2014 in jedem Pkw mitgeführt werden?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "ausrüstung",
+      "warnweste",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Ein Feuerlöscher",
+      "Ein Abschleppseil",
+      "Eine Warnweste",
+      "Eine Taschenlampe"
+    ],
+    "correctIndex": 2,
+    "explanation": "Seit Juli 2014 muss in jedem Pkw mindestens eine Warnweste an Bord sein.",
+    "media": null
+  },
+  {
+    "id": "fs-008",
+    "text": "Bis zu welchem Alter brauchen Kinder im Auto meist einen Kindersitz?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "kindersitz",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "options": [
+      "Bis 12 Jahre oder 150 cm Größe",
+      "Bis 6 Jahre",
+      "Bis 10 Jahre",
+      "Bis 16 Jahre"
+    ],
+    "correctIndex": 0,
+    "explanation": "Kindersitzpflicht gilt bis zum 12. Geburtstag oder bis 150 cm – je nachdem, was zuerst eintritt.",
+    "media": null
+  },
+  {
+    "id": "fs-009",
+    "text": "Wie schnell darf man in einer Spielstraße (verkehrsberuhigter Bereich) fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "tempo",
+      "spielstraße",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Schrittgeschwindigkeit",
+      "30 km/h",
+      "20 km/h",
+      "50 km/h"
+    ],
+    "correctIndex": 0,
+    "explanation": "Im verkehrsberuhigten Bereich gilt Schrittgeschwindigkeit, Kinder dürfen dort überall spielen.",
+    "media": null
+  },
+  {
+    "id": "fs-010",
+    "text": "Ein Auto mit Blaulicht UND Martinshorn kommt von hinten. Was tun?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "blaulicht",
+      "einsatzfahrzeug",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Schneller fahren",
+      "Stehen bleiben, wo man ist",
+      "Nichts, man hat ja Grün",
+      "Sofort freie Bahn schaffen"
+    ],
+    "correctIndex": 3,
+    "explanation": "Bei Blaulicht zusammen mit Einsatzhorn müssen alle sofort freie Bahn schaffen.",
+    "media": null
+  },
+  {
+    "id": "fs-011",
+    "text": "Ab welchem Alter darf man in Deutschland E-Scooter fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "e-scooter",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Ab 14 Jahren",
+      "Ab 12 Jahren",
+      "Ab 16 Jahren",
+      "Ab 18 Jahren"
+    ],
+    "correctIndex": 0,
+    "explanation": "E-Scooter (Elektrokleinstfahrzeuge) dürfen ab 14 Jahren gefahren werden.",
+    "media": null
+  },
+  {
+    "id": "fs-012",
+    "text": "Wie schnell darf ein Pkw innerorts fahren, wenn kein Schild etwas anderes sagt?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "tempo",
+      "innerorts"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "30 km/h",
+      "60 km/h",
+      "70 km/h",
+      "50 km/h"
+    ],
+    "correctIndex": 3,
+    "explanation": "Innerhalb geschlossener Ortschaften gilt für alle Kraftfahrzeuge höchstens 50 km/h.",
+    "media": null
+  },
+  {
+    "id": "fs-013",
+    "text": "Höchstgeschwindigkeit für Pkw auf der Landstraße (außerorts), ohne Schild?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "tempo",
+      "außerorts"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "100 km/h",
+      "80 km/h",
+      "90 km/h",
+      "120 km/h"
+    ],
+    "correctIndex": 0,
+    "explanation": "Pkw dürfen außerorts (außer Autobahn) höchstens 100 km/h fahren.",
+    "media": null
+  },
+  {
+    "id": "fs-014",
+    "text": "Was sind 130 km/h auf der Autobahn ohne Tempo-Schild?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "tempo",
+      "autobahn"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Ein festes Tempolimit",
+      "Eine Richtgeschwindigkeit",
+      "Die Mindestgeschwindigkeit",
+      "Das Limit nur bei Regen"
+    ],
+    "correctIndex": 1,
+    "explanation": "130 km/h ist nur empfohlen – wer schneller fährt, riskiert aber eine Mithaftung bei Unfällen.",
+    "media": null
+  },
+  {
+    "id": "fs-015",
+    "text": "Wie schnell darf man mit Schneeketten höchstens fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "tempo",
+      "winter"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "30 km/h",
+      "70 km/h",
+      "80 km/h",
+      "50 km/h"
+    ],
+    "correctIndex": 3,
+    "explanation": "Mit Schneeketten sind maximal 50 km/h erlaubt.",
+    "media": null
+  },
+  {
+    "id": "fs-016",
+    "text": "Pkw mit Anhänger (ohne Tempo-100-Zulassung) auf der Autobahn – wie schnell max.?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "tempo",
+      "anhänger",
+      "autobahn"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "60 km/h",
+      "100 km/h",
+      "130 km/h",
+      "80 km/h"
+    ],
+    "correctIndex": 3,
+    "explanation": "Pkw mit Anhänger dürfen außerorts und auf der Autobahn höchstens 80 km/h fahren, mit Tempo-100-Plakette 100.",
+    "media": null
+  },
+  {
+    "id": "fs-017",
+    "text": "Sichtweite unter 50 m durch Nebel. Wie schnell darf man höchstens fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "tempo",
+      "nebel"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "30 km/h",
+      "50 km/h",
+      "70 km/h",
+      "80 km/h"
+    ],
+    "correctIndex": 1,
+    "explanation": "Bei Sicht unter 50 m durch Nebel, Schnee oder Regen sind höchstens 50 km/h erlaubt.",
+    "media": null
+  },
+  {
+    "id": "fs-018",
+    "text": "Wann darf man die Nebelschlussleuchte einschalten?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "beleuchtung",
+      "nebel"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Bei jedem Regen",
+      "Nachts auf der Autobahn",
+      "Immer bei Dämmerung",
+      "Bei Nebel und Sicht unter 50 m"
+    ],
+    "correctIndex": 3,
+    "explanation": "Die Nebelschlussleuchte ist nur bei Nebel mit Sichtweite unter 50 m erlaubt.",
+    "media": null
+  },
+  {
+    "id": "fs-019",
+    "text": "Faustregel für den Sicherheitsabstand außerorts?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "abstand",
+      "faustregel"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Ganzer Tacho in Metern",
+      "Immer 10 Meter",
+      "Halber Tacho in Metern",
+      "Eine Autolänge"
+    ],
+    "correctIndex": 2,
+    "explanation": "Faustregel: halber Tacho – bei 100 km/h also etwa 50 Meter Abstand.",
+    "media": null
+  },
+  {
+    "id": "fs-020",
+    "text": "Faustformel Reaktionsweg: Wie weit fährt man bei 50 km/h in der Schrecksekunde?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "anhalteweg",
+      "faustregel"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "5 Meter",
+      "25 Meter",
+      "50 Meter",
+      "15 Meter"
+    ],
+    "correctIndex": 3,
+    "explanation": "Faustformel Reaktionsweg: (Tempo ÷ 10) × 3 – bei 50 km/h also 15 m.",
+    "media": null
+  },
+  {
+    "id": "fs-021",
+    "text": "Faustformel normaler Bremsweg: (Tempo ÷ 10)². Wie lang bei 100 km/h?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "anhalteweg",
+      "faustregel"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "50 Meter",
+      "30 Meter",
+      "100 Meter",
+      "200 Meter"
+    ],
+    "correctIndex": 2,
+    "explanation": "(100 ÷ 10)² = 100 m Bremsweg bei normaler Bremsung laut Faustformel.",
+    "media": null
+  },
+  {
+    "id": "fs-022",
+    "text": "Faustformel: Wie lang ist der Anhalteweg bei 50 km/h (normale Bremsung)?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "anhalteweg",
+      "faustregel"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "25 Meter",
+      "15 Meter",
+      "50 Meter",
+      "40 Meter"
+    ],
+    "correctIndex": 3,
+    "explanation": "Reaktionsweg 15 m plus Bremsweg 25 m ergibt nach Faustformel 40 m Anhalteweg.",
+    "media": null
+  },
+  {
+    "id": "fs-023",
+    "text": "Wie ändert sich der Bremsweg laut Faustformel bei doppeltem Tempo?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "anhalteweg",
+      "faustregel"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Er vervierfacht sich",
+      "Er verdoppelt sich",
+      "Er bleibt gleich",
+      "Er verdreifacht sich"
+    ],
+    "correctIndex": 0,
+    "explanation": "Das Tempo geht quadratisch ein: doppelt so schnell heißt viermal so langer Bremsweg.",
+    "media": null
+  },
+  {
+    "id": "fs-024",
+    "text": "Lkw über 3,5 t fährt auf der Autobahn schneller als 50 km/h. Welcher Mindestabstand zum Vordermann?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "abstand",
+      "lkw"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "20 Meter",
+      "100 Meter",
+      "50 Meter",
+      "10 Meter"
+    ],
+    "correctIndex": 2,
+    "explanation": "Lkw über 3,5 t und Busse müssen auf Autobahnen bei über 50 km/h mindestens 50 m Abstand halten.",
+    "media": null
+  },
+  {
+    "id": "fs-025",
+    "text": "Stau auf einer dreispurigen Autobahn: Wo bildet man die Rettungsgasse?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "rettungsgasse",
+      "autobahn"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Zwischen mittlerer und rechter Spur",
+      "Auf dem Standstreifen",
+      "Zwischen linker und mittlerer Spur",
+      "Genau in der Mitte der Straße"
+    ],
+    "correctIndex": 2,
+    "explanation": "Die Rettungsgasse liegt immer zwischen dem ganz linken und allen anderen Fahrstreifen.",
+    "media": null
+  },
+  {
+    "id": "fs-026",
+    "text": "Wann muss man die Rettungsgasse bilden?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "rettungsgasse",
+      "autobahn"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Erst wenn Blaulicht kommt",
+      "Erst bei Stillstand",
+      "Schon bei Schrittgeschwindigkeit",
+      "Nur auf Anweisung der Polizei"
+    ],
+    "correctIndex": 2,
+    "explanation": "Sobald der Verkehr nur noch Schrittgeschwindigkeit fährt oder steht, ist die Rettungsgasse Pflicht.",
+    "media": null
+  },
+  {
+    "id": "fs-027",
+    "text": "Welche Fahrzeuge dürfen auf die Autobahn?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "autobahn"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Bauartbedingt schneller als 60 km/h",
+      "Alle ab 50 ccm",
+      "Alle außer Fahrrädern",
+      "Nur Pkw und Lkw"
+    ],
+    "correctIndex": 0,
+    "explanation": "Autobahnen sind nur für Kfz, deren bauartbedingte Höchstgeschwindigkeit über 60 km/h liegt.",
+    "media": null
+  },
+  {
+    "id": "fs-028",
+    "text": "Ausfahrt verpasst! Was ist auf der Autobahn erlaubt?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "autobahn"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Auf dem Standstreifen zurücksetzen",
+      "Bis zur nächsten Ausfahrt fahren",
+      "Über den Mittelstreifen wenden",
+      "Kurz anhalten und rückwärts"
+    ],
+    "correctIndex": 1,
+    "explanation": "Wenden und Rückwärtsfahren sind auf der Autobahn verboten – weiter zur nächsten Ausfahrt.",
+    "media": null
+  },
+  {
+    "id": "fs-029",
+    "text": "Nur Blaulicht, ohne Martinshorn. Was bedeutet das laut StVO?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "blaulicht",
+      "einsatzfahrzeug"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Sofort rechts ranfahren",
+      "Es warnt nur, kein Vorrecht",
+      "Alle müssen anhalten",
+      "Es hat immer Vorfahrt"
+    ],
+    "correctIndex": 1,
+    "explanation": "Blaues Blinklicht allein dient nur der Warnung – freie Bahn schaffen muss man bei Blaulicht plus Horn.",
+    "media": null
+  },
+  {
+    "id": "fs-030",
+    "text": "Auf welcher Seite wird grundsätzlich überholt?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "überholen"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Rechts",
+      "Links",
+      "Egal, wo Platz ist",
+      "Nur über den Standstreifen"
+    ],
+    "correctIndex": 1,
+    "explanation": "Grundsätzlich wird links überholt, rechts nur in Ausnahmefällen.",
+    "media": null
+  },
+  {
+    "id": "fs-031",
+    "text": "Wen darf man ausnahmsweise rechts überholen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "überholen"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Langsamen Lkw auf der Autobahn",
+      "Jeden, der links trödelt",
+      "Eingeordneten Linksabbieger",
+      "Einen Traktor auf der Landstraße"
+    ],
+    "correctIndex": 2,
+    "explanation": "Wer sich zum Linksabbiegen eingeordnet hat, wird rechts überholt.",
+    "media": null
+  },
+  {
+    "id": "fs-032",
+    "text": "Wie überholt man eine fahrende Straßenbahn normalerweise?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "überholen",
+      "straßenbahn"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Links",
+      "Rechts",
+      "Gar nicht",
+      "Über die Schienen mittig"
+    ],
+    "correctIndex": 1,
+    "explanation": "Schienenfahrzeuge werden grundsätzlich rechts überholt.",
+    "media": null
+  },
+  {
+    "id": "fs-033",
+    "text": "Mindestabstand beim Überholen eines Radfahrers innerorts?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "überholen",
+      "fahrrad",
+      "abstand"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "1 Meter",
+      "1,5 Meter",
+      "50 Zentimeter",
+      "3 Meter"
+    ],
+    "correctIndex": 1,
+    "explanation": "Innerorts muss man beim Überholen von Radfahrern mindestens 1,5 m Seitenabstand halten.",
+    "media": null
+  },
+  {
+    "id": "fs-034",
+    "text": "Mindestabstand beim Überholen eines Radfahrers außerorts?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "überholen",
+      "fahrrad",
+      "abstand"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "2 Meter",
+      "1,5 Meter",
+      "1 Meter",
+      "5 Meter"
+    ],
+    "correctIndex": 0,
+    "explanation": "Außerorts gilt beim Überholen von Radfahrern mindestens 2 m Seitenabstand.",
+    "media": null
+  },
+  {
+    "id": "fs-035",
+    "text": "Darf man an einem Zebrastreifen überholen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "überholen",
+      "zebrastreifen"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Ja, wenn niemand wartet",
+      "Ja, innerorts immer",
+      "Nein, dort ist Überholen verboten",
+      "Nur Radfahrer"
+    ],
+    "correctIndex": 2,
+    "explanation": "An Fußgängerüberwegen dürfen Fahrzeuge nicht überholen.",
+    "media": null
+  },
+  {
+    "id": "fs-036",
+    "text": "Schulbus steht mit Warnblinklicht an der Haltestelle. Wie vorbeifahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schulbus",
+      "tempo"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Mit 30 km/h",
+      "Normal mit 50 km/h",
+      "Gar nicht, auch Gegenverkehr stoppt",
+      "Nur mit Schrittgeschwindigkeit"
+    ],
+    "correctIndex": 3,
+    "explanation": "An haltenden Bussen mit Warnblinklicht nur mit Schrittgeschwindigkeit vorbei – auch im Gegenverkehr.",
+    "media": null
+  },
+  {
+    "id": "fs-037",
+    "text": "Ein Schulbus nähert sich mit Warnblinklicht einer Haltestelle. Was gilt?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schulbus",
+      "überholen"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Er darf nicht überholt werden",
+      "Man muss ihn schnell überholen",
+      "Man muss hupen",
+      "Er hat Vorfahrt an Kreuzungen"
+    ],
+    "correctIndex": 0,
+    "explanation": "Nähert sich ein Bus mit Warnblinklicht einer Haltestelle, besteht Überholverbot.",
+    "media": null
+  },
+  {
+    "id": "fs-038",
+    "text": "Fahrstreifen endet, Stau. Wann fädelt man nach dem Reißverschluss ein?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "reißverschluss",
+      "stau"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "So früh wie möglich",
+      "Sobald das Schild kommt",
+      "Nur wenn jemand winkt",
+      "Direkt vor der Engstelle"
+    ],
+    "correctIndex": 3,
+    "explanation": "Beim Reißverschlussverfahren wird erst unmittelbar vor der Engstelle abwechselnd eingefädelt.",
+    "media": null
+  },
+  {
+    "id": "fs-039",
+    "text": "Kreisverkehr mit Schild „Kreisverkehr“: Blinkt man beim Hineinfahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "kreisverkehr",
+      "blinken"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Ja, immer rechts",
+      "Ja, immer links",
+      "Nur wenn Autos im Kreis sind",
+      "Nein, das ist sogar unzulässig"
+    ],
+    "correctIndex": 3,
+    "explanation": "Beim Einfahren in den Kreisverkehr wird nicht geblinkt, beim Ausfahren rechts schon.",
+    "media": null
+  },
+  {
+    "id": "fs-040",
+    "text": "Wie weit vor einer Kreuzung (Fahrbahnkanten) ist Parken verboten?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "parken",
+      "kreuzung"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "5 Meter",
+      "2 Meter",
+      "10 Meter",
+      "15 Meter"
+    ],
+    "correctIndex": 0,
+    "explanation": "Vor und hinter Kreuzungen und Einmündungen ist Parken bis 5 m ab Schnittpunkt der Fahrbahnkanten verboten.",
+    "media": null
+  },
+  {
+    "id": "fs-041",
+    "text": "Bis wie viele Meter vor einer Ampel darf man nicht parken, wenn man sie verdeckt?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "parken",
+      "ampel"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "3 Meter",
+      "5 Meter",
+      "30 Meter",
+      "10 Meter"
+    ],
+    "correctIndex": 3,
+    "explanation": "Bis zu 10 m vor Ampeln und Stopp-Schildern darf man nicht stehen, wenn sie dadurch verdeckt werden.",
+    "media": null
+  },
+  {
+    "id": "fs-042",
+    "text": "Was gilt vor und in einer gekennzeichneten Feuerwehrzufahrt?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "parken",
+      "halten",
+      "feuerwehr"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Parken bis 3 Minuten erlaubt",
+      "Halten mit Warnblinker erlaubt",
+      "Schon Halten ist verboten",
+      "Nur nachts Parkverbot"
+    ],
+    "correctIndex": 2,
+    "explanation": "Vor und in amtlich gekennzeichneten Feuerwehrzufahrten darf man nicht einmal halten.",
+    "media": null
+  },
+  {
+    "id": "fs-043",
+    "text": "Wie weit vor einem Zebrastreifen darf man nicht parken?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "parken",
+      "zebrastreifen"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "1 Meter",
+      "10 Meter",
+      "5 Meter",
+      "20 Meter"
+    ],
+    "correctIndex": 2,
+    "explanation": "Auf Fußgängerüberwegen und bis zu 5 m davor darf man nicht halten, also auch nicht parken.",
+    "media": null
+  },
+  {
+    "id": "fs-044",
+    "text": "Wofür steht die Winterreifen-Faustregel „O bis O“?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "winterreifen",
+      "faustregel"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Oktober bis Oktober",
+      "Ostern bis Oktober",
+      "November bis Ostern",
+      "Oktober bis Ostern"
+    ],
+    "correctIndex": 3,
+    "explanation": "„Von O bis O“ ist nur eine Faustregel – gesetzlich gilt eine situative Winterreifenpflicht.",
+    "media": null
+  },
+  {
+    "id": "fs-045",
+    "text": "Ab wann MUSS man laut Gesetz Winterreifen fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "winterreifen"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Ab 1. November",
+      "Bei Glätte, Schnee oder Matsch",
+      "Ab 1. Oktober",
+      "Unter 5 Grad"
+    ],
+    "correctIndex": 1,
+    "explanation": "Die Pflicht gilt situativ: bei Glatteis, Schneeglätte, Schneematsch, Eis- oder Reifglätte.",
+    "media": null
+  },
+  {
+    "id": "fs-046",
+    "text": "Welches Symbol muss ein Winterreifen seit Oktober 2024 tragen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "winterreifen"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Nur „M+S“",
+      "Eine Sonne",
+      "Schneeflocke im Bergsymbol",
+      "Ein Schneemann"
+    ],
+    "correctIndex": 2,
+    "explanation": "Seit 1. Oktober 2024 gelten nur noch Reifen mit Alpine-Symbol als Winterreifen, reines M+S reicht nicht.",
+    "media": null
+  },
+  {
+    "id": "fs-047",
+    "text": "Welche Mindestprofiltiefe schreibt das Gesetz für Pkw-Reifen vor?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "reifen"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "1,0 mm",
+      "1,6 mm",
+      "3 mm",
+      "4 mm"
+    ],
+    "correctIndex": 1,
+    "explanation": "Gesetzlich sind mindestens 1,6 mm Profiltiefe vorgeschrieben – Experten empfehlen mehr.",
+    "media": null
+  },
+  {
+    "id": "fs-048",
+    "text": "Wann muss man im Tunnel das Abblendlicht einschalten?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "beleuchtung",
+      "tunnel"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Immer",
+      "Nur wenn es dunkel ist",
+      "Nur in langen Tunneln",
+      "Nie, Standlicht reicht"
+    ],
+    "correctIndex": 0,
+    "explanation": "In Tunneln ist Abblendlicht immer Pflicht, auch wenn er beleuchtet ist.",
+    "media": null
+  },
+  {
+    "id": "fs-049",
+    "text": "Welche Promillegrenze gilt für erfahrene Autofahrer ab 21?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "alkohol"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "0,0 Promille",
+      "0,8 Promille",
+      "1,1 Promille",
+      "0,5 Promille"
+    ],
+    "correctIndex": 3,
+    "explanation": "Ab 0,5 Promille ist Autofahren eine Ordnungswidrigkeit – auch ohne Auffälligkeiten.",
+    "media": null
+  },
+  {
+    "id": "fs-050",
+    "text": "Welche Promillegrenze gilt in der Probezeit?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "alkohol",
+      "probezeit"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "0,3 Promille",
+      "0,0 Promille",
+      "0,5 Promille",
+      "0,8 Promille"
+    ],
+    "correctIndex": 1,
+    "explanation": "In der Probezeit und für alle unter 21 Jahren gilt ein absolutes Alkoholverbot am Steuer.",
+    "media": null
+  },
+  {
+    "id": "fs-051",
+    "text": "Ab wie viel Promille kann man schon mit Ausfallerscheinungen strafbar sein?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "0,5 Promille",
+      "0,8 Promille",
+      "1,1 Promille",
+      "0,3 Promille"
+    ],
+    "correctIndex": 3,
+    "explanation": "Schon ab 0,3 Promille drohen bei Fahrfehlern oder Ausfallerscheinungen strafrechtliche Folgen.",
+    "media": null
+  },
+  {
+    "id": "fs-052",
+    "text": "Ab wie viel Promille gilt man am Steuer als absolut fahruntüchtig?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "alkohol"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "0,8 Promille",
+      "1,6 Promille",
+      "1,1 Promille",
+      "2,0 Promille"
+    ],
+    "correctIndex": 2,
+    "explanation": "Ab 1,1 Promille liegt beim Kfz-Fahren absolute Fahruntüchtigkeit vor – eine Straftat.",
+    "media": null
+  },
+  {
+    "id": "fs-053",
+    "text": "Wann darf der Fahrer das Handy in die Hand nehmen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "handy"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "An der roten Ampel",
+      "Mit Start-Stopp-Automatik aus",
+      "Wenn der Motor ganz aus ist",
+      "Im Stau unter 10 km/h"
+    ],
+    "correctIndex": 2,
+    "explanation": "Nur wenn das Auto steht und der Motor vollständig aus ist – Start-Stopp zählt nicht.",
+    "media": null
+  },
+  {
+    "id": "fs-054",
+    "text": "Wie lange dauert die Probezeit nach dem ersten Führerschein?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "probezeit"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "2 Jahre",
+      "1 Jahr",
+      "3 Jahre",
+      "5 Jahre"
+    ],
+    "correctIndex": 0,
+    "explanation": "Die Probezeit dauert zwei Jahre und kann sich bei schweren Verstößen auf vier Jahre verlängern.",
+    "media": null
+  },
+  {
+    "id": "fs-055",
+    "text": "Ab wie vielen Punkten in Flensburg ist der Führerschein weg?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "punkte",
+      "flensburg"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "8 Punkte",
+      "6 Punkte",
+      "10 Punkte",
+      "18 Punkte"
+    ],
+    "correctIndex": 0,
+    "explanation": "Ab 8 Punkten im Fahreignungsregister wird die Fahrerlaubnis entzogen.",
+    "media": null
+  },
+  {
+    "id": "fs-056",
+    "text": "Faustregel: Wie weit stellt man das Warndreieck auf der Autobahn auf?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "warndreieck",
+      "autobahn",
+      "faustregel"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Etwa 20 Meter",
+      "Etwa 50 Meter",
+      "Etwa 1 Kilometer",
+      "Etwa 200 Meter"
+    ],
+    "correctIndex": 3,
+    "explanation": "Als Faustregel gelten auf der Autobahn etwa 200 m Abstand zum Fahrzeug.",
+    "media": null
+  },
+  {
+    "id": "fs-057",
+    "text": "Faustregel: Wie weit stellt man das Warndreieck innerorts auf?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "warndreieck",
+      "innerorts",
+      "faustregel"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Etwa 5 Meter",
+      "Etwa 50 Meter",
+      "Etwa 200 Meter",
+      "Direkt ans Auto"
+    ],
+    "correctIndex": 1,
+    "explanation": "Innerorts reichen als Faustregel etwa 50 m, auf der Landstraße etwa 100 m.",
+    "media": null
+  },
+  {
+    "id": "fs-058",
+    "text": "Wo darf man mit dem E-Scooter NICHT fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "e-scooter"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Auf dem Radweg",
+      "Auf dem Gehweg",
+      "Auf der Fahrbahn ohne Radweg",
+      "In Fahrradstraßen"
+    ],
+    "correctIndex": 1,
+    "explanation": "E-Scooter gehören auf Radwege oder, wenn keine da sind, auf die Fahrbahn – nie auf den Gehweg.",
+    "media": null
+  },
+  {
+    "id": "fs-059",
+    "text": "Darf man auf einem E-Scooter eine zweite Person mitnehmen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "e-scooter"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Ja, Kinder unter 14",
+      "Nein, nie",
+      "Ja, bis 20 km/h",
+      "Ja, mit Helm"
+    ],
+    "correctIndex": 1,
+    "explanation": "E-Scooter sind nur für eine Person zugelassen – Mitfahrer sind verboten.",
+    "media": null
+  },
+  {
+    "id": "fs-060",
+    "text": "Andreaskreuz am Bahnübergang. Wer hat Vorrang?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "bahnübergang",
+      "schilder",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Der Zug",
+      "Das Auto",
+      "Wer von rechts kommt",
+      "Radfahrer"
+    ],
+    "correctIndex": 0,
+    "explanation": "Am Andreaskreuz haben Schienenfahrzeuge immer Vorrang.",
+    "media": null
+  },
+  {
+    "id": "fs-061",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "vorfahrt",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Halt! Vorfahrt gewähren.",
+      "Verbot der Einfahrt",
+      "Anhalten nur bei Querverkehr",
+      "Haltverbot"
+    ],
+    "correctIndex": 0,
+    "explanation": "Zeichen 206: Anhalten ist Pflicht, danach Vorfahrt gewähren.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "206"
+      ]
+    }
+  },
+  {
+    "id": "fs-062",
+    "text": "Die Kreuzung ist völlig frei. Musst du an diesem Schild trotzdem anhalten?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "vorfahrt"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Nein, nur bei Querverkehr",
+      "Ja, immer",
+      "Nur bei Dunkelheit",
+      "Nein, langsam rollen reicht"
+    ],
+    "correctIndex": 1,
+    "explanation": "Zeichen 206: Anhalten ist Pflicht, auch wenn frei ist.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "206"
+      ]
+    }
+  },
+  {
+    "id": "fs-063",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "vorfahrt"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Vorfahrt an der nächsten Kreuzung",
+      "Halt! Vorfahrt gewähren.",
+      "Vorfahrt gewähren",
+      "Gefahrstelle"
+    ],
+    "correctIndex": 2,
+    "explanation": "Zeichen 205: Vorfahrt gewähren – anhalten nur, wenn nötig.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "205"
+      ]
+    }
+  },
+  {
+    "id": "fs-064",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "fußgänger",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Fußgängerzone",
+      "Gehweg",
+      "Achtung, Kinder",
+      "Fußgängerüberweg (Zebrastreifen)"
+    ],
+    "correctIndex": 3,
+    "explanation": "Zeichen 350 kennzeichnet einen Fußgängerüberweg – Fußgänger haben dort Vorrang.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "350-10"
+      ]
+    }
+  },
+  {
+    "id": "fs-065",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "gefahr",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Achtung, Kinder",
+      "Verkehrsberuhigter Bereich",
+      "Schulbus-Haltestelle",
+      "Fußgängerüberweg"
+    ],
+    "correctIndex": 0,
+    "explanation": "Zeichen 136 warnt vor Kindern, z. B. an Schulen oder Spielplätzen.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "136-10"
+      ]
+    }
+  },
+  {
+    "id": "fs-066",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "einbahnstraße",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Vorgeschriebene Fahrtrichtung rechts",
+      "Einbahnstraße",
+      "Vorfahrtstraße",
+      "Umleitung nach rechts"
+    ],
+    "correctIndex": 1,
+    "explanation": "Zeichen 220: Einbahnstraße – Fahrzeuge dürfen nur in Pfeilrichtung fahren.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "220-20"
+      ]
+    }
+  },
+  {
+    "id": "fs-067",
+    "text": "Darf man in dieser Straße auf der linken Seite parken?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "parken",
+      "einbahnstraße"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Nein, nur rechts",
+      "Nur Motorräder",
+      "Ja, in Einbahnstraßen ist das erlaubt",
+      "Nur mit Parkscheibe"
+    ],
+    "correctIndex": 2,
+    "explanation": "In Einbahnstraßen darf links gehalten und geparkt werden (§ 12 StVO).",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "220-10"
+      ]
+    }
+  },
+  {
+    "id": "fs-068",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "fußgänger",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Fußgängerüberweg",
+      "Fußgängerzone",
+      "Achtung, Fußgänger",
+      "Gehweg"
+    ],
+    "correctIndex": 3,
+    "explanation": "Zeichen 239: Gehweg – anderer Verkehr nur mit Zusatzzeichen (Ausnahme: Kinder mit dem Rad).",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "239"
+      ]
+    }
+  },
+  {
+    "id": "fs-069",
+    "text": "Darf ein 7-jähriges Kind hier mit dem Fahrrad fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "fahrrad"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Ja, Kinder bis 8 fahren auf dem Gehweg",
+      "Nein, Radfahren ist hier verboten",
+      "Nur mit Begleitung eines Erwachsenen",
+      "Nur wenn es schiebt"
+    ],
+    "correctIndex": 0,
+    "explanation": "Kinder bis 8 müssen mit dem Rad den Gehweg nutzen – außer es gibt einen baulich getrennten Radweg (§ 2 Abs. 5 StVO).",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "239"
+      ]
+    }
+  },
+  {
+    "id": "fs-070",
+    "text": "Wie schnell dürfen Radfahrer hier höchstens fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "fahrrad",
+      "tempo"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "10 km/h",
+      "Schrittgeschwindigkeit",
+      "20 km/h",
+      "30 km/h"
+    ],
+    "correctIndex": 1,
+    "explanation": "Gehweg mit „Radverkehr frei“: Radfahrer dürfen nur Schrittgeschwindigkeit fahren.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "239",
+        "1022-10"
+      ]
+    }
+  },
+  {
+    "id": "fs-071",
+    "text": "Wie heißt der Bereich, der mit diesem Zeichen beginnt?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "spielstraße",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Tempo-30-Zone",
+      "Fußgängerzone",
+      "Verkehrsberuhigter Bereich",
+      "Spielplatz"
+    ],
+    "correctIndex": 2,
+    "explanation": "Zeichen 325.1: Beginn eines verkehrsberuhigten Bereichs („Spielstraße“).",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "325.1"
+      ]
+    }
+  },
+  {
+    "id": "fs-072",
+    "text": "Wie schnell darf man hier höchstens fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "spielstraße",
+      "tempo"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "10 km/h",
+      "20 km/h",
+      "30 km/h",
+      "Schrittgeschwindigkeit"
+    ],
+    "correctIndex": 3,
+    "explanation": "Im verkehrsberuhigten Bereich gilt Schrittgeschwindigkeit.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "325.1"
+      ]
+    }
+  },
+  {
+    "id": "fs-073",
+    "text": "Wo dürfen Kinder in diesem Bereich spielen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "spielstraße",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "options": [
+      "Überall, auch auf der Fahrbahn",
+      "Nur auf dem Gehweg",
+      "Nirgends, Spielen ist verboten",
+      "Nur auf markierten Flächen"
+    ],
+    "correctIndex": 0,
+    "explanation": "Im verkehrsberuhigten Bereich sind Kinderspiele überall erlaubt.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "325.1"
+      ]
+    }
+  },
+  {
+    "id": "fs-074",
+    "text": "Wo darf man in diesem Bereich parken?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "spielstraße",
+      "parken"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Überall am Straßenrand",
+      "Nur auf gekennzeichneten Flächen",
+      "Auf dem Gehweg",
+      "Nirgends, auch kein Ein-/Aussteigen"
+    ],
+    "correctIndex": 1,
+    "explanation": "Parken nur auf gekennzeichneten Flächen; Ein-/Aussteigen und Be-/Entladen sind erlaubt.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "325.1"
+      ]
+    }
+  },
+  {
+    "id": "fs-075",
+    "text": "Wie schnell darf man hier höchstens fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "tempo",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "50 km/h",
+      "Empfohlen 30 km/h",
+      "30 km/h",
+      "Mindestens 30 km/h"
+    ],
+    "correctIndex": 2,
+    "explanation": "Zeichen 274: zulässige Höchstgeschwindigkeit, hier 30 km/h.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "274-53"
+      ]
+    }
+  },
+  {
+    "id": "fs-076",
+    "text": "Welche Vorfahrtsregel gilt in dieser Zone normalerweise?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "tempo",
+      "vorfahrt"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Die breitere Straße hat Vorfahrt",
+      "Links vor rechts",
+      "Wer zuerst da ist, fährt zuerst",
+      "Rechts vor links"
+    ],
+    "correctIndex": 3,
+    "explanation": "In Tempo-30-Zonen gilt grundsätzlich „rechts vor links“.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "274.1"
+      ]
+    }
+  },
+  {
+    "id": "fs-077",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "verbot"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Verbot für Fahrzeuge aller Art",
+      "Verbot der Einfahrt",
+      "Haltverbot",
+      "Ende sämtlicher Streckenverbote"
+    ],
+    "correctIndex": 0,
+    "explanation": "Zeichen 250 verbietet allen Fahrzeugen das Befahren – in beide Richtungen.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "250"
+      ]
+    }
+  },
+  {
+    "id": "fs-078",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "verbot",
+      "einbahnstraße"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Verbot für Fahrzeuge aller Art",
+      "Verbot der Einfahrt",
+      "Sackgasse",
+      "Haltverbot"
+    ],
+    "correctIndex": 1,
+    "explanation": "Zeichen 267: Einfahren verboten, oft am Ende einer Einbahnstraße.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "267"
+      ]
+    }
+  },
+  {
+    "id": "fs-079",
+    "text": "Was ist hier trotzdem erlaubt?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "verbot",
+      "fahrrad"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Mit dem Mofa fahren",
+      "Mit dem Fahrrad fahren",
+      "Das Fahrrad schieben",
+      "Bis 3 Minuten mit dem Auto halten"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bei Zeichen 250 dürfen Fahrräder und Krafträder geschoben werden.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "250"
+      ]
+    }
+  },
+  {
+    "id": "fs-080",
+    "text": "Du bist mit dem Fahrrad unterwegs. Darfst du hier einfahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "verbot",
+      "fahrrad"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Ja, Radfahrer dürfen immer",
+      "Ja, im Schritttempo",
+      "Ja, aber nur auf dem Gehweg",
+      "Nein, nur mit passendem Zusatzzeichen"
+    ],
+    "correctIndex": 3,
+    "explanation": "Zeichen 267 gilt auch für Radfahrer, sofern kein Zusatzzeichen sie freistellt.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "267"
+      ]
+    }
+  },
+  {
+    "id": "fs-081",
+    "text": "Wer darf hier einfahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "verbot",
+      "fahrrad"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Nur Radfahrer",
+      "Niemand",
+      "Alle Fahrzeuge",
+      "Nur Anlieger"
+    ],
+    "correctIndex": 0,
+    "explanation": "Zusatzzeichen „Radverkehr frei“ nimmt Radfahrer vom Einfahrverbot aus.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "267",
+        "1022-10"
+      ]
+    }
+  },
+  {
+    "id": "fs-082",
+    "text": "Wer darf hier NICHT fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "verbot"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Motorräder",
+      "Pkw",
+      "Radfahrer",
+      "Reiter"
+    ],
+    "correctIndex": 1,
+    "explanation": "Zeichen 251 verbietet Kraftwagen und andere mehrspurige Kfz.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "251"
+      ]
+    }
+  },
+  {
+    "id": "fs-083",
+    "text": "Darf man hier mit dem Mofa fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "verbot"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Ja, Mofas sind ausgenommen",
+      "Ja, bis 25 km/h",
+      "Nein, Mofas sind auch verboten",
+      "Nur mit Helm"
+    ],
+    "correctIndex": 2,
+    "explanation": "Zeichen 260 verbietet Krafträder inkl. Mofas sowie mehrspurige Kfz.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "260"
+      ]
+    }
+  },
+  {
+    "id": "fs-084",
+    "text": "Für wen gilt dieses Verbot?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "verbot",
+      "lkw"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Alle Lkw, egal wie schwer",
+      "Alle Busse",
+      "Pkw mit Anhänger",
+      "Kfz über 3,5 t zul. Gesamtmasse"
+    ],
+    "correctIndex": 3,
+    "explanation": "Zeichen 253: Verbot für Kfz über 3,5 t (Pkw und Busse ausgenommen).",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "253"
+      ]
+    }
+  },
+  {
+    "id": "fs-085",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "verbot",
+      "fahrrad"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Verbot für Radverkehr",
+      "Radweg",
+      "Achtung, Radfahrer kreuzen",
+      "Fahrradstraße"
+    ],
+    "correctIndex": 0,
+    "explanation": "Zeichen 254: Radfahren ist hier verboten.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "254"
+      ]
+    }
+  },
+  {
+    "id": "fs-086",
+    "text": "Wer muss diesen Weg benutzen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "fahrrad"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Fußgänger",
+      "Radfahrer",
+      "Mofafahrer",
+      "Niemand, er ist nur ein Angebot"
+    ],
+    "correctIndex": 1,
+    "explanation": "Zeichen 237: Radweg mit Benutzungspflicht für den Radverkehr.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "237"
+      ]
+    }
+  },
+  {
+    "id": "fs-087",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "fahrrad",
+      "fußgänger"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Getrennter Rad- und Gehweg",
+      "Fußgängerzone, Radverkehr frei",
+      "Gemeinsamer Geh- und Radweg",
+      "Radfahrer absteigen"
+    ],
+    "correctIndex": 2,
+    "explanation": "Zeichen 240: Fußgänger und Radfahrer teilen sich denselben Weg.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "240"
+      ]
+    }
+  },
+  {
+    "id": "fs-088",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "fahrrad",
+      "fußgänger"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Gemeinsamer Geh- und Radweg",
+      "Radfahrer und Fußgänger kreuzen",
+      "Ende des Radwegs",
+      "Getrennter Rad- und Gehweg"
+    ],
+    "correctIndex": 3,
+    "explanation": "Zeichen 241: getrennte Bereiche für Rad- und Fußverkehr, jeder bleibt auf seiner Seite.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "241-30"
+      ]
+    }
+  },
+  {
+    "id": "fs-089",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "fußgänger"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Beginn einer Fußgängerzone",
+      "Gehweg",
+      "Verkehrsberuhigter Bereich",
+      "Fußgängerüberweg"
+    ],
+    "correctIndex": 0,
+    "explanation": "Zeichen 242.1: Beginn einer Fußgängerzone, Fahrzeuge nur mit Zusatzzeichen.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "242.1"
+      ]
+    }
+  },
+  {
+    "id": "fs-090",
+    "text": "Wie schnell darf man in dieser Straße höchstens fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "fahrrad",
+      "tempo"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Schrittgeschwindigkeit",
+      "30 km/h",
+      "20 km/h",
+      "50 km/h"
+    ],
+    "correctIndex": 1,
+    "explanation": "In Fahrradstraßen gilt für alle Fahrzeuge höchstens 30 km/h.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "244.1"
+      ]
+    }
+  },
+  {
+    "id": "fs-091",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "überholen"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Überholverbot für Lkw über 3,5 t",
+      "Ende des Überholverbots",
+      "Überholverbot für Kraftfahrzeuge",
+      "Vorrang des Gegenverkehrs"
+    ],
+    "correctIndex": 2,
+    "explanation": "Zeichen 276: Kfz dürfen mehrspurige Kfz und Krafträder mit Beiwagen nicht überholen.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "276"
+      ]
+    }
+  },
+  {
+    "id": "fs-092",
+    "text": "Darfst du hier mit dem Auto einen Radfahrer überholen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "überholen",
+      "fahrrad"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Nein, niemals",
+      "Nur mit Hupsignal",
+      "Nur unter 30 km/h",
+      "Ja, mit genug Seitenabstand"
+    ],
+    "correctIndex": 3,
+    "explanation": "Zeichen 276 verbietet nur das Überholen mehrspuriger Kfz – Radfahrer nicht.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "276"
+      ]
+    }
+  },
+  {
+    "id": "fs-093",
+    "text": "Wem ist hier das Überholen verboten?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "überholen",
+      "lkw"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Kfz über 3,5 t (außer Pkw/Busse)",
+      "Allen Kraftfahrzeugen",
+      "Nur Bussen",
+      "Pkw mit Anhänger"
+    ],
+    "correctIndex": 0,
+    "explanation": "Zeichen 277: Überholverbot für Kfz über 3,5 t, ausgenommen Pkw und Busse.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "277"
+      ]
+    }
+  },
+  {
+    "id": "fs-094",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "parken"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Eingeschränktes Haltverbot",
+      "Absolutes Haltverbot",
+      "Verbot für Fahrzeuge aller Art",
+      "Parkverbot nur für Lkw"
+    ],
+    "correctIndex": 1,
+    "explanation": "Zeichen 283: Halten ist auf der Fahrbahn verboten, auch kurz.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "283"
+      ]
+    }
+  },
+  {
+    "id": "fs-095",
+    "text": "Was ist hier erlaubt?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "parken"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Bis zu 1 Stunde parken",
+      "Gar nicht halten",
+      "Bis zu 3 Minuten halten",
+      "Parken mit Parkscheibe"
+    ],
+    "correctIndex": 2,
+    "explanation": "Zeichen 286: Halten bis 3 Minuten sowie Ein-/Aussteigen und Be-/Entladen erlaubt.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "286"
+      ]
+    }
+  },
+  {
+    "id": "fs-096",
+    "text": "Darfst du hier kurz halten, um jemanden aussteigen zu lassen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "parken"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Ja, bis zu 3 Minuten",
+      "Ja, mit Warnblinker",
+      "Ja, nachts",
+      "Nein"
+    ],
+    "correctIndex": 3,
+    "explanation": "Beim absoluten Haltverbot ist jedes Halten auf der Fahrbahn verboten.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "283"
+      ]
+    }
+  },
+  {
+    "id": "fs-097",
+    "text": "Was gilt ab diesem Zeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "parken"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Eingeschränktes Haltverbot in der Zone",
+      "Haltverbot bis zur nächsten Kreuzung",
+      "Absolutes Haltverbot in der Zone",
+      "Parken nur mit Parkschein"
+    ],
+    "correctIndex": 0,
+    "explanation": "Zeichen 290.1: eingeschränktes Haltverbot für alle Straßen der Zone bis zum Ende-Zeichen.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "290.1"
+      ]
+    }
+  },
+  {
+    "id": "fs-098",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "vorfahrt"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Vorfahrtstraße",
+      "Vorfahrt an der nächsten Kreuzung",
+      "Gefahrstelle",
+      "Vorfahrt gewähren"
+    ],
+    "correctIndex": 1,
+    "explanation": "Zeichen 301: Vorfahrt nur an der nächsten Kreuzung oder Einmündung.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "301"
+      ]
+    }
+  },
+  {
+    "id": "fs-099",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "vorfahrt"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Vorfahrt nur an nächster Kreuzung",
+      "Ende der Vorfahrtstraße",
+      "Vorfahrtstraße",
+      "Parkplatz"
+    ],
+    "correctIndex": 2,
+    "explanation": "Zeichen 306: Vorfahrtstraße – Vorfahrt bis zum Ende-Zeichen oder Zeichen 205/206.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "306"
+      ]
+    }
+  },
+  {
+    "id": "fs-100",
+    "text": "Für wie viele Kreuzungen gilt die Vorfahrt durch dieses Zeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "vorfahrt"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Bis zum Ende-Zeichen",
+      "Bis zum Ortsende",
+      "Für die nächsten drei",
+      "Nur für die nächste"
+    ],
+    "correctIndex": 3,
+    "explanation": "Zeichen 301 gilt nur für die nächste Kreuzung oder Einmündung.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "301"
+      ]
+    }
+  },
+  {
+    "id": "fs-101",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "vorfahrt"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Ende der Vorfahrtstraße",
+      "Ende sämtlicher Streckenverbote",
+      "Vorfahrt gewähren",
+      "Ende der Kraftfahrstraße"
+    ],
+    "correctIndex": 0,
+    "explanation": "Zeichen 307: Hier endet die Vorfahrtstraße.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "307"
+      ]
+    }
+  },
+  {
+    "id": "fs-102",
+    "text": "Außerorts: Darf man auf der Fahrbahn dieser Straße parken?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "vorfahrt",
+      "parken"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Ja",
+      "Nein",
+      "Nur nachts",
+      "Ja, mit Warnblinker"
+    ],
+    "correctIndex": 1,
+    "explanation": "Außerorts ist das Parken auf der Fahrbahn von Vorfahrtstraßen verboten.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "306"
+      ]
+    }
+  },
+  {
+    "id": "fs-103",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "gefahr",
+      "vorfahrt"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Vorfahrt an der nächsten Kreuzung",
+      "Achtung, Bahnübergang",
+      "Kreuzung, Vorfahrt von rechts",
+      "Kreuzung mit Kreisverkehr"
+    ],
+    "correctIndex": 2,
+    "explanation": "Zeichen 102 warnt: An der nächsten Kreuzung gilt „rechts vor links“.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "102"
+      ]
+    }
+  },
+  {
+    "id": "fs-104",
+    "text": "Was kündigt dieses Zeichen an?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "gefahr"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Einfache Kurve",
+      "Schleudergefahr",
+      "Verengte Fahrbahn",
+      "Doppelkurve"
+    ],
+    "correctIndex": 3,
+    "explanation": "Zeichen 105 warnt vor einer Doppelkurve.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "105-10"
+      ]
+    }
+  },
+  {
+    "id": "fs-105",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "gefahr",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Baustelle (Arbeitsstelle)",
+      "Unfallstelle",
+      "Schneeräumung",
+      "Gartenarbeiten erlaubt"
+    ],
+    "correctIndex": 0,
+    "explanation": "Zeichen 123 warnt vor einer Arbeitsstelle auf der Straße.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "123"
+      ]
+    }
+  },
+  {
+    "id": "fs-106",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "gefahr",
+      "tiere",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Zoo in der Nähe",
+      "Wildwechsel",
+      "Tierarzt",
+      "Reitweg"
+    ],
+    "correctIndex": 1,
+    "explanation": "Zeichen 142: Achtung, hier können Wildtiere die Straße queren.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "142-10"
+      ]
+    }
+  },
+  {
+    "id": "fs-107",
+    "text": "Wer hat hier Vorrang?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "bahnübergang",
+      "vorfahrt"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Fahrzeuge von rechts",
+      "Fußgänger",
+      "Schienenfahrzeuge",
+      "Wer zuerst kommt"
+    ],
+    "correctIndex": 2,
+    "explanation": "Zeichen 201 (Andreaskreuz): Schienenfahrzeuge haben Vorrang.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "201"
+      ]
+    }
+  },
+  {
+    "id": "fs-108",
+    "text": "Was bedeutet dieses Verkehrszeichen?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "vorfahrt"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Du hast Vorrang vor dem Gegenverkehr",
+      "Überholverbot",
+      "Achtung, Gegenverkehr",
+      "Gegenverkehr hat Vorrang"
+    ],
+    "correctIndex": 3,
+    "explanation": "Zeichen 208: An der Engstelle hat der Gegenverkehr Vorrang.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "208"
+      ]
+    }
+  },
+  {
+    "id": "fs-109",
+    "text": "Wann muss man hier blinken?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "kreisverkehr"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Nur beim Ausfahren",
+      "Nur beim Einfahren",
+      "Beim Ein- und Ausfahren",
+      "Nie"
+    ],
+    "correctIndex": 0,
+    "explanation": "Im Kreisverkehr blinkt man beim Ausfahren, Blinken beim Einfahren ist unzulässig.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "205",
+        "215"
+      ]
+    }
+  },
+  {
+    "id": "fs-110",
+    "text": "Wie schnell darf ein Pkw ab hier höchstens fahren, wenn nichts anderes angezeigt ist?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "tempo"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "30 km/h",
+      "50 km/h",
+      "60 km/h",
+      "70 km/h"
+    ],
+    "correctIndex": 1,
+    "explanation": "Ortstafel: Innerorts gilt höchstens 50 km/h.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "310"
+      ]
+    }
+  },
+  {
+    "id": "fs-111",
+    "text": "Wie schnell darf ein Pkw nach diesem Schild auf der Landstraße höchstens fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "tempo"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "80 km/h",
+      "120 km/h",
+      "100 km/h",
+      "Unbegrenzt"
+    ],
+    "correctIndex": 2,
+    "explanation": "Ende der Ortschaft: Pkw dürfen außerorts höchstens 100 km/h fahren.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "311"
+      ]
+    }
+  },
+  {
+    "id": "fs-112",
+    "text": "Wer darf hier fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "autobahn"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Alle Kraftfahrzeuge",
+      "Auch Mofas und Traktoren",
+      "Nur Pkw",
+      "Kfz, die über 60 km/h fahren können"
+    ],
+    "correctIndex": 3,
+    "explanation": "Autobahnen sind nur für Kfz mit bauartbedingt mehr als 60 km/h.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "330.1"
+      ]
+    }
+  },
+  {
+    "id": "fs-113",
+    "text": "Welche Geschwindigkeit wird Pkw hier empfohlen, wenn kein Limit gilt?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "autobahn",
+      "tempo"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "130 km/h",
+      "120 km/h",
+      "100 km/h",
+      "150 km/h"
+    ],
+    "correctIndex": 0,
+    "explanation": "Auf Autobahnen gilt eine Richtgeschwindigkeit von 130 km/h.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "330.1"
+      ]
+    }
+  },
+  {
+    "id": "fs-114",
+    "text": "Wer darf hier halten?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "parken"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Alle bis zu 3 Minuten",
+      "Nur betriebsbereite Taxis",
+      "Nur Busse",
+      "Nur Lieferwagen"
+    ],
+    "correctIndex": 1,
+    "explanation": "Zeichen 229 (Taxenstand): Halten nur für betriebsbereite Taxis.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "229"
+      ]
+    }
+  },
+  {
+    "id": "fs-115",
+    "text": "Wer darf hier fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "schilder",
+      "verbot"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Niemand",
+      "Alle Pkw",
+      "Nur Anlieger",
+      "Nur Radfahrer"
+    ],
+    "correctIndex": 2,
+    "explanation": "„Anlieger frei“: Nur wer ein Anliegen dort hat (Anwohner, Besucher) darf fahren.",
+    "media": {
+      "kind": "sign",
+      "signs": [
+        "250",
+        "1020-30"
+      ]
+    }
+  },
+  {
+    "id": "fs-116",
+    "text": "Kreuzung ohne Schilder. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "rechts-vor-links"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Das blaue Auto",
+      "Beide gleichzeitig",
+      "Das rote Auto",
+      "Wer zuerst angekommen ist"
+    ],
+    "correctIndex": 0,
+    "explanation": "Blau kommt für Rot von rechts – rechts vor links.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "E",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-117",
+    "text": "Kreuzung ohne Schilder. Wer muss warten?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "rechts-vor-links"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Wer langsamer ist",
+      "Das rote Auto",
+      "Das grüne Auto",
+      "Beide müssen warten"
+    ],
+    "correctIndex": 1,
+    "explanation": "Grün kommt für Rot von rechts – Rot muss warten.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "W",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "car",
+          "color": "grün",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-118",
+    "text": "Kreuzung ohne Schilder, alle fahren geradeaus. In welcher Reihenfolge fahren sie?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "rechts-vor-links"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Grün, Rot, Blau",
+      "Blau, Grün, Rot",
+      "Grün, Blau, Rot",
+      "Rot, Blau, Grün"
+    ],
+    "correctIndex": 2,
+    "explanation": "Grün hat niemanden rechts. Dann Blau, Rot wartet zuletzt auf Blau von rechts.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "E",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "car",
+          "color": "grün",
+          "from": "N",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-119",
+    "text": "Kreuzung ohne Schilder. Rot biegt links ab. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "rechts-vor-links",
+      "abbiegen"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Wer zuerst angekommen ist",
+      "Beide gleichzeitig",
+      "Das rote Auto",
+      "Das blaue Auto"
+    ],
+    "correctIndex": 3,
+    "explanation": "Linksabbieger lassen den Gegenverkehr durch – Blau fährt zuerst.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "N",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-120",
+    "text": "Kreuzung ohne Schilder. Rot biegt links ab. In welcher Reihenfolge fahren die Fahrzeuge?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "rechts-vor-links",
+      "abbiegen"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Blau, Grün, Rot",
+      "Rot, Blau, Grün",
+      "Rot, Grün, Blau",
+      "Blau, Rot, Grün"
+    ],
+    "correctIndex": 0,
+    "explanation": "Blau hat niemanden rechts, dann Grün (rechts von Rot). Rot biegt links ab und fährt zuletzt.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "N",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "car",
+          "color": "grün",
+          "from": "E",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-121",
+    "text": "Kreuzung ohne Schilder. Rot biegt rechts ab, Blau fährt geradeaus. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "rechts-vor-links",
+      "abbiegen"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Das blaue Auto",
+      "Das rote Auto",
+      "Beide gleichzeitig",
+      "Wer zuerst angekommen ist"
+    ],
+    "correctIndex": 1,
+    "explanation": "Rot kommt für Blau von rechts. Auch Rechtsabbieger haben rechts vor links.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "right",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "W",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-122",
+    "text": "Einmündung ohne Schilder. Blau biegt links ab. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "rechts-vor-links",
+      "einmündung"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Beide gleichzeitig",
+      "Wer zuerst angekommen ist",
+      "Das blaue Auto",
+      "Das rote Auto"
+    ],
+    "correctIndex": 2,
+    "explanation": "Auch an Einmündungen ohne Schilder gilt rechts vor links: Blau kommt für Rot von rechts.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "W",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "S",
+          "turn": "left",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-123",
+    "text": "Einmündung ohne Schilder. Blau biegt links ab. In welcher Reihenfolge fahren die Fahrzeuge?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "rechts-vor-links",
+      "einmündung"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Rot, Grün, Blau",
+      "Blau, Rot, Grün",
+      "Grün, Rot, Blau",
+      "Grün, Blau, Rot"
+    ],
+    "correctIndex": 3,
+    "explanation": "Grün hat niemanden rechts. Blau wartet auf Grün (von rechts), Rot wartet auf Blau (von rechts).",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "W",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "S",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "car",
+          "color": "grün",
+          "from": "E",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-124",
+    "text": "Wer muss an dieser Kreuzung warten?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Das rote Auto",
+      "Wer langsamer ist",
+      "Das blaue Auto",
+      "Keiner muss warten"
+    ],
+    "correctIndex": 0,
+    "explanation": "Rot hat „Vorfahrt gewähren“, Blau ist auf der Vorfahrtstraße.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "N": [
+          "306"
+        ],
+        "S": [
+          "306"
+        ],
+        "E": [
+          "205"
+        ],
+        "W": [
+          "205"
+        ]
+      },
+      "priorityPath": [
+        "N",
+        "S"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "E",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-125",
+    "text": "Rot kommt für Blau von rechts. Wer darf trotzdem zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Wer zuerst angekommen ist",
+      "Das blaue Auto",
+      "Das rote Auto",
+      "Beide gleichzeitig"
+    ],
+    "correctIndex": 1,
+    "explanation": "Schilder gehen vor rechts vor links: Blau ist auf der Vorfahrtstraße.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "N": [
+          "306"
+        ],
+        "S": [
+          "306"
+        ],
+        "E": [
+          "205"
+        ],
+        "W": [
+          "205"
+        ]
+      },
+      "priorityPath": [
+        "N",
+        "S"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "W",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "N",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-126",
+    "text": "Rot biegt links ab. In welcher Reihenfolge fahren die Fahrzeuge?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder",
+      "abbiegen"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Blau, Grün, Rot",
+      "Rot, Grün, Blau",
+      "Blau, Rot, Grün",
+      "Grün, Rot, Blau"
+    ],
+    "correctIndex": 2,
+    "explanation": "Blau zuerst (Rot lässt Gegenverkehr durch), dann Rot. Grün hat „Vorfahrt gewähren“ und fährt zuletzt.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "N": [
+          "306"
+        ],
+        "S": [
+          "306"
+        ],
+        "E": [
+          "205"
+        ],
+        "W": [
+          "205"
+        ]
+      },
+      "priorityPath": [
+        "N",
+        "S"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "N",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "car",
+          "color": "grün",
+          "from": "E",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-127",
+    "text": "Rot steht am Stoppschild. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder",
+      "stopp",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Das rote Auto",
+      "Beide gleichzeitig",
+      "Wer zuerst angekommen ist",
+      "Das blaue Auto"
+    ],
+    "correctIndex": 3,
+    "explanation": "Stopp: Rot muss anhalten und Blau auf der Vorfahrtstraße durchlassen.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "N": [
+          "306"
+        ],
+        "S": [
+          "306"
+        ],
+        "E": [
+          "206"
+        ],
+        "W": [
+          "206"
+        ]
+      },
+      "priorityPath": [
+        "N",
+        "S"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "W",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-128",
+    "text": "Rot biegt rechts ab, Grün links. In welcher Reihenfolge fahren die Fahrzeuge?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder",
+      "abbiegen"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Rot, Grün, Blau",
+      "Grün, Rot, Blau",
+      "Blau, Grün, Rot",
+      "Blau, Rot, Grün"
+    ],
+    "correctIndex": 0,
+    "explanation": "Rot zuerst: Grün biegt links ab und lässt den Gegenverkehr durch. Blau hat „Vorfahrt gewähren“.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "N": [
+          "306"
+        ],
+        "S": [
+          "306"
+        ],
+        "E": [
+          "205"
+        ],
+        "W": [
+          "205"
+        ]
+      },
+      "priorityPath": [
+        "N",
+        "S"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "right",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "car",
+          "color": "grün",
+          "from": "N",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "W",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-129",
+    "text": "Grün fährt auf der Vorfahrtstraße, Rot biegt links ab. In welcher Reihenfolge fahren sie?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder",
+      "abbiegen"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Blau, Grün, Rot",
+      "Grün, Blau, Rot",
+      "Rot, Blau, Grün",
+      "Grün, Rot, Blau"
+    ],
+    "correctIndex": 1,
+    "explanation": "Grün hat Vorfahrt. Rot und Blau stehen sich gegenüber: Rot biegt links ab und lässt Blau zuerst fahren.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "N": [
+          "306"
+        ],
+        "S": [
+          "306"
+        ],
+        "E": [
+          "205"
+        ],
+        "W": [
+          "205"
+        ]
+      },
+      "priorityPath": [
+        "N",
+        "S"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "E",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "W",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "car",
+          "color": "grün",
+          "from": "N",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-130",
+    "text": "Einmündung mit Schildern. Rot biegt rechts ab. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder",
+      "einmündung"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Das rote Auto",
+      "Wer zuerst angekommen ist",
+      "Das blaue Auto",
+      "Beide gleichzeitig"
+    ],
+    "correctIndex": 2,
+    "explanation": "Blau ist auf der Vorfahrtstraße, Rot hat „Vorfahrt gewähren“.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "E": [
+          "306"
+        ],
+        "W": [
+          "306"
+        ],
+        "S": [
+          "205"
+        ]
+      },
+      "priorityPath": [
+        "E",
+        "W"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "right",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "W",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-131",
+    "text": "Einmündung mit Stoppschild. Beide biegen links ab. Wer muss warten?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder",
+      "stopp",
+      "einmündung"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Beide müssen warten",
+      "Keiner muss warten",
+      "Das blaue Auto",
+      "Das rote Auto"
+    ],
+    "correctIndex": 3,
+    "explanation": "Rot steht am Stoppschild und muss Blau auf der Vorfahrtstraße durchlassen.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "E": [
+          "306"
+        ],
+        "W": [
+          "306"
+        ],
+        "S": [
+          "206"
+        ]
+      },
+      "priorityPath": [
+        "E",
+        "W"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "E",
+          "turn": "left",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-132",
+    "text": "Einmündung mit Schildern. Blau und Rot biegen links ab. In welcher Reihenfolge fahren alle?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder",
+      "einmündung",
+      "abbiegen"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Grün, Blau, Rot",
+      "Blau, Grün, Rot",
+      "Grün, Rot, Blau",
+      "Blau, Rot, Grün"
+    ],
+    "correctIndex": 0,
+    "explanation": "Grün zuerst: Blau biegt links ab und lässt Grün durch. Rot hat „Vorfahrt gewähren“ und wartet auf Blau.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "E": [
+          "306"
+        ],
+        "W": [
+          "306"
+        ],
+        "S": [
+          "205"
+        ]
+      },
+      "priorityPath": [
+        "E",
+        "W"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "E",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "car",
+          "color": "grün",
+          "from": "W",
+          "turn": "right",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-133",
+    "text": "Blau kommt für Rot von rechts. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Das blaue Auto",
+      "Das rote Auto",
+      "Beide gleichzeitig",
+      "Wer zuerst angekommen ist"
+    ],
+    "correctIndex": 1,
+    "explanation": "Rot hat „Vorfahrt an der nächsten Kreuzung“, Blau muss Vorfahrt gewähren.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "N": [
+          "301"
+        ],
+        "S": [
+          "301"
+        ],
+        "E": [
+          "205"
+        ],
+        "W": [
+          "205"
+        ]
+      },
+      "priorityPath": [
+        "N",
+        "S"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "E",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-134",
+    "text": "Rot biegt links ab. In welcher Reihenfolge fahren die Fahrzeuge?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder",
+      "abbiegen"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Rot, Grün, Blau",
+      "Grün, Blau, Rot",
+      "Blau, Rot, Grün",
+      "Grün, Rot, Blau"
+    ],
+    "correctIndex": 2,
+    "explanation": "Rot und Blau haben Vorfahrt; Rot biegt links ab und lässt Blau durch. Grün muss warten.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "N": [
+          "301"
+        ],
+        "S": [
+          "301"
+        ],
+        "E": [
+          "205"
+        ],
+        "W": [
+          "205"
+        ]
+      },
+      "priorityPath": [
+        "N",
+        "S"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "N",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "car",
+          "color": "grün",
+          "from": "W",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-135",
+    "text": "Rot biegt rechts ab. Wer muss warten?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Das blaue Auto",
+      "Wer langsamer ist",
+      "Beide müssen warten",
+      "Das rote Auto"
+    ],
+    "correctIndex": 3,
+    "explanation": "Blau hat „Vorfahrt an der nächsten Kreuzung“. Rot muss warten.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "N": [
+          "301"
+        ],
+        "S": [
+          "301"
+        ],
+        "E": [
+          "205"
+        ],
+        "W": [
+          "205"
+        ]
+      },
+      "priorityPath": [
+        "N",
+        "S"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "W",
+          "turn": "right",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "N",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-136",
+    "text": "Abknickende Vorfahrt. Blau kommt für Rot von rechts. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder",
+      "abknickende-vorfahrt"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Das rote Auto",
+      "Das blaue Auto",
+      "Beide gleichzeitig",
+      "Wer zuerst angekommen ist"
+    ],
+    "correctIndex": 0,
+    "explanation": "Rot folgt der abknickenden Vorfahrtstraße. Blau hat „Vorfahrt gewähren“.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "S": [
+          "306",
+          "1002-10"
+        ],
+        "W": [
+          "306",
+          "1002-20"
+        ],
+        "N": [
+          "205",
+          "1002-21"
+        ],
+        "E": [
+          "205",
+          "1002-11"
+        ]
+      },
+      "priorityPath": [
+        "S",
+        "W"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "E",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-137",
+    "text": "Abknickende Vorfahrt: Beide sind auf der Vorfahrtstraße. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder",
+      "abknickende-vorfahrt"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Das rote Auto",
+      "Das blaue Auto",
+      "Wer zuerst angekommen ist",
+      "Beide gleichzeitig"
+    ],
+    "correctIndex": 1,
+    "explanation": "Untereinander gilt auf der Vorfahrtstraße rechts vor links: Blau kommt für Rot von rechts.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "S": [
+          "306",
+          "1002-20"
+        ],
+        "E": [
+          "306",
+          "1002-10"
+        ],
+        "N": [
+          "205",
+          "1002-11"
+        ],
+        "W": [
+          "205",
+          "1002-21"
+        ]
+      },
+      "priorityPath": [
+        "S",
+        "E"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "E",
+          "turn": "left",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-138",
+    "text": "Abknickende Vorfahrt. In welcher Reihenfolge fahren die Fahrzeuge?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder",
+      "abknickende-vorfahrt"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Rot, Blau, Grün",
+      "Rot, Grün, Blau",
+      "Blau, Rot, Grün",
+      "Blau, Grün, Rot"
+    ],
+    "correctIndex": 2,
+    "explanation": "Blau folgt der Vorfahrtstraße und kommt für Rot von rechts. Grün hat „Vorfahrt gewähren“ und fährt zuletzt.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "S": [
+          "306",
+          "1002-10"
+        ],
+        "W": [
+          "306",
+          "1002-20"
+        ],
+        "N": [
+          "205",
+          "1002-21"
+        ],
+        "E": [
+          "205",
+          "1002-11"
+        ]
+      },
+      "priorityPath": [
+        "S",
+        "W"
+      ],
+      "vehicles": [
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "S",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "W",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "car",
+          "color": "grün",
+          "from": "E",
+          "turn": "left",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-139",
+    "text": "Abknickende Vorfahrt. Rot und Blau sind an Nebenstraßen. In welcher Reihenfolge fahren alle?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder",
+      "abknickende-vorfahrt"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Grün, Rot, Blau",
+      "Blau, Grün, Rot",
+      "Rot, Blau, Grün",
+      "Grün, Blau, Rot"
+    ],
+    "correctIndex": 3,
+    "explanation": "Grün ist auf der Vorfahrtstraße. Unter den Nebenstraßen gilt rechts vor links: erst Blau, dann Rot.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "S": [
+          "306",
+          "1002-20"
+        ],
+        "E": [
+          "306",
+          "1002-10"
+        ],
+        "N": [
+          "205",
+          "1002-11"
+        ],
+        "W": [
+          "205",
+          "1002-21"
+        ]
+      },
+      "priorityPath": [
+        "S",
+        "E"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "N",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "W",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "car",
+          "color": "grün",
+          "from": "S",
+          "turn": "right",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-140",
+    "text": "Abknickende Vorfahrt. Rot folgt der Vorfahrtstraße, Blau biegt rechts ab. Wer muss warten?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder",
+      "abknickende-vorfahrt"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Das blaue Auto",
+      "Keiner muss warten",
+      "Das rote Auto",
+      "Beide müssen warten"
+    ],
+    "correctIndex": 0,
+    "explanation": "Blau kommt aus einer Nebenstraße mit „Vorfahrt gewähren“ und muss Rot durchlassen.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "S": [
+          "306",
+          "1002-20"
+        ],
+        "E": [
+          "306",
+          "1002-10"
+        ],
+        "N": [
+          "205",
+          "1002-11"
+        ],
+        "W": [
+          "205",
+          "1002-21"
+        ]
+      },
+      "priorityPath": [
+        "S",
+        "E"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "E",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "W",
+          "turn": "right",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-141",
+    "text": "Abknickende Vorfahrt: Beide sind auf der Vorfahrtstraße. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "schilder",
+      "abknickende-vorfahrt"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Beide gleichzeitig",
+      "Das rote Auto",
+      "Das blaue Auto",
+      "Wer zuerst angekommen ist"
+    ],
+    "correctIndex": 1,
+    "explanation": "Rot folgt der Vorfahrtstraße und kommt für Blau von rechts. Blau muss warten.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "N": [
+          "306",
+          "1002-10"
+        ],
+        "E": [
+          "306",
+          "1002-20"
+        ],
+        "S": [
+          "205",
+          "1002-21"
+        ],
+        "W": [
+          "205",
+          "1002-11"
+        ]
+      },
+      "priorityPath": [
+        "N",
+        "E"
+      ],
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "N",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "E",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-142",
+    "text": "Kreuzung ohne Schilder. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "straßenbahn",
+      "rechts-vor-links"
+    ],
+    "difficulty": 1,
+    "ageRating": 12,
+    "options": [
+      "Das rote Auto",
+      "Wer zuerst angekommen ist",
+      "Die gelbe Straßenbahn",
+      "Beide gleichzeitig"
+    ],
+    "correctIndex": 2,
+    "explanation": "Die Straßenbahn kommt für Rot von rechts – rechts vor links.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "gelb",
+          "type": "tram",
+          "color": "gelb",
+          "from": "E",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-143",
+    "text": "Kreuzung ohne Schilder. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "straßenbahn",
+      "rechts-vor-links"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Die gelbe Straßenbahn",
+      "Beide gleichzeitig",
+      "Wer zuerst angekommen ist",
+      "Das rote Auto"
+    ],
+    "correctIndex": 3,
+    "explanation": "Auch für Straßenbahnen gilt rechts vor links: Rot kommt für die Bahn von rechts.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "gelb",
+          "type": "tram",
+          "color": "gelb",
+          "from": "W",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-144",
+    "text": "Das rote Auto biegt links ab. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "straßenbahn",
+      "abbiegen"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Die gelbe Straßenbahn",
+      "Das rote Auto",
+      "Wer zuerst angekommen ist",
+      "Beide gleichzeitig"
+    ],
+    "correctIndex": 0,
+    "explanation": "Linksabbieger lassen entgegenkommende Fahrzeuge durch – auch die Straßenbahn.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "gelb",
+          "type": "tram",
+          "color": "gelb",
+          "from": "N",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-145",
+    "text": "Rot biegt links ab, die Straßenbahn fährt in gleicher Richtung geradeaus. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "straßenbahn",
+      "abbiegen"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Beide gleichzeitig",
+      "Die gelbe Straßenbahn",
+      "Wer zuerst angekommen ist",
+      "Das rote Auto"
+    ],
+    "correctIndex": 1,
+    "explanation": "Abbieger müssen Schienenfahrzeuge in gleicher Richtung durchfahren lassen.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "gelb",
+          "type": "tram",
+          "color": "gelb",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-146",
+    "text": "Wer muss an dieser Kreuzung warten?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "straßenbahn",
+      "schilder"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Beide müssen warten",
+      "Das rote Auto",
+      "Die gelbe Straßenbahn",
+      "Wer langsamer ist"
+    ],
+    "correctIndex": 2,
+    "explanation": "Die Straßenbahn hat „Vorfahrt gewähren“ und muss Rot auf der Vorfahrtstraße durchlassen.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "N": [
+          "306"
+        ],
+        "S": [
+          "306"
+        ],
+        "E": [
+          "205"
+        ],
+        "W": [
+          "205"
+        ]
+      },
+      "priorityPath": [
+        "N",
+        "S"
+      ],
+      "vehicles": [
+        {
+          "id": "gelb",
+          "type": "tram",
+          "color": "gelb",
+          "from": "E",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-147",
+    "text": "Rot biegt rechts ab. Wer muss warten?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "straßenbahn",
+      "schilder"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Beide müssen warten",
+      "Die gelbe Straßenbahn",
+      "Keiner muss warten",
+      "Das rote Auto"
+    ],
+    "correctIndex": 3,
+    "explanation": "Rot hat „Vorfahrt gewähren“ und muss die Straßenbahn auf der Vorfahrtstraße durchlassen.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "N": [
+          "306"
+        ],
+        "S": [
+          "306"
+        ],
+        "E": [
+          "205"
+        ],
+        "W": [
+          "205"
+        ]
+      },
+      "priorityPath": [
+        "N",
+        "S"
+      ],
+      "vehicles": [
+        {
+          "id": "gelb",
+          "type": "tram",
+          "color": "gelb",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "E",
+          "turn": "right",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-148",
+    "text": "Rot biegt rechts ab, das Fahrrad fährt geradeaus. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "fahrrad",
+      "abbiegen",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Das grüne Fahrrad",
+      "Wer zuerst angekommen ist",
+      "Beide gleichzeitig",
+      "Das rote Auto"
+    ],
+    "correctIndex": 0,
+    "explanation": "Abbieger müssen Radfahrer in gleicher Richtung durchfahren lassen.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "right",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "bike",
+          "color": "grün",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-149",
+    "text": "Kreuzung ohne Schilder. Rot biegt rechts ab. In welcher Reihenfolge fahren alle?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "fahrrad",
+      "abbiegen",
+      "rechts-vor-links"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "options": [
+      "Blau, Grün, Rot",
+      "Grün, Rot, Blau",
+      "Rot, Blau, Grün",
+      "Blau, Rot, Grün"
+    ],
+    "correctIndex": 1,
+    "explanation": "Rot lässt das Fahrrad geradeaus durch. Blau muss beiden Vorfahrt lassen, sie kommen von rechts.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "right",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "bike",
+          "color": "grün",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "W",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-150",
+    "text": "Kreuzung ohne Schilder. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "fahrrad",
+      "rechts-vor-links"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Das rote Auto",
+      "Wer zuerst angekommen ist",
+      "Das grüne Fahrrad",
+      "Beide gleichzeitig"
+    ],
+    "correctIndex": 2,
+    "explanation": "Rechts vor links gilt auch für Radfahrer: Das Fahrrad kommt von rechts.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "grün",
+          "type": "bike",
+          "color": "grün",
+          "from": "E",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-151",
+    "text": "Das Polizeiauto fährt mit Blaulicht und Martinshorn. Wer darf zuerst fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "einsatzfahrzeug",
+      "blaulicht",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Beide gleichzeitig",
+      "Das rote Auto",
+      "Wer zuerst angekommen ist",
+      "Das blaue Polizeiauto"
+    ],
+    "correctIndex": 3,
+    "explanation": "Bei Blaulicht und Martinshorn müssen alle sofort freie Bahn schaffen.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "N": [
+          "306"
+        ],
+        "S": [
+          "306"
+        ],
+        "E": [
+          "205"
+        ],
+        "W": [
+          "205"
+        ]
+      },
+      "priorityPath": [
+        "N",
+        "S"
+      ],
+      "vehicles": [
+        {
+          "id": "blau",
+          "type": "police",
+          "color": "blau",
+          "from": "W",
+          "turn": "straight",
+          "siren": true
+        },
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-152",
+    "text": "Das Polizeiauto hat Blaulicht und Martinshorn. In welcher Reihenfolge fahren alle?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "einsatzfahrzeug",
+      "blaulicht",
+      "rechts-vor-links"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Blau, Rot, Grün",
+      "Grün, Rot, Blau",
+      "Blau, Grün, Rot",
+      "Grün, Blau, Rot"
+    ],
+    "correctIndex": 0,
+    "explanation": "Blau mit Sondersignal zuerst. Dann rechts vor links: Rot kommt für Grün von rechts.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "blau",
+          "type": "police",
+          "color": "blau",
+          "from": "S",
+          "turn": "left",
+          "siren": true
+        },
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "N",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "car",
+          "color": "grün",
+          "from": "E",
+          "turn": "straight",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-153",
+    "text": "Das Polizeiauto hat Blaulicht und Martinshorn. Grün biegt links ab. Wer fährt in welcher Reihenfolge?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "einsatzfahrzeug",
+      "blaulicht",
+      "schilder",
+      "abbiegen"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Blau, Grün, Rot",
+      "Blau, Rot, Grün",
+      "Grün, Blau, Rot",
+      "Rot, Blau, Grün"
+    ],
+    "correctIndex": 1,
+    "explanation": "Blau mit Sondersignal zuerst. Dann Rot, denn Grün biegt links ab und lässt den Gegenverkehr durch.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {
+        "N": [
+          "306"
+        ],
+        "S": [
+          "306"
+        ],
+        "E": [
+          "205"
+        ],
+        "W": [
+          "205"
+        ]
+      },
+      "priorityPath": [
+        "N",
+        "S"
+      ],
+      "vehicles": [
+        {
+          "id": "blau",
+          "type": "police",
+          "color": "blau",
+          "from": "E",
+          "turn": "straight",
+          "siren": true
+        },
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "straight",
+          "siren": false
+        },
+        {
+          "id": "grün",
+          "type": "car",
+          "color": "grün",
+          "from": "N",
+          "turn": "left",
+          "siren": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-154",
+    "text": "Rot biegt rechts ab, ein Fußgänger überquert die Straße. Wer darf zuerst?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "fußgänger",
+      "abbiegen",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "options": [
+      "Wer schneller ist",
+      "Das rote Auto",
+      "Der Fußgänger",
+      "Das Auto, weil es blinkt"
+    ],
+    "correctIndex": 2,
+    "explanation": "Wer abbiegt, muss auf Fußgänger besondere Rücksicht nehmen und sie gehen lassen.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "right",
+          "siren": false
+        }
+      ],
+      "pedestrians": [
+        {
+          "at": "E",
+          "crossing": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "fs-155",
+    "text": "Rot biegt links ab, ein Fußgänger überquert die Straße. Wer muss warten?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "führerschein",
+      "vorfahrt",
+      "fußgänger",
+      "abbiegen"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "options": [
+      "Nur der Fußgänger",
+      "Das blaue Auto und der Fußgänger",
+      "Nur das blaue Auto",
+      "Nur das rote Auto"
+    ],
+    "correctIndex": 3,
+    "explanation": "Rot lässt den Gegenverkehr durch und muss als Abbieger auch den Fußgänger gehen lassen.",
+    "media": {
+      "kind": "scene",
+      "arms": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "signs": {},
+      "priorityPath": null,
+      "vehicles": [
+        {
+          "id": "rot",
+          "type": "car",
+          "color": "rot",
+          "from": "S",
+          "turn": "left",
+          "siren": false
+        },
+        {
+          "id": "blau",
+          "type": "car",
+          "color": "blau",
+          "from": "N",
+          "turn": "straight",
+          "siren": false
+        }
+      ],
+      "pedestrians": [
+        {
+          "at": "W",
+          "crossing": true
+        }
+      ]
+    }
+  }
+]

@@ -3,7 +3,7 @@
  * only ever placed inside a JSON block, and the model is told to ignore
  * anything that looks like an instruction in there.
  */
-import type { Cheekiness, GameMode } from "@couch-clash/shared";
+import type { Cheekiness, GameMode, RoundSummaryFacts } from "@couch-clash/shared";
 import { AUDIO_TAG_WHITELIST } from "./config";
 import type { LinePrompt } from "./provider";
 
@@ -123,6 +123,8 @@ export interface CommentPlayerFacts {
 
 export interface CommentFacts {
   category: string;
+  /** The host's role in this category (CategoryMeta.hostPersona). */
+  persona?: string;
   question: string;
   correctAnswer: string;
   lastQuestionOfCategory: boolean;
@@ -144,6 +146,7 @@ export function commentPrompt(
       SHOW,
       "The answers of the last question were just revealed. Write ONE short German comment (max 15 words) about the most interesting thing: a big jump, a new leader, a close race, someone on a streak, everyone wrong, a wild estimate. Use the concrete facts (the actual wrong answer, the estimate vs. the correct value, rank changes).",
       "ALWAYS address the player(s) by name.",
+      ...(facts.persona ? [facts.persona] : []),
       TONE[cheekiness],
       MODE_RULE[mode],
       HARD_LIMITS,
@@ -151,8 +154,57 @@ export function commentPrompt(
       DATA_RULE,
       'Reply as JSON: {"line": "<the German comment>", "target": "<name of the player the joke is about, or empty>"}.',
     ].join("\n"),
-    user: `${data({ ...sanitizeFacts(facts), avoidTargets: avoidTargets.map(sanitizeName) })}\nVariation seed: ${variant}`,
+    user: `${data({ ...sanitizeFacts({ ...facts, persona: undefined }), avoidTargets: avoidTargets.map(sanitizeName) })}\nVariation seed: ${variant}`,
     json: true,
+  };
+}
+
+export interface SummaryFacts {
+  category: string;
+  title: string;
+  players: { name: string; verdict: string; correct: number; total: number }[];
+  highlights: string[];
+}
+
+/** Named players of a round summary (the module's facts carry ids). */
+export function summaryFactsWithNames(
+  category: string,
+  facts: RoundSummaryFacts,
+  players: readonly { id: string; name: string }[],
+): SummaryFacts {
+  return {
+    category,
+    title: facts.title,
+    highlights: facts.highlights,
+    players: facts.players.flatMap((p) => {
+      const name = players.find((x) => x.id === p.playerId)?.name;
+      return name ? [{ name: sanitizeName(name), verdict: p.verdict, correct: p.correct, total: p.total }] : [];
+    }),
+  };
+}
+
+/** Round summary, e.g. the Führerschein exam: "Clara bestanden, Max … wir sehen uns nächste Woche wieder." */
+export function summaryPrompt(
+  facts: SummaryFacts,
+  cheekiness: Cheekiness,
+  persona: string | undefined,
+  variant: number,
+  tags = false,
+  mode: GameMode = "family",
+): LinePrompt {
+  return {
+    system: [
+      SHOW,
+      "The round is over and the screen shows each player's result (see title and verdicts). Announce the results in 1–2 short German sentences (max 28 words), naming the players with their verdict – with many players, group them. Example: \"Clara bestanden, Max … wir sehen uns nächste Woche wieder.\"",
+      "This is only a show gag – it does not change the game points; do not mention points.",
+      ...(persona ? [persona] : []),
+      TONE[cheekiness],
+      MODE_RULE[mode],
+      HARD_LIMITS,
+      DATA_RULE,
+      output(tags),
+    ].join("\n"),
+    user: `${data({ ...facts, players: facts.players.map((p) => ({ ...p, name: sanitizeName(p.name) })) })}\nVariation seed: ${variant}`,
   };
 }
 

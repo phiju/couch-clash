@@ -42,3 +42,13 @@ export function finaleTemplate(winners: readonly string[]): string {
     ? `Applaus! ${joinNames(winners)} gewinnen Couch Clash!`
     : `${winners[0] ?? "Unser Champion"} gewinnt Couch Clash – Applaus!`;
 }
+
+/** Round summary without AI, e.g. "Clara bestanden, Max … wir sehen uns nächste Woche wieder." */
+export function summaryTemplate(players: readonly { name: string; verdict: string }[]): string {
+  const passed = players.filter((p) => p.verdict === "bestanden").map((p) => p.name);
+  const failed = players.filter((p) => p.verdict === "durchgefallen").map((p) => p.name);
+  if (passed.length === 0 && failed.length === 0) return "Was für eine Runde!";
+  if (failed.length === 0) return "Alle bestanden – der TÜV ist stolz auf euch!";
+  if (passed.length === 0) return "Durchgefallen – alle! Wir sehen uns nächste Woche wieder.";
+  return `${joinNames(passed)} bestanden, ${joinNames(failed)} … wir sehen uns nächste Woche wieder.`;
+}

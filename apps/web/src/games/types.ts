@@ -25,4 +25,8 @@ export interface GameViews<TState = never> {
    * their own audio through the audio engine). Omit for the lobby loop.
    */
   audio?: (state: TState) => ModuleAudioScene | null;
+  /** Extra show on the category intro card (e.g. the FAHRSCHULE roof sign). */
+  IntroDecor?: ComponentType;
+  /** A prop the host holds on the intro while he plays a role (e.g. a clipboard). */
+  MascotProp?: ComponentType;
 }

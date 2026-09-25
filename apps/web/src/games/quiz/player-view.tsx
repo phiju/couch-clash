@@ -2,6 +2,8 @@
 
 import type { QuizPublicState } from "@couch-clash/games/meta";
 import { useState } from "react";
+import { Explanation } from "../fuehrerschein/exam";
+import { MediaView } from "../fuehrerschein/media";
 import { AnswerSent, Countdown, PlayerRevealResult, QuestionLeaderboard } from "../question-round/components";
 import type { PlayerViewProps } from "../types";
 import { QUIZ_OPTION_STYLES } from "./options";
@@ -29,6 +31,7 @@ export function QuizPlayerView({ state, room, me, sendAction }: PlayerViewProps<
         {mine !== undefined && mine !== correct && (
           <p className="text-lg text-cream/60">Deine Antwort: {state.question.options[mine]}</p>
         )}
+        {reveal.solution.explanation && <Explanation text={reveal.solution.explanation} variant="phone" />}
       </PlayerRevealResult>
     );
   }
@@ -39,6 +42,12 @@ export function QuizPlayerView({ state, room, me, sendAction }: PlayerViewProps<
     <div className="flex w-full flex-1 flex-col gap-6">
       <Countdown startedAt={state.questionStartedAt} endsAt={state.stepEndsAt} size="sm" />
       <p className="panel px-5 py-4 text-center text-2xl leading-snug font-bold text-balance">{state.question.text}</p>
+      {/* Führerschein: small, still version of the sign / scene above the buttons. */}
+      {state.question.media && !answered && (
+        <div className="flex justify-center">
+          <MediaView media={state.question.media} variant="phone" />
+        </div>
+      )}
       {answered ? (
         <div className="flex flex-1 items-center justify-center">
           <AnswerSent>
