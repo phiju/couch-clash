@@ -203,6 +203,7 @@ function PlayerRoom({ code }: { code: string }) {
           room={state}
           me={me}
           sendAction={(action) => send({ type: "action", action })}
+          onRate={(contentId, vote) => send({ type: "rate_question", contentId, vote })}
           error={actionError}
           onErrorShown={clearActionError}
           lobbyExtra={

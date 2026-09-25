@@ -15,6 +15,7 @@ import {
   SCOREBOARD_MS,
   type GameModule,
   type ModuleContext,
+  type ModuleProgress,
   type ModuleUpdate,
   type Phase,
   type PublicGameState,
@@ -24,6 +25,7 @@ import {
 import { GAME_MODULES, getModule, normalizeScoring, type ModuleRegistry } from "@couch-clash/games";
 import { fail, ok, type Result } from "./result";
 import type { GameRecord, GameRound, RoomRecord } from "./room-logic";
+import type { ContentFilter } from "./stats/content-filter";
 
 /** Keep the "already played" list bounded. */
 const MAX_USED_CONTENT_IDS = 1000;
@@ -34,6 +36,8 @@ export interface FlowDeps {
   /** Player ids with at least one open connection. */
   connectedPlayerIds: ReadonlySet<string>;
   registry?: ModuleRegistry;
+  /** Blocked ids + generated content (question statistics); null/undefined → no filter. */
+  content?: ContentFilter | null;
 }
 
 function setPhase(room: RoomRecord, phase: Phase, now: number, phaseEndsAt: number | null): RoomRecord {
@@ -158,6 +162,8 @@ function startRound(room: RoomRecord, deps: FlowDeps, registry: ModuleRegistry):
     questionCount: round.questionCount,
     scoring: round.scoring,
     excludeContentIds: room.usedContentIds,
+    blockedContentIds: deps.content?.blocked,
+    extraContent: deps.content?.extra[round.categoryId],
   });
   const playing = setPhase(
     { ...room, game: { ...game, roundGain: {}, questionLeaderboard: null } },
@@ -254,7 +260,12 @@ export function publicGame(
     roundGain: game.roundGain,
     module: module ? module.toPublicState(game.moduleState, viewer) : null,
     leaderboard: publicLeaderboard(room, game),
+    currentQuestion: currentQuestion(module?.progress?.(game.moduleState)),
   };
+}
+
+function currentQuestion(p: ModuleProgress | null | undefined): PublicGameState["currentQuestion"] {
+  return p?.contentId ? { contentId: p.contentId, revealed: !!p.revealed } : null;
 }
 
 function publicLeaderboard(room: RoomRecord, game: GameRecord) {

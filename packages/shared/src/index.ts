@@ -7,3 +7,4 @@ export * from "./messages";
 export * from "./state";
 export * from "./photo";
 export * from "./voice";
+export * from "./admin";

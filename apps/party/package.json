@@ -15,7 +15,8 @@
   "dependencies": {
     "@couch-clash/games": "workspace:*",
     "@couch-clash/shared": "workspace:*",
-    "partyserver": "^0.5.10"
+    "partyserver": "^0.5.10",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20260924.1",

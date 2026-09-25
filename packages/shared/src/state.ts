@@ -79,6 +79,8 @@ export interface PublicGameState {
    * or final (finale, no gains). Null when there is nothing to show.
    */
   leaderboard: LeaderboardEntry[] | null;
+  /** The current question (for 👍/👎 on phones and "Stimmt nicht?" on the host), null outside questions. */
+  currentQuestion: { contentId: string; revealed: boolean } | null;
 }
 
 /** Room state sent to a client. Built per viewer – may differ between clients. */

@@ -2,7 +2,7 @@
 
 import { getCategoryMeta } from "@couch-clash/games/meta";
 import type { PublicPlayer, PublicRoomState } from "@couch-clash/shared";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { AvatarBadge } from "@/components/avatar";
 import { summaryText } from "@/lib/summary";
 import { Leaderboard } from "@/components/leaderboard";
@@ -13,6 +13,8 @@ interface Props {
   room: PublicRoomState;
   me: PublicPlayer;
   sendAction: (action: unknown) => void;
+  /** 👍 / 👎 for the current question (after the reveal). */
+  onRate?: (contentId: string, vote: "up" | "down") => void;
   error: string | null;
   onErrorShown: () => void;
   /** Extra content on the lobby card (photo avatar options). */
@@ -20,7 +22,7 @@ interface Props {
 }
 
 /** Phone screen for everything after joining – switches on the room phase. */
-export function PlayerGame({ room, me, sendAction, error, onErrorShown, lobbyExtra }: Props) {
+export function PlayerGame({ room, me, sendAction, onRate, error, onErrorShown, lobbyExtra }: Props) {
   useEffect(() => {
     if (!error) return;
     const t = setTimeout(onErrorShown, 3000);
@@ -29,7 +31,7 @@ export function PlayerGame({ room, me, sendAction, error, onErrorShown, lobbyExt
 
   return (
     <>
-      <PhaseContent room={room} me={me} sendAction={sendAction} lobbyExtra={lobbyExtra} />
+      <PhaseContent room={room} me={me} sendAction={sendAction} onRate={onRate} lobbyExtra={lobbyExtra} />
       {error && (
         <div className="fixed top-4 right-4 left-4 z-50 rounded-2xl bg-rust px-4 py-3 text-center text-lg font-bold shadow-xl">
           {error}
@@ -39,7 +41,7 @@ export function PlayerGame({ room, me, sendAction, error, onErrorShown, lobbyExt
   );
 }
 
-function PhaseContent({ room, me, sendAction, lobbyExtra }: Omit<Props, "error" | "onErrorShown">) {
+function PhaseContent({ room, me, sendAction, onRate, lobbyExtra }: Omit<Props, "error" | "onErrorShown">) {
   const game = room.game;
   const round = game?.rounds[game.roundIndex];
   const meta = round ? getCategoryMeta(round.categoryId) : undefined;
@@ -72,6 +74,12 @@ function PhaseContent({ room, me, sendAction, lobbyExtra }: Omit<Props, "error" 
             </span>
           </div>
           <views.PlayerView state={game.module} room={room} me={me} sendAction={sendAction} />
+          {onRate && game.currentQuestion?.revealed && (
+            <QuestionRating
+              key={game.currentQuestion.contentId}
+              onRate={(vote) => onRate(game.currentQuestion!.contentId, vote)}
+            />
+          )}
         </Screen>
       );
     }
@@ -141,4 +149,32 @@ function PhaseContent({ room, me, sendAction, lobbyExtra }: Omit<Props, "error" 
       );
     }
   }
+}
+
+/** 👍 / 👎 after the reveal: one vote per question, tapping the other one changes it. Not shown on the TV. */
+function QuestionRating({ onRate }: { onRate: (vote: "up" | "down") => void }) {
+  const [vote, setVote] = useState<"up" | "down" | null>(null);
+  const button = (value: "up" | "down", emoji: string, label: string) => (
+    <button
+      type="button"
+      aria-label={label}
+      aria-pressed={vote === value}
+      onClick={() => {
+        setVote(value);
+        onRate(value);
+      }}
+      className={`flex h-14 w-20 items-center justify-center rounded-full border-2 text-3xl transition active:scale-95 ${
+        vote === value ? "border-bulb bg-bulb/25 scale-105" : "border-cream/30 bg-petrol-dark/70 opacity-80"
+      }`}
+    >
+      {emoji}
+    </button>
+  );
+  return (
+    <div className="flex w-full animate-pop items-center justify-center gap-4 rounded-full bg-petrol-dark/60 px-4 py-2">
+      <span className="text-lg text-cream/85">{vote ? "Danke!" : "Gute Frage?"}</span>
+      {button("up", "👍", "Gute Frage")}
+      {button("down", "👎", "Schlechte Frage")}
+    </div>
+  );
 }

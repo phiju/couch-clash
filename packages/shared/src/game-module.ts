@@ -101,6 +101,10 @@ export interface ModuleInitOptions {
   scoring: ScoringSettings;
   /** Content already played in this room – avoid if possible. */
   excludeContentIds: readonly string[];
+  /** Content that must never be played (quarantined / removed in the admin page). */
+  blockedContentIds?: ReadonlySet<string>;
+  /** Extra content for this category (e.g. AI-generated replacements) – validated by the module. */
+  extraContent?: readonly unknown[];
 }
 
 export interface ModuleUpdate<TState> {
@@ -138,6 +142,41 @@ export interface GameModule<TState = unknown, TAction = unknown, TPublic = unkno
   progress?(state: TState): ModuleProgress | null;
   /** Facts about the question just revealed, for the host's commentary. Optional. */
   revealFacts?(state: TState): RevealFacts | null;
+  /** Aggregated numbers for the question just revealed (question statistics). Optional. */
+  toStats?(state: TState): QuestionStatsPayload | null;
+  /** All content of this category (static + extra) for the admin page. Optional. */
+  listContent?(extraContent?: readonly unknown[]): ContentEntry[];
+  /** Validates one content item (AI-generated or edited in the admin page). Optional. */
+  parseContent?(raw: unknown): { ok: true; value: unknown } | { ok: false; error: string };
+}
+
+/** Numbers for one played question – never names or answers. */
+export interface QuestionStatsPayload {
+  contentId: string;
+  /** Players who answered. */
+  answers: number;
+  /** Answers that were right (estimates: very close). */
+  correct: number;
+  sumResponseMs: number;
+  /** Estimates: Σ |answer − correct| / zeroRange (each capped at 1); null where it makes no sense. */
+  sumErrorPct: number | null;
+  /** Category-specific extra numbers (e.g. Bluff: players who found the real definition). */
+  extra?: Record<string, number>;
+}
+
+/** One content item as the admin page shows it. */
+export interface ContentEntry {
+  id: string;
+  text: string;
+  /** The correct answer as text. */
+  answer: string;
+  difficulty: number;
+  ageRating: number;
+  tags: string[];
+  /** The raw item (for editing generated content). */
+  payload: unknown;
+  /** Stats show an average error (estimates) instead of only a correct rate. */
+  errorMetric?: boolean;
 }
 
 export interface ModuleProgress {
@@ -145,6 +184,10 @@ export interface ModuleProgress {
   index: number;
   total: number;
   step: string;
+  /** Id of the current question's content (for ratings and reports). */
+  contentId?: string;
+  /** The answers are revealed (ratings/reports allowed from here on). */
+  revealed?: boolean;
 }
 
 /** Plain-text facts about one revealed question (server only, never sent to phones). */

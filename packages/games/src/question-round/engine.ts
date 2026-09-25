@@ -55,6 +55,8 @@ export interface QuestionRoundConfig<TQuestion extends { id: string }, TAnswer, 
    * Plain-text descriptions for the host's commentary (server only):
    * the question, the correct answer and a player's answer.
    */
+  /** Estimates: how far off an answer is, |answer − correct| / zeroRange (capped at 1 by the engine). */
+  errorShare?(question: TQuestion, answer: TAnswer): number;
   describe?: {
     question(question: TQuestion): string;
     solution(question: TQuestion): string;
@@ -183,7 +185,35 @@ export function createQuestionRoundModule<
     },
 
     progress(state) {
-      return { index: state.index, total: state.questions.length, step: state.step };
+      return {
+        index: state.index,
+        total: state.questions.length,
+        step: state.step,
+        contentId: state.questions[state.index]?.id,
+        revealed: state.step !== "question",
+      };
+    },
+
+    toStats(state) {
+      if (state.step === "question" || !state.results) return null;
+      const question = state.questions[state.index]!;
+      const maxPoints = Math.max(1, normalizeScoring(config.meta, state.scoring).maxPoints);
+      let correct = 0;
+      let sumResponseMs = 0;
+      let sumErrorPct = 0;
+      const entries = Object.entries(state.answers);
+      for (const [id, a] of entries) {
+        if ((state.results[id]?.baseScore ?? 0) / maxPoints >= 0.9) correct++;
+        sumResponseMs += Math.max(0, a.at - state.questionStartedAt);
+        if (config.errorShare) sumErrorPct += Math.min(1, Math.max(0, config.errorShare(question, a.value)));
+      }
+      return {
+        contentId: question.id,
+        answers: entries.length,
+        correct,
+        sumResponseMs,
+        sumErrorPct: config.errorShare ? Math.round(sumErrorPct * 1000) / 1000 : null,
+      };
     },
 
     revealFacts(state) {

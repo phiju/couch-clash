@@ -6,7 +6,10 @@
  */
 import { TEMPO_PLAYBACK_RATE, TEMPO_SPEED, buildLeaderboard, type HostLine } from "@couch-clash/shared";
 import { GAME_MODULES, getModule, type ModuleRegistry } from "@couch-clash/games";
+import { progressOf } from "../progress";
 import type { RoomRecord } from "../room-logic";
+
+export { progressOf };
 import { VOICE_CONFIG } from "./config";
 import {
   commentPrompt,
@@ -54,24 +57,6 @@ export type VoiceEvent =
   | { type: "reveal"; key: string; roundIndex: number; index: number; total: number }
   | { type: "leaderboard"; key: string }
   | { type: "finale" };
-
-interface Progress {
-  key: string;
-  roundIndex: number;
-  index: number;
-  total: number;
-  step: string;
-}
-
-export function progressOf(room: RoomRecord | null, registry: ModuleRegistry = GAME_MODULES): Progress | null {
-  const game = room?.game;
-  if (!room || room.phase !== "play" || !game || game.moduleState == null) return null;
-  const round = game.rounds[game.roundIndex];
-  const module = round ? getModule(round.categoryId, registry) : undefined;
-  const p = module?.progress?.(game.moduleState);
-  if (!p) return null;
-  return { ...p, roundIndex: game.roundIndex, key: `${game.roundIndex}:${p.index}` };
-}
 
 /** What happened between two room states (for the voice). */
 export function detectVoiceEvents(

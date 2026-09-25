@@ -1,4 +1,6 @@
-import { QUIZ_QUESTIONS_DE, type QuizQuestion } from "@couch-clash/content";
+import { QUIZ_QUESTIONS_DE, QuizQuestionSchema, type QuizQuestion } from "@couch-clash/content";
+import type { ContentEntry } from "@couch-clash/shared";
+import { listEntries, parseWith, playablePool } from "../content-pool";
 import { z } from "zod";
 import { createQuestionRoundModule } from "../question-round/engine";
 import { pickFresh, shuffle } from "../random";
@@ -23,12 +25,22 @@ export function prepareQuizQuestion(q: QuizQuestion, random: () => number): Prep
   };
 }
 
+const entry = (q: QuizQuestion): ContentEntry => ({
+  id: q.id,
+  text: q.text,
+  answer: q.options[q.correctIndex] ?? "",
+  difficulty: q.difficulty,
+  ageRating: q.ageRating,
+  tags: q.tags,
+  payload: q,
+});
+
 export function createQuizModule(pool: readonly QuizQuestion[] = QUIZ_QUESTIONS_DE) {
-  return createQuestionRoundModule<PreparedQuizQuestion, number, QuizPublicQuestion, QuizSolution>({
+  const module = createQuestionRoundModule<PreparedQuizQuestion, number, QuizPublicQuestion, QuizSolution>({
     meta: quizMeta,
     answerSchema: z.number().int().min(0).max(3),
-    pickQuestions: (ctx, { questionCount, excludeContentIds }) =>
-      pickFresh(pool, questionCount, excludeContentIds, ctx.random).map((q) =>
+    pickQuestions: (ctx, options) =>
+      pickFresh(playablePool(pool, QuizQuestionSchema, options), options.questionCount, options.excludeContentIds, ctx.random).map((q) =>
         prepareQuizQuestion(q, ctx.random),
       ),
     baseScoreInput: (question, answer) => ({ correct: answer === question.correctIndex }),
@@ -40,6 +52,11 @@ export function createQuizModule(pool: readonly QuizQuestion[] = QUIZ_QUESTIONS_
       answer: (q, a) => q.options[a] ?? "",
     },
   });
+  return {
+    ...module,
+    listContent: (extra?: readonly unknown[]) => listEntries(pool, QuizQuestionSchema, extra, entry),
+    parseContent: (raw: unknown) => parseWith(QuizQuestionSchema, raw),
+  };
 }
 
 export const quizModule = createQuizModule();

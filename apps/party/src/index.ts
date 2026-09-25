@@ -15,6 +15,9 @@ import {
 } from "./avatar/routes";
 import { r2AvatarStore } from "./avatar/store";
 import { handleVoiceGet } from "./voice/routes";
+import { handleAdmin } from "./admin/routes";
+import { createOpenAIJsonModel } from "./generate/model";
+import { d1StatsStore } from "./stats/store";
 import { CORS_HEADERS, json } from "./http";
 import type { Room } from "./room";
 
@@ -50,11 +53,24 @@ async function roomInfo(env: Env, rawCode: string): Promise<Response> {
 }
 
 export default {
-  async fetch(request, env): Promise<Response> {
+  async fetch(request, env, ctx): Promise<Response> {
     const url = new URL(request.url);
 
     if (url.pathname.startsWith("/api/")) {
       if (request.method === "OPTIONS") return new Response(null, { headers: CORS_HEADERS });
+      const admin = await handleAdmin(request, url, {
+        adminToken: env.ADMIN_TOKEN,
+        store: env.STATS ? d1StatsStore(env.STATS) : null,
+        background: (promise) => ctx.waitUntil(promise),
+        replaceDeps: (store) => ({
+          store,
+          model: env.OPENAI_API_KEY ? createOpenAIJsonModel(env.OPENAI_API_KEY) : null,
+          now: () => Date.now(),
+          newId: () => generateSecret(10),
+        }),
+        now: () => Date.now(),
+      });
+      if (admin) return admin;
       if (url.pathname === "/api/rooms" && request.method === "POST") return createRoom(env);
       const match = url.pathname.match(/^\/api\/rooms\/([^/]+)$/);
       if (match && request.method === "GET") return roomInfo(env, decodeURIComponent(match[1]!));
