@@ -8,7 +8,7 @@ import { Mascot } from "@/components/mascot";
 import { Sparkle } from "@/components/sparkle";
 import { Button, Logo, Screen } from "@/components/ui";
 import { displayJoinLink, joinUrl as buildJoinUrl } from "@/lib/config";
-import { lobbySettingsStore } from "@/lib/storage";
+import { initialLobbySettingsOpen } from "@/lib/lobby-panel";
 import { summaryText } from "@/lib/summary";
 import { usePhotoCelebration } from "./photo-celebration";
 import { GameSettingsPanel } from "./settings-panel";
@@ -31,14 +31,9 @@ export function HostLobby({
   const players = room?.players ?? [];
   const celebrating = usePhotoCelebration(players);
   const speech = useHostSpeech();
-  // Settings column: open by default, then however the host left it.
-  const [settingsOpen, setSettingsOpen] = useState(() => lobbySettingsStore.get() ?? true);
-  const toggleSettings = () => {
-    setSettingsOpen((open) => {
-      lobbySettingsStore.set(!open);
-      return !open;
-    });
-  };
+  // Settings column: collapsed on load, opened with "⚙️ Einstellungen", closed with "✕".
+  const [settingsOpen, setSettingsOpen] = useState(initialLobbySettingsOpen);
+  const toggleSettings = () => setSettingsOpen((open) => !open);
   const joinUrl = useSyncExternalStore(
     subscribeNoop,
     () => (code ? buildJoinUrl(code) : null),
@@ -53,7 +48,8 @@ export function HostLobby({
           <p className="fs-md rounded-full chip px-5 py-2 font-bold">
             {players.length} {players.length === 1 ? "Spieler:in" : "Spieler:innen"}
           </p>
-          {!settingsOpen && room?.settingsSummary && (
+          {/* Collapsed: the current setup at a glance (or "Noch keine Kategorie gewählt"). */}
+          {!settingsOpen && room && (
             <p className="fs-md hidden rounded-full chip px-5 py-2 font-bold text-cream/85 lg:block">
               {summaryText(room.settingsSummary)}
             </p>
