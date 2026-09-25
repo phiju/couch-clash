@@ -46,16 +46,19 @@ export const EstimateQuestionSchema = z
 export type QuizQuestion = z.infer<typeof QuizQuestionSchema>;
 export type EstimateQuestion = z.infer<typeof EstimateQuestionSchema>;
 
-/** Bluff-Lexikon: a real, very rare German word and its dictionary meaning. */
+/** Bluff-Lexikon: a very rare real German NOUN (mostly Latin/Greek) and its meaning. */
 export const BluffWordSchema = z.object({
   id: z.string().regex(/^[a-z0-9-]+$/),
-  word: z.string().min(2).max(40),
-  /** Short, written like a dictionary entry. */
+  article: z.enum(["der", "die", "das"]),
+  /** A noun: capitalized, one word. */
+  word: z.string().regex(/^\p{Lu}[\p{L}-]+$/u, "A single capitalized noun").max(40),
+  /** Plural nouns ("die Vibrissen") → "Vibrissen sind …?". */
+  plural: z.boolean().optional(),
+  /** Short, like a dictionary entry, without the word itself. */
   definition: z.string().min(3).max(80),
   ageRating: z.union(AGE_RATINGS.map((a) => z.literal(a))),
   tags: z.array(z.string().min(1)).min(1),
-  difficulty: z.union([z.literal(1), z.literal(2), z.literal(3)]),
-  /** Where the meaning was checked / what kind of word (e.g. "regional, bair."). */
+  difficulty: z.union([z.literal(2), z.literal(3)]),
   sourceNote: z.string().max(120).optional(),
 });
 

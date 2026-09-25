@@ -31,6 +31,8 @@ export interface BluffPublicState {
   index: number;
   total: number;
   word: string;
+  /** "Ein Borborygmus ist …?" – the word with the right article as a question. */
+  question: string;
   stepStartedAt: number;
   stepEndsAt: number;
   /** Who has written a definition (not what). */
@@ -57,7 +59,11 @@ export interface BluffPublicState {
     options: BluffRevealOption[];
     correctIndex: number;
     definition: string;
+    /** "Ein Borborygmus ist:" */
+    lead: string;
     knewItPlayerIds: string[];
     results: Record<string, BluffResult>;
+    /** Authors' original texts (host option, default off), else null. */
+    originals: Record<string, string> | null;
   } | null;
 }

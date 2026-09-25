@@ -15,6 +15,8 @@ export const GameRoundSettingsSchema = z.object({
   categoryId: z.string().min(1).max(64),
   questionCount: z.number().int().min(1).max(100),
   scoring: ScoringSettingsSchema,
+  /** Category options (CategoryMeta.options), id → on/off. */
+  options: z.record(z.string().max(40), z.boolean()).optional(),
 });
 const id = z.string().min(1).max(64);
 

@@ -1,6 +1,12 @@
 "use client";
 
-import { CATEGORY_METAS, categoryAvailable, getCategoryMeta, normalizeScoring } from "@couch-clash/games/meta";
+import {
+  CATEGORY_METAS,
+  categoryAvailable,
+  getCategoryMeta,
+  normalizeCategoryOptions,
+  normalizeScoring,
+} from "@couch-clash/games/meta";
 import {
   estimateGameSeconds,
   formatDuration,
@@ -17,6 +23,8 @@ interface CategoryChoice {
   enabled: boolean;
   questionCount: number;
   scoring: ScoringSettings;
+  /** CategoryMeta.options (id → on/off). */
+  options: Record<string, boolean>;
 }
 
 interface SetupState {
@@ -28,7 +36,12 @@ interface SetupState {
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 
 function defaultChoice(meta: CategoryMeta): CategoryChoice {
-  return { enabled: true, questionCount: meta.questionsPerRound.default, scoring: structuredClone(meta.scoring) };
+  return {
+    enabled: true,
+    questionCount: meta.questionsPerRound.default,
+    scoring: structuredClone(meta.scoring),
+    options: normalizeCategoryOptions(meta, undefined),
+  };
 }
 
 function sanitizeChoice(meta: CategoryMeta, raw: Partial<CategoryChoice> | undefined): CategoryChoice {
@@ -39,6 +52,7 @@ function sanitizeChoice(meta: CategoryMeta, raw: Partial<CategoryChoice> | undef
     questionCount: clamp(Number(raw.questionCount) || meta.questionsPerRound.default, min, max),
     // Old saved shapes (before the scoring refactor) fall back to the defaults.
     scoring: normalizeScoring(meta, raw.scoring),
+    options: normalizeCategoryOptions(meta, raw.options),
   };
 }
 
@@ -74,7 +88,13 @@ function toRounds(setup: SetupState, playerCount: number): GameRoundSettings[] {
     })
     .map((id) => {
       const c = setup.choices[id]!;
-      return { categoryId: id, questionCount: c.questionCount, scoring: c.scoring };
+      const meta = getCategoryMeta(id);
+      return {
+        categoryId: id,
+        questionCount: c.questionCount,
+        scoring: c.scoring,
+        ...(meta?.options?.length ? { options: c.options } : {}),
+      };
     });
 }
 
@@ -271,6 +291,17 @@ export function GameSettingsPanel({
                     onChange={(patch) => updateScoring(meta.id, patch)}
                     onReset={() => update(meta.id, { scoring: structuredClone(meta.scoring) })}
                   />
+                  {meta.options?.map((option) => (
+                    <label key={option.id} className={`flex items-center justify-between gap-4 ${compact ? "fs-sm" : "text-base"}`}>
+                      <span>{option.label}</span>
+                      <input
+                        type="checkbox"
+                        checked={c.options[option.id] ?? option.default}
+                        onChange={(e) => update(meta.id, { options: { ...c.options, [option.id]: e.target.checked } })}
+                        className="size-6 shrink-0 accent-[var(--color-orange)]"
+                      />
+                    </label>
+                  ))}
                 </>
               )}
             </li>

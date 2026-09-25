@@ -104,6 +104,20 @@ describe("replacement questions", () => {
     expect(JSON.parse((await store.listGenerated())[0]!.payload)).toMatchObject({ answer: 1989, format: "year", zeroRange: 30 });
   });
 
+  it("bluff: builds a noun entry with article and detects duplicates by word", async () => {
+    const { store } = sqliteStore();
+    const existing = GAME_MODULES.bluff.listContent!()[0]!.payload as { article: string; word: string };
+    const { model } = scripted([
+      { article: existing.article, word: existing.word, definition: "Etwas ganz anderes" }, // duplicate
+      { article: "die", word: "Glabellula", definition: "Eine erfundene Testerklärung" },
+      { ok: true },
+    ]);
+    const bluffId = GAME_MODULES.bluff.listContent!()[0]!.id;
+    const result = await replaceQuestion(deps(store, model), { id: bluffId, categoryId: "bluff" });
+    expect(result.ok).toBe(true);
+    expect(JSON.parse((await store.listGenerated())[0]!.payload)).toMatchObject({ article: "die", word: "Glabellula" });
+  });
+
   it("fails cleanly without API key, generator or database", async () => {
     const { store } = sqliteStore();
     expect(await replaceQuestion(deps(store, null), { id: original.id, categoryId: "quiz" })).toEqual({ ok: false, error: "OPENAI_API_KEY fehlt." });

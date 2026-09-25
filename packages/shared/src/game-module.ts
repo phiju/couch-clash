@@ -80,6 +80,14 @@ export interface CategoryMeta {
   contentSource: ContentSource;
   /** Fewer players → the category cannot be selected (e.g. bluffing needs someone to fool). */
   minPlayers?: number;
+  /** Extra on/off settings the host may change for this category. */
+  options?: readonly CategoryOption[];
+}
+
+export interface CategoryOption {
+  id: string;
+  label: string;
+  default: boolean;
 }
 
 /** Who is looking at the state. Public state is built per viewer. */
@@ -107,6 +115,8 @@ export interface ModuleInitOptions {
   blockedContentIds?: ReadonlySet<string>;
   /** Extra content for this category (e.g. AI-generated replacements) – validated by the module. */
   extraContent?: readonly unknown[];
+  /** Host settings from CategoryMeta.options (id → on/off). */
+  options?: Readonly<Record<string, boolean>>;
 }
 
 export interface ModuleUpdate<TState> {
@@ -170,6 +180,8 @@ export type ModuleTask = {
   kind: "llm_json";
   input: { system: string; user: string };
   timeoutMs: number;
+  /** "strong": a more capable (slower) model, e.g. for judging answers. Default "fast". */
+  model?: "fast" | "strong";
 };
 
 export interface ReadAloud {

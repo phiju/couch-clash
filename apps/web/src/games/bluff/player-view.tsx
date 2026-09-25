@@ -7,9 +7,9 @@ import { AnswerSent, Countdown, QuestionLeaderboard } from "../question-round/co
 import type { PlayerViewProps } from "../types";
 import { resultParts } from "./logic";
 
-function Word({ word }: { word: string }) {
+function Question({ text }: { text: string }) {
   return (
-    <p className="panel px-5 py-4 text-center text-4xl font-bold text-bulb [overflow-wrap:anywhere]">📖 {word}</p>
+    <p className="panel px-5 py-4 text-center text-3xl leading-tight font-bold text-bulb [overflow-wrap:anywhere]">{text}</p>
   );
 }
 
@@ -32,7 +32,7 @@ export function BluffPlayerView({ state, room, me, sendAction }: PlayerViewProps
       {(state.step === "write" || state.step === "vote") && (
         <Countdown startedAt={state.stepStartedAt} endsAt={state.stepEndsAt} size="sm" />
       )}
-      <Word word={state.word} />
+      <Question text={state.question} />
       <StepContent state={state} room={room} me={me} sendAction={sendAction} />
     </div>
   );
@@ -85,14 +85,14 @@ function WriteForm({ state, sendAction }: Pick<PlayerViewProps<BluffPublicState>
       }}
     >
       <label className="flex flex-col gap-2">
-        <span className="text-2xl font-bold">Was bedeutet das Wort?</span>
+        <span className="text-2xl font-bold">Deine erfundene Erklärung:</span>
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value.replace(/\n/g, " ").slice(0, max))}
           maxLength={max}
           rows={3}
           autoFocus
-          placeholder="Erfinde eine glaubwürdige Erklärung …"
+          placeholder="… z. B. ein Werkzeug, das …"
           className="rounded-2xl border-4 border-bulb bg-cream px-4 py-3 text-2xl text-brown outline-none placeholder:text-brown/40"
         />
         <span className={`self-end text-lg font-bold ${text.length >= max ? "text-orange" : "text-cream/70"}`}>
@@ -179,7 +179,7 @@ function Result({ state, me }: PlayerViewProps<BluffPublicState>) {
       {!r && <p className="text-xl text-cream/70">Diesmal nicht mitgemacht</p>}
       {reveal && state.step === "solution" && (
         <p className="text-xl">
-          Echt war: <span className="font-bold text-bulb">{reveal.definition}</span>
+          {reveal.lead} <span className="font-bold text-bulb">{reveal.definition}</span>
         </p>
       )}
       <p className="text-lg text-cream/60">Schau auf den Fernseher!</p>

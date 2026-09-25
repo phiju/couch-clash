@@ -17,7 +17,7 @@ export interface TaskRuntime {
   waitUntil(promise: Promise<unknown>): void;
   flowDeps(): FlowDeps;
   /** Null: no API key → every task resolves with null right away. */
-  model(): JsonModel | null;
+  model(quality: "fast" | "strong"): JsonModel | null;
   registry?: ModuleRegistry;
 }
 
@@ -55,7 +55,7 @@ export class ModuleTaskRunner {
   }
 
   private async execute(task: ModuleTask): Promise<unknown> {
-    const model = this.rt.model();
+    const model = this.rt.model(task.model ?? "fast");
     if (!model) return null;
     try {
       return await withTimeout(task.timeoutMs, model(task.input.system, task.input.user));

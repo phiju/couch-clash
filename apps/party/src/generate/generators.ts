@@ -57,15 +57,23 @@ export const GENERATORS: Readonly<Record<string, QuestionGenerator>> = {
       `Schätzfrage: ${String(item.text)}\nAntwort: ${String(item.answer)} ${String(item.unit ?? "")}${item.fact ? `\nFakt: ${String(item.fact)}` : ""}`,
   },
   bluff: {
-    format: '{"word": "seltenes deutsches Wort", "definition": "kurze Erklärung wie im Wörterbuch"}',
+    format: '{"article": "der" | "die" | "das", "word": "seltenes Substantiv", "definition": "kurze Erklärung wie im Wörterbuch", "plural": false}',
     rules: [
-      "Nur ECHTE, sehr seltene Wörter, die im Duden, DWDS oder Wiktionary stehen (veraltet, regional, Fachwort oder seltenes Fremdwort). Keine Fantasiewörter, nichts Anstößiges.",
-      "Die Erklärung ist kurz (höchstens 80 Zeichen), sachlich wie ein Wörterbucheintrag, ohne Angaben wie (österr.) oder (veraltet).",
+      "Nur ECHTE, sehr seltene SUBSTANTIVE, meist lateinischen oder griechischen Ursprungs (Medizin, Biologie, Recht, Architektur, Sprachwissenschaft, Buchkunst, Musik, Geologie, Astronomie), die im Duden, DWDS, Wiktionary oder Pschyrembel stehen.",
+      "Höchstens 5 % der Erwachsenen ohne Fachwissen dürfen das Wort kennen. Keine regionalen oder altmodischen Alltagswörter, nichts Anstößiges.",
+      "Die Erklärung ist kurz (höchstens 80 Zeichen), wie ein Wörterbucheintrag, ohne das Wort selbst; Dinge mit Artikel, Handlungen als „Wenn jemand …“.",
       "Das Wort darf nicht schon im Spiel vorkommen (Liste unten).",
     ],
-    toItem: (json, base) => ({ ...base, word: json.word, definition: json.definition }),
+    toItem: (json, base) => ({
+      ...base,
+      difficulty: Math.max(2, Number(base.difficulty) || 3),
+      article: json.article,
+      word: json.word,
+      definition: json.definition,
+      ...(json.plural === true ? { plural: true } : {}),
+    }),
     describe: (item) =>
-      `Wort: ${String(item.word)}\nErklärung: ${String(item.definition)}\nPrüfe: Gibt es das Wort wirklich im Deutschen (Duden/DWDS/Wiktionary) und stimmt die Erklärung?`,
+      `Wort: ${String(item.article)} ${String(item.word)}\nErklärung: ${String(item.definition)}\nPrüfe: Gibt es das Substantiv wirklich im Deutschen (Duden/DWDS/Wiktionary/Pschyrembel), stimmen Artikel und Erklärung, und kennen es höchstens 5 % der Erwachsenen?`,
   },
 };
 
