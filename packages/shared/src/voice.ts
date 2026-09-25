@@ -25,9 +25,10 @@ export const VoiceSettingsSchema = z.object({
    * automatically – unless the host explicitly keeps the chosen level.
    */
   cheekinessOverride: z.boolean(),
-  tempo: z.enum(SPEECH_TEMPOS),
+  // Optional for screens loaded before "Sprechtempo" existed (deploy window).
+  tempo: z.enum(SPEECH_TEMPOS).default("schnell"),
 });
-export type VoiceSettings = z.infer<typeof VoiceSettingsSchema>;
+export type VoiceSettings = z.output<typeof VoiceSettingsSchema>;
 
 export const DEFAULT_VOICE_SETTINGS: VoiceSettings = {
   enabled: true,

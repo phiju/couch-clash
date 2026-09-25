@@ -54,3 +54,15 @@ describe("saved figure messages", () => {
     expect(ClientMessageSchema.safeParse({ type: "photo_use_saved", savedId: "../rooms/x" }).success).toBe(false);
   });
 });
+
+describe("voice settings from older host screens", () => {
+  it("accepts update_voice_settings without tempo (defaults to schnell)", async () => {
+    const { ClientMessageSchema } = await import("../src");
+    const parsed = ClientMessageSchema.safeParse({
+      type: "update_voice_settings",
+      settings: { enabled: false, frequency: "normal", cheekiness: "frech", cheekinessOverride: false },
+    });
+    expect(parsed.success).toBe(true);
+    expect(parsed.success && parsed.data.type === "update_voice_settings" && parsed.data.settings.tempo).toBe("schnell");
+  });
+});
