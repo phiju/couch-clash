@@ -30,6 +30,16 @@ describe("mode filter", () => {
     expect(eligibleForMode(q({ adult: true }), kids)).toBe(false);
   });
 
+  it("kids: kidsMaxDifficulty from the category meta raises the limit", () => {
+    const estimate = { id: "estimate", kidsMaxDifficulty: 2 } as const;
+    expect(eligibleForMode(q({ difficulty: 2 }), kids, estimate)).toBe(true);
+    expect(eligibleForMode(q({ difficulty: 3 }), kids, estimate)).toBe(false);
+    expect(eligibleForMode(q({ difficulty: 2, ageRating: 12 }), kids, estimate)).toBe(false);
+    expect(eligibleForMode(q({ difficulty: 2 }), kids, { id: "quiz" })).toBe(false);
+    expect(modesFor(q({ difficulty: 2 }), false, estimate)).toEqual(["kids", "family", "party"]);
+    expect(modesFor(q({ difficulty: 2 }))).toEqual(["family", "party"]);
+  });
+
   it("family: age ≤ 12 (16 if allowed), alcohol ok, nothing adult", () => {
     expect(eligibleForMode(q({ ageRating: 12, difficulty: 3, alcohol: true }), family)).toBe(true);
     expect(eligibleForMode(q({ ageRating: 16 }), family)).toBe(false);

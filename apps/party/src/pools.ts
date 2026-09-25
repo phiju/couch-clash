@@ -14,7 +14,7 @@ export function poolSizesFor(mode: GameModeSettings, registry: ModuleRegistry = 
   for (const [id, module] of Object.entries(registry)) {
     const entries = module.listContent?.();
     // Without a catalog (generated content) the pool is unlimited.
-    sizes[id] = entries ? entries.filter((e) => eligibleForMode(e, mode)).length : Number.MAX_SAFE_INTEGER;
+    sizes[id] = entries ? entries.filter((e) => eligibleForMode(e, mode, module.meta)).length : Number.MAX_SAFE_INTEGER;
   }
   byMode.set(key, sizes);
   return sizes;

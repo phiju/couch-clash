@@ -2,12 +2,14 @@
   {
     "id": "estimate-001",
     "text": "Wie hoch ist der Eiffelturm in Paris (inklusive Antenne)?",
-    "ageRating": 6,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
       "bauwerke",
-      "reisen"
+      "reisen",
+      "eiffelturm"
     ],
     "difficulty": 2,
+    "ageRating": 6,
     "answer": 330,
     "unit": "m",
     "format": "number",
@@ -16,12 +18,14 @@
   {
     "id": "estimate-002",
     "text": "In welchem Jahr landeten zum ersten Mal Menschen auf dem Mond?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
       "weltall",
-      "geschichte"
+      "geschichte",
+      "raumfahrt"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 1969,
     "unit": "",
     "format": "year",
@@ -31,12 +35,13 @@
   {
     "id": "estimate-003",
     "text": "Wie viele Knochen hat ein erwachsener Mensch?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
       "körper",
-      "wissen"
+      "knochen"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 206,
     "unit": "Knochen",
     "format": "number",
@@ -45,12 +50,14 @@
   {
     "id": "estimate-004",
     "text": "Wie hoch ist die Zugspitze, Deutschlands höchster Berg?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
       "deutschland",
-      "geografie"
+      "geografie",
+      "berge"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 2962,
     "unit": "m",
     "format": "number"
@@ -58,12 +65,13 @@
   {
     "id": "estimate-005",
     "text": "Wie lang ist ein Marathon?",
-    "ageRating": 12,
+    "primaryCategory": "SPORTS",
     "tags": [
       "sport",
-      "wissen"
+      "laufen"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 42.195,
     "unit": "km",
     "format": "number",
@@ -72,12 +80,13 @@
   {
     "id": "estimate-006",
     "text": "Wie schnell breitet sich Schall in Luft bei 20 °C aus?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "wissenschaft",
-      "wissen"
+      "physik"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 343,
     "unit": "m/s",
     "format": "number",
@@ -86,12 +95,13 @@
   {
     "id": "estimate-007",
     "text": "Wie hoch ist der Mount Everest?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
       "geografie",
-      "wissen"
+      "berge"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 8849,
     "unit": "m",
     "format": "number",
@@ -100,12 +110,14 @@
   {
     "id": "estimate-008",
     "text": "In welchem Jahr wurde die Bundesrepublik Deutschland gegründet?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
       "deutschland",
-      "geschichte"
+      "geschichte",
+      "politik"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 1949,
     "unit": "",
     "format": "year",
@@ -115,11 +127,13 @@
   {
     "id": "estimate-009",
     "text": "Wie hoch hängt ein Basketballkorb?",
-    "ageRating": 12,
+    "primaryCategory": "SPORTS",
     "tags": [
-      "sport"
+      "sport",
+      "basketball"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 305,
     "unit": "cm",
     "format": "number",
@@ -128,12 +142,14 @@
   {
     "id": "estimate-010",
     "text": "Bei wie viel Grad Celsius siedet Wasser auf Meereshöhe?",
-    "ageRating": 6,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "kinder",
-      "wissenschaft"
+      "wissenschaft",
+      "physik"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 100,
     "unit": "°C",
     "format": "number",
@@ -142,12 +158,15 @@
   {
     "id": "estimate-011",
     "text": "Wie viele Sekunden hat ein Tag?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "mathe",
-      "alltag"
+      "alltag",
+      "rechnen",
+      "zeit"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 86400,
     "unit": "Sekunden",
     "format": "number",
@@ -156,12 +175,13 @@
   {
     "id": "estimate-012",
     "text": "Wie lang ist der Äquator ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
       "geografie",
-      "wissen"
+      "erde"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 40075,
     "unit": "km",
     "format": "number"
@@ -169,12 +189,13 @@
   {
     "id": "estimate-013",
     "text": "Wie weit ist der Mond im Durchschnitt von der Erde entfernt?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "weltall",
-      "wissen"
+      "mond"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 384400,
     "unit": "km",
     "format": "number",
@@ -183,11 +204,13 @@
   {
     "id": "estimate-014",
     "text": "In welchem Jahr begann der Erste Weltkrieg?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
-      "geschichte"
+      "geschichte",
+      "weltkrieg"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 1914,
     "unit": "",
     "format": "year",
@@ -196,12 +219,14 @@
   {
     "id": "estimate-015",
     "text": "Wie viele Felder hat ein Schachbrett?",
-    "ageRating": 6,
+    "primaryCategory": "GAMES",
     "tags": [
       "spiele",
-      "kinder"
+      "kinder",
+      "schach"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 64,
     "unit": "Felder",
     "format": "number",
@@ -210,12 +235,14 @@
   {
     "id": "estimate-016",
     "text": "Wie viele Karten hat ein Skatblatt?",
-    "ageRating": 12,
+    "primaryCategory": "GAMES",
     "tags": [
       "spiele",
-      "deutschland"
+      "deutschland",
+      "karten"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 32,
     "unit": "Karten",
     "format": "number"
@@ -223,12 +250,14 @@
   {
     "id": "estimate-017",
     "text": "Wie alt wurde Wolfgang Amadeus Mozart?",
-    "ageRating": 12,
+    "primaryCategory": "MUSIC",
     "tags": [
       "musik",
-      "geschichte"
+      "geschichte",
+      "komponisten"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 35,
     "unit": "Jahre",
     "format": "number",
@@ -237,12 +266,14 @@
   {
     "id": "estimate-018",
     "text": "Wie hoch ist der Kölner Dom?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
       "bauwerke",
-      "deutschland"
+      "deutschland",
+      "kirchen"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 157,
     "unit": "m",
     "format": "number",
@@ -251,12 +282,14 @@
   {
     "id": "estimate-019",
     "text": "Wie viele Planeten hat unser Sonnensystem?",
-    "ageRating": 6,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "weltall",
-      "kinder"
+      "kinder",
+      "planeten"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 8,
     "unit": "Planeten",
     "format": "number",
@@ -265,12 +298,14 @@
   {
     "id": "estimate-020",
     "text": "Wie viele Minuten dauert ein Fußballspiel ohne Nachspielzeit?",
-    "ageRating": 6,
+    "primaryCategory": "SPORTS",
     "tags": [
       "sport",
-      "kinder"
+      "kinder",
+      "fußball"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 90,
     "unit": "Minuten",
     "format": "number",
@@ -279,12 +314,15 @@
   {
     "id": "estimate-021",
     "text": "In welchem Jahr wurde der Euro als Bargeld eingeführt?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
       "geschichte",
-      "alltag"
+      "alltag",
+      "geld",
+      "europa"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 2002,
     "unit": "",
     "format": "year",
@@ -294,12 +332,14 @@
   {
     "id": "estimate-022",
     "text": "Wie viele Buchstaben hat das deutsche Alphabet ohne Ä, Ö, Ü und ß?",
-    "ageRating": 6,
+    "primaryCategory": "LANGUAGE_LITERATURE",
     "tags": [
       "kinder",
-      "sprache"
+      "sprache",
+      "buchstaben"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 26,
     "unit": "Buchstaben",
     "format": "number"
@@ -307,12 +347,14 @@
   {
     "id": "estimate-023",
     "text": "Wie hoch ist die Freiheitsstatue in New York – ohne Sockel?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
       "bauwerke",
-      "reisen"
+      "reisen",
+      "usa"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 46,
     "unit": "m",
     "format": "number",
@@ -321,12 +363,14 @@
   {
     "id": "estimate-024",
     "text": "Wie viele volle Wochen hat ein Jahr?",
-    "ageRating": 6,
+    "primaryCategory": "SOCIETY",
     "tags": [
       "kinder",
-      "alltag"
+      "alltag",
+      "kalender"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 52,
     "unit": "Wochen",
     "format": "number"
@@ -334,12 +378,15 @@
   {
     "id": "estimate-025",
     "text": "Wie tief ist der Marianengraben an seiner tiefsten Stelle ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
       "geografie",
-      "natur"
+      "natur",
+      "meere",
+      "rekorde"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 10994,
     "unit": "m",
     "format": "number",
@@ -348,11 +395,13 @@
   {
     "id": "estimate-026",
     "text": "In welchem Jahr sank die Titanic?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
-      "geschichte"
+      "geschichte",
+      "schiffe"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 1912,
     "unit": "",
     "format": "year",
@@ -362,12 +411,14 @@
   {
     "id": "estimate-027",
     "text": "Wie viele Ringe hat das Olympische Symbol?",
-    "ageRating": 6,
+    "primaryCategory": "SPORTS",
     "tags": [
       "sport",
-      "kinder"
+      "kinder",
+      "olympia"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 5,
     "unit": "Ringe",
     "format": "number"
@@ -375,12 +426,14 @@
   {
     "id": "estimate-028",
     "text": "Wie viele Milchzähne hat ein Kind?",
-    "ageRating": 6,
+    "primaryCategory": "NATURE",
     "tags": [
       "körper",
-      "kinder"
+      "kinder",
+      "zähne"
     ],
     "difficulty": 2,
+    "ageRating": 6,
     "answer": 20,
     "unit": "Zähne",
     "format": "number"
@@ -388,12 +441,14 @@
   {
     "id": "estimate-029",
     "text": "Wie hoch ist der Berliner Fernsehturm?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
       "bauwerke",
-      "deutschland"
+      "deutschland",
+      "berlin"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 368,
     "unit": "m",
     "format": "number",
@@ -402,12 +457,14 @@
   {
     "id": "estimate-030",
     "text": "In welchem Jahr wurde die Berliner Mauer gebaut?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
       "geschichte",
-      "deutschland"
+      "deutschland",
+      "ddr"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 1961,
     "unit": "",
     "format": "year",
@@ -417,12 +474,15 @@
   {
     "id": "estimate-031",
     "text": "Wie viele Stunden hat eine Woche?",
-    "ageRating": 6,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "mathe",
-      "alltag"
+      "alltag",
+      "rechnen",
+      "zeit"
     ],
     "difficulty": 2,
+    "ageRating": 6,
     "answer": 168,
     "unit": "Stunden",
     "format": "number",
@@ -431,13 +491,15 @@
   {
     "id": "estimate-032",
     "text": "In welchem Jahr wurde der Kölner Dom fertiggestellt?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
       "bauwerke",
       "deutschland",
-      "geschichte"
+      "geschichte",
+      "kirchen"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1880,
     "unit": "",
     "format": "year",
@@ -447,11 +509,13 @@
   {
     "id": "estimate-033",
     "text": "In welchem Jahr erreichte Kolumbus Amerika?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
-      "geschichte"
+      "geschichte",
+      "entdecker"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 1492,
     "unit": "",
     "format": "year",
@@ -460,11 +524,13 @@
   {
     "id": "estimate-034",
     "text": "In welchem Jahr begann der Zweite Weltkrieg?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
-      "geschichte"
+      "geschichte",
+      "weltkrieg"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 1939,
     "unit": "",
     "format": "year",
@@ -473,11 +539,13 @@
   {
     "id": "estimate-035",
     "text": "In welchem Jahr endete der Zweite Weltkrieg?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
-      "geschichte"
+      "geschichte",
+      "weltkrieg"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 1945,
     "unit": "",
     "format": "year",
@@ -486,12 +554,14 @@
   {
     "id": "estimate-036",
     "text": "In welchem Jahr wurde Wolfgang Amadeus Mozart geboren?",
-    "ageRating": 12,
+    "primaryCategory": "MUSIC",
     "tags": [
       "musik",
-      "geschichte"
+      "geschichte",
+      "komponisten"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1756,
     "unit": "",
     "format": "year",
@@ -501,12 +571,14 @@
   {
     "id": "estimate-037",
     "text": "In welchem Jahr wurde Ludwig van Beethoven geboren?",
-    "ageRating": 12,
+    "primaryCategory": "MUSIC",
     "tags": [
       "musik",
-      "geschichte"
+      "geschichte",
+      "komponisten"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1770,
     "unit": "",
     "format": "year",
@@ -516,12 +588,14 @@
   {
     "id": "estimate-038",
     "text": "In welchem Jahr wurde Albert Einstein geboren?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "wissenschaft",
-      "geschichte"
+      "geschichte",
+      "forscher"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1879,
     "unit": "",
     "format": "year",
@@ -531,12 +605,14 @@
   {
     "id": "estimate-039",
     "text": "In welchem Jahr wurde der erste Mensch ins Weltall geschickt (Juri Gagarin)?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
       "weltall",
-      "geschichte"
+      "geschichte",
+      "raumfahrt"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 1961,
     "unit": "",
     "format": "year",
@@ -545,11 +621,13 @@
   {
     "id": "estimate-040",
     "text": "In welchem Jahr brach die Französische Revolution aus?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
-      "geschichte"
+      "geschichte",
+      "frankreich"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 1789,
     "unit": "",
     "format": "year",
@@ -559,12 +637,14 @@
   {
     "id": "estimate-041",
     "text": "In welchem Jahr schlug Martin Luther der Überlieferung nach seine 95 Thesen an?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
       "geschichte",
-      "deutschland"
+      "deutschland",
+      "reformation"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 1517,
     "unit": "",
     "format": "year",
@@ -573,11 +653,13 @@
   {
     "id": "estimate-042",
     "text": "In welchem Jahr wurde die USA unabhängig (Unabhängigkeitserklärung)?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
-      "geschichte"
+      "geschichte",
+      "usa"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 1776,
     "unit": "",
     "format": "year",
@@ -586,12 +668,14 @@
   {
     "id": "estimate-043",
     "text": "In welchem Jahr fand die erste Fußball-Weltmeisterschaft statt?",
-    "ageRating": 12,
+    "primaryCategory": "SPORTS",
     "tags": [
       "sport",
-      "geschichte"
+      "geschichte",
+      "fußball"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1930,
     "unit": "",
     "format": "year",
@@ -601,12 +685,14 @@
   {
     "id": "estimate-044",
     "text": "In welchem Jahr wurde Deutschland zum ersten Mal Fußball-Weltmeister?",
-    "ageRating": 12,
+    "primaryCategory": "SPORTS",
     "tags": [
       "sport",
-      "deutschland"
+      "deutschland",
+      "fußball"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 1954,
     "unit": "",
     "format": "year",
@@ -616,11 +702,13 @@
   {
     "id": "estimate-045",
     "text": "In welchem Jahr kam das erste iPhone auf den Markt?",
-    "ageRating": 12,
+    "primaryCategory": "TECHNOLOGY",
     "tags": [
-      "technik"
+      "technik",
+      "smartphones"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 2007,
     "unit": "",
     "format": "year",
@@ -629,11 +717,14 @@
   {
     "id": "estimate-046",
     "text": "In welchem Jahr wurde Google gegründet?",
-    "ageRating": 12,
+    "primaryCategory": "BUSINESS",
     "tags": [
-      "technik"
+      "technik",
+      "internet",
+      "firmen"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 1998,
     "unit": "",
     "format": "year",
@@ -642,11 +733,13 @@
   {
     "id": "estimate-047",
     "text": "In welchem Jahr erschien der erste Harry-Potter-Band im Original?",
-    "ageRating": 12,
+    "primaryCategory": "LANGUAGE_LITERATURE",
     "tags": [
-      "literatur"
+      "literatur",
+      "bücher"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 1997,
     "unit": "",
     "format": "year",
@@ -655,11 +748,13 @@
   {
     "id": "estimate-048",
     "text": "In welchem Jahr kam der erste Star-Wars-Film ins Kino?",
-    "ageRating": 12,
+    "primaryCategory": "MOVIES_TV",
     "tags": [
-      "film"
+      "film",
+      "science-fiction"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 1977,
     "unit": "",
     "format": "year",
@@ -668,12 +763,14 @@
   {
     "id": "estimate-049",
     "text": "In welchem Jahr wurde der Eiffelturm fertiggestellt?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
       "bauwerke",
-      "geschichte"
+      "geschichte",
+      "paris"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 1889,
     "unit": "",
     "format": "year",
@@ -683,11 +780,14 @@
   {
     "id": "estimate-050",
     "text": "In welchem Jahr wurde die Europäische Union mit dem Vertrag von Maastricht gegründet (Inkrafttreten)?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
-      "geschichte"
+      "geschichte",
+      "europa",
+      "politik"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1993,
     "unit": "",
     "format": "year",
@@ -696,12 +796,14 @@
   {
     "id": "estimate-051",
     "text": "In welchem Jahr wurde Angela Merkel zur Bundeskanzlerin gewählt?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
       "geschichte",
-      "deutschland"
+      "deutschland",
+      "politik"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 2005,
     "unit": "",
     "format": "year",
@@ -710,12 +812,14 @@
   {
     "id": "estimate-052",
     "text": "In welchem Jahr wurde die erste E-Mail verschickt (Ray Tomlinson)?",
-    "ageRating": 12,
+    "primaryCategory": "TECHNOLOGY",
     "tags": [
       "technik",
-      "geschichte"
+      "geschichte",
+      "internet"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1971,
     "unit": "",
     "format": "year",
@@ -724,11 +828,13 @@
   {
     "id": "estimate-053",
     "text": "In welchem Jahr starb Elvis Presley?",
-    "ageRating": 12,
+    "primaryCategory": "MUSIC",
     "tags": [
-      "musik"
+      "musik",
+      "rock"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1977,
     "unit": "",
     "format": "year",
@@ -737,12 +843,14 @@
   {
     "id": "estimate-054",
     "text": "In welchem Jahr erschien das erste Micky-Maus-Heft in Deutschland?",
-    "ageRating": 12,
+    "primaryCategory": "LANGUAGE_LITERATURE",
     "tags": [
       "literatur",
-      "deutschland"
+      "deutschland",
+      "comics"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1951,
     "unit": "",
     "format": "year",
@@ -751,11 +859,14 @@
   {
     "id": "estimate-055",
     "text": "In welchem Jahr wurde die Golden Gate Bridge eröffnet?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
-      "bauwerke"
+      "bauwerke",
+      "brücken",
+      "usa"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1937,
     "unit": "",
     "format": "year",
@@ -764,11 +875,14 @@
   {
     "id": "estimate-056",
     "text": "Wie hoch ist der Burj Khalifa in Dubai?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
-      "bauwerke"
+      "bauwerke",
+      "wolkenkratzer",
+      "rekorde"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 828,
     "unit": "m",
     "format": "number",
@@ -777,12 +891,15 @@
   {
     "id": "estimate-057",
     "text": "Wie hoch ist die Cheops-Pyramide heute ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
       "bauwerke",
-      "geschichte"
+      "geschichte",
+      "ägypten",
+      "antike"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 139,
     "unit": "m",
     "format": "number",
@@ -791,11 +908,14 @@
   {
     "id": "estimate-058",
     "text": "Wie lang ist die Golden Gate Bridge (Gesamtlänge)?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
-      "bauwerke"
+      "bauwerke",
+      "brücken",
+      "usa"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 2737,
     "unit": "m",
     "format": "number"
@@ -803,11 +923,13 @@
   {
     "id": "estimate-059",
     "text": "Wie hoch ist der Big Ben (Elizabeth Tower) in London?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
-      "bauwerke"
+      "bauwerke",
+      "london"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 96,
     "unit": "m",
     "format": "number"
@@ -815,11 +937,13 @@
   {
     "id": "estimate-060",
     "text": "Wie hoch ist der Schiefe Turm von Pisa ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
-      "bauwerke"
+      "bauwerke",
+      "italien"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 56,
     "unit": "m",
     "format": "number"
@@ -827,11 +951,13 @@
   {
     "id": "estimate-061",
     "text": "Wie hoch ist die Christusstatue in Rio de Janeiro (ohne Sockel)?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
-      "bauwerke"
+      "bauwerke",
+      "brasilien"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 30,
     "unit": "m",
     "format": "number",
@@ -839,13 +965,15 @@
   },
   {
     "id": "estimate-062",
-    "text": "Wie hoch ist das Ulmer Münster – der höchste Kirchturm der Welt?",
-    "ageRating": 12,
+    "text": "Wie hoch ist der Turm des Ulmer Münsters?",
+    "primaryCategory": "ART_CULTURE",
     "tags": [
       "bauwerke",
-      "deutschland"
+      "deutschland",
+      "kirchen"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 162,
     "unit": "m",
     "format": "number"
@@ -853,24 +981,29 @@
   {
     "id": "estimate-063",
     "text": "Wie viele Stufen führen im Eiffelturm bis zur obersten öffentlichen Plattform per Treppe (2. Etage)?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
-      "bauwerke"
+      "bauwerke",
+      "paris"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 674,
     "unit": "Stufen",
-    "format": "number"
+    "format": "number",
+    "zeroRange": 400
   },
   {
     "id": "estimate-064",
     "text": "Wie lang ist die Chinesische Mauer insgesamt (alle Abschnitte laut chinesischer Vermessung 2012)?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
       "bauwerke",
-      "geschichte"
+      "geschichte",
+      "china"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 21196,
     "unit": "km",
     "format": "number"
@@ -878,12 +1011,14 @@
   {
     "id": "estimate-065",
     "text": "Wie hoch ist die Frauenkirche in München (Türme)?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
       "bauwerke",
-      "deutschland"
+      "deutschland",
+      "kirchen"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 99,
     "unit": "m",
     "format": "number"
@@ -891,11 +1026,14 @@
   {
     "id": "estimate-066",
     "text": "Wie viele Zimmer hat der Buckingham Palace?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
-      "bauwerke"
+      "bauwerke",
+      "schlösser",
+      "london"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 775,
     "unit": "Zimmer",
     "format": "number"
@@ -903,11 +1041,13 @@
   {
     "id": "estimate-067",
     "text": "Wie lang ist der Rhein insgesamt?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "flüsse"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1233,
     "unit": "km",
     "format": "number"
@@ -915,11 +1055,13 @@
   {
     "id": "estimate-068",
     "text": "Wie lang ist die Donau?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "flüsse"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 2850,
     "unit": "km",
     "format": "number"
@@ -927,11 +1069,14 @@
   {
     "id": "estimate-069",
     "text": "Wie lang ist der Nil ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "flüsse",
+      "afrika"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 6650,
     "unit": "km",
     "format": "number"
@@ -939,11 +1084,13 @@
   {
     "id": "estimate-070",
     "text": "Wie hoch ist der Mont Blanc ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "berge"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 4806,
     "unit": "m",
     "format": "number",
@@ -952,11 +1099,14 @@
   {
     "id": "estimate-071",
     "text": "Wie hoch ist der Kilimandscharo?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "berge",
+      "afrika"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 5895,
     "unit": "m",
     "format": "number"
@@ -964,12 +1114,14 @@
   {
     "id": "estimate-072",
     "text": "Wie tief ist der Bodensee an seiner tiefsten Stelle?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
       "geografie",
-      "deutschland"
+      "deutschland",
+      "seen"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 251,
     "unit": "m",
     "format": "number"
@@ -977,11 +1129,14 @@
   {
     "id": "estimate-073",
     "text": "Wie tief ist der Baikalsee, der tiefste See der Welt?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "seen",
+      "rekorde"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1642,
     "unit": "m",
     "format": "number"
@@ -989,12 +1144,14 @@
   {
     "id": "estimate-074",
     "text": "Wie hoch ist der Brocken im Harz?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
       "geografie",
-      "deutschland"
+      "deutschland",
+      "berge"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1141,
     "unit": "m",
     "format": "number"
@@ -1002,12 +1159,14 @@
   {
     "id": "estimate-075",
     "text": "Wie viele Länder grenzen an Deutschland?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
       "geografie",
-      "deutschland"
+      "deutschland",
+      "nachbarländer"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 9,
     "unit": "Länder",
     "format": "number",
@@ -1016,11 +1175,13 @@
   {
     "id": "estimate-076",
     "text": "Wie viele Staaten hat die USA?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "usa"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 50,
     "unit": "Staaten",
     "format": "number"
@@ -1028,12 +1189,14 @@
   {
     "id": "estimate-077",
     "text": "Wie viele Kontinente gibt es (nach gängiger Zählung in Deutschland)?",
-    "ageRating": 6,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
       "geografie",
-      "kinder"
+      "kinder",
+      "kontinente"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 7,
     "unit": "Kontinente",
     "format": "number"
@@ -1041,11 +1204,13 @@
   {
     "id": "estimate-078",
     "text": "Wie viele Ozeane gibt es (nach gängiger Zählung mit Südpolarmeer)?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "ozeane"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 5,
     "unit": "Ozeane",
     "format": "number"
@@ -1053,12 +1218,14 @@
   {
     "id": "estimate-079",
     "text": "Wie weit ist es auf der Straße ungefähr von München nach Hamburg?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
       "geografie",
-      "deutschland"
+      "deutschland",
+      "entfernungen"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 780,
     "unit": "km",
     "format": "number"
@@ -1066,12 +1233,14 @@
   {
     "id": "estimate-080",
     "text": "Wie weit ist es ungefähr per Luftlinie von Berlin nach New York?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
       "geografie",
-      "reisen"
+      "reisen",
+      "entfernungen"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 6400,
     "unit": "km",
     "format": "number"
@@ -1079,12 +1248,14 @@
   {
     "id": "estimate-081",
     "text": "Wie viele Inseln hat Griechenland ungefähr (inkl. kleiner Inseln)?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
       "geografie",
-      "reisen"
+      "reisen",
+      "inseln"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 6000,
     "unit": "Inseln",
     "format": "number"
@@ -1092,23 +1263,27 @@
   {
     "id": "estimate-082",
     "text": "Wie tief liegt das Tote Meer ungefähr unter dem Meeresspiegel?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "meere"
     ],
     "difficulty": 3,
-    "answer": 430,
+    "ageRating": 12,
+    "answer": 435,
     "unit": "m",
     "format": "number"
   },
   {
     "id": "estimate-083",
     "text": "Wie viele Zeitzonen hat Russland?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "zeitzonen"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 11,
     "unit": "Zeitzonen",
     "format": "number"
@@ -1116,11 +1291,14 @@
   {
     "id": "estimate-084",
     "text": "Wie weit ist die Sonne ungefähr von der Erde entfernt?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "weltall"
+      "weltall",
+      "sonne",
+      "entfernungen"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 150,
     "unit": "Millionen km",
     "format": "number"
@@ -1128,12 +1306,15 @@
   {
     "id": "estimate-085",
     "text": "Wie viele Tage braucht die Erde für eine Runde um die Sonne?",
-    "ageRating": 6,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "weltall",
-      "kinder"
+      "kinder",
+      "erde",
+      "sonne"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 365,
     "unit": "Tage",
     "format": "number",
@@ -1142,11 +1323,13 @@
   {
     "id": "estimate-086",
     "text": "Wie viele Tage braucht der Mond ungefähr für eine Runde um die Erde?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "weltall"
+      "weltall",
+      "mond"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 27,
     "unit": "Tage",
     "format": "number",
@@ -1155,11 +1338,13 @@
   {
     "id": "estimate-087",
     "text": "Wie viele Monde hat der Mars?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "weltall"
+      "weltall",
+      "planeten"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 2,
     "unit": "Monde",
     "format": "number",
@@ -1168,12 +1353,14 @@
   {
     "id": "estimate-088",
     "text": "Wie viel Prozent der Erdoberfläche sind ungefähr mit Wasser bedeckt?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
       "geografie",
-      "natur"
+      "natur",
+      "erde"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 71,
     "unit": "%",
     "format": "number"
@@ -1181,12 +1368,15 @@
   {
     "id": "estimate-089",
     "text": "Wie schnell ist das Licht ungefähr (in km pro Sekunde)?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "wissenschaft",
-      "weltall"
+      "weltall",
+      "physik",
+      "licht"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 300000,
     "unit": "km/s",
     "format": "number",
@@ -1195,11 +1385,13 @@
   {
     "id": "estimate-090",
     "text": "Wie viele Stunden dauert ein Tag auf dem Mars ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "weltall"
+      "weltall",
+      "planeten"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 24.6,
     "unit": "Stunden",
     "format": "number",
@@ -1208,11 +1400,13 @@
   {
     "id": "estimate-091",
     "text": "Wie viele Erdjahre braucht der Saturn für eine Sonnenumrundung?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "weltall"
+      "weltall",
+      "planeten"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 29.5,
     "unit": "Jahre",
     "format": "number"
@@ -1220,12 +1414,14 @@
   {
     "id": "estimate-092",
     "text": "Wie viele Kilometer ist der Durchmesser der Erde ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "weltall",
-      "geografie"
+      "geografie",
+      "erde"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 12742,
     "unit": "km",
     "format": "number"
@@ -1233,11 +1429,13 @@
   {
     "id": "estimate-093",
     "text": "Wie viele Kilometer ist der Durchmesser des Mondes ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "weltall"
+      "weltall",
+      "mond"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 3474,
     "unit": "km",
     "format": "number"
@@ -1245,12 +1443,14 @@
   {
     "id": "estimate-094",
     "text": "Wie viele Menschen haben bisher den Mond betreten?",
-    "ageRating": 12,
+    "primaryCategory": "HISTORY",
     "tags": [
       "weltall",
-      "geschichte"
+      "geschichte",
+      "raumfahrt"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 12,
     "unit": "Menschen",
     "format": "number",
@@ -1259,12 +1459,14 @@
   {
     "id": "estimate-095",
     "text": "Wie viele Grad Celsius hat die Sonnenoberfläche ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "weltall",
-      "wissenschaft"
+      "wissenschaft",
+      "sonne"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 5500,
     "unit": "°C",
     "format": "number"
@@ -1272,12 +1474,14 @@
   {
     "id": "estimate-096",
     "text": "Wie oft schlägt ein Erwachsenenherz in Ruhe ungefähr pro Minute?",
-    "ageRating": 6,
+    "primaryCategory": "NATURE",
     "tags": [
       "körper",
-      "kinder"
+      "kinder",
+      "herz"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 70,
     "unit": "Schläge",
     "format": "number",
@@ -1286,11 +1490,13 @@
   {
     "id": "estimate-097",
     "text": "Wie viele Liter Blut hat ein Erwachsener ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "körper"
+      "körper",
+      "blut"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 5,
     "unit": "Liter",
     "format": "number",
@@ -1299,12 +1505,14 @@
   {
     "id": "estimate-098",
     "text": "Wie viel Grad Celsius beträgt die normale Körpertemperatur ungefähr?",
-    "ageRating": 6,
+    "primaryCategory": "NATURE",
     "tags": [
       "körper",
-      "kinder"
+      "kinder",
+      "gesundheit"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 37,
     "unit": "°C",
     "format": "number",
@@ -1313,11 +1521,13 @@
   {
     "id": "estimate-099",
     "text": "Wie viele Muskeln hat der menschliche Körper ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "körper"
+      "körper",
+      "muskeln"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 650,
     "unit": "Muskeln",
     "format": "number"
@@ -1325,11 +1535,13 @@
   {
     "id": "estimate-100",
     "text": "Wie viele Knochen hat eine menschliche Hand (inkl. Handwurzel)?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "körper"
+      "körper",
+      "knochen"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 27,
     "unit": "Knochen",
     "format": "number"
@@ -1337,11 +1549,13 @@
   {
     "id": "estimate-101",
     "text": "Wie oft blinzelt ein Mensch ungefähr pro Minute?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "körper"
+      "körper",
+      "augen"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 15,
     "unit": "Mal",
     "format": "number",
@@ -1350,11 +1564,13 @@
   {
     "id": "estimate-102",
     "text": "Wie viele Meter ist der Darm eines Erwachsenen insgesamt ungefähr lang?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "körper"
+      "körper",
+      "organe"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 7.5,
     "unit": "m",
     "format": "number"
@@ -1362,11 +1578,13 @@
   {
     "id": "estimate-103",
     "text": "Wie viele Haare hat ein Mensch ungefähr auf dem Kopf?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "körper"
+      "körper",
+      "haare"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 100000,
     "unit": "Haare",
     "format": "number",
@@ -1375,12 +1593,15 @@
   {
     "id": "estimate-104",
     "text": "Wie viele Stunden schläft ein Neugeborenes ungefähr am Tag?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
       "körper",
-      "alltag"
+      "alltag",
+      "babys",
+      "schlaf"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 16,
     "unit": "Stunden",
     "format": "number"
@@ -1388,11 +1609,13 @@
   {
     "id": "estimate-105",
     "text": "Wie viele Liter Speichel produziert ein Mensch ungefähr am Tag?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "körper"
+      "körper",
+      "verdauung"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1,
     "unit": "Liter",
     "format": "number",
@@ -1401,11 +1624,13 @@
   {
     "id": "estimate-106",
     "text": "Wie viele Jahre kann eine Riesenschildkröte ungefähr alt werden?",
-    "ageRating": 6,
+    "primaryCategory": "NATURE",
     "tags": [
-      "tiere"
+      "tiere",
+      "reptilien"
     ],
     "difficulty": 2,
+    "ageRating": 6,
     "answer": 150,
     "unit": "Jahre",
     "format": "number"
@@ -1413,12 +1638,15 @@
   {
     "id": "estimate-107",
     "text": "Wie schnell kann ein Gepard ungefähr laufen?",
-    "ageRating": 6,
+    "primaryCategory": "NATURE",
     "tags": [
       "tiere",
-      "kinder"
+      "kinder",
+      "raubkatzen",
+      "rekorde"
     ],
     "difficulty": 2,
+    "ageRating": 6,
     "answer": 110,
     "unit": "km/h",
     "format": "number"
@@ -1426,11 +1654,14 @@
   {
     "id": "estimate-108",
     "text": "Wie schwer wird ein ausgewachsener Blauwal ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "tiere"
+      "tiere",
+      "meerestiere",
+      "rekorde"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 150,
     "unit": "Tonnen",
     "format": "number"
@@ -1438,11 +1669,13 @@
   {
     "id": "estimate-109",
     "text": "Wie lang wird ein Blauwal ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "tiere"
+      "tiere",
+      "meerestiere"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 30,
     "unit": "m",
     "format": "number"
@@ -1450,12 +1683,14 @@
   {
     "id": "estimate-110",
     "text": "Wie groß wird eine Giraffe ungefähr?",
-    "ageRating": 6,
+    "primaryCategory": "NATURE",
     "tags": [
       "tiere",
-      "kinder"
+      "kinder",
+      "säugetiere"
     ],
     "difficulty": 2,
+    "ageRating": 6,
     "answer": 5.5,
     "unit": "m",
     "format": "number"
@@ -1463,11 +1698,13 @@
   {
     "id": "estimate-111",
     "text": "Wie schwer wird ein afrikanischer Elefantenbulle ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "tiere"
+      "tiere",
+      "säugetiere"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 6,
     "unit": "Tonnen",
     "format": "number"
@@ -1475,11 +1712,13 @@
   {
     "id": "estimate-112",
     "text": "Wie viele Zähne hat ein Weißer Hai ungefähr gleichzeitig im Maul?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "tiere"
+      "tiere",
+      "haie"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 300,
     "unit": "Zähne",
     "format": "number"
@@ -1487,12 +1726,14 @@
   {
     "id": "estimate-113",
     "text": "Wie viele Stunden am Tag schläft ein Koala ungefähr?",
-    "ageRating": 6,
+    "primaryCategory": "NATURE",
     "tags": [
       "tiere",
-      "kinder"
+      "kinder",
+      "schlaf"
     ],
     "difficulty": 2,
+    "ageRating": 6,
     "answer": 20,
     "unit": "Stunden",
     "format": "number"
@@ -1500,11 +1741,13 @@
   {
     "id": "estimate-114",
     "text": "Wie viele Eier legt ein Huhn ungefähr pro Jahr (Legehenne)?",
-    "ageRating": 6,
+    "primaryCategory": "NATURE",
     "tags": [
-      "tiere"
+      "tiere",
+      "bauernhof"
     ],
     "difficulty": 2,
+    "ageRating": 6,
     "answer": 300,
     "unit": "Eier",
     "format": "number"
@@ -1512,11 +1755,13 @@
   {
     "id": "estimate-115",
     "text": "Wie viele Monate ist ein Elefant ungefähr trächtig?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "tiere"
+      "tiere",
+      "säugetiere"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 22,
     "unit": "Monate",
     "format": "number"
@@ -1524,11 +1769,13 @@
   {
     "id": "estimate-116",
     "text": "Wie viele Beine hat ein Hummer (Laufbeine inkl. Scheren)?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "tiere"
+      "tiere",
+      "meerestiere"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 10,
     "unit": "Beine",
     "format": "number"
@@ -1536,12 +1783,14 @@
   {
     "id": "estimate-117",
     "text": "Wie viele Jahre wird ein Hund im Durchschnitt ungefähr alt?",
-    "ageRating": 6,
+    "primaryCategory": "NATURE",
     "tags": [
       "tiere",
-      "kinder"
+      "kinder",
+      "haustiere"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 13,
     "unit": "Jahre",
     "format": "number",
@@ -1550,11 +1799,13 @@
   {
     "id": "estimate-118",
     "text": "Wie viele Flügelschläge macht ein Kolibri ungefähr pro Sekunde?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "tiere"
+      "tiere",
+      "vögel"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 50,
     "unit": "Schläge",
     "format": "number",
@@ -1563,12 +1814,14 @@
   {
     "id": "estimate-119",
     "text": "Wie schwer ist ein Hühnerei ungefähr (Größe M)?",
-    "ageRating": 6,
+    "primaryCategory": "FOOD_DRINK",
     "tags": [
       "essen",
-      "alltag"
+      "alltag",
+      "eier"
     ],
     "difficulty": 2,
+    "ageRating": 6,
     "answer": 58,
     "unit": "g",
     "format": "number"
@@ -1576,11 +1829,13 @@
   {
     "id": "estimate-120",
     "text": "Wie lang ist ein Fußballfeld bei internationalen Spielen ungefähr?",
-    "ageRating": 6,
+    "primaryCategory": "SPORTS",
     "tags": [
-      "sport"
+      "sport",
+      "fußball"
     ],
     "difficulty": 2,
+    "ageRating": 6,
     "answer": 105,
     "unit": "m",
     "format": "number"
@@ -1588,11 +1843,13 @@
   {
     "id": "estimate-121",
     "text": "Wie hoch hängt ein Fußballtor (Oberkante der Latte)?",
-    "ageRating": 12,
+    "primaryCategory": "SPORTS",
     "tags": [
-      "sport"
+      "sport",
+      "fußball"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 2.44,
     "unit": "m",
     "format": "number"
@@ -1600,11 +1857,13 @@
   {
     "id": "estimate-122",
     "text": "Wie breit ist ein Fußballtor?",
-    "ageRating": 12,
+    "primaryCategory": "SPORTS",
     "tags": [
-      "sport"
+      "sport",
+      "fußball"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 7.32,
     "unit": "m",
     "format": "number"
@@ -1612,12 +1871,14 @@
   {
     "id": "estimate-123",
     "text": "Wie viele Runden auf der 400-Meter-Bahn sind 10.000 Meter?",
-    "ageRating": 12,
+    "primaryCategory": "SPORTS",
     "tags": [
       "sport",
-      "mathe"
+      "mathe",
+      "leichtathletik"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 25,
     "unit": "Runden",
     "format": "number"
@@ -1625,12 +1886,14 @@
   {
     "id": "estimate-124",
     "text": "Wie lang ist ein olympisches Schwimmbecken?",
-    "ageRating": 6,
+    "primaryCategory": "SPORTS",
     "tags": [
       "sport",
-      "kinder"
+      "kinder",
+      "schwimmen"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 50,
     "unit": "m",
     "format": "number"
@@ -1638,11 +1901,13 @@
   {
     "id": "estimate-125",
     "text": "Wie viele Kilometer lang ist ungefähr die Tour de France?",
-    "ageRating": 12,
+    "primaryCategory": "SPORTS",
     "tags": [
-      "sport"
+      "sport",
+      "radsport"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 3400,
     "unit": "km",
     "format": "number",
@@ -1651,11 +1916,13 @@
   {
     "id": "estimate-126",
     "text": "Wie viele Minuten dauert ein Basketballspiel in der NBA (reine Spielzeit)?",
-    "ageRating": 12,
+    "primaryCategory": "SPORTS",
     "tags": [
-      "sport"
+      "sport",
+      "basketball"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 48,
     "unit": "Minuten",
     "format": "number"
@@ -1663,11 +1930,13 @@
   {
     "id": "estimate-127",
     "text": "Wie viele Spieler stehen bei einem Rugby-Union-Team gleichzeitig auf dem Feld?",
-    "ageRating": 12,
+    "primaryCategory": "SPORTS",
     "tags": [
-      "sport"
+      "sport",
+      "rugby"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 15,
     "unit": "Spieler",
     "format": "number"
@@ -1675,11 +1944,13 @@
   {
     "id": "estimate-128",
     "text": "Wie schwer ist eine Kugel beim Kugelstoßen der Männer?",
-    "ageRating": 12,
+    "primaryCategory": "SPORTS",
     "tags": [
-      "sport"
+      "sport",
+      "leichtathletik"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 7.26,
     "unit": "kg",
     "format": "number"
@@ -1687,11 +1958,13 @@
   {
     "id": "estimate-129",
     "text": "Wie viele Felder hat ein Mensch-ärgere-dich-nicht-Spielbrett auf der Laufbahn?",
-    "ageRating": 6,
+    "primaryCategory": "GAMES",
     "tags": [
-      "spiele"
+      "spiele",
+      "brettspiele"
     ],
     "difficulty": 2,
+    "ageRating": 6,
     "answer": 40,
     "unit": "Felder",
     "format": "number"
@@ -1699,11 +1972,13 @@
   {
     "id": "estimate-130",
     "text": "Wie viele Karten hat ein übliches Rommé-Spiel (zwei Decks plus Joker)?",
-    "ageRating": 12,
+    "primaryCategory": "GAMES",
     "tags": [
-      "spiele"
+      "spiele",
+      "karten"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 110,
     "unit": "Karten",
     "format": "number",
@@ -1712,11 +1987,13 @@
   {
     "id": "estimate-131",
     "text": "Wie viele Steine hat ein Domino-Standardspiel (Doppel-Sechs)?",
-    "ageRating": 12,
+    "primaryCategory": "GAMES",
     "tags": [
-      "spiele"
+      "spiele",
+      "domino"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 28,
     "unit": "Steine",
     "format": "number"
@@ -1724,13 +2001,15 @@
   {
     "id": "estimate-132",
     "text": "Wie viele Punkte hat ein normaler Spielwürfel insgesamt?",
-    "ageRating": 6,
+    "primaryCategory": "GAMES",
     "tags": [
       "spiele",
       "mathe",
-      "kinder"
+      "kinder",
+      "würfel"
     ],
     "difficulty": 2,
+    "ageRating": 6,
     "answer": 21,
     "unit": "Punkte",
     "format": "number"
@@ -1738,12 +2017,14 @@
   {
     "id": "estimate-133",
     "text": "Wie viele Figuren hat jeder Spieler zu Beginn einer Schachpartie?",
-    "ageRating": 6,
+    "primaryCategory": "GAMES",
     "tags": [
       "spiele",
-      "kinder"
+      "kinder",
+      "schach"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 16,
     "unit": "Figuren",
     "format": "number"
@@ -1751,11 +2032,14 @@
   {
     "id": "estimate-134",
     "text": "Wie viele Kalorien hat ungefähr eine Tafel Vollmilchschokolade (100 g)?",
-    "ageRating": 12,
+    "primaryCategory": "FOOD_DRINK",
     "tags": [
-      "essen"
+      "essen",
+      "süßigkeiten",
+      "kalorien"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 540,
     "unit": "kcal",
     "format": "number"
@@ -1763,11 +2047,13 @@
   {
     "id": "estimate-135",
     "text": "Wie viele Liter fasst eine normale Badewanne ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "SOCIETY",
     "tags": [
-      "alltag"
+      "alltag",
+      "haushalt"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 150,
     "unit": "Liter",
     "format": "number"
@@ -1775,12 +2061,15 @@
   {
     "id": "estimate-136",
     "text": "Wie viele Stück Würfelzucker stecken ungefähr in einem Liter Cola?",
-    "ageRating": 12,
+    "primaryCategory": "FOOD_DRINK",
     "tags": [
       "essen",
-      "alltag"
+      "alltag",
+      "zucker",
+      "getränke"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 36,
     "unit": "Stück",
     "format": "number",
@@ -1789,11 +2078,13 @@
   {
     "id": "estimate-137",
     "text": "Wie viele Kaffeebohnen braucht man ungefähr für eine Tasse Espresso?",
-    "ageRating": 12,
+    "primaryCategory": "FOOD_DRINK",
     "tags": [
-      "essen"
+      "essen",
+      "kaffee"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 50,
     "unit": "Bohnen",
     "format": "number"
@@ -1801,12 +2092,15 @@
   {
     "id": "estimate-138",
     "text": "Wie viele Liter Milch gibt eine Milchkuh ungefähr pro Tag?",
-    "ageRating": 12,
+    "primaryCategory": "FOOD_DRINK",
     "tags": [
       "essen",
-      "tiere"
+      "tiere",
+      "milch",
+      "bauernhof"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 28,
     "unit": "Liter",
     "format": "number"
@@ -1814,11 +2108,13 @@
   {
     "id": "estimate-139",
     "text": "Wie viele Zitronen braucht man ungefähr für einen Liter Zitronensaft?",
-    "ageRating": 12,
+    "primaryCategory": "FOOD_DRINK",
     "tags": [
-      "essen"
+      "essen",
+      "obst"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 20,
     "unit": "Zitronen",
     "format": "number"
@@ -1826,12 +2122,14 @@
   {
     "id": "estimate-140",
     "text": "Wie viele Gramm wiegt ein Tischtennisball?",
-    "ageRating": 12,
+    "primaryCategory": "SPORTS",
     "tags": [
       "sport",
-      "alltag"
+      "alltag",
+      "tischtennis"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 2.7,
     "unit": "g",
     "format": "number"
@@ -1839,11 +2137,13 @@
   {
     "id": "estimate-141",
     "text": "Wie viele Zentimeter misst die längere Seite eines DIN-A4-Blatts?",
-    "ageRating": 12,
+    "primaryCategory": "SOCIETY",
     "tags": [
-      "alltag"
+      "alltag",
+      "papier"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 29.7,
     "unit": "cm",
     "format": "number"
@@ -1851,12 +2151,14 @@
   {
     "id": "estimate-142",
     "text": "Wie viele Tasten hat eine normale deutsche Computertastatur ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "TECHNOLOGY",
     "tags": [
       "technik",
-      "alltag"
+      "alltag",
+      "computer"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 105,
     "unit": "Tasten",
     "format": "number"
@@ -1864,11 +2166,14 @@
   {
     "id": "estimate-143",
     "text": "Wie viele Sekunden hat eine Stunde?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "mathe"
+      "mathe",
+      "rechnen",
+      "zeit"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 3600,
     "unit": "Sekunden",
     "format": "number"
@@ -1876,12 +2181,14 @@
   {
     "id": "estimate-144",
     "text": "Wie viele Tage hat ein Jahr, das kein Schaltjahr ist?",
-    "ageRating": 6,
+    "primaryCategory": "SOCIETY",
     "tags": [
       "alltag",
-      "kinder"
+      "kinder",
+      "kalender"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 365,
     "unit": "Tage",
     "format": "number"
@@ -1889,11 +2196,14 @@
   {
     "id": "estimate-145",
     "text": "Wie viele Stunden hat ein Jahr (kein Schaltjahr)?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "mathe"
+      "mathe",
+      "rechnen",
+      "zeit"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 8760,
     "unit": "Stunden",
     "format": "number"
@@ -1901,11 +2211,13 @@
   {
     "id": "estimate-146",
     "text": "Wie viele Buchstaben hat das Wort „Donaudampfschifffahrt“?",
-    "ageRating": 12,
+    "primaryCategory": "LANGUAGE_LITERATURE",
     "tags": [
-      "sprache"
+      "sprache",
+      "wörter"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 21,
     "unit": "Buchstaben",
     "format": "number"
@@ -1913,11 +2225,13 @@
   {
     "id": "estimate-147",
     "text": "Wie viele Wörter hat der Duden ungefähr (28. Auflage, 2020)?",
-    "ageRating": 12,
+    "primaryCategory": "LANGUAGE_LITERATURE",
     "tags": [
-      "sprache"
+      "sprache",
+      "wörterbuch"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 148000,
     "unit": "Wörter",
     "format": "number"
@@ -1925,12 +2239,14 @@
   {
     "id": "estimate-148",
     "text": "Wie viele Fenster hat ein Adventskalender?",
-    "ageRating": 6,
+    "primaryCategory": "SOCIETY",
     "tags": [
       "alltag",
-      "kinder"
+      "kinder",
+      "weihnachten"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 24,
     "unit": "Fenster",
     "format": "number"
@@ -1938,12 +2254,14 @@
   {
     "id": "estimate-149",
     "text": "Wie viele Kerzen hat ein Adventskranz?",
-    "ageRating": 6,
+    "primaryCategory": "SOCIETY",
     "tags": [
       "alltag",
-      "kinder"
+      "kinder",
+      "weihnachten"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 4,
     "unit": "Kerzen",
     "format": "number"
@@ -1951,12 +2269,14 @@
   {
     "id": "estimate-150",
     "text": "Wie viele Zwerge gibt es im Märchen Schneewittchen?",
-    "ageRating": 6,
+    "primaryCategory": "LANGUAGE_LITERATURE",
     "tags": [
       "literatur",
-      "kinder"
+      "kinder",
+      "märchen"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 7,
     "unit": "Zwerge",
     "format": "number"
@@ -1964,11 +2284,14 @@
   {
     "id": "estimate-151",
     "text": "Wie viele Streifen hat die Flagge der USA?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "flaggen",
+      "usa"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 13,
     "unit": "Streifen",
     "format": "number",
@@ -1977,11 +2300,14 @@
   {
     "id": "estimate-152",
     "text": "Wie viele Sterne hat die Flagge der Europäischen Union?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "flaggen",
+      "europa"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 12,
     "unit": "Sterne",
     "format": "number"
@@ -1989,11 +2315,14 @@
   {
     "id": "estimate-153",
     "text": "Wie viele Sterne hat die Flagge der USA?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "flaggen",
+      "usa"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 50,
     "unit": "Sterne",
     "format": "number"
@@ -2001,12 +2330,15 @@
   {
     "id": "estimate-154",
     "text": "Wie viele Flächen hat ein klassischer Fußball aus Fünf- und Sechsecken?",
-    "ageRating": 12,
+    "primaryCategory": "SPORTS",
     "tags": [
       "sport",
-      "mathe"
+      "mathe",
+      "fußball",
+      "geometrie"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 32,
     "unit": "Flächen",
     "format": "number",
@@ -2015,11 +2347,14 @@
   {
     "id": "estimate-155",
     "text": "Wie viele verschiedene Euro-Cent-Münzen gibt es?",
-    "ageRating": 6,
+    "primaryCategory": "BUSINESS",
     "tags": [
-      "alltag"
+      "alltag",
+      "geld",
+      "euro"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 6,
     "unit": "Sorten",
     "format": "number",
@@ -2028,11 +2363,14 @@
   {
     "id": "estimate-156",
     "text": "Wie viele Euro-Banknoten-Werte gibt es aktuell?",
-    "ageRating": 12,
+    "primaryCategory": "BUSINESS",
     "tags": [
-      "alltag"
+      "alltag",
+      "geld",
+      "euro"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 7,
     "unit": "Werte",
     "format": "number",
@@ -2041,11 +2379,13 @@
   {
     "id": "estimate-157",
     "text": "Wie viele Bundesländer hat Österreich?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "österreich"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 9,
     "unit": "Bundesländer",
     "format": "number"
@@ -2053,11 +2393,13 @@
   {
     "id": "estimate-158",
     "text": "Wie viele Kantone hat die Schweiz?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "schweiz"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 26,
     "unit": "Kantone",
     "format": "number"
@@ -2065,11 +2407,13 @@
   {
     "id": "estimate-159",
     "text": "Wie viele Grifflöcher hat eine Sopranblockflöte?",
-    "ageRating": 6,
+    "primaryCategory": "MUSIC",
     "tags": [
-      "musik"
+      "musik",
+      "instrumente"
     ],
     "difficulty": 2,
+    "ageRating": 6,
     "answer": 8,
     "unit": "Löcher",
     "format": "number",
@@ -2078,11 +2422,14 @@
   {
     "id": "estimate-160",
     "text": "Wie viele Sinfonien komponierte Beethoven?",
-    "ageRating": 12,
+    "primaryCategory": "MUSIC",
     "tags": [
-      "musik"
+      "musik",
+      "komponisten",
+      "klassik"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 9,
     "unit": "Sinfonien",
     "format": "number"
@@ -2090,12 +2437,15 @@
   {
     "id": "estimate-161",
     "text": "Wie viele Harry-Potter-Bücher gibt es in der Hauptreihe?",
-    "ageRating": 6,
+    "primaryCategory": "LANGUAGE_LITERATURE",
     "tags": [
       "literatur",
-      "kinder"
+      "kinder",
+      "bücher",
+      "harry-potter"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 7,
     "unit": "Bücher",
     "format": "number"
@@ -2103,11 +2453,13 @@
   {
     "id": "estimate-162",
     "text": "Wie viele Filme hat die Hauptreihe „Der Herr der Ringe“ von Peter Jackson?",
-    "ageRating": 12,
+    "primaryCategory": "MOVIES_TV",
     "tags": [
-      "film"
+      "film",
+      "fantasy"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 3,
     "unit": "Filme",
     "format": "number"
@@ -2115,11 +2467,13 @@
   {
     "id": "estimate-163",
     "text": "Wie viele Minuten dauert der Film „Titanic“ (1997) ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "MOVIES_TV",
     "tags": [
-      "film"
+      "film",
+      "kino"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 194,
     "unit": "Minuten",
     "format": "number"
@@ -2127,11 +2481,13 @@
   {
     "id": "estimate-164",
     "text": "Wie viele Oscars gewann „Titanic“?",
-    "ageRating": 12,
+    "primaryCategory": "MOVIES_TV",
     "tags": [
-      "film"
+      "film",
+      "oscars"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 11,
     "unit": "Oscars",
     "format": "number"
@@ -2139,11 +2495,13 @@
   {
     "id": "estimate-165",
     "text": "Wie viele Saiten hat eine Harfe (Konzertharfe) ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "MUSIC",
     "tags": [
-      "musik"
+      "musik",
+      "instrumente"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 47,
     "unit": "Saiten",
     "format": "number"
@@ -2151,11 +2509,13 @@
   {
     "id": "estimate-166",
     "text": "Wie viele Mitglieder hatten die Beatles?",
-    "ageRating": 12,
+    "primaryCategory": "MUSIC",
     "tags": [
-      "musik"
+      "musik",
+      "bands"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 4,
     "unit": "Mitglieder",
     "format": "number"
@@ -2163,11 +2523,13 @@
   {
     "id": "estimate-167",
     "text": "Wie viele Länder nahmen am ersten Eurovision Song Contest 1956 teil?",
-    "ageRating": 12,
+    "primaryCategory": "MUSIC",
     "tags": [
-      "musik"
+      "musik",
+      "eurovision"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 7,
     "unit": "Länder",
     "format": "number"
@@ -2175,11 +2537,13 @@
   {
     "id": "estimate-168",
     "text": "Wie viele Folgen hat die Serie „Friends“ insgesamt?",
-    "ageRating": 12,
+    "primaryCategory": "MOVIES_TV",
     "tags": [
-      "film"
+      "film",
+      "serien"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 236,
     "unit": "Folgen",
     "format": "number"
@@ -2187,12 +2551,14 @@
   {
     "id": "estimate-169",
     "text": "Wie viele Dalmatiner kommen im Titel des Disney-Films vor?",
-    "ageRating": 6,
+    "primaryCategory": "MOVIES_TV",
     "tags": [
       "film",
-      "kinder"
+      "kinder",
+      "disney"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 101,
     "unit": "Dalmatiner",
     "format": "number"
@@ -2200,12 +2566,14 @@
   {
     "id": "estimate-170",
     "text": "Wie viele Jahre schlief Dornröschen im Märchen der Brüder Grimm?",
-    "ageRating": 6,
+    "primaryCategory": "LANGUAGE_LITERATURE",
     "tags": [
       "literatur",
-      "kinder"
+      "kinder",
+      "märchen"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 100,
     "unit": "Jahre",
     "format": "number"
@@ -2213,11 +2581,13 @@
   {
     "id": "estimate-171",
     "text": "Wie viele Tage dauerte die Reise „In 80 Tagen um die Welt“ laut Titel?",
-    "ageRating": 12,
+    "primaryCategory": "LANGUAGE_LITERATURE",
     "tags": [
-      "literatur"
+      "literatur",
+      "klassiker"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 80,
     "unit": "Tage",
     "format": "number"
@@ -2225,11 +2595,13 @@
   {
     "id": "estimate-172",
     "text": "Bei wie viel Grad Celsius schmilzt Eisen ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "wissenschaft"
+      "wissenschaft",
+      "metalle"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 1538,
     "unit": "°C",
     "format": "number"
@@ -2237,11 +2609,13 @@
   {
     "id": "estimate-173",
     "text": "Wie viele chemische Elemente sind bisher im Periodensystem benannt?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "wissenschaft"
+      "wissenschaft",
+      "chemie"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 118,
     "unit": "Elemente",
     "format": "number"
@@ -2249,12 +2623,14 @@
   {
     "id": "estimate-174",
     "text": "Wie viele Kilometer pro Stunde erreicht ein ICE maximal im Regelbetrieb in Deutschland?",
-    "ageRating": 12,
+    "primaryCategory": "MOBILITY",
     "tags": [
       "technik",
-      "deutschland"
+      "deutschland",
+      "bahn"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 300,
     "unit": "km/h",
     "format": "number"
@@ -2262,12 +2638,14 @@
   {
     "id": "estimate-175",
     "text": "Wie hoch fliegt ein Passagierflugzeug ungefähr auf Reiseflughöhe?",
-    "ageRating": 12,
+    "primaryCategory": "MOBILITY",
     "tags": [
       "technik",
-      "reisen"
+      "reisen",
+      "luftfahrt"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 11000,
     "unit": "m",
     "format": "number"
@@ -2275,12 +2653,14 @@
   {
     "id": "estimate-176",
     "text": "Wie schnell fliegt ein Verkehrsflugzeug ungefähr auf Reiseflughöhe?",
-    "ageRating": 12,
+    "primaryCategory": "MOBILITY",
     "tags": [
       "technik",
-      "reisen"
+      "reisen",
+      "luftfahrt"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 900,
     "unit": "km/h",
     "format": "number"
@@ -2288,12 +2668,14 @@
   {
     "id": "estimate-177",
     "text": "Wie viele Passagiere passen ungefähr in einen Airbus A380 (typische Bestuhlung)?",
-    "ageRating": 12,
+    "primaryCategory": "MOBILITY",
     "tags": [
       "technik",
-      "reisen"
+      "reisen",
+      "luftfahrt"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 525,
     "unit": "Passagiere",
     "format": "number"
@@ -2301,11 +2683,13 @@
   {
     "id": "estimate-178",
     "text": "Wie viele Bits hat ein Byte?",
-    "ageRating": 12,
+    "primaryCategory": "TECHNOLOGY",
     "tags": [
-      "technik"
+      "technik",
+      "computer"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 8,
     "unit": "Bits",
     "format": "number"
@@ -2313,12 +2697,15 @@
   {
     "id": "estimate-179",
     "text": "Wie viele Kilogramm wiegt ein Liter Wasser?",
-    "ageRating": 6,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "wissenschaft",
-      "kinder"
+      "kinder",
+      "physik",
+      "wasser"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 1,
     "unit": "kg",
     "format": "number"
@@ -2326,11 +2713,14 @@
   {
     "id": "estimate-180",
     "text": "Bei wie viel Grad Fahrenheit gefriert Wasser?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "wissenschaft"
+      "wissenschaft",
+      "physik",
+      "einheiten"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 32,
     "unit": "°F",
     "format": "number"
@@ -2338,12 +2728,15 @@
   {
     "id": "estimate-181",
     "text": "Wie viele Farben hat ein Regenbogen (nach klassischer Einteilung)?",
-    "ageRating": 6,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "natur",
-      "kinder"
+      "kinder",
+      "licht",
+      "wetter"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 7,
     "unit": "Farben",
     "format": "number"
@@ -2351,12 +2744,14 @@
   {
     "id": "estimate-182",
     "text": "Wie viele Ecken hat ein Würfel?",
-    "ageRating": 6,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "mathe",
-      "kinder"
+      "kinder",
+      "geometrie"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 8,
     "unit": "Ecken",
     "format": "number"
@@ -2364,11 +2759,13 @@
   {
     "id": "estimate-183",
     "text": "Wie viele Kanten hat ein Würfel?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "mathe"
+      "mathe",
+      "geometrie"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 12,
     "unit": "Kanten",
     "format": "number"
@@ -2376,11 +2773,14 @@
   {
     "id": "estimate-184",
     "text": "Wie viel ist 15 Prozent von 200?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "mathe"
+      "mathe",
+      "rechnen",
+      "prozent"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 30,
     "unit": "",
     "format": "number"
@@ -2388,11 +2788,13 @@
   {
     "id": "estimate-185",
     "text": "Wie viel ist 12 mal 12?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "mathe"
+      "mathe",
+      "rechnen"
     ],
     "difficulty": 1,
+    "ageRating": 12,
     "answer": 144,
     "unit": "",
     "format": "number"
@@ -2400,11 +2802,13 @@
   {
     "id": "estimate-186",
     "text": "Wie viele Nullen hat eine Milliarde?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
-      "mathe"
+      "mathe",
+      "zahlen"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 9,
     "unit": "Nullen",
     "format": "number"
@@ -2412,12 +2816,15 @@
   {
     "id": "estimate-187",
     "text": "Wie viele Sekunden hat ein Fußballspiel über 90 Minuten?",
-    "ageRating": 12,
+    "primaryCategory": "SCIENCE",
     "tags": [
       "mathe",
-      "sport"
+      "sport",
+      "rechnen",
+      "fußball"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 5400,
     "unit": "Sekunden",
     "format": "number"
@@ -2425,12 +2832,15 @@
   {
     "id": "estimate-188",
     "text": "Wie viele Kilometer läuft man ungefähr bei 10.000 Schritten?",
-    "ageRating": 12,
+    "primaryCategory": "SOCIETY",
     "tags": [
       "alltag",
-      "körper"
+      "körper",
+      "gehen",
+      "gesundheit"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 7.5,
     "unit": "km",
     "format": "number",
@@ -2439,11 +2849,14 @@
   {
     "id": "estimate-189",
     "text": "Wie viele Liter Wasser verbraucht eine volle Toilettenspülung ungefähr (moderne Toilette)?",
-    "ageRating": 12,
+    "primaryCategory": "SOCIETY",
     "tags": [
-      "alltag"
+      "alltag",
+      "haushalt",
+      "wasser"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 6,
     "unit": "Liter",
     "format": "number"
@@ -2451,12 +2864,15 @@
   {
     "id": "estimate-190",
     "text": "Wie viele Liter Wasser verbraucht ein Mensch in Deutschland ungefähr pro Tag im Haushalt?",
-    "ageRating": 12,
+    "primaryCategory": "SOCIETY",
     "tags": [
       "alltag",
-      "deutschland"
+      "deutschland",
+      "haushalt",
+      "wasser"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 125,
     "unit": "Liter",
     "format": "number"
@@ -2464,12 +2880,15 @@
   {
     "id": "estimate-191",
     "text": "Wie lang ist der Gotthard-Basistunnel, der längste Eisenbahntunnel der Welt?",
-    "ageRating": 12,
+    "primaryCategory": "MOBILITY",
     "tags": [
       "bauwerke",
-      "technik"
+      "technik",
+      "bahn",
+      "tunnel"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 57,
     "unit": "km",
     "format": "number"
@@ -2477,11 +2896,13 @@
   {
     "id": "estimate-192",
     "text": "Wie schwer ist die Freiheitsstatue ungefähr (Kupferhaut und Stahlgerüst)?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
-      "bauwerke"
+      "bauwerke",
+      "usa"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 225,
     "unit": "Tonnen",
     "format": "number"
@@ -2489,11 +2910,13 @@
   {
     "id": "estimate-193",
     "text": "Wie viele Stockwerke hat der Burj Khalifa ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
-      "bauwerke"
+      "bauwerke",
+      "wolkenkratzer"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 163,
     "unit": "Stockwerke",
     "format": "number"
@@ -2501,12 +2924,14 @@
   {
     "id": "estimate-194",
     "text": "Wie viele Kilometer Schienen hat das deutsche Bahnnetz ungefähr (Streckenlänge)?",
-    "ageRating": 12,
+    "primaryCategory": "MOBILITY",
     "tags": [
       "technik",
-      "deutschland"
+      "deutschland",
+      "bahn"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 33000,
     "unit": "km",
     "format": "number"
@@ -2514,12 +2939,14 @@
   {
     "id": "estimate-195",
     "text": "Wie viele Kilometer Autobahn hat Deutschland ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "MOBILITY",
     "tags": [
       "deutschland",
-      "reisen"
+      "reisen",
+      "autobahn"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 13000,
     "unit": "km",
     "format": "number"
@@ -2527,11 +2954,14 @@
   {
     "id": "estimate-196",
     "text": "Wie viele Kilometer Luftlinie sind es ungefähr zwischen Nord- und Südpol?",
-    "ageRating": 12,
+    "primaryCategory": "GEOGRAPHY",
     "tags": [
-      "geografie"
+      "geografie",
+      "erde",
+      "entfernungen"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 20000,
     "unit": "km",
     "format": "number",
@@ -2540,12 +2970,15 @@
   {
     "id": "estimate-197",
     "text": "Wie viele Säulen hat das Brandenburger Tor?",
-    "ageRating": 12,
+    "primaryCategory": "ART_CULTURE",
     "tags": [
       "bauwerke",
-      "deutschland"
+      "deutschland",
+      "berlin",
+      "wahrzeichen"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 12,
     "unit": "Säulen",
     "format": "number",
@@ -2554,12 +2987,15 @@
   {
     "id": "estimate-198",
     "text": "Wie lang ist der Eurotunnel unter dem Ärmelkanal ungefähr?",
-    "ageRating": 12,
+    "primaryCategory": "MOBILITY",
     "tags": [
       "bauwerke",
-      "technik"
+      "technik",
+      "bahn",
+      "tunnel"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 50,
     "unit": "km",
     "format": "number"
@@ -2567,11 +3003,13 @@
   {
     "id": "estimate-199",
     "text": "Wie viele Minuten dauert ein Handballspiel (reine Spielzeit)?",
-    "ageRating": 12,
+    "primaryCategory": "SPORTS",
     "tags": [
-      "sport"
+      "sport",
+      "handball"
     ],
     "difficulty": 2,
+    "ageRating": 12,
     "answer": 60,
     "unit": "Minuten",
     "format": "number",
@@ -2580,12 +3018,14 @@
   {
     "id": "estimate-200",
     "text": "Wie viele Spieler einer Volleyballmannschaft stehen gleichzeitig auf dem Feld?",
-    "ageRating": 6,
+    "primaryCategory": "SPORTS",
     "tags": [
       "sport",
-      "kinder"
+      "kinder",
+      "volleyball"
     ],
     "difficulty": 1,
+    "ageRating": 6,
     "answer": 6,
     "unit": "Spieler",
     "format": "number"
@@ -2593,14 +3033,1676 @@
   {
     "id": "estimate-201",
     "text": "Wie viele Arme und Fangarme hat ein Kalmar zusammen?",
-    "ageRating": 12,
+    "primaryCategory": "NATURE",
     "tags": [
-      "tiere"
+      "tiere",
+      "meerestiere"
     ],
     "difficulty": 3,
+    "ageRating": 12,
     "answer": 10,
     "unit": "",
     "format": "number",
     "fact": "Acht Arme und zwei lange Fangarme."
+  },
+  {
+    "id": "estimate-202",
+    "text": "Wie viele Beine haben ein Hund, eine Katze und ein Huhn zusammen?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "rechnen",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 10,
+    "unit": "Beine",
+    "format": "number",
+    "zeroRange": 10,
+    "fact": "Hund und Katze haben je vier Beine, das Huhn zwei – macht zusammen zehn."
+  },
+  {
+    "id": "estimate-203",
+    "text": "Wie viele Zähne hat ein erwachsener Hund?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "haustiere",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 42,
+    "unit": "Zähne",
+    "format": "number",
+    "zeroRange": 30,
+    "fact": "Ein erwachsener Hund hat 42 Zähne – zehn mehr als ein erwachsener Mensch."
+  },
+  {
+    "id": "estimate-204",
+    "text": "Wie viele Zähne hat eine erwachsene Katze?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "haustiere",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 30,
+    "unit": "Zähne",
+    "format": "number",
+    "zeroRange": 20,
+    "fact": "Erwachsene Katzen haben 30 Zähne, Katzenbabys nur 26 Milchzähne."
+  },
+  {
+    "id": "estimate-205",
+    "text": "Wie viele Tage dauert es ungefähr, bis aus einem bebrüteten Hühnerei ein Küken schlüpft?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "bauernhof",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 21,
+    "unit": "Tage",
+    "format": "number",
+    "zeroRange": 20,
+    "fact": "Nach etwa drei Wochen pickt sich das Küken aus dem Ei."
+  },
+  {
+    "id": "estimate-206",
+    "text": "Wie viele Halswirbel hat eine Giraffe?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "körper",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 7,
+    "unit": "Wirbel",
+    "format": "number",
+    "zeroRange": 10,
+    "fact": "Genau so viele wie der Mensch – nur ist jeder Wirbel viel größer."
+  },
+  {
+    "id": "estimate-207",
+    "text": "Wie viele Mägen (Magenabschnitte) hat eine Kuh?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "bauernhof",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 4,
+    "unit": "Mägen",
+    "format": "number",
+    "zeroRange": 5,
+    "fact": "Die Kuh hat drei Vormägen und einen Labmagen."
+  },
+  {
+    "id": "estimate-208",
+    "text": "Wie viele Stacheln hat ein erwachsener Igel ungefähr?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "wald",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 7000,
+    "unit": "Stacheln",
+    "format": "number",
+    "zeroRange": 7000,
+    "fact": "Ein erwachsener Igel trägt etwa 6.000 bis 8.000 Stacheln."
+  },
+  {
+    "id": "estimate-209",
+    "text": "Wie viele Jahre wird eine Hauskatze durchschnittlich ungefähr alt?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "haustiere",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 15,
+    "unit": "Jahre",
+    "format": "number",
+    "zeroRange": 12,
+    "fact": "Viele Hauskatzen werden etwa 12 bis 18 Jahre alt."
+  },
+  {
+    "id": "estimate-210",
+    "text": "Wie schnell kann ein Strauß ungefähr rennen?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "geschwindigkeit",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 70,
+    "unit": "km/h",
+    "format": "number",
+    "zeroRange": 50,
+    "fact": "Der Strauß ist mit etwa 70 km/h der schnellste Vogel zu Fuß."
+  },
+  {
+    "id": "estimate-211",
+    "text": "Wie schwer ist ein Straußenei ungefähr?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "vögel",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 1.5,
+    "unit": "kg",
+    "format": "number",
+    "zeroRange": 2,
+    "fact": "Ein Straußenei wiegt rund 1,5 Kilogramm – so viel wie etwa 25 Hühnereier."
+  },
+  {
+    "id": "estimate-212",
+    "text": "Wie schwer ist ein neugeborenes Pandababy ungefähr?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "babys",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 100,
+    "unit": "g",
+    "format": "number",
+    "zeroRange": 500,
+    "fact": "Ein Pandababy wiegt etwa 100 Gramm – so viel wie eine Tafel Schokolade."
+  },
+  {
+    "id": "estimate-213",
+    "text": "Wie viele Stunden am Tag schläft oder döst ein Löwe ungefähr?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "schlaf",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 20,
+    "unit": "Stunden",
+    "format": "number",
+    "zeroRange": 12,
+    "fact": "Löwen ruhen bis zu 20 Stunden am Tag, um Kraft für die Jagd zu sparen."
+  },
+  {
+    "id": "estimate-214",
+    "text": "Wie viele Kilogramm Pflanzen frisst ein Elefant ungefähr an einem Tag?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "essen",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 150,
+    "unit": "kg",
+    "format": "number",
+    "zeroRange": 150,
+    "fact": "Ein Elefant frisst täglich etwa 150 Kilogramm Gras, Blätter und Zweige."
+  },
+  {
+    "id": "estimate-215",
+    "text": "Wie viele Tage ist eine Hündin ungefähr trächtig?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "haustiere",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 63,
+    "unit": "Tage",
+    "format": "number",
+    "zeroRange": 50,
+    "fact": "Nach etwa 63 Tagen, also rund neun Wochen, kommen die Welpen zur Welt."
+  },
+  {
+    "id": "estimate-216",
+    "text": "Wie lang ist die Zunge einer Giraffe ungefähr?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "körper",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 50,
+    "unit": "cm",
+    "format": "number",
+    "zeroRange": 40,
+    "fact": "Mit ihrer etwa 50 cm langen Zunge zupft die Giraffe Blätter von dornigen Ästen."
+  },
+  {
+    "id": "estimate-217",
+    "text": "Wie viele Augen haben die meisten Spinnen?",
+    "primaryCategory": "NATURE",
+    "tags": [
+      "tiere",
+      "insekten",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 8,
+    "unit": "Augen",
+    "format": "number",
+    "zeroRange": 8,
+    "fact": "Die meisten Spinnen haben acht Augen – genauso viele wie Beine."
+  },
+  {
+    "id": "estimate-218",
+    "text": "Wie viele Rippen hat ein Mensch normalerweise?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "körper",
+      "knochen",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 24,
+    "unit": "Rippen",
+    "format": "number",
+    "zeroRange": 20,
+    "fact": "Der Mensch hat zwölf Rippenpaare, also 24 Rippen."
+  },
+  {
+    "id": "estimate-219",
+    "text": "Wie viele Knochen hat ein menschlicher Fuß?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "körper",
+      "knochen",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 26,
+    "unit": "Knochen",
+    "format": "number",
+    "zeroRange": 20,
+    "fact": "In jedem Fuß stecken 26 Knochen."
+  },
+  {
+    "id": "estimate-220",
+    "text": "Wie oft atmet ein Erwachsener in Ruhe ungefähr pro Minute?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "körper",
+      "atmung",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 15,
+    "unit": "Atemzüge",
+    "format": "number",
+    "zeroRange": 15,
+    "fact": "In Ruhe atmet ein Erwachsener etwa 12- bis 16-mal pro Minute."
+  },
+  {
+    "id": "estimate-221",
+    "text": "Wie viele Sinne hat der Mensch nach klassischer Einteilung?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "körper",
+      "sinne",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 5,
+    "unit": "Sinne",
+    "format": "number",
+    "zeroRange": 5,
+    "fact": "Sehen, Hören, Riechen, Schmecken und Tasten sind die fünf klassischen Sinne."
+  },
+  {
+    "id": "estimate-222",
+    "text": "Wie viele Monate dauert eine Schwangerschaft beim Menschen ungefähr?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "körper",
+      "babys",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 9,
+    "unit": "Monate",
+    "format": "number",
+    "zeroRange": 6,
+    "fact": "Eine Schwangerschaft dauert rund neun Monate."
+  },
+  {
+    "id": "estimate-223",
+    "text": "Wie oft dreht sich der Minutenzeiger einer Uhr an einem Tag einmal ganz herum?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "uhr",
+      "zeit",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 24,
+    "unit": "Runden",
+    "format": "number",
+    "zeroRange": 24,
+    "fact": "Der Minutenzeiger schafft jede Stunde eine Runde – also 24 am Tag."
+  },
+  {
+    "id": "estimate-224",
+    "text": "Wie viele Stunden hat ein Wochenende von Samstag bis Sonntag?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "zeit",
+      "rechnen",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 48,
+    "unit": "Stunden",
+    "format": "number",
+    "zeroRange": 30,
+    "fact": "Zwei Tage mit je 24 Stunden ergeben 48 Stunden."
+  },
+  {
+    "id": "estimate-225",
+    "text": "Wie viele Monate im Jahr haben 31 Tage?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "kalender",
+      "zeit",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 7,
+    "unit": "Monate",
+    "format": "number",
+    "zeroRange": 6,
+    "fact": "Januar, März, Mai, Juli, August, Oktober und Dezember haben 31 Tage."
+  },
+  {
+    "id": "estimate-226",
+    "text": "Wie viele Minuten dauert eine Schulstunde in Deutschland normalerweise?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "schule",
+      "zeit",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 45,
+    "unit": "Minuten",
+    "format": "number",
+    "zeroRange": 30,
+    "fact": "Eine klassische Schulstunde dauert 45 Minuten."
+  },
+  {
+    "id": "estimate-227",
+    "text": "Wie viele Tasten hat das Zahlenfeld eines Telefons (mit Stern und Raute)?",
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "telefon",
+      "alltag",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 12,
+    "unit": "Tasten",
+    "format": "number",
+    "zeroRange": 10,
+    "fact": "Die Ziffern 0 bis 9 plus Stern und Raute ergeben zwölf Tasten."
+  },
+  {
+    "id": "estimate-228",
+    "text": "Wie schnell darf man mit dem Auto innerorts in Deutschland normalerweise fahren?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "verkehr",
+      "auto",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 50,
+    "unit": "km/h",
+    "format": "number",
+    "zeroRange": 40,
+    "fact": "Innerhalb geschlossener Ortschaften gilt in Deutschland Tempo 50, wenn nichts anderes ausgeschildert ist."
+  },
+  {
+    "id": "estimate-229",
+    "text": "Wie viele Ringe hat das Logo der Automarke Audi?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "auto",
+      "logos",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 4,
+    "unit": "Ringe",
+    "format": "number",
+    "zeroRange": 5,
+    "fact": "Die vier Ringe stehen für vier Firmen, die sich 1932 zusammenschlossen."
+  },
+  {
+    "id": "estimate-230",
+    "text": "Wie viele Buchstaben hat das Wort „Schmetterling“?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "wörter",
+      "buchstaben",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 13,
+    "unit": "Buchstaben",
+    "format": "number",
+    "zeroRange": 10,
+    "fact": "S-c-h-m-e-t-t-e-r-l-i-n-g – das sind 13 Buchstaben."
+  },
+  {
+    "id": "estimate-231",
+    "text": "Wie viele schwarze Tasten hat ein klassisches Klavier?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "instrumente",
+      "klavier",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 36,
+    "unit": "Tasten",
+    "format": "number",
+    "zeroRange": 30,
+    "fact": "Von den 88 Tasten sind 36 schwarz und 52 weiß."
+  },
+  {
+    "id": "estimate-232",
+    "text": "Wie viele Planeten unseres Sonnensystems haben Ringe?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "weltall",
+      "planeten",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 4,
+    "unit": "Planeten",
+    "format": "number",
+    "zeroRange": 5,
+    "fact": "Jupiter, Saturn, Uranus und Neptun haben Ringe – beim Saturn sind sie nur am auffälligsten."
+  },
+  {
+    "id": "estimate-233",
+    "text": "Aus wie vielen hellen Sternen besteht der Große Wagen?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "weltall",
+      "sterne",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 7,
+    "unit": "Sterne",
+    "format": "number",
+    "zeroRange": 7,
+    "fact": "Vier Sterne bilden den Wagenkasten, drei die Deichsel."
+  },
+  {
+    "id": "estimate-234",
+    "text": "Wie viele Astronauten flogen mit Apollo 11 zum Mond?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "weltall",
+      "mond",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 3,
+    "unit": "Astronauten",
+    "format": "number",
+    "zeroRange": 4,
+    "fact": "Armstrong und Aldrin landeten, Michael Collins blieb im Mondorbit."
+  },
+  {
+    "id": "estimate-235",
+    "text": "Wie viele Spieler einer Eishockeymannschaft stehen gleichzeitig auf dem Eis (mit Torhüter)?",
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "eishockey",
+      "mannschaft",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 6,
+    "unit": "Spieler",
+    "format": "number",
+    "zeroRange": 6,
+    "fact": "Fünf Feldspieler und ein Torhüter stehen pro Team auf dem Eis."
+  },
+  {
+    "id": "estimate-236",
+    "text": "Wie viele Minuten reine Spielzeit hat ein Eishockeyspiel ohne Verlängerung?",
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "eishockey",
+      "spielzeit",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 60,
+    "unit": "Minuten",
+    "format": "number",
+    "zeroRange": 40,
+    "fact": "Gespielt werden drei Drittel mit je 20 Minuten."
+  },
+  {
+    "id": "estimate-237",
+    "text": "Wie viele Meter ist der Elfmeterpunkt beim Fußball von der Torlinie entfernt?",
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "fußball",
+      "regeln",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 11,
+    "unit": "m",
+    "format": "number",
+    "zeroRange": 10,
+    "fact": "Der Name verrät es: Der Elfmeterpunkt liegt elf Meter vor dem Tor."
+  },
+  {
+    "id": "estimate-238",
+    "text": "Wie viele Punkte braucht man im Tischtennis mindestens, um einen Satz zu gewinnen?",
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "tischtennis",
+      "regeln",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 11,
+    "unit": "Punkte",
+    "format": "number",
+    "zeroRange": 10,
+    "fact": "Ein Satz geht bis 11 Punkte – mit mindestens zwei Punkten Vorsprung."
+  },
+  {
+    "id": "estimate-239",
+    "text": "Bis wie viele Punkte geht ein normaler Satz im Volleyball?",
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "volleyball",
+      "regeln",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 25,
+    "unit": "Punkte",
+    "format": "number",
+    "zeroRange": 20,
+    "fact": "Ein Satz geht bis 25 Punkte, nur der Entscheidungssatz bis 15."
+  },
+  {
+    "id": "estimate-240",
+    "text": "Wie viele Pins (Kegel) stehen beim Bowling am Anfang?",
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "bowling",
+      "spiele",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 10,
+    "unit": "Pins",
+    "format": "number",
+    "zeroRange": 8,
+    "fact": "Beim Bowling stehen zehn Pins in einem Dreieck."
+  },
+  {
+    "id": "estimate-241",
+    "text": "Wie viele Spieler einer Handballmannschaft stehen gleichzeitig auf dem Feld (mit Torwart)?",
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "handball",
+      "mannschaft",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 7,
+    "unit": "Spieler",
+    "format": "number",
+    "zeroRange": 6,
+    "fact": "Sechs Feldspieler und ein Torwart bilden eine Handballmannschaft auf dem Feld."
+  },
+  {
+    "id": "estimate-242",
+    "text": "Wie hoch ist das Netz beim Tischtennis?",
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "tischtennis",
+      "regeln",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 15.25,
+    "unit": "cm",
+    "format": "number",
+    "zeroRange": 15,
+    "fact": "Das Tischtennisnetz ist genau 15,25 cm hoch."
+  },
+  {
+    "id": "estimate-243",
+    "text": "Wie viele Felder hat ein Tic-Tac-Toe-Spielfeld?",
+    "primaryCategory": "GAMES",
+    "tags": [
+      "spiele",
+      "brettspiele",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 9,
+    "unit": "Felder",
+    "format": "number",
+    "zeroRange": 8,
+    "fact": "Tic-Tac-Toe wird auf drei mal drei Feldern gespielt."
+  },
+  {
+    "id": "estimate-244",
+    "text": "Wie viele Kästchen hat ein normales Sudoku?",
+    "primaryCategory": "GAMES",
+    "tags": [
+      "rätsel",
+      "rechnen",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 81,
+    "unit": "Kästchen",
+    "format": "number",
+    "zeroRange": 60,
+    "fact": "Ein Sudoku hat neun mal neun, also 81 Kästchen."
+  },
+  {
+    "id": "estimate-245",
+    "text": "Mit wie vielen Steinen startet jeder Spieler beim Brettspiel Mühle?",
+    "primaryCategory": "GAMES",
+    "tags": [
+      "brettspiele",
+      "spiele",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 9,
+    "unit": "Steine",
+    "format": "number",
+    "zeroRange": 8,
+    "fact": "Jeder Spieler hat neun Steine – deshalb heißt das Spiel auch Neunermühle."
+  },
+  {
+    "id": "estimate-246",
+    "text": "Wie viele Felder hat ein klassisches Monopoly-Spielbrett rundherum?",
+    "primaryCategory": "GAMES",
+    "tags": [
+      "brettspiele",
+      "spiele",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 40,
+    "unit": "Felder",
+    "format": "number",
+    "zeroRange": 30,
+    "fact": "Auf dem Monopoly-Brett gibt es 40 Felder, darunter vier Eckfelder."
+  },
+  {
+    "id": "estimate-247",
+    "text": "Wie viele Löcher hat das Spielgitter von „Vier gewinnt“?",
+    "primaryCategory": "GAMES",
+    "tags": [
+      "spiele",
+      "brettspiele",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 42,
+    "unit": "Löcher",
+    "format": "number",
+    "zeroRange": 30,
+    "fact": "Das Gitter hat sieben Spalten und sechs Reihen – also 42 Plätze."
+  },
+  {
+    "id": "estimate-248",
+    "text": "Wie viele bunte Farbfelder hat ein klassischer Zauberwürfel (3×3×3) insgesamt?",
+    "primaryCategory": "GAMES",
+    "tags": [
+      "spiele",
+      "würfel",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 54,
+    "unit": "Felder",
+    "format": "number",
+    "zeroRange": 40,
+    "fact": "Sechs Seiten mit je neun Feldern ergeben 54 Farbfelder."
+  },
+  {
+    "id": "estimate-249",
+    "text": "Wie viele Karten hat ein normales Kartenspiel mit französischem Blatt ohne Joker?",
+    "primaryCategory": "GAMES",
+    "tags": [
+      "kartenspiele",
+      "spiele",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 52,
+    "unit": "Karten",
+    "format": "number",
+    "zeroRange": 40,
+    "fact": "Vier Farben mit je 13 Karten ergeben 52 Karten."
+  },
+  {
+    "id": "estimate-250",
+    "text": "Wie viele verschiedene Steinformen gibt es im klassischen Tetris?",
+    "primaryCategory": "GAMES",
+    "tags": [
+      "videospiele",
+      "spiele",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 7,
+    "unit": "Formen",
+    "format": "number",
+    "zeroRange": 6,
+    "fact": "Tetris hat sieben Steine aus je vier Quadraten."
+  },
+  {
+    "id": "estimate-251",
+    "text": "Wie viele Pokémon gab es in der allerersten Generation?",
+    "primaryCategory": "GAMES",
+    "tags": [
+      "videospiele",
+      "pokémon",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 151,
+    "unit": "Pokémon",
+    "format": "number",
+    "zeroRange": 120,
+    "fact": "Die erste Generation endet mit Mew als Nummer 151."
+  },
+  {
+    "id": "estimate-252",
+    "text": "Wie viele Spielfiguren hat ein Mensch-ärgere-dich-nicht-Spiel für vier Spieler insgesamt?",
+    "primaryCategory": "GAMES",
+    "tags": [
+      "brettspiele",
+      "spiele",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 16,
+    "unit": "Figuren",
+    "format": "number",
+    "zeroRange": 12,
+    "fact": "Jede der vier Farben hat vier Figuren."
+  },
+  {
+    "id": "estimate-253",
+    "text": "Im Grimm-Märchen vom Wolf und den Geißlein: Wie viele junge Geißlein hatte die alte Geiß?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "märchen",
+      "grimm",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 7,
+    "unit": "Geißlein",
+    "format": "number",
+    "zeroRange": 6,
+    "fact": "Sieben Geißlein – das jüngste versteckte sich im Uhrkasten."
+  },
+  {
+    "id": "estimate-254",
+    "text": "Wie viele Tiere sind die Bremer Stadtmusikanten?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "märchen",
+      "grimm",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 4,
+    "unit": "Tiere",
+    "format": "number",
+    "zeroRange": 4,
+    "fact": "Esel, Hund, Katze und Hahn wollten Stadtmusikanten werden."
+  },
+  {
+    "id": "estimate-255",
+    "text": "Wie viele Räuber gibt es im Märchen von Ali Baba?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "märchen",
+      "geschichten",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 40,
+    "unit": "Räuber",
+    "format": "number",
+    "zeroRange": 30,
+    "fact": "Das Märchen heißt „Ali Baba und die 40 Räuber“."
+  },
+  {
+    "id": "estimate-256",
+    "text": "Wie alt ist Pippi Langstrumpf in den Büchern?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "bücher",
+      "kinderbücher",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 9,
+    "unit": "Jahre",
+    "format": "number",
+    "zeroRange": 8,
+    "fact": "Pippi Langstrumpf ist neun Jahre alt und lebt allein in der Villa Kunterbunt."
+  },
+  {
+    "id": "estimate-257",
+    "text": "Wie viele Zwerge begleiten Bilbo Beutlin in „Der Hobbit“?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "bücher",
+      "fantasy",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 13,
+    "unit": "Zwerge",
+    "format": "number",
+    "zeroRange": 10,
+    "fact": "Dreizehn Zwerge unter der Führung von Thorin Eichenschild ziehen mit Bilbo los."
+  },
+  {
+    "id": "estimate-258",
+    "text": "Wie viele Teenage Mutant Ninja Turtles gibt es?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "serien",
+      "trickfilm",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 4,
+    "unit": "Turtles",
+    "format": "number",
+    "zeroRange": 4,
+    "fact": "Leonardo, Michelangelo, Donatello und Raphael sind nach Künstlern benannt."
+  },
+  {
+    "id": "estimate-259",
+    "text": "Wie viele Kinder haben Homer und Marge Simpson?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "serien",
+      "trickfilm",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 3,
+    "unit": "Kinder",
+    "format": "number",
+    "zeroRange": 4,
+    "fact": "Bart, Lisa und Maggie sind die drei Simpson-Kinder."
+  },
+  {
+    "id": "estimate-260",
+    "text": "Wie viele Häuser gibt es in der Zauberschule Hogwarts?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "harry potter",
+      "bücher",
+      "kinder"
+    ],
+    "difficulty": 1,
+    "ageRating": 6,
+    "answer": 4,
+    "unit": "Häuser",
+    "format": "number",
+    "zeroRange": 4,
+    "fact": "Gryffindor, Hufflepuff, Ravenclaw und Slytherin sind die vier Häuser."
+  },
+  {
+    "id": "estimate-261",
+    "text": "Wie viele Nächte musste die Müllerstochter in „Rumpelstilzchen“ Stroh zu Gold spinnen?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "märchen",
+      "grimm",
+      "kinder"
+    ],
+    "difficulty": 2,
+    "ageRating": 6,
+    "answer": 3,
+    "unit": "Nächte",
+    "format": "number",
+    "zeroRange": 4,
+    "fact": "In drei Nächten half ihr das Männchen – in der dritten gegen ihr erstes Kind."
+  },
+  {
+    "id": "estimate-262",
+    "text": "Wie viele Erdentage dauert ein Jahr auf dem Merkur?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "weltall",
+      "planeten"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 88,
+    "unit": "Tage",
+    "format": "number",
+    "zeroRange": 150,
+    "fact": "Der Merkur umrundet die Sonne in nur 88 Tagen."
+  },
+  {
+    "id": "estimate-263",
+    "text": "Wie viele Kilogramm würde eine Waage auf dem Mond ungefähr anzeigen, wenn sich ein 60-kg-Mensch daraufstellt?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "weltall",
+      "physik"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 10,
+    "unit": "kg",
+    "format": "number",
+    "zeroRange": 40,
+    "fact": "Die Schwerkraft auf dem Mond beträgt nur etwa ein Sechstel der Erdschwerkraft."
+  },
+  {
+    "id": "estimate-264",
+    "text": "Wie viele Chromosomen hat eine normale menschliche Körperzelle?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "biologie",
+      "körper"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 46,
+    "unit": "Chromosomen",
+    "format": "number",
+    "zeroRange": 40,
+    "fact": "Menschen haben 23 Chromosomenpaare, also 46 Chromosomen."
+  },
+  {
+    "id": "estimate-265",
+    "text": "Wie viel Grad Celsius unter null liegt der absolute Nullpunkt?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "physik",
+      "temperatur"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 273.15,
+    "unit": "°C",
+    "format": "number",
+    "zeroRange": 200,
+    "fact": "Bei −273,15 °C ist die tiefstmögliche Temperatur erreicht."
+  },
+  {
+    "id": "estimate-266",
+    "text": "Wie viele Sekunden braucht das Licht ungefähr vom Mond zur Erde?",
+    "primaryCategory": "SCIENCE",
+    "tags": [
+      "weltall",
+      "licht"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 1.3,
+    "unit": "Sekunden",
+    "format": "number",
+    "zeroRange": 5,
+    "fact": "Mondlicht ist nur etwa 1,3 Sekunden unterwegs."
+  },
+  {
+    "id": "estimate-267",
+    "text": "In welchem Jahr wurde das Kolosseum in Rom eingeweiht?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "antike",
+      "rom"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 80,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 300,
+    "fact": "Kaiser Titus eröffnete das Kolosseum im Jahr 80 n. Chr. mit 100 Tagen Spielen."
+  },
+  {
+    "id": "estimate-268",
+    "text": "In welchem Jahr wurde Karl der Große zum Kaiser gekrönt?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "mittelalter",
+      "kaiser"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 800,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 250,
+    "fact": "Am Weihnachtstag des Jahres 800 krönte ihn der Papst in Rom."
+  },
+  {
+    "id": "estimate-269",
+    "text": "In welchem Jahr wurde die Magna Carta in England besiegelt?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "mittelalter",
+      "england"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 1215,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 200,
+    "fact": "König Johann Ohneland musste 1215 die Rechte des Adels anerkennen."
+  },
+  {
+    "id": "estimate-270",
+    "text": "In welchem Jahr ereignete sich die Reaktorkatastrophe von Tschernobyl?",
+    "primaryCategory": "HISTORY",
+    "tags": [
+      "katastrophen",
+      "20. jahrhundert"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 1986,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 30,
+    "fact": "Am 26. April 1986 explodierte Reaktorblock 4."
+  },
+  {
+    "id": "estimate-271",
+    "text": "In welchem Jahr fanden die ersten Olympischen Spiele der Neuzeit statt?",
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "olympia",
+      "geschichte"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 1896,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 60,
+    "fact": "Die ersten modernen Olympischen Spiele fanden 1896 in Athen statt."
+  },
+  {
+    "id": "estimate-272",
+    "text": "In welchem Jahr startete die erste Saison der Fußball-Bundesliga?",
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "fußball",
+      "bundesliga"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 1963,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 40,
+    "fact": "Die erste Bundesliga-Saison 1963/64 gewann der 1. FC Köln."
+  },
+  {
+    "id": "estimate-273",
+    "text": "Wie lang ist ein Tennisplatz?",
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "tennis",
+      "regeln"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 23.77,
+    "unit": "m",
+    "format": "number",
+    "zeroRange": 20,
+    "fact": "Ein Tennisplatz ist genau 23,77 Meter lang."
+  },
+  {
+    "id": "estimate-274",
+    "text": "Wie viele Kilometer müssen Athleten beim Ironman-Triathlon mit dem Rad fahren?",
+    "primaryCategory": "SPORTS",
+    "tags": [
+      "triathlon",
+      "ausdauer"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 180,
+    "unit": "km",
+    "format": "number",
+    "zeroRange": 150,
+    "fact": "Nach 3,86 km Schwimmen folgen 180,2 km Rad und ein Marathon."
+  },
+  {
+    "id": "estimate-275",
+    "text": "In welchem Jahr erhielt Alexander Graham Bell das Patent auf das Telefon?",
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "erfindungen",
+      "telefon"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 1876,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 60,
+    "fact": "Bell meldete sein Telefon 1876 zum Patent an."
+  },
+  {
+    "id": "estimate-276",
+    "text": "Wie viele Zeichen darf eine klassische SMS höchstens haben?",
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "handy",
+      "kommunikation"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 160,
+    "unit": "Zeichen",
+    "format": "number",
+    "zeroRange": 120,
+    "fact": "Eine einzelne SMS fasst maximal 160 Zeichen."
+  },
+  {
+    "id": "estimate-277",
+    "text": "Wie viele Megabyte passen auf eine klassische 3,5-Zoll-Diskette (HD)?",
+    "primaryCategory": "TECHNOLOGY",
+    "tags": [
+      "computer",
+      "speicher"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 1.44,
+    "unit": "MB",
+    "format": "number",
+    "zeroRange": 3,
+    "fact": "Eine HD-Diskette fasst nur 1,44 MB – weniger als ein einziges Handyfoto."
+  },
+  {
+    "id": "estimate-278",
+    "text": "In welchem Jahr wurde die D-Mark in Westdeutschland eingeführt?",
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "geld",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 1948,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 40,
+    "fact": "Die Währungsreform am 20. Juni 1948 brachte die D-Mark."
+  },
+  {
+    "id": "estimate-279",
+    "text": "In welchem Jahr wurde die Firma Apple gegründet?",
+    "primaryCategory": "BUSINESS",
+    "tags": [
+      "firmen",
+      "computer"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 1976,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 30,
+    "fact": "Steve Jobs, Steve Wozniak und Ronald Wayne gründeten Apple 1976."
+  },
+  {
+    "id": "estimate-280",
+    "text": "In welchem Jahr kam der Game Boy von Nintendo erstmals auf den Markt?",
+    "primaryCategory": "GAMES",
+    "tags": [
+      "videospiele",
+      "konsolen"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 1989,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 30,
+    "fact": "Der Game Boy erschien 1989 – meist zusammen mit Tetris."
+  },
+  {
+    "id": "estimate-281",
+    "text": "In welchem Jahr ließ LEGO seinen Klemmbaustein mit Noppen und Röhren patentieren?",
+    "primaryCategory": "GAMES",
+    "tags": [
+      "spielzeug",
+      "erfindungen"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 1958,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 50,
+    "fact": "Das Patent von 1958 macht bis heute alte und neue Steine kompatibel."
+  },
+  {
+    "id": "estimate-282",
+    "text": "In welchem Jahr wurde Mozarts Oper „Die Zauberflöte“ uraufgeführt?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "klassik",
+      "oper"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 1791,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 100,
+    "fact": "Die Uraufführung fand 1791 in Wien statt – wenige Wochen vor Mozarts Tod."
+  },
+  {
+    "id": "estimate-283",
+    "text": "Wie viele Klaviersonaten komponierte Ludwig van Beethoven (nummeriert)?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "klassik",
+      "komponisten"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 32,
+    "unit": "Sonaten",
+    "format": "number",
+    "zeroRange": 30,
+    "fact": "Beethovens 32 Klaviersonaten gelten als „Neues Testament“ der Klaviermusik."
+  },
+  {
+    "id": "estimate-284",
+    "text": "Wie viele Sekunden dauert John Cages berühmtes Stück „4′33″“?",
+    "primaryCategory": "MUSIC",
+    "tags": [
+      "musik",
+      "kurioses"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 273,
+    "unit": "Sekunden",
+    "format": "number",
+    "zeroRange": 250,
+    "fact": "Vier Minuten und 33 Sekunden, in denen der Musiker keinen Ton spielt."
+  },
+  {
+    "id": "estimate-285",
+    "text": "In welchem Jahr erschien der erste Band der „Kinder- und Hausmärchen“ der Brüder Grimm?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "märchen",
+      "grimm"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 1812,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 100,
+    "fact": "Der erste Band erschien 1812 in Berlin."
+  },
+  {
+    "id": "estimate-286",
+    "text": "Wie viele Zeilen hat ein klassisches Sonett?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "gedichte",
+      "literatur"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 14,
+    "unit": "Zeilen",
+    "format": "number",
+    "zeroRange": 12,
+    "fact": "Ein Sonett besteht aus zwei Vierzeilern und zwei Dreizeilern."
+  },
+  {
+    "id": "estimate-287",
+    "text": "Wie viele Buchstaben hat das griechische Alphabet?",
+    "primaryCategory": "LANGUAGE_LITERATURE",
+    "tags": [
+      "sprache",
+      "alphabet"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 24,
+    "unit": "Buchstaben",
+    "format": "number",
+    "zeroRange": 20,
+    "fact": "Von Alpha bis Omega sind es 24 Buchstaben."
+  },
+  {
+    "id": "estimate-288",
+    "text": "In welchem Jahr wurde das bayerische Reinheitsgebot für Bier erlassen?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "bier",
+      "geschichte"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 1516,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 150,
+    "fact": "Das Reinheitsgebot wurde 1516 in Ingolstadt verkündet."
+  },
+  {
+    "id": "estimate-289",
+    "text": "Wie viel Prozent einer Salatgurke sind ungefähr Wasser?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "gemüse",
+      "ernährung"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 96,
+    "unit": "%",
+    "format": "number",
+    "zeroRange": 40,
+    "fact": "Gurken bestehen zu rund 95 bis 97 Prozent aus Wasser."
+  },
+  {
+    "id": "estimate-290",
+    "text": "Wie viele Liter Milch braucht man ungefähr für ein Kilogramm Käse?",
+    "primaryCategory": "FOOD_DRINK",
+    "tags": [
+      "käse",
+      "milch"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 10,
+    "unit": "Liter",
+    "format": "number",
+    "zeroRange": 15,
+    "fact": "Für ein Kilo Käse braucht man etwa zehn Liter Milch."
+  },
+  {
+    "id": "estimate-291",
+    "text": "In welchem Jahr fuhr die erste Eisenbahn in Deutschland (Nürnberg–Fürth)?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "eisenbahn",
+      "geschichte"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 1835,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 80,
+    "fact": "Die Lokomotive „Adler“ fuhr 1835 von Nürnberg nach Fürth."
+  },
+  {
+    "id": "estimate-292",
+    "text": "Wie lang ist der Nord-Ostsee-Kanal ungefähr?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "schifffahrt",
+      "deutschland"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 98,
+    "unit": "km",
+    "format": "number",
+    "zeroRange": 80,
+    "fact": "Der Kanal ist rund 98 km lang und eine der meistbefahrenen künstlichen Wasserstraßen der Welt."
+  },
+  {
+    "id": "estimate-293",
+    "text": "Wie schnell flog die Concorde ungefähr auf Reiseflughöhe?",
+    "primaryCategory": "MOBILITY",
+    "tags": [
+      "flugzeuge",
+      "geschwindigkeit"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 2150,
+    "unit": "km/h",
+    "format": "number",
+    "zeroRange": 1500,
+    "fact": "Die Concorde flog mit etwa doppelter Schallgeschwindigkeit."
+  },
+  {
+    "id": "estimate-294",
+    "text": "Wie hoch ist die Mona Lisa (das Gemälde)?",
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "malerei",
+      "museen"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 77,
+    "unit": "cm",
+    "format": "number",
+    "zeroRange": 100,
+    "fact": "Die Mona Lisa misst nur 77 × 53 cm."
+  },
+  {
+    "id": "estimate-295",
+    "text": "Wie alt wurde Vincent van Gogh?",
+    "primaryCategory": "ART_CULTURE",
+    "tags": [
+      "malerei",
+      "künstler"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 37,
+    "unit": "Jahre",
+    "format": "number",
+    "zeroRange": 30,
+    "fact": "Van Gogh starb 1890 mit 37 Jahren."
+  },
+  {
+    "id": "estimate-296",
+    "text": "Wie hoch ist der Fuji, Japans höchster Berg?",
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "berge",
+      "japan"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 3776,
+    "unit": "m",
+    "format": "number",
+    "zeroRange": 2000,
+    "fact": "Der Vulkan Fuji ist 3.776 Meter hoch."
+  },
+  {
+    "id": "estimate-297",
+    "text": "An wie viele Länder grenzt Österreich?",
+    "primaryCategory": "GEOGRAPHY",
+    "tags": [
+      "europa",
+      "österreich"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 8,
+    "unit": "Länder",
+    "format": "number",
+    "zeroRange": 6,
+    "fact": "Österreich grenzt an Deutschland, Tschechien, die Slowakei, Ungarn, Slowenien, Italien, die Schweiz und Liechtenstein."
+  },
+  {
+    "id": "estimate-298",
+    "text": "Wie alt muss man mindestens sein, um in Deutschland Bundespräsident werden zu können?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "politik",
+      "deutschland"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 40,
+    "unit": "Jahre",
+    "format": "number",
+    "zeroRange": 30,
+    "fact": "Das Grundgesetz verlangt ein Mindestalter von 40 Jahren."
+  },
+  {
+    "id": "estimate-299",
+    "text": "Welche Nummer trägt der letzte Artikel des Grundgesetzes?",
+    "primaryCategory": "SOCIETY",
+    "tags": [
+      "politik",
+      "grundgesetz"
+    ],
+    "difficulty": 3,
+    "ageRating": 12,
+    "answer": 146,
+    "unit": "",
+    "format": "number",
+    "zeroRange": 120,
+    "fact": "Artikel 146 regelt, wann das Grundgesetz seine Gültigkeit verliert."
+  },
+  {
+    "id": "estimate-300",
+    "text": "Wie viele Episoden umfasst die Skywalker-Saga von „Star Wars“?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "filme",
+      "science-fiction"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 9,
+    "unit": "Filme",
+    "format": "number",
+    "zeroRange": 8,
+    "fact": "Die Skywalker-Saga besteht aus den Episoden I bis IX."
+  },
+  {
+    "id": "estimate-301",
+    "text": "In welchem Jahr kam „Toy Story“, der erste komplett am Computer animierte Kinofilm, heraus?",
+    "primaryCategory": "MOVIES_TV",
+    "tags": [
+      "filme",
+      "animation"
+    ],
+    "difficulty": 2,
+    "ageRating": 12,
+    "answer": 1995,
+    "unit": "",
+    "format": "year",
+    "zeroRange": 25,
+    "fact": "Pixar schrieb 1995 mit „Toy Story“ Filmgeschichte."
   }
 ]

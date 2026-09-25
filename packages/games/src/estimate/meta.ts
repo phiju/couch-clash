@@ -19,4 +19,6 @@ export const estimateMeta = {
   estimatedSecondsPerQuestion: 32,
   contentSource: "static",
   modes: ["kids", "family", "party"],
+  // Estimating is guessing – difficulty 2 is still fine for kids.
+  kidsMaxDifficulty: 2,
 } as const satisfies CategoryMeta;

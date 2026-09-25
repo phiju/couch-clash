@@ -24,7 +24,7 @@ export function createEstimateModule(pool: readonly EstimateQuestion[] = ESTIMAT
     meta: estimateMeta,
     answerSchema: z.number().finite().min(-1e12).max(1e12),
     pickQuestions: (ctx, options) =>
-      pickForRound(pool, EstimateQuestionSchema, options, ctx.random),
+      pickForRound(pool, EstimateQuestionSchema, options, ctx.random, estimateMeta),
     errorShare: (q, a) => Math.abs(a - q.answer) / (q.zeroRange ?? Math.max(Math.abs(q.answer), 1e-9)),
     baseScoreInput: (question, answer) => ({
       answer,

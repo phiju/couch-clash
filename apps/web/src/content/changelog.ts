@@ -28,6 +28,12 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.10.0",
+    date: "2026-09-25",
+    title: "Fragen ohne Ende",
+    items: [{ emoji: "📚", text: "Über 1.100 Fragen – jetzt mit viel mehr Abwechslung und neuen Kinderfragen!" }],
+  },
+  {
     version: "0.9.2",
     date: "2026-09-25",
     title: "Mehr Platz in der Lobby",

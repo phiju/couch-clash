@@ -1,11 +1,19 @@
 import { describe, expect, it } from "vitest";
-import { BLUFF_WORDS_DE, BluffWordSchema, ESTIMATE_QUESTIONS_DE, EstimateQuestionSchema, QUIZ_QUESTIONS_DE } from "../src";
+import { KNOWLEDGE_CATEGORIES, KNOWLEDGE_CATEGORY_LABELS } from "@couch-clash/shared";
+import {
+  BLUFF_WORDS_DE,
+  BluffWordSchema,
+  ESTIMATE_QUESTIONS_DE,
+  EstimateQuestionSchema,
+  QUIZ_QUESTIONS_DE,
+  QuizQuestionSchema,
+} from "../src";
 import oldWords from "./fixtures/old-bluff-words.json";
 
 describe("content", () => {
   it("has enough questions", () => {
-    expect(QUIZ_QUESTIONS_DE.length).toBeGreaterThanOrEqual(40);
-    expect(ESTIMATE_QUESTIONS_DE.length).toBeGreaterThanOrEqual(30);
+    expect(QUIZ_QUESTIONS_DE.length).toBeGreaterThanOrEqual(800);
+    expect(ESTIMATE_QUESTIONS_DE.length).toBeGreaterThanOrEqual(300);
   });
 
   it("has unique ids across all files", () => {
@@ -21,6 +29,45 @@ describe("content", () => {
   it("has unique question texts", () => {
     const texts = [...QUIZ_QUESTIONS_DE, ...ESTIMATE_QUESTIONS_DE].map((q) => q.text);
     expect(new Set(texts).size).toBe(texts.length);
+  });
+
+  it("quiz: 4 distinct options, correctIndex 0–3", () => {
+    for (const q of QUIZ_QUESTIONS_DE) {
+      expect(new Set(q.options.map((o) => o.trim().toLowerCase())).size, q.id).toBe(4);
+      expect(q.correctIndex, q.id).toBeGreaterThanOrEqual(0);
+      expect(q.correctIndex, q.id).toBeLessThanOrEqual(3);
+    }
+  });
+
+  it("estimate: numeric answer, zeroRange > 0 where set", () => {
+    for (const q of ESTIMATE_QUESTIONS_DE) {
+      expect(Number.isFinite(q.answer), q.id).toBe(true);
+      if (q.zeroRange !== undefined) expect(q.zeroRange, q.id).toBeGreaterThan(0);
+    }
+  });
+
+  it("every shipped question has a primary category and no 'wissen' tag", () => {
+    for (const q of [...QUIZ_QUESTIONS_DE, ...ESTIMATE_QUESTIONS_DE]) {
+      expect(KNOWLEDGE_CATEGORIES, q.id).toContain(q.primaryCategory);
+      expect(q.tags, q.id).not.toContain("wissen");
+    }
+  });
+});
+
+describe("primaryCategory", () => {
+  const quiz = { id: "x-1", text: "Eine Testfrage?", ageRating: 12, tags: ["test"], difficulty: 1, options: ["a", "b", "c", "d"], correctIndex: 0 };
+
+  it("is optional and must be a known id", () => {
+    expect(QuizQuestionSchema.safeParse(quiz).success).toBe(true);
+    expect(QuizQuestionSchema.safeParse({ ...quiz, primaryCategory: "MUSIC" }).success).toBe(true);
+    expect(QuizQuestionSchema.safeParse({ ...quiz, primaryCategory: "COOKING" }).success).toBe(false);
+    expect(EstimateQuestionSchema.safeParse({ ...quiz, answer: 3, unit: "", primaryCategory: "SPORTS" }).success).toBe(true);
+    expect(EstimateQuestionSchema.safeParse({ ...quiz, answer: 3, unit: "", primaryCategory: "sports" }).success).toBe(false);
+  });
+
+  it("has a German label for all 15 ids", () => {
+    expect(KNOWLEDGE_CATEGORIES).toHaveLength(15);
+    for (const id of KNOWLEDGE_CATEGORIES) expect(KNOWLEDGE_CATEGORY_LABELS[id]).toBeTruthy();
   });
 });
 
