@@ -49,3 +49,8 @@ export type { QuizAnswer, QuizLikePublicState, QuizPublicQuestion, QuizSolution 
 export type * from "./estimate/types";
 export type * from "./bluff/types";
 export type * from "./fuehrerschein/types";
+// Survival-Finale: config, rules and public types (the TV and phones show live values with the same formulas).
+export * from "./survival/config";
+export * from "./survival/rules";
+export * from "./survival/types";
+export { survivalMeta } from "./survival/meta";

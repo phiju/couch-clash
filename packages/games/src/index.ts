@@ -16,6 +16,9 @@ import { stealModule } from "./steal/module";
 
 export * from "./meta";
 export * from "./scoring";
+// Survival-Finale (not in the registry yet – the host picks it as the last round in stage 2).
+export { createSurvivalModule, survivalModule, type SurvivalModule, type SurvivalState } from "./survival/module";
+export { defaultSuddenDeath, type SuddenDeathRule } from "./survival/sudden-death";
 
 /** ── Register new categories here (2/2) ── */
 export const GAME_MODULES: Record<CategoryId, GameModule> = {

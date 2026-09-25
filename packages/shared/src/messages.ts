@@ -135,6 +135,7 @@ export const ERROR_CODES = [
   "SEAT_TAKEN",
   "LATE_JOIN_CLOSED",
   "BOT_LIMIT",
+  "ELIMINATED",
 ] as const;
 export type ErrorCode = (typeof ERROR_CODES)[number];
 
@@ -168,6 +169,7 @@ export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   SEAT_TAKEN: "Dieser Platz ist gerade verbunden. Wähle deinen eigenen Namen.",
   LATE_JOIN_CLOSED: "Neue Spieler können gerade nicht einsteigen. Warte auf die nächste Runde.",
   BOT_LIMIT: "Mehr Testspieler gehen nicht.",
+  ELIMINATED: "Du bist raus – ab jetzt schaust du zu, wer als Nächstes baden geht.",
 };
 
 export type ServerMessage =
