@@ -143,7 +143,9 @@ export async function replaceQuestion(deps: ReplaceDeps, target: { id: string; c
         continue;
       }
       const item = parsed.value as Record<string, unknown>;
-      if (known.has(normalize(String(item.text)))) {
+      // The category's own display text (question text, or article + word for the Bluff-Lexikon).
+      const itemText = module.listContent([item]).find((e) => e.id === newId)?.text ?? String(item.text);
+      if (known.has(normalize(itemText))) {
         lastError = "Duplikat einer vorhandenen Frage";
         continue;
       }

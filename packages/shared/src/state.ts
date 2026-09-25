@@ -56,6 +56,8 @@ export interface GameRoundSettings {
   categoryId: string;
   questionCount: number;
   scoring: ScoringSettings;
+  /** Category options (CategoryMeta.options), id → on/off. */
+  options?: Record<string, boolean>;
 }
 
 /** What players see of the settings: a short summary. */

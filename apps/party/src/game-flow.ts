@@ -23,7 +23,14 @@ import {
   type SettingsSummary,
   type Viewer,
 } from "@couch-clash/shared";
-import { GAME_MODULES, categoryAvailable, getModule, normalizeScoring, type ModuleRegistry } from "@couch-clash/games";
+import {
+  GAME_MODULES,
+  categoryAvailable,
+  getModule,
+  normalizeCategoryOptions,
+  normalizeScoring,
+  type ModuleRegistry,
+} from "@couch-clash/games";
 import { fail, ok, type Result } from "./result";
 import type { GameRecord, GameRound, RoomRecord } from "./room-logic";
 import type { ContentFilter } from "./stats/content-filter";
@@ -101,6 +108,7 @@ export function sanitizeSettings(
       categoryId: round.categoryId,
       questionCount: Math.min(max, Math.max(min, round.questionCount)),
       scoring: normalizeScoring(module.meta, round.scoring),
+      ...(module.meta.options?.length ? { options: normalizeCategoryOptions(module.meta, round.options) } : {}),
     });
   }
   return ok(planned);
@@ -171,6 +179,7 @@ function startRound(room: RoomRecord, deps: FlowDeps, registry: ModuleRegistry):
     excludeContentIds: room.usedContentIds,
     blockedContentIds: deps.content?.blocked,
     extraContent: deps.content?.extra[round.categoryId],
+    options: normalizeCategoryOptions(module.meta, round.options),
   });
   const playing = setPhase(
     { ...room, game: { ...game, roundGain: {}, questionLeaderboard: null } },

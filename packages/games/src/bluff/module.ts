@@ -22,7 +22,16 @@ import { z } from "zod";
 import { listEntries, parseWith, playablePool } from "../content-pool";
 import { pickFresh, shuffle } from "../random";
 import { normalizeScoring, scoreAnswer } from "../scoring";
-import { judgePrompt, parseJudgeReply, type JudgeSubmission, type JudgedSubmission } from "./judge";
+import {
+  judgePrompt,
+  lightCleanup,
+  localMatch,
+  normalizeText,
+  parseJudgeReply,
+  type JudgeSubmission,
+  type JudgedSubmission,
+} from "./judge";
+import { bluffLead, bluffQuestion } from "./text";
 import { BLUFF_CONFIG, OPTION_LETTERS, bluffMeta } from "./meta";
 import type { BluffAction, BluffPublicState, BluffResult, BluffRevealOption, BluffStep } from "./types";
 
@@ -48,6 +57,10 @@ export interface BluffState {
   votes: Record<string, { option: number; at: number }>;
   results: Record<string, BluffResult> | null;
   scoring: ScoringSettings;
+  /** Polished text per author (what everyone sees; the raw text only in `submissions`). */
+  shown: Record<string, string>;
+  /** Host option: show the authors' original texts at the reveal. */
+  showOriginals: boolean;
 }
 
 const WRITE_MS = bluffMeta.secondsPerQuestion * 1000;
@@ -71,15 +84,7 @@ export function displayDefinition(text: string): string {
 }
 
 /** For comparing texts: lower case, letters and digits only. */
-export function normalizeDefinition(text: string): string {
-  return text
-    .toLocaleLowerCase("de")
-    .normalize("NFKD")
-    .replace(/\p{M}/gu, "")
-    .replace(/ß/g, "ss")
-    .replace(/[^\p{L}\p{N}]+/gu, " ")
-    .trim();
-}
+export const normalizeDefinition = normalizeText;
 
 const actionSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("define"), text: z.string().min(1).max(200) }),
@@ -88,7 +93,7 @@ const actionSchema = z.discriminatedUnion("type", [
 
 const entry = (w: BluffWord): ContentEntry => ({
   id: w.id,
-  text: w.word,
+  text: `${w.article} ${w.word}`,
   answer: w.definition,
   difficulty: w.difficulty,
   ageRating: w.ageRating,
@@ -114,7 +119,12 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
 
   function openWord(state: State, index: number, now: number): ModuleUpdate<State> {
     return update(
-      at({ ...state, index, submissions: {}, knewIt: [], rejected: [], options: null, votes: {}, results: null }, "write", now, WRITE_MS),
+      at(
+        { ...state, index, submissions: {}, shown: {}, knewIt: [], rejected: [], options: null, votes: {}, results: null },
+        "write",
+        now,
+        WRITE_MS,
+      ),
     );
   }
 
@@ -131,18 +141,25 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
     return update(at(state, "check", ctx.now, BLUFF_CONFIG.checkMaxMs));
   }
 
-  /** Builds the options (with the AI verdicts, or as written) and starts reading them out. */
+  /**
+   * Builds the options – with the AI verdicts and polished texts, or (judge
+   * failed) with a local check and cleanup – and starts reading them out.
+   * Options only ever contain polished texts, never the raw player text.
+   */
   function present(state: State, judged: Map<string, JudgedSubmission> | null, ctx: ModuleContext): ModuleUpdate<State> {
     const word = state.words[state.index]!;
-    const real = normalizeDefinition(word.definition);
+    const real = normalizeText(word.definition);
     const knewIt: string[] = [];
     const rejected: string[] = [];
+    const shown: Record<string, string> = {};
     const groups = new Map<string, Option>();
     for (const s of judgeSubmissions(state)) {
       const verdict = judged?.get(s.key);
-      const text = verdict?.text ?? s.text;
-      const norm = normalizeDefinition(text);
-      if (verdict?.verdict === "correct" || norm === real) {
+      const text = displayDefinition(verdict?.text ?? (lightCleanup(s.text) || s.text));
+      shown[s.playerId] = text;
+      const correct = verdict ? verdict.verdict === "correct" : localMatch(s.text, word.definition);
+      // Never show a player text that duplicates the real answer.
+      if (correct || normalizeText(text) === real) {
         knewIt.push(s.playerId);
         continue;
       }
@@ -150,16 +167,16 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
         rejected.push(s.playerId);
         continue;
       }
-      // Without the AI: only identical texts are merged.
-      const key = verdict ? verdict.group : `text:${norm}`;
+      // Without the AI: only identical (cleaned) texts are merged.
+      const key = verdict ? verdict.group : `text:${normalizeText(text)}`;
       const group = groups.get(key);
       if (group) group.authors.push(s.playerId);
-      else groups.set(key, { text: displayDefinition(text), correct: false, authors: [s.playerId] });
+      else groups.set(key, { text, correct: false, authors: [s.playerId] });
     }
     const realOption = { text: displayDefinition(word.definition), correct: true, authors: [] };
     const options = shuffle([...groups.values(), realOption], ctx.random);
     const ms = BLUFF_CONFIG.presentLeadMs + options.length * BLUFF_CONFIG.presentMsPerOption;
-    return update(at({ ...state, knewIt, rejected, options }, "present", ctx.now, ms));
+    return update(at({ ...state, knewIt, rejected, options, shown }, "present", ctx.now, ms));
   }
 
   function canVote(state: State, playerId: string): boolean {
@@ -220,8 +237,9 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
     return {
       id: `bluff-check:${state.index}`,
       kind: "llm_json" as const,
-      input: judgePrompt(word.word, word.definition, judgeSubmissions(state)),
+      input: judgePrompt(`${word.article} ${word.word}`, word.definition, judgeSubmissions(state)),
       timeoutMs: BLUFF_CONFIG.checkTimeoutMs,
+      model: "strong" as const,
     };
   }
 
@@ -244,6 +262,8 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
         votes: {},
         results: null,
         scoring: normalizeScoring(bluffMeta, options.scoring),
+        shown: {},
+        showOriginals: options.options?.showOriginals === true,
       };
       if (words.length === 0) return { state: initial, phaseEndsAt: null, done: true };
       return { ...openWord(initial, 0, ctx.now), usedContentIds: words.map((w) => w.id) };
@@ -314,7 +334,7 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
 
     resolveTask(state, taskId, result, ctx) {
       if (state.step !== "check" || taskId !== checkTask(state).id) return null;
-      const judged = result == null ? null : parseJudgeReply(result, judgeSubmissions(state), cleanDefinition);
+      const judged = result == null ? null : parseJudgeReply(result, judgeSubmissions(state));
       return present(state, judged, ctx);
     },
 
@@ -359,7 +379,7 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
       const word = state.words[state.index]!;
       const answers: RevealFacts["answers"] = {};
       for (const [id, r] of Object.entries(state.results)) {
-        const own = state.submissions[id]?.text;
+        const own = state.shown[id];
         const note = r.knewIt
           ? "wusste die echte Bedeutung"
           : r.fooled > 0
@@ -379,7 +399,7 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
         };
       }
       return {
-        question: `Was bedeutet „${word.word}“?`,
+        question: bluffQuestion(word),
         correctAnswer: word.definition,
         answers,
         highlights: [
@@ -407,8 +427,15 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
           options: revealOptions,
           correctIndex: options.findIndex((o) => o.correct),
           definition: displayDefinition(word.definition),
+          lead: bluffLead(word),
           knewItPlayerIds: state.knewIt,
           results: state.results ?? {},
+          // Host option (default off): what the authors really wrote.
+          originals: state.showOriginals
+            ? Object.fromEntries(
+                options.flatMap((o) => o.authors).flatMap((id) => (state.submissions[id] ? [[id, state.submissions[id]!.text]] : [])),
+              )
+            : null,
         };
       }
       return {
@@ -416,6 +443,7 @@ export function createBluffModule(pool: readonly BluffWord[] = BLUFF_WORDS_DE) {
         index: state.index,
         total: state.words.length,
         word: word.word,
+        question: bluffQuestion(word),
         stepStartedAt: state.stepStartedAt,
         stepEndsAt: state.stepEndsAt,
         submittedPlayerIds: Object.keys(state.submissions),

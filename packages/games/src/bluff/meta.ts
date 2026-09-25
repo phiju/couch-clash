@@ -23,6 +23,7 @@ export const bluffMeta = {
   contentSource: "static",
   /** Somebody has to be fooled. */
   minPlayers: 2,
+  options: [{ id: "showOriginals", label: "Originaltexte der Spieler bei der Auflösung zeigen", default: false }],
 } as const satisfies CategoryMeta;
 
 /** Timings and point shares (maxPoints = points for finding the real definition). */
@@ -33,10 +34,12 @@ export const BLUFF_CONFIG = {
   perFooledShare: 0.5,
   /** Writing an essentially correct definition ("Gewusst!"), as a share of maxPoints. */
   knewItShare: 1,
-  /** AI check of the definitions; without an answer in time everything is shown as written. */
-  checkTimeoutMs: 5_000,
+  /** AI check of the definitions (strong model); without an answer in time a local check runs. */
+  checkTimeoutMs: 6_000,
   /** The check step never takes longer than this (the room's alarm falls back). */
-  checkMaxMs: 7_000,
+  checkMaxMs: 8_000,
+  /** A "correct" verdict below this confidence counts as a bluff (safer for the game). */
+  minCorrectConfidence: 0.6,
   /** Reading the options: lead-in + time per option (longer when the host's voice is slower). */
   presentLeadMs: 1_500,
   presentMsPerOption: 3_500,

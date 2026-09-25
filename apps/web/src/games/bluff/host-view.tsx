@@ -18,12 +18,11 @@ function WordCounter({ state }: { state: BluffPublicState }) {
 }
 
 const STEP_HINT: Partial<Record<BluffPublicState["step"], string>> = {
-  write: "Was bedeutet das Wort? Schreibt eine glaubwürdige Erklärung aufs Handy!",
+  write: "Schreibt eine glaubwürdige Erklärung aufs Handy!",
   check: "Die Erklärungen werden gemischt …",
   present: "Hört gut zu – eine davon ist echt!",
   vote: "Welche Erklärung ist die echte? Stimmt auf dem Handy ab!",
   reveal: "Wer hat wen reingelegt?",
-  solution: "Die echte Erklärung",
 };
 
 export function BluffHostView({ state, room }: HostViewProps<BluffPublicState>) {
@@ -46,11 +45,19 @@ export function BluffHostView({ state, room }: HostViewProps<BluffPublicState>) 
 
       <div className={`panel flex shrink-0 flex-col items-center text-center ${compactWord ? "gap-[0.5vh] px-[2vw] py-[1.4vh]" : "gap-[2vh] px-[2vw] py-[5vh]"}`}>
         <h2
-          className={`font-bold tracking-wide text-bulb drop-shadow-[0_6px_0_var(--color-brown)] [overflow-wrap:anywhere] ${compactWord ? "fs-title" : "fs-hero animate-pop"}`}
+          className={`font-bold tracking-wide text-bulb drop-shadow-[0_6px_0_var(--color-brown)] [overflow-wrap:anywhere] ${state.step === "solution" ? "fs-xl" : compactWord ? "fs-title" : "fs-hero animate-pop"}`}
         >
-          📖 {state.word}
+          {state.step === "solution" && state.reveal ? (
+            <>
+              {state.reveal.lead} <span className="text-cream">{state.reveal.definition}</span>
+            </>
+          ) : (
+            state.question
+          )}
         </h2>
-        <p className={`${compactWord ? "fs-md" : "fs-xl"} text-cream/85`}>{STEP_HINT[state.step]}</p>
+        {state.step !== "solution" && (
+          <p className={`${compactWord ? "fs-md" : "fs-xl"} text-cream/85`}>{STEP_HINT[state.step]}</p>
+        )}
       </div>
 
       {state.step === "write" && <AnsweredStrip state={{ ...state, answeredPlayerIds: state.submittedPlayerIds } as never} room={room} />}
@@ -111,7 +118,9 @@ function Options({ state, room }: { state: BluffPublicState; room: PublicRoomSta
               </div>
               {r && (
                 <div className="flex flex-wrap items-center gap-x-[1.2vw] gap-y-[0.6vh] pl-[calc(clamp(2.2rem,5.5vh,4rem)+1vw)]">
-                  {r.authors.length > 0 && <Authors players={people(r.authors)} delay={i * 350} />}
+                  {r.authors.length > 0 && (
+                    <Authors players={people(r.authors)} delay={i * 350} originals={reveal?.originals ?? null} />
+                  )}
                   {r.voters.length > 0 && <Voters players={people(r.voters)} delay={600 + i * 350} fooled={!isReal} />}
                 </div>
               )}
@@ -128,20 +137,39 @@ function Options({ state, room }: { state: BluffPublicState; room: PublicRoomSta
   );
 }
 
-function Authors({ players, delay }: { players: PublicPlayer[]; delay: number }) {
+function Authors({
+  players,
+  delay,
+  originals,
+}: {
+  players: PublicPlayer[];
+  delay: number;
+  /** Host option: what the authors really wrote (before polishing). */
+  originals: Record<string, string> | null;
+}) {
   return (
-    <span
-      className="fs-md flex animate-pop items-center gap-2 rounded-full bg-rust/90 px-3 py-1 font-bold text-cream"
-      style={{ animationDelay: `${delay}ms`, animationFillMode: "backwards" }}
-    >
-      ✍️ von
-      {players.map((p) => (
-        <span key={p.id} className="flex items-center gap-1">
-          <AvatarBadge avatar={p.avatar} size="xs" />
-          {p.name}
-        </span>
-      ))}
-    </span>
+    <>
+      <span
+        className="fs-md flex animate-pop items-center gap-2 rounded-full bg-rust/90 px-3 py-1 font-bold text-cream"
+        style={{ animationDelay: `${delay}ms`, animationFillMode: "backwards" }}
+      >
+        ✍️ von
+        {players.map((p) => (
+          <span key={p.id} className="flex items-center gap-1">
+            <AvatarBadge avatar={p.avatar} size="xs" />
+            {p.name}
+          </span>
+        ))}
+      </span>
+      {originals &&
+        players.map((p) =>
+          originals[p.id] ? (
+            <span key={`o-${p.id}`} className="fs-sm basis-full text-cream/75 italic">
+              {p.name} schrieb: „{originals[p.id]}“
+            </span>
+          ) : null,
+        )}
+    </>
   );
 }
 

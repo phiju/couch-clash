@@ -57,8 +57,11 @@ import {
 } from "./room-logic";
 
 const STORAGE_KEY = "room";
-/** Fast text model for module tasks (answers within the modules' timeouts). */
-const TASK_MODEL = "gpt-4.1-mini";
+/**
+ * Text models for module tasks: "fast" for small things, "strong" where the
+ * answer matters for the game (e.g. judging Bluff-Lexikon definitions).
+ */
+const TASK_MODELS = { fast: "gpt-4.1-mini", strong: "gpt-4.1" } as const;
 
 /** Per-connection identity; persisted in the WebSocket attachment (survives hibernation). */
 type ConnState = { role: "guest" } | { role: "host" } | { role: "player"; playerId: string };
@@ -109,9 +112,9 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     commit: (room) => this.commit(room),
     waitUntil: (promise) => this.ctx.waitUntil(promise),
     flowDeps: () => this.flowDeps(Date.now()),
-    model: () =>
+    model: (quality) =>
       this.env.OPENAI_API_KEY
-        ? createOpenAIJsonModel(this.env.OPENAI_API_KEY, fetch, { model: TASK_MODEL, temperature: 0, timeoutMs: 10_000 })
+        ? createOpenAIJsonModel(this.env.OPENAI_API_KEY, fetch, { model: TASK_MODELS[quality], temperature: 0, timeoutMs: 10_000 })
         : null,
   });
 

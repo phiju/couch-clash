@@ -31,7 +31,13 @@ function setup(names: string[], opts: { model?: JsonModel | null; voice?: boolea
     room = r.room;
     ids.push(r.player.id);
   }
-  const rt = { room: room as RoomRecord | null, now: T0, tasks: [] as Promise<unknown>[], sent: [] as HostLine[] };
+  const rt = {
+    room: room as RoomRecord | null,
+    now: T0,
+    tasks: [] as Promise<unknown>[],
+    sent: [] as HostLine[],
+    qualities: [] as string[],
+  };
   const deps = (): FlowDeps => ({ now: rt.now, random: () => 0.5, connectedPlayerIds: new Set(ids) });
   const commit = async (next: RoomRecord) => {
     const prev = rt.room;
@@ -44,7 +50,10 @@ function setup(names: string[], opts: { model?: JsonModel | null; voice?: boolea
     commit,
     waitUntil: (p) => rt.tasks.push(p),
     flowDeps: deps,
-    model: () => (opts.model === undefined ? null : opts.model),
+    model: (quality) => {
+      rt.qualities.push(quality);
+      return opts.model === undefined ? null : opts.model;
+    },
   });
   let n = 0;
   const services: VoiceServices = { text: null, speech: mockSpeech(), store: memoryStore() };
@@ -108,6 +117,21 @@ describe("Bluff-Lexikon in the room", () => {
     expect(prompts[0]).toContain("ein Hut");
     expect(prompts[0]).not.toContain("Anna");
     expect(prompts[0]).not.toContain(t.ids[0]!);
+    // Judging answers uses the strong model.
+    expect(t.rt.qualities).toEqual(["strong"]);
+  });
+
+  it("category options reach the module (unknown ones are dropped)", async () => {
+    const t = setup(["Anna", "Ben"]);
+    await t.commit(
+      unwrap(
+        updateSettings(t.rt.room!, [{ categoryId: "bluff", questionCount: 3, scoring, options: { showOriginals: true, hack: true } }]),
+      ),
+    );
+    expect(t.rt.room!.settings[0]!.options).toEqual({ showOriginals: true });
+    await t.commit(unwrap(beginGame(t.rt.room!, t.deps())));
+    await t.commit(unwrap(advance(t.rt.room!, t.deps())));
+    expect((t.rt.room!.game!.moduleState as { showOriginals: boolean }).showOriginals).toBe(true);
   });
 
   it("model error or no API key → shown as written", async () => {

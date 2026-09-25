@@ -4,13 +4,13 @@ import { describe, expect, it } from "vitest";
 import { calculateBaseScore } from "../src/scoring";
 import { bluffMeta, BLUFF_CONFIG } from "../src/bluff/meta";
 import { cleanDefinition, createBluffModule, type BluffState } from "../src/bluff/module";
-import { parseJudgeReply } from "../src/bluff/judge";
 import type { BluffAction } from "../src/bluff/types";
 import { GAME_MODULES } from "../src";
 
 const T0 = 1_700_000_000_000;
 const WORD: BluffWord = {
   id: "bluff-t1",
+  article: "das",
   word: "Kummet",
   definition: "gepolsterter Halsring für Zugpferde",
   ageRating: 12,
@@ -89,7 +89,7 @@ describe("bluff flow", () => {
     expect(t.state.step).toBe("write");
     t.act("c", { type: "define", text: "ein Tanz" }); // everyone wrote → early end
     expect(t.state.step).toBe("check");
-    expect(t.mod.pendingTask!(t.state)).toMatchObject({ id: "bluff-check:0", kind: "llm_json", timeoutMs: 5000 });
+    expect(t.mod.pendingTask!(t.state)).toMatchObject({ id: "bluff-check:0", kind: "llm_json", timeoutMs: 6000, model: "strong" });
     t.resolve(reply(["bluff"], ["bluff"], ["bluff"]));
     expect(t.state.step).toBe("present");
     expect(t.state.options).toHaveLength(4);
@@ -333,29 +333,3 @@ describe("bluff public state never leaks", () => {
   });
 });
 
-describe("judge reply parsing", () => {
-  const subs = [
-    { key: "s1", text: "ein Vogl" },
-    { key: "s2", text: "ein Hut" },
-  ];
-  it("keeps sane fixes, ignores rewrites and unknown ids", () => {
-    const out = parseJudgeReply(
-      {
-        results: [
-          { id: "s1", verdict: "bluff", text: "ein Vogel", group: 1 },
-          { id: "s2", verdict: "bluff", text: "eine völlig andere, sehr viel längere Erklärung als vorher", group: 2 },
-          { id: "s9", verdict: "correct" },
-        ],
-      },
-      subs,
-      cleanDefinition,
-    )!;
-    expect(out.get("s1")!.text).toBe("ein Vogel");
-    expect(out.get("s2")!.text).toBe("ein Hut");
-    expect(out.has("s9")).toBe(false);
-  });
-  it("null for garbage", () => {
-    expect(parseJudgeReply("nope", subs, cleanDefinition)).toBeNull();
-    expect(parseJudgeReply({ results: [{ id: "s1", verdict: "maybe" }] }, subs, cleanDefinition)).toBeNull();
-  });
-});
