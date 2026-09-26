@@ -19,7 +19,7 @@ import {
   type EstimateQuestion,
   type QuizQuestion,
 } from "@couch-clash/content";
-import type { GameMode, ModeFilterMeta, ModuleInitOptions, ModuleTask } from "@couch-clash/shared";
+import type { GameMode, LlmJsonTask, ModeFilterMeta, ModuleInitOptions } from "@couch-clash/shared";
 import { playablePool } from "../content-pool";
 import { knowledgePool, prepareQuizQuestion, selectQuestions, type PreparedQuizQuestion } from "../knowledge/questions";
 import { pickFresh } from "../random";
@@ -148,7 +148,7 @@ export function aiQuestionTask(
   pools: SurvivalQuestionPools,
   source: SurvivalQuestionSource,
   config: Pick<SurvivalConfig, "aiQuestionsPerRequest" | "aiTimeoutMs">,
-): ModuleTask | null {
+): LlmJsonTask | null {
   if (!source.ai.pending) return null;
   const age = source.mode === "kids" ? 6 : 12;
   const recent = source.played.slice(-30).flatMap((id) => {

@@ -1,6 +1,8 @@
 /** Admin API client. The token lives in sessionStorage only (never in the code). */
 import type {
   AdminCostsResponse,
+  AdminSongEdit,
+  AdminSongsResponse,
   AdminQuestionsResponse,
   AdminStatusRequest,
   AdminVoiceResponse,
@@ -82,5 +84,9 @@ export const adminApi = {
     call<{ ok: true }>(token, "/api/admin/costs/fixed", { method: "POST", body: JSON.stringify(cost) }),
   updateFixedCost: (token: string, id: number, cost: FixedCostInput) =>
     call<{ ok: true }>(token, `/api/admin/costs/fixed/${id}`, { method: "PUT", body: JSON.stringify(cost) }),
+  songs: (token: string) => call<AdminSongsResponse>(token, "/api/admin/songs"),
+  /** Musik-Quiz: correct / confirm a year, aliases, switch a song off. */
+  editSong: (token: string, id: string, edit: AdminSongEdit) =>
+    call<{ ok: true }>(token, `/api/admin/songs/${encodeURIComponent(id)}`, { method: "PUT", body: JSON.stringify(edit) }),
   deleteFixedCost: (token: string, id: number) => call<{ ok: true }>(token, `/api/admin/costs/fixed/${id}`, { method: "DELETE" }),
 };

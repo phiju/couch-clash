@@ -61,10 +61,12 @@ const POOLS: Record<CategoryId, readonly { id: string; adult?: boolean }[]> = {
   survival: QUIZ_QUESTIONS_DE,
   // Only motifs with pictures are played (the image script adds them).
   pixelpanik: playableMotifs(PIXELPANIK_MOTIFS).map((m) => ({ id: m.id, ...motifFlags(m) })),
+  // Songs are picked by their own modes, without a party share (tested in musik.test.ts).
+  musik: [],
 };
 // The Survival-Finale has no fixed round (it draws questions one by one) – tested in survival.test.ts.
 // Pixelpanik needs pictures – the same checks run on a pool with pictures in pixelpanik.test.ts.
-const GAMES = (Object.keys(GAME_MODULES) as CategoryId[]).filter((id) => !GAME_MODULES[id].meta.finale && id !== "pixelpanik");
+const GAMES = (Object.keys(GAME_MODULES) as CategoryId[]).filter((id) => !GAME_MODULES[id].meta.finale && id !== "pixelpanik" && id !== "musik");
 const partyIds = (id: CategoryId) => POOLS[id].filter((x) => x.adult).map((x) => x.id);
 
 /** The items a round plays, in order (Kategorienvorgabe draws them one by one after each pick). */

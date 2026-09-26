@@ -21,6 +21,8 @@ import { replaceQuestion, startOfUtcDay, type ReplaceDeps } from "../generate/re
 import { json } from "../http";
 import { invalidateContentFilter } from "../stats/content-filter";
 import type { GeneratedRow, StatsRow, StatsStore } from "../stats/store";
+import { handleAdminSongs } from "../songs/admin";
+import type { SongOverrideStore } from "../songs/store";
 import { voiceSnarkBatch, voiceStatus } from "../voice/admin";
 import type { VoiceServices } from "../voice/service";
 
@@ -36,6 +38,8 @@ export interface AdminDeps {
   voice?: () => VoiceServices;
   /** Cost overview (D1); absent → not set up. */
   costs?: CostStore | null;
+  /** Musik-Quiz corrections (D1); absent → not set up. */
+  songs?: SongOverrideStore | null;
 }
 
 /** How far back the cost page looks. */
@@ -195,6 +199,8 @@ export async function handleAdmin(request: Request, url: URL, deps: AdminDeps): 
   if (!isAuthorized(request, deps.adminToken)) return json({ error: "Nicht berechtigt." }, 401);
 
   if (url.pathname.startsWith("/api/admin/costs")) return handleCosts(request, url, deps);
+  const songs = await handleAdminSongs(request, url, deps.songs ?? null, deps.now());
+  if (songs) return songs;
 
   // The voice needs no database.
   if (url.pathname === "/api/admin/voice" || url.pathname === "/api/admin/voice/snark") {

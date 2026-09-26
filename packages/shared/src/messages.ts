@@ -136,6 +136,7 @@ export const ERROR_CODES = [
   "LATE_JOIN_CLOSED",
   "BOT_LIMIT",
   "ELIMINATED",
+  "BUZZER_TAKEN",
 ] as const;
 export type ErrorCode = (typeof ERROR_CODES)[number];
 
@@ -170,6 +171,7 @@ export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   LATE_JOIN_CLOSED: "Neue Spieler können gerade nicht einsteigen. Warte auf die nächste Runde.",
   BOT_LIMIT: "Mehr Testspieler gehen nicht.",
   ELIMINATED: "Du bist raus – ab jetzt schaust du zu, wer als Nächstes baden geht.",
+  BUZZER_TAKEN: "Zu langsam – jemand anderes hat schon gebuzzert!",
 };
 
 export type ServerMessage =

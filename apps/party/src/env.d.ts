@@ -12,6 +12,8 @@ interface Env {
   STATS?: D1Database;
   /** Worker secret protecting the admin API (/api/admin/*). */
   ADMIN_TOKEN?: string;
+  /** "1": the Musik-Quiz also plays the local synth test songs (development). */
+  MUSIC_TEST_SONGS?: string;
 }
 
 declare namespace Cloudflare {
@@ -24,6 +26,7 @@ declare namespace Cloudflare {
     ELEVENLABS_API_KEY?: string;
     STATS?: D1Database;
     ADMIN_TOKEN?: string;
+    MUSIC_TEST_SONGS?: string;
   }
 }
 

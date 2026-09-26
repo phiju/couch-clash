@@ -10,6 +10,10 @@ import pixelpanikMotive from "../data/pixelpanik/motive.json";
 import quizDe from "../data/quiz.de.json";
 import skurrilDe from "../data/skurril.de.json";
 import snarkLinesDe from "../data/snark-lines.de.json";
+import songGenres from "../data/musik/genres.json";
+import songsFile from "../data/musik/songs.json";
+import testSongsFile from "../data/musik/test-songs.json";
+import { SongFileSchema, SongImportConfigSchema } from "./music/schema";
 import {
   BluffWordSchema,
   EstimateQuestionSchema,
@@ -21,6 +25,7 @@ import {
 } from "./schema";
 
 export * from "./schema";
+export * from "./music";
 
 function load<T extends z.ZodType>(schema: T, data: unknown, name: string): z.infer<T>[] {
   const questions = z.array(schema).parse(data, { error: () => `Invalid content in ${name}` });
@@ -46,3 +51,13 @@ const pixelpanikFile = PixelpanikFileSchema.parse(pixelpanikMotive, { error: () 
 export const PIXELPANIK_MOTIFS = load(PixelpanikFileSchema.shape.items.element, pixelpanikFile.items, "pixelpanik/motive.json");
 /** Points per stage as noted in motive.json (the game uses the category's settings). */
 export const PIXELPANIK_FILE_SCORING: Readonly<Record<string, number>> = pixelpanikFile.scoring;
+
+/** Musik-Quiz: the song database (written by `pnpm songs:import`). */
+const musikFile = SongFileSchema.parse(songsFile, { error: () => "Invalid content in musik/songs.json" });
+export const MUSIK_SONGS = load(SongFileSchema.shape.items.element, musikFile.items, "musik/songs.json");
+/** When `pnpm songs:import` last wrote songs.json (null before the first import). */
+export const MUSIK_SONGS_IMPORTED_AT = musikFile.importedAt;
+/** Local test songs (apps/web/public/test-audio) – development and tests only. */
+export const MUSIK_TEST_SONGS = load(SongFileSchema.shape.items.element, SongFileSchema.parse(testSongsFile).items, "musik/test-songs.json");
+/** Genres with their Deezer playlists and plausible years (import script). */
+export const SONG_IMPORT_CONFIG = SongImportConfigSchema.parse(songGenres, { error: () => "Invalid content in musik/genres.json" });

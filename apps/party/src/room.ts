@@ -32,11 +32,13 @@ import { playerPrefix, r2AvatarStore, roomPrefix } from "./avatar/store";
 import { styleReference } from "./avatar/style";
 import { createVoiceProviders } from "./voice";
 import { applySurvivalCue, trophyCandidates } from "./survival-room";
-import type { SurvivalCue } from "@couch-clash/games";
+import { enableMusikTestSongs, type SurvivalCue } from "@couch-clash/games";
 import { meteredFetchFor, type FetchFor } from "./costs/meter";
 import { d1CostStore, usageRecorder } from "./costs/store";
 import { VoiceDirector } from "./voice/director";
 import { loadContentFilter, type ContentFilter } from "./stats/content-filter";
+import { createPreviewLookup, createProviders } from "./songs/previews";
+import { d1SongOverrideStore } from "./songs/store";
 import { StatsRecorder } from "./stats/recorder";
 import { createOpenAIJsonModel } from "./generate/model";
 import { ModuleTaskRunner } from "./tasks/runner";
@@ -111,6 +113,8 @@ export class Room extends Server<Env> implements AvatarRoomApi {
   private room: RoomRecord | null = null;
 
   async onStart() {
+    // Development: the Musik-Quiz also plays the local synth test songs.
+    if (this.env.MUSIC_TEST_SONGS === "1") enableMusikTestSongs();
     // Heartbeat: answered by the runtime without waking the room.
     this.ctx.setWebSocketAutoResponse(new WebSocketRequestResponsePair(HEARTBEAT_PING, HEARTBEAT_PONG));
     // Everything (players, secrets, scores, phase, grace periods) comes back after an eviction/restart.
@@ -160,6 +164,8 @@ export class Room extends Server<Env> implements AvatarRoomApi {
       this.env.OPENAI_API_KEY
         ? createOpenAIJsonModel(this.env.OPENAI_API_KEY, this.fetchFor()("module-task"), { model: TASK_MODELS[quality], temperature: 0, timeoutMs: 10_000 })
         : null,
+    // Musik-Quiz: fresh preview URLs (free APIs, no key, not metered).
+    songs: () => createPreviewLookup(createProviders((input, init) => fetch(input, init))),
   });
 
   /** Blocked ids + generated questions, refreshed before each round starts. */
@@ -674,7 +680,8 @@ export class Room extends Server<Env> implements AvatarRoomApi {
 
   /** Cached ~5 min; keeps the last filter (or none) when D1 is unavailable. */
   private async refreshContent() {
-    this.content = await loadContentFilter(this.statsStore(), Date.now());
+    const songs = this.env.STATS ? d1SongOverrideStore(this.env.STATS) : null;
+    this.content = await loadContentFilter(this.statsStore(), Date.now(), songs);
   }
 
   private activeRoom(): RoomRecord | null {

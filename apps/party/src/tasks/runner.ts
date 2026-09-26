@@ -1,14 +1,15 @@
 /**
  * Runs the server work a category module asks for (GameModule.pendingTask),
- * e.g. the AI check of the Bluff-Lexikon definitions, and hands the result
- * back (resolveModuleTask). Generic: the room knows nothing about the
- * category. A failure or timeout resolves with null – the module falls back.
+ * e.g. the AI check of the Bluff-Lexikon definitions or the Musik-Quiz's
+ * fresh preview URLs, and hands the result back (resolveModuleTask).
+ * Generic: the room knows nothing about the category. A failure or timeout resolves with null – the module falls back.
  * Never logs prompts or replies.
  */
 import type { ModuleTask } from "@couch-clash/shared";
 import type { ModuleRegistry } from "@couch-clash/games";
 import { pendingModuleTask, resolveModuleTask, type FlowDeps } from "../game-flow";
 import type { JsonModel } from "../generate/model";
+import type { PreviewLookup } from "../songs/previews";
 import type { RoomRecord } from "../room-logic";
 
 export interface TaskRuntime {
@@ -18,6 +19,8 @@ export interface TaskRuntime {
   flowDeps(): FlowDeps;
   /** Null: no API key → every task resolves with null right away. */
   model(quality: "fast" | "strong"): JsonModel | null;
+  /** Song previews (Musik-Quiz); absent → every such task resolves with null. */
+  songs?: () => PreviewLookup | null;
   registry?: ModuleRegistry;
 }
 
@@ -55,13 +58,27 @@ export class ModuleTaskRunner {
   }
 
   private async execute(task: ModuleTask): Promise<unknown> {
-    const model = this.rt.model(task.model ?? "fast");
-    if (!model) return null;
+    const work = this.work(task);
+    if (!work) return null;
     try {
-      return await withTimeout(task.timeoutMs, model(task.input.system, task.input.user));
+      return await withTimeout(task.timeoutMs, work());
     } catch (err) {
       console.warn(`task ${task.kind}: ${err instanceof TaskTimeout ? "timeout" : err instanceof Error ? err.message.slice(0, 60) : "error"}`);
       return null;
+    }
+  }
+
+  /** The call a task needs, or null when its service isn't set up. */
+  private work(task: ModuleTask): (() => Promise<unknown>) | null {
+    switch (task.kind) {
+      case "llm_json": {
+        const model = this.rt.model(task.model ?? "fast");
+        return model ? () => model(task.input.system, task.input.user) : null;
+      }
+      case "song_previews": {
+        const lookup = this.rt.songs?.();
+        return lookup ? () => lookup(task.input.tracks) : null;
+      }
     }
   }
 

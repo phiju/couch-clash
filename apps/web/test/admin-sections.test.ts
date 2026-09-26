@@ -11,11 +11,11 @@ describe("admin area", () => {
       // Developer pages open in developer mode straight from the link (also in production).
       if (s.dev) expect(s.href).toContain("dev=1");
     }
-    expect(ADMIN_SECTIONS.map((s) => s.title)).toEqual(["Fragen", "Kosten", "Survival-Bühne", "Sounds"]);
+    expect(ADMIN_SECTIONS.map((s) => s.title)).toEqual(["Fragen", "Songs", "Kosten", "Survival-Bühne", "Sounds"]);
   });
 
   it("the current page is highlighted", () => {
-    const [fragen, , survival] = ADMIN_SECTIONS;
+    const [fragen, , , survival] = ADMIN_SECTIONS;
     expect(isActiveSection(fragen!, "/admin/fragen")).toBe(true);
     expect(isActiveSection(survival!, "/dev/survival")).toBe(true);
     expect(isActiveSection(fragen!, "/admin")).toBe(false);

@@ -20,6 +20,7 @@ import { handleVoiceGet } from "./voice/routes";
 import { handleAdmin } from "./admin/routes";
 import { createOpenAIJsonModel } from "./generate/model";
 import { d1StatsStore } from "./stats/store";
+import { d1SongOverrideStore } from "./songs/store";
 import { meteredFetchFor } from "./costs/meter";
 import { d1CostStore, usageRecorder } from "./costs/store";
 import { CORS_HEADERS, json } from "./http";
@@ -77,6 +78,7 @@ export default {
         now: () => Date.now(),
         voice: () => ({ ...createVoiceProviders(env, undefined, fetchFor), store: env.AVATARS ? r2AvatarStore(env.AVATARS) : null }),
         costs,
+        songs: env.STATS ? d1SongOverrideStore(env.STATS) : null,
       });
       if (admin) return admin;
       if (url.pathname === "/api/rooms" && request.method === "POST") return createRoom(env);

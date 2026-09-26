@@ -13,7 +13,8 @@
     "e2e:reconnect": "node e2e/reconnect.e2e.mjs",
     "e2e:end-game": "node e2e/end-game.e2e.mjs",
     "e2e:survival": "node e2e/survival.e2e.mjs",
-    "e2e:pixelpanik": "node e2e/pixelpanik.e2e.mjs"
+    "e2e:pixelpanik": "node e2e/pixelpanik.e2e.mjs",
+    "e2e:musik": "node e2e/musik.e2e.mjs"
   },
   "dependencies": {
     "@couch-clash/games": "workspace:*",
