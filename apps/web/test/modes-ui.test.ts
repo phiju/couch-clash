@@ -13,6 +13,10 @@ describe("game mode in the UI helpers", () => {
     expect(summaryText({ mode: "kids", categoryIds: ["quiz", "estimate", "quiz"], questionCount: 30, estimatedSeconds: 1800 })).toMatch(
       /^Kids · 2 Kategorien/,
     );
+    // The finale is named on its own, not counted as a category.
+    expect(summaryText({ mode: "family", categoryIds: ["quiz", "estimate", "survival"], questionCount: 14, estimatedSeconds: 1200 })).toBe(
+      "Familie · 2 Kategorien + Survival-Finale · 14 Fragen · ca. 20 Minuten",
+    );
   });
 
   it("availability per mode: bluff not in Kids, the pool must reach the minimum – never the player count", () => {

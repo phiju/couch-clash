@@ -28,6 +28,15 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.19.1",
+    date: "2026-09-26",
+    title: "Aufgeräumt: Die Spielauswahl in der Lobby sitzt jetzt wieder gerade.",
+    items: [
+      { emoji: "🔧", text: "Spielauswahl in der Lobby: nichts mehr abgeschnitten oder verrutscht" },
+      { emoji: "🟢", text: "Die Lobby zeigt das Survival-Finale extra an statt als Kategorie" },
+    ],
+  },
+  {
     version: "0.19.0",
     date: "2026-09-25",
     title: "Das große Finale: Eure Punkte werden zu Lebensenergie – und unter euch blubbert der Schleim.",

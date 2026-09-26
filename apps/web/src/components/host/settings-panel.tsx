@@ -320,7 +320,8 @@ export function GameSettingsPanel({
         </p>
       )}
 
-      <ul className={`grid w-full ${compact ? "gap-[1.4vh]" : "gap-4 lg:grid-cols-2"}`}>
+      {/* minmax(0, 1fr): a long option text wraps instead of widening every card past the column. */}
+      <ul className={`grid w-full grid-cols-[minmax(0,1fr)] ${compact ? "gap-[1.4vh]" : "gap-4 lg:grid-cols-2"}`}>
         {listed.map((meta) => {
           const ok = available(meta);
           const c = { ...view.choices[meta.id]!, enabled: view.choices[meta.id]!.enabled && ok };
@@ -330,7 +331,7 @@ export function GameSettingsPanel({
           return (
             <li
               key={meta.id}
-              className={`flex flex-col rounded-3xl ring-4 transition ${compact ? "gap-[1.2vh] p-[1.6vh]" : "gap-4 p-6"} ${
+              className={`flex min-w-0 flex-col rounded-3xl ring-4 transition ${compact ? "gap-[1.2vh] p-[1.6vh]" : "gap-4 p-6"} ${
                 c.enabled ? "chip ring-bulb" : "bg-petrol-dark/60 opacity-60 ring-transparent"
               }`}
             >
