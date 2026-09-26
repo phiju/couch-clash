@@ -631,3 +631,72 @@ body {
   .sv-stage *, .sv-stage { animation: none !important; transition-duration: 0.01s !important; }
   .sv-delta { animation: fade-in 0.3s both !important; }
 }
+
+/* ── Standing figures: cross-fade + idle motion (CSS only, pivot at the feet) ─
+ * The active layer is the only visible one; its animation (re)starts when it
+ * becomes active. `translate` (tremble) and `transform` (hop) are separate
+ * properties, so they combine.                                                */
+.fig { position: relative; aspect-ratio: 2 / 3; }
+.fig-layer { position: absolute; inset: 0; opacity: 0; transition-property: opacity; transition-timing-function: ease-out; }
+.fig-layer[data-active] { opacity: 1; }
+.fig-img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; pointer-events: none; user-select: none; }
+.fig-fallback { position: absolute; inset: auto 0 0 0; display: flex; justify-content: center; transform-origin: 50% 100%; }
+
+@keyframes fig-breathe {
+  0%, 100% { transform: scale(1, 1) translateY(0); }
+  50% { transform: scale(1.005, 1.02) translateY(-0.6%); }
+}
+@keyframes fig-fidget {
+  0%, 100% { translate: 0 0; }
+  12% { translate: -2.5% 0; }
+  20% { translate: -2.5% -0.8%; }
+  28% { translate: 0 0; }
+  47% { translate: 2% 0; }
+  53% { translate: 2% -0.6%; }
+  60% { translate: 0.5% 0; }
+  78% { translate: -1% 0; }
+}
+@keyframes fig-tremble {
+  0%, 100% { translate: 0 0; }
+  25% { translate: -2px 1px; }
+  50% { translate: 2px -1px; }
+  75% { translate: -1px -2px; }
+}
+@keyframes fig-hop {
+  0%, 78%, 100% { transform: translateY(0) scale(1, 1); }
+  84% { transform: translateY(-5%) scale(0.97, 1.03); }
+  90% { transform: translateY(0) scale(1.03, 0.97); }
+}
+@keyframes fig-jump {
+  0% { transform: translateY(0) scale(1.08, 0.9); }
+  18% { transform: translateY(-10%) scale(0.94, 1.08); }
+  40% { transform: translateY(-14%) scale(1, 1); }
+  62% { transform: translateY(0) scale(1.1, 0.88); }
+  78%, 100% { transform: translateY(0) scale(1, 1); }
+}
+@keyframes fig-recoil {
+  0% { transform: rotate(0deg) translateX(0); }
+  30% { transform: rotate(-9deg) translateX(-4%); }
+  60% { transform: rotate(-4deg) translateX(-2%); }
+  100% { transform: rotate(-5deg) translateX(-2.5%); }
+}
+.fig[data-idle="on"] [data-active] .fig-img[data-pose="standard"],
+.fig[data-idle="on"] .fig-fallback[data-active] { animation: fig-breathe 3s ease-in-out var(--fig-delay, 0s) infinite; }
+.fig[data-idle="on"] [data-active] .fig-img[data-pose="besorgt"] { animation: fig-fidget 2.3s ease-in-out var(--fig-delay, 0s) infinite; }
+.fig[data-idle="on"] [data-active] .fig-img[data-pose="panisch"] {
+  animation: fig-tremble 80ms linear infinite, fig-hop 2.2s ease-out var(--fig-delay, 0s) infinite;
+}
+.fig[data-idle="on"] [data-active] .fig-img[data-pose="jubelnd"] { animation: fig-jump 1.1s cubic-bezier(0.3, 0.7, 0.4, 1) infinite; }
+/* Shocked: one recoil, then hold still. */
+.fig[data-idle="on"] [data-active] .fig-img[data-pose="geschockt"] { animation: fig-recoil 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) 1 forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .fig .fig-img, .fig .fig-fallback { animation: none !important; }
+  .fig-layer { transition-duration: 0.01s !important; }
+}
+/* Standing figures on the elevators: sized per lane; the figure brings its own motion, so the rider doesn't shake too. */
+.sv-rider[data-figure] { padding: 0; animation: none !important; }
+.sv-lane .fig:not(.sv-figure) { aspect-ratio: auto; }
+.sv-figure { height: clamp(5rem, 13vh, 11rem); }
+.sv-lane[data-size="xl"] .sv-figure { height: clamp(7rem, 20vh, 16rem); }
+.sv-lane[data-size="md"] .sv-figure { height: clamp(4.5rem, 11vh, 9rem); }
+.sv-lane[data-size="sm"] .sv-figure { height: clamp(4rem, 9vh, 7.5rem); }

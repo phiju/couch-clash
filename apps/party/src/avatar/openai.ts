@@ -28,13 +28,16 @@ export function createOpenAIProvider(apiKey: string, fetchFn: typeof fetch = fet
       form.append("model", AVATAR_CONFIG.model);
       form.append("prompt", style.prompt);
       form.append("image[]", new Blob([photo.bytes], { type: photo.mimeType }), `photo.${extension(photo.mimeType)}`);
-      form.append(
-        "image[]",
-        new Blob([style.reference.bytes], { type: style.reference.mimeType }),
-        `style.${extension(style.reference.mimeType)}`,
-      );
+      if (style.reference) {
+        form.append(
+          "image[]",
+          new Blob([style.reference.bytes], { type: style.reference.mimeType }),
+          `style.${extension(style.reference.mimeType)}`,
+        );
+      }
       form.append("quality", AVATAR_CONFIG.quality);
-      form.append("size", AVATAR_CONFIG.size);
+      form.append("size", options.size ?? AVATAR_CONFIG.size);
+      if (options.transparent) form.append("background", "transparent");
       form.append("output_format", "webp");
       form.append("output_compression", String(AVATAR_CONFIG.webpQuality));
       form.append("n", "1");

@@ -1,9 +1,12 @@
 "use client";
 
 import { getDangerLevel, type SurvivalPublicPlayer, type SurvivalPublicState } from "@couch-clash/games/meta";
-import type { PublicPlayer } from "@couch-clash/shared";
+import { figureUrl, type PublicPlayer } from "@couch-clash/shared";
 import { memo } from "react";
 import { AvatarBadge } from "@/components/avatar";
+import { StandingFigure } from "@/components/standing-figure";
+import { PARTY_HTTP_URL } from "@/lib/config";
+import { poseForDanger, reactionForEvent, type FigureReaction } from "@/lib/figure";
 import { signedPoints } from "../question-round/components";
 import {
   MOOD_EMOJI,
@@ -43,6 +46,7 @@ export function SurvivalStage({ state, players, now, scores, introProgress, desc
   const critical = state.players.filter((p) => !p.eliminated && (p.danger === "CRITICAL" || p.danger === "ELIMINATION_IMMINENT")).length;
   const bubbling = critical >= 2 ? "wild" : critical === 1 || state.phase.id === "death" ? "busy" : "calm";
   const winnerId = state.step === "winner" ? state.winnerId : null;
+  const reactions = figureReactions(state.events, now);
   return (
     <div className="sv-stage" data-final-two={finalTwo || undefined} data-winner={winnerId ? true : undefined}>
       <ol className="sv-lanes" aria-hidden>
@@ -62,6 +66,7 @@ export function SurvivalStage({ state, players, now, scores, introProgress, desc
             revived={state.step === "sudden_death" && !p.eliminated}
             questionNumber={state.question?.number ?? 0}
             rules={state.rules}
+            reaction={reactions.get(p.id) ?? null}
           />
         ))}
       </ol>
@@ -84,6 +89,20 @@ export function SurvivalStage({ state, players, now, scores, introProgress, desc
 
 const AVATAR_SCALE = { xl: 1.6, lg: 1.2, md: 1, sm: 0.8 } as const;
 
+/** Reactions shorter-lived than this are not replayed by a TV that just appeared. */
+const REACTION_MAX_AGE_MS = 3_000;
+
+/** The latest reaction per player (+50 / comeback / winner → cheering, wrong → shocked). */
+function figureReactions(events: SurvivalPublicState["events"], now: number): Map<string, FigureReaction> {
+  const out = new Map<string, FigureReaction>();
+  for (const e of events) {
+    if (!e.playerId || now - e.at > REACTION_MAX_AGE_MS) continue;
+    const reaction = reactionForEvent(e.type, e.seq);
+    if (reaction) out.set(e.playerId, reaction);
+  }
+  return out;
+}
+
 const Lane = memo(function Lane({
   p,
   player,
@@ -98,6 +117,7 @@ const Lane = memo(function Lane({
   revived,
   questionNumber,
   rules,
+  reaction,
 }: {
   p: SurvivalPublicPlayer;
   player: PublicPlayer | undefined;
@@ -112,9 +132,12 @@ const Lane = memo(function Lane({
   revived: boolean;
   questionNumber: number;
   rules: SurvivalPublicState["rules"];
+  reaction: FigureReaction | null;
 }) {
   const liveDanger = p.eliminated ? "ELIMINATED" : getDangerLevel(score, rules);
   const mood = winner ? "cheering" : moodFor(p, liveDanger);
+  // Standing figures when the player has one; the round avatar otherwise.
+  const hasFigure = !!player && figureUrl(PARTY_HTTP_URL, player.avatar.photo, "standard") !== null;
   // The winner rides up demonstratively (not into the banner above).
   const target = winner ? 0.9 : visualHeight(score, reference);
   const h = introProgress === undefined ? target : target * introProgress;
@@ -142,13 +165,22 @@ const Lane = memo(function Lane({
           </span>
         )}
         <span className="sv-score tabular-nums">{Math.max(0, score).toLocaleString("de-DE")}</span>
-        <div className="sv-rider">
+        <div className="sv-rider" data-figure={hasFigure || undefined}>
           {player && (
-            <span style={{ transform: `scale(${AVATAR_SCALE[size]})` }} className="inline-flex">
-              <AvatarBadge avatar={player.avatar} size="fluid" expression={MOOD_EXPRESSION[mood]} />
-            </span>
+            <StandingFigure
+              player={player}
+              // The winner cheers; everyone else shows their danger (live, while the score melts).
+              pose={winner ? "jubelnd" : poseForDanger(liveDanger)}
+              reaction={reaction}
+              className={hasFigure ? "sv-figure" : ""}
+              fallback={
+                <span style={{ transform: `scale(${AVATAR_SCALE[size]})` }} className="inline-flex origin-bottom">
+                  <AvatarBadge avatar={player.avatar} size="fluid" expression={MOOD_EXPRESSION[mood]} />
+                </span>
+              }
+            />
           )}
-          <span className="sv-mood">{MOOD_EMOJI[mood]}</span>
+          {!hasFigure && <span className="sv-mood">{MOOD_EMOJI[mood]}</span>}
         </div>
         <div className="sv-platform">
           <span className="sv-lamp" />

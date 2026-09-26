@@ -105,7 +105,8 @@ describe("accept job", () => {
       expressionsPending: false,
     });
     expect(d.provider).toBeDefined();
-    expect((d.provider as ReturnType<typeof mockProvider>).calls).toHaveLength(4);
+    // 1 round avatar + 3 round expressions + 5 standing figures (see avatar-figures.test.ts).
+    expect((d.provider as ReturnType<typeof mockProvider>).calls).toHaveLength(9);
   });
 
   it("failed expressions fall back to neutral", async () => {

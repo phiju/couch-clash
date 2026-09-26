@@ -37,6 +37,8 @@ function player(id: string, readyVersion: number | null): PublicPlayer {
               reason: null,
               path: `/api/rooms/ABCD/avatar/${id}`,
               saved: false,
+              figures: [],
+              figuresPending: false,
             },
     },
   };

@@ -3,23 +3,27 @@
  * Object passes in how to read and commit its room; the returned promises
  * are the background work (handed to ctx.waitUntil).
  */
-import { generateSecret, type PhotoExpression, type PhotoUploadResponse } from "@couch-clash/shared";
+import { FIGURE_EXPRESSIONS, generateSecret, type PhotoExpression, type PhotoUploadResponse } from "@couch-clash/shared";
+import { FIGURE_CONFIG } from "./config";
 import { authenticatePlayer, type RoomRecord } from "../room-logic";
 import { fail, ok, type Result } from "../result";
 import {
   acceptPhoto,
+  addFigure,
   addPhotoExpression,
   applySavedPhoto,
   canUseSavedPhoto,
   finishPhotoExpressions,
+  finishFigures,
   finishPhotoGeneration,
   markPhotoSaved,
   photoToSave,
+  startFigures,
   startPhotoGeneration,
 } from "./photo-logic";
 import type { AvatarImage } from "./provider";
-import { addSavedExpression, loadFigure, saveFigure } from "./saved";
-import { generateBaseAvatar, generateExpressionAvatar, type AvatarServiceDeps } from "./service";
+import { addSavedExpression, addSavedFigure, loadFigure, saveFigure } from "./saved";
+import { generateBaseAvatar, generateExpressionAvatar, generateFigure, type AvatarServiceDeps } from "./service";
 import type { AvatarStore } from "./store";
 
 export interface RoomAccess {
@@ -84,6 +88,8 @@ export async function acceptPhotoAndGenerate(
   if (!deps || expressions.length === 0) return ok(null);
 
   const code = room.code;
+  // Standing figures run next to the expressions – the lobby and the game never wait for either.
+  const figures = runFigures(access, deps, code, playerId, now);
   return ok(
     (async () => {
       for (const expression of expressions as Exclude<PhotoExpression, "neutral">[]) {
@@ -98,7 +104,52 @@ export async function acceptPhotoAndGenerate(
         }
       }
       await update(access, code, (r) => finishPhotoExpressions(r, playerId, version));
+      await figures;
     })(),
+  );
+}
+
+/**
+ * Standing full-body figures in the background: the standard figure from the
+ * round avatar first, then the four expressions in parallel from the
+ * standard figure. Each with one automatic retry; what fails falls back
+ * (expression → standard figure → round avatar). Counts and cost are logged.
+ */
+export async function runFigures(
+  access: RoomAccess,
+  deps: AvatarServiceDeps,
+  code: string,
+  playerId: string,
+  now: number,
+): Promise<void> {
+  const room = access.read();
+  if (!room || room.code !== code) return;
+  const started = startFigures(room, playerId, now);
+  if (!started) return;
+  await access.commit(started.room);
+  const { version, poses } = started;
+  let calls = 0;
+  let made = 0;
+
+  const still = () => access.read()?.players.find((p) => p.id === playerId)?.photo?.readyVersion === version;
+  const make = async (pose: (typeof poses)[number]) => {
+    if (!still()) return false;
+    const outcome = await generateFigure(deps, { code, playerId, pose });
+    calls += outcome.attempts;
+    if (!outcome.ok) return false;
+    made++;
+    await update(access, code, (r) => addFigure(r, playerId, version, pose));
+    const savedId = access.read()?.players.find((p) => p.id === playerId)?.photo?.savedId;
+    if (savedId) await addSavedFigure(deps.store, { code, playerId, savedId, pose });
+    return true;
+  };
+
+  const hasStandard = !poses.includes("standard") || (await make("standard"));
+  if (hasStandard) await Promise.all(FIGURE_EXPRESSIONS.filter((p) => poses.includes(p)).map(make));
+  await update(access, code, (r) => finishFigures(r, playerId, version, calls));
+  const roomCalls = access.read()?.photoUsage.figures ?? calls;
+  console.log(
+    `avatar figures: ${made}/${poses.length} made in ${calls} model calls (≈$${(calls * FIGURE_CONFIG.estimatedUsdPerImage).toFixed(2)}); room total ${roomCalls} calls (≈$${(roomCalls * FIGURE_CONFIG.estimatedUsdPerImage).toFixed(2)})`,
   );
 }
 
@@ -127,6 +178,7 @@ export async function savePlayerPhoto(
     playerId,
     savedId,
     expressions: photo.value.expressions,
+    figures: photo.value.figures ?? [],
     now,
   });
   if (!copied.includes("neutral")) return fail("PHOTO_NOT_READY");
@@ -134,25 +186,29 @@ export async function savePlayerPhoto(
   return ok(savedId);
 }
 
-/** "⭐ Meine Figur": copies a saved figure into the room – no generation, no cost. */
+/**
+ * "⭐ Meine Figur": copies a saved figure into the room – no generation, no
+ * cost. A figure saved before standing figures existed gets them made now.
+ */
 export async function useSavedPhoto(
   access: RoomAccess,
   store: AvatarStore | null,
   playerId: string,
   savedId: string,
   now: number,
-): Promise<Result<void>> {
+  deps: AvatarServiceDeps | null = null,
+): Promise<Result<Promise<void> | null>> {
   const room = access.read();
   if (!room) return fail("ROOM_NOT_FOUND");
   if (!store) return fail("PHOTO_UNAVAILABLE");
   const allowed = canUseSavedPhoto(room, playerId);
   if (!allowed.ok) return allowed;
-  const expressions = await loadFigure(store, { code: room.code, playerId, savedId, now });
-  if (!expressions) return fail("PHOTO_SAVED_GONE");
+  const loaded = await loadFigure(store, { code: room.code, playerId, savedId, now });
+  if (!loaded) return fail("PHOTO_SAVED_GONE");
   const current = access.read();
   if (!current || current.code !== room.code) return fail("ROOM_NOT_FOUND");
-  const applied = applySavedPhoto(current, playerId, savedId, expressions, now);
+  const applied = applySavedPhoto(current, playerId, savedId, loaded.expressions, now, loaded.figures);
   if (!applied.ok) return applied;
   await access.commit(applied.value);
-  return ok(undefined);
+  return ok(deps ? runFigures(access, deps, room.code, playerId, now) : null);
 }

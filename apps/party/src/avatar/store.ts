@@ -1,4 +1,4 @@
-import type { PhotoExpression } from "@couch-clash/shared";
+import { figureImageName, type FigurePose, type PhotoExpression } from "@couch-clash/shared";
 
 /** Storage for generated avatars (never for the original photos). */
 export interface AvatarStore {
@@ -20,6 +20,11 @@ export function playerPrefix(code: string, playerId: string): string {
 
 export function avatarKey(code: string, playerId: string, expression: PhotoExpression): string {
   return `${playerPrefix(code, playerId)}${expression}.webp`;
+}
+
+/** Standing figure: `rooms/<code>/<playerId>/figure-<pose>.webp` (transparent, portrait). */
+export function figureKey(code: string, playerId: string, pose: FigurePose): string {
+  return `${playerPrefix(code, playerId)}${figureImageName(pose)}.webp`;
 }
 
 /** R2 bucket binding AVATARS. A lifecycle rule (1 day) cleans up anything missed. */
@@ -60,6 +65,10 @@ export function savedPrefix(savedId: string): string {
 
 export function savedKey(savedId: string, expression: PhotoExpression): string {
   return `${savedPrefix(savedId)}${expression}.webp`;
+}
+
+export function savedFigureKey(savedId: string, pose: FigurePose): string {
+  return `${savedPrefix(savedId)}${figureImageName(pose)}.webp`;
 }
 
 export function savedMetaKey(savedId: string): string {

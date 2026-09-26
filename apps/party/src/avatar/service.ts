@@ -2,10 +2,10 @@
  * Runs one generation: provider call with timeout → scale down → store in R2.
  * The original photo only lives in memory for the duration of the call.
  */
-import type { PhotoExpression, PhotoFailure } from "@couch-clash/shared";
-import { AVATAR_CONFIG, AVATAR_PROMPT, expressionPrompt } from "./config";
-import { AvatarGenerationError, type AvatarImage, type AvatarProvider } from "./provider";
-import { avatarKey, type AvatarStore } from "./store";
+import type { FigurePose, PhotoExpression, PhotoFailure } from "@couch-clash/shared";
+import { AVATAR_CONFIG, AVATAR_PROMPT, FIGURE_CONFIG, expressionPrompt, figurePrompt } from "./config";
+import { AvatarGenerationError, type AvatarGenerateOptions, type AvatarImage, type AvatarProvider } from "./provider";
+import { avatarKey, figureKey, type AvatarStore } from "./store";
 
 export interface AvatarServiceDeps {
   provider: AvatarProvider;
@@ -14,6 +14,8 @@ export interface AvatarServiceDeps {
   styleReference: () => AvatarImage;
   /** Scales the model output down (e.g. Cloudflare Images). Optional. */
   resize?: (image: AvatarImage) => Promise<AvatarImage>;
+  /** Scales a standing figure to the fixed portrait size, keeping transparency. Optional. */
+  resizeFigure?: (image: AvatarImage) => Promise<AvatarImage>;
   timeoutMs?: number;
 }
 
@@ -26,6 +28,8 @@ async function generateWithTimeout(
   deps: AvatarServiceDeps,
   input: AvatarImage,
   prompt: string,
+  /** Figures: no style reference (they keep the input's style), portrait, transparent. */
+  figure?: Omit<AvatarGenerateOptions, "signal">,
 ): Promise<AvatarImage> {
   const controller = new AbortController();
   let timer: ReturnType<typeof setTimeout> | undefined;
@@ -37,7 +41,9 @@ async function generateWithTimeout(
   });
   try {
     return await Promise.race([
-      deps.provider.generateAvatar(input, { reference: deps.styleReference(), prompt }, { signal: controller.signal }),
+      figure
+        ? deps.provider.generateAvatar(input, { prompt }, { ...figure, signal: controller.signal })
+        : deps.provider.generateAvatar(input, { reference: deps.styleReference(), prompt }, { signal: controller.signal }),
       timeout,
     ]);
   } finally {
@@ -57,11 +63,12 @@ function logFailure(kind: string, err: unknown) {
   console.warn(`avatar ${kind} failed: ${detail}`);
 }
 
-async function storeImage(deps: AvatarServiceDeps, key: string, image: AvatarImage) {
+async function storeImage(deps: AvatarServiceDeps, key: string, image: AvatarImage, figure = false) {
   let stored = image;
-  if (deps.resize) {
+  const resize = figure ? deps.resizeFigure : deps.resize;
+  if (resize) {
     try {
-      stored = await deps.resize(image);
+      stored = await resize(image);
     } catch {
       console.warn("avatar resize failed, storing the original size");
     }
@@ -103,6 +110,54 @@ export async function generateExpressionAvatar(
     logFailure(`expression ${job.expression}`, err);
     return false;
   }
+}
+
+export interface FigureOutcome {
+  ok: boolean;
+  /** Model calls made (1, or 2 with the retry) – for the cost log. */
+  attempts: number;
+}
+
+/**
+ * One standing figure. "standard" is made from the round avatar; every other
+ * pose from the stored standard figure (never the round avatar – otherwise the
+ * body is re-invented and the figures don't match). One automatic retry.
+ */
+export async function generateFigure(
+  deps: AvatarServiceDeps,
+  job: { code: string; playerId: string; pose: FigurePose },
+): Promise<FigureOutcome> {
+  const source = await deps.store.get(
+    job.pose === "standard" ? avatarKey(job.code, job.playerId, "neutral") : figureKey(job.code, job.playerId, "standard"),
+  );
+  if (!source) return { ok: false, attempts: 0 };
+  const input = { bytes: source.bytes, mimeType: source.contentType };
+  let attempts = 0;
+  for (let i = 0; i <= FIGURE_CONFIG.retries; i++) {
+    attempts++;
+    try {
+      const image = await generateWithTimeout(deps, input, figurePrompt(job.pose), { size: FIGURE_CONFIG.size, transparent: true });
+      await storeImage(deps, figureKey(job.code, job.playerId, job.pose), image, true);
+      return { ok: true, attempts };
+    } catch (err) {
+      logFailure(`figure ${job.pose} (attempt ${attempts})`, err);
+      // A refusal won't change on a retry.
+      if (err instanceof AvatarGenerationError && err.reason === "refused") break;
+    }
+  }
+  return { ok: false, attempts };
+}
+
+/** Cloudflare Images binding → portrait WebP of the figure size, transparency kept, never cropped. */
+export function imagesFigureResizer(images: ImagesBinding) {
+  return async (image: AvatarImage): Promise<AvatarImage> => {
+    const result = await images
+      .input(new Blob([image.bytes]).stream())
+      .transform({ width: FIGURE_CONFIG.storedWidth, height: FIGURE_CONFIG.storedHeight, fit: "contain", background: "rgba(0,0,0,0)" })
+      .output({ format: "image/webp", quality: AVATAR_CONFIG.webpQuality });
+    const bytes = new Uint8Array(await new Response(result.image()).arrayBuffer());
+    return { bytes, mimeType: result.contentType() };
+  };
 }
 
 /** Cloudflare Images binding → square WebP of `AVATAR_CONFIG.storedSize` px. */

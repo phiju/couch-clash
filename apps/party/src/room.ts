@@ -8,6 +8,7 @@ import {
   generateSecret,
   type HostLine,
   type Avatar,
+  type FigurePose,
   type PhotoExpression,
   type PhotoUploadResponse,
   type RoomNotice,
@@ -25,7 +26,7 @@ import {
 import { expireStalePhotos, nextPhotoDeadline, resetPhoto, setPhotoAvatars } from "./avatar/photo-logic";
 import type { AvatarImage } from "./avatar/provider";
 import type { AvatarRoomApi } from "./avatar/routes";
-import { imagesResizer, type AvatarServiceDeps } from "./avatar/service";
+import { imagesFigureResizer, imagesResizer, type AvatarServiceDeps } from "./avatar/service";
 import { playerPrefix, r2AvatarStore, roomPrefix } from "./avatar/store";
 import { styleReference } from "./avatar/style";
 import { createVoiceProviders } from "./voice";
@@ -201,9 +202,13 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     return response;
   }
 
-  async hasPhoto(playerId: string, expression: PhotoExpression): Promise<boolean> {
+  async hasPhoto(
+    playerId: string,
+    image: { kind: "expression"; expression: PhotoExpression } | { kind: "figure"; pose: FigurePose },
+  ): Promise<boolean> {
     const photo = this.activeRoom()?.players.find((p) => p.id === playerId)?.photo;
-    return !!photo && photo.readyVersion !== null && photo.expressions.includes(expression);
+    if (!photo || photo.readyVersion === null) return false;
+    return image.kind === "figure" ? (photo.figures ?? []).includes(image.pose) : photo.expressions.includes(image.expression);
   }
 
   // -------------------------------------------------------------------------
@@ -478,8 +483,9 @@ export class Room extends Server<Env> implements AvatarRoomApi {
       case "photo_use_saved": {
         const state = conn.state;
         if (state?.role !== "player") return this.send(conn, errorMessage("NOT_AUTHORIZED"));
-        const result = await useSavedPhoto(this.roomAccess, this.avatarStore(), state.playerId, msg.savedId, now);
+        const result = await useSavedPhoto(this.roomAccess, this.avatarStore(), state.playerId, msg.savedId, now, this.avatarDeps());
         if (!result.ok) return this.send(conn, errorMessage(result.error));
+        if (result.value) this.ctx.waitUntil(result.value);
         return;
       }
 
@@ -576,8 +582,9 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     this.voice.playerJoined(player.id);
     // Joined with the emoji first; the saved figure replaces it a moment later.
     if (savedFigureId) {
-      const used = await useSavedPhoto(this.roomAccess, this.avatarStore(), player.id, savedFigureId, Date.now());
+      const used = await useSavedPhoto(this.roomAccess, this.avatarStore(), player.id, savedFigureId, Date.now(), this.avatarDeps());
       if (!used.ok) this.send(conn, errorMessage(used.error));
+      else if (used.value) this.ctx.waitUntil(used.value);
     }
   }
 
@@ -680,6 +687,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
       store: r2AvatarStore(this.env.AVATARS),
       styleReference,
       resize: this.env.IMAGES ? imagesResizer(this.env.IMAGES) : undefined,
+      resizeFigure: this.env.IMAGES ? imagesFigureResizer(this.env.IMAGES) : undefined,
     };
   }
 

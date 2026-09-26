@@ -42,6 +42,11 @@ describe("saved figures", () => {
     expect(saved).toEqual({ ok: true, value: SAVED_ID });
     expect([...store.objects.keys()].filter((k) => k.startsWith("saved/")).sort()).toEqual([
       `saved/${SAVED_ID}/enttaeuscht.webp`,
+      `saved/${SAVED_ID}/figure-besorgt.webp`,
+      `saved/${SAVED_ID}/figure-geschockt.webp`,
+      `saved/${SAVED_ID}/figure-jubelnd.webp`,
+      `saved/${SAVED_ID}/figure-panisch.webp`,
+      `saved/${SAVED_ID}/figure-standard.webp`,
       `saved/${SAVED_ID}/geschockt.webp`,
       `saved/${SAVED_ID}/jubelnd.webp`,
       `saved/${SAVED_ID}/meta.json`,
@@ -54,7 +59,7 @@ describe("saved figures", () => {
     const other = access(roomWithPlayers(["Ana"], "WXYZ"));
     const otherId = other.room.players[0]!.id;
     const callsBefore = provider.calls.length;
-    expect(await useSavedPhoto(other, store, otherId, SAVED_ID, T0 + 3)).toEqual({ ok: true, value: undefined });
+    expect(await useSavedPhoto(other, store, otherId, SAVED_ID, T0 + 3)).toEqual({ ok: true, value: null });
     expect(provider.calls.length).toBe(callsBefore);
     expect(other.room.players[0]!.photo).toMatchObject({
       status: "ready",

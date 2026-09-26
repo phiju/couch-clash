@@ -5,10 +5,19 @@ export interface AvatarImage {
   mimeType: string;
 }
 
-/** How the result should look: the style reference image and the instruction. */
+/** How the result should look: the style reference image (optional) and the instruction. */
 export interface AvatarStyle {
-  reference: AvatarImage;
+  /** Second input image (the Couch Clash style). Figures don't use it – they keep the input's style. */
+  reference?: AvatarImage;
   prompt: string;
+}
+
+export interface AvatarGenerateOptions {
+  signal?: AbortSignal;
+  /** Requested size, e.g. "1024x1536" (default: AVATAR_CONFIG.size). */
+  size?: string;
+  /** Transparent background (standing figures). */
+  transparent?: boolean;
 }
 
 /**
@@ -17,7 +26,7 @@ export interface AvatarStyle {
  */
 export interface AvatarProvider {
   /** Throws `AvatarGenerationError` (refusal, no image, API error). */
-  generateAvatar(photo: AvatarImage, style: AvatarStyle, options?: { signal?: AbortSignal }): Promise<AvatarImage>;
+  generateAvatar(photo: AvatarImage, style: AvatarStyle, options?: AvatarGenerateOptions): Promise<AvatarImage>;
 }
 
 export class AvatarGenerationError extends Error {

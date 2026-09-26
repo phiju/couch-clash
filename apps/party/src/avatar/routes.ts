@@ -11,23 +11,25 @@ import {
   PHOTO_MIME_TYPES,
   isPhotoExpression,
   isValidRoomCode,
+  parseAvatarImageName,
   normalizeRoomCode,
   type ErrorCode,
+  type FigurePose,
   type PhotoExpression,
   type PhotoUploadResponse,
 } from "@couch-clash/shared";
 import { CORS_HEADERS, json } from "../http";
 import type { AvatarImage } from "./provider";
 import { deleteFigure } from "./saved";
-import { avatarKey, savedKey, savedMetaKey, type AvatarStore } from "./store";
+import { avatarKey, figureKey, savedKey, savedMetaKey, type AvatarStore } from "./store";
 
 export type PhotoMimeType = (typeof PHOTO_MIME_TYPES)[number];
 
 /** What the worker needs from the room Durable Object. */
 export interface AvatarRoomApi {
   uploadPhoto(playerId: string, playerSecret: string, photo: AvatarImage): Promise<PhotoUploadResponse>;
-  /** Whether the room is active and the player has this expression. */
-  hasPhoto(playerId: string, expression: PhotoExpression): Promise<boolean>;
+  /** Whether the room is active and the player has this image (a round expression or a standing figure). */
+  hasPhoto(playerId: string, image: { kind: "expression"; expression: PhotoExpression } | { kind: "figure"; pose: FigurePose }): Promise<boolean>;
 }
 
 const STATUS: Partial<Record<ErrorCode, number>> = {
@@ -117,11 +119,12 @@ export async function handleAvatarGet(
 ): Promise<Response> {
   const notFound = () => new Response("Not found", { status: 404, headers: CORS_HEADERS });
   const code = roomCode(rawCode);
-  if (!code || !store || !isPhotoExpression(expression) || !/^[A-Za-z0-9_-]{1,64}$/.test(playerId)) {
+  const name = parseAvatarImageName(expression);
+  if (!code || !store || !name || !/^[A-Za-z0-9_-]{1,64}$/.test(playerId)) {
     return notFound();
   }
-  if (!(await (await getRoom(code)).hasPhoto(playerId, expression))) return notFound();
-  const image = await store.get(avatarKey(code, playerId, expression));
+  if (!(await (await getRoom(code)).hasPhoto(playerId, name))) return notFound();
+  const image = await store.get(name.kind === "figure" ? figureKey(code, playerId, name.pose) : avatarKey(code, playerId, name.expression));
   if (!image) return notFound();
   return new Response(image.bytes, {
     headers: {
