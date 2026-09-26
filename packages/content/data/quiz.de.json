@@ -9,6 +9,8 @@
       "insekten"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "8",
@@ -27,6 +29,8 @@
       "planeten"
     ],
     "difficulty": 1,
+    "level": 2,
+    "kidsLevel": 5,
     "ageRating": 6,
     "options": [
       "Venus",
@@ -46,6 +50,8 @@
       "hauptstädte"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Lyon",
@@ -66,6 +72,8 @@
       "rekorde"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Afrikanischer Elefant",
@@ -85,6 +93,8 @@
       "italien"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Italien",
@@ -104,6 +114,8 @@
       "farben"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Lila",
@@ -123,6 +135,8 @@
       "zeit"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "100",
@@ -141,6 +155,7 @@
       "chemie"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Ag",
@@ -159,6 +174,7 @@
       "malerei"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Leonardo da Vinci",
@@ -178,6 +194,7 @@
       "flüsse"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Elbe",
@@ -197,6 +214,7 @@
       "ddr"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "1990",
@@ -216,6 +234,8 @@
       "fußball"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "10",
@@ -236,6 +256,7 @@
       "biologie"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Kohlendioxid",
@@ -256,6 +277,8 @@
       "rekorde"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "K2",
@@ -275,6 +298,8 @@
       "organe"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Lunge",
@@ -294,6 +319,8 @@
       "geometrie"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "5",
@@ -312,6 +339,7 @@
       "klassiker"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Johann Wolfgang von Goethe",
@@ -331,6 +359,8 @@
       "ozeane"
     ],
     "difficulty": 1,
+    "level": 2,
+    "kidsLevel": 4,
     "ageRating": 6,
     "options": [
       "Atlantik",
@@ -349,6 +379,7 @@
       "hauptstädte"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Sydney",
@@ -367,6 +398,7 @@
       "säugetiere"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Delfin",
@@ -385,6 +417,7 @@
       "instrumente"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "88",
@@ -403,6 +436,7 @@
       "chemie"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Gold",
@@ -422,6 +456,7 @@
       "komponisten"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Wolfgang Amadeus Mozart",
@@ -442,6 +477,8 @@
       "wahrzeichen"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Potsdam",
@@ -461,6 +498,8 @@
       "kalender"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "366",
@@ -479,6 +518,7 @@
       "hauptstädte"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Toronto",
@@ -498,6 +538,8 @@
       "planeten"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Jupiter",
@@ -517,6 +559,7 @@
       "rekorde"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Kanada",
@@ -536,6 +579,7 @@
       "einheiten"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Volt",
@@ -555,6 +599,7 @@
       "forscher"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Isaac Newton",
@@ -573,6 +618,7 @@
       "zähne"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "28",
@@ -592,6 +638,8 @@
       "rekorde"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Löwe",
@@ -611,6 +659,7 @@
       "südamerika"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Peru",
@@ -630,6 +679,8 @@
       "instrumente"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Geige",
@@ -648,6 +699,7 @@
       "vögel"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Specht",
@@ -666,6 +718,7 @@
       "bundesländer"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "14",
@@ -685,6 +738,7 @@
       "bundesländer"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Bremen",
@@ -704,6 +758,7 @@
       "metalle"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Blei",
@@ -723,6 +778,7 @@
       "japan"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Won",
@@ -742,6 +798,7 @@
       "raumfahrt"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Buzz Aldrin",
@@ -761,6 +818,8 @@
       "symbole"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Adler",
@@ -780,6 +839,8 @@
       "kontinente"
     ],
     "difficulty": 1,
+    "level": 2,
+    "kidsLevel": 5,
     "ageRating": 6,
     "options": [
       "Afrika",
@@ -799,6 +860,7 @@
       "instrumente"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 6,
     "options": [
       "5",
@@ -818,6 +880,8 @@
       "insekten"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "6",
@@ -837,6 +901,8 @@
       "säugetiere"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Afrikanischer Elefant",
@@ -856,6 +922,8 @@
       "tierkinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Kalb",
@@ -875,6 +943,8 @@
       "rekorde"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Elefant",
@@ -894,6 +964,8 @@
       "ernährung"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Fisch",
@@ -913,6 +985,8 @@
       "ernährung"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Bambus",
@@ -932,6 +1006,8 @@
       "bauernhof"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Hahn",
@@ -951,6 +1027,8 @@
       "vögel"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Pinguin",
@@ -970,6 +1048,8 @@
       "meerestiere"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "6",
@@ -990,6 +1070,8 @@
       "insekten"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Blätter",
@@ -1009,6 +1091,8 @@
       "säugetiere"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Biber",
@@ -1029,6 +1113,8 @@
       "bauernhof"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Kälber",
@@ -1048,6 +1134,8 @@
       "beuteltiere"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Nilpferd",
@@ -1067,6 +1155,8 @@
       "säugetiere"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Flughörnchen",
@@ -1085,6 +1175,7 @@
       "meerestiere"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "3",
@@ -1104,6 +1195,7 @@
       "rekorde"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Steinadler",
@@ -1123,6 +1215,8 @@
       "meerestiere"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Fische",
@@ -1141,6 +1235,7 @@
       "amphibien"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 6,
     "options": [
       "Reptilien",
@@ -1159,6 +1254,7 @@
       "amphibien"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Ein Fisch",
@@ -1177,6 +1273,7 @@
       "säugetiere"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Giraffe",
@@ -1195,6 +1292,7 @@
       "polartiere"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Schwarz",
@@ -1214,6 +1312,8 @@
       "amphibien"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Made",
@@ -1233,6 +1333,8 @@
       "bäume"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Buche",
@@ -1251,6 +1353,7 @@
       "bäume"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Fichte",
@@ -1271,6 +1374,8 @@
       "symbole"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Rose",
@@ -1290,6 +1395,7 @@
       "gemüse"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Wurzel",
@@ -1308,6 +1414,7 @@
       "organe"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Leber",
@@ -1326,6 +1433,7 @@
       "organe"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "2",
@@ -1344,6 +1452,7 @@
       "knochen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Oberschenkelknochen",
@@ -1363,6 +1472,8 @@
       "organe"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Lunge",
@@ -1381,6 +1492,7 @@
       "knochen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "In der Nase",
@@ -1400,6 +1512,7 @@
       "medizin"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "0 negativ",
@@ -1419,6 +1532,7 @@
       "gesundheit"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Vitamin C",
@@ -1438,6 +1552,8 @@
       "planeten"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 4,
     "ageRating": 6,
     "options": [
       "Saturn",
@@ -1457,6 +1573,8 @@
       "planeten"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Mars",
@@ -1476,6 +1594,8 @@
       "sterne"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Sonne",
@@ -1495,6 +1615,8 @@
       "galaxien"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Andromeda",
@@ -1513,6 +1635,7 @@
       "planeten"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Venus",
@@ -1531,6 +1654,7 @@
       "planeten"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Ceres",
@@ -1550,6 +1674,7 @@
       "raumfahrt"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Juri Gagarin",
@@ -1570,6 +1695,7 @@
       "ddr"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Ulf Merbold",
@@ -1588,6 +1714,7 @@
       "licht"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Etwa 8 Sekunden",
@@ -1607,6 +1734,8 @@
       "chemie"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 5,
     "ageRating": 6,
     "options": [
       "CO₂",
@@ -1626,6 +1755,7 @@
       "luft"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Stickstoff",
@@ -1644,6 +1774,7 @@
       "chemie"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Fe",
@@ -1662,6 +1793,7 @@
       "chemie"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Si",
@@ -1680,6 +1812,7 @@
       "chemie"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Helium",
@@ -1700,6 +1833,8 @@
       "wasser"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "0 °C",
@@ -1720,6 +1855,7 @@
       "forscher"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Galileo Galilei",
@@ -1740,6 +1876,7 @@
       "forscher"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Alexander Fleming",
@@ -1759,6 +1896,7 @@
       "einheiten"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Volt",
@@ -1778,6 +1916,7 @@
       "einheiten"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Dezibel",
@@ -1797,6 +1936,8 @@
       "farben"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Grün",
@@ -1817,6 +1958,8 @@
       "schilder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 4,
     "ageRating": 6,
     "options": [
       "Sechseck",
@@ -1836,6 +1979,8 @@
       "geometrie"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "4",
@@ -1854,6 +1999,7 @@
       "rechnen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "11",
@@ -1873,6 +2019,8 @@
       "rechnen"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "54",
@@ -1891,6 +2039,7 @@
       "zahlen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "15",
@@ -1909,6 +2058,7 @@
       "geometrie"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "45",
@@ -1928,6 +2078,7 @@
       "zeit"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "1440",
@@ -1947,6 +2098,7 @@
       "antike"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "C",
@@ -1966,6 +2118,8 @@
       "hauptstädte"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Mailand",
@@ -1985,6 +2139,8 @@
       "hauptstädte"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 4,
     "ageRating": 6,
     "options": [
       "Barcelona",
@@ -2004,6 +2160,8 @@
       "hauptstädte"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Salzburg",
@@ -2022,6 +2180,7 @@
       "hauptstädte"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Zürich",
@@ -2040,6 +2199,7 @@
       "hauptstädte"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Istanbul",
@@ -2058,6 +2218,7 @@
       "hauptstädte"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Rio de Janeiro",
@@ -2076,6 +2237,7 @@
       "hauptstädte"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Bergen",
@@ -2094,6 +2256,7 @@
       "hauptstädte"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Wellington",
@@ -2112,6 +2275,7 @@
       "hauptstädte"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Casablanca",
@@ -2130,6 +2294,7 @@
       "hauptstädte"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Lissabon",
@@ -2148,6 +2313,7 @@
       "hauptstädte"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Krakau",
@@ -2166,6 +2332,7 @@
       "hauptstädte"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Alexandria",
@@ -2184,6 +2351,7 @@
       "hauptstädte"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Ho-Chi-Minh-Stadt",
@@ -2203,6 +2371,7 @@
       "europa"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Wolga",
@@ -2222,6 +2391,7 @@
       "hauptstädte"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "2",
@@ -2241,6 +2411,8 @@
       "europa"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Griechenland",
@@ -2260,6 +2432,8 @@
       "afrika"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Asien",
@@ -2278,6 +2452,7 @@
       "wüsten"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Sahara",
@@ -2296,6 +2471,7 @@
       "wüsten"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Gobi",
@@ -2315,6 +2491,7 @@
       "seen"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Chiemsee",
@@ -2334,6 +2511,7 @@
       "seen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Deutschland, Frankreich, Schweiz",
@@ -2354,6 +2532,8 @@
       "landeshauptstädte"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Nürnberg",
@@ -2373,6 +2553,7 @@
       "landeshauptstädte"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Köln",
@@ -2392,6 +2573,7 @@
       "landeshauptstädte"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Braunschweig",
@@ -2411,6 +2593,7 @@
       "landeshauptstädte"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Leipzig",
@@ -2430,6 +2613,7 @@
       "landeshauptstädte"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Frankfurt am Main",
@@ -2449,6 +2633,7 @@
       "landeshauptstädte"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Karlsruhe",
@@ -2468,6 +2653,7 @@
       "inseln"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Sylt",
@@ -2487,6 +2673,7 @@
       "afrika"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Mount Kenia",
@@ -2507,6 +2694,8 @@
       "wahrzeichen"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Frankreich",
@@ -2527,6 +2716,8 @@
       "wahrzeichen"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Athen",
@@ -2546,6 +2737,7 @@
       "wahrzeichen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Barcelona",
@@ -2566,6 +2758,8 @@
       "wahrzeichen"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Ägypten",
@@ -2586,6 +2780,8 @@
       "wahrzeichen"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "China",
@@ -2606,6 +2802,8 @@
       "wahrzeichen"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Paris",
@@ -2625,6 +2823,7 @@
       "wahrzeichen"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Pakistan",
@@ -2645,6 +2844,8 @@
       "schlösser"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Baden-Württemberg",
@@ -2663,6 +2864,7 @@
       "meere"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Straße von Gibraltar",
@@ -2683,6 +2885,7 @@
       "europa"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Frankreich",
@@ -2702,6 +2905,8 @@
       "flaggen"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Blau, Weiß, Rot",
@@ -2721,6 +2926,8 @@
       "flaggen"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 4,
     "ageRating": 6,
     "options": [
       "Schweiz",
@@ -2740,6 +2947,8 @@
       "flaggen"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Rot, Schwarz, Gold",
@@ -2759,6 +2968,7 @@
       "politik"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Konrad Adenauer",
@@ -2778,6 +2988,7 @@
       "wiedervereinigung"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "1990",
@@ -2796,6 +3007,7 @@
       "entdecker"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Vasco da Gama",
@@ -2815,6 +3027,7 @@
       "erfindungen"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Martin Luther",
@@ -2834,6 +3047,7 @@
       "reformation"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Martin Luther",
@@ -2852,6 +3066,7 @@
       "antike"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Julius Caesar",
@@ -2870,6 +3085,7 @@
       "antike"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Troja",
@@ -2888,6 +3104,7 @@
       "antike"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Nofretete",
@@ -2906,6 +3123,7 @@
       "weltkrieg"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "1944",
@@ -2925,6 +3143,7 @@
       "politik"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "George Washington",
@@ -2944,6 +3163,8 @@
       "schiffe"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Lusitania",
@@ -2964,6 +3185,7 @@
       "erfindungen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Gottlieb Daimler",
@@ -2983,6 +3205,7 @@
       "erfindungen"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Die Gebrüder Wright",
@@ -3002,6 +3225,8 @@
       "märchen"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Hans Christian Andersen",
@@ -3020,6 +3245,7 @@
       "malerei"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Claude Monet",
@@ -3038,6 +3264,7 @@
       "malerei"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Raffael",
@@ -3056,6 +3283,7 @@
       "malerei"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Gustav Klimt",
@@ -3074,6 +3302,7 @@
       "theater"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Charles Dickens",
@@ -3093,6 +3322,8 @@
       "bücher"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "J. K. Rowling",
@@ -3112,6 +3343,7 @@
       "bücher"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Cornelia Funke",
@@ -3131,6 +3363,7 @@
       "bücher"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Michael Ende",
@@ -3150,6 +3383,8 @@
       "bücher"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 4,
     "ageRating": 6,
     "options": [
       "Astrid Lindgren",
@@ -3168,6 +3403,7 @@
       "fantasy"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Frodo",
@@ -3187,6 +3423,7 @@
       "klassik"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Ludwig van Beethoven",
@@ -3206,6 +3443,7 @@
       "klassik"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Mozart",
@@ -3224,6 +3462,7 @@
       "noten"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "4",
@@ -3243,6 +3482,8 @@
       "instrumente"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Cello",
@@ -3261,6 +3502,7 @@
       "bands"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "London",
@@ -3279,6 +3521,7 @@
       "eurovision"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "ABBA",
@@ -3298,6 +3541,8 @@
       "fernsehen"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Orange",
@@ -3317,6 +3562,8 @@
       "disney"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Sven",
@@ -3336,6 +3583,8 @@
       "animation"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Nemo",
@@ -3355,6 +3604,8 @@
       "superhelden"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Batman",
@@ -3374,6 +3625,7 @@
       "harry-potter"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Severus Snape",
@@ -3393,6 +3645,8 @@
       "basketball"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 4,
     "ageRating": 6,
     "options": [
       "6",
@@ -3412,6 +3666,7 @@
       "fußball"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "3",
@@ -3430,6 +3685,7 @@
       "american-football"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "3",
@@ -3449,6 +3705,8 @@
       "olympia"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "2",
@@ -3467,6 +3725,7 @@
       "golf"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Tennis",
@@ -3485,6 +3744,7 @@
       "radsport"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Giro d’Italia",
@@ -3503,6 +3763,7 @@
       "tennis"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Sand",
@@ -3521,6 +3782,7 @@
       "golf"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "9",
@@ -3540,6 +3802,8 @@
       "schach"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 4,
     "ageRating": 6,
     "options": [
       "Schwarz",
@@ -3558,6 +3822,7 @@
       "schach"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Turm",
@@ -3577,6 +3842,8 @@
       "japan"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "China",
@@ -3595,6 +3862,7 @@
       "mexiko"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Avocado",
@@ -3614,6 +3882,8 @@
       "saucen"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Paprika",
@@ -3633,6 +3903,8 @@
       "snacks"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Weizen",
@@ -3651,6 +3923,7 @@
       "spanien"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Spanien",
@@ -3669,6 +3942,7 @@
       "gewürze"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Vanille",
@@ -3688,6 +3962,8 @@
       "süßigkeiten"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Kakaobaum",
@@ -3707,6 +3983,8 @@
       "feiertage"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Pfingsten",
@@ -3726,6 +4004,8 @@
       "kalender"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "29",
@@ -3745,6 +4025,7 @@
       "wortherkunft"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "August",
@@ -3764,6 +4045,8 @@
       "englisch"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Schmetterling",
@@ -3783,6 +4066,8 @@
       "buchstaben"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "5",
@@ -3802,6 +4087,8 @@
       "wortspiele"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Anna-Lena",
@@ -3821,6 +4108,7 @@
       "sprachen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Portugiesisch",
@@ -3840,6 +4128,7 @@
       "sprachen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "4",
@@ -3858,6 +4147,7 @@
       "internet"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "World Wide Window",
@@ -3877,6 +4167,8 @@
       "marken"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Apple",
@@ -3896,6 +4188,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Burg",
@@ -3915,6 +4209,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Kamel",
@@ -3934,6 +4230,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Römer",
@@ -3953,6 +4251,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Zar",
@@ -3973,6 +4273,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 5,
     "ageRating": 6,
     "options": [
       "Runen",
@@ -3991,6 +4293,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Samurai",
@@ -4010,6 +4314,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Aus Plastik",
@@ -4029,6 +4335,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Einen Taucheranzug",
@@ -4049,6 +4357,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 5,
     "ageRating": 6,
     "options": [
       "Englisch",
@@ -4067,6 +4377,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Mit dem Hubschrauber",
@@ -4086,6 +4398,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Mumie",
@@ -4105,6 +4419,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Athen",
@@ -4125,6 +4441,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Tour de France",
@@ -4143,6 +4461,7 @@
       "bücher"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Ritter",
@@ -4161,6 +4480,7 @@
       "asien"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Japan",
@@ -4180,6 +4500,7 @@
       "kaiser"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Karl der Große",
@@ -4199,6 +4520,7 @@
       "europa"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Napoleon Bonaparte",
@@ -4218,6 +4540,7 @@
       "kaiser"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Köln",
@@ -4236,6 +4559,7 @@
       "königshaus"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Elisabeth I.",
@@ -4254,6 +4578,7 @@
       "kaiserreich"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Friedrich Ebert",
@@ -4273,6 +4598,7 @@
       "portugal"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Ferdinand Magellan",
@@ -4291,6 +4617,7 @@
       "mittelalter"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Konstantinopel",
@@ -4309,6 +4636,7 @@
       "amerika"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Inka",
@@ -4328,6 +4656,7 @@
       "archäologie"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Ramses II.",
@@ -4347,6 +4676,7 @@
       "nachkriegszeit"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Kuchenflieger",
@@ -4365,6 +4695,7 @@
       "bundesrepublik"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Heinrich Lübke",
@@ -4384,6 +4715,7 @@
       "griechenland"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Der Koloss",
@@ -4403,6 +4735,7 @@
       "großbritannien"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Nero",
@@ -4421,6 +4754,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Leipzig",
@@ -4439,6 +4773,7 @@
       "seefahrt"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Christoph Kolumbus",
@@ -4458,6 +4793,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Zunft",
@@ -4477,6 +4813,7 @@
       "burgen"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Wartburg",
@@ -4496,6 +4833,7 @@
       "rom"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "9 n. Chr.",
@@ -4515,6 +4853,7 @@
       "könige"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Friedrich Wilhelm I.",
@@ -4533,6 +4872,7 @@
       "rom"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "410",
@@ -4552,6 +4892,7 @@
       "osmanen"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Budapest",
@@ -4571,6 +4912,7 @@
       "europa"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Wiener Kongress",
@@ -4590,6 +4932,7 @@
       "frankreich"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Maria Theresia",
@@ -4609,6 +4952,7 @@
       "20. jahrhundert"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Explorer 1",
@@ -4627,6 +4971,7 @@
       "mittelalter"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "1066",
@@ -4646,6 +4991,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Australien",
@@ -4665,6 +5012,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Arktis",
@@ -4684,6 +5033,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Ein gelber Stern",
@@ -4703,6 +5054,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Italien",
@@ -4722,6 +5075,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 5,
     "ageRating": 6,
     "options": [
       "An der Ostsee",
@@ -4741,6 +5096,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Berlin",
@@ -4760,6 +5117,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Griechenland",
@@ -4778,6 +5137,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Halbinsel",
@@ -4797,6 +5158,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Gletscher",
@@ -4816,6 +5179,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Frankreich",
@@ -4835,6 +5200,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Afrika",
@@ -4854,6 +5221,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Paris",
@@ -4872,6 +5241,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Osten",
@@ -4890,6 +5261,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Wälder",
@@ -4909,6 +5282,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Moor",
@@ -4927,6 +5302,7 @@
       "nachbarländer"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Portugal",
@@ -4945,6 +5321,7 @@
       "flüsse"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Seine",
@@ -4964,6 +5341,7 @@
       "grenzen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Schweden",
@@ -4982,6 +5360,7 @@
       "hauptstädte"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Belfast",
@@ -5000,6 +5379,7 @@
       "kleinstaaten"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "San Marino",
@@ -5018,6 +5398,7 @@
       "inseln"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Ibiza",
@@ -5036,6 +5417,7 @@
       "flüsse"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Elbe",
@@ -5055,6 +5437,7 @@
       "kontinente"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Kairo",
@@ -5073,6 +5456,7 @@
       "inseln"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Japan",
@@ -5092,6 +5476,7 @@
       "seen"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Schweden",
@@ -5111,6 +5496,7 @@
       "flüsse"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Elbe",
@@ -5129,6 +5515,7 @@
       "welt"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Indischer Ozean",
@@ -5148,6 +5535,7 @@
       "asien"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Himalaya",
@@ -5166,6 +5554,7 @@
       "hauptstädte"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "New York",
@@ -5185,6 +5574,7 @@
       "spitznamen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Chicago",
@@ -5203,6 +5593,7 @@
       "länder"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Argentinien",
@@ -5221,6 +5612,7 @@
       "natur"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Norwegen",
@@ -5239,6 +5631,7 @@
       "städte"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Mali",
@@ -5257,6 +5650,7 @@
       "seen"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Tanganjikasee",
@@ -5275,6 +5669,7 @@
       "asien"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Bhutan",
@@ -5293,6 +5688,7 @@
       "welt"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Magellanstraße",
@@ -5311,6 +5707,7 @@
       "länder"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Eswatini",
@@ -5329,6 +5726,7 @@
       "südamerika"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Südamerika",
@@ -5348,6 +5746,7 @@
       "europa"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Österreich",
@@ -5367,6 +5766,7 @@
       "polargebiete"
     ],
     "difficulty": 3,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Island",
@@ -5386,6 +5786,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "4",
@@ -5405,6 +5807,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Die Sonne",
@@ -5424,6 +5828,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Es wird zu Dampf",
@@ -5443,6 +5849,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "11",
@@ -5462,6 +5870,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Würfel",
@@ -5481,6 +5891,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Ein Eisennagel",
@@ -5500,6 +5912,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Einen Kometen",
@@ -5519,6 +5933,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Rauch",
@@ -5538,6 +5954,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Mars",
@@ -5557,6 +5975,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "2",
@@ -5576,6 +5996,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Ein Stück Holz",
@@ -5595,6 +6017,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "90",
@@ -5614,6 +6038,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Sternschnuppe",
@@ -5633,6 +6059,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Mit einem Mikroskop",
@@ -5652,6 +6080,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 5,
     "ageRating": 6,
     "options": [
       "Die Steine",
@@ -5670,6 +6100,7 @@
       "geometrie"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "360",
@@ -5688,6 +6119,7 @@
       "formeln"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "NaCl",
@@ -5707,6 +6139,7 @@
       "licht"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Argon",
@@ -5725,6 +6158,7 @@
       "einheiten"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Energie",
@@ -5743,6 +6177,7 @@
       "monde"
     ],
     "difficulty": 2,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Europa",
@@ -5761,6 +6196,7 @@
       "potenzen"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "1000",
@@ -5779,6 +6215,7 @@
       "geometrie"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Gleichseitig",
@@ -5797,6 +6234,7 @@
       "planeten"
     ],
     "difficulty": 2,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Neptun",
@@ -5815,6 +6253,7 @@
       "reaktionen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Kohlendioxid",
@@ -5833,6 +6272,7 @@
       "elemente"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Kupfer",
@@ -5852,6 +6292,7 @@
       "weltall"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Radium",
@@ -5870,6 +6311,7 @@
       "geometrie"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "180 Grad",
@@ -5888,6 +6330,7 @@
       "forscher"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Marie Curie",
@@ -5906,6 +6349,7 @@
       "einheiten"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Joule",
@@ -5925,6 +6369,7 @@
       "monde"
     ],
     "difficulty": 2,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Einen",
@@ -5943,6 +6388,7 @@
       "planeten"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Mars",
@@ -5961,6 +6407,7 @@
       "primzahlen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "2",
@@ -5980,6 +6427,7 @@
       "aggregatzustände"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Sublimation",
@@ -5998,6 +6446,7 @@
       "elemente"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "8",
@@ -6016,6 +6465,7 @@
       "sterne"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Sirius",
@@ -6035,6 +6485,7 @@
       "körper"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "20",
@@ -6054,6 +6505,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Y-Strahlen",
@@ -6072,6 +6524,7 @@
       "überraschend"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "1",
@@ -6090,6 +6543,7 @@
       "metalle"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Eisen",
@@ -6109,6 +6563,7 @@
       "überraschend"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Zillion",
@@ -6127,6 +6582,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Igel",
@@ -6146,6 +6603,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Storch",
@@ -6164,6 +6623,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "8",
@@ -6182,6 +6643,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Elefant",
@@ -6200,6 +6663,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Weiß",
@@ -6219,6 +6684,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Igel",
@@ -6238,6 +6705,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Fohlen",
@@ -6257,6 +6726,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Giraffe",
@@ -6276,6 +6747,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Nase",
@@ -6294,6 +6767,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "5",
@@ -6313,6 +6788,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Frosch",
@@ -6332,6 +6809,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Huhn",
@@ -6350,6 +6829,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Blüten",
@@ -6368,6 +6849,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Elefant",
@@ -6386,6 +6869,7 @@
       "reptilien"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Schlange",
@@ -6405,6 +6889,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Aasfresser",
@@ -6423,6 +6909,7 @@
       "bauernhof"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "2",
@@ -6441,6 +6928,7 @@
       "meer"
     ],
     "difficulty": 2,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Gelb",
@@ -6460,6 +6948,7 @@
       "jagd"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Fähe",
@@ -6478,6 +6967,7 @@
       "organe"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Niere",
@@ -6496,6 +6986,7 @@
       "biologie"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Chlorophyll",
@@ -6514,6 +7005,7 @@
       "insekten"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Ameise",
@@ -6532,6 +7024,7 @@
       "reptilien"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Königskobra",
@@ -6550,6 +7043,7 @@
       "vögel"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Emu",
@@ -6569,6 +7063,7 @@
       "biologie"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Zellteilung",
@@ -6587,6 +7082,7 @@
       "blut"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Rote Blutkörperchen",
@@ -6605,6 +7101,7 @@
       "früchte"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Holunder",
@@ -6623,6 +7120,7 @@
       "muskeln"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Trizeps",
@@ -6641,6 +7139,7 @@
       "insekten"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "2",
@@ -6659,6 +7158,7 @@
       "wüste"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Fett",
@@ -6677,6 +7177,7 @@
       "meer"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Pinguine",
@@ -6696,6 +7197,7 @@
       "fische"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Mondfisch",
@@ -6714,6 +7216,7 @@
       "australien"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "Faultier",
@@ -6732,6 +7235,7 @@
       "körper"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "12",
@@ -6750,6 +7254,7 @@
       "organe"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Leber",
@@ -6769,6 +7274,7 @@
       "wissenschaft"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Ornithologie",
@@ -6787,6 +7293,7 @@
       "insekten"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "8",
@@ -6805,6 +7312,7 @@
       "blut"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Lungenvene",
@@ -6823,6 +7331,7 @@
       "früchte"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "Kreuzblütler",
@@ -6841,6 +7350,7 @@
       "biologie"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "24",
@@ -6860,6 +7370,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Mikrowelle",
@@ -6878,6 +7390,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "1",
@@ -6896,6 +7410,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Sand",
@@ -6914,6 +7430,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Maus",
@@ -6933,6 +7451,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Lastwagen",
@@ -6952,6 +7472,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Föhn",
@@ -6971,6 +7493,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Zeit messen",
@@ -6990,6 +7514,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Lupe",
@@ -7008,6 +7534,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Osten",
@@ -7027,6 +7555,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Mikrofon",
@@ -7045,6 +7575,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Heißluftballon",
@@ -7063,6 +7595,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Grün",
@@ -7081,6 +7615,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Maus",
@@ -7099,6 +7635,7 @@
       "abkürzungen"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Personal Computer",
@@ -7117,6 +7654,7 @@
       "computer"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Musik aufnehmen",
@@ -7135,6 +7673,7 @@
       "software"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Google",
@@ -7154,6 +7693,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Werner von Siemens",
@@ -7172,6 +7712,7 @@
       "programmieren"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "C++",
@@ -7190,6 +7731,7 @@
       "abkürzungen"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "United Service Box",
@@ -7209,6 +7751,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "World Line Access Node",
@@ -7227,6 +7770,7 @@
       "erfindungen"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Steve Jobs",
@@ -7246,6 +7790,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Robert Bosch",
@@ -7264,6 +7809,7 @@
       "abkürzungen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Ground Position Sensor",
@@ -7282,6 +7828,7 @@
       "einheiten"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Hertz",
@@ -7300,6 +7847,7 @@
       "deutschland"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Opel",
@@ -7318,6 +7866,7 @@
       "mathematik"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Römische Zahlen",
@@ -7336,6 +7885,7 @@
       "e-mail"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Rautezeichen",
@@ -7354,6 +7904,7 @@
       "unternehmen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Nikola Tesla",
@@ -7372,6 +7923,7 @@
       "abkürzungen"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Laser-Effekt-Display",
@@ -7390,6 +7942,7 @@
       "chemie"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Bit",
@@ -7408,6 +7961,7 @@
       "industrie"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Nähmaschine",
@@ -7426,6 +7980,7 @@
       "abkürzungen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Short Message Service",
@@ -7445,6 +8000,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "Philipp Reis",
@@ -7463,6 +8019,7 @@
       "autos"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Hypertext Markup Language",
@@ -7481,6 +8038,7 @@
       "programmieren"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Ada Lovelace",
@@ -7499,6 +8057,7 @@
       "material"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Silizium",
@@ -7518,6 +8077,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Fraunhofer-Gesellschaft",
@@ -7536,6 +8096,7 @@
       "strom"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Nikola Tesla",
@@ -7554,6 +8115,7 @@
       "handy"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "USA",
@@ -7572,6 +8134,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Stock",
@@ -7590,6 +8154,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Volleyball",
@@ -7609,6 +8175,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Gelbe Karte",
@@ -7628,6 +8196,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Verteidiger",
@@ -7647,6 +8217,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Snowboards",
@@ -7666,6 +8238,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Tennisball",
@@ -7684,6 +8258,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Gold",
@@ -7702,6 +8278,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Rückenschwimmen",
@@ -7720,6 +8298,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "2",
@@ -7738,6 +8318,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Tischtennis",
@@ -7757,6 +8339,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Von einer Halfpipe",
@@ -7775,6 +8359,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Squash",
@@ -7793,6 +8379,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Einen Ball",
@@ -7812,6 +8400,7 @@
       "regeln"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "4",
@@ -7830,6 +8419,7 @@
       "regeln"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "6",
@@ -7848,6 +8438,7 @@
       "japan"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Korea",
@@ -7867,6 +8458,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Frankreich",
@@ -7886,6 +8478,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Mario Götze",
@@ -7904,6 +8497,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Berlin",
@@ -7922,6 +8516,7 @@
       "regeln"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Satzball",
@@ -7940,6 +8535,7 @@
       "regeln"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "12",
@@ -7958,6 +8554,7 @@
       "wm"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Deutschland",
@@ -7975,6 +8572,7 @@
       "tennis"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "3",
@@ -7992,6 +8590,7 @@
       "tennis"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Australian Open",
@@ -8010,6 +8609,7 @@
       "begriffe"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Hattrick",
@@ -8028,6 +8628,7 @@
       "regeln"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "15 Minuten",
@@ -8046,6 +8647,7 @@
       "regeln"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "6",
@@ -8064,6 +8666,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Michael Stich",
@@ -8082,6 +8685,7 @@
       "geschichte"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Athen",
@@ -8101,6 +8705,7 @@
       "regeln"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Schwarz-weiß karierte",
@@ -8120,6 +8725,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Mercedes",
@@ -8138,6 +8744,7 @@
       "begriffe"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Airball",
@@ -8157,6 +8764,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Ungarn",
@@ -8176,6 +8784,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Steffi Graf",
@@ -8194,6 +8803,7 @@
       "regeln"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "5",
@@ -8212,6 +8822,7 @@
       "wintersport"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Norwegen",
@@ -8231,6 +8842,7 @@
       "geschichte"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Argentinien",
@@ -8249,6 +8861,7 @@
       "olympia"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "3,8 km",
@@ -8267,6 +8880,7 @@
       "regeln"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "8",
@@ -8285,6 +8899,7 @@
       "wintersport"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Haus",
@@ -8304,6 +8919,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Simba",
@@ -8323,6 +8940,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Eine Maus",
@@ -8342,6 +8961,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Buzz",
@@ -8361,6 +8982,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Grün",
@@ -8380,6 +9003,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Arielle",
@@ -8399,6 +9024,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Baghira",
@@ -8418,6 +9045,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Lotte",
@@ -8436,6 +9065,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Grün",
@@ -8455,6 +9086,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Sven",
@@ -8474,6 +9107,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Daisy",
@@ -8493,6 +9128,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Ein Erdmännchen",
@@ -8512,6 +9149,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "In einer Kokosnuss",
@@ -8531,6 +9170,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Rot",
@@ -8550,6 +9191,7 @@
       "90er"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Brad Pitt",
@@ -8569,6 +9211,7 @@
       "tiere"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Dobermann",
@@ -8588,6 +9231,7 @@
       "spielberg"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Alf",
@@ -8606,6 +9250,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "München",
@@ -8625,6 +9270,7 @@
       "90er"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Kevin Costner",
@@ -8644,6 +9290,7 @@
       "piraten"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Orlando Bloom",
@@ -8663,6 +9310,7 @@
       "shows"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Thomas Gottschalk",
@@ -8681,6 +9329,7 @@
       "sitcom"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "The Big Bang Theory",
@@ -8699,6 +9348,7 @@
       "zeichentrick"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Shelbyville",
@@ -8718,6 +9368,7 @@
       "70er"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "George Lucas",
@@ -8737,6 +9388,7 @@
       "klassiker"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Jeeves",
@@ -8755,6 +9407,7 @@
       "superhelden"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Alfred",
@@ -8774,6 +9427,7 @@
       "60er"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Lex Barker",
@@ -8793,6 +9447,7 @@
       "80er"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Sylvester Stallone",
@@ -8812,6 +9467,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Derrick",
@@ -8830,6 +9486,7 @@
       "fantasy"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Gandalf",
@@ -8849,6 +9506,7 @@
       "schauspieler"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Emma Stone",
@@ -8868,6 +9526,7 @@
       "90er"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Seinfeld",
@@ -8887,6 +9546,7 @@
       "dinosaurier"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "1990",
@@ -8906,6 +9566,7 @@
       "regie"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Wolfgang Petersen",
@@ -8925,6 +9586,7 @@
       "oscar"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Good Bye, Lenin!",
@@ -8944,6 +9606,7 @@
       "70er"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Günter Strack",
@@ -8963,6 +9626,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Fritz Wepper",
@@ -8982,6 +9646,7 @@
       "stummfilm"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Fritz Lang",
@@ -9001,6 +9666,7 @@
       "klassiker"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Pinocchio",
@@ -9020,6 +9686,7 @@
       "schauspieler"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Cary Grant",
@@ -9039,6 +9706,7 @@
       "schauspieler"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Grace Kelly",
@@ -9057,6 +9725,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Gitarre",
@@ -9075,6 +9745,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Schlagzeug",
@@ -9094,6 +9766,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Klarinette",
@@ -9113,6 +9787,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 4,
     "ageRating": 6,
     "options": [
       "Cello",
@@ -9131,6 +9807,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Geige",
@@ -9150,6 +9828,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Dirigent",
@@ -9169,6 +9849,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Anna",
@@ -9188,6 +9870,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Detlev Jöcker",
@@ -9207,6 +9890,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Klavier",
@@ -9225,6 +9910,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Chor",
@@ -9243,6 +9930,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Trompete",
@@ -9261,6 +9950,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Becken",
@@ -9279,6 +9970,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "So",
@@ -9297,6 +9990,7 @@
       "usa"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Michael Jackson",
@@ -9316,6 +10010,7 @@
       "usa"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Chuck Berry",
@@ -9334,6 +10029,7 @@
       "deutschland"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Waterloo",
@@ -9353,6 +10049,7 @@
       "80er"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Nena",
@@ -9372,6 +10069,7 @@
       "neue deutsche welle"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Nena",
@@ -9390,6 +10088,7 @@
       "klassik"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Ludwig van Beethoven",
@@ -9409,6 +10108,7 @@
       "bands"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "The Rolling Stones",
@@ -9428,6 +10128,7 @@
       "england"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Keith Richards",
@@ -9447,6 +10148,7 @@
       "bands"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Die Toten Hosen",
@@ -9465,6 +10167,7 @@
       "barock"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Johann Sebastian Bach",
@@ -9483,6 +10186,7 @@
       "klavier"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Frankreich",
@@ -9502,6 +10206,7 @@
       "bands"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Pearl Jam",
@@ -9521,6 +10226,7 @@
       "instrumente"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "E-Gitarre",
@@ -9540,6 +10246,7 @@
       "bands"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Richard Kruspe",
@@ -9559,6 +10266,7 @@
       "pop"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Marius Müller-Westernhagen",
@@ -9577,6 +10285,7 @@
       "klassik"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Giuseppe Verdi",
@@ -9596,6 +10305,7 @@
       "70er"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Hip-Hop",
@@ -9614,6 +10324,7 @@
       "klassik"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "3",
@@ -9632,6 +10343,7 @@
       "oper"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Alt",
@@ -9651,6 +10363,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Richard Strauss",
@@ -9670,6 +10383,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "Engelbert Humperdinck",
@@ -9689,6 +10403,7 @@
       "bands"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Tangerine Dream",
@@ -9708,6 +10423,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "Leipzig",
@@ -9727,6 +10443,7 @@
       "alben"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Let It Be",
@@ -9745,6 +10462,7 @@
       "sinfonie"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "Richard Strauss",
@@ -9763,6 +10481,7 @@
       "queen"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Elton John",
@@ -9782,6 +10501,7 @@
       "festival"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "1967",
@@ -9801,6 +10521,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Grün",
@@ -9819,6 +10541,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Landschaft",
@@ -9837,6 +10561,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 4,
     "ageRating": 6,
     "options": [
       "Palette",
@@ -9855,6 +10581,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 5,
     "ageRating": 6,
     "options": [
       "Palette",
@@ -9873,6 +10601,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 5,
     "ageRating": 6,
     "options": [
       "Gemälde",
@@ -9892,6 +10622,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Grün, Orange, Lila",
@@ -9911,6 +10643,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Kasper",
@@ -9929,6 +10663,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Bibliothek",
@@ -9947,6 +10683,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Mit einem Hammer",
@@ -9965,6 +10703,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Foyer",
@@ -9983,6 +10723,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 5,
     "ageRating": 6,
     "options": [
       "Mosaik",
@@ -10002,6 +10744,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 5,
     "ageRating": 6,
     "options": [
       "Skizze",
@@ -10021,6 +10765,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "In einer Pyramide",
@@ -10039,6 +10785,7 @@
       "künstler"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Claude Monet",
@@ -10058,6 +10805,7 @@
       "australien"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Sydney",
@@ -10076,6 +10824,7 @@
       "begriffe"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Weite Landschaften",
@@ -10095,6 +10844,7 @@
       "usa"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Roy Lichtenstein",
@@ -10114,6 +10864,7 @@
       "italien"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Raffael",
@@ -10132,6 +10883,7 @@
       "kubismus"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Pablo Picasso",
@@ -10150,6 +10902,7 @@
       "surrealismus"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "René Magritte",
@@ -10168,6 +10921,7 @@
       "kunstgeschichte"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Expressionismus",
@@ -10187,6 +10941,7 @@
       "italien"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Antonio Canova",
@@ -10205,6 +10960,7 @@
       "frankreich"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Auguste Rodin",
@@ -10223,6 +10979,7 @@
       "niederlande"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Rembrandt",
@@ -10242,6 +10999,7 @@
       "spanien"
     ],
     "difficulty": 2,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Barcelona",
@@ -10261,6 +11019,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Deutscher Werkbund",
@@ -10280,6 +11039,7 @@
       "architektur"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Louvre",
@@ -10299,6 +11059,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Leipzig",
@@ -10318,6 +11079,7 @@
       "niederlande"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Den Haag",
@@ -10337,6 +11099,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Laeiszhalle",
@@ -10355,6 +11118,7 @@
       "spanien"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Antoni Gaudí",
@@ -10374,6 +11138,7 @@
       "antike"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "München",
@@ -10393,6 +11158,7 @@
       "90er"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Gilbert & George",
@@ -10412,6 +11178,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Ernst Ludwig Kirchner",
@@ -10431,6 +11198,7 @@
       "theater"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Teatro alla Scala",
@@ -10450,6 +11218,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Philipp Otto Runge",
@@ -10469,6 +11238,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Caspar David Friedrich",
@@ -10488,6 +11258,7 @@
       "moderne"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Gerhard Richter",
@@ -10507,6 +11278,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Bertolt Brecht",
@@ -10525,6 +11297,7 @@
       "berlin"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Renzo Piano",
@@ -10543,6 +11316,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Der Wolf",
@@ -10561,6 +11336,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Eine Kette",
@@ -10579,6 +11356,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Dornröschen",
@@ -10597,6 +11376,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Aus Stroh",
@@ -10616,6 +11397,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Kuh, Hund, Maus, Hahn",
@@ -10634,6 +11417,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Die kleine Raupe Vielfraß",
@@ -10653,6 +11438,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Prost!",
@@ -10672,6 +11459,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Katze",
@@ -10690,6 +11479,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Pumuckl",
@@ -10708,6 +11499,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Den Jäger",
@@ -10726,6 +11519,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Frau Holle",
@@ -10744,6 +11539,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Ein Igel",
@@ -10762,6 +11559,7 @@
       "klassiker"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Erich Kästner",
@@ -10779,6 +11577,7 @@
       "redewendungen"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Beim Kochen weinen",
@@ -10797,6 +11596,7 @@
       "tiere"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Katze",
@@ -10815,6 +11615,7 @@
       "klassiker"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Johann Wolfgang von Goethe",
@@ -10833,6 +11634,7 @@
       "klassiker"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "„Die Verwandlung“ von Franz Kafka",
@@ -10851,6 +11653,7 @@
       "romane"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Heinrich Böll",
@@ -10870,6 +11673,7 @@
       "klassiker"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Dante Alighieri",
@@ -10888,6 +11692,7 @@
       "klassiker"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Ahab",
@@ -10905,6 +11710,7 @@
       "redewendungen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Jemanden streng bestrafen",
@@ -10922,6 +11728,7 @@
       "redewendungen"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Zu viel essen",
@@ -10940,6 +11747,7 @@
       "frankreich"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Antoine de Saint-Exupéry",
@@ -10958,6 +11766,7 @@
       "krimi"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Edgar Allan Poe",
@@ -10976,6 +11785,7 @@
       "romane"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Lisbeth Salander",
@@ -10994,6 +11804,7 @@
       "abenteuer"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Robert Louis Stevenson",
@@ -11012,6 +11823,7 @@
       "abenteuer"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Huckleberry Finn",
@@ -11029,6 +11841,7 @@
       "sprachen"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Hindi",
@@ -11047,6 +11860,7 @@
       "sprache"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Ein sehr langes zusammengesetztes Wort",
@@ -11065,6 +11879,7 @@
       "klassiker"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Homer",
@@ -11082,6 +11897,7 @@
       "redewendungen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Heimlich verschwinden",
@@ -11100,6 +11916,7 @@
       "theater"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Friedrich Dürrenmatt",
@@ -11118,6 +11935,7 @@
       "romane"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Heinrich Böll",
@@ -11136,6 +11954,7 @@
       "wörter"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Phonetik",
@@ -11154,6 +11973,7 @@
       "jugendbücher"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Michael Ende",
@@ -11172,6 +11992,7 @@
       "klassiker"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Rainer Maria Rilke",
@@ -11190,6 +12011,7 @@
       "abenteuer"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Charles Dickens",
@@ -11208,6 +12030,7 @@
       "klassiker"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Adalbert Stifter",
@@ -11226,6 +12049,7 @@
       "stilmittel"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Metapher",
@@ -11244,6 +12068,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Walnuss",
@@ -11262,6 +12088,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Zucchini",
@@ -11280,6 +12108,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Pferd",
@@ -11298,6 +12128,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Rot",
@@ -11316,6 +12148,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Brokkoli",
@@ -11335,6 +12169,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Ameisen",
@@ -11353,6 +12189,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Aus Sahne",
@@ -11371,6 +12209,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Birne",
@@ -11389,6 +12229,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Milchshake",
@@ -11408,6 +12250,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Spaghetti",
@@ -11426,6 +12270,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Wassermelone",
@@ -11445,6 +12291,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Brezel",
@@ -11463,6 +12311,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Mais",
@@ -11480,6 +12330,7 @@
       "obst"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Apfel",
@@ -11498,6 +12349,7 @@
       "frankreich"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Bagel",
@@ -11516,6 +12368,7 @@
       "hülsenfrüchte"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Kidneybohnen",
@@ -11535,6 +12388,7 @@
       "wörter"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Pflaume",
@@ -11553,6 +12407,7 @@
       "gerichte"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Tschechien",
@@ -11571,6 +12426,7 @@
       "suppen"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Minestrone",
@@ -11590,6 +12446,7 @@
       "gemüse"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Rotkohl",
@@ -11608,6 +12465,7 @@
       "italien"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Schaf",
@@ -11626,6 +12484,7 @@
       "indien"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Zimt",
@@ -11644,6 +12503,7 @@
       "vegetarisch"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Aus Reis",
@@ -11663,6 +12523,7 @@
       "italien"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Sie sind sehr weich",
@@ -11681,6 +12542,7 @@
       "asien"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Indien",
@@ -11699,6 +12561,7 @@
       "suppen"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "China",
@@ -11717,6 +12580,7 @@
       "nüsse"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Haselnuss",
@@ -11735,6 +12599,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Weißkohl",
@@ -11753,6 +12618,7 @@
       "gemüse"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Zwiebel",
@@ -11771,6 +12637,7 @@
       "nachtisch"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Zabaione",
@@ -11789,6 +12656,7 @@
       "getränke"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Er wird über Feuer geröstet",
@@ -11807,6 +12675,7 @@
       "kräuter"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Rosmarin",
@@ -11825,6 +12694,7 @@
       "gewürze"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Harissa",
@@ -11843,6 +12713,7 @@
       "mittelmeer"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Kleine unreife Oliven",
@@ -11861,6 +12732,7 @@
       "backen"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Zimt",
@@ -11879,6 +12751,7 @@
       "kochen"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Milch und Käse",
@@ -11897,6 +12770,7 @@
       "techniken"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Blanchieren",
@@ -11915,6 +12789,7 @@
       "pflanzen"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "Orchideen",
@@ -11933,6 +12808,7 @@
       "chili"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Capsaicin",
@@ -11951,6 +12827,7 @@
       "japan"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Umami",
@@ -11970,6 +12847,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "25. Dezember",
@@ -11989,6 +12868,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Eiche",
@@ -12008,6 +12889,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Der Osterhase",
@@ -12027,6 +12910,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Advent",
@@ -12046,6 +12931,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Gute Besserung",
@@ -12065,6 +12952,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Das Osterlamm",
@@ -12084,6 +12973,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Blumen",
@@ -12103,6 +12994,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Sankt Martin",
@@ -12122,6 +13015,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Eine Laterne",
@@ -12141,6 +13036,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 4,
     "ageRating": 6,
     "options": [
       "Kirche",
@@ -12160,6 +13057,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Ostern",
@@ -12179,6 +13078,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Sein Brot",
@@ -12198,6 +13099,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Rot",
@@ -12216,6 +13119,7 @@
       "usa"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "John F. Kennedy",
@@ -12234,6 +13138,7 @@
       "christentum"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Papst",
@@ -12252,6 +13157,7 @@
       "indien"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Indien",
@@ -12271,6 +13177,7 @@
       "feiertage"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Chanukka",
@@ -12289,6 +13196,7 @@
       "organisationen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "UNICEF",
@@ -12307,6 +13215,7 @@
       "islam"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Schawwal",
@@ -12325,6 +13234,7 @@
       "islam"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Tora",
@@ -12343,6 +13253,7 @@
       "erfindungen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Dynamit",
@@ -12361,6 +13272,7 @@
       "nobelpreis"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Mutter Teresa",
@@ -12379,6 +13291,7 @@
       "feiertage"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Am vierten Donnerstag im November",
@@ -12397,6 +13310,7 @@
       "feste"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Oktober",
@@ -12416,6 +13330,7 @@
       "feiertage"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Holi",
@@ -12434,6 +13349,7 @@
       "islam"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Mekka",
@@ -12452,6 +13368,7 @@
       "judentum"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Jom Kippur",
@@ -12470,6 +13387,7 @@
       "entdecker"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Robert Falcon Scott",
@@ -12488,6 +13406,7 @@
       "nobelpreis"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Mutter Teresa",
@@ -12506,6 +13425,7 @@
       "religion"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Hildegard von Bingen",
@@ -12524,6 +13444,7 @@
       "feiertage"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Pfingsten",
@@ -12542,6 +13463,7 @@
       "karneval"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Aschermittwoch",
@@ -12560,6 +13482,7 @@
       "feiertage"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Mondfest",
@@ -12579,6 +13502,7 @@
       "feiertage"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Schawuot",
@@ -12597,6 +13521,7 @@
       "islam"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Donnerstag",
@@ -12615,6 +13540,7 @@
       "feiertage"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Día de los Muertos",
@@ -12633,6 +13559,7 @@
       "usa"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Brüssel",
@@ -12652,6 +13579,7 @@
       "feiertage"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Laubhüttenfest",
@@ -12670,6 +13598,7 @@
       "jugend"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Friedrich Fröbel",
@@ -12688,6 +13617,7 @@
       "feiertage"
     ],
     "difficulty": 3,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Allerheiligen",
@@ -12707,6 +13637,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Gelb",
@@ -12726,6 +13658,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Ein Stier",
@@ -12745,6 +13679,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 5,
     "ageRating": 6,
     "options": [
       "Schweden",
@@ -12763,6 +13699,7 @@
       "logos"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Ein Pferd",
@@ -12782,6 +13719,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Ein Apfel",
@@ -12801,6 +13740,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Braun",
@@ -12820,6 +13761,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Dollar",
@@ -12839,6 +13782,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Ein Känguru",
@@ -12858,6 +13803,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "100",
@@ -12877,6 +13824,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Schokoriegel",
@@ -12896,6 +13845,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 4,
     "ageRating": 6,
     "options": [
       "Norwegen",
@@ -12915,6 +13866,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Kreise",
@@ -12934,6 +13887,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Rot",
@@ -12953,6 +13908,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Nike",
@@ -12972,6 +13929,7 @@
       "recht"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Gemeinschaft mit breiter Handelsbasis",
@@ -12991,6 +13949,7 @@
       "wirtschaft"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Bundesbank Europa",
@@ -13010,6 +13969,7 @@
       "sport"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Adi Dassler",
@@ -13029,6 +13989,7 @@
       "autos"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Berliner Maschinen Werke",
@@ -13048,6 +14009,7 @@
       "supermarkt"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Allgemeiner Discount",
@@ -13067,6 +14029,7 @@
       "süßigkeiten"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Harald Richter Bochum",
@@ -13086,6 +14049,7 @@
       "süßigkeiten"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Haselnusstafel",
@@ -13105,6 +14069,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "1945",
@@ -13124,6 +14089,7 @@
       "computer"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Steve Jobs",
@@ -13143,6 +14109,7 @@
       "asien"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Japan",
@@ -13162,6 +14129,7 @@
       "skandinavien"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Finnland",
@@ -13181,6 +14149,7 @@
       "sport"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Adidas",
@@ -13200,6 +14169,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Siemens",
@@ -13219,6 +14189,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Eine deutsche Steuerart",
@@ -13238,6 +14209,7 @@
       "italien"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Lira",
@@ -13257,6 +14229,7 @@
       "internet"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Elon Musk",
@@ -13276,6 +14249,7 @@
       "computer"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Microsoft",
@@ -13295,6 +14269,7 @@
       "italien"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Ferruccio Lamborghini",
@@ -13314,6 +14289,7 @@
       "latein"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "Die Schneeweiße",
@@ -13333,6 +14309,7 @@
       "lego"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "Bau hoch",
@@ -13352,6 +14329,7 @@
       "getränke"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "1856",
@@ -13371,6 +14349,7 @@
       "franken"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Nürnberg",
@@ -13390,6 +14369,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Stuttgart",
@@ -13409,6 +14389,7 @@
       "latein"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "Fahr!",
@@ -13428,6 +14409,7 @@
       "schweden"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Internationales Kaufhaus",
@@ -13447,6 +14429,7 @@
       "niederlande"
     ],
     "difficulty": 3,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Krone",
@@ -13466,6 +14449,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Grün",
@@ -13485,6 +14470,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Blau",
@@ -13504,6 +14491,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Traktor",
@@ -13523,6 +14512,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Hubschrauber",
@@ -13542,6 +14533,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Lokführer",
@@ -13561,6 +14554,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Eine Mütze",
@@ -13580,6 +14575,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Blau",
@@ -13599,6 +14596,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "3",
@@ -13618,6 +14617,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Golf",
@@ -13637,6 +14638,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Bahnhof",
@@ -13656,6 +14659,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Polizeiauto",
@@ -13675,6 +14680,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 3,
     "ageRating": 6,
     "options": [
       "Rechts",
@@ -13694,6 +14701,7 @@
       "europa"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Frankreich",
@@ -13713,6 +14721,7 @@
       "deutschland"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Opel",
@@ -13732,6 +14741,7 @@
       "abkürzungen"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Internationaler City-Exporter",
@@ -13751,6 +14761,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Porsche",
@@ -13770,6 +14781,7 @@
       "abkürzungen"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Automatische Bremsstütze",
@@ -13789,6 +14801,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "30 km/h",
@@ -13808,6 +14821,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Blau",
@@ -13827,6 +14841,7 @@
       "autobahn"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Blau",
@@ -13846,6 +14861,7 @@
       "regeln"
     ],
     "difficulty": 2,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Parkverbot",
@@ -13865,6 +14881,7 @@
       "skandinavien"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Norwegen",
@@ -13884,6 +14901,7 @@
       "europa"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Polen",
@@ -13903,6 +14921,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Nürnberg und Fürth",
@@ -13922,6 +14941,7 @@
       "flugzeuge"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Jumbo-Jet",
@@ -13941,6 +14961,7 @@
       "antrieb"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Dieselauto",
@@ -13960,6 +14981,7 @@
       "zeppelin"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Graf Zeppelin",
@@ -13979,6 +15001,7 @@
       "armaturen"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Motorumdrehungen pro Minute",
@@ -13998,6 +15021,7 @@
       "japan"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Honda",
@@ -14017,6 +15041,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Mittellandkanal",
@@ -14036,6 +15061,7 @@
       "lokomotiven"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Falke",
@@ -14055,6 +15081,7 @@
       "geschichte"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Karl Drais",
@@ -14074,6 +15101,7 @@
       "geschichte"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Carl Benz",
@@ -14093,6 +15121,7 @@
       "pioniere"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Clärenore Stinnes",
@@ -14112,6 +15141,7 @@
       "geschichte"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "1964",
@@ -14131,6 +15161,7 @@
       "motoren"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Durch Selbstzündung",
@@ -14150,6 +15181,7 @@
       "usa"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "1886",
@@ -14169,6 +15201,7 @@
       "geschichte"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Christoph Kolumbus",
@@ -14188,6 +15221,7 @@
       "geschichte"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "1958",
@@ -14207,6 +15241,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Luigi",
@@ -14226,6 +15262,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Luigi",
@@ -14245,6 +15283,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Rot",
@@ -14264,6 +15304,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Glumanda",
@@ -14283,6 +15325,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "„Stopp!“",
@@ -14302,6 +15346,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Minifiguren",
@@ -14321,6 +15367,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Kugeln",
@@ -14340,6 +15388,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Zelda",
@@ -14359,6 +15409,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Mühle",
@@ -14378,6 +15430,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "Memory",
@@ -14397,6 +15451,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Ein Frosch",
@@ -14416,6 +15472,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 1,
     "ageRating": 6,
     "options": [
       "1",
@@ -14435,6 +15493,8 @@
       "kinder"
     ],
     "difficulty": 1,
+    "level": 1,
+    "kidsLevel": 2,
     "ageRating": 6,
     "options": [
       "Rot",
@@ -14454,6 +15514,7 @@
       "geschichte"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Tetris",
@@ -14472,6 +15533,7 @@
       "klassiker"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Scrabble",
@@ -14490,6 +15552,7 @@
       "videospiele"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Nintendo",
@@ -14509,6 +15572,7 @@
       "japan"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "USA",
@@ -14528,6 +15592,7 @@
       "zelda"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Link",
@@ -14547,6 +15612,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Die Insel Catan",
@@ -14566,6 +15632,7 @@
       "erfinder"
     ],
     "difficulty": 2,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Reiner Knizia",
@@ -14585,6 +15652,7 @@
       "microsoft"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Wii",
@@ -14604,6 +15672,7 @@
       "geschichte"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Donkey Kong",
@@ -14623,6 +15692,7 @@
       "deutschland"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Pik-Ass",
@@ -14641,6 +15711,7 @@
       "nintendo"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Wario",
@@ -14660,6 +15731,7 @@
       "regeln"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "5",
@@ -14679,6 +15751,7 @@
       "regeln"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "4",
@@ -14698,6 +15771,7 @@
       "englisch"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "Mühle",
@@ -14717,6 +15791,7 @@
       "geschichte"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Game Gear",
@@ -14735,6 +15810,7 @@
       "geschicklichkeit"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Mikado",
@@ -14754,6 +15830,7 @@
       "zahlen"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 12,
     "options": [
       "81",
@@ -14772,6 +15849,7 @@
       "klassiker"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 12,
     "options": [
       "Zombies",
@@ -14790,6 +15868,7 @@
       "wörter"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 12,
     "options": [
       "Boggle",
@@ -14809,6 +15888,7 @@
       "klassiker"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "1965",
@@ -14828,6 +15908,7 @@
       "tetris"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "Alexei Paschitnow",
@@ -14847,6 +15928,7 @@
       "geschichte"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "1981",
@@ -14866,6 +15948,7 @@
       "kartenspiele"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Spielzeugautos",
@@ -14884,6 +15967,7 @@
       "geschichte"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "China",
@@ -14903,6 +15987,7 @@
       "deutschland"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "Josef Friedrich Schmidt",
@@ -14922,6 +16007,7 @@
       "geschichte"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 12,
     "options": [
       "Agatha Christie",
@@ -14940,6 +16026,7 @@
       "geschichte"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 12,
     "options": [
       "Deutschland",
@@ -14959,6 +16046,7 @@
       "cocktails"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -14979,6 +16067,7 @@
       "spirituosen"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -14999,6 +16088,7 @@
       "cocktails"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15020,6 +16110,7 @@
       "oktoberfest"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15040,6 +16131,7 @@
       "kater"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15060,6 +16152,7 @@
       "bar"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15081,6 +16174,7 @@
       "sekt"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15101,6 +16195,7 @@
       "cocktails"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15121,6 +16216,7 @@
       "spirituosen"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15142,6 +16238,7 @@
       "oktoberfest"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15162,6 +16259,7 @@
       "film"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15183,6 +16281,7 @@
       "cocktails"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15203,6 +16302,7 @@
       "cocktails"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15224,6 +16324,7 @@
       "sprache"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15245,6 +16346,7 @@
       "oktoberfest"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15265,6 +16367,7 @@
       "bier"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15285,6 +16388,7 @@
       "bier"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15305,6 +16409,7 @@
       "wein"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15326,6 +16431,7 @@
       "rum"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15347,6 +16453,7 @@
       "serie"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15368,6 +16475,7 @@
       "oktoberfest"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15389,6 +16497,7 @@
       "wein"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15410,6 +16519,7 @@
       "aberglaube"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15431,6 +16541,7 @@
       "bar"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15452,6 +16563,7 @@
       "cocktails"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15472,6 +16584,7 @@
       "cocktails"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15492,6 +16605,7 @@
       "bar"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15513,6 +16627,7 @@
       "sprache"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15534,6 +16649,7 @@
       "reinheitsgebot"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15554,6 +16670,7 @@
       "bier"
     ],
     "difficulty": 2,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15575,6 +16692,7 @@
       "oktoberfest"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15596,6 +16714,7 @@
       "oktoberfest"
     ],
     "difficulty": 2,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15617,6 +16736,7 @@
       "bar"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15637,6 +16757,7 @@
       "bier"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15657,6 +16778,7 @@
       "bier"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15677,6 +16799,7 @@
       "bier"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15697,6 +16820,7 @@
       "wein"
     ],
     "difficulty": 2,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15717,6 +16841,7 @@
       "wein"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15737,6 +16862,7 @@
       "wein"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15757,6 +16883,7 @@
       "wein"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15777,6 +16904,7 @@
       "wein"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15798,6 +16926,7 @@
       "sekt"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15819,6 +16948,7 @@
       "bar"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15839,6 +16969,7 @@
       "spirituosen"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15860,6 +16991,7 @@
       "whisky"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15882,6 +17014,7 @@
       "sprache"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15902,6 +17035,7 @@
       "cocktails"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15922,6 +17056,7 @@
       "cocktails"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15942,6 +17077,7 @@
       "cocktails"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15962,6 +17098,7 @@
       "geschichte"
     ],
     "difficulty": 2,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -15983,6 +17120,7 @@
       "bar"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16004,6 +17142,7 @@
       "wissenschaft"
     ],
     "difficulty": 2,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16024,6 +17163,7 @@
       "promille"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16045,6 +17185,7 @@
       "wein"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16065,6 +17206,7 @@
       "lieder"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16085,6 +17227,7 @@
       "lieder"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16106,6 +17249,7 @@
       "cocktails"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16127,6 +17271,7 @@
       "bar"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16147,6 +17292,7 @@
       "trinkspiele"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16167,6 +17313,7 @@
       "bier"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16188,6 +17335,7 @@
       "reinheitsgebot"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16209,6 +17357,7 @@
       "reinheitsgebot"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16230,6 +17379,7 @@
       "reinheitsgebot"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16250,6 +17400,7 @@
       "bier"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16270,6 +17421,7 @@
       "bier"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16291,6 +17443,7 @@
       "wissenschaft"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16311,6 +17464,7 @@
       "wein"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16331,6 +17485,7 @@
       "spirituosen"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16351,6 +17506,7 @@
       "spirituosen"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16372,6 +17528,7 @@
       "whisky"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16393,6 +17550,7 @@
       "whisky"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16414,6 +17572,7 @@
       "whisky"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16435,6 +17594,7 @@
       "rum"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16456,6 +17616,7 @@
       "sprache"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16477,6 +17638,7 @@
       "geschichte"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16497,6 +17659,7 @@
       "geschichte"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16518,6 +17681,7 @@
       "geschichte"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16539,6 +17703,7 @@
       "kater"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16560,6 +17725,7 @@
       "wissenschaft"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16580,6 +17746,7 @@
       "lieder"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16600,6 +17767,7 @@
       "verhütung"
     ],
     "difficulty": 2,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16621,6 +17789,7 @@
       "ddr"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16641,6 +17810,7 @@
       "literatur"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16661,6 +17831,7 @@
       "literatur"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16681,6 +17852,7 @@
       "medizin"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16701,6 +17873,7 @@
       "körper"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16721,6 +17894,7 @@
       "literatur"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16741,6 +17915,7 @@
       "literatur"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16762,6 +17937,7 @@
       "zensur"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16782,6 +17958,7 @@
       "wortherkunft"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16802,6 +17979,7 @@
       "wortherkunft"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16823,6 +18001,7 @@
       "wortherkunft"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16844,6 +18023,7 @@
       "körper"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16864,6 +18044,7 @@
       "küssen"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16884,6 +18065,7 @@
       "küssen"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16905,6 +18087,7 @@
       "körper"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16925,6 +18108,7 @@
       "küssen"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16946,6 +18130,7 @@
       "kunst"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16967,6 +18152,7 @@
       "kunst"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -16988,6 +18174,7 @@
       "film"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17008,6 +18195,7 @@
       "verhütung"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17029,6 +18217,7 @@
       "wortherkunft"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17049,6 +18238,7 @@
       "verhütung"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17069,6 +18259,7 @@
       "verführer"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17089,6 +18280,7 @@
       "verführer"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17109,6 +18301,7 @@
       "aphrodisiaka"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17129,6 +18322,7 @@
       "aphrodisiaka"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17149,6 +18343,7 @@
       "aphrodisiaka"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17170,6 +18365,7 @@
       "mythologie"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17191,6 +18387,7 @@
       "antike"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17211,6 +18408,7 @@
       "berühmte paare"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17231,6 +18429,7 @@
       "literatur"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17252,6 +18451,7 @@
       "oper"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17272,6 +18472,7 @@
       "berühmte paare"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17292,6 +18493,7 @@
       "berühmte paare"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17312,6 +18514,7 @@
       "valentinstag"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17332,6 +18535,7 @@
       "valentinstag"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17352,6 +18556,7 @@
       "dating"
     ],
     "difficulty": 2,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17373,6 +18578,7 @@
       "flirten"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17394,6 +18600,7 @@
       "flirten"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17414,6 +18621,7 @@
       "wortherkunft"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17434,6 +18642,7 @@
       "wortherkunft"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17454,6 +18663,7 @@
       "wortherkunft"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17474,6 +18684,7 @@
       "wortherkunft"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17494,6 +18705,7 @@
       "hormone"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17515,6 +18727,7 @@
       "körper"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17535,6 +18748,7 @@
       "körper"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17556,6 +18770,7 @@
       "medizin"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17576,6 +18791,7 @@
       "tiere"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17596,6 +18812,7 @@
       "tiere"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17616,6 +18833,7 @@
       "tiere"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17636,6 +18854,7 @@
       "tiere"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17656,6 +18875,7 @@
       "tiere"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17676,6 +18896,7 @@
       "tiere"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17696,6 +18917,7 @@
       "tiere"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17716,6 +18938,7 @@
       "forschung"
     ],
     "difficulty": 3,
+    "level": 5,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17736,6 +18959,7 @@
       "forschung"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17756,6 +18980,7 @@
       "geschichte"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17776,6 +19001,7 @@
       "geschichte"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17796,6 +19022,7 @@
       "aufklärung"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17816,6 +19043,7 @@
       "songs"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17837,6 +19065,7 @@
       "zensur"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17857,6 +19086,7 @@
       "songs"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17877,6 +19107,7 @@
       "songs"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17897,6 +19128,7 @@
       "songs"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17917,6 +19149,7 @@
       "songs"
     ],
     "difficulty": 1,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17937,6 +19170,7 @@
       "songs"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17957,6 +19191,7 @@
       "film"
     ],
     "difficulty": 3,
+    "level": 4,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17977,6 +19212,7 @@
       "film"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -17997,6 +19233,7 @@
       "serie"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -18018,6 +19255,7 @@
       "songs"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -18039,6 +19277,7 @@
       "küssen"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -18059,6 +19298,7 @@
       "film"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -18079,6 +19319,7 @@
       "film"
     ],
     "difficulty": 2,
+    "level": 2,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -18099,6 +19340,7 @@
       "hochzeit"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -18119,6 +19361,7 @@
       "hochzeit"
     ],
     "difficulty": 3,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -18139,6 +19382,7 @@
       "hochzeit"
     ],
     "difficulty": 1,
+    "level": 1,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -18160,6 +19404,7 @@
       "antike"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [
@@ -18180,6 +19425,7 @@
       "literatur"
     ],
     "difficulty": 2,
+    "level": 3,
     "ageRating": 18,
     "adult": true,
     "options": [

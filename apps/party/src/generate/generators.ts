@@ -24,6 +24,9 @@ export interface GeneratedBase {
   /** Party questions stay party questions (mode filter + party share). */
   adult?: true;
   alcohol?: true;
+  /** Quiz: the original's fine level (Double or Nothing's ladder) – the replacement takes its place. */
+  level?: number;
+  kidsLevel?: number;
 }
 
 export const GENERATORS: Readonly<Record<string, QuestionGenerator>> = {

@@ -843,3 +843,31 @@ body {
   .podium-place, .podium-cup { animation: fade-in 0.4s both !important; }
   .podium-drip { animation: none; opacity: 0.9; }
 }
+
+/* ── Double or Nothing ─────────────────────────────────────────────── */
+/* The pot flies onto the account (cash out / credited at the end). */
+@keyframes dn-bank {
+  0% { opacity: 0; transform: translate(-50%, 30%) scale(0.5); }
+  20% { opacity: 1; transform: translate(-50%, -30%) scale(1.25); }
+  75% { opacity: 1; transform: translate(-50%, -110%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -170%) scale(0.9); }
+}
+.dn-bank {
+  position: absolute; left: 50%; top: 0; z-index: 3; pointer-events: none;
+  font-weight: 700; white-space: nowrap; color: #b6f03a;
+  text-shadow: 0 3px 0 var(--color-brown);
+  animation: dn-bank 2.2s ease-out both;
+}
+/* The pot bursts. */
+@keyframes dn-burst {
+  0% { transform: scale(1); opacity: 1; }
+  35% { transform: scale(1.6) rotate(-8deg); opacity: 1; }
+  100% { transform: scale(2.4) rotate(6deg); opacity: 0; }
+}
+.dn-burst { animation: dn-burst 0.9s ease-out both; }
+@keyframes dn-shake { 0%, 100% { translate: 0 0; } 20% { translate: -4px 0; } 40% { translate: 4px 0; } 60% { translate: -3px 0; } 80% { translate: 3px 0; } }
+.dn-shake { animation: dn-shake 0.5s ease-in-out 2; }
+@media (prefers-reduced-motion: reduce) {
+  .dn-bank, .dn-burst, .dn-shake { animation: none; }
+  .dn-burst { opacity: 0; }
+}

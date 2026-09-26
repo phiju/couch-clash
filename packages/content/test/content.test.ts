@@ -56,6 +56,33 @@ describe("content", () => {
   });
 });
 
+describe("quiz levels 1–5 (Double or Nothing's ladder)", () => {
+  const kidsFriendly = (q: (typeof QUIZ_QUESTIONS_DE)[number]) => q.ageRating <= 6 && q.difficulty <= 1 && !q.alcohol && !q.adult;
+
+  it("every shipped question has a level; every child-friendly one also a kids level", () => {
+    for (const q of QUIZ_QUESTIONS_DE) {
+      expect(q.level, q.id).toBeDefined();
+      if (kidsFriendly(q)) expect(q.kidsLevel, q.id).toBeDefined();
+      else expect(q.kidsLevel, q.id).toBeUndefined();
+    }
+  });
+
+  it("the level fits the coarse difficulty (easy never 4–5, hard never 1)", () => {
+    for (const q of QUIZ_QUESTIONS_DE) {
+      if (q.difficulty === 1) expect(q.level, q.id).toBeLessThanOrEqual(3);
+      if (q.difficulty === 3) expect(q.level, q.id).toBeGreaterThanOrEqual(2);
+    }
+  });
+
+  it("is optional and 1–5 only", () => {
+    const quiz = { id: "x-1", text: "Eine Testfrage?", ageRating: 12, tags: ["test"], difficulty: 1, options: ["a", "b", "c", "d"], correctIndex: 0 };
+    expect(QuizQuestionSchema.safeParse(quiz).success).toBe(true);
+    expect(QuizQuestionSchema.safeParse({ ...quiz, level: 5, kidsLevel: 1 }).success).toBe(true);
+    expect(QuizQuestionSchema.safeParse({ ...quiz, level: 6 }).success).toBe(false);
+    expect(QuizQuestionSchema.safeParse({ ...quiz, kidsLevel: 0 }).success).toBe(false);
+  });
+});
+
 describe("primaryCategory", () => {
   const quiz = { id: "x-1", text: "Eine Testfrage?", ageRating: 12, tags: ["test"], difficulty: 1, options: ["a", "b", "c", "d"], correctIndex: 0 };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import type { QuestionRoundPublicState, ScoreResult } from "@couch-clash/games/meta";
-import type { PublicPlayer, PublicRoomState } from "@couch-clash/shared";
+import type { PhotoExpression, PublicPlayer, PublicRoomState } from "@couch-clash/shared";
 import { AvatarBadge } from "@/components/avatar";
 import { Leaderboard } from "@/components/leaderboard";
 import { useServerNow } from "@/lib/clock";
@@ -101,12 +101,18 @@ export function RevealTable({
   results,
   renderAnswer,
   renderTag,
+  renderPoints,
+  expressionOf,
 }: {
   room: PublicRoomState;
   results: Record<string, ScoreResult>;
   renderAnswer: (player: PublicPlayer) => React.ReactNode;
-  /** Optional chip next to the name (e.g. "DOUBLE", the wager). */
+  /** Optional chip next to the name (e.g. the wager). */
   renderTag?: (player: PublicPlayer) => React.ReactNode;
+  /** Optional points column instead of "+100" and the breakdown (e.g. a pot). */
+  renderPoints?: (player: PublicPlayer) => React.ReactNode;
+  /** Optional face of the photo avatar (e.g. disappointed after a loss). */
+  expressionOf?: (player: PublicPlayer) => PhotoExpression;
 }) {
   const sorted = [...room.players].sort(
     (a, b) => (results[b.id]?.finalScore ?? -0.5) - (results[a.id]?.finalScore ?? -0.5),
@@ -123,7 +129,7 @@ export function RevealTable({
             className="flex animate-pop items-center gap-[1vw] rounded-2xl chip px-[1vw] py-[0.9vh]"
             style={{ animationDelay: `${i * 80}ms`, animationFillMode: "backwards" }}
           >
-            <AvatarBadge avatar={p.avatar} size="fluidSm" />
+            <AvatarBadge avatar={p.avatar} size="fluidSm" expression={expressionOf?.(p)} />
             <div className="flex min-w-0 flex-1 flex-col">
               <span className="fs-lg flex flex-wrap items-center gap-[0.5vw] leading-tight font-bold [overflow-wrap:anywhere]">
                 {p.name}
@@ -132,8 +138,14 @@ export function RevealTable({
               <span className="fs-md truncate text-cream/70">{renderAnswer(p)}</span>
             </div>
             <div className="flex flex-col items-end">
-              <span className={`fs-xl font-bold ${pointsColor(r?.finalScore)}`}>{signedPoints(r?.finalScore ?? 0)}</span>
-              {text && <span className="fs-sm text-cream/60">{text}</span>}
+              {renderPoints ? (
+                renderPoints(p)
+              ) : (
+                <>
+                  <span className={`fs-xl font-bold ${pointsColor(r?.finalScore)}`}>{signedPoints(r?.finalScore ?? 0)}</span>
+                  {text && <span className="fs-sm text-cream/60">{text}</span>}
+                </>
+              )}
             </div>
           </li>
         );

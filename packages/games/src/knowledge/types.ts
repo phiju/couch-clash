@@ -12,10 +12,11 @@ import type { ScoreResult } from "../scoring/final";
 export type KnowledgePreStep = "pick" | "decide" | "wager";
 
 /**
- * Steps per question: [pick | decide | wager] → question → reveal →
- * leaderboard → next question.
+ * Steps per question: [pick | decide | wager] → [showdown] → question →
+ * reveal → leaderboard → next question. The showdown uncovers everyone's
+ * pre-step choice at once, before the question (Double or Nothing).
  */
-export type KnowledgeStep = KnowledgePreStep | "question" | "reveal" | "leaderboard";
+export type KnowledgeStep = KnowledgePreStep | "showdown" | "question" | "reveal" | "leaderboard";
 
 /**
  * One player's result for a question. `finalScore` is the points actually
@@ -82,15 +83,37 @@ export interface CategoryPickExtra {
   byLot: boolean;
 }
 
-export type RiskMode = "normal" | "double";
+/** Double or Nothing: where a player stands in the running round. */
+export type DoubleStatus = "active" | "cashed_out" | "busted";
+/** Double or Nothing: the secret choice before a question ("none" until chosen). */
+export type DoubleDecision = "none" | "cash" | "bet";
+
+export interface DoublePlayerView {
+  /** The pot the player plays for (not on the account yet). */
+  pot: number;
+  status: DoubleStatus;
+  /** Pot when this question started – the reveal animates from here. */
+  potBefore: number;
+  /** Points put on the account (cashed out or credited at the end); null while still playing. */
+  banked: number | null;
+  /** Busted: the pot that burst. */
+  lost: number;
+  /** Still in after the last question – the pot was credited automatically. */
+  auto: boolean;
+}
 
 export interface DoubleExtra {
-  /** Everyone's decision – only at the reveal. */
-  decisions: Record<string, RiskMode> | null;
-  /** The viewing player's own decision. */
-  myDecision: RiskMode | null;
-  /** Points for this game (from the host settings). */
-  points: { normal: number; double: number; doubleLoss: number };
+  /** Level of the current (or coming) question: 1 easy … 5 very hard. */
+  level: number;
+  maxLevel: number;
+  /** Everyone who plays the round (late joiners are missing). */
+  players: Record<string, DoublePlayerView>;
+  /** Everyone's choice for this question – only from the showdown on (never during the decision). */
+  decisions: Record<string, "cash" | "bet"> | null;
+  /** The viewing player's own choice. */
+  myDecision: DoubleDecision | null;
+  /** Every right answer: pot = 2 × pot + `bonus` (question 1 starts at 0 → `bonus`). */
+  points: { bonus: number };
 }
 
 export interface BetExtra {
