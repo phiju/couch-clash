@@ -4,7 +4,10 @@
  * content – never player names or answers.
  */
 import {
+  COST_CONFIG,
+  MONTH_RE,
   QUESTION_STATUSES,
+  type AdminCostsResponse,
   modesFor,
   type AdminQuestion,
   type AdminQuestionsResponse,
@@ -12,6 +15,7 @@ import {
 } from "@couch-clash/shared";
 import { GAME_MODULES, getModule, type ModuleRegistry } from "@couch-clash/games";
 import { z } from "zod";
+import type { CostStore } from "../costs/store";
 import { GENERATION_CONFIG } from "../generate/config";
 import { replaceQuestion, startOfUtcDay, type ReplaceDeps } from "../generate/replace";
 import { json } from "../http";
@@ -30,6 +34,58 @@ export interface AdminDeps {
   registry?: ModuleRegistry;
   /** The host's voice (library task, ElevenLabs usage); absent → not set up. */
   voice?: () => VoiceServices;
+  /** Cost overview (D1); absent → not set up. */
+  costs?: CostStore | null;
+}
+
+/** How far back the cost page looks. */
+const COST_HISTORY_DAYS = 400;
+
+const FixedCostSchema = z
+  .object({
+    name: z.string().trim().min(1).max(80),
+    amount: z.number().finite().min(0).max(100_000),
+    currency: z.enum(["EUR", "USD"]),
+    since: z.string().regex(MONTH_RE),
+    until: z.string().regex(MONTH_RE).nullable(),
+    note: z.string().trim().max(200).nullable(),
+  })
+  .refine((c) => c.until === null || c.until >= c.since, { message: "„bis“ liegt vor „ab“." });
+
+async function handleCosts(request: Request, url: URL, deps: AdminDeps): Promise<Response> {
+  const store = deps.costs;
+  if (!store) return json({ error: "Datenbank (STATS) ist nicht eingerichtet." }, 503);
+  try {
+    if (url.pathname === "/api/admin/costs" && request.method === "GET") {
+      const since = new Date(deps.now() - COST_HISTORY_DAYS * 86_400_000).toISOString().slice(0, 10);
+      const usageFn = deps.voice?.().usage;
+      const [usage, fixed, elevenlabs] = await Promise.all([
+        store.usageSince(since),
+        store.listFixed(),
+        usageFn ? usageFn().catch(() => null) : Promise.resolve(null),
+      ]);
+      return json({ usage, fixed, elevenlabs, usdToEur: COST_CONFIG.usdToEur } satisfies AdminCostsResponse);
+    }
+    if (url.pathname === "/api/admin/costs/fixed" && request.method === "POST") {
+      const parsed = FixedCostSchema.safeParse(await readJson(request));
+      if (!parsed.success) return json({ error: parsed.error.issues[0]?.message ?? "Ungültige Anfrage." }, 400);
+      await store.addFixed(parsed.data);
+      return json({ ok: true });
+    }
+    const one = url.pathname.match(/^\/api\/admin\/costs\/fixed\/(\d+)$/);
+    if (one && request.method === "PUT") {
+      const parsed = FixedCostSchema.safeParse(await readJson(request));
+      if (!parsed.success) return json({ error: parsed.error.issues[0]?.message ?? "Ungültige Anfrage." }, 400);
+      return (await store.updateFixed(Number(one[1]), parsed.data)) ? json({ ok: true }) : json({ error: "Nicht gefunden." }, 404);
+    }
+    if (one && request.method === "DELETE") {
+      return (await store.deleteFixed(Number(one[1]))) ? json({ ok: true }) : json({ error: "Nicht gefunden." }, 404);
+    }
+  } catch (err) {
+    console.warn(`admin costs: request failed (${err instanceof Error ? err.message.slice(0, 80) : "error"})`);
+    return json({ error: "Datenbank nicht erreichbar." }, 503);
+  }
+  return json({ error: "Not found" }, 404);
 }
 
 const MAX_BULK = 200;
@@ -137,6 +193,8 @@ export async function handleAdmin(request: Request, url: URL, deps: AdminDeps): 
   if (!url.pathname.startsWith("/api/admin/")) return null;
   if (!deps.adminToken) return json({ error: "ADMIN_TOKEN ist nicht gesetzt." }, 503);
   if (!isAuthorized(request, deps.adminToken)) return json({ error: "Nicht berechtigt." }, 401);
+
+  if (url.pathname.startsWith("/api/admin/costs")) return handleCosts(request, url, deps);
 
   // The voice needs no database.
   if (url.pathname === "/api/admin/voice" || url.pathname === "/api/admin/voice/snark") {

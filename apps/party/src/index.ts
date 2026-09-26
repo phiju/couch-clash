@@ -20,6 +20,8 @@ import { handleVoiceGet } from "./voice/routes";
 import { handleAdmin } from "./admin/routes";
 import { createOpenAIJsonModel } from "./generate/model";
 import { d1StatsStore } from "./stats/store";
+import { meteredFetchFor } from "./costs/meter";
+import { d1CostStore, usageRecorder } from "./costs/store";
 import { CORS_HEADERS, json } from "./http";
 import type { Room } from "./room";
 
@@ -60,18 +62,21 @@ export default {
 
     if (url.pathname.startsWith("/api/")) {
       if (request.method === "OPTIONS") return new Response(null, { headers: CORS_HEADERS });
+      const costs = env.STATS ? d1CostStore(env.STATS) : null;
+      const fetchFor = meteredFetchFor(usageRecorder(costs, (p) => ctx.waitUntil(p)));
       const admin = await handleAdmin(request, url, {
         adminToken: env.ADMIN_TOKEN,
         store: env.STATS ? d1StatsStore(env.STATS) : null,
         background: (promise) => ctx.waitUntil(promise),
         replaceDeps: (store) => ({
           store,
-          model: env.OPENAI_API_KEY ? createOpenAIJsonModel(env.OPENAI_API_KEY) : null,
+          model: env.OPENAI_API_KEY ? createOpenAIJsonModel(env.OPENAI_API_KEY, fetchFor("question-generate")) : null,
           now: () => Date.now(),
           newId: () => generateSecret(10),
         }),
         now: () => Date.now(),
-        voice: () => ({ ...createVoiceProviders(env), store: env.AVATARS ? r2AvatarStore(env.AVATARS) : null }),
+        voice: () => ({ ...createVoiceProviders(env, undefined, fetchFor), store: env.AVATARS ? r2AvatarStore(env.AVATARS) : null }),
+        costs,
       });
       if (admin) return admin;
       if (url.pathname === "/api/rooms" && request.method === "POST") return createRoom(env);

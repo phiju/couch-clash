@@ -1,5 +1,12 @@
 /** Admin API client. The token lives in sessionStorage only (never in the code). */
-import type { AdminQuestionsResponse, AdminStatusRequest, AdminVoiceResponse, AdminVoiceRunResponse } from "@couch-clash/shared";
+import type {
+  AdminCostsResponse,
+  AdminQuestionsResponse,
+  AdminStatusRequest,
+  AdminVoiceResponse,
+  AdminVoiceRunResponse,
+  FixedCostInput,
+} from "@couch-clash/shared";
 import { PARTY_HTTP_URL } from "./config";
 
 const TOKEN_KEY = "couch-clash:admin-token";
@@ -70,4 +77,10 @@ export const adminApi = {
   voice: (token: string) => call<AdminVoiceResponse>(token, "/api/admin/voice"),
   /** Voices the next batch of library lines ("Moderator-Sprüche vertonen"). */
   voiceSnark: (token: string) => call<AdminVoiceRunResponse>(token, "/api/admin/voice/snark", { method: "POST" }),
+  costs: (token: string) => call<AdminCostsResponse>(token, "/api/admin/costs"),
+  addFixedCost: (token: string, cost: FixedCostInput) =>
+    call<{ ok: true }>(token, "/api/admin/costs/fixed", { method: "POST", body: JSON.stringify(cost) }),
+  updateFixedCost: (token: string, id: number, cost: FixedCostInput) =>
+    call<{ ok: true }>(token, `/api/admin/costs/fixed/${id}`, { method: "PUT", body: JSON.stringify(cost) }),
+  deleteFixedCost: (token: string, id: number) => call<{ ok: true }>(token, `/api/admin/costs/fixed/${id}`, { method: "DELETE" }),
 };

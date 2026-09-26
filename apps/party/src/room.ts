@@ -30,6 +30,8 @@ import { imagesFigureResizer, imagesResizer, type AvatarServiceDeps } from "./av
 import { playerPrefix, r2AvatarStore, roomPrefix } from "./avatar/store";
 import { styleReference } from "./avatar/style";
 import { createVoiceProviders } from "./voice";
+import { meteredFetchFor, type FetchFor } from "./costs/meter";
+import { d1CostStore, usageRecorder } from "./costs/store";
 import { VoiceDirector } from "./voice/director";
 import { loadContentFilter, type ContentFilter } from "./stats/content-filter";
 import { StatsRecorder } from "./stats/recorder";
@@ -120,7 +122,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     sendToHosts: (line) => this.sendToHosts(line),
     hostConnected: () => this.presence().host,
     waitUntil: (promise) => this.ctx.waitUntil(promise),
-    services: () => ({ ...createVoiceProviders(this.env), store: this.avatarStore() }),
+    services: () => ({ ...createVoiceProviders(this.env, undefined, this.fetchFor()), store: this.avatarStore() }),
     now: () => Date.now(),
     random: Math.random,
     newId: () => generateSecret(8),
@@ -152,7 +154,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     flowDeps: () => this.flowDeps(Date.now()),
     model: (quality) =>
       this.env.OPENAI_API_KEY
-        ? createOpenAIJsonModel(this.env.OPENAI_API_KEY, fetch, { model: TASK_MODELS[quality], temperature: 0, timeoutMs: 10_000 })
+        ? createOpenAIJsonModel(this.env.OPENAI_API_KEY, this.fetchFor()("module-task"), { model: TASK_MODELS[quality], temperature: 0, timeoutMs: 10_000 })
         : null,
   });
 
@@ -678,9 +680,14 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     return this.env.AVATARS ? r2AvatarStore(this.env.AVATARS) : null;
   }
 
+  /** Fetches that record what each API call costs (D1, in the background). */
+  private fetchFor(): FetchFor {
+    return meteredFetchFor(usageRecorder(this.env.STATS ? d1CostStore(this.env.STATS) : null, (p) => this.ctx.waitUntil(p)));
+  }
+
   /** Null when photo avatars are not set up (no API key or no R2 bucket). */
   private avatarDeps(): AvatarServiceDeps | null {
-    const provider = createAvatarProvider(this.env);
+    const provider = createAvatarProvider(this.env, this.fetchFor());
     if (!provider || !this.env.AVATARS) return null;
     return {
       provider,

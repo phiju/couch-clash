@@ -24,7 +24,8 @@ couch-clash/
 │       ├── src/voice/               Host mascot's voice: text + speech providers, prompts, rules, director
 │       ├── src/stats/               Question statistics (D1): recorder, votes, content filter
 │       ├── src/generate/            AI replacement questions (per-category generators, verify, daily limit)
-│       ├── src/admin/               Admin API for /admin/fragen (ADMIN_TOKEN)
+│       ├── src/admin/               Admin API for /admin/fragen and /admin/kosten (ADMIN_TOKEN)
+│       ├── src/costs/               Cost metering (every paid API call → D1) and fixed costs
 │       ├── migrations/              D1 migrations (couch-clash-stats)
 │       └── test/
 └── packages/
@@ -364,6 +365,14 @@ Asks for the `ADMIN_TOKEN` (kept in `sessionStorage` of that tab only); the work
 4. **Deploy command** (Settings → Builds): `cd apps/party && npx wrangler d1 migrations apply couch-clash-stats --remote && npx wrangler deploy`.
 
 Locally: `cd apps/party && npx wrangler d1 migrations apply couch-clash-stats --local`, and `ADMIN_TOKEN=…` in `apps/party/.dev.vars`.
+
+## Costs `/admin/kosten`
+
+Same `ADMIN_TOKEN` as `/admin/fragen`. Shows per month: total, measured API costs, fixed costs, and the average cost of one photo avatar; a bar chart of the last 30 days; the measured costs per purpose (round avatar, faces, standing figures, moderator texts and voice, replacement questions, AI checks in the game); ElevenLabs credits.
+
+- **Measured automatically** (`apps/party/src/costs/`): every provider gets a measured `fetch` (`meteredFetch`). After a successful call it reads the token counts from OpenAI's answer (or counts characters for text-to-speech) and adds one row per UTC day × kind to the D1 table `api_usage` (migration `0002_costs.sql`, in the background – the game never waits, a failed write only logs). Prices per model live in `costs/prices.ts` – update them there. Failed calls aren't billed and aren't counted. Only numbers are stored, never prompts, texts or player data. ElevenLabs is paid by the plan, so only its credits are counted.
+- **Fixed costs** (Claude, ElevenLabs plan, domain, …) are entered on the page: name, amount per month (€ or $), from month, optional until month („Beenden“ ends it this month). Stored in `fixed_costs`.
+- Everything is shown in euros; dollars are converted with the fixed rate `COST_CONFIG.usdToEur` (`packages/shared/src/costs.ts`). Estimates – the real bill is in the OpenAI dashboard. Measuring starts with the deploy of this page.
 
 ## Neuigkeiten (release notes)
 
