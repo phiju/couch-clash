@@ -83,6 +83,15 @@ export interface HostLine {
   /** Played right before audioPath (the player's name clip "Max …"), with prefixGapMs in between. */
   prefixAudioPath?: string;
   prefixGapMs?: number;
+  /**
+   * Queue order: lower = more important (default 5). Lines of equal priority
+   * keep their order. Used by the Survival-Finale's commentary.
+   */
+  priority?: number;
+  /** May fade out a playing line of lower priority (WINNER, ELIMINATED, SUDDEN_DEATH). */
+  preempt?: boolean;
+  /** Server time to start at the earliest (e.g. "PLATSCH!" on the splash). */
+  playAt?: number;
 }
 
 /** Host screen → server: playback progress (queue and leaderboard hold). */

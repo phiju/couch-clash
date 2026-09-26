@@ -104,6 +104,10 @@ export interface GameRecord {
   questionLeaderboard: LeaderboardEntry[] | null;
   /** "Spiel beenden": the finale shows the standings so far. */
   endedEarly?: boolean;
+  /** Content ids played in this game (the finale never replays them). */
+  contentIds?: string[];
+  /** Placing decided by a finale category (Survival-Finale) – replaces the points order in the finale. */
+  finalRanking?: { playerId: string; place: number }[];
 }
 
 /** Old scoring shapes (before the scoring refactor) → category defaults. */

@@ -7,6 +7,7 @@ import { estimateViews } from "./estimate";
 import { fuehrerscheinViews } from "./fuehrerschein";
 import { quizViews } from "./quiz";
 import { stealViews } from "./steal";
+import { survivalViews } from "./survival";
 import type { GameViews } from "./types";
 
 /**
@@ -24,6 +25,7 @@ export const GAME_VIEWS: Record<CategoryId, GameViews<any>> = {
   fuehrerschein: fuehrerscheinViews,
   bluff: bluffViews,
   skurril: skurrilViews,
+  survival: survivalViews,
 };
 
 export function getGameViews(categoryId: string): GameViews<unknown> | undefined {

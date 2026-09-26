@@ -20,9 +20,13 @@ function points(n: number): string {
   return `${n.toLocaleString("de-DE")} ${Math.abs(n) === 1 ? "Punkt" : "Punkte"}`;
 }
 
-/** Phone: "Platz 2 von 5 – 740 Punkte" (null if the player is not ranked). */
-export function placeText(entries: readonly LeaderboardEntry[], playerId: string): string | null {
+/**
+ * Phone: "Platz 2 von 5 – 740 Punkte" (null if the player is not ranked).
+ * `points: false` after the Survival-Finale – the place is the elimination order, not the points.
+ */
+export function placeText(entries: readonly LeaderboardEntry[], playerId: string, opts: { points?: boolean } = {}): string | null {
   const mine = entries.find((e) => e.playerId === playerId);
   if (!mine) return null;
-  return `Platz ${mine.rankAfter} von ${entries.length} – ${points(mine.scoreAfter)}`;
+  const place = `Platz ${mine.rankAfter} von ${entries.length}`;
+  return opts.points === false ? place : `${place} – ${points(mine.scoreAfter)}`;
 }

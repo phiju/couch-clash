@@ -31,4 +31,6 @@ export interface GameViews<TState = never> {
   IntroDecor?: ComponentType;
   /** A prop the host holds on the intro while he plays a role (e.g. a clipboard). */
   MascotProp?: ComponentType;
+  /** The host's "Weiter" button for this step – null hides it (e.g. the Survival-Finale's running question). Default: by step name. */
+  skipLabel?: (state: TState) => string | null;
 }

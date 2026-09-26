@@ -146,7 +146,8 @@ export function HostIntro({ room, send }: { room: PublicRoomState; send: Send })
           </h2>
           <p className="fs-xl text-cream/90">{meta?.description}</p>
           <p className="fs-lg font-bold text-cream/70">
-            {round?.questionCount} Fragen · los geht&apos;s in <SecondsLeft endsAt={room.phaseEndsAt} />
+            {meta?.finale ? "Bis nur noch einer übrig ist" : `${round?.questionCount} Fragen`} · los geht&apos;s in{" "}
+            <SecondsLeft endsAt={room.phaseEndsAt} />
           </p>
         </div>
       </div>
@@ -159,8 +160,13 @@ export function HostPlay({ room, send }: { room: PublicRoomState; send: Send }) 
   const views = round ? getGameViews(round.categoryId) : undefined;
   const moduleState = room.game?.module as { step?: string } | null;
   if (!views || !moduleState) return <Screen />;
-  const skipLabel =
-    moduleState.step === "question" ? "Auflösen ⏭" : moduleState.step === "reveal" ? "Rangliste ⏭" : "Weiter ⏭";
+  const skipLabel = views.skipLabel
+    ? (views.skipLabel(moduleState) ?? undefined)
+    : moduleState.step === "question"
+      ? "Auflösen ⏭"
+      : moduleState.step === "reveal"
+        ? "Rangliste ⏭"
+        : "Weiter ⏭";
   return (
     <Screen fit className="max-w-[2000px]">
       <GameBar room={room} send={send} skipLabel={skipLabel} questionMenu />
@@ -242,6 +248,9 @@ export function HostFinale({ room, send }: { room: PublicRoomState; send: Send }
               ? `🏁 ${EARLY_FINALE_TITLE}`
               : `🏆 ${winners.map((w) => w.name).join(" & ")} ${winners.length > 1 ? "gewinnen" : "gewinnt"}!`}
           </h2>
+          {room.game?.rankedFinale && (
+            <p className="fs-md text-cream/80">Platzierung nach dem Survival-Finale: wer später in den Schleim fiel, steht weiter vorn.</p>
+          )}
         </div>
       </div>
       {early ? (

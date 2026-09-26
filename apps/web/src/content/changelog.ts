@@ -28,6 +28,19 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.19.0",
+    date: "2026-09-25",
+    title: "Das große Finale: Eure Punkte werden zu Lebensenergie – und unter euch blubbert der Schleim.",
+    items: [
+      { emoji: "🟢", text: "Neu: Survival-Finale – der Letzte, der trocken bleibt, gewinnt" },
+      { emoji: "🛗", text: "Jeder steht auf einem Aufzug – falsche Antworten fahren abwärts" },
+      { emoji: "⏱️", text: "Schnell richtig gibt +50, Zögern kostet jede Sekunde Punkte" },
+      { emoji: "💀", text: "Es wird immer schneller – bis zum gnadenlosen Death Mode" },
+      { emoji: "🎙️", text: "Der Moderator kommentiert jeden Absturz – mit Running Gags und PLATSCH!" },
+      { emoji: "⚙️", text: "Das Finale lässt sich in den Einstellungen ein- und ausschalten" },
+    ],
+  },
+  {
     version: "0.18.0",
     date: "2026-09-25",
     title: "Der Moderator hat sich warmgeredet: Jetzt lästert er nach jeder Frage – trocken, frech und mit deinem Namen.",

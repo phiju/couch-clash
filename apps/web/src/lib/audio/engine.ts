@@ -408,6 +408,26 @@ export class AudioEngine {
     return { promise, done };
   }
 
+  /**
+   * Fades the host out quickly (a more important line preempts him) – no
+   * hard cut. The line's `ended` resolves when the fade is done.
+   */
+  fadeOutVoice(ms = 250) {
+    const ctx = this.ctx;
+    if (!ctx) return this.stopVoice();
+    const g = this.voiceBus.gain;
+    const now = ctx.currentTime;
+    g.cancelScheduledValues(now);
+    g.setValueAtTime(g.value, now);
+    g.linearRampToValueAtTime(0, now + ms / 1000);
+    setTimeout(() => {
+      this.stopVoice();
+      const t = ctx.currentTime;
+      g.cancelScheduledValues(t);
+      g.setValueAtTime(VOICE_GAIN, t);
+    }, ms);
+  }
+
   /** Cuts the host off (e.g. when leaving the host screen). */
   stopVoice() {
     try {

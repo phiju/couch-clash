@@ -9,6 +9,7 @@
  */
 import {
   buildLeaderboard,
+  buildRankedLeaderboard,
   estimateGameSeconds,
   INTRO_MS,
   MIN_PLAYERS_TO_START,
@@ -158,8 +159,18 @@ function applyModuleUpdate(
       ? buildLeaderboard(room.players, game.scores, update.scoreDelta)
       : game.questionLeaderboard,
   };
+  if (update.usedContentIds?.length) {
+    // The running game's content (a finale never replays it).
+    nextGame.contentIds = [...new Set([...(game.contentIds ?? []), ...update.usedContentIds])].slice(-MAX_USED_CONTENT_IDS);
+  }
+  if (update.ranking) nextGame.finalRanking = update.ranking;
   const next: RoomRecord = { ...room, game: nextGame, usedContentIds };
-  if (update.done) return settleLateJoiners(setPhase(next, "scoreboard", now, now + SCOREBOARD_MS), registry);
+  if (update.done) {
+    // A finale category (Survival-Finale) goes straight to the game's finale with its placing.
+    const finale = !!(round && getModule(round.categoryId, registry)?.meta.finale);
+    if (finale) return settleLateJoiners(setPhase(next, "finale", now, now + FINALE_MS), registry);
+    return settleLateJoiners(setPhase(next, "scoreboard", now, now + SCOREBOARD_MS), registry);
+  }
   return settleLateJoiners({ ...next, phaseEndsAt: update.phaseEndsAt }, registry);
 }
 
@@ -172,7 +183,11 @@ export function sanitizeSettings(
 ): Result<GameRound[]> {
   const planned: GameRound[] = [];
   const pools = mode ? poolSizesFor(mode, registry) : null;
-  for (const round of rounds) {
+  // A finale category (Survival-Finale) is played once, as the very last round.
+  const isFinale = (r: GameRound) => !!getModule(r.categoryId, registry)?.meta.finale;
+  const finale = rounds.find(isFinale);
+  const ordered = [...rounds.filter((r) => !isFinale(r)), ...(finale ? [finale] : [])];
+  for (const round of ordered) {
     const module = getModule(round.categoryId, registry);
     if (!module) return fail("INVALID_PLAN");
     // A category may come up more than once (Zufall plans for long games), never directly again.
@@ -245,7 +260,8 @@ export function settingsSummary(
   return {
     mode,
     categoryIds: settings.map((r) => r.categoryId),
-    questionCount: settings.reduce((sum, r) => sum + r.questionCount, 0),
+    // The finale has no fixed number of questions.
+    questionCount: settings.reduce((sum, r) => sum + (getModule(r.categoryId, registry)?.meta.finale ? 0 : r.questionCount), 0),
     estimatedSeconds: estimateGameSeconds(planned),
   };
 }
@@ -286,6 +302,7 @@ function startRound(room: RoomRecord, deps: FlowDeps, registry: ModuleRegistry):
     options: normalizeCategoryOptions(module.meta, round.options),
     mode: room.mode,
     ...(deps.log ? { log: deps.log } : {}),
+    currentGameContentIds: game.contentIds ?? [],
   });
   const playing = setPhase(
     { ...room, game: { ...game, roundGain: {}, questionLeaderboard: null } },
@@ -456,6 +473,7 @@ export function publicGame(
     currentQuestion: currentQuestion(module?.progress?.(game.moduleState)),
     waitingPlayerIds: waitingPlayerIds(room, registry),
     endedEarly: !!game.endedEarly,
+    rankedFinale: room.phase === "finale" && !game.endedEarly && !!game.finalRanking,
   };
 }
 
@@ -474,8 +492,16 @@ function publicLeaderboard(room: RoomRecord, game: GameRecord) {
       return buildLeaderboard(room.players, before, game.roundGain);
     }
     case "finale":
-      return buildLeaderboard(room.players, game.scores, {});
+      return finalLeaderboard(room);
     default:
       return null;
   }
+}
+
+/** The game's final standings: a finale category's placing (Survival-Finale) or the points order. */
+export function finalLeaderboard(room: RoomRecord) {
+  const game = room.game;
+  if (!game) return [];
+  if (game.finalRanking && !game.endedEarly) return buildRankedLeaderboard(room.players, game.scores, game.finalRanking);
+  return buildLeaderboard(room.players, game.scores, {});
 }

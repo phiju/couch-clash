@@ -143,7 +143,8 @@ describe("planGame with the knowledge games", () => {
       const plan = planGame({ mode: "family", targetMinutes: 90, categories: METAS, pools: ALL_POOLS, random: seeded(seed * 7919) });
       for (const r of plan.rounds) seen.add(r.categoryId);
     }
-    expect(seen).toEqual(new Set(METAS.map((m) => m.id)));
+    // Every category except the finale (switched on separately, never planned).
+    expect(seen).toEqual(new Set(METAS.filter((m) => !m.finale).map((m) => m.id)));
   });
 
   for (const mode of GAME_MODES) {

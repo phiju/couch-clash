@@ -1,9 +1,14 @@
 import type { HostLine } from "@couch-clash/shared";
 
+/** Queue order when a line has no priority (lower = more important). */
+export const DEFAULT_LINE_PRIORITY = 5;
+
+export const priorityOf = (line: HostLine) => line.priority ?? DEFAULT_LINE_PRIORITY;
+
 /**
- * Host screen playback queue: one line at a time, in order, never
- * overlapping. Time-critical lines (commentary) are dropped if they could
- * not start in time.
+ * Host screen playback queue: one line at a time, never overlapping. More
+ * important lines (lower `priority`) go first, equal ones keep their order.
+ * Time-critical lines (commentary) are dropped if they could not start in time.
  */
 export class VoiceQueue {
   private waiting: { line: HostLine; receivedAt: number }[] = [];
@@ -19,7 +24,10 @@ export class VoiceQueue {
 
   enqueue(line: HostLine, now: number) {
     if (this.playing?.id === line.id || this.waiting.some((w) => w.line.id === line.id)) return;
-    this.waiting.push({ line, receivedAt: now });
+    const at = this.waiting.findIndex((w) => priorityOf(w.line) > priorityOf(line));
+    const entry = { line, receivedAt: now };
+    if (at < 0) this.waiting.push(entry);
+    else this.waiting.splice(at, 0, entry);
   }
 
   /** The next line to play – null while one is playing or nothing waits. Drops stale lines. */
@@ -32,6 +40,11 @@ export class VoiceQueue {
       return line;
     }
     return null;
+  }
+
+  /** A newly arrived line may cut the playing one short (it preempts and is more important). */
+  shouldInterrupt(line: HostLine): boolean {
+    return !!line.preempt && !!this.playing && priorityOf(line) < priorityOf(this.playing);
   }
 
   /** The line finished (audio ended or skipped). */

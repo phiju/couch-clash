@@ -42,7 +42,13 @@ interface SetupState {
   plan: GameRoundSettings[] | null;
   /** Saved-settings version (SETUP_VERSION). */
   version?: number;
+  /** "Survival-Finale" as the last round (default on). */
+  finale?: boolean;
 }
+
+/** The finale category (Survival-Finale) – its own switch, never a card. */
+const FINALE_META = CATEGORY_METAS.find((m) => (m as CategoryMeta).finale) as CategoryMeta | undefined;
+const isFinale = (id: string) => !!getCategoryMeta(id)?.finale;
 
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 
@@ -85,8 +91,9 @@ function loadStoredSetup(): SetupState {
     order: mergeLibraryOrder(stored?.order ?? [], ids),
     choices,
     minutes,
-    plan: plan?.length ? plan : null,
+    plan: plan?.length ? plan.filter((r) => !isFinale(r.categoryId)) : null,
     version: SETUP_VERSION,
+    finale: stored?.finale !== false,
   };
 }
 
@@ -94,6 +101,8 @@ function loadStoredSetup(): SetupState {
 function initialSetup(server: GameRoundSettings[] | null): SetupState {
   const base = loadStoredSetup();
   if (!server || server.length === 0) return base;
+  const finale = server.some((r) => isFinale(r.categoryId));
+  server = server.filter((r) => !isFinale(r.categoryId));
   const choices = { ...base.choices };
   for (const id of base.order) choices[id] = { ...choices[id]!, enabled: false };
   for (const round of server) {
@@ -103,7 +112,7 @@ function initialSetup(server: GameRoundSettings[] | null): SetupState {
   const serverIds = [...new Set(server.map((r) => r.categoryId))].filter((id) => base.order.includes(id));
   // A category twice → it was a Zufall plan.
   const plan = serverIds.length < server.length ? server : null;
-  return { ...base, order: [...serverIds, ...base.order.filter((id) => !serverIds.includes(id))], choices, plan };
+  return { ...base, order: [...serverIds, ...base.order.filter((id) => !serverIds.includes(id))], choices, plan, finale };
 }
 
 /** The plan as cards: every planned category checked, with its first round's question count. */
@@ -125,9 +134,17 @@ function toRounds(setup: SetupState, mode: GameModeSettings, pools: Record<strin
     const meta = getCategoryMeta(id);
     return !!meta && isAvailable(meta, mode, pools);
   };
+  const finale: GameRoundSettings[] =
+    setup.finale !== false && FINALE_META && ok(FINALE_META.id)
+      ? [{ categoryId: FINALE_META.id, questionCount: 1, scoring: FINALE_META.scoring }]
+      : [];
+  return [...normalRounds(setup, ok), ...finale];
+}
+
+function normalRounds(setup: SetupState, ok: (id: string) => boolean): GameRoundSettings[] {
   if (setup.plan) {
     return setup.plan
-      .filter((r) => ok(r.categoryId))
+      .filter((r) => ok(r.categoryId) && !isFinale(r.categoryId))
       .map((r) => {
         const c = setup.choices[r.categoryId]!;
         const meta = getCategoryMeta(r.categoryId);
@@ -135,7 +152,7 @@ function toRounds(setup: SetupState, mode: GameModeSettings, pools: Record<strin
       });
   }
   return setup.order
-    .filter((id) => setup.choices[id]?.enabled && ok(id))
+    .filter((id) => setup.choices[id]?.enabled && ok(id) && !isFinale(id))
     .map((id) => {
       const c = setup.choices[id]!;
       const meta = getCategoryMeta(id);
@@ -207,10 +224,10 @@ export function GameSettingsPanel({
     .map((id) => CATEGORY_METAS.find((m) => m.id === id))
     .filter((m): m is (typeof CATEGORY_METAS)[number] => !!m);
   const available = (m: CategoryMeta) => isAvailable(m, mode, poolSizes);
-  // The panel only lists categories offered in the current mode.
-  const listed = metas.filter((m) => m.modes.includes(mode.mode));
+  // The panel only lists categories offered in the current mode (the finale has its own switch).
+  const listed = metas.filter((m) => m.modes.includes(mode.mode) && !m.finale);
   // Checked before, but not offered in this mode → note (kept for when the mode changes back).
-  const droppedByMode = metas.filter((m) => setup.choices[m.id]?.enabled && !m.modes.includes(mode.mode));
+  const droppedByMode = metas.filter((m) => setup.choices[m.id]?.enabled && !m.modes.includes(mode.mode) && !m.finale);
   const view = setup.plan ? planToCards(setup) : setup;
   const selected = listed.filter((m) => view.choices[m.id]?.enabled && available(m));
   const rounds = toRounds(setup, mode, poolSizes);
@@ -291,7 +308,7 @@ export function GameSettingsPanel({
                 <span className="w-6 text-right font-bold text-bulb">{i + 1}.</span>
                 <span>{meta?.emoji}</span>
                 <span className="flex-1 font-bold">{meta?.name}</span>
-                <span className="text-cream/70">{r.questionCount} Fragen</span>
+                <span className="text-cream/70">{meta?.finale ? "bis einer übrig ist" : `${r.questionCount} Fragen`}</span>
               </li>
             );
           })}
@@ -423,6 +440,27 @@ export function GameSettingsPanel({
           );
         })}
       </ul>
+
+      {FINALE_META && FINALE_META.modes.includes(mode.mode) && (
+        <label
+          className={`flex cursor-pointer items-center gap-3 rounded-3xl ring-4 transition ${compact ? "p-[1.6vh]" : "p-6"} ${
+            setup.finale !== false ? "chip ring-[#9be22d]" : "bg-petrol-dark/60 opacity-60 ring-transparent"
+          }`}
+        >
+          <input
+            type="checkbox"
+            checked={setup.finale !== false}
+            onChange={(e) => setSetup((s) => ({ ...s, finale: e.target.checked }))}
+            className={`${compact ? "size-[clamp(1.1rem,2.6vh,1.75rem)]" : "size-7"} shrink-0 accent-[var(--color-orange)]`}
+            aria-label={FINALE_META.name}
+          />
+          <span className={compact ? "fs-xl" : "text-6xl"}>{FINALE_META.emoji}</span>
+          <span className="flex min-w-0 flex-col">
+            <span className={`font-bold ${compact ? "fs-lg" : "text-3xl"}`}>{FINALE_META.name} zum Schluss</span>
+            <span className={`text-cream/70 ${compact ? "fs-sm" : "text-lg"}`}>{FINALE_META.description}</span>
+          </span>
+        </label>
+      )}
 
       <p className={`font-bold text-cream/80 ${compact ? "fs-md" : "text-xl"}`}>
         {selected.length === 0 ? "Wähle mindestens eine Kategorie" : `Dauer: ${formatDuration(seconds)}`}

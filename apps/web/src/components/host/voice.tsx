@@ -44,6 +44,7 @@ export function useHostVoice(send: (msg: ClientMessage) => void, clockOffset: nu
       report: (event) => sendRef.current({ type: "voice_event", ...event }),
       onCurrent: setCurrent,
       serverNow: () => Date.now() + offsetRef.current,
+      interrupt: () => getAudioEngine().fadeOutVoice(),
     });
     playerRef.current = player;
     return () => {

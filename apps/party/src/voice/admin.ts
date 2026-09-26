@@ -11,6 +11,13 @@ import { voiceCacheKey } from "./cache";
 import { accountLow } from "./rules";
 import { cachedClip, type VoiceServices } from "./service";
 import { allSnarkLines } from "./snark";
+import { SURVIVAL_PHASES } from "@couch-clash/games";
+import { namelessLines } from "./survival-lines";
+
+/** Library lines + the Survival-Finale's nameless lines (all cached once for every room). */
+function libraryLines(library: SnarkLines): string[] {
+  return [...allSnarkLines(library), ...namelessLines([...new Set(SURVIVAL_PHASES.map((p) => p.scoreDecayThreshold))])];
+}
 
 export const SNARK_BATCH = { size: 12, parallel: 3 } as const;
 
@@ -27,14 +34,14 @@ async function missingLines(services: VoiceServices, lines: readonly string[]): 
 }
 
 export async function voiceStatus(services: VoiceServices, library: SnarkLines = SNARK_LINES_DE): Promise<AdminVoiceResponse> {
-  const lines = allSnarkLines(library);
+  const lines = libraryLines(library);
   const [account, missing] = await Promise.all([services.usage?.() ?? null, missingLines(services, lines)]);
   return { account, snark: { total: lines.length, cached: lines.length - missing.length } };
 }
 
 /** Voices the next batch of library lines that are not cached yet. */
 export async function voiceSnarkBatch(services: VoiceServices, library: SnarkLines = SNARK_LINES_DE): Promise<AdminVoiceRunResponse> {
-  const lines = allSnarkLines(library);
+  const lines = libraryLines(library);
   const account = (await services.usage?.()) ?? null;
   if (!services.speech || !services.store) {
     return { ok: false, error: "Keine Stimme eingerichtet (ELEVENLABS_API_KEY / R2).", account, snark: { total: lines.length, cached: 0 }, generated: 0, failed: 0 };

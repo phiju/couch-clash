@@ -65,3 +65,37 @@ export function buildLeaderboard(
     };
   });
 }
+
+/**
+ * The final standings in a given placing (e.g. the Survival-Finale's
+ * elimination order) instead of by points: `ranking` decides rank and row;
+ * players missing from it come last. Scores are shown as they are.
+ */
+export function buildRankedLeaderboard(
+  players: readonly RankablePlayer[],
+  scores: Readonly<Record<string, number>>,
+  ranking: readonly { playerId: string; place: number }[],
+): LeaderboardEntry[] {
+  const place = new Map(ranking.map((r) => [r.playerId, r.place]));
+  const last = Math.max(0, ...ranking.map((r) => r.place)) + 1;
+  const sorted = [...players].sort(
+    (a, b) =>
+      (place.get(a.id) ?? last) - (place.get(b.id) ?? last) ||
+      (scores[b.id] ?? 0) - (scores[a.id] ?? 0) ||
+      a.name.localeCompare(b.name, "de", { sensitivity: "base" }),
+  );
+  return sorted.map((p, position) => {
+    const score = scores[p.id] ?? 0;
+    const rank = place.get(p.id) ?? last;
+    return {
+      playerId: p.id,
+      scoreBefore: score,
+      pointsGained: 0,
+      scoreAfter: score,
+      rankBefore: rank,
+      rankAfter: rank,
+      positionBefore: position,
+      positionAfter: position,
+    };
+  });
+}

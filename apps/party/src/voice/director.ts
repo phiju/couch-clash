@@ -8,6 +8,7 @@ import { TEMPO_PLAYBACK_RATE, TEMPO_SPEED, buildLeaderboard, type HostLine } fro
 import { SNARK_LINES_DE } from "@couch-clash/content";
 import { GAME_MODULES, getModule, type ModuleRegistry } from "@couch-clash/games";
 import { progressOf } from "../progress";
+import { finalLeaderboard } from "../game-flow";
 import type { RoomRecord } from "../room-logic";
 
 export { progressOf };
@@ -38,6 +39,8 @@ import {
   type RoomVoice,
 } from "./rules";
 import { cachedClip, produceLine, type ProducedLine, type VoiceServices } from "./service";
+import { SurvivalVoice } from "./survival-voice";
+import type { SurvivalState } from "@couch-clash/games";
 import { chooseSnark, detectSituations, isNoteworthy, updateWrongStreaks, type SituationHit } from "./snark";
 import { commentTemplate, finaleTemplate, startTemplate, summaryTemplate, welcomeTemplate } from "./templates";
 
@@ -126,7 +129,38 @@ export class VoiceDirector {
   /** What the host is reading out (e.g. the Bluff-Lexikon options). */
   private reading: { key: string; lineIds: Set<string>; baseEnd: number } | null = null;
 
-  constructor(private readonly rt: VoiceRuntime) {}
+  /** Survival-Finale: event-driven commentary with its own audio warm-up. */
+  private readonly survival: SurvivalVoice;
+
+  constructor(private readonly rt: VoiceRuntime) {
+    this.survival = new SurvivalVoice({
+      enabled: () => this.enabled(),
+      allowNew: () => {
+        const room = this.rt.read();
+        return !!room && this.newAudioAllowed(room);
+      },
+      clip: async (text, allowNew, reserve) => {
+        const clip = await cachedClip(this.rt.services(), {
+          kind: "snark",
+          text,
+          style: "fast",
+          speed: VOICE_CONFIG.cachedSpeed,
+          allowNew,
+          reserveCredits: reserve,
+        });
+        if (clip.voiceStatus === "unavailable") await this.stopNewAudio("unavailable", clip.errorCode);
+        return { path: clip.path, cached: clip.cached, refused: clip.voiceStatus === "unavailable" };
+      },
+      reserveCredits: (credits) => this.reserveCredits(credits),
+      send: (line) => this.rt.sendToHosts(line),
+      playbackRate: () => TEMPO_PLAYBACK_RATE[this.rt.read()?.voice.settings.tempo ?? "schnell"],
+      now: () => this.rt.now(),
+      random: () => this.rt.random(),
+      newId: () => this.rt.newId(),
+      run: (task) => this.run(task),
+      log: (message) => console.log(message),
+    });
+  }
 
   private get registry() {
     return this.rt.registry ?? GAME_MODULES;
@@ -271,6 +305,11 @@ export class VoiceDirector {
   // ── Room changes ─────────────────────────────────────────────────────
   roomChanged(prev: RoomRecord | null, next: RoomRecord) {
     this.readAloudChanged(next);
+    const survival = this.survivalState(next);
+    if (survival) {
+      const names = Object.fromEntries(next.players.map((p) => [p.id, sanitizeName(p.name)]));
+      this.survival.roomChanged(survival, names);
+    }
     const events = detectVoiceEvents(prev, next, this.registry);
     const starting = events.some((e) => e.type === "game_start");
     for (const event of events) {
@@ -329,6 +368,14 @@ export class VoiceDirector {
     const now = this.rt.read();
     // Only while this game is still being introduced (or has just started).
     if (now?.game?.roundIndex === roundIndex && (now.phase === "intro" || now.phase === "play")) this.deliver(produced);
+  }
+
+  /** The Survival-Finale's state while it plays (its commentary is event-driven). */
+  private survivalState(room: RoomRecord): SurvivalState | null {
+    const game = room.phase === "play" ? room.game : null;
+    const round = game?.rounds[game.roundIndex];
+    if (!game || game.moduleState == null || !round) return null;
+    return getModule(round.categoryId, this.registry)?.meta.finale ? (game.moduleState as SurvivalState) : null;
   }
 
   // ── Part B: commentary ───────────────────────────────────────────────
@@ -571,7 +618,7 @@ export class VoiceDirector {
     const room = this.rt.read();
     const game = room?.game;
     if (!this.enabled(room) || !game) return;
-    const standings = buildLeaderboard(room.players, game.scores, {})
+    const standings = finalLeaderboard(room)
       .map((e) => ({ name: room.players.find((p) => p.id === e.playerId)?.name ?? "", score: e.scoreAfter, rank: e.rankAfter }))
       .filter((s) => s.name);
     const winners = standings.filter((s) => s.rank === 1).map((s) => sanitizeName(s.name));
