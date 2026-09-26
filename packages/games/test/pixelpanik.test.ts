@@ -127,10 +127,12 @@ describe("content", () => {
     expect(normalizeScoring(pixelpanikMeta, undefined).points).toMatchObject({ s1: 200, s2: 180, s3: 150, s4: 100, s5: 50, s6: 20 });
   });
 
-  it("motifs without pictures are never played (the real module has none yet)", () => {
+  it("motifs without pictures are never played", () => {
     const real = GAME_MODULES.pixelpanik;
     const u = real.init(ctx(T0), options(family));
-    expect(u.done).toBe(real.listContent!().length === 0);
+    expect(u.done ?? false).toBe(real.listContent!().length === 0);
+    const withPictures = new Set(real.listContent!().map((e) => e.id));
+    expect((u.state as PixelpanikState).motifs.every((m) => withPictures.has(m.id))).toBe(true);
     expect(real.listContent!().every((e) => (e.payload as { image?: unknown }).image)).toBe(true);
   });
 });

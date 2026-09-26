@@ -92,9 +92,10 @@ function playRound(id: CategoryId, questionCount: number, mode: GameModeSettings
     }
     return out;
   }
-  const state = module.init(ctx(random), options).state as { questions?: unknown[]; words?: unknown[] };
-  const items = (state.questions ?? state.words ?? []) as { id: string }[];
-  return items.map((x) => ({ id: x.id, party: isPartyItem(x) }));
+  const state = module.init(ctx(random), options).state as { questions?: unknown[]; words?: unknown[]; motifs?: unknown[] };
+  // Pixelpanik's prepared motifs say `party`.
+  const items = (state.questions ?? state.words ?? state.motifs ?? []) as { id: string; party?: boolean }[];
+  return items.map((x) => ({ id: x.id, party: isPartyItem(x) || x.party === true }));
 }
 
 describe("partyCountFor: max(1, ceil(N × share))", () => {
@@ -270,7 +271,8 @@ describe("Zufall (planGame) keeps the share in every round", () => {
         const id = round.categoryId as CategoryId;
         const items = playRound(id, round.questionCount, mode, { excludeContentIds: [...used] }, seed);
         expect(items, id).toHaveLength(round.questionCount);
-        expect(items.filter((x) => x.party).length, id).toBe(partyCountFor(round.questionCount, share));
+        // Mode-neutral categories (Pixelpanik) have no party share.
+        if (!GAME_MODULES[id].meta.modeNeutral) expect(items.filter((x) => x.party).length, id).toBe(partyCountFor(round.questionCount, share));
         used.push(...items.map((x) => x.id));
       }
     }

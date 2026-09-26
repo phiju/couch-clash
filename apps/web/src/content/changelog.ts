@@ -28,12 +28,14 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
-    version: "0.24.1",
+    version: "0.25.0",
     date: "2026-09-26",
-    title: "Pixelpanik für alle",
+    title: "Pixelpanik ist da!",
     items: [
-      { emoji: "👾", text: "Pixelpanik lässt sich jetzt auch im Party-Modus auswählen" },
-      { emoji: "🖼️", text: "Auf der Party kann jedes Bild drankommen – keine Pflicht-Partymotive mehr" },
+      { emoji: "👾", text: "Pixelpanik ist spielbereit: 158 Bilder warten darauf, erkannt zu werden" },
+      { emoji: "🗼", text: "Bauwerke, Tiere, Essen, Autos, Flaggen, Naturwunder und Alltagskram" },
+      { emoji: "🍸", text: "Auf der Party gibt's eigene Partybilder – und jedes andere Bild auch" },
+      { emoji: "🧸", text: "Im Kids-Modus mit vier Antworten zum Antippen" },
     ],
   },
   {

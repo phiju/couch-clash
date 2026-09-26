@@ -30,7 +30,17 @@
         "Freiheitsstatue"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Eiffel Tower in Paris, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Eiffel Tower in Paris, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/7EL5cYQwg2xKQw7v8mOxYQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/odWAjwhJLz2hjR1BpgywdA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/O-qYDZkhDnHfMg5Mc1V1Mg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/OG0FDoZ7aCvNb9gnHPe1Fg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/4hI2fbNUtr_jIQ5zjwdTvA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/f4lyR_wBOwRibcE_kuCDYw.webp"
+        ]
+      }
     },
     {
       "id": "pp-002",
@@ -53,7 +63,17 @@
         "Leuchtturm"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Statue of Liberty in New York, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Statue of Liberty in New York, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/6o7GWULYe3pc0tO0xYsN2Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/aUVm6a5ugOuKVJ9_NEH4wg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/5grrldpYaF00NdUAA1romQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/_K-7SPF_s1Esk6Ym6YeH1g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/6lIp0iDgZfSeTHFLSPacbQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/cdueamrffc8XymocMo-xBg.webp"
+        ]
+      }
     },
     {
       "id": "pp-003",
@@ -77,7 +97,17 @@
         "Zelte"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Pyramids of Giza in Egypt, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Pyramids of Giza in Egypt, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/Zkhqe0indHj84jmCi2mcOw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/2gBnwJUori1eQRhYf8P0Sg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/uhwQ2fnpA6AJZaJnykEjYg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/jABhkIyJm8GBSTtpJeIXiw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/Kwaypd_7020Q2iy7qBIRlA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/opSpWJTXhZJ46LhKtdEvGg.webp"
+        ]
+      }
     },
     {
       "id": "pp-004",
@@ -100,7 +130,17 @@
         "Kirche"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of Neuschwanstein Castle in Bavaria, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of Neuschwanstein Castle in Bavaria, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/AFWRhY7pV3HtNVftcQqtuQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/MjR1zvG5xiWF1wbdq62_rQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/c8iN6PeK4ztDm2tc3HuRKg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/IsP5Mo5YhINMi9nIvbJCQg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/9ooC7UUJbmuDAsp3EN9a6Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/pFWex-JSSiLq_VjUsko0DA.webp"
+        ]
+      }
     },
     {
       "id": "pp-005",
@@ -123,7 +163,17 @@
         "Rathaus"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of Big Ben clock tower in London, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of Big Ben clock tower in London, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/rLOS5_Ub5IoQv-yYcy619Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/pQweSVlQJdTzl8FIukJwAQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/Oq2njieoPJ6fAoav5n0JCw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/sUj9aB4lwf_-CQoH7Q3Wxw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/ydVu2EVnt29UKyPhjqGOGA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/qoBLlMaliRqOEPKIjUiv8Q.webp"
+        ]
+      }
     },
     {
       "id": "pp-006",
@@ -147,7 +197,17 @@
         "Ruine"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Colosseum in Rome, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Colosseum in Rome, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/_EJ2kEjoxXY7SAiuvlWI6A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/IWR6ryM5T9o9LBSuC7ckrQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/UxNAN7te-UFwenKVl3K86A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/5KEe6C-WnODeUfsyhZQegw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/DugblyfQpEfq8smmmGvBCQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/y0BVoL7mkitI1-GH-zu00w.webp"
+        ]
+      }
     },
     {
       "id": "pp-007",
@@ -170,7 +230,17 @@
         "Wasserturm"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Leaning Tower of Pisa, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Leaning Tower of Pisa, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/bV16tDgPWF40W5_VQUgoyA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/YC9j5sDPN5XLOKzZ-YBtag.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/bJRbC4YWiISL8ULc-KNn_w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/JgQa-KfFQGh1Lc1aRluusQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/MIyut7_B5MHZO_PK52ZdGg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/eLJvBQVA19NA0EvCW2uDQQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-008",
@@ -192,7 +262,17 @@
         "Schloss"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Brandenburg Gate in Berlin, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Brandenburg Gate in Berlin, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/GWW3JRVukQR7Rp7Zl6rFJw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/dtjdrtES1Uamg4wnj0THVw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/ZpWns_bx5oRlbmQTWytGSA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/2b4CdFF8aRBOVx9oxEDcKg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/oopVFPd8m2tmYAnyBEnI4w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/Gqfwt4nUtCDwXsoylIa94g.webp"
+        ]
+      }
     },
     {
       "id": "pp-009",
@@ -215,7 +295,17 @@
         "Hafenkran"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Golden Gate Bridge in San Francisco, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Golden Gate Bridge in San Francisco, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/oUA1Wyf5g-dXrCtqX4bq0A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/66qizQz-VwTjqXwHwbVPjQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/Xe7G9x1GcPSbfEQXZT3d8w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/jkWVbIyYbyEYBGkd02Q0Ww.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/h6NpZVMHCD-XBYawyR8HrA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/OApbzEH4DkBjykHsaaaZDA.webp"
+        ]
+      }
     },
     {
       "id": "pp-010",
@@ -237,7 +327,17 @@
         "Schloss"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Taj Mahal in India, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Taj Mahal in India, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/vO5QfV2EwZwHh8O2m-tEOQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/hjB1wtlofXyKnz3JpOft6g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/YF2QuGN1wAIP1qxfuhj_hA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/BLYyUF3SqDM4c_fMY44jtg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/kJ73A1KNtAfctJqCg3mQGw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/W2jtIl4E_h17hHjr4IoIkw.webp"
+        ]
+      }
     },
     {
       "id": "pp-011",
@@ -254,7 +354,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Sydney Opera House, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Sydney Opera House, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/znrJdCKZCnyVhKn_5bNobg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/BVW1ci9I6U4Ixnp7I20Mwg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/VmOWB-vvYPgmaWDtT_R6UA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/1TjkpeN-bYqH1_Mz0agQXA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/wNhItjf57dmiws87IdSMyg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/a17Hx-iKi42v3dlI3b-9Iw.webp"
+        ]
+      }
     },
     {
       "id": "pp-012",
@@ -271,7 +381,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of Cologne Cathedral, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of Cologne Cathedral, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/ubWYKOZnggQ0IUgh5q3Uug.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/I9ihJOUmle7V9zXd8GByQA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/UeZSoe0HC4fuFTgDFBqJHg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/k0f_Sjv0Lzit7illqltL_g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/0Yf5mvMsw0dBhQW-tqYPvA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/XlSIMu_xfKpSrYGxk-uuLA.webp"
+        ]
+      }
     },
     {
       "id": "pp-013",
@@ -287,7 +407,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of Tower Bridge in London, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of Tower Bridge in London, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/jut0eEICi47Kj5sZW6sXpQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/uOTKy6shsf3cFI_TKtIqtw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/_IkbMrcr0BKJK3QQv4-0TQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/negoQLc2BtFM7fH1N0dvhQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/5Fcwt4-qNI-6O20Z2s661Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/29OoxciCZRhmOvYyS5KF_Q.webp"
+        ]
+      }
     },
     {
       "id": "pp-014",
@@ -303,7 +433,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Sagrada Familia in Barcelona, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Sagrada Familia in Barcelona, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/tYixcOB3ww-DXWpMSW6bxg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/XOmGFzLUuvfubS_NHKv9Hw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/TOicb8mKlL_gc2kXc_oDEg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/VJJi7BGUKwFAG7PPZtLw5A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/ITlJW-ll-o7XlLAIsY_p6A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/3KR89tA7rB0CcuALYqxqaA.webp"
+        ]
+      }
     },
     {
       "id": "pp-015",
@@ -319,7 +459,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Burj Khalifa skyscraper in Dubai, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Burj Khalifa skyscraper in Dubai, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/3FIiCAPudwDZbtGaZvMQQg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/Djv9y0qZB9ts7yTqelS18g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/S28kiEZEIzi4BskyBr9a3w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/cpLQZKvfU9Gfzktt1igHMg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/2cN910r6C22R7Zxs5rZqsA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/3QjhfAxI_iEvjte_ZGEbwQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-016",
@@ -335,7 +485,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Great Wall of China, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Great Wall of China, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/57lMrXNdaToZD8rpp8AYug.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/DcRnjhjrfXnVWENK2MxY1w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/FzgTkmyC6ZVs4dey0L2OoA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/4RF7SnNyV4IATSWoDqBjkg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/YJiPEBJzmAASlcakRqAk-A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-01/KlNru1nNsBwqLt4sf_qgZA.webp"
+        ]
+      }
     },
     {
       "id": "pp-017",
@@ -353,7 +513,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Christ the Redeemer statue in Rio de Janeiro, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Christ the Redeemer statue in Rio de Janeiro, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/Sd6A_UZTYgDm3kuuRi1ibA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/F9a6x7hHPbjJUAlYsyuSBg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/QxDLyT82FoNU9qVqDDNciw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/-Pr5itFAxFyGGKizI0p8_w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/KPwiL-8G_GqB31yLiSiaJg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/dQVgI0PyUwAJG-oX7e02YQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-018",
@@ -369,7 +539,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of Machu Picchu in Peru, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of Machu Picchu in Peru, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/zLLHuZ8R7mJOe_JVjdi4xQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/97X_kIt2GUX98AL0z--02Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/Q_vP4dO7DZXU5pX-SpFNqA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/nengq8ekb8E0O_0-7HgOgw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/fmhDTvKTf6oqZKuvzAI-tw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/CrwHVfXqNm13zvfbeNxkrw.webp"
+        ]
+      }
     },
     {
       "id": "pp-019",
@@ -386,7 +566,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of Saint Basil's Cathedral in Moscow, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of Saint Basil's Cathedral in Moscow, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/WEwAce8z3UGjeVAORA3HEg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/654fGwI27C2RndB1QYkA3Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/ZSA77vRrD-t8sbAcBANc7g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/1NH2BmQWJIJ8Ix99WqGLDQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/_u_KP4S7fIkFCZKXYIQtPg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/gtISPC31u8Dl_cMysIQ_LQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-020",
@@ -402,7 +592,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Acropolis in Athens, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Acropolis in Athens, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/93V3WVRpz6MAO_dCWEMYwQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/cpiFK6gKxDsvGTv-1j0lSg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/R8LlRUYbALLtelAckumOMQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/nwmNzVGXxJ7iBbdchOqKbQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/_23Ipb1oqW-60-AKKzgNMw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/IR_ljojCgB8Ovb9FzwHTEQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-021",
@@ -416,7 +616,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Atomium in Brussels, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Atomium in Brussels, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/6bQSsv-QlaRS0EnYhvcu9A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/NM4a7iV7uSjQjQwBITJ75w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/TEwheayBZNnB0JbarfAcOg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/0pynxTFrprxn9i-VZkRpMA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/fs__Gx8YZ145rtTIlkx4ww.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/R2_-dhznlfPFW5BxLcNFsw.webp"
+        ]
+      }
     },
     {
       "id": "pp-022",
@@ -432,7 +642,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Petronas Towers in Kuala Lumpur, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Petronas Towers in Kuala Lumpur, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/Hy4de9Slwxi2Pja3Xm6p9g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/pi8_r_SxAQlL_zBuGj3iTw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/4x07JITZtNhtz0pKX1V4PA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/AU5GR_1BQBquGx0UV7y9gg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/iDOFQLZ1n2xqW8spyxFJOA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/QG7SaUFo3broXtrlJPOr6Q.webp"
+        ]
+      }
     },
     {
       "id": "pp-023",
@@ -448,7 +668,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Hagia Sophia in Istanbul, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Hagia Sophia in Istanbul, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/h4cMK21yjYTz5RP374aN4w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/orpyaOPTzvd8ScSMFFhSCQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/UYjMlhCX5IqIJwIh4KWGZQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/gWhLoP46GzWVg0QDPCK79Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/J4LAYXnXFt3cWzfhXfig3g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/rZHF65X4rkJDihZ0rGGGdw.webp"
+        ]
+      }
     },
     {
       "id": "pp-024",
@@ -464,7 +694,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of Stonehenge in England, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of Stonehenge in England, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/_3p4_eJVv_b1Y5VS6_UQNQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/Ueye6Uv3hmr7V3eRFwzPeg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/lKLgXQHqV9S43aFSM4qJCw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/_ouT0XsXILsij5f1rW7ahg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/5reIz8ym98HinyGu_R9UBQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/Hy0KL-EXx5eEcM-e537Byw.webp"
+        ]
+      }
     },
     {
       "id": "pp-025",
@@ -480,7 +720,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of Angkor Wat temple in Cambodia, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of Angkor Wat temple in Cambodia, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/XUzIOpsaeLqGygUbKa3kBw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/zepKEHfiEPsY-Jq2kV27zg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/Wk2zHnEjLN4ZSqVQHsIiJQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/90MPZdTqlVehMgcM6D32GQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/C5_Z7WrZjwQbvIPpSSbk7g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/D0-1IzJ5789P3vmI6XVhww.webp"
+        ]
+      }
     },
     {
       "id": "pp-026",
@@ -496,7 +746,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Elbphilharmonie concert hall in Hamburg, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Elbphilharmonie concert hall in Hamburg, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/KixNIesF5nAfAsrqv4gLUQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/R3A2_Mv7sABk8cCy-Kxjkw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/MuspCGgOC42jaFIeLA8teQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/FwYuk6xeahIuZV6aDOYWqw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/prR8sH4MxHq8WNWDpbAeBA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/ivCiHbb_CF3tis0WmcCv1Q.webp"
+        ]
+      }
     },
     {
       "id": "pp-027",
@@ -512,7 +772,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Allianz Arena stadium in Munich, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Allianz Arena stadium in Munich, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/69LBmQxBkhHAaNRWHbgDmw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/vrQUQLEvUZi8dypHUmH8eg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/FHsHQYz0pM3hG37hSQNymw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/IaU4CeSpOkNvGtK6Um4iZQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/kkfb4-IBN3LsFQPOoWOLFw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/It7sth7wLrqHELO9wqzvAA.webp"
+        ]
+      }
     },
     {
       "id": "pp-028",
@@ -528,7 +798,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Frauenkirche in Dresden, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Frauenkirche in Dresden, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/X_Fhzn523QW-EIhLdosL-A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/qfX6jjMlQFBezxTCMet9aA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/VIJxpo2WbeDvxteNgPjuOA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/SRjfTPp3wZdXOBY8lXIfhw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/4oXGiuT8gSUoEHaZOxExQg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/bKsZXJV3l7Nx9ACVWNdLwQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-029",
@@ -544,7 +824,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Hofbräuhaus in Munich, exterior, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Hofbräuhaus in Munich, exterior, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/ZlsgAn1JDA9N8jy0zCf8Zw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/V5BoNKe7N7M70FI0-bo1-g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/zQ7vaCu16gzir9Kf-VxwIA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/QcUlyWMYCs3NVRVdi36LBA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/aZ9RoEQ8JruDCiu7UD_uYg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/WDfiwjJuDsGMWAANVpa_Yg.webp"
+        ]
+      }
     },
     {
       "id": "pp-030",
@@ -560,7 +850,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of the Oslo Opera House, centered, frontal view, clear sky background, daytime, no people, no text"
+      "image_prompt": "Photorealistic photo of the Oslo Opera House, centered, frontal view, clear sky background, daytime, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/tm63BOzPmNzdvBSgsZe_Jw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/j0mYhj9qmRauF_XarjYy1g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/RdFpp7YYLr41eacnVKJY_Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/w2pR-iqeLLn9SFsA3398hA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/du5q0jSGM7IrZ10nikYYjw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/1drQ4Oe8XNvZKfu61OLU8Q.webp"
+        ]
+      }
     },
     {
       "id": "pp-031",
@@ -584,7 +884,17 @@
       ],
       "image_source": "svg",
       "image_prompt": "Flag of Germany, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "de"
+      "flag_code": "de",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/p5g8-oJvwSOfryELJ9gqdg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/anKt5s8uWtF2g-2NvUK3Bg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/b82x8pqgagWdhZ4Xe8mwng.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/Q1G7ymcsmt15HqM4nhd3BQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/6uUpEl3Fl1vPImrmpDy0IA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/0SA-5R0qLHA_6cA6N9-gmw.webp"
+        ]
+      }
     },
     {
       "id": "pp-032",
@@ -605,7 +915,17 @@
       ],
       "image_source": "svg",
       "image_prompt": "Flag of Italy, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "it"
+      "flag_code": "it",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/ZU5cZxD7DDMTx31fpf55qw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/fnRRLdDKQ6X5aO5b34CYag.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/rVZRO8t-syNd4-2rxm59AA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/TJ8WX2_tlVePSzXh0maf-w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/bYXYA1O4hGNGQT06ZdR8WA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-02/BQ9RCoeQhm2Ul4_CfNtZSw.webp"
+        ]
+      }
     },
     {
       "id": "pp-033",
@@ -626,7 +946,17 @@
       ],
       "image_source": "svg",
       "image_prompt": "Flag of France, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "fr"
+      "flag_code": "fr",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/32HwNg7FBY9-ZBcUgJUVWQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/bTIMvY7I_mUa77f2AF6obg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/AMJB3wlG8aKpJyRbLrgXyw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/FPvghEmSDDtz6eV7aybuBA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/nYhFV8uf0ymX-1S7ZBMzUg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/BY_g2Nnxl_Wp9bU-JXOrpw.webp"
+        ]
+      }
     },
     {
       "id": "pp-034",
@@ -647,7 +977,17 @@
       ],
       "image_source": "svg",
       "image_prompt": "Flag of Japan, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "jp"
+      "flag_code": "jp",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/4Dyg2AGcHEUu_rX6NNfF_w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/LqVv2SPf6vbihVbahDPDug.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/R7QDmDYiKVmLKSN5jnog8Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/FNgyWaNC57JH98wmCPYSxA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/5h6sE-Qkb5mVsnkpqJ6i9A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/zsUQn9bgmry1zdiVOdXktg.webp"
+        ]
+      }
     },
     {
       "id": "pp-035",
@@ -671,7 +1011,17 @@
       ],
       "image_source": "svg",
       "image_prompt": "Flag of United States, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "us"
+      "flag_code": "us",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/aBnNRezNL8uagK1lISpphQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/k-hWkXOQlq-QtH5W3R-dgw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/CeRbPMWvbsx88VtbldJlIw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/u6ldlloN5n3QBqh1AbUk6Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/TKstCZEzswKQp75oeTD2Lg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/7m-1NOav2aP_q8L3oYEHCQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-036",
@@ -692,7 +1042,17 @@
       ],
       "image_source": "svg",
       "image_prompt": "Flag of Switzerland, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "ch"
+      "flag_code": "ch",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/WWWdz1V1_DApVHvOJgAf7Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/TFepMdbvGHCX7XYXx15Ukw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/yw2OduQCzKzt7Nx9nerMNw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/xX1m6hsW4W8UVrYXmCxAUQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/5JTY0TkjpYCZmZrBMJ8hRA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/6VAFZURINfisGETnIb0eqQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-037",
@@ -713,7 +1073,17 @@
       ],
       "image_source": "svg",
       "image_prompt": "Flag of Canada, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "ca"
+      "flag_code": "ca",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/x3ao_vmAGz8POePkfGO64g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/DBsU7IFdAmsg-9P7kIn2HQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/vgWIdTTipkf1ML24d4_8dw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/R5K8G8N1kvjp6q5YfHmuxQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/SeooAZQBBzdXgIqepKZuaQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/P-iKHtzD9PHQ5ThvoKGfTw.webp"
+        ]
+      }
     },
     {
       "id": "pp-038",
@@ -734,7 +1104,17 @@
       ],
       "image_source": "svg",
       "image_prompt": "Flag of Brazil, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "br"
+      "flag_code": "br",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/vISKkcYu8yH7hwlImjAMuA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/3dfDxyRSGuo7ZqCGYMfYGw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/NTzM1iXCFfuVD6edtuanoQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/7URKw68QS8N221zWknwmLQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/bziZz3A9HsREwYGkjcypcw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/JgGCHTDweynGlOjflZpvag.webp"
+        ]
+      }
     },
     {
       "id": "pp-039",
@@ -760,7 +1140,17 @@
       ],
       "image_source": "svg",
       "image_prompt": "Flag of United Kingdom, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "gb"
+      "flag_code": "gb",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/nUFmQxCtGUmvQ4_ygn2H5w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/7Om6J232Q2yvH079RzQiBw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/40if_WG8IVOrNZ5cjQHvtA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/hC4F31SECDDf2D59kovAsg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/WsCFuOlmoi_va8U1RT8t5w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/Q2-msKbK_zDYoujQtXSQYg.webp"
+        ]
+      }
     },
     {
       "id": "pp-040",
@@ -775,7 +1165,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Austria, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "at"
+      "flag_code": "at",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/MNHOn_UIRoMGCEjFowc74Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/i-MyUJZcxlJHNVbjcRoL_A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/YShM6ZJBrG-EBmAxKGpOwA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/4icTHSSJ-bCfy1Aa5LLFEA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/7RXC1JMHdvbRi5r0vUAUHg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/gJp7vHMXHq9f4QDn1VmENA.webp"
+        ]
+      }
     },
     {
       "id": "pp-041",
@@ -790,7 +1190,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Belgium, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "be"
+      "flag_code": "be",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/TRG9UOULfAIPtNXBUBzjTA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/fTOFv6s0AmjSNUTCj_IYBA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/_svgGsrazIJfql9GqkVgCA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/b7qCjHe-9ybIyuqxBoObiQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/yel7F_EDGILJUz0biXRvjg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/kk--93mmHUG3rdDcTgew2w.webp"
+        ]
+      }
     },
     {
       "id": "pp-042",
@@ -805,7 +1215,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Ireland, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "ie"
+      "flag_code": "ie",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/lvdBMrEnWx-cgSYcuZ41rA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/QrWw1fdPK4mDgdgoEJujjA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/THeHtvC9r5UR_ZBNioseUw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/texTgnlrselIOPqp5Xkalg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/pijATjag4HhJLousVNzuSA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/rozpBJr901vGfi1otiyEYA.webp"
+        ]
+      }
     },
     {
       "id": "pp-043",
@@ -822,7 +1242,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Netherlands, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "nl"
+      "flag_code": "nl",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/7IfxMFoYpl9EtSPiWi-v9A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/uxLtr4zQKsbwvxOT6Fyv5g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/TU9hTXTYR-8aOk1SrouyTg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/U1gn_h6yUy5sXSsXxXSjNg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/Pg1ozrS4AbnAL5d1n6Lcyg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/VaZskSiHkymRLuy614kZIg.webp"
+        ]
+      }
     },
     {
       "id": "pp-044",
@@ -837,7 +1267,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Spain, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "es"
+      "flag_code": "es",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/e-b_e-ySsGbaKhuxFucm3Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/b2mSySkZUTBO_Mx_1DWJOw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/gw7FSqs0EAfnzr2LPaoCXw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/0nfPLJvteIDaSEDIF6JFaw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/C9YJf4INIf1w1Sj3r43hMw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/TAhgBBMrn-dgjgxnbS4WSA.webp"
+        ]
+      }
     },
     {
       "id": "pp-045",
@@ -852,7 +1292,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Sweden, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "se"
+      "flag_code": "se",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/d3k6oqfqelexWXHWjp79eA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/n5uS3fJE-TU8awUuDnuAyQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/jcVNxWVubgy6anGozgOVCQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/vHIj_W47m7yq-lIwEY8pOA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/WsOZZ1NGXogssQO0cdlRMg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/cc2sBYo1Z-hgGPbzt8VRyQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-046",
@@ -867,7 +1317,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Greece, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "gr"
+      "flag_code": "gr",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/E4Sa6J8vBH6rUmOHhPv1Dw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/USCVowZ2niG9IKV6kET02Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/zVxqv1XOxBGb_6Z0NZPMfA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/8KGZLUXC9PV3-K1TvIKtIQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/3vS7RMsiUrVvjI__v5_Jog.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/8Q0UbmMUPR3gu6rqlvq3ZQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-047",
@@ -882,7 +1342,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Turkey, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "tr"
+      "flag_code": "tr",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/lZLnBkSAG-0aUBwnMmCL-w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/rWooMjhEzUYQXkUiWnACqQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/WAz7jXefEJ3oZPCxMDMFow.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/M9ehdFKuicZTEhONeq2kVg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/X3E9ucvsNE5HpirCTVd1yw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/JZDo6F4QHR3wNyy7IDza_Q.webp"
+        ]
+      }
     },
     {
       "id": "pp-048",
@@ -899,7 +1369,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of South Korea, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "kr"
+      "flag_code": "kr",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/wMRTXw0PLirwVqKKlpmCdQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/jsq-KtvUjpbxvxUVqbN8zA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/KIMLJ9frTpQO1wGj4qMFyA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/PKMXHNK3fnVDDXsdXzzjSg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/D5me8R1Q_ZBLd_Rc4xBZ8w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-03/bfJoiS-Mu_ABCKzdGeIVEg.webp"
+        ]
+      }
     },
     {
       "id": "pp-049",
@@ -914,7 +1394,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of China, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "cn"
+      "flag_code": "cn",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/dDpOODn3kJCktDfvQuRbGw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/TcVcCokhw33IwKxE0CLgJA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/9ROIGAOVPiZVUjBKOg4akQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/EU2Jyy7p-T7kQeuOtWeuig.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/y-08yQdgp0B_19ps-jLZYA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/IhWI-rVJlhaCg0izu2p9TQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-050",
@@ -929,7 +1419,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Mexico, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "mx"
+      "flag_code": "mx",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/9s3ugFG35cnppG-j7L20Jw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/oVs_bDJG8_2sf-MAyHt4eg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/6d_MPKMXNtZKKR1FuWGcYA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/HZ6AVT5n3s1agGGTq-nk7Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/DowvClE1uXkZ3YrprzzfzA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/iWwophzy3azGO4D_a80mZQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-051",
@@ -944,7 +1444,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Nepal, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "np"
+      "flag_code": "np",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/I0EMxVrD3zXFfpvedBfLCg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/Opqff2xuC2kODhPY1G_rGg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/5HCW12aHRdPNxOZtuSiixA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/qmOacZCloXsFhDbHw1p44Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/4FZzSyt2kidJlgaE3fketQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/41V2S3v3lWPMXPSOiAoROw.webp"
+        ]
+      }
     },
     {
       "id": "pp-052",
@@ -959,7 +1469,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Kazakhstan, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "kz"
+      "flag_code": "kz",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/wS-0vhw4ZGxbR3h33gIqkg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/nJhycKkDAf9P6M4pExOKGQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/-7WH-IggdDW-utGe1z2pSg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/xE9sjHs3mP9sBdJbCQfztw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/Mw-cUFV2hgMXNybGDV5QKA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/V1DCxEChmPCqIafb_nI2RA.webp"
+        ]
+      }
     },
     {
       "id": "pp-053",
@@ -974,7 +1494,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Sri Lanka, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "lk"
+      "flag_code": "lk",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/nK201hL5AK_qpBo_xDhjyw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/A2egX_fR53FI-HwyFCLWjg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/zwMIJ7fKoZ83pKNOVqoJ4w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/wSJfzAvTVuA-VZ2WuOptAw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/SF0mgkeGhMHRj-xDCxwW6w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/xXD8Ra8V1lJt-mGLVjvQ4A.webp"
+        ]
+      }
     },
     {
       "id": "pp-054",
@@ -989,7 +1519,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Bhutan, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "bt"
+      "flag_code": "bt",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/Sm8_QgUu34_TIb7nue4HYQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/UKDKZMK8GX8a-NuQWMEQ-w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/nqcGEtd2TkkO6b8S_BI7Ag.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/N_tyxpXn-Ufd14uW4yGxJA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/cNiXEZ5N_x6GSLc-OS4e2Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/Q--8eYsIMrIK0KpQ3RWfOQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-055",
@@ -1004,7 +1544,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Mozambique, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "mz"
+      "flag_code": "mz",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/5lJU6G_Hwd5d53JmfjWdNg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/jNLd_SOPZtWIcLygWVRyFw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/zPHSuBGrhS5MPhDtrqjACA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/RyhQPzdG4NiCeTbyrSjaBw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/tNE72NC6Y43UTNpvFWsy1Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/gSOyOkUNjCx-P8zSf38_uw.webp"
+        ]
+      }
     },
     {
       "id": "pp-056",
@@ -1019,7 +1569,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Colombia, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "co"
+      "flag_code": "co",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/gvrlv2EqFM49BA-ttYZm8w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/BWyRvm7EdoStkvNHvyhSwA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/1NrAuAmrgsCPC4l93QYcuA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/byobjWfx5ljwUi-K3o36Dw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/0T1raBpuRjepSiwZB_bqNg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/H1IIWKAr3ZlgLQPbLsKspg.webp"
+        ]
+      }
     },
     {
       "id": "pp-057",
@@ -1034,7 +1594,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Czech Republic, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "cz"
+      "flag_code": "cz",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/3btMWRXm9jHU9XzDS_XJ8w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/zKp0JTlQJEDtRoiR3khpgg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/_5pFDkaN8WjwbdhBs3bdCA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/baupmmhzXI3tB9TvD_RBlw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/hVsgUdOYRatVVpKj7dEI1g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/CHyc0BHclOJCnzijYk8MgQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-058",
@@ -1049,7 +1619,17 @@
       "kids_choices": null,
       "image_source": "svg",
       "image_prompt": "Flag of Iceland, flat, full frame (source: flag-icons SVG, not AI)",
-      "flag_code": "is"
+      "flag_code": "is",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/aY81thCQFwHG3UxLt6fkJw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/R7mY08tz16tQFLPw-sQq7A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/RTRxXPui4pvLDvCBUbibAA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/RD65xMgmmvgWhtaW3uVLPA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/vW_fQW-eRmIAc-wyvR2g6A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/PUpia9F8WGAOzd2LWFbifQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-059",
@@ -1069,7 +1649,17 @@
         "Kuh"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a zebra, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a zebra, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/13OJDluQfz7dOPkYMnWP8Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/hvlq2KSUDQyDHG3Tmc-UIA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/4M58VL0SjIzkmy0G-3BOBw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/gef3SklEh0MYAfhaMGfAvA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/Wr5O6N6dUSzYCxklP60YSg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/S7xRAW9tST3qJjBUyUe4Yw.webp"
+        ]
+      }
     },
     {
       "id": "pp-060",
@@ -1089,7 +1679,17 @@
         "Schwan"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a flamingo, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a flamingo, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/DsXKvxqWdzm6-KxWUioaYQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/FipY3VsNL5yeD7CtcdYm1A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/g8AswbeIBEgJIXDVz2aNig.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/Cd3Z5vUDKiP5EoTuLO7_mg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/U7OPhx2uo_mEzOSUiuNrkg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/yzoviX8qhU1jJC_JdBRnKw.webp"
+        ]
+      }
     },
     {
       "id": "pp-061",
@@ -1111,7 +1711,17 @@
         "Waschbär"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a giant panda, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a giant panda, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/4_LFkZqTGVYxJHJ8vlf8-w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/RqeiUKYxRPjxaJwvgpaozg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/pipNG1nSVx5J8wMncNnz-A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/c5r_7geXtdz7i5IsUnChOQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/6SXlH3xlZ_1SwQklemHQxw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/omrvPnsfP14mFVdeUSsiZw.webp"
+        ]
+      }
     },
     {
       "id": "pp-062",
@@ -1131,7 +1741,17 @@
         "Elefant"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a giraffe, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a giraffe, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/CnWSb7QQEDc7fYDwt6D17g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/rDy9VUPW3l52INA7qP9yjw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/lKnCl09hITNs69QPx72J9g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/DHc9fIrtOGeOEKg4fjzhjA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/CfXGgN_tjeaQhKxlkF5C1w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/sCKq-BWF7F2VcsT3feWMKw.webp"
+        ]
+      }
     },
     {
       "id": "pp-063",
@@ -1153,7 +1773,17 @@
         "Spinne"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a ladybug, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a ladybug, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/oN4seS6oCEypvcdca9OGCA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/f9CA1SqONHvUm3OZ6ygMbQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/fMOPEM-Qcg8nRaUa9krwqQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/_dawKKd86gxc9wMe9hXF_w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/Kk9GLEi6JEUci-KW-N5RpA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/INu-gvgfjQNbL9KIX09y1A.webp"
+        ]
+      }
     },
     {
       "id": "pp-064",
@@ -1173,7 +1803,17 @@
         "Pinguin"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a toucan, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a toucan, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/AhRUtgeqJYvlkB5VUF15Ew.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/ajC4Z7PbkKzufnuLYGNFOw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/7rZTX4xU0_JzWxiG8auc3Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/HsZDpNptfNcVbz28m3KiKg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/YGcbbaLTngTAxFfHmVhJRw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-04/6Z1SLKqwx4km_iCGpP3k8w.webp"
+        ]
+      }
     },
     {
       "id": "pp-065",
@@ -1193,7 +1833,17 @@
         "Pinguin-Figur"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a penguin, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a penguin, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/pQmbfhTkHPKodBdvX0dZWg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/soFqxFaYWfXVqaGuPMAWNQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/ds6ZwwtvY19XwLylYBu-9A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/6m_rNN5zOpme3tRa4rEy9g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/EfXZ-RZs1AUj4IDt8AaHNQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/xWxIsI-vOQSgjsHgUEIYTg.webp"
+        ]
+      }
     },
     {
       "id": "pp-066",
@@ -1213,7 +1863,17 @@
         "Mammut"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a elephant, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a elephant, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/2fr14LLNI8xPJPK4VoBw4Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/0xaMF7IAPZPg1tD_lRcEIQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/l64V95rP9feu5TF-0pD4SA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/XTU6Ouec9kCv_EhQNNi0kA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/_PbYps44R00tZiJdVEDcaQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/sNLxQtDbd5DAAY0j6p8TSQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-067",
@@ -1235,7 +1895,17 @@
         "Raupe"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a green frog, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a green frog, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/TXZWet8i-KRJzegNkBXh3Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/dmJ0iJAogMGEkkmWOgjZFg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/iI7NzlZAXJRMrsJo8F3Nag.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/gdHI19S_owsYrxpVIFwMVg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/dhjmrPRSluYdC6MNrC0Tpg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/4m27t9O8wPBGX8xwn-Vjig.webp"
+        ]
+      }
     },
     {
       "id": "pp-068",
@@ -1255,7 +1925,17 @@
         "Eichhörnchen"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a red fox, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a red fox, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/GZ-UbfENQ17XwDgvg5Oc7Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/yZeVzasC20NY0VVZ6w4Qzw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/GCORdjMfuE-vqEEtjTkjdw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/KyW6UrXrzqh5T23vo1GnAw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/l5xcPpIV_Y74h8gc_9zk7w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/DEqZvgOeEfHTvuW1fg_rVQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-069",
@@ -1269,7 +1949,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a peacock with open tail feathers, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a peacock with open tail feathers, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/hAbZpGR7NymNmxgE2AOLNQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/VymOlVfr36mDXOxsI8azGQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/FD8DcVMMGMut9zTPj9f3cw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/0Cpun5O-IBplahMOzZUbfw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/7mWMHiSvbiy4FOUSAskZnA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/EueSh64MmKgpX2MtJcCmYQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-070",
@@ -1283,7 +1973,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a chameleon, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a chameleon, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/lEGBK8QFec_39-MbAzZ_-w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/RHmikIlhWF3adwzDLC0Xvw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/0D8iaYGLpn3vSancBghgnQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/fO6yAFchsNVI_YX_XqvjIw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/LhhS8HI2LHRbWOusENcyqA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/h5c0tASEi7pKgmWyvmmqTg.webp"
+        ]
+      }
     },
     {
       "id": "pp-071",
@@ -1297,7 +1997,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a jellyfish, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a jellyfish, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/LPJ-HvFejrBH5y9DMdA2oA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/a9bLAvOeqMH0HkutE5U1vw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/GP2QvuSHY8SBYaSxNZYCAQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/WfycnDiffaXN6DkAFGMC4Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/_hJssP0FHALPB47xyPaFUQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/pl1EeqPrExUPMdSUg5JE_g.webp"
+        ]
+      }
     },
     {
       "id": "pp-072",
@@ -1311,7 +2021,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a seahorse, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a seahorse, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/F7IfrUIlfWl0F_BJqSn2qA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/yTNniJK_Jq0EZuT6uGGCxw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/wxj6pME93b9ELJkW8p88iA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/6pRRFA8aqsyA-XFUhCYZ3Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/-gOCxKOhMB5EppU8TjQzMw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/bxmKXyq4Os3qEq7qO4AQmA.webp"
+        ]
+      }
     },
     {
       "id": "pp-073",
@@ -1327,7 +2047,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a clownfish in an anemone, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a clownfish in an anemone, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/t-fRVTVf66Y-DnBeALGMWg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/YFXl_y-1NQLZMuT-owTYfg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/NWpIqJzsbcfN9j5jwa_fAQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/AerAUp_CbEhcPxLHLdjGAg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/j4IadkQtNFa5bFAGRNhLSw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/QA8AyOK072mZSMpP__fO-Q.webp"
+        ]
+      }
     },
     {
       "id": "pp-074",
@@ -1341,7 +2071,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a koala in a tree, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a koala in a tree, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/2vMrJXlahhb9-lhk3ZWdGA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/qchWILdYI38S4Y-4tNJukA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/cdLtHiQB4RQJvw8XbYm_dg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/AFFCg2fBWnHUIY3dbnP4pA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/MbwTycBa_rm-kr7mpx3How.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/9Sz_2HzDNL_wXK49JGDeCw.webp"
+        ]
+      }
     },
     {
       "id": "pp-075",
@@ -1355,7 +2095,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a hedgehog, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a hedgehog, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/BuqPoHKg_jqvQHDjB-c9dw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/PJHfJBNWy-ZGP7eQGfJAYQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/ejd2U29dH8u06Q5zC-lGag.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/42WlOEqY-TqEUt_JH_G6BQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/54UvRVRu-jwDj4-x1g0ZnA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/ya393MNNot1oBATBAs3rQA.webp"
+        ]
+      }
     },
     {
       "id": "pp-076",
@@ -1371,7 +2121,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a colorful macaw parrot, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a colorful macaw parrot, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/haRPB-nqBDpePIzNRaSJgA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/6kzC6POhmtuqCzlNPdBWsQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/TfdaLHINOX8RFRkWjsm0Cg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/jpuf5277OvjJU795tuqO0Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/podH4oUCNwV1Vuu1OlFmew.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/2Y50LmZjAvvRMwHJDWvn1g.webp"
+        ]
+      }
     },
     {
       "id": "pp-077",
@@ -1385,7 +2145,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a axolotl, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a axolotl, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/BpYrkfaagRDHBPpQ1FkPfw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/KD3Tavp9Zmu4wCXtRW8spQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/JEhTeHlCCeIVHloCHzNBiw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/S08-fPtdY5vuwcpUy1MyQQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/_HJOfetShjzmkYkbO9rwIQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/2JyLqnM-RU8X7zeBHAqS7g.webp"
+        ]
+      }
     },
     {
       "id": "pp-078",
@@ -1399,7 +2169,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a sloth hanging from a branch, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a sloth hanging from a branch, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/0LaQP1qGsfwgeB__GyCChA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/z1IoG3jkGXkuDAhetyFrhQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/8CIEdP_IhGhJNA-ctZCTjQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/oSaBQsUK7uyUjKnFsJTIPw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/uUjgH_P5AzantJzgW73x5w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/Qie1bD8TYiraqh8hLeSFHQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-079",
@@ -1413,7 +2193,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a armadillo, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a armadillo, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/4Ep6ipLpxsVDl63dUQTtRQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/hInEpvPgVBJExamfUc49xQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/U8pBVBYZWF17nJiuJRLaKQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/aFN1s7R53da-iwwmU6omrA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/Yv9ZVHrPT52Y8e7Qf0twlw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/F4zeZBq8x0TMvRMx9MYeLA.webp"
+        ]
+      }
     },
     {
       "id": "pp-080",
@@ -1427,7 +2217,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a okapi, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a okapi, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/asTlnjVp4T1UzRXgHO1lwA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/zIZQPTesAalFYi7_jpR_FQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/fXcft8JAKSoJ3zPe1g5c0Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/dQtvPokE6ojxKGTGsHmdng.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/l2Uj-XVInCpNK-Cx52HoSg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-05/p8fMC8fjjxYFbWGtWEPVlQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-081",
@@ -1441,7 +2241,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a poison dart frog, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a poison dart frog, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/fQnelf-Ji_KROG1uDRnmNQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/Cl81q0lorjA5sgoZ_alO3A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/RiRu3B5yYVZC4aShQpn_4Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/uE2A8l1EkEvesnUXEn7g8A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/ZkdTEeyfPBpzjHyySy7CYQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/TyDjfPIEFZyS7IVYaDFZQA.webp"
+        ]
+      }
     },
     {
       "id": "pp-082",
@@ -1455,7 +2265,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a platypus, full body, centered, simple natural background, no text"
+      "image_prompt": "Photorealistic photo of a platypus, full body, centered, simple natural background, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/SflPtKLvbDknxqVxnfo8zA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/g90zxyRowI9g_TQU1ELmDg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/TxcXU2-Z0cTDbRmcIn75xA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/hhJ9IQ80muZWYGUgrEsbxw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/HSbYzoe2QXhMxo7AqlLgcg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/ulVhLp5pYDzrhgm2zs3zig.webp"
+        ]
+      }
     },
     {
       "id": "pp-083",
@@ -1477,7 +2297,17 @@
         "Omelett"
       ],
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of a pizza margherita, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of a pizza margherita, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/dizUJj-X09AlCDestr-U2g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/ZV0imSuKYeqIvaItrkD_tw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/Ucv6643ycwn_9RvazA8Ojg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/4aJ1sUjBQ88znBIHa7j5Ew.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/K7FtP2dEKwWvtNgYSNaQYg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/weWA1FKdiSMcNsici2jgkg.webp"
+        ]
+      }
     },
     {
       "id": "pp-084",
@@ -1499,7 +2329,17 @@
         "Kürbis"
       ],
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of a slice of watermelon, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of a slice of watermelon, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/OdW1N3WJQhSS9Rzcyla-OA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/coloNCMn9I9KYrMKbp9FFw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/JOxwMDtS4MVn0IDi3zHDlA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/Pzd2G9OvIK7E4zAaZDxyFA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/S7peMmJVbv4xfiPRyyCcyA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/kRXI8OX1_brUrjNfE3rn7w.webp"
+        ]
+      }
     },
     {
       "id": "pp-085",
@@ -1522,7 +2362,17 @@
         "Kringel"
       ],
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of a Bavarian pretzel, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of a Bavarian pretzel, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/hVMcop6cWswbShvwfrX-Tg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/1Fcptun5qIfzZJvFMM32KQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/jvy-R1GTRQiLcIa_QcZPvg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/l0yAFWDegsz3SSmcp712Tg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/s4wcyBnBwy6uu9GyYr6pYQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/pHktMEsCdBy_GNxt0xebvg.webp"
+        ]
+      }
     },
     {
       "id": "pp-086",
@@ -1544,7 +2394,17 @@
         "Käse"
       ],
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of a fried egg, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of a fried egg, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/2mUSIxmj4DNssz8yrcAn7A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/pfCr9-TxgAja0m0f7SHt_Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/Kn83_G8EYosVFa9V3SsgQw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/PRHAgiwxXcKHx5eZ7TS7ig.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/5FsBjFpF8jwuCn6rboRHfA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/tRvoBE_OIJR0l3MfM07G2g.webp"
+        ]
+      }
     },
     {
       "id": "pp-087",
@@ -1566,7 +2426,17 @@
         "Kuchen"
       ],
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of a pink frosted donut with sprinkles, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of a pink frosted donut with sprinkles, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/0XA0yEbTQNP_ssi3C8dZ4w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/uBA7cxbyg9KIvqp9hyK6xQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/IIqbpfxM1RLtF9pY-gu3Yw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/Vbps18n5XRbwAMQUggaEuA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/cNOw2pXx7-OGDc3OoTHfhg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/UrQK_-ueaeOwVVOba6Anhg.webp"
+        ]
+      }
     },
     {
       "id": "pp-088",
@@ -1588,7 +2458,17 @@
         "Mais"
       ],
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of a banana, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of a banana, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/kRp86H_inVsiasyTH6jTTA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/0YxycasIwlIRyenp3I9Cqg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/z9X8KvTpe0zRXeIsX4w7lw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/exVWA_ttqyeEYn9i1PqlBQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/pc4r-G9D4eCq9PQ51uf0oA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/W5iWM9IZ-1Et3DmwIH3eag.webp"
+        ]
+      }
     },
     {
       "id": "pp-089",
@@ -1610,7 +2490,17 @@
         "Himbeere"
       ],
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of a strawberry, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of a strawberry, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/tS9GkFgsvzjdKtMIbqboWA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/o8dBciymE5fA3ZlyBdbAnw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/3iKEB7tTzmeW1zSj6LQsuA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/qlLHfON8m7925G5U3Snc0g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/twNnzIPjbzgz_1SVEnoi-Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/AUPMWUq167w3EKcnMqI-7Q.webp"
+        ]
+      }
     },
     {
       "id": "pp-090",
@@ -1626,7 +2516,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of sushi rolls, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of sushi rolls, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/_DX8mzluWv40fFDVUpxrAw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/wpfj0bL-SxNOU-Qcl-G0-w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/jFH3hH4yYmcfI0-9Ruww2g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/kDBgAlBGXlJ3PsEeyqsq-g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/ivAaTTvoiHq5jmlrQQjJlA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/83YpBN4ch1cQfbirDF010Q.webp"
+        ]
+      }
     },
     {
       "id": "pp-091",
@@ -1642,7 +2542,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of Bavarian white sausages with sweet mustard, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of Bavarian white sausages with sweet mustard, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/imbOpkI24xXHEjpOKo7_7g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/1v1ykLdj-lkgoMHe8399Ag.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/VVoQTZ8xxUh3CCbMDw82KA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/iUBqIsXt5LdIMNo9HfrRTg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/NxvjvQ8Y6IC2I-7jXcJX3g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/wKHfe_MnrIgGQims0-em4w.webp"
+        ]
+      }
     },
     {
       "id": "pp-092",
@@ -1659,7 +2569,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of a cheeseburger, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of a cheeseburger, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/J4qZL2XEHgT1sLWvaCkEBw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/pOI81f8rKQLFr6PoN7DHAg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/ng2tt6kb_fb8V17t6hYgEg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/MJdFwGuzovOY-NbFAcX4bg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/6voNbJDXYto8Iq3P2-J5BQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/dWASD5igj-y7kKHElNxuAQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-093",
@@ -1676,7 +2596,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of spaghetti bolognese, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of spaghetti bolognese, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/ovXjTM3Hf-kkRmjmQ1BmBg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/jdJDxVneCQr8XvuvMlH2ww.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/993E8riMGh7DBWehkTLh0A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/yTuz2QR9L0vMHHCQxe2G_w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/dU4KkhqoZmUq24dHfkJhIg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/ntB8kh7-GMrar6WAnsSUNQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-094",
@@ -1692,7 +2622,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of broccoli, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of broccoli, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/Qdb8IHCzQKXxjuDnAZ7SAg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/Kr8-w3uDJsrCM_YntCIqtQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/csFOOWaNoL9NFTYw4bOd4g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/oDVLBsdcu0kq7M2GR3a1YA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/a6qGJYg1b67csRWsy2wqvw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/YOyqvxHFDKmzEYU5-g93Hw.webp"
+        ]
+      }
     },
     {
       "id": "pp-095",
@@ -1708,7 +2648,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of a Black Forest cake, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of a Black Forest cake, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/VhXWfgqgKI87sGdhBa60Cw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/gqfLQBGhSlU2YdKBUVUqWA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/hIUJTf5cK7RrqwalXhvQCw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/07prrOekw8bCv7Cme8stNQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/0sy0CM6NRhSRhYVEXlWQ5A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/pYKuS12nN4JlObUcud3XgQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-096",
@@ -1722,7 +2672,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of a halved kiwi fruit, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of a halved kiwi fruit, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/3PpYHP08cC8f7C6YCjhg5w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/LbmOwLuoNq8uQzCeZ7udSQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/TMxLjS8z7bS7Uz3Dongmpg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/i8ReNr4Ovf-jL3tgfAk6EQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/2zAd2dfqK7AMLhYMj4k--w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-06/mU_DFktW6uNeBMsHmh553w.webp"
+        ]
+      }
     },
     {
       "id": "pp-097",
@@ -1736,7 +2696,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of an artichoke, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of an artichoke, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/c_Mji3KF9d3duXAoLTfgmw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/zOEMcgjRqyhxxz5HsBH5EA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/dqmuRigRP1wH9YEhSeHt7g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/4Mv21LB1KguAVL2fBZ-dLA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/GgZbfcDUpY0h0NT4MVQqIg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/KGOSG7T0kWrVKiv8X125aQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-098",
@@ -1752,7 +2722,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of a halved dragon fruit, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of a halved dragon fruit, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/R6v_7jgoAnG5zZlYzM7zIg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/6imb9Y-IB9hd5MTsCudhjw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/1VwX4Snjf6_ArWAT6SjEOw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/FAltfjKCu-oMGreTSAvWnQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/eFv3qss6s_IsUVPpfqdaZg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/ZDr81vbEAfB8TpDeG6H8jA.webp"
+        ]
+      }
     },
     {
       "id": "pp-099",
@@ -1766,7 +2746,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of an opened pomegranate, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of an opened pomegranate, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/eIacM-7rcn2azFuy4dfWSw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/J2Veo3GQ7BSh-H1wGnzb7Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/4hpRXC-i8eYwLNfc9dFaKQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/Flx9CL-X7WrJNHayJG1ifg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/1SjAkTXdfRlLtpVO9jglcg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/wn7pJNsxG2F3_KWLbWwk9Q.webp"
+        ]
+      }
     },
     {
       "id": "pp-100",
@@ -1782,7 +2772,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Top-down photorealistic food photo of Kaiserschmarrn with powdered sugar, centered on a plain white plate or table, no text"
+      "image_prompt": "Top-down photorealistic food photo of Kaiserschmarrn with powdered sugar, centered on a plain white plate or table, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/kUW-mjSBGdQ2Wq0LYyNuQA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/UhRVFO_PhpeG6h_spfEe5A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/ntXlFgc4JbsTIiEnLXvB1A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/rj5D0eGz9WDWV_LhpcTzJQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/ZhbvCakBBj11HdHW9YbJ5A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/uIA-CP-u2mn56Un8cBVJrw.webp"
+        ]
+      }
     },
     {
       "id": "pp-101",
@@ -1805,7 +2805,17 @@
         "Smart"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic side view photo of a classic Volkswagen Beetle, centered, plain background, no text, no license plate"
+      "image_prompt": "Photorealistic side view photo of a classic Volkswagen Beetle, centered, plain background, no text, no license plate",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/_k7BLTDY0m5Vu80nfHm19A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/756JYbsQ0iVhsZVERXyWJQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/qiVOvR4Z4O0XHZp-RW2zVA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/PdWTsJ0OA0MeHji_CUGmtA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/va3gs8PnmJD11uXSguVpQA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/Hq8-GXtWxreaK-BLyD-81A.webp"
+        ]
+      }
     },
     {
       "id": "pp-102",
@@ -1829,7 +2839,17 @@
         "Lieferwagen"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic side view photo of a classic Volkswagen T1 bus, centered, plain background, no text, no license plate"
+      "image_prompt": "Photorealistic side view photo of a classic Volkswagen T1 bus, centered, plain background, no text, no license plate",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/CqzcCppQ9GxTcD_z6Pgziw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/wc5Cf2vQD_UPwZwCBU0pCA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/RsKE9bzyjh-OsQJt1B8vPg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/lefh5MTnyqQKyopkJ4gAOw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/_huiUQfjyCA3q0ZJjgJGFw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/1dCAkdgPamKPnaYD4FDXjQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-103",
@@ -1845,7 +2865,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic side view photo of a classic Mini Cooper, centered, plain background, no text, no license plate"
+      "image_prompt": "Photorealistic side view photo of a classic Mini Cooper, centered, plain background, no text, no license plate",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/eNH28X7mUo39iN1GmG8Ung.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/hS4FnyV_LweCxRiiXrd1RQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/6Oisr2I6RvXtf26FTSFMYw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/J7N3PtvUNtLKOQKrkXpPuA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/TSY_DqkQUd3tAxsD9rBW2g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/z-po_epIOURthGPzyHIoWw.webp"
+        ]
+      }
     },
     {
       "id": "pp-104",
@@ -1862,7 +2892,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic side view photo of a classic Fiat 500, centered, plain background, no text, no license plate"
+      "image_prompt": "Photorealistic side view photo of a classic Fiat 500, centered, plain background, no text, no license plate",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/uwKMmDUnvqkKK3hbH18ECA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/BwBOc1kjXCC1NL2aglmd6A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/uhpNbt1uFhIBM_0JwRsMhw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/Kehva9jRVO72Iw-6ZKo5zw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/z6U1PR12l62ZkXscg5IQ2A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/xUEYaSEphWLDZF7DjR1kQA.webp"
+        ]
+      }
     },
     {
       "id": "pp-105",
@@ -1879,7 +2919,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic side view photo of a Porsche 911, centered, plain background, no text, no license plate"
+      "image_prompt": "Photorealistic side view photo of a Porsche 911, centered, plain background, no text, no license plate",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/-HD0jgCdWFpr8-GeoQguwg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/4d4699ofl_wyCZ5N_TF3QQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/PXeorhmXUgwHEyTs8aQ-oA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/jkg894C6DACKWu3TTV7kDg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/UZsjQLD67-EqK5mtA2FsXg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/41HhkNjnEl8rcwcJ1nAx-Q.webp"
+        ]
+      }
     },
     {
       "id": "pp-106",
@@ -1895,7 +2945,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic side view photo of a London black cab taxi, centered, plain background, no text, no license plate"
+      "image_prompt": "Photorealistic side view photo of a London black cab taxi, centered, plain background, no text, no license plate",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/3jXI4rvXW0rg7rkLxSS2iA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/mtMCtG5oug0VeoQE4w0OKg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/CcpS7zzAh2JsCoJ-V3RtqQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/V9fYA1IVCqk1fov2L3-RfA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/pRL2LmFwSFdVy3rQ9ZVH3A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/iYGwfYZ1BcsGf2EOsP-pog.webp"
+        ]
+      }
     },
     {
       "id": "pp-107",
@@ -1911,7 +2971,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic side view photo of a Trabant 601, centered, plain background, no text, no license plate"
+      "image_prompt": "Photorealistic side view photo of a Trabant 601, centered, plain background, no text, no license plate",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/0u4bIhkgyQPkPqu38H8REA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/woq209bikIqJSN0zGssjGw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/r2D1cB6VOvzcsJ3Xk74C8A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/YWFqLH3Ombk8mKIIlijiRQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/KgkOhbd6SxRXoz3185AZ9w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/5y2hcVJjfCPOpzDCGNxzXw.webp"
+        ]
+      }
     },
     {
       "id": "pp-108",
@@ -1928,7 +2998,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic side view photo of a Citroen 2CV, centered, plain background, no text, no license plate"
+      "image_prompt": "Photorealistic side view photo of a Citroen 2CV, centered, plain background, no text, no license plate",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/VwIuy2cPecVZm0bZvgbc7g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/7CRBuIBRXsNN2Jn7Se_4jA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/7_Rd9VkYnzDo8_MpqK4K3A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/2t-udlBSDymvpqsVSoqaPw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/s2AEsF9-Hud7Ay6osz0QHg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/XMgZp0KN6N2bs5M-oeXsBQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-109",
@@ -1945,7 +3025,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic side view photo of a Mercedes G-Class, centered, plain background, no text, no license plate"
+      "image_prompt": "Photorealistic side view photo of a Mercedes G-Class, centered, plain background, no text, no license plate",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/PftJsn_DHWJh-ChzwdlU4g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/OKWUuFGagahKAOUQjTr7Xg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/Qzk6hO4FlJm_wOscLzuiqg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/udKzEOow_s3cq0B21U8FTA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/7k5YDI99Y2LloYwU3w7CHg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/_gQV1itUquhDybEuAjUlhw.webp"
+        ]
+      }
     },
     {
       "id": "pp-110",
@@ -1959,7 +3049,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic side view photo of a DeLorean DMC-12, centered, plain background, no text, no license plate"
+      "image_prompt": "Photorealistic side view photo of a DeLorean DMC-12, centered, plain background, no text, no license plate",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/_zvyUpvpKsAXRIdH2N9H1g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/Y30X-KUvhGlDooReHfC9qA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/g5wcjPwMnMF8Z4AfocfIAA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/IQCdI86ZLIE_cdFYMcRIbA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/--biGWAup4mPWjgou9rZPQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/k38zI3oirrvY17wDtA5FWQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-111",
@@ -1982,7 +3082,17 @@
         "Bagger"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic side view photo of a red fire engine, centered, plain background, no text, no license plate"
+      "image_prompt": "Photorealistic side view photo of a red fire engine, centered, plain background, no text, no license plate",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/n2O1mwt9qg6C7IT5XyJwJg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/D-pOPSeIGlpB2ej2TfN6zA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/OE2iiasP71umZK94F1rO_g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/s-fDit02CVAxflOjEbkUog.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/Rr5Vp5HQkIvboPwgfhQ9gw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/BdIAGOoO7K0mdOOlBU6mfQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-112",
@@ -2005,7 +3115,17 @@
         "Rasenmäher"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic side view photo of a green farm tractor, centered, plain background, no text, no license plate"
+      "image_prompt": "Photorealistic side view photo of a green farm tractor, centered, plain background, no text, no license plate",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/cHLhUgepirZ7sZRy8FTugw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/E6ZIKdPATveJih1jlu7XqQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/GPizFPc_t77cg0QNPp5JXQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/4J3xQlsECD6vUc7q16Gn5A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/g_oY2_xgBd3U0f2J6wXK5Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-07/t6M3VL8_DD-uUx3_tJAMOw.webp"
+        ]
+      }
     },
     {
       "id": "pp-113",
@@ -2227,7 +3347,17 @@
         "Blitz"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic landscape photo of a rainbow over a green meadow, iconic viewpoint, no people, no text"
+      "image_prompt": "Photorealistic landscape photo of a rainbow over a green meadow, iconic viewpoint, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/NzhSlZpwJavx54fuTLxVJQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/36Nf9UWfYxH57NiCrUF4rQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/qsBkVfcjx6y3z_Jjdlu29w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/iBjpeFnGFi9BRYRoXJeR3A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/W6p5BCe6uXeomufvsZK7XA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/9_PKCLLRMB0-mkwD3ZOmWg.webp"
+        ]
+      }
     },
     {
       "id": "pp-125",
@@ -2249,7 +3379,17 @@
         "Lagerfeuer"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic landscape photo of an erupting volcano, iconic viewpoint, no people, no text"
+      "image_prompt": "Photorealistic landscape photo of an erupting volcano, iconic viewpoint, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/3QbeH9auHneKs8c0I7W6RQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/dP6dUIP71TuAmgb3ulYIKA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/ooteDBt_h3dYUlo6qHAT0w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/XdxAMtvgLRf85C8a8JxwvA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/fDDyDfKqHNCB4_u3CpgQxg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/lgRxT2CPXDZeQ406h2r9KA.webp"
+        ]
+      }
     },
     {
       "id": "pp-126",
@@ -2265,7 +3405,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic landscape photo of Niagara Falls, iconic viewpoint, no people, no text"
+      "image_prompt": "Photorealistic landscape photo of Niagara Falls, iconic viewpoint, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/ykwBGXEutg4r42iNZKu-xg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/PUXUhavn1Y8X5xoX1lPcdg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/01B8ZRIhelEK1fRCe8T_GQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/AkfXAMnfhp2Dz6Yl3G15Tw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/Nm2wznRsoelE61Gkms5kAw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/XUuaaDzG7UWo3zYZ87WL-w.webp"
+        ]
+      }
     },
     {
       "id": "pp-127",
@@ -2279,7 +3429,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic landscape photo of the Grand Canyon, iconic viewpoint, no people, no text"
+      "image_prompt": "Photorealistic landscape photo of the Grand Canyon, iconic viewpoint, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/DoyEnVV_tZTu_2_cs_QBsA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/3JtHAp9YbUT5lE4myUP2lQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/fOITvQgKjcLI3-mrm_oYmg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/x3kgDWM48uh0F0Og5tygnw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/11Bkw3OAHoj1yGorMCz8xg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/idmhmAKV7jluqOOIxC4Yrg.webp"
+        ]
+      }
     },
     {
       "id": "pp-128",
@@ -2293,7 +3453,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic landscape photo of the Matterhorn mountain, iconic viewpoint, no people, no text"
+      "image_prompt": "Photorealistic landscape photo of the Matterhorn mountain, iconic viewpoint, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/TDylzfweAL2jAOgMu8tUYA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/yYqluFvfFS74ZjniXIFqqw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/Onsq-Vz0CBu7oo0u6YiQ3w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/SH-Yz7hZHsLZhr1uc9uvBw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/PzatY3EaboqfJDwvKntL-w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/Gnn6aWnusOoxZixirdSK5A.webp"
+        ]
+      }
     },
     {
       "id": "pp-129",
@@ -2310,7 +3480,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic landscape photo of the northern lights over snow, iconic viewpoint, no people, no text"
+      "image_prompt": "Photorealistic landscape photo of the northern lights over snow, iconic viewpoint, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/TFY7YxiB7KPfzbnoimqz2Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/5uKk-KEWqR0Tj8lErQWwaw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/sA7ywumSPVBCm-C7dMtVxg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/SAX2bqryCWKrTLcf2yOfRw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/l37sBlDgZWvGjUKMjddm7g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/aJY4_87rxtWhsqzBNSOf_A.webp"
+        ]
+      }
     },
     {
       "id": "pp-130",
@@ -2326,7 +3506,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic landscape photo of Uluru in Australia, iconic viewpoint, no people, no text"
+      "image_prompt": "Photorealistic landscape photo of Uluru in Australia, iconic viewpoint, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/dEUP-tXZP6dUXYW03ZXiJQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/F4LYZqeK4giZXey4RW3l1Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/JgFEoCe8RKafQ2fRAn0qww.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/eyoYBAD3rRM08_cw3hCCgQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/Nc6I3eWiUgujATFpEp14Fg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/9_LLKtdygJrchVawH0pqgg.webp"
+        ]
+      }
     },
     {
       "id": "pp-131",
@@ -2342,7 +3532,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic landscape photo of Mount Everest, iconic viewpoint, no people, no text"
+      "image_prompt": "Photorealistic landscape photo of Mount Everest, iconic viewpoint, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/ujsuZiGrJpoxtYissIXmhw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/yGYrfnm8exm9PWCAD6Luvw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/lPORPQSSkRPMMcWMEBIECg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/HR8_E8-LFTsiJn9JejwxiQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/KJOcDyusxwuei4DOVFQMNg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/ga6DWS16yp-g4_PNMxlieA.webp"
+        ]
+      }
     },
     {
       "id": "pp-132",
@@ -2356,7 +3556,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic landscape photo of the Dead Sea with salt formations, iconic viewpoint, no people, no text"
+      "image_prompt": "Photorealistic landscape photo of the Dead Sea with salt formations, iconic viewpoint, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/XwuX5bc2AIcYq8zaCkfx-Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/MlE0hbU53DKP-cowJY-Hkg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/4cLDbeUwbcgKgXFbzACQpQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/bZw7DAWdakeTTCFPoKMd1A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/62eTBrADzybkCMACmY4Y3A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/x7k8NjqDigxf78BXkuCUMQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-133",
@@ -2372,7 +3582,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic landscape photo of Königssee lake with St. Bartholomä church, iconic viewpoint, no people, no text"
+      "image_prompt": "Photorealistic landscape photo of Königssee lake with St. Bartholomä church, iconic viewpoint, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/w9ed4su4dbndynfWC1YWgg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/rAzn0jHHcB7vuraRwkLkfQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/FqOH5yiLPFsBZQ-cM3rjCA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/0WyWt-tYsZOo3ayRILRVPA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/FK7yy_XKeu9-YS0IGrdqIw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/aOqWBy9fBylubFZc9ltU2g.webp"
+        ]
+      }
     },
     {
       "id": "pp-134",
@@ -2386,7 +3606,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic landscape photo of the Zugspitze summit, iconic viewpoint, no people, no text"
+      "image_prompt": "Photorealistic landscape photo of the Zugspitze summit, iconic viewpoint, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/12E8hFmPRPZ-Y8rbhWRXpg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/Ke1l66KqGxckX1gqpZGLUQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/BgoeUd6YOPS4NAzKBIbqpQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/UCZmoh6pTs2m9BFXqNPM4A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/Uow2uXDNiS8-9X70QGnzZg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/4FzdmFpYiEyBKPjd7rAKyA.webp"
+        ]
+      }
     },
     {
       "id": "pp-135",
@@ -2409,7 +3639,17 @@
         "Acker"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic landscape photo of sand dunes in the Sahara, iconic viewpoint, no people, no text"
+      "image_prompt": "Photorealistic landscape photo of sand dunes in the Sahara, iconic viewpoint, no people, no text",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/bm2r7ZMviYOjDZPHxJrJCQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/OcYg1aBkcK4Nf3LmaoX47A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/94rLizTTS67VFd-O7G8Xyw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/YFudjjOTxeUX9LhfucG5Xw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/qLYJc5m9fMQhQyIb-Z3Cqw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/OXQu1YS5Knx0mOea1W_InQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-136",
@@ -2432,7 +3672,17 @@
         "Lego-Stein"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a puzzle cube with colored squares, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a puzzle cube with colored squares, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/TridAS4gl6GDYCfoU1L_4Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/GhpxxmyZb4OfisoQxHk_Kw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/fU-k1IK3AqLInJ0gnsm1pg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/mUtym7wmNXtmqjg64XCSiw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/MQcwcI1GYRGLbql2Gre2nw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/mdJ_OHKpmgE0AYYZ0AEE3w.webp"
+        ]
+      }
     },
     {
       "id": "pp-137",
@@ -2452,7 +3702,17 @@
         "Trompete"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a green watering can, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a green watering can, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/AtCaAPsNZXYO3dVX08nirA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/mygEegEqKXZUzckgomOheg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/c2_44YVIcAQ-inFUOtU0zA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/mTkc2HuvavgADdCMUghRSA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/vLcCPyWq9q3WNMUx8FDy6g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/Ho0rEtEWUmi4HFZbyzj_Vw.webp"
+        ]
+      }
     },
     {
       "id": "pp-138",
@@ -2475,7 +3735,17 @@
         "Birne"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a light bulb, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a light bulb, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/zEhHHef4GKBmgX9efZl3Rg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/cYvLhSLvBzOt3Ki4ziZhUQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/c8BGcAVp25K0nYHURgUVzw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/ZLCqmz6htjWyt_A0MLm3SA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/a45zZC996KcUyGSrt1y6uw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/T6PTGyTN8Nt_pLTuezqBkg.webp"
+        ]
+      }
     },
     {
       "id": "pp-139",
@@ -2497,7 +3767,17 @@
         "Zielscheibe"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a red and white life buoy, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a red and white life buoy, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/UwCqvPvMVof9038IxB_wow.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/ZmbC0xSiXltfwpxuOXybUw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/bxNN2FaoBIgsNvuraf2g7A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/4CJAP1_2J3zcwR9a9RH2Wg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/UzP4n88aVluoVruIw9KXAw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-08/kjaYpHmf7KglTQoTjydglw.webp"
+        ]
+      }
     },
     {
       "id": "pp-140",
@@ -2519,7 +3799,17 @@
         "Sonnenschirm"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a open red umbrella, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a open red umbrella, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/1OPYmtZJ5_QKWWoSyHH9yw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/VvhPEw4em2-cW0nlWtDU1Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/o8r_16UShi70Yh6fRcJ2RQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/dG8c85eCzr3nd1v3scqbdA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/No8UMlHUkBHfCD-fhIK1Xg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/MXU70yhKWpz_vFXM9vQaGA.webp"
+        ]
+      }
     },
     {
       "id": "pp-141",
@@ -2541,7 +3831,17 @@
         "Kompass"
       ],
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a classic twin-bell alarm clock, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a classic twin-bell alarm clock, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/qklTXSqOiPwIgBrthm1Saw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/jpjBHBdZUu5VPUpmVSJ9Sg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/aZnzkLWJEyO8rmKu7pRRIg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/VbEtmYW0KJ2TCdxGWWnu6Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/L7AsAI-1oC9npB_lJ8vqDg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/9VJU5CEs4ELTmNFh3KwcCg.webp"
+        ]
+      }
     },
     {
       "id": "pp-142",
@@ -2555,7 +3855,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a wooden rocking horse, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a wooden rocking horse, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/mGBUC5F_5G6UWZMlW_DUuQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/uJMxNPbOaWOVl-ReUFF3Sg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/Jgg6a-x48ob_OyZu4hLpOQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/Sl6KXvC-WONJxsUdMG77pg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/RZhrFENGprhU3ClH_dXsRg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/LwJdRfLUmEbY98sMpI2iiA.webp"
+        ]
+      }
     },
     {
       "id": "pp-143",
@@ -2571,7 +3881,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a garden gnome, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a garden gnome, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/31AUOHI1N6rWbtwbY1b3qg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/k2RPpqPVd6O1PALijvD4tA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/CcbHDDJJBO78M-a44ksYYA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/CjQ_W4LSGrkP8otyeHdiJw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/75L3QaUhpkzJyVxhO6-_VA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/hPRdIV5vExjegKNodojy1g.webp"
+        ]
+      }
     },
     {
       "id": "pp-144",
@@ -2585,7 +3905,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a chrome toaster with toast, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a chrome toaster with toast, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/qD2Q2rPFxAq-FstNbjKIcQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/ZGQ15_K4PYVzHjgIZVZdEA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/x5dYKhtNLUImHJ8xG5LfVA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/QVwKh6P-FtEaRft-ypAwtA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/nWbDLxuaH2k73P3Oa41eyQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/spSwHfsXFbCW6oQGgUMR-w.webp"
+        ]
+      }
     },
     {
       "id": "pp-145",
@@ -2602,7 +3932,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a espresso stovetop moka pot, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a espresso stovetop moka pot, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/K1Jb-37MCyUhqB7J0KrlzQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/NS_bP1pF-ydBskPcwnBYIw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/uT5Kp65masaEFt9Uu9qCXA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/fEYEwYRJC38oyW5-oDsugQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/72xTp32YFMRJPOB1amxZoA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/bUsVJbJy3hU8rtF9p62Sqg.webp"
+        ]
+      }
     },
     {
       "id": "pp-146",
@@ -2618,7 +3958,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a vinyl record player, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a vinyl record player, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/bigNEeaonTBhnlg-a_QRaA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/6LobEZFoi0G2q_CT87sXvw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/c-4EWJDezmsqSZsMpt8qGQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/vGx3wgUL6QmJgKQUOy0eqg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/iE4yJ2gv3o0yZAnfj3JqRw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/hzIauzmePiCRd_3Fk8uxeQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-147",
@@ -2635,7 +3985,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a audio cassette tape, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a audio cassette tape, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/kk-246V89L8_8OW-RXvT7A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/2LSjewKu0Z3fPg17RtrLSw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/YYS3a5raA16QcUOSMrzizw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/jmm-X6YGF8RVzFZcb4xtHw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/9KLf362j6GRRew7gawEWfg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/BS5Js_fTUJWwMtPtBE0xgg.webp"
+        ]
+      }
     },
     {
       "id": "pp-148",
@@ -2651,7 +4011,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a hourglass, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a hourglass, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/xjbI6B9HQedCjP9TOuCVxg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/7g422OWRDyHfWnqio1OGqA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/aDxMm1LnwKDEBlYDGFFGsw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/Dxk4PvjP8kk3sVcFQg6hpw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/uY-qcAQeLVOqWNN_jhoJCg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/EBei4lH32_re9Pc_V0hZIw.webp"
+        ]
+      }
     },
     {
       "id": "pp-149",
@@ -2665,7 +4035,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a vintage typewriter, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a vintage typewriter, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/9eC3coK-df8diV2zwa1KFA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/NOznwP6DstEiSSioHDY3LQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/nunzhaKCsw1aaKFqXTr8ew.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/Gs7DDSN7WxjFcveE70CmOA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/nMPT4LKCJIXDUJuN80XRgg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/TQQ6Ib5VYJ-qyr7IqnExvQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-150",
@@ -2682,7 +4062,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a rotary dial telephone, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a rotary dial telephone, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/oFq6j5BsYJitFYcWGqh9vw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/BvkKXwG2H5WST-JdHzWM5g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/utX8RWDxqfDwwyaCgIwD2A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/l-Ohw2SRlMatvLcZ2w86rA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/v87nG7foTFToxw1IJGc0nw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/Ssw-qEy0Rjq2WD3wJN945g.webp"
+        ]
+      }
     },
     {
       "id": "pp-151",
@@ -2696,7 +4086,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a brass compass, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a brass compass, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/rcEbsbFd19ld1Ra1OnuWTQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/pBHRrbCYzVQFKLOe7W9Z5Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/Gcnlpfot9mmI3UfhgDkZOA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/E3b12rWFPjrr_CtRj4EZgQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/vrhOANdseKlk_ivlCoU5Ng.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/mNBr2bpv8de8dsOuuNkEWA.webp"
+        ]
+      }
     },
     {
       "id": "pp-152",
@@ -2712,7 +4112,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a Black Forest cuckoo clock, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a Black Forest cuckoo clock, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/v7eVwXFV8kT3WI_4l59AIA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/5P21GqzudU1qMAPYseMCAA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/jpgX06iG2I2JYBN2uvSf3w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/55tX3xM1z8dZRp2fzPFH8Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/h_6UeS7D-wYxzpbSuyeKVA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/n_WANe0mHyTHz6E20ovXUA.webp"
+        ]
+      }
     },
     {
       "id": "pp-153",
@@ -2728,7 +4138,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic studio photo of a silver candelabra with candles, centered, plain light background, no text, no brand logos"
+      "image_prompt": "Photorealistic studio photo of a silver candelabra with candles, centered, plain light background, no text, no brand logos",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/2UAmgygQf2jSlvRePbUBJw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/wE68b-TohET6Rg_Z1gjnsQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/6weBxTyPBpVAUoO-jWtbQw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/XWyqE93UXzANc6vzIP-K5w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/IvXiQ8fORMrGJkyhnPlm1w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/kW0NablGXzjMBz6pLCgVpg.webp"
+        ]
+      }
     },
     {
       "id": "pp-154",
@@ -2744,7 +4164,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of an orange spritz cocktail in a wine glass with an orange slice, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of an orange spritz cocktail in a wine glass with an orange slice, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/ESEhnsCJY9-8IB5RzPfngw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/q6_F8bDgZ7FUmRL5rc0XWg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/V5CeH4w1Iqv-xalXDPKN6A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/rt1LTzctAZVqJLCIj662oQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/d2De_j7tOppFt3ZnT9zmkw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/ZHSPRX2qDD9LHcM5wBEyUw.webp"
+        ]
+      }
     },
     {
       "id": "pp-155",
@@ -2761,7 +4191,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a one-liter beer stein at Oktoberfest, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of a one-liter beer stein at Oktoberfest, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/ZJsgSM9Y1lH4P8SQajY1Iw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/KNW_SGJ6DjZAUou_MmjrUg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/O1MmSZXFvZcQh_ap4RjySw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/_x0RMUakBg2rQIrq9ZexOA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/UHhBm_KHL5fHcjBga3Y3rg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-09/EbqD4vcm6uP73c_XfLk6qw.webp"
+        ]
+      }
     },
     {
       "id": "pp-156",
@@ -2776,7 +4216,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a shot of tequila with salt and lime, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of a shot of tequila with salt and lime, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/nqSFvCfjXeuANWiT6iQkpg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/ngD7xIpdxHTzwlVrfnNExw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/rQh5tjukF05IqZSTcyfhhQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/qLYMMJZSwcHCQ_ECGcTAvQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/SS_JJT-jH3F4S2rzPeXLaw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/jhNwVnag3NeQ9nF_WGRHZw.webp"
+        ]
+      }
     },
     {
       "id": "pp-157",
@@ -2792,7 +4242,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a condom vending machine on a bar restroom wall, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of a condom vending machine on a bar restroom wall, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/4BmH26aLHlmhmqIRtEspsg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/GHBeBognTwWTDv8hdIjRyA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/jQ9uH_DQiLhuqbtdfLEV7w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/vQ2GUCVZTrRmITGrA8MsKA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/8IPmz71bAOe0129RSZvZow.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/Go8dllrYy6bhaZ88gYCSLA.webp"
+        ]
+      }
     },
     {
       "id": "pp-158",
@@ -2807,7 +4267,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of pink fluffy handcuffs, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of pink fluffy handcuffs, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/-43LH6ItBXm97IcLFvnEkg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/6WE-AjEjBLv9U4O2XVNlLA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/3KsfFm8qEwCFUJTTPn2Czw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/wfhzHaAvzYwPWpLBHkHKCw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/uk6UMUDFwrZe3j8HLDV1vw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/CjiZKM6ev8k9zlISugCauQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-159",
@@ -2822,7 +4292,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a beer pong table with red cups, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of a beer pong table with red cups, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/mkxaarZXHkFYy60i22dI8w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/phfkdqayz9xdVUbbeo7DYA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/w5D8nzkaCMAoefqmX6jcGg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/KDXneSW_ufMRhmeWSQBnPg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/0iojEKXgDBq1mfsBPAuAWQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/HI39Gw-oqY_EKGIq4aR55A.webp"
+        ]
+      }
     },
     {
       "id": "pp-160",
@@ -2838,7 +4318,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a person's hand next to aspirin and water on a nightstand the morning after, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of a person's hand next to aspirin and water on a nightstand the morning after, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/gPsQQbNx148VzknG-nlpzQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/sv18J7AicFJ-3kXXp7c8bQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/F-2qydvKj8HBJbK7nMJOvw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/BgjYQYXbnHNxbPvKqQyRFg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/nlgWIXassJ356OhCIbXE5Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/1ZvcmahqI4xKRa51gbYfcg.webp"
+        ]
+      }
     },
     {
       "id": "pp-161",
@@ -2854,7 +4344,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a champagne bottle popping with foam, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of a champagne bottle popping with foam, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/X1n9gXMh58o7BS1TyeK3uQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/MouqyGTqUKjOwvFkOozlJA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/u2yTowVkbHin3TyjlLaATA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/AoLYHrWhmfb49NQbUCmRwg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/xgzDPpYkidot0R0Q89oM2w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/g0WdmMiUWXm3ivHORywFug.webp"
+        ]
+      }
     },
     {
       "id": "pp-162",
@@ -2867,7 +4367,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a mojito cocktail with mint and lime, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of a mojito cocktail with mint and lime, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/aDq7gQUWhbUCH4M-bA7epA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/AiK8fnG02wx4NmwjU6h5qA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/9-QA4MvaidHQHkm9bzwB9w.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/QQ92Q55EwUIpzKdc7na98A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/C-s0--cDS9HqkGIorXq6Jw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/MVnA_9OMReP2o0D7egNQTA.webp"
+        ]
+      }
     },
     {
       "id": "pp-163",
@@ -2883,7 +4393,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a disco ball, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of a disco ball, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/aus2aAAWKNPwkBC65CmcqA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/swss9tOmcS4V2djybc0QNg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/YUVroQ4sZKhAzmfYNjtZ3g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/Ein7xIXCanbArtbkJtRjFA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/06ATDN1GwpvDinH2cUKV1A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/MLg5gaWvL56HGp4GjvyNXQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-164",
@@ -2898,7 +4418,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of an empty bottle lying on the floor in a circle of cushions, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of an empty bottle lying on the floor in a circle of cushions, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/zgb1w-mgoyeNupPltdYKPQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/hW7As423O6abz06XEUtJYg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/ViAT3CSsh1KKW_SegYIvVw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/FwWRvbpGNhtP5n386YX-pw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/LVTjgqF3uhy1jbuYJyPA1Q.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/pg1AaTe6ZjxFYqekq_VKqQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-165",
@@ -2914,7 +4444,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of dark herbal liqueur shots in small glasses, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of dark herbal liqueur shots in small glasses, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/5SzAAEfzsanCtm69WHCsWg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/nzTwgMVrxQWMF4j2w4rQRQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/lC5PbSQr3qD3CnvhfrexmQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/AMZ4zt6f4Jtem--U0B3VkA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/UNmgTucSwaD_-2F0NP4MWw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/QG92PGYAekhcxJ835a4GdQ.webp"
+        ]
+      }
     },
     {
       "id": "pp-166",
@@ -2930,7 +4470,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of red lace lingerie on a hanger, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of red lace lingerie on a hanger, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/uuoNfUbEuYUV10DagH13DA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/El6Uz4ntdVsXxKSNzxb07A.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/r6JkiR8gTT25mZ5Jfa5mYw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/MFAJJfBsRXYi3CkT9PWMdw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/-NECokxG9Tp0T0lGn8YBlw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/q_KHozrU0VAd1xt93W7gPA.webp"
+        ]
+      }
     },
     {
       "id": "pp-167",
@@ -2946,7 +4496,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of heart-shaped pillows on a bed with rose petals, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of heart-shaped pillows on a bed with rose petals, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/ofgYAlgMuGKfuoWOGneyIg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/oF1DSm04qgQDiULp5vmZdg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/vFH-n6Zg5G3b8L3JvJLObQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/nSlQfJi32VP1stVh0Qpjqw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/SI_L9Wt7ktZPDxjKWSn5DA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/zijdIXc_zNojZ-GCSoAOLA.webp"
+        ]
+      }
     },
     {
       "id": "pp-168",
@@ -2962,7 +4522,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a big beer belly with a beer mug resting on it, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of a big beer belly with a beer mug resting on it, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/oj55Cx_HfdxaZbusqjUi6g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/A_mKB_fkin4OioFs4RpjBw.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/NNL6TivSpni_DqNuPERBNQ.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/FgOScH3jvAo-bfmMVZ2gbA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/XVR6Onr-iQ3y7KYt0cH3qg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/WNR8Eo9x7eDemg1aGK0Z3A.webp"
+        ]
+      }
     },
     {
       "id": "pp-169",
@@ -2978,7 +4548,17 @@
       ],
       "kids_choices": null,
       "image_source": "ai",
-      "image_prompt": "Photorealistic photo of a small schnapps glass on a bar at closing time, centered, party atmosphere, no text, no brand logos, no people's faces"
+      "image_prompt": "Photorealistic photo of a small schnapps glass on a bar at closing time, centered, party atmosphere, no text, no brand logos, no people's faces",
+      "image": {
+        "stages": [
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/KZ4wsOCqf27zgHXT53kqjg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/o9n-2p-KhxpPwGejvxQp7g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/BmifmV9a3TMC1AMgzjs41g.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/D8O0dC1pwG6rRJYahmBavg.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/_zK84iUKiHIbGlwxrVkCdA.png",
+          "https://pub-9e18e14f982045f0a7d82d8f4c9ab0a7.r2.dev/teil-10/WaJkxxpChm_mD1ZnvfHWlQ.webp"
+        ]
+      }
     }
   ]
 }
