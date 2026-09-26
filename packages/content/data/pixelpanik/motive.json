@@ -1,0 +1,2984 @@
+{
+  "category": "pixelpanik",
+  "scoring": {
+    "4x4": 200,
+    "8x8": 180,
+    "16x16": 150,
+    "32x32": 100,
+    "64x64": 50,
+    "full": 20
+  },
+  "items": [
+    {
+      "id": "pp-001",
+      "category": "bauwerke",
+      "answer": "Eiffelturm",
+      "synonyms": [
+        "Eifelturm",
+        "Tour Eiffel"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Eiffelturm",
+        "Fernsehturm",
+        "Big Ben",
+        "Freiheitsstatue"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Eiffel Tower in Paris, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-002",
+      "category": "bauwerke",
+      "answer": "Freiheitsstatue",
+      "synonyms": [
+        "Statue of Liberty",
+        "Freiheitsstaue"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Freiheitsstatue",
+        "Christus-Statue",
+        "Eiffelturm",
+        "Leuchtturm"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Statue of Liberty in New York, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-003",
+      "category": "bauwerke",
+      "answer": "Pyramiden von Gizeh",
+      "synonyms": [
+        "Pyramiden",
+        "Pyramide",
+        "Cheops-Pyramide"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Pyramiden von Gizeh",
+        "Sandburg",
+        "Berge",
+        "Zelte"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Pyramids of Giza in Egypt, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-004",
+      "category": "bauwerke",
+      "answer": "Schloss Neuschwanstein",
+      "synonyms": [
+        "Neuschwanstein",
+        "Märchenschloss"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Schloss Neuschwanstein",
+        "Kölner Dom",
+        "Burg",
+        "Kirche"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of Neuschwanstein Castle in Bavaria, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-005",
+      "category": "bauwerke",
+      "answer": "Big Ben",
+      "synonyms": [
+        "Elizabeth Tower",
+        "Uhrturm London"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Big Ben",
+        "Kirchturm",
+        "Eiffelturm",
+        "Rathaus"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of Big Ben clock tower in London, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-006",
+      "category": "bauwerke",
+      "answer": "Kolosseum",
+      "synonyms": [
+        "Colosseum",
+        "Koloseum",
+        "Kolloseum"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Kolosseum",
+        "Stadion",
+        "Burg",
+        "Ruine"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Colosseum in Rome, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-007",
+      "category": "bauwerke",
+      "answer": "Schiefer Turm von Pisa",
+      "synonyms": [
+        "Pisa",
+        "Turm von Pisa"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Schiefer Turm von Pisa",
+        "Leuchtturm",
+        "Kirchturm",
+        "Wasserturm"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Leaning Tower of Pisa, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-008",
+      "category": "bauwerke",
+      "answer": "Brandenburger Tor",
+      "synonyms": [
+        "Brandenburger"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Brandenburger Tor",
+        "Triumphbogen",
+        "Rathaus",
+        "Schloss"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Brandenburg Gate in Berlin, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-009",
+      "category": "bauwerke",
+      "answer": "Golden Gate Bridge",
+      "synonyms": [
+        "Golden Gate",
+        "Golden-Gate-Brücke"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Golden Gate Bridge",
+        "Tower Bridge",
+        "Achterbahn",
+        "Hafenkran"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Golden Gate Bridge in San Francisco, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-010",
+      "category": "bauwerke",
+      "answer": "Taj Mahal",
+      "synonyms": [
+        "Tadsch Mahal"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Taj Mahal",
+        "Moschee",
+        "Palast",
+        "Schloss"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Taj Mahal in India, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-011",
+      "category": "bauwerke",
+      "answer": "Sydney Opera House",
+      "synonyms": [
+        "Oper Sydney",
+        "Opernhaus Sydney"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Sydney Opera House, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-012",
+      "category": "bauwerke",
+      "answer": "Kölner Dom",
+      "synonyms": [
+        "Dom",
+        "Kölner Kathedrale"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of Cologne Cathedral, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-013",
+      "category": "bauwerke",
+      "answer": "Tower Bridge",
+      "synonyms": [
+        "Towerbridge"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of Tower Bridge in London, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-014",
+      "category": "bauwerke",
+      "answer": "Sagrada Família",
+      "synonyms": [
+        "Sagrada Familia"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Sagrada Familia in Barcelona, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-015",
+      "category": "bauwerke",
+      "answer": "Burj Khalifa",
+      "synonyms": [
+        "Burj Kalifa"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Burj Khalifa skyscraper in Dubai, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-016",
+      "category": "bauwerke",
+      "answer": "Chinesische Mauer",
+      "synonyms": [
+        "Große Mauer"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Great Wall of China, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-017",
+      "category": "bauwerke",
+      "answer": "Christus-Statue Rio",
+      "synonyms": [
+        "Christo Redentor",
+        "Cristo Redentor",
+        "Jesus-Statue"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Christ the Redeemer statue in Rio de Janeiro, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-018",
+      "category": "bauwerke",
+      "answer": "Machu Picchu",
+      "synonyms": [
+        "Machu Pichu"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of Machu Picchu in Peru, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-019",
+      "category": "bauwerke",
+      "answer": "Basilius-Kathedrale",
+      "synonyms": [
+        "Basilius Kathedrale",
+        "Kreml"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of Saint Basil's Cathedral in Moscow, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-020",
+      "category": "bauwerke",
+      "answer": "Akropolis",
+      "synonyms": [
+        "Parthenon"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Acropolis in Athens, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-021",
+      "category": "bauwerke",
+      "answer": "Atomium",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Atomium in Brussels, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-022",
+      "category": "bauwerke",
+      "answer": "Petronas Towers",
+      "synonyms": [
+        "Petronas"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Petronas Towers in Kuala Lumpur, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-023",
+      "category": "bauwerke",
+      "answer": "Hagia Sophia",
+      "synonyms": [
+        "Ayasofya"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Hagia Sophia in Istanbul, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-024",
+      "category": "bauwerke",
+      "answer": "Stonehenge",
+      "synonyms": [
+        "Steinkreis"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of Stonehenge in England, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-025",
+      "category": "bauwerke",
+      "answer": "Angkor Wat",
+      "synonyms": [
+        "Angkor"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of Angkor Wat temple in Cambodia, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-026",
+      "category": "bauwerke",
+      "answer": "Elbphilharmonie",
+      "synonyms": [
+        "Elphi"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Elbphilharmonie concert hall in Hamburg, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-027",
+      "category": "bauwerke",
+      "answer": "Allianz Arena",
+      "synonyms": [
+        "Allianzarena"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Allianz Arena stadium in Munich, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-028",
+      "category": "bauwerke",
+      "answer": "Frauenkirche Dresden",
+      "synonyms": [
+        "Frauenkirche"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Frauenkirche in Dresden, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-029",
+      "category": "bauwerke",
+      "answer": "Hofbräuhaus",
+      "synonyms": [
+        "Hofbräuhaus München"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Hofbräuhaus in Munich, exterior, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-030",
+      "category": "bauwerke",
+      "answer": "Opernhaus Oslo",
+      "synonyms": [
+        "Oper Oslo"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of the Oslo Opera House, centered, frontal view, clear sky background, daytime, no people, no text"
+    },
+    {
+      "id": "pp-031",
+      "category": "flaggen",
+      "answer": "Deutschland",
+      "synonyms": [
+        "Deutsche Flagge",
+        "BRD"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Deutschland",
+        "Belgien",
+        "Spanien",
+        "Kolumbien"
+      ],
+      "image_source": "svg",
+      "image_prompt": "Flag of Germany, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "de"
+    },
+    {
+      "id": "pp-032",
+      "category": "flaggen",
+      "answer": "Italien",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Italien",
+        "Irland",
+        "Mexiko",
+        "Frankreich"
+      ],
+      "image_source": "svg",
+      "image_prompt": "Flag of Italy, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "it"
+    },
+    {
+      "id": "pp-033",
+      "category": "flaggen",
+      "answer": "Frankreich",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Frankreich",
+        "Niederlande",
+        "Italien",
+        "Russland"
+      ],
+      "image_source": "svg",
+      "image_prompt": "Flag of France, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "fr"
+    },
+    {
+      "id": "pp-034",
+      "category": "flaggen",
+      "answer": "Japan",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Japan",
+        "Bangladesch",
+        "Südkorea",
+        "China"
+      ],
+      "image_source": "svg",
+      "image_prompt": "Flag of Japan, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "jp"
+    },
+    {
+      "id": "pp-035",
+      "category": "flaggen",
+      "answer": "USA",
+      "synonyms": [
+        "Amerika",
+        "Vereinigte Staaten"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "USA",
+        "Großbritannien",
+        "Liberia",
+        "Australien"
+      ],
+      "image_source": "svg",
+      "image_prompt": "Flag of United States, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "us"
+    },
+    {
+      "id": "pp-036",
+      "category": "flaggen",
+      "answer": "Schweiz",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Schweiz",
+        "Dänemark",
+        "Österreich",
+        "Rotes Kreuz"
+      ],
+      "image_source": "svg",
+      "image_prompt": "Flag of Switzerland, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "ch"
+    },
+    {
+      "id": "pp-037",
+      "category": "flaggen",
+      "answer": "Kanada",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Kanada",
+        "Peru",
+        "Österreich",
+        "Libanon"
+      ],
+      "image_source": "svg",
+      "image_prompt": "Flag of Canada, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "ca"
+    },
+    {
+      "id": "pp-038",
+      "category": "flaggen",
+      "answer": "Brasilien",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Brasilien",
+        "Portugal",
+        "Jamaika",
+        "Argentinien"
+      ],
+      "image_source": "svg",
+      "image_prompt": "Flag of Brazil, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "br"
+    },
+    {
+      "id": "pp-039",
+      "category": "flaggen",
+      "answer": "Großbritannien",
+      "synonyms": [
+        "UK",
+        "England",
+        "Union Jack",
+        "Vereinigtes Königreich"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Großbritannien",
+        "Australien",
+        "USA",
+        "Norwegen"
+      ],
+      "image_source": "svg",
+      "image_prompt": "Flag of United Kingdom, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "gb"
+    },
+    {
+      "id": "pp-040",
+      "category": "flaggen",
+      "answer": "Österreich",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Austria, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "at"
+    },
+    {
+      "id": "pp-041",
+      "category": "flaggen",
+      "answer": "Belgien",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Belgium, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "be"
+    },
+    {
+      "id": "pp-042",
+      "category": "flaggen",
+      "answer": "Irland",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Ireland, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "ie"
+    },
+    {
+      "id": "pp-043",
+      "category": "flaggen",
+      "answer": "Niederlande",
+      "synonyms": [
+        "Holland"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Netherlands, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "nl"
+    },
+    {
+      "id": "pp-044",
+      "category": "flaggen",
+      "answer": "Spanien",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Spain, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "es"
+    },
+    {
+      "id": "pp-045",
+      "category": "flaggen",
+      "answer": "Schweden",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Sweden, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "se"
+    },
+    {
+      "id": "pp-046",
+      "category": "flaggen",
+      "answer": "Griechenland",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Greece, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "gr"
+    },
+    {
+      "id": "pp-047",
+      "category": "flaggen",
+      "answer": "Türkei",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Turkey, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "tr"
+    },
+    {
+      "id": "pp-048",
+      "category": "flaggen",
+      "answer": "Südkorea",
+      "synonyms": [
+        "Korea"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of South Korea, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "kr"
+    },
+    {
+      "id": "pp-049",
+      "category": "flaggen",
+      "answer": "China",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of China, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "cn"
+    },
+    {
+      "id": "pp-050",
+      "category": "flaggen",
+      "answer": "Mexiko",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Mexico, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "mx"
+    },
+    {
+      "id": "pp-051",
+      "category": "flaggen",
+      "answer": "Nepal",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Nepal, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "np"
+    },
+    {
+      "id": "pp-052",
+      "category": "flaggen",
+      "answer": "Kasachstan",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Kazakhstan, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "kz"
+    },
+    {
+      "id": "pp-053",
+      "category": "flaggen",
+      "answer": "Sri Lanka",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Sri Lanka, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "lk"
+    },
+    {
+      "id": "pp-054",
+      "category": "flaggen",
+      "answer": "Bhutan",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Bhutan, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "bt"
+    },
+    {
+      "id": "pp-055",
+      "category": "flaggen",
+      "answer": "Mosambik",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Mozambique, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "mz"
+    },
+    {
+      "id": "pp-056",
+      "category": "flaggen",
+      "answer": "Kolumbien",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Colombia, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "co"
+    },
+    {
+      "id": "pp-057",
+      "category": "flaggen",
+      "answer": "Tschechien",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Czech Republic, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "cz"
+    },
+    {
+      "id": "pp-058",
+      "category": "flaggen",
+      "answer": "Island",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "svg",
+      "image_prompt": "Flag of Iceland, flat, full frame (source: flag-icons SVG, not AI)",
+      "flag_code": "is"
+    },
+    {
+      "id": "pp-059",
+      "category": "tiere",
+      "answer": "Zebra",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Zebra",
+        "Pferd",
+        "Esel",
+        "Kuh"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a zebra, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-060",
+      "category": "tiere",
+      "answer": "Flamingo",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Flamingo",
+        "Storch",
+        "Pelikan",
+        "Schwan"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a flamingo, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-061",
+      "category": "tiere",
+      "answer": "Pandabär",
+      "synonyms": [
+        "Panda"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Pandabär",
+        "Koala",
+        "Eisbär",
+        "Waschbär"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a giant panda, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-062",
+      "category": "tiere",
+      "answer": "Giraffe",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Giraffe",
+        "Kamel",
+        "Pferd",
+        "Elefant"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a giraffe, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-063",
+      "category": "tiere",
+      "answer": "Marienkäfer",
+      "synonyms": [
+        "Glückskäfer"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Marienkäfer",
+        "Biene",
+        "Erdbeere",
+        "Spinne"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a ladybug, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-064",
+      "category": "tiere",
+      "answer": "Tukan",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Tukan",
+        "Papagei",
+        "Rabe",
+        "Pinguin"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a toucan, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-065",
+      "category": "tiere",
+      "answer": "Pinguin",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Pinguin",
+        "Möwe",
+        "Ente",
+        "Pinguin-Figur"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a penguin, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-066",
+      "category": "tiere",
+      "answer": "Elefant",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Elefant",
+        "Nashorn",
+        "Nilpferd",
+        "Mammut"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a elephant, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-067",
+      "category": "tiere",
+      "answer": "Frosch",
+      "synonyms": [
+        "Laubfrosch"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Frosch",
+        "Eidechse",
+        "Schildkröte",
+        "Raupe"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a green frog, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-068",
+      "category": "tiere",
+      "answer": "Fuchs",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Fuchs",
+        "Hund",
+        "Katze",
+        "Eichhörnchen"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a red fox, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-069",
+      "category": "tiere",
+      "answer": "Pfau",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a peacock with open tail feathers, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-070",
+      "category": "tiere",
+      "answer": "Chamäleon",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a chameleon, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-071",
+      "category": "tiere",
+      "answer": "Qualle",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a jellyfish, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-072",
+      "category": "tiere",
+      "answer": "Seepferdchen",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a seahorse, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-073",
+      "category": "tiere",
+      "answer": "Clownfisch",
+      "synonyms": [
+        "Nemo"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a clownfish in an anemone, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-074",
+      "category": "tiere",
+      "answer": "Koala",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a koala in a tree, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-075",
+      "category": "tiere",
+      "answer": "Igel",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a hedgehog, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-076",
+      "category": "tiere",
+      "answer": "Papagei",
+      "synonyms": [
+        "Ara"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a colorful macaw parrot, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-077",
+      "category": "tiere",
+      "answer": "Axolotl",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a axolotl, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-078",
+      "category": "tiere",
+      "answer": "Faultier",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a sloth hanging from a branch, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-079",
+      "category": "tiere",
+      "answer": "Gürteltier",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a armadillo, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-080",
+      "category": "tiere",
+      "answer": "Okapi",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a okapi, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-081",
+      "category": "tiere",
+      "answer": "Pfeilgiftfrosch",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a poison dart frog, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-082",
+      "category": "tiere",
+      "answer": "Schnabeltier",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a platypus, full body, centered, simple natural background, no text"
+    },
+    {
+      "id": "pp-083",
+      "category": "essen",
+      "answer": "Pizza",
+      "synonyms": [
+        "Pizza Margherita"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Pizza",
+        "Kuchen",
+        "Tortilla",
+        "Omelett"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of a pizza margherita, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-084",
+      "category": "essen",
+      "answer": "Wassermelone",
+      "synonyms": [
+        "Melone"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Wassermelone",
+        "Tomate",
+        "Erdbeere",
+        "Kürbis"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of a slice of watermelon, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-085",
+      "category": "essen",
+      "answer": "Brezel",
+      "synonyms": [
+        "Breze",
+        "Brezn"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Brezel",
+        "Croissant",
+        "Donut",
+        "Kringel"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of a Bavarian pretzel, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-086",
+      "category": "essen",
+      "answer": "Spiegelei",
+      "synonyms": [
+        "Ei"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Spiegelei",
+        "Pfannkuchen",
+        "Zitrone",
+        "Käse"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of a fried egg, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-087",
+      "category": "essen",
+      "answer": "Donut",
+      "synonyms": [
+        "Doughnut"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Donut",
+        "Bagel",
+        "Muffin",
+        "Kuchen"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of a pink frosted donut with sprinkles, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-088",
+      "category": "essen",
+      "answer": "Banane",
+      "synonyms": [
+        "Bananen"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Banane",
+        "Gurke",
+        "Zitrone",
+        "Mais"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of a banana, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-089",
+      "category": "essen",
+      "answer": "Erdbeere",
+      "synonyms": [
+        "Erdbeeren"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Erdbeere",
+        "Tomate",
+        "Kirsche",
+        "Himbeere"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of a strawberry, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-090",
+      "category": "essen",
+      "answer": "Sushi",
+      "synonyms": [
+        "Maki"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of sushi rolls, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-091",
+      "category": "essen",
+      "answer": "Weißwurst",
+      "synonyms": [
+        "Weißwürste"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of Bavarian white sausages with sweet mustard, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-092",
+      "category": "essen",
+      "answer": "Burger",
+      "synonyms": [
+        "Hamburger",
+        "Cheeseburger"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of a cheeseburger, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-093",
+      "category": "essen",
+      "answer": "Spaghetti",
+      "synonyms": [
+        "Nudeln",
+        "Spaghetti Bolognese"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of spaghetti bolognese, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-094",
+      "category": "essen",
+      "answer": "Brokkoli",
+      "synonyms": [
+        "Broccoli"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of broccoli, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-095",
+      "category": "essen",
+      "answer": "Schwarzwälder Kirschtorte",
+      "synonyms": [
+        "Kirschtorte"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of a Black Forest cake, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-096",
+      "category": "essen",
+      "answer": "Kiwi",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of a halved kiwi fruit, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-097",
+      "category": "essen",
+      "answer": "Artischocke",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of an artichoke, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-098",
+      "category": "essen",
+      "answer": "Drachenfrucht",
+      "synonyms": [
+        "Pitaya"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of a halved dragon fruit, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-099",
+      "category": "essen",
+      "answer": "Granatapfel",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of an opened pomegranate, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-100",
+      "category": "essen",
+      "answer": "Kaiserschmarrn",
+      "synonyms": [
+        "Kaiserschmarren"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Top-down photorealistic food photo of Kaiserschmarrn with powdered sugar, centered on a plain white plate or table, no text"
+    },
+    {
+      "id": "pp-101",
+      "category": "autos",
+      "answer": "VW Käfer",
+      "synonyms": [
+        "Käfer",
+        "Beetle"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "VW Käfer",
+        "Mini",
+        "Fiat 500",
+        "Smart"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic side view photo of a classic Volkswagen Beetle, centered, plain background, no text, no license plate"
+    },
+    {
+      "id": "pp-102",
+      "category": "autos",
+      "answer": "VW Bus",
+      "synonyms": [
+        "Bulli",
+        "VW Bulli",
+        "T1"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "VW Bus",
+        "Wohnmobil",
+        "Schulbus",
+        "Lieferwagen"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic side view photo of a classic Volkswagen T1 bus, centered, plain background, no text, no license plate"
+    },
+    {
+      "id": "pp-103",
+      "category": "autos",
+      "answer": "Mini",
+      "synonyms": [
+        "Mini Cooper"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic side view photo of a classic Mini Cooper, centered, plain background, no text, no license plate"
+    },
+    {
+      "id": "pp-104",
+      "category": "autos",
+      "answer": "Fiat 500",
+      "synonyms": [
+        "Fiat",
+        "Cinquecento"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic side view photo of a classic Fiat 500, centered, plain background, no text, no license plate"
+    },
+    {
+      "id": "pp-105",
+      "category": "autos",
+      "answer": "Porsche 911",
+      "synonyms": [
+        "911",
+        "Porsche"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic side view photo of a Porsche 911, centered, plain background, no text, no license plate"
+    },
+    {
+      "id": "pp-106",
+      "category": "autos",
+      "answer": "London Taxi",
+      "synonyms": [
+        "Black Cab"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic side view photo of a London black cab taxi, centered, plain background, no text, no license plate"
+    },
+    {
+      "id": "pp-107",
+      "category": "autos",
+      "answer": "Trabant",
+      "synonyms": [
+        "Trabi"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic side view photo of a Trabant 601, centered, plain background, no text, no license plate"
+    },
+    {
+      "id": "pp-108",
+      "category": "autos",
+      "answer": "Citroën 2CV",
+      "synonyms": [
+        "Ente",
+        "2CV"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic side view photo of a Citroen 2CV, centered, plain background, no text, no license plate"
+    },
+    {
+      "id": "pp-109",
+      "category": "autos",
+      "answer": "Mercedes G-Klasse",
+      "synonyms": [
+        "G-Klasse",
+        "G-Wagen"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic side view photo of a Mercedes G-Class, centered, plain background, no text, no license plate"
+    },
+    {
+      "id": "pp-110",
+      "category": "autos",
+      "answer": "DeLorean",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic side view photo of a DeLorean DMC-12, centered, plain background, no text, no license plate"
+    },
+    {
+      "id": "pp-111",
+      "category": "autos",
+      "answer": "Feuerwehrauto",
+      "synonyms": [
+        "Feuerwehr",
+        "Löschfahrzeug"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Feuerwehrauto",
+        "Bus",
+        "Krankenwagen",
+        "Bagger"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic side view photo of a red fire engine, centered, plain background, no text, no license plate"
+    },
+    {
+      "id": "pp-112",
+      "category": "autos",
+      "answer": "Traktor",
+      "synonyms": [
+        "Trecker",
+        "Bulldog"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Traktor",
+        "Bagger",
+        "Lkw",
+        "Rasenmäher"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic side view photo of a green farm tractor, centered, plain background, no text, no license plate"
+    },
+    {
+      "id": "pp-113",
+      "category": "gemaelde",
+      "answer": "Mona Lisa",
+      "synonyms": [
+        "Mona-Lisa",
+        "La Gioconda"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Mona Lisa",
+        "Das Mädchen mit dem Perlenohrring",
+        "Selbstporträt",
+        "Königin"
+      ],
+      "image_source": "wikimedia",
+      "image_prompt": "Public-domain reproduction of the Mona Lisa by Leonardo da Vinci (source: Wikimedia Commons, not AI)",
+      "wikimedia_file": "Mona Lisa, by Leonardo da Vinci, from C2RMF retouched.jpg"
+    },
+    {
+      "id": "pp-114",
+      "category": "gemaelde",
+      "answer": "Sternennacht",
+      "synonyms": [
+        "Die Sternennacht",
+        "Starry Night"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "wikimedia",
+      "image_prompt": "Public-domain reproduction of The Starry Night by Vincent van Gogh (source: Wikimedia Commons, not AI)",
+      "wikimedia_file": "Van Gogh - Starry Night - Google Art Project.jpg"
+    },
+    {
+      "id": "pp-115",
+      "category": "gemaelde",
+      "answer": "Der Schrei",
+      "synonyms": [
+        "Schrei",
+        "Munch"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "wikimedia",
+      "image_prompt": "Public-domain reproduction of The Scream by Edvard Munch (source: Wikimedia Commons, not AI)",
+      "wikimedia_file": "Edvard Munch, 1893, The Scream, oil, tempera and pastel on cardboard, 91 x 73 cm, National Gallery of Norway.jpg"
+    },
+    {
+      "id": "pp-116",
+      "category": "gemaelde",
+      "answer": "Das Mädchen mit dem Perlenohrring",
+      "synonyms": [
+        "Perlenohrring"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "wikimedia",
+      "image_prompt": "Public-domain reproduction of Girl with a Pearl Earring by Vermeer (source: Wikimedia Commons, not AI)",
+      "wikimedia_file": "1665 Girl with a Pearl Earring.jpg"
+    },
+    {
+      "id": "pp-117",
+      "category": "gemaelde",
+      "answer": "Die große Welle vor Kanagawa",
+      "synonyms": [
+        "Die Welle",
+        "Welle vor Kanagawa",
+        "Große Welle"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "wikimedia",
+      "image_prompt": "Public-domain reproduction of The Great Wave off Kanagawa by Hokusai (source: Wikimedia Commons, not AI)",
+      "wikimedia_file": "Tsunami by hokusai 19th century.jpg"
+    },
+    {
+      "id": "pp-118",
+      "category": "gemaelde",
+      "answer": "Sonnenblumen",
+      "synonyms": [
+        "Die Sonnenblumen"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "wikimedia",
+      "image_prompt": "Public-domain reproduction of Sunflowers by Vincent van Gogh (source: Wikimedia Commons, not AI)",
+      "wikimedia_file": "Vincent Willem van Gogh 127.jpg"
+    },
+    {
+      "id": "pp-119",
+      "category": "gemaelde",
+      "answer": "Der Kuss",
+      "synonyms": [
+        "Kuss",
+        "Klimt"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "wikimedia",
+      "image_prompt": "Public-domain reproduction of The Kiss by Gustav Klimt (source: Wikimedia Commons, not AI)",
+      "wikimedia_file": "The Kiss - Gustav Klimt - Google Cultural Institute.jpg"
+    },
+    {
+      "id": "pp-120",
+      "category": "gemaelde",
+      "answer": "Die Geburt der Venus",
+      "synonyms": [
+        "Geburt der Venus",
+        "Venus"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "wikimedia",
+      "image_prompt": "Public-domain reproduction of The Birth of Venus by Botticelli (source: Wikimedia Commons, not AI)",
+      "wikimedia_file": "Sandro Botticelli - La nascita di Venere - Google Art Project - edited.jpg"
+    },
+    {
+      "id": "pp-121",
+      "category": "gemaelde",
+      "answer": "Der Wanderer über dem Nebelmeer",
+      "synonyms": [
+        "Wanderer über dem Nebelmeer",
+        "Nebelmeer"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "wikimedia",
+      "image_prompt": "Public-domain reproduction of Wanderer above the Sea of Fog by Caspar David Friedrich (source: Wikimedia Commons, not AI)",
+      "wikimedia_file": "Caspar David Friedrich - Wanderer above the sea of fog.jpg"
+    },
+    {
+      "id": "pp-122",
+      "category": "gemaelde",
+      "answer": "Seerosen",
+      "synonyms": [
+        "Die Seerosen"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "wikimedia",
+      "image_prompt": "Public-domain reproduction of Water Lilies by Claude Monet (source: Wikimedia Commons, not AI)",
+      "wikimedia_file": "Claude Monet - Water Lilies - 1906, Ryerson.jpg"
+    },
+    {
+      "id": "pp-123",
+      "category": "gemaelde",
+      "answer": "Das Abendmahl",
+      "synonyms": [
+        "Letztes Abendmahl",
+        "Abendmahl"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "wikimedia",
+      "image_prompt": "Public-domain reproduction of The Last Supper by Leonardo da Vinci (source: Wikimedia Commons, not AI)",
+      "wikimedia_file": "The Last Supper - Leonardo Da Vinci - High Resolution 32x16.jpg"
+    },
+    {
+      "id": "pp-124",
+      "category": "natur",
+      "answer": "Regenbogen",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Regenbogen",
+        "Brücke",
+        "Sonnenuntergang",
+        "Blitz"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic landscape photo of a rainbow over a green meadow, iconic viewpoint, no people, no text"
+    },
+    {
+      "id": "pp-125",
+      "category": "natur",
+      "answer": "Vulkan",
+      "synonyms": [
+        "Vulkanausbruch"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Vulkan",
+        "Berg",
+        "Feuer",
+        "Lagerfeuer"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic landscape photo of an erupting volcano, iconic viewpoint, no people, no text"
+    },
+    {
+      "id": "pp-126",
+      "category": "natur",
+      "answer": "Niagarafälle",
+      "synonyms": [
+        "Niagara"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic landscape photo of Niagara Falls, iconic viewpoint, no people, no text"
+    },
+    {
+      "id": "pp-127",
+      "category": "natur",
+      "answer": "Grand Canyon",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic landscape photo of the Grand Canyon, iconic viewpoint, no people, no text"
+    },
+    {
+      "id": "pp-128",
+      "category": "natur",
+      "answer": "Matterhorn",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic landscape photo of the Matterhorn mountain, iconic viewpoint, no people, no text"
+    },
+    {
+      "id": "pp-129",
+      "category": "natur",
+      "answer": "Nordlichter",
+      "synonyms": [
+        "Polarlichter",
+        "Aurora"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic landscape photo of the northern lights over snow, iconic viewpoint, no people, no text"
+    },
+    {
+      "id": "pp-130",
+      "category": "natur",
+      "answer": "Uluru",
+      "synonyms": [
+        "Ayers Rock"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic landscape photo of Uluru in Australia, iconic viewpoint, no people, no text"
+    },
+    {
+      "id": "pp-131",
+      "category": "natur",
+      "answer": "Mount Everest",
+      "synonyms": [
+        "Everest"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic landscape photo of Mount Everest, iconic viewpoint, no people, no text"
+    },
+    {
+      "id": "pp-132",
+      "category": "natur",
+      "answer": "Totes Meer",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic landscape photo of the Dead Sea with salt formations, iconic viewpoint, no people, no text"
+    },
+    {
+      "id": "pp-133",
+      "category": "natur",
+      "answer": "Königssee",
+      "synonyms": [
+        "Königsee"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic landscape photo of Königssee lake with St. Bartholomä church, iconic viewpoint, no people, no text"
+    },
+    {
+      "id": "pp-134",
+      "category": "natur",
+      "answer": "Zugspitze",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic landscape photo of the Zugspitze summit, iconic viewpoint, no people, no text"
+    },
+    {
+      "id": "pp-135",
+      "category": "natur",
+      "answer": "Wüste",
+      "synonyms": [
+        "Sahara",
+        "Sanddünen"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Wüste",
+        "Strand",
+        "Meer",
+        "Acker"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic landscape photo of sand dunes in the Sahara, iconic viewpoint, no people, no text"
+    },
+    {
+      "id": "pp-136",
+      "category": "gegenstaende",
+      "answer": "Zauberwürfel",
+      "synonyms": [
+        "Rubik's Cube",
+        "Rubikwürfel"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Zauberwürfel",
+        "Würfel",
+        "Geschenk",
+        "Lego-Stein"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a puzzle cube with colored squares, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-137",
+      "category": "gegenstaende",
+      "answer": "Gießkanne",
+      "synonyms": [],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Gießkanne",
+        "Teekanne",
+        "Eimer",
+        "Trompete"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a green watering can, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-138",
+      "category": "gegenstaende",
+      "answer": "Glühbirne",
+      "synonyms": [
+        "Glühlampe",
+        "Lampe"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Glühbirne",
+        "Ei",
+        "Luftballon",
+        "Birne"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a light bulb, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-139",
+      "category": "gegenstaende",
+      "answer": "Rettungsring",
+      "synonyms": [
+        "Rettungsreifen"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Rettungsring",
+        "Donut",
+        "Schwimmreifen",
+        "Zielscheibe"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a red and white life buoy, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-140",
+      "category": "gegenstaende",
+      "answer": "Regenschirm",
+      "synonyms": [
+        "Schirm"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Regenschirm",
+        "Pilz",
+        "Zelt",
+        "Sonnenschirm"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a open red umbrella, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-141",
+      "category": "gegenstaende",
+      "answer": "Wecker",
+      "synonyms": [
+        "Uhr"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "kinder",
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": [
+        "Wecker",
+        "Telefon",
+        "Radio",
+        "Kompass"
+      ],
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a classic twin-bell alarm clock, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-142",
+      "category": "gegenstaende",
+      "answer": "Schaukelpferd",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a wooden rocking horse, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-143",
+      "category": "gegenstaende",
+      "answer": "Gartenzwerg",
+      "synonyms": [
+        "Zwerg"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a garden gnome, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-144",
+      "category": "gegenstaende",
+      "answer": "Toaster",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a chrome toaster with toast, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-145",
+      "category": "gegenstaende",
+      "answer": "Kaffeemaschine",
+      "synonyms": [
+        "Espressokanne",
+        "Mokkakanne"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a espresso stovetop moka pot, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-146",
+      "category": "gegenstaende",
+      "answer": "Plattenspieler",
+      "synonyms": [
+        "Schallplattenspieler"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a vinyl record player, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-147",
+      "category": "gegenstaende",
+      "answer": "Kassette",
+      "synonyms": [
+        "Musikkassette",
+        "Tape"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a audio cassette tape, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-148",
+      "category": "gegenstaende",
+      "answer": "Sanduhr",
+      "synonyms": [
+        "Eieruhr"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a hourglass, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-149",
+      "category": "gegenstaende",
+      "answer": "Schreibmaschine",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a vintage typewriter, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-150",
+      "category": "gegenstaende",
+      "answer": "Wählscheibentelefon",
+      "synonyms": [
+        "Telefon",
+        "Wählscheibe"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a rotary dial telephone, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-151",
+      "category": "gegenstaende",
+      "answer": "Kompass",
+      "synonyms": [],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a brass compass, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-152",
+      "category": "gegenstaende",
+      "answer": "Kuckucksuhr",
+      "synonyms": [
+        "Kuckuck"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a Black Forest cuckoo clock, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-153",
+      "category": "gegenstaende",
+      "answer": "Kerzenständer",
+      "synonyms": [
+        "Kerzenleuchter"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "erwachsene",
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic studio photo of a silver candelabra with candles, centered, plain light background, no text, no brand logos"
+    },
+    {
+      "id": "pp-154",
+      "category": "party",
+      "answer": "Aperol Spritz",
+      "synonyms": [
+        "Aperol",
+        "Spritz"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of an orange spritz cocktail in a wine glass with an orange slice, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-155",
+      "category": "party",
+      "answer": "Maß Bier",
+      "synonyms": [
+        "Maß",
+        "Bier",
+        "Maßkrug"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a one-liter beer stein at Oktoberfest, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-156",
+      "category": "party",
+      "answer": "Tequila",
+      "synonyms": [
+        "Tequila Shot"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a shot of tequila with salt and lime, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-157",
+      "category": "party",
+      "answer": "Kondomautomat",
+      "synonyms": [
+        "Kondom-Automat",
+        "Kondome"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a condom vending machine on a bar restroom wall, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-158",
+      "category": "party",
+      "answer": "Plüschhandschellen",
+      "synonyms": [
+        "Handschellen"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of pink fluffy handcuffs, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-159",
+      "category": "party",
+      "answer": "Bierpong",
+      "synonyms": [
+        "Beer Pong"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a beer pong table with red cups, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-160",
+      "category": "party",
+      "answer": "Kater",
+      "synonyms": [
+        "Katerfrühstück",
+        "Aspirin"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a person's hand next to aspirin and water on a nightstand the morning after, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-161",
+      "category": "party",
+      "answer": "Champagner",
+      "synonyms": [
+        "Sekt",
+        "Schampus"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a champagne bottle popping with foam, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-162",
+      "category": "party",
+      "answer": "Mojito",
+      "synonyms": [],
+      "difficulty": "mittel",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a mojito cocktail with mint and lime, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-163",
+      "category": "party",
+      "answer": "Discokugel",
+      "synonyms": [
+        "Diskokugel",
+        "Spiegelkugel"
+      ],
+      "difficulty": "leicht",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a disco ball, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-164",
+      "category": "party",
+      "answer": "Flaschendrehen",
+      "synonyms": [
+        "Flasche drehen"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of an empty bottle lying on the floor in a circle of cushions, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-165",
+      "category": "party",
+      "answer": "Jägermeister-Shots",
+      "synonyms": [
+        "Kräuterschnaps",
+        "Jägi"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of dark herbal liqueur shots in small glasses, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-166",
+      "category": "party",
+      "answer": "Dessous",
+      "synonyms": [
+        "Unterwäsche",
+        "Reizwäsche"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of red lace lingerie on a hanger, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-167",
+      "category": "party",
+      "answer": "Herzkissen",
+      "synonyms": [
+        "Rosenblätter",
+        "Hochzeitsnacht"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of heart-shaped pillows on a bed with rose petals, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-168",
+      "category": "party",
+      "answer": "Bierbauch",
+      "synonyms": [
+        "Wampe",
+        "Plauze"
+      ],
+      "difficulty": "mittel",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a big beer belly with a beer mug resting on it, centered, party atmosphere, no text, no brand logos, no people's faces"
+    },
+    {
+      "id": "pp-169",
+      "category": "party",
+      "answer": "Absacker",
+      "synonyms": [
+        "Schnaps",
+        "Letzte Runde"
+      ],
+      "difficulty": "schwer",
+      "modes": [
+        "party"
+      ],
+      "kids_choices": null,
+      "image_source": "ai",
+      "image_prompt": "Photorealistic photo of a small schnapps glass on a bar at closing time, centered, party atmosphere, no text, no brand logos, no people's faces"
+    }
+  ]
+}

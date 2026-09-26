@@ -28,6 +28,19 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.23.0",
+    date: "2026-09-26",
+    title: "Neues Spiel: Pixelpanik!",
+    items: [
+      { emoji: "👾", text: "Ein Bild aus dicken Klötzchen wird Stufe für Stufe schärfer" },
+      { emoji: "⚡", text: "Wer es früh erkennt, kassiert bis zu 200 Punkte" },
+      { emoji: "⌨️", text: "Antwort eintippen – kleine Tippfehler verzeiht der Moderator" },
+      { emoji: "🚪", text: "Falsch getippt? Raus für dieses Bild – und der Moderator lästert" },
+      { emoji: "🧸", text: "Für Kids mit vier Antworten zum Antippen – keiner fliegt raus" },
+      { emoji: "🍹", text: "Im Party-Modus mit extra frechen Motiven und Sprüchen" },
+    ],
+  },
+  {
     version: "0.22.0",
     date: "2026-09-26",
     title: "Das Survival-Finale hat jetzt einen großen Auftritt – und ein Treppchen!",

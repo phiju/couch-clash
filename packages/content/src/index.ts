@@ -6,10 +6,19 @@ import { z } from "zod";
 import bluffDe from "../data/bluff.de.json";
 import estimateDe from "../data/estimate.de.json";
 import fuehrerscheinDe from "../data/fuehrerschein.de.json";
+import pixelpanikMotive from "../data/pixelpanik/motive.json";
 import quizDe from "../data/quiz.de.json";
 import skurrilDe from "../data/skurril.de.json";
 import snarkLinesDe from "../data/snark-lines.de.json";
-import { BluffWordSchema, SnarkLinesSchema, EstimateQuestionSchema, FuehrerscheinQuestionSchema, QuizQuestionSchema, SkurrilStorySchema } from "./schema";
+import {
+  BluffWordSchema,
+  EstimateQuestionSchema,
+  FuehrerscheinQuestionSchema,
+  PixelpanikFileSchema,
+  QuizQuestionSchema,
+  SkurrilStorySchema,
+  SnarkLinesSchema,
+} from "./schema";
 
 export * from "./schema";
 
@@ -31,3 +40,9 @@ export const SKURRIL_STORIES_DE = load(SkurrilStorySchema, skurrilDe, "skurril.d
 
 /** The host's snarky, name-free lines per situation and pool (family / party / kids). */
 export const SNARK_LINES_DE = SnarkLinesSchema.parse(snarkLinesDe, { error: () => "Invalid content in snark-lines.de.json" });
+
+/** Pixelpanik motifs (all of them – motifs without pictures are skipped by the game). */
+const pixelpanikFile = PixelpanikFileSchema.parse(pixelpanikMotive, { error: () => "Invalid content in pixelpanik/motive.json" });
+export const PIXELPANIK_MOTIFS = load(PixelpanikFileSchema.shape.items.element, pixelpanikFile.items, "pixelpanik/motive.json");
+/** Points per stage as noted in motive.json (the game uses the category's settings). */
+export const PIXELPANIK_FILE_SCORING: Readonly<Record<string, number>> = pixelpanikFile.scoring;

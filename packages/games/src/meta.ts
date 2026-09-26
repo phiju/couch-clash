@@ -9,6 +9,7 @@ import { categoryPickMeta } from "./category-pick/meta";
 import { doubleMeta } from "./double/meta";
 import { estimateMeta } from "./estimate/meta";
 import { fuehrerscheinMeta } from "./fuehrerschein/meta";
+import { pixelpanikMeta } from "./pixelpanik/meta";
 import { quizMeta } from "./quiz/meta";
 import { skurrilMeta } from "./skurril/meta";
 import { stealMeta } from "./steal/meta";
@@ -23,6 +24,7 @@ export const CATEGORY_METAS = [
   betMeta,
   stealMeta,
   fuehrerscheinMeta,
+  pixelpanikMeta,
   bluffMeta,
   skurrilMeta,
   // The finale (not a card in the library – its own switch in the settings).
@@ -35,7 +37,9 @@ export function getCategoryMeta(id: string): CategoryMeta | undefined {
   return CATEGORY_METAS.find((m) => m.id === id);
 }
 
-export { betMeta, bluffMeta, categoryPickMeta, doubleMeta, estimateMeta, fuehrerscheinMeta, quizMeta, skurrilMeta, stealMeta, survivalMeta };
+export { betMeta, bluffMeta, categoryPickMeta, doubleMeta, estimateMeta, fuehrerscheinMeta, pixelpanikMeta, quizMeta, skurrilMeta, stealMeta, survivalMeta };
+export { PIXELPANIK_CONFIG, PIXELPANIK_STAGES } from "./pixelpanik/meta";
+export * from "./pixelpanik/types";
 export { BET_CONFIG } from "./bet/meta";
 export { CATEGORY_PICK_CONFIG } from "./category-pick/meta";
 export { DOUBLE_CONFIG } from "./double/meta";

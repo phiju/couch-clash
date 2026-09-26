@@ -5,6 +5,7 @@ import { categoryPickViews } from "./category-pick";
 import { doubleViews } from "./double";
 import { estimateViews } from "./estimate";
 import { fuehrerscheinViews } from "./fuehrerschein";
+import { pixelpanikViews } from "./pixelpanik";
 import { quizViews } from "./quiz";
 import { stealViews } from "./steal";
 import { survivalViews } from "./survival";
@@ -23,6 +24,7 @@ export const GAME_VIEWS: Record<CategoryId, GameViews<any>> = {
   bet: betViews,
   steal: stealViews,
   fuehrerschein: fuehrerscheinViews,
+  pixelpanik: pixelpanikViews,
   bluff: bluffViews,
   skurril: skurrilViews,
   survival: survivalViews,

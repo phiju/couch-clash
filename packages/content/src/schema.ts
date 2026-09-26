@@ -228,3 +228,78 @@ export const SnarkLinesSchema = z
   }, "Snark lines must be unique");
 
 export type SnarkLines = z.infer<typeof SnarkLinesSchema>;
+
+// ── Pixelpanik: pictures that start as a few big pixels and get sharper ──
+
+/** Stages per picture: 4×4, 8×8, 16×16, 32×32, 64×64 blocks, then full resolution. */
+export const PIXELPANIK_STAGE_SIZES = [4, 8, 16, 32, 64, 0] as const;
+
+export const PIXELPANIK_MOTIF_MODES = ["kinder", "erwachsene", "party"] as const;
+export type PixelpanikMotifMode = (typeof PIXELPANIK_MOTIF_MODES)[number];
+
+const motifAnswer = z.string().trim().min(1).max(60);
+
+/**
+ * The pictures of one motif, written by the image script
+ * (packages/content/scripts/pixelpanik-images.mjs). `stages[i]` is the
+ * picture for stage i: pre-rendered N×N pixels for stages 1–5, the full
+ * picture for stage 6. Every file has its own random name – the URL of one
+ * stage says nothing about the others (the TV only ever gets the current one).
+ */
+export const PixelpanikImageSchema = z.object({
+  stages: z.array(z.url()).length(PIXELPANIK_STAGE_SIZES.length),
+  /** Paintings: where the public-domain file comes from. */
+  source: z
+    .object({
+      url: z.url(),
+      title: z.string().min(1),
+      author: z.string().optional(),
+      license: z.string().optional(),
+    })
+    .optional(),
+});
+export type PixelpanikImage = z.infer<typeof PixelpanikImageSchema>;
+
+export const PixelpanikMotifSchema = z
+  .object({
+    id: z.string().regex(/^pp-\d{3,}$/),
+    /** Topic (bauwerke, flaggen, tiere, …) – a round mixes them. "party" = party motifs. */
+    category: z.string().regex(/^[a-z]+$/),
+    answer: motifAnswer,
+    /** Also counted as right (spelling variants, other names). */
+    synonyms: z.array(motifAnswer),
+    difficulty: z.enum(["leicht", "mittel", "schwer"]),
+    modes: z.array(z.enum(PIXELPANIK_MOTIF_MODES)).min(1),
+    /** Kids mode: four options, one of them the answer. */
+    kids_choices: z.tuple([motifAnswer, motifAnswer, motifAnswer, motifAnswer]).nullable(),
+    image_source: z.enum(["ai", "svg", "wikimedia"]),
+    /** "ai": the prompt for the image model; otherwise a note for humans. */
+    image_prompt: z.string().min(5),
+    /** "svg": ISO code of the flag in the npm package flag-icons (flags/1x1/<code>.svg). */
+    flag_code: z.string().regex(/^[a-z]{2}(-[a-z]+)?$/).optional(),
+    /** "wikimedia": file name on Wikimedia Commons (without "File:"). */
+    wikimedia_file: z.string().min(5).optional(),
+    /** Missing until the image script ran – such motifs are not played. */
+    image: PixelpanikImageSchema.optional(),
+  })
+  .refine((m) => !m.modes.includes("kinder") || m.kids_choices !== null, {
+    message: "Kids motifs need kids_choices",
+    path: ["kids_choices"],
+  })
+  .refine((m) => !m.kids_choices || (m.kids_choices.includes(m.answer) && new Set(m.kids_choices).size === 4), {
+    message: "kids_choices: four different options including the answer",
+    path: ["kids_choices"],
+  })
+  .refine((m) => m.image_source !== "svg" || !!m.flag_code, { message: "Flags need a flag_code", path: ["flag_code"] })
+  .refine((m) => m.image_source !== "wikimedia" || !!m.wikimedia_file, {
+    message: "Paintings need a wikimedia_file",
+    path: ["wikimedia_file"],
+  });
+export type PixelpanikMotif = z.infer<typeof PixelpanikMotifSchema>;
+
+export const PixelpanikFileSchema = z.object({
+  category: z.literal("pixelpanik"),
+  /** Points per stage (4x4 … full) – the defaults of the category's meta, kept here for reference. */
+  scoring: z.record(z.string(), z.number().int().min(0)),
+  items: z.array(PixelpanikMotifSchema),
+});

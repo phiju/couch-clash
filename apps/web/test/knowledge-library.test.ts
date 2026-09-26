@@ -16,6 +16,7 @@ describe("game library", () => {
       "bet",
       "steal",
       "fuehrerschein",
+      "pixelpanik",
       "bluff",
       "skurril",
     ]);
@@ -30,6 +31,7 @@ describe("game library", () => {
       "bet",
       "steal",
       "fuehrerschein",
+      "pixelpanik",
     ]);
     expect(mergeLibraryOrder([], REGISTRY)).toEqual(REGISTRY);
     expect(mergeLibraryOrder(["gone", "quiz", "quiz"], REGISTRY)).toEqual(REGISTRY);

@@ -9,6 +9,7 @@ import { categoryPickModule } from "./category-pick/module";
 import { doubleModule } from "./double/module";
 import { estimateModule } from "./estimate/module";
 import { fuehrerscheinModule } from "./fuehrerschein/module";
+import { pixelpanikModule } from "./pixelpanik/module";
 import type { CategoryId } from "./meta";
 import { quizModule } from "./quiz/module";
 import { skurrilModule } from "./skurril/module";
@@ -18,6 +19,8 @@ import { survivalModule } from "./survival/module";
 export * from "./meta";
 export * from "./scoring";
 export { createSurvivalModule, survivalCueAt, survivalModule, type SurvivalCue, type SurvivalModule, type SurvivalState } from "./survival/module";
+export { createPixelpanikModule, pixelpanikModule, type PixelpanikModule, type PixelpanikState } from "./pixelpanik/module";
+export { isCorrectGuess, normalizeAnswer } from "./pixelpanik/match";
 export { defaultSuddenDeath, type SuddenDeathRule } from "./survival/sudden-death";
 
 /** ── Register new categories here (2/2) ── */
@@ -29,6 +32,7 @@ export const GAME_MODULES: Record<CategoryId, GameModule> = {
   bet: betModule as unknown as GameModule,
   steal: stealModule as unknown as GameModule,
   fuehrerschein: fuehrerscheinModule as unknown as GameModule,
+  pixelpanik: pixelpanikModule as unknown as GameModule,
   bluff: bluffModule as unknown as GameModule,
   skurril: skurrilModule as unknown as GameModule,
   survival: survivalModule as unknown as GameModule,

@@ -39,8 +39,9 @@ import {
   type RoomVoice,
 } from "./rules";
 import { cachedClip, produceLine, type ProducedLine, type VoiceServices } from "./service";
-import { SurvivalVoice } from "./survival-voice";
-import type { SurvivalCue, SurvivalState } from "@couch-clash/games";
+import { SurvivalVoice, type SurvivalVoiceRuntime } from "./survival-voice";
+import { PixelpanikVoice } from "./pixelpanik-voice";
+import type { PixelpanikState, SurvivalCue, SurvivalState } from "@couch-clash/games";
 import { chooseSnark, detectSituations, isNoteworthy, updateWrongStreaks, type SituationHit } from "./snark";
 import { commentTemplate, finaleTemplate, startTemplate, summaryTemplate, welcomeTemplate } from "./templates";
 
@@ -133,9 +134,11 @@ export class VoiceDirector {
 
   /** Survival-Finale: event-driven commentary with its own audio warm-up. */
   private readonly survival: SurvivalVoice;
+  /** Pixelpanik: event-driven lines (wrong guess, early hit, nobody got it, …). */
+  private readonly pixelpanik: PixelpanikVoice;
 
   constructor(private readonly rt: VoiceRuntime) {
-    this.survival = new SurvivalVoice({
+    const eventVoice: SurvivalVoiceRuntime = {
       enabled: () => this.enabled(),
       allowNew: () => {
         const room = this.rt.read();
@@ -162,7 +165,9 @@ export class VoiceDirector {
       run: (task) => this.run(task),
       log: (message) => console.log(message),
       cue: (cue) => this.rt.survivalCue?.(cue),
-    });
+    };
+    this.survival = new SurvivalVoice(eventVoice);
+    this.pixelpanik = new PixelpanikVoice(eventVoice);
   }
 
   private get registry() {
@@ -313,6 +318,11 @@ export class VoiceDirector {
       const names = Object.fromEntries(next.players.map((p) => [p.id, sanitizeName(p.name)]));
       this.survival.roomChanged(survival, names);
     }
+    const pixelpanik = this.pixelpanikState(next);
+    if (pixelpanik) {
+      const names = Object.fromEntries(next.players.map((p) => [p.id, sanitizeName(p.name)]));
+      this.pixelpanik.roomChanged(pixelpanik, names, next.mode.mode);
+    }
     const events = detectVoiceEvents(prev, next, this.registry);
     const starting = events.some((e) => e.type === "game_start");
     for (const event of events) {
@@ -379,6 +389,14 @@ export class VoiceDirector {
     const round = game?.rounds[game.roundIndex];
     if (!game || game.moduleState == null || !round) return null;
     return getModule(round.categoryId, this.registry)?.meta.finale ? (game.moduleState as SurvivalState) : null;
+  }
+
+  /** Pixelpanik's state while it plays (its commentary is event-driven, too). */
+  private pixelpanikState(room: RoomRecord): PixelpanikState | null {
+    const game = room.phase === "play" ? room.game : null;
+    const round = game?.rounds[game.roundIndex];
+    if (!game || game.moduleState == null || round?.categoryId !== "pixelpanik") return null;
+    return game.moduleState as PixelpanikState;
   }
 
   // ── Part B: commentary ───────────────────────────────────────────────
