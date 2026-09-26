@@ -39,6 +39,16 @@ export const CHANGELOG: ChangelogEntry[] = [
     ],
   },
   {
+    version: "0.20.2",
+    date: "2026-09-26",
+    title: "Jetzt hört ihr den Schleim.",
+    items: [
+      { emoji: "🔊", text: "Survival-Finale: Platsch, Buzzer und Ticken sind endlich laut und deutlich" },
+      { emoji: "🫧", text: "Der Schleim blubbert das ganze Finale über hörbar vor sich hin" },
+      { emoji: "🎵", text: "Hintergrundmusik etwas leiser – und sie macht Platz für jeden Effekt" },
+    ],
+  },
+  {
     version: "0.20.1",
     date: "2026-09-26",
     title: "Die Lobby hat sich hübsch gemacht.",

@@ -23,8 +23,11 @@ geschnitten und sollten über die Web Audio API mit loop = true abgespielt werde
 
 Lautstärken sind bereits relativ zueinander abgestimmt (Grund-Blubbern bewusst leise,
 Splash/Sieg am lautesten). Im Code alle mit gleicher Grundlautstärke abspielen und
-nur über eine gemeinsame Master-Lautstärke regeln. Während der Moderator spricht,
-Effekte absenken.
+nur über eine gemeinsame Master-Lautstärke regeln. Ausnahmen im Code: das Grund-Blubbern
+läuft angehoben (1,5×), damit es im ganzen Finale konstant hörbar ist; solange ein
+Einzeleffekt spielt, treten Musik und Loops zurück (0,4). Während der Moderator spricht,
+werden die Spielsounds nur leicht abgesenkt (0,7). Jeden Sound einzeln testen: `/dev/sounds`
+(in `next dev` direkt, sonst einmal mit `?dev=1` öffnen).
 
 Fehlt eine Datei oder lädt sie nicht, läuft das Spiel ohne Ton weiter.
 

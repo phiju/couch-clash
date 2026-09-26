@@ -158,22 +158,25 @@ export function newEvents(events: readonly SurvivalEvent[], lastSeq: number): Su
   return events.filter((e) => e.seq > lastSeq);
 }
 
+/** Survival music is a quiet bed under the constant slime bubbling; the game sounds must cut through it. */
+const SURVIVAL_MUSIC_LEVEL = 0.6;
+
 /** Background music for the finale: tension in questions, silence for the big moments. */
 export function survivalAudio(state: SurvivalPublicState | null): ModuleAudioScene | null {
   if (!state) return null;
   const n = state.question?.number ?? 0;
   switch (state.step) {
     case "intro":
-      return { key: "survival:intro", music: "lobby", musicLevel: 0.6 };
+      return { key: "survival:intro", music: "lobby", musicLevel: 0.5 };
     case "question":
-      return { key: `survival:q:${n}`, music: "think" };
+      return { key: `survival:q:${n}`, music: "think", musicLevel: SURVIVAL_MUSIC_LEVEL };
     case "reveal":
       return { key: `survival:r:${n}`, music: null, musicFade: 0.3, enter: "sting-short" };
     case "phase_change":
     case "sudden_death":
       return { key: `survival:${state.step}:${state.phaseIndex}:${state.suddenDeaths}`, music: null, enter: "sting" };
     case "tiebreak":
-      return { key: `survival:tb:${state.tiebreak?.attempt ?? 0}`, music: "think" };
+      return { key: `survival:tb:${state.tiebreak?.attempt ?? 0}`, music: "think", musicLevel: SURVIVAL_MUSIC_LEVEL };
     case "tiebreak_reveal":
       return { key: `survival:tbr:${state.tiebreak?.attempt ?? 0}`, music: null, enter: "sting" };
     case "winner":

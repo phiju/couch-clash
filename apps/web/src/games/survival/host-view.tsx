@@ -317,6 +317,9 @@ function useSurvivalHooks(state: SurvivalPublicState, now: number, scores: Reado
   );
 }
 
+/** The slime bubbles constantly and clearly audible through the whole finale (the file itself is quiet). */
+const BUBBLE_LEVEL = 1.5;
+
 /** Plays the hook events on the host (never on phones): one-shots and the three loops. */
 function useSurvivalSounds(step: SurvivalPublicState["step"]) {
   // Server time at the moment of the event (the splash is timed to the impact).
@@ -331,7 +334,7 @@ function useSurvivalSounds(step: SurvivalPublicState["step"]) {
     const onHook = (e: Event) => {
       const detail = (e as CustomEvent<SurvivalHookEvent>).detail;
       if (detail.type === "AMBIENCE") {
-        engine.setLoop("survival-slime-bubble-loop", detail.slime ? 1 : 0, 1.2);
+        engine.setLoop("survival-slime-bubble-loop", detail.slime ? BUBBLE_LEVEL : 0, 1.2);
         engine.setLoop("survival-slime-threat-loop", detail.slime ? detail.threat : 0, 1);
         engine.setLoop("survival-warning-lamp-loop", detail.slime && detail.lamp ? 1 : 0, 0.3);
         return;
