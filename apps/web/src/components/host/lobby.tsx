@@ -107,46 +107,36 @@ export function HostLobby({
         </section>
 
         <section className="panel flex min-h-0 flex-col gap-[1.8vh] p-[2vh]">
-          <div className="flex shrink-0 flex-wrap items-center justify-between gap-x-4 gap-y-1">
+          <div className="flex shrink-0 flex-col gap-[1.2vh]">
             <h2 className="fs-title font-bold">
               {players.length === 0 ? "Warte auf Mitspieler:innen…" : "Wer ist dabei?"}
             </h2>
             {room && (
-              <label className="fs-sm flex cursor-pointer items-center gap-2 font-bold text-cream/85">
-                <input
-                  type="checkbox"
-                  role="switch"
+              <div className="flex flex-wrap items-center gap-[0.8vw]">
+                <OptionPill
                   checked={room.photoAvatars}
                   disabled={!canSend}
-                  onChange={(e) => send({ type: "set_photo_avatars", enabled: e.target.checked })}
-                  className="size-5 accent-orange"
+                  onChange={(enabled) => send({ type: "set_photo_avatars", enabled })}
+                  label="📸 Foto-Avatare erlauben"
                 />
-                📸 Foto-Avatare erlauben
-              </label>
-            )}
-            {room && (
-              <label className="fs-sm flex cursor-pointer items-center gap-2 font-bold text-cream/85">
-                <input
-                  type="checkbox"
-                  role="switch"
+                <OptionPill
                   checked={room.lateJoin}
                   disabled={!canSend}
-                  onChange={(e) => send({ type: "set_late_join", enabled: e.target.checked })}
-                  className="size-5 accent-orange"
+                  onChange={(enabled) => send({ type: "set_late_join", enabled })}
+                  label="🚪 Neue Spieler während des Spiels zulassen"
                 />
-                🚪 Neue Spieler während des Spiels zulassen
-              </label>
-            )}
-            {room && testMode && (
-              <button
-                type="button"
-                onClick={() => send({ type: "add_bot" })}
-                disabled={!canSend || botCount >= BOT_CONFIG.maxBots}
-                className="fs-sm rounded-full border-2 border-bulb/60 bg-petrol-dark/80 px-3 py-1 font-bold transition hover:bg-petrol disabled:opacity-50"
-                title={`Spielt automatisch mit – höchstens ${BOT_CONFIG.maxBots}`}
-              >
-                🤖 Testspieler hinzufügen
-              </button>
+                {testMode && (
+                  <button
+                    type="button"
+                    onClick={() => send({ type: "add_bot" })}
+                    disabled={!canSend || botCount >= BOT_CONFIG.maxBots}
+                    className="fs-sm rounded-full border-2 border-bulb/60 bg-petrol-dark/80 px-3 py-1.5 font-bold transition hover:bg-petrol disabled:opacity-50"
+                    title={`Spielt automatisch mit – höchstens ${BOT_CONFIG.maxBots}`}
+                  >
+                    🤖 Testspieler hinzufügen
+                  </button>
+                )}
+              </div>
             )}
           </div>
 
@@ -207,20 +197,22 @@ export function HostLobby({
             ))}
           </PlayerGrid>
 
-          {/* Always visible – the player list scrolls instead. */}
-          <div className="flex shrink-0 flex-col items-center gap-[1vh] lg:items-end">
-            <p className="fs-md text-right font-bold text-cream/80">{summaryText(room?.settingsSummary ?? null)}</p>
+          {/* Always visible – the player list scrolls instead. The button stands on its own, one calm line below. */}
+          <div className="flex shrink-0 flex-col items-center gap-[1.2vh] pt-[0.6vh]">
             <Button
               onClick={() => startRef.current?.()}
               disabled={players.length === 0 || !canSend || !room?.settingsSummary}
               title={players.length === 0 ? START_HINT : undefined}
               glow
-              className="fs-xl !px-[2.2vw] !py-[1.3vh] whitespace-nowrap"
+              className="fs-xl !px-[3vw] !py-[1.3vh] whitespace-nowrap"
             >
               Spiel starten
             </Button>
-            {/* The only player-count rule: one player is enough for every game. */}
-            {room && players.length === 0 && <p className="fs-sm font-bold text-cream/70">{START_HINT}</p>}
+            <p className="fs-sm max-w-full truncate text-center font-bold text-cream/70">
+              {summaryText(room?.settingsSummary ?? null)}
+              {/* The only player-count rule: one player is enough for every game. */}
+              {room && players.length === 0 && <span className="text-cream/55"> · {START_HINT}</span>}
+            </p>
           </div>
         </section>
 
@@ -293,5 +285,36 @@ function PlayerGrid({ playerCount, big, children }: { playerCount: number; big: 
         </li>
       ))}
     </ul>
+  );
+}
+
+/** A lobby option as a pill switch (checkbox underneath for keyboard and screen readers). */
+function OptionPill({
+  checked,
+  disabled,
+  onChange,
+  label,
+}: {
+  checked: boolean;
+  disabled: boolean;
+  onChange: (checked: boolean) => void;
+  label: string;
+}) {
+  return (
+    <label
+      className={`fs-sm flex cursor-pointer items-center gap-2 rounded-full border-2 px-3 py-1.5 font-bold transition ${
+        checked ? "border-bulb/80 bg-petrol-dark/85 text-cream" : "border-cream/20 bg-petrol-dark/50 text-cream/60"
+      } ${disabled ? "cursor-not-allowed opacity-60" : "hover:border-bulb"}`}
+    >
+      <input
+        type="checkbox"
+        role="switch"
+        checked={checked}
+        disabled={disabled}
+        onChange={(e) => onChange(e.target.checked)}
+        className="size-4 accent-orange"
+      />
+      {label}
+    </label>
   );
 }
