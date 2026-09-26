@@ -40,8 +40,9 @@ import {
 } from "./rules";
 import { cachedClip, produceLine, type ProducedLine, type VoiceServices } from "./service";
 import { SurvivalVoice, type SurvivalVoiceRuntime } from "./survival-voice";
+import { MusikVoice } from "./musik-voice";
 import { PixelpanikVoice } from "./pixelpanik-voice";
-import { slfStandardLines, type PixelpanikState, type SlfState, type SurvivalCue, type SurvivalState } from "@couch-clash/games";
+import { slfStandardLines, type MusikState, type PixelpanikState, type SlfState, type SurvivalCue, type SurvivalState } from "@couch-clash/games";
 import { chooseSnark, detectSituations, isNoteworthy, updateWrongStreaks, type SituationHit } from "./snark";
 import { commentTemplate, finaleTemplate, startTemplate, summaryTemplate, welcomeTemplate } from "./templates";
 
@@ -136,6 +137,8 @@ export class VoiceDirector {
   private readonly survival: SurvivalVoice;
   /** Pixelpanik: event-driven lines (wrong guess, early hit, nobody got it, …). */
   private readonly pixelpanik: PixelpanikVoice;
+  /** Musik-Quiz: announces the question type, comments buzzes and years. */
+  private readonly musik: MusikVoice;
   /** Stadt, Land, Fluss: the round whose fixed lines were prepared. */
   private slfWarmed: string | null = null;
 
@@ -170,6 +173,7 @@ export class VoiceDirector {
     };
     this.survival = new SurvivalVoice(eventVoice);
     this.pixelpanik = new PixelpanikVoice(eventVoice);
+    this.musik = new MusikVoice(eventVoice);
   }
 
   private get registry() {
@@ -325,6 +329,11 @@ export class VoiceDirector {
       const names = Object.fromEntries(next.players.map((p) => [p.id, sanitizeName(p.name)]));
       this.pixelpanik.roomChanged(pixelpanik, names, next.mode.mode);
     }
+    const musik = this.musikState(next);
+    if (musik) {
+      const names = Object.fromEntries(next.players.map((p) => [p.id, sanitizeName(p.name)]));
+      this.musik.roomChanged(musik, names, next.mode.mode);
+    }
     const slf = this.slfState(next);
     if (slf && slf.roundKey !== this.slfWarmed) {
       this.slfWarmed = slf.roundKey;
@@ -404,6 +413,14 @@ export class VoiceDirector {
     const round = game?.rounds[game.roundIndex];
     if (!game || game.moduleState == null || round?.categoryId !== "pixelpanik") return null;
     return game.moduleState as PixelpanikState;
+  }
+
+  /** The Musik-Quiz's state while it plays (event-driven, like Pixelpanik). */
+  private musikState(room: RoomRecord): MusikState | null {
+    const game = room.phase === "play" ? room.game : null;
+    const round = game?.rounds[game.roundIndex];
+    if (!game || game.moduleState == null || round?.categoryId !== "musik") return null;
+    return game.moduleState as MusikState;
   }
 
   /** Stadt, Land, Fluss while it plays. */

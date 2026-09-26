@@ -10,6 +10,7 @@ import { doubleModule } from "./double/module";
 import { estimateModule } from "./estimate/module";
 import { fuehrerscheinModule } from "./fuehrerschein/module";
 import { pixelpanikModule } from "./pixelpanik/module";
+import { musikModule } from "./musik/module";
 import type { CategoryId } from "./meta";
 import { quizModule } from "./quiz/module";
 import { skurrilModule } from "./skurril/module";
@@ -22,6 +23,8 @@ export * from "./scoring";
 export { createSurvivalModule, survivalCueAt, survivalModule, type SurvivalCue, type SurvivalModule, type SurvivalState } from "./survival/module";
 export { createPixelpanikModule, pixelpanikModule, type PixelpanikModule, type PixelpanikState } from "./pixelpanik/module";
 export { isCorrectGuess, normalizeAnswer } from "./pixelpanik/match";
+export { createMusikModule, enableMusikTestSongs, musikModule, songPool, type MusikModule, type MusikState } from "./musik/module";
+export { buzzPoints, scoreYears, yearTipPoints } from "./musik/scoring";
 export { createSlfModule, slfModule, type SlfModule, type SlfState } from "./stadt-land-fluss/module";
 export { slfStandardLines } from "./stadt-land-fluss/script";
 export { defaultSuddenDeath, type SuddenDeathRule } from "./survival/sudden-death";
@@ -36,6 +39,7 @@ export const GAME_MODULES: Record<CategoryId, GameModule> = {
   steal: stealModule as unknown as GameModule,
   fuehrerschein: fuehrerscheinModule as unknown as GameModule,
   pixelpanik: pixelpanikModule as unknown as GameModule,
+  musik: musikModule as unknown as GameModule,
   bluff: bluffModule as unknown as GameModule,
   skurril: skurrilModule as unknown as GameModule,
   "stadt-land-fluss": slfModule as unknown as GameModule,

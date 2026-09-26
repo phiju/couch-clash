@@ -28,6 +28,19 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.27.0",
+    date: "2026-09-26",
+    title: "Neues Spiel: Musik-Quiz!",
+    items: [
+      { emoji: "🎶", text: "Partyhits zum Mitsingen – vom Schlager bis zu den 90ern" },
+      { emoji: "🔔", text: "Titel oder Interpret erkannt? Wer zuerst buzzert, darf antworten" },
+      { emoji: "📅", text: "Aus welchem Jahr? Alle tippen – der Zeitstrahl verrät, wer daneben lag" },
+      { emoji: "🎚️", text: "Genres selbst aussuchen oder einfach Zufall" },
+      { emoji: "🧸", text: "Für Kids: Lied antippen, ganz ohne Zeitdruck" },
+      { emoji: "🎙️", text: "Der Moderator kündigt jede Frage an – und lästert über Fehl-Buzzer" },
+    ],
+  },
+  {
     version: "0.26.0",
     date: "2026-09-26",
     title: "Neues Spiel: Stadt, Land, Fluss!",

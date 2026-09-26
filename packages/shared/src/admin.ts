@@ -129,3 +129,42 @@ export interface AdminVoiceRunResponse extends AdminVoiceResponse {
   generated: number;
   failed: number;
 }
+
+// ── Musik-Quiz songs (/admin/songs) ─────────────────────────────────────
+
+/** One song as /admin/songs shows it: songs.json with the corrections applied. */
+export interface AdminSong {
+  id: string;
+  title: string;
+  titleAliases: string[];
+  artist: string;
+  artistAliases: string[];
+  coverUrl: string | null;
+  provider: string;
+  sourceUrl: string | null;
+  originalYear: number | null;
+  yearVerified: boolean;
+  popularity: number;
+  genres: string[];
+  modes: string[];
+  musicbrainzId: string | null;
+  /** Corrected on the admin page (stored in D1). */
+  edited: boolean;
+  /** Never played. */
+  disabled: boolean;
+}
+
+export interface AdminSongsResponse {
+  songs: AdminSong[];
+  /** When `pnpm songs:import` last wrote songs.json (ISO), null before the first import. */
+  importedAt: string | null;
+}
+
+/** A correction: only the given fields change. */
+export interface AdminSongEdit {
+  originalYear?: number | null;
+  yearVerified?: boolean;
+  titleAliases?: string[];
+  artistAliases?: string[];
+  disabled?: boolean;
+}

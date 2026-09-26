@@ -9,12 +9,18 @@ import {
   type BotContext,
   type GameModule,
   type ModuleContext,
+  type ModuleTask,
   type ModuleUpdate,
 } from "@couch-clash/shared";
 import { describe, expect, it } from "vitest";
 import { GAME_MODULES, normalizeCategoryOptions } from "../src";
 import type { StealExtra } from "../src/knowledge/types";
 import { pixelpanikWithImages } from "./fixtures/pixelpanik-pool";
+import { MUSIK_TEST_SONGS } from "@couch-clash/content";
+import { createMusikModule } from "../src/musik/module";
+
+/** The song database is filled by `pnpm songs:import` – here the local test songs play. */
+const musikWithTestSongs = createMusikModule({ songs: MUSIK_TEST_SONGS });
 
 const ME = "solo";
 
@@ -25,7 +31,9 @@ function seeded(seed: number) {
 
 function playSolo(id: string, seed = 1, opts: { players?: string[]; decoys?: boolean } = {}) {
   // Pixelpanik needs pictures (the image script adds them) – here every motif has stand-ins.
-  const module = (id === "pixelpanik" ? pixelpanikWithImages : GAME_MODULES[id as keyof typeof GAME_MODULES]) as GameModule;
+  const module = (
+    id === "pixelpanik" ? pixelpanikWithImages : id === "musik" ? musikWithTestSongs : GAME_MODULES[id as keyof typeof GAME_MODULES]
+  ) as GameModule<unknown, unknown, unknown, ModuleTask>;
   const random = seeded(seed);
   const ids = opts.players ?? [ME];
   let now = 1_700_000_000_000;
@@ -52,6 +60,12 @@ function playSolo(id: string, seed = 1, opts: { players?: string[]; decoys?: boo
     const state = update.state;
     const step = module.progress?.(state)?.step;
     const task = module.pendingTask?.(state);
+    if (task?.kind === "song_previews") {
+      // Musik-Quiz: the room looks up the audio (local test songs bring their own).
+      const previews = Object.fromEntries(task.input.tracks.map((t) => [t.songId, t.previewUrl ?? null]));
+      update = apply(module.resolveTask!(state, task.id, previews, ctx())!);
+      continue;
+    }
     if (task) {
       const reply = opts.decoys === false ? null : { results: [], decoys: ["Ein erfundener Hut", "Eine Suppe aus Tirol", "Ein Tanz der Seeleute"] };
       // The judge reply for the player's text: "bluff", kept as written.

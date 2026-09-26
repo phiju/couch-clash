@@ -1,0 +1,16 @@
+{
+  "minPopularity": 300000,
+  "maxTracksPerPlaylist": 150,
+  "genres": {
+    "80er": { "label": "80er", "deezerPlaylistIds": [], "searchQueries": ["80er Hits", "80s Party", "Best of 80s"], "years": [1978, 1991], "modes": ["family", "party"] },
+    "90er": { "label": "90er", "deezerPlaylistIds": [], "searchQueries": ["90er Hits", "90s Party", "Eurodance 90er"], "years": [1988, 2001], "modes": ["family", "party"] },
+    "2000er": { "label": "2000er", "deezerPlaylistIds": [], "searchQueries": ["2000er Hits", "2000s Party", "Best of 2000s"], "years": [1998, 2011], "modes": ["family", "party"] },
+    "schlager-klassiker": { "label": "Schlager-Klassiker", "deezerPlaylistIds": [], "searchQueries": ["Schlager Klassiker", "Schlager Oldies", "Die größten Schlager"], "years": [1955, 2005], "modes": ["family", "party"] },
+    "schlager-party": { "label": "Schlager-Party", "deezerPlaylistIds": [], "searchQueries": ["Schlager Party", "Schlager Hits 2024", "Schlagerparty"], "years": [1970, 2026], "modes": ["family", "party"] },
+    "ballermann": { "label": "Ballermann & Après-Ski", "deezerPlaylistIds": [], "searchQueries": ["Ballermann Hits", "Après Ski Hits", "Mallorca Party"], "years": null, "modes": ["party"] },
+    "oktoberfest": { "label": "Oktoberfest & Wiesn", "deezerPlaylistIds": [], "searchQueries": ["Oktoberfest Hits", "Wiesn Hits", "Wiesn Party"], "years": null, "modes": ["family", "party"] },
+    "ndw": { "label": "Neue Deutsche Welle", "deezerPlaylistIds": [], "searchQueries": ["Neue Deutsche Welle", "NDW Hits", "NDW Klassiker"], "years": [1979, 1986], "modes": ["family", "party"] },
+    "party-international": { "label": "Party-Klassiker international", "deezerPlaylistIds": [], "searchQueries": ["Party Klassiker", "Party Hits All Time", "Hochzeit Party Hits"], "years": null, "modes": ["family", "party"] },
+    "kinder": { "label": "Kinderlieder & Kinder-Hits", "deezerPlaylistIds": [], "searchQueries": ["Kinderlieder", "Kinder Hits", "Kinderdisco"], "years": null, "modes": ["kids"] }
+  }
+}

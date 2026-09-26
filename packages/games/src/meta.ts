@@ -9,6 +9,7 @@ import { categoryPickMeta } from "./category-pick/meta";
 import { doubleMeta } from "./double/meta";
 import { estimateMeta } from "./estimate/meta";
 import { fuehrerscheinMeta } from "./fuehrerschein/meta";
+import { musikMeta } from "./musik/meta";
 import { pixelpanikMeta } from "./pixelpanik/meta";
 import { quizMeta } from "./quiz/meta";
 import { skurrilMeta } from "./skurril/meta";
@@ -26,6 +27,7 @@ export const CATEGORY_METAS = [
   stealMeta,
   fuehrerscheinMeta,
   pixelpanikMeta,
+  musikMeta,
   bluffMeta,
   skurrilMeta,
   slfMeta,
@@ -39,11 +41,13 @@ export function getCategoryMeta(id: string): CategoryMeta | undefined {
   return CATEGORY_METAS.find((m) => m.id === id);
 }
 
-export { betMeta, bluffMeta, categoryPickMeta, doubleMeta, estimateMeta, fuehrerscheinMeta, pixelpanikMeta, quizMeta, skurrilMeta, slfMeta, stealMeta, survivalMeta };
+export { betMeta, bluffMeta, categoryPickMeta, doubleMeta, estimateMeta, fuehrerscheinMeta, musikMeta, pixelpanikMeta, quizMeta, skurrilMeta, slfMeta, stealMeta, survivalMeta };
 export { SLF_CONFIG, SLF_DEFAULTS } from "./stadt-land-fluss/meta";
 export type * from "./stadt-land-fluss/types";
 export { PIXELPANIK_CONFIG, PIXELPANIK_STAGES } from "./pixelpanik/meta";
 export * from "./pixelpanik/types";
+export { MUSIK_CONFIG, MUSIK_GENRES, MUSIK_KIDS_INFO, MUSIK_QUESTION_TYPE_IDS, MUSIK_TYPE_INFO, genreOptionId, type MusikGenreId, type MusikQuestionTypeId } from "./musik/meta";
+export * from "./musik/types";
 export { BET_CONFIG } from "./bet/meta";
 export { CATEGORY_PICK_CONFIG } from "./category-pick/meta";
 export { DOUBLE_CONFIG, potAfterWin } from "./double/meta";

@@ -5,6 +5,7 @@ import { categoryPickViews } from "./category-pick";
 import { doubleViews } from "./double";
 import { estimateViews } from "./estimate";
 import { fuehrerscheinViews } from "./fuehrerschein";
+import { musikViews } from "./musik";
 import { pixelpanikViews } from "./pixelpanik";
 import { quizViews } from "./quiz";
 import { slfViews } from "./stadt-land-fluss";
@@ -26,6 +27,7 @@ export const GAME_VIEWS: Record<CategoryId, GameViews<any>> = {
   steal: stealViews,
   fuehrerschein: fuehrerscheinViews,
   pixelpanik: pixelpanikViews,
+  musik: musikViews,
   bluff: bluffViews,
   skurril: skurrilViews,
   "stadt-land-fluss": slfViews,

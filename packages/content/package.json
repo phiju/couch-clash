@@ -12,7 +12,10 @@
     "lint": "eslint .",
     "typecheck": "tsc -p tsconfig.json",
     "test": "vitest run",
-    "images:pixelpanik": "node scripts/pixelpanik-images.mjs"
+    "images:pixelpanik": "node scripts/pixelpanik-images.mjs",
+    "songs:import": "node scripts/songs-import.ts",
+    "songs:playlists": "node scripts/songs-playlists.ts",
+    "songs:test-audio": "node scripts/test-audio.mjs"
   },
   "dependencies": {
     "@couch-clash/shared": "workspace:*",

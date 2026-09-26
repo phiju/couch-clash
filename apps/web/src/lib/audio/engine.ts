@@ -47,6 +47,8 @@ const SOUNDS_DUCK_LEVEL = 0.7;
 const BED_DUCK_LEVEL = 0.4;
 const DEFAULT_FADE = 0.8;
 const VOLUME_KEY = "couchclash:volume";
+/** 50 ms of silence (WAV) – played once inside the unlocking click. */
+const SILENT_WAV = `data:audio/wav;base64,UklGRrQBAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YZABAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA`;
 
 type Listener = () => void;
 
@@ -119,6 +121,10 @@ export class AudioEngine {
   get volume(): number {
     return this._volume;
   }
+  /** The host is speaking (categories with their own audio, e.g. the Musik-Quiz, lower it). */
+  get speaking(): boolean {
+    return this.voices > 0;
+  }
   subscribe = (l: Listener) => {
     this.listeners.add(l);
     return () => this.listeners.delete(l);
@@ -168,6 +174,8 @@ export class AudioEngine {
       silent.buffer = ctx.createBuffer(1, 1, 22050);
       silent.connect(ctx.destination);
       silent.start();
+      // Audio elements (Musik-Quiz previews from other domains) need their own unlock inside the click.
+      void new Audio(SILENT_WAV).play().catch(() => undefined);
       document.addEventListener("visibilitychange", this.onVisibility);
       void this.preload();
       this.emit();
@@ -452,6 +460,7 @@ export class AudioEngine {
     this.oneShots++;
     this.voices++;
     this.setSoundsDuck(true);
+    this.emit();
     let finished = false;
     let resolve!: () => void;
     const promise = new Promise<void>((r) => (resolve = r));
@@ -463,6 +472,7 @@ export class AudioEngine {
       if (this.oneShots === 0) this.setDuck(false);
       this.voices = Math.max(0, this.voices - 1);
       if (this.voices === 0) this.setSoundsDuck(false);
+      this.emit();
       resolve();
     };
     return { promise, done };
