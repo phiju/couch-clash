@@ -66,6 +66,8 @@ export const pixelpanikMeta = {
   estimatedSecondsPerQuestion: 36,
   contentSource: "static",
   modes: ["kids", "family", "party"],
+  /** Pictures fit every mode: no party share, motifs aren't tied to a mode (Kids still need four options). */
+  modeNeutral: true,
   /** Kids get their own motifs (with four options) – any difficulty. */
   kidsMaxDifficulty: 3,
   announceIntro: true,

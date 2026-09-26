@@ -107,9 +107,10 @@ function playRound(id: CategoryId, questionCount: number, mode: GameModeSettings
     const { game } = doubleGame(QUIZ_QUESTIONS_DE).init(ctx(random), options, QUIZ_QUESTIONS_DE);
     return game.ladder.map((s) => ({ id: s.id, party: isPartyItem(byId.get(s.id)) }));
   }
-  const state = module.init(ctx(random), options).state as { questions?: unknown[]; words?: unknown[] };
-  const items = (state.questions ?? state.words ?? []) as { id: string }[];
-  return items.map((x) => ({ id: x.id, party: isPartyItem(x) }));
+  const state = module.init(ctx(random), options).state as { questions?: unknown[]; words?: unknown[]; motifs?: unknown[] };
+  // Pixelpanik's prepared motifs say `party`.
+  const items = (state.questions ?? state.words ?? state.motifs ?? []) as { id: string; party?: boolean }[];
+  return items.map((x) => ({ id: x.id, party: isPartyItem(x) || x.party === true }));
 }
 
 describe("partyCountFor: max(1, ceil(N × share))", () => {
@@ -132,6 +133,13 @@ describe("partyCountFor: max(1, ceil(N × share))", () => {
     expect(partyShareOf(party())).toBe(PARTY_CONFIG.defaultShare);
     expect(PARTY_CONFIG.defaultShare).toBe(0.3);
     expect(partyShareOf(party(1))).toBe(1);
+  });
+
+  it("mode-neutral categories never get a party share; only Pixelpanik is mode-neutral", () => {
+    expect(partyShareOf(party(), { modeNeutral: true })).toBe(0);
+    expect(partyShareOf(party(1), { modeNeutral: true })).toBe(0);
+    expect(partyShareOf(party(), { modeNeutral: false })).toBe(PARTY_CONFIG.defaultShare);
+    expect(Object.values(GAME_MODULES).filter((m) => m.meta.modeNeutral).map((m) => m.meta.id)).toEqual(["pixelpanik"]);
   });
 });
 
@@ -317,7 +325,8 @@ describe("Zufall (planGame) keeps the share in every round", () => {
         const id = round.categoryId as CategoryId;
         const items = playRound(id, round.questionCount, mode, { excludeContentIds: [...used] }, seed);
         expect(items, id).toHaveLength(round.questionCount);
-        expect(items.filter((x) => x.party).length, id).toBe(partyCountFor(round.questionCount, share));
+        // Mode-neutral categories (Pixelpanik) have no party share.
+        if (!GAME_MODULES[id].meta.modeNeutral) expect(items.filter((x) => x.party).length, id).toBe(partyCountFor(round.questionCount, share));
         used.push(...items.map((x) => x.id));
       }
     }

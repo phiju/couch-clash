@@ -104,6 +104,13 @@ export interface CategoryMeta {
   modes: readonly GameMode[];
   /** Kids mode: highest question difficulty that is still child-friendly (default 1). */
   kidsMaxDifficulty?: 1 | 2 | 3;
+  /**
+   * Content fits every mode the category is offered in (e.g. Pixelpanik):
+   * no party share per round, the items' own mode tags are ignored. The
+   * global mode filter (eligibleForMode – no adult items in Kids / Familie)
+   * still applies.
+   */
+  modeNeutral?: boolean;
   /** Extra on/off settings the host may change for this category. */
   options?: readonly CategoryOption[];
   /**

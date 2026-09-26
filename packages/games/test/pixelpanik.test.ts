@@ -1,7 +1,6 @@
 import { PIXELPANIK_FILE_SCORING, PIXELPANIK_MOTIFS } from "@couch-clash/content";
 import {
   BOT_CONFIG,
-  partyCountFor,
   type GameModeSettings,
   type ModuleContext,
   type ModuleInitOptions,
@@ -128,16 +127,20 @@ describe("content", () => {
     expect(normalizeScoring(pixelpanikMeta, undefined).points).toMatchObject({ s1: 200, s2: 180, s3: 150, s4: 100, s5: 50, s6: 20 });
   });
 
-  it("motifs without pictures are never played (the real module has none yet)", () => {
+  it("motifs without pictures are never played", () => {
     const real = GAME_MODULES.pixelpanik;
     const u = real.init(ctx(T0), options(family));
-    expect(u.done).toBe(real.listContent!().length === 0);
+    expect(u.done ?? false).toBe(real.listContent!().length === 0);
+    const withPictures = new Set(real.listContent!().map((e) => e.id));
+    expect((u.state as PixelpanikState).motifs.every((m) => withPictures.has(m.id))).toBe(true);
     expect(real.listContent!().every((e) => (e.payload as { image?: unknown }).image)).toBe(true);
   });
 });
 
 describe("picking the pictures", () => {
-  it("Kids: only kids motifs · Familie: never party motifs · Party: at least 30 % party motifs", () => {
+  it("Kids: only kids motifs · Familie: never party motifs · Party (mode-neutral): any motif, no party share", () => {
+    expect(pixelpanikMeta.modeNeutral).toBe(true);
+    const partyCounts = new Set<number>();
     for (let seed = 1; seed <= 20; seed++) {
       const k = mod.init(ctx(T0, PLAYERS, seeded(seed)), options(kids)).state;
       expect(k.motifs.every((m) => PIXELPANIK_MOTIFS.find((x) => x.id === m.id)!.modes.includes("kinder"))).toBe(true);
@@ -146,13 +149,18 @@ describe("picking the pictures", () => {
       expect(f.motifs.some((m) => m.party)).toBe(false);
       expect(f.input).toBe("text");
       for (const n of [3, 5, 10]) {
-        const p = mod.init(ctx(T0, PLAYERS, seeded(seed)), options(party, { questionCount: n })).state;
-        expect(p.motifs).toHaveLength(n);
-        const count = p.motifs.filter((m) => m.party).length;
-        expect(count).toBe(partyCountFor(n, 0.3));
-        expect(count / n).toBeGreaterThanOrEqual(0.3);
+        for (const partyShare of [undefined, 1] as const) {
+          const mode: GameModeSettings = partyShare ? { ...party, partyShare } : party;
+          const p = mod.init(ctx(T0, PLAYERS, seeded(seed)), options(mode, { questionCount: n })).state;
+          expect(p.motifs).toHaveLength(n);
+          expect(p.input).toBe("text");
+          partyCounts.add(p.motifs.filter((m) => m.party).length);
+        }
       }
     }
+    // No quota: party motifs come up only as often as chance brings them (16 of 169) – even with "Party-Anteil" 100 %.
+    expect(partyCounts.has(0)).toBe(true);
+    expect(Math.max(...partyCounts)).toBeLessThan(10);
   });
 
   it("never the same motif twice in a session (room)", () => {
