@@ -1,17 +1,15 @@
 /**
  * Survival-Finale: pure presentation logic (tested). Everything here is show
  * only – the server's scores decide the game; this only turns them into
- * heights, moods and hints.
+ * heights and hints.
  */
 import {
   liveSurvivalScore,
-  type DangerLevel,
   type SurvivalEvent,
   type SurvivalPublicPlayer,
   type SurvivalPublicQuestion,
   type SurvivalPublicState,
 } from "@couch-clash/games/meta";
-import type { PhotoExpression } from "@couch-clash/shared";
 import type { ModuleAudioScene } from "@/lib/audio/scenes";
 
 /**
@@ -84,48 +82,6 @@ export function zoneText(zone: TimeZone, q: Pick<SurvivalPublicQuestion, "phase"
       return "ZEIT UM";
   }
 }
-
-/** Mood of a candidate (avatar face + a small emoji). */
-export type Mood = "confident" | "worried" | "scared" | "panic" | "cheering" | "shocked" | "gone";
-
-export function moodFor(p: Pick<SurvivalPublicPlayer, "danger" | "change" | "eliminated">, liveDanger?: DangerLevel): Mood {
-  if (p.eliminated) return "gone";
-  if (p.change && p.change.penalty > 0) return "shocked";
-  if (p.change && p.change.bonus > 0) return "cheering";
-  switch (liveDanger ?? p.danger) {
-    case "WARNING":
-      return "worried";
-    case "CRITICAL":
-      return "scared";
-    case "ELIMINATION_IMMINENT":
-      return "panic";
-    case "ELIMINATED":
-      return "gone";
-    default:
-      return "confident";
-  }
-}
-
-export const MOOD_EMOJI: Record<Mood, string> = {
-  confident: "😎",
-  worried: "😟",
-  scared: "😨",
-  panic: "😱",
-  cheering: "🤩",
-  shocked: "😵",
-  gone: "🫧",
-};
-
-/** Photo avatars have four faces – the closest one per mood. */
-export const MOOD_EXPRESSION: Record<Mood, PhotoExpression> = {
-  confident: "neutral",
-  worried: "neutral",
-  scared: "geschockt",
-  panic: "geschockt",
-  cheering: "jubelnd",
-  shocked: "enttaeuscht",
-  gone: "enttaeuscht",
-};
 
 /** Lane widths (flex-grow): the final two get the stage, the eliminated step back. */
 export function laneGrow(p: Pick<SurvivalPublicPlayer, "eliminated">, finalTwo: boolean): number {

@@ -12,7 +12,7 @@ import { getAudioEngine } from "@/lib/audio/engine";
 import { SOUND_CUE_VOLUMES, SOUND_IDS } from "@/lib/audio/scenes";
 import { launchFrame, launchStops, liveScores, newEvents, timeZone, zoneText } from "./logic";
 import { ambienceFor, decaySecond, freshEvents, soundsFor, type SurvivalHookEvent } from "./sounds";
-import { SurvivalStage } from "./stage";
+import { SurvivalBackdrop, SurvivalStage } from "./stage";
 
 export function SurvivalHostView({ state, room }: HostViewProps<SurvivalPublicState>) {
   // The start ride is animated frame by frame (height and points in step); otherwise 5 updates a second are plenty.
@@ -32,6 +32,7 @@ export function SurvivalHostView({ state, room }: HostViewProps<SurvivalPublicSt
 
   return (
     <div className="sv-grain flex min-h-0 w-full flex-1 flex-col gap-[1.2vh]">
+      <SurvivalBackdrop />
       <div className="flex shrink-0 items-center gap-[1.2vw]">
         <PhaseBadge state={state} />
         {q && (state.step === "question" || state.step === "reveal") && (

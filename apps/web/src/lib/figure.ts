@@ -4,7 +4,7 @@
  * meant to be reused by the game-wide reaction moments later.
  */
 import type { DangerLevel } from "@couch-clash/games/meta";
-import type { FigurePose } from "@couch-clash/shared";
+import type { FigurePose, PhotoExpression } from "@couch-clash/shared";
 
 export const FIGURE_CONFIG = {
   /** Idle animations on/off (prefers-reduced-motion switches them off anyway). */
@@ -29,6 +29,41 @@ export function poseForDanger(danger: DangerLevel): FigurePose {
       return "standard";
   }
 }
+
+/**
+ * The resting pose on the elevator, from everything the stage knows:
+ * winner → jubelnd; after the reveal a loss → geschockt, a correct answer →
+ * jubelnd; then the danger: just above the slime → panisch, sinking (live
+ * decay) or few points → besorgt; otherwise standard.
+ */
+export function stagePose(input: {
+  danger: DangerLevel;
+  winner?: boolean;
+  /** Losing points to the clock right now. */
+  descending?: boolean;
+  /** Reveal: this player's answer was right (null: no reveal / no answer). */
+  correct?: boolean | null;
+  /** Reveal: what the question did to the score in total (null: nothing yet). */
+  pointsChange?: number | null;
+}): FigurePose {
+  if (input.winner) return "jubelnd";
+  if (input.danger === "ELIMINATED") return "geschockt";
+  if (input.pointsChange != null && input.pointsChange < 0) return "geschockt";
+  if (input.correct) return "jubelnd";
+  if (input.danger === "ELIMINATION_IMMINENT") return "panisch";
+  if (input.descending || input.danger === "CRITICAL") return "besorgt";
+  return "standard";
+}
+
+/** The round avatar's closest face per pose (it has only four). */
+export const POSE_EXPRESSION: Record<FigurePose, PhotoExpression> = {
+  standard: "neutral",
+  besorgt: "enttaeuscht",
+  panisch: "geschockt",
+  jubelnd: "jubelnd",
+  geschockt: "geschockt",
+  pokal: "jubelnd",
+};
 
 export interface FigureReaction {
   /** Changes with every new reaction (e.g. the event's seq). */

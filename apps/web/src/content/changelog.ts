@@ -28,6 +28,19 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.24.0",
+    date: "2026-09-26",
+    title: "Survival-Finale im Schleimlabor",
+    items: [
+      { emoji: "🧪", text: "Neue Bühne: blubbernde Schleimtanks, Kupferrohre und grüner Nebel" },
+      { emoji: "🧍", text: "Eure Figuren stehen jetzt in voller Größe auf der Plattform" },
+      { emoji: "😱", text: "Sie zittern, jubeln und erschrecken – je nachdem, wie's gerade läuft" },
+      { emoji: "🪧", text: "Name und Punkte stehen groß vorne auf der Plattform" },
+      { emoji: "🟢", text: "Der Schleim reicht jetzt wirklich bis ganz unten" },
+      { emoji: "🔧", text: "Stehende Figuren werden jetzt zuverlässig gebastelt" },
+    ],
+  },
+  {
     version: "0.23.0",
     date: "2026-09-26",
     title: "Neues Spiel: Pixelpanik!",
