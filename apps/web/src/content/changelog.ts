@@ -35,6 +35,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       { emoji: "🧍", text: "Foto-Avatare gibt’s jetzt auch als stehende Ganzkörperfigur" },
       { emoji: "😱", text: "Im Survival-Finale zittern, jubeln und erschrecken eure Figuren mit" },
       { emoji: "🫧", text: "Wer in Gefahr ist, sieht auch so aus – bis zur Panik" },
+      { emoji: "⭐", text: "Deine Figur bleibt fürs nächste Mal gespeichert – ganz automatisch" },
     ],
   },
   {

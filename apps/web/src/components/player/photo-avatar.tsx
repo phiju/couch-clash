@@ -10,10 +10,8 @@ import { photoConsentStore } from "@/lib/storage";
 
 type Source = "selfie" | "file";
 
-export const PHOTO_CONSENT_TEXT =
-  "Dein Foto wird zur Umwandlung an OpenAI geschickt und danach sofort gelöscht. Deine Figur wird nach 24 Stunden gelöscht.";
-/** Shown next to the opt-in "Figur behalten". */
-export const KEEP_FIGURE_TEXT = `Nur dieses Handy kennt sie. Du kannst sie jederzeit löschen, sonst verschwindet sie nach ${SAVED_AVATAR_RETENTION_DAYS} Tagen ohne Spiel.`;
+/** Shown before "Verwandeln!" – tapping it is the consent, including keeping the figure. */
+export const PHOTO_CONSENT_TEXT = `Dein Foto wird zur Umwandlung an OpenAI geschickt und danach sofort gelöscht. Deine Figur speichern wir für deine nächsten Spiele – nur dieses Handy findet sie wieder. Du kannst sie jederzeit löschen, sonst verschwindet sie nach ${SAVED_AVATAR_RETENTION_DAYS} Tagen ohne Spiel.`;
 
 /**
  * "📸 Selfie machen" / "🖼️ Foto wählen" (/ "😀 Emoji nehmen"), the one-time
@@ -215,8 +213,8 @@ export function PhotoProgress({
   me: PublicPlayer;
   uploading: boolean;
   uploadError: string | null;
-  /** "Passt!" – `keep`: also save the figure for next time. */
-  onAccept: (keep: boolean) => void;
+  /** "Passt!" (the server also keeps the figure for next time). */
+  onAccept: () => void;
   /** Upload again: a new photo, or (no argument) the one still in memory. */
   onRetry: (photo?: Blob) => void;
   /** False after a reload – "Nochmal" then asks for a new photo. */
@@ -226,7 +224,6 @@ export function PhotoProgress({
 }) {
   const photo = me.avatar.photo;
   const [choosing, setChoosing] = useState(false);
-  const [keep, setKeep] = useState(false);
   const retriesLeft = photo?.regenerationsLeft ?? 0;
 
   if (choosing) {
@@ -292,11 +289,10 @@ export function PhotoProgress({
           >
             Nochmal
           </Button>
-          <Button type="button" glow onClick={() => onAccept(keep)} className="!px-3">
+          <Button type="button" glow onClick={onAccept} className="!px-3">
             Passt!
           </Button>
         </div>
-        <KeepFigureToggle checked={keep} onChange={setKeep} />
         <p className="text-base text-cream/70">
           {retriesLeft === 0 ? "Keine Versuche mehr übrig." : `Noch ${retriesLeft} ${retriesLeft === 1 ? "Versuch" : "Versuche"} übrig.`}
         </p>
@@ -337,24 +333,6 @@ export function PhotoProgress({
   }
 
   return null;
-}
-
-/** Opt-in "⭐ Figur fürs nächste Mal behalten". */
-export function KeepFigureToggle({ checked, onChange }: { checked: boolean; onChange: (keep: boolean) => void }) {
-  return (
-    <label className="flex w-full cursor-pointer items-start gap-3 rounded-2xl border-2 border-bulb/50 bg-petrol/50 p-3 text-left">
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={(e) => onChange(e.target.checked)}
-        className="mt-1 size-6 shrink-0 accent-orange"
-      />
-      <span>
-        <span className="block text-lg font-bold">⭐ Figur fürs nächste Mal behalten</span>
-        <span className="block text-sm text-cream/75">{KEEP_FIGURE_TEXT}</span>
-      </span>
-    </label>
-  );
 }
 
 /**

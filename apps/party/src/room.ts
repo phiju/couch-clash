@@ -446,6 +446,10 @@ export class Room extends Server<Env> implements AvatarRoomApi {
         const result = await acceptPhotoAndGenerate(this.roomAccess, this.avatarDeps(), state.playerId, now);
         if (!result.ok) return this.send(conn, errorMessage(result.error));
         if (result.value) this.ctx.waitUntil(result.value);
+        // The consent before "Verwandeln!" says the figure is kept for next time: save it now
+        // (faces and standing figures follow as they are made). The id goes to this connection only.
+        const saved = await savePlayerPhoto(this.roomAccess, this.avatarStore(), state.playerId, now);
+        if (saved.ok) this.send(conn, { type: "photo_saved", savedId: saved.value });
         return;
       }
 
@@ -473,6 +477,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
         this.voice.hostEvent(msg.lineId, msg.event, msg.endsAt);
         return;
 
+      // Older phones still send this (saving is automatic since "Passt!").
       case "photo_save": {
         const state = conn.state;
         if (state?.role !== "player") return this.send(conn, errorMessage("NOT_AUTHORIZED"));
