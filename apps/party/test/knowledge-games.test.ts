@@ -107,7 +107,7 @@ describe("knowledge games in the room", () => {
     const { room, ids } = room3();
     const scoring = structuredClone(doubleMeta.scoring) as ScoringSettings;
     let r = start(room, [{ categoryId: "double-or-nothing", questionCount: 3, scoring }], ids);
-    r = unwrap(advance(r, deps(T0 + 20_000, ids))); // decision timeout → question
+    r = unwrap(advance(r, deps(T0 + 20_000, ids))); // question 1 (no choice before it) → the reveal
     const p = progressOf(r)!;
     expect(p.categoryId).toBe("double-or-nothing");
     expect(p.contentCategoryId).toBe("quiz");

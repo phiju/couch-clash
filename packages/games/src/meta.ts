@@ -46,7 +46,7 @@ export { PIXELPANIK_CONFIG, PIXELPANIK_STAGES } from "./pixelpanik/meta";
 export * from "./pixelpanik/types";
 export { BET_CONFIG } from "./bet/meta";
 export { CATEGORY_PICK_CONFIG } from "./category-pick/meta";
-export { DOUBLE_CONFIG } from "./double/meta";
+export { DOUBLE_CONFIG, potAfterWin } from "./double/meta";
 export { FUEHRERSCHEIN_CONFIG } from "./fuehrerschein/meta";
 export { examStampDelayMs } from "./fuehrerschein/exam";
 export { BLUFF_CONFIG, OPTION_LETTERS } from "./bluff/meta";
