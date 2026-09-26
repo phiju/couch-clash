@@ -25,6 +25,8 @@ export interface ProviderTrack {
   /** Main artists (duets); featured artists are not in here. */
   mainArtists: string[];
   album: string | null;
+  /** Provider album id (Deezer: the album tells whether it is a compilation and its release date). */
+  albumId?: string | null;
   coverUrl: string | null;
   sourceUrl: string | null;
   previewUrl: string | null;
@@ -33,6 +35,15 @@ export interface ProviderTrack {
   /** Provider's release date – often a sampler or remaster: never used as the original year. */
   releaseDate: string | null;
   isrc: string | null;
+}
+
+/** An album as Deezer describes it – the live catalog takes the year from it. */
+export interface AlbumInfo {
+  id: string;
+  title: string;
+  /** "album", "single", "ep" or "compile" (sampler). */
+  recordType: string | null;
+  releaseDate: string | null;
 }
 
 export interface PlaylistInfo {
@@ -165,7 +176,7 @@ interface DeezerTrack {
   release_date?: string;
   isrc?: string;
   artist?: { name: string };
-  album?: { title?: string; cover_medium?: string; cover_big?: string; release_date?: string };
+  album?: { id?: number; title?: string; cover_medium?: string; cover_big?: string; release_date?: string };
   contributors?: { name: string; role?: string }[];
 }
 
@@ -182,6 +193,7 @@ export function deezerTrack(t: DeezerTrack): ProviderTrack {
     artist,
     mainArtists: main.length ? [...new Set(main)] : [artist],
     album: t.album?.title ?? null,
+    albumId: t.album?.id !== undefined ? String(t.album.id) : null,
     coverUrl: t.album?.cover_big ?? t.album?.cover_medium ?? null,
     sourceUrl: t.link ?? null,
     previewUrl: t.preview || null,
@@ -230,6 +242,16 @@ export class DeezerProvider implements SongProvider {
 
   async preview(ref: TrackRef): Promise<string | null> {
     return (await this.track(ref.trackId))?.previewUrl ?? null;
+  }
+
+  async album(albumId: string): Promise<AlbumInfo | null> {
+    try {
+      const a = await this.call<{ id: number; title?: string; record_type?: string; release_date?: string }>(`/album/${encodeURIComponent(albumId)}`);
+      return { id: String(a.id), title: a.title ?? "", recordType: a.record_type ?? null, releaseDate: a.release_date ?? null };
+    } catch (err) {
+      if (err instanceof ProviderError && err.status === 404) return null;
+      throw err;
+    }
   }
 
   async playlistTracks(playlistId: string, limit = 500): Promise<ProviderTrack[]> {

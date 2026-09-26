@@ -66,6 +66,11 @@ function playSolo(id: string, seed = 1, opts: { players?: string[]; decoys?: boo
       update = apply(module.resolveTask!(state, task.id, previews, ctx())!);
       continue;
     }
+    if (task?.kind === "song_catalog") {
+      // Musik-Quiz: no live songs offline – the test songs play.
+      update = apply(module.resolveTask!(state, task.id, null, ctx())!);
+      continue;
+    }
     if (task) {
       const reply = opts.decoys === false ? null : { results: [], decoys: ["Ein erfundener Hut", "Eine Suppe aus Tirol", "Ein Tanz der Seeleute"] };
       // The judge reply for the player's text: "bluff", kept as written.

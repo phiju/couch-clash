@@ -1,8 +1,11 @@
 /**
  * Musik-Quiz – server-authoritative logic (pure, no I/O, no timers).
  *
- * Round: loading (the room fetches fresh preview URLs per track – they
- * expire, so they are never stored in the song database) → per song:
+ * Round: loading – the room fetches the songs live from Deezer (playlists of
+ * the picked genres, module task "song_catalog", each with a fresh preview
+ * URL), the round is planned from them plus songs.json / test songs (those
+ * get their preview URLs from a second task – they expire, so they are never
+ * stored) → per song:
  *
  *   announce (question type big on the TV, 2–3 s)
  *   → play:
@@ -25,6 +28,8 @@
 import {
   MUSIK_SONGS,
   MUSIK_TEST_SONGS,
+  SONG_GENRE_IDS,
+  SONG_IMPORT_CONFIG,
   SongOverrideSchema,
   SongSchema,
   applySongOverrides,
@@ -59,7 +64,7 @@ import {
   type MusikPointId,
   type MusikQuestionTypeId,
 } from "./meta";
-import { eligibleSongs, isPartySong, kidsChoices, planRound } from "./plan";
+import { eligibleSongs, isPartySong, kidsChoices, planRound, songFitsMode } from "./plan";
 import { QUESTION_TYPES, type PreparedSong } from "./question-types";
 import { buzzPoints, partialPoints, scoreYears, type MusikPoints } from "./scoring";
 import type { MusikAction, MusikEvent, MusikInput, MusikPublicState, MusikRevealResult, MusikStep } from "./types";
@@ -98,8 +103,28 @@ export interface MusikRun {
   at: number | null;
 }
 
+/** What the round plan needs once the live songs are in (kept while the catalog loads). */
+export interface MusikPlanRequest {
+  mode: "kids" | "family" | "party";
+  /** Picked genres (empty = Zufall). */
+  genres: string[];
+  /** Genres asked live (picked ones that fit the mode, or every genre of the mode). */
+  liveGenres: string[];
+  count: number;
+  weights: Partial<Record<MusikQuestionTypeId, number>>;
+  blocked: string[];
+  gameIds: string[];
+  sessionIds: string[];
+  /** Admin corrections (also for live songs, by id). */
+  overrides: SongOverride[];
+  /** songs.json / test songs added as extra content. */
+  added: Song[];
+}
+
 export interface MusikState {
   step: MusikStep;
+  /** Loading: the live catalog is still on its way (null once the round is planned). */
+  plan: MusikPlanRequest | null;
   kids: boolean;
   pending: MusikPendingSlot[];
   slots: MusikSlot[];
@@ -162,8 +187,8 @@ export function prepareSong(s: Song): PreparedSong {
   };
 }
 
-/** Static songs + extra content (test songs, admin overrides) → the songs a round may play. */
-export function songPool(staticSongs: readonly Song[], extra: readonly unknown[] = []): Song[] {
+/** Extra content → admin overrides and added songs. */
+function splitExtra(extra: readonly unknown[] = []): { overrides: SongOverride[]; added: Song[] } {
   const overrides: SongOverride[] = [];
   const added: Song[] = [];
   for (const raw of extra) {
@@ -175,8 +200,51 @@ export function songPool(staticSongs: readonly Song[], extra: readonly unknown[]
     const s = SongSchema.safeParse(raw);
     if (s.success) added.push(s.data);
   }
-  const ids = new Set(staticSongs.map((s) => s.id));
-  return applySongOverrides([...staticSongs, ...added.filter((s) => !ids.has(s.id))], overrides);
+  return { overrides, added };
+}
+
+/** Songs (first wins per id) with the admin overrides on top. */
+function mergeSongs(lists: readonly (readonly Song[])[], overrides: readonly SongOverride[]): Song[] {
+  const seen = new Set<string>();
+  const all: Song[] = [];
+  for (const list of lists) {
+    for (const song of list) {
+      if (seen.has(song.id)) continue;
+      seen.add(song.id);
+      all.push(song);
+    }
+  }
+  return applySongOverrides(all, overrides);
+}
+
+/** Static songs + extra content (test songs, admin overrides) → the songs a round may play. */
+export function songPool(staticSongs: readonly Song[], extra: readonly unknown[] = []): Song[] {
+  const { overrides, added } = splitExtra(extra);
+  return mergeSongs([staticSongs, added], overrides);
+}
+
+/** Genres asked live: the picked ones that fit the mode – none picked (Zufall) → every genre of the mode. */
+export function liveGenresFor(mode: MusikPlanRequest["mode"], picked: ReadonlySet<string>): string[] {
+  return SONG_GENRE_IDS.filter((g) => {
+    const config = SONG_IMPORT_CONFIG.genres[g];
+    return !!config && songFitsMode(config, mode) && (picked.size === 0 || picked.has(g));
+  });
+}
+
+const LiveCatalogReplySchema = z.object({
+  songs: z.array(z.unknown()).max(500),
+  previews: z.record(z.string(), z.string().url()),
+});
+
+/** The live catalog's reply → songs that have a preview (invalid ones dropped). */
+function liveSongs(result: unknown): { songs: Song[]; previews: Record<string, string> } {
+  const parsed = LiveCatalogReplySchema.safeParse(result);
+  if (!parsed.success) return { songs: [], previews: {} };
+  const songs = parsed.data.songs.flatMap((raw) => {
+    const s = SongSchema.safeParse(raw);
+    return s.success && parsed.data.previews[s.data.id] ? [s.data] : [];
+  });
+  return { songs, previews: parsed.data.previews };
 }
 
 function contentEntry(s: Song): ContentEntry {
@@ -391,6 +459,51 @@ export function createMusikModule(opts: MusikModuleOptions = {}): MusikModule {
     return { ...openSong(s, 0, ctx), usedContentIds: slots.map((x) => x.song.id) };
   }
 
+  /**
+   * The live songs are in (null: none / timeout): plan the round from them
+   * plus songs.json / test songs. Songs without a preview yet (not live, not
+   * local) get it from the previews task; otherwise the round starts now.
+   */
+  function planFrom(state: MusikState, live: { songs: Song[]; previews: Record<string, string> } | null, ctx: ModuleContext, final: boolean): ModuleUpdate<MusikState> {
+    const req = state.plan!;
+    const previews = live?.previews ?? {};
+    const pool = eligibleSongs(mergeSongs([staticSongs, req.added, live?.songs ?? []], req.overrides), {
+      mode: req.mode,
+      genres: new Set(req.genres),
+      blocked: new Set(req.blocked),
+      minPopularity: MUSIK_CONFIG.minPopularity,
+    });
+    const kids = req.mode === "kids";
+    const planned = planRound(pool, {
+      count: req.count,
+      weights: req.weights,
+      gameIds: new Set(req.gameIds),
+      sessionIds: new Set(req.sessionIds),
+      random: ctx.random,
+    });
+    const pending: MusikPendingSlot[] = planned.map((slot) => ({
+      type: slot.type,
+      candidates: slot.candidates.map((song) => {
+        const prepared = prepareSong(song);
+        return {
+          song: previews[song.id] ? { ...prepared, previewUrl: previews[song.id]! } : prepared,
+          kids: kids ? kidsChoices(song, pool, ctx.random) : null,
+        };
+      }),
+    }));
+    const s: MusikState = { ...state, plan: null, pending };
+    if (pending.length === 0) return { state: s, phaseEndsAt: null, done: true };
+    // Everything has its audio already (live songs, local test files) – or no time left to look more up.
+    if (final || pending.every((p) => p.candidates.every((c) => c.song.previewUrl))) return startRound(s, null, ctx);
+    const next: MusikState = { ...s, stepEndsAt: ctx.now + MUSIK_CONFIG.previewTimeoutMs + 2_000 };
+    return { state: next, phaseEndsAt: next.stepEndsAt };
+  }
+
+  function logEmpty(update: ModuleUpdate<MusikState>, options: ModuleInitOptions, plan: MusikPlanRequest): ModuleUpdate<MusikState> {
+    if (update.done && update.state.slots.length === 0) options.log?.("musik: no playable songs", { mode: plan.mode, genres: plan.genres });
+    return update;
+  }
+
   function checkTask(state: MusikState): MusikState["check"] {
     return state.step === "checking" ? state.check : null;
   }
@@ -407,37 +520,34 @@ export function createMusikModule(opts: MusikModuleOptions = {}): MusikModule {
       const kids = mode === "kids";
       const opt = options.options ?? {};
       const genres = new Set<string>(MUSIK_GENRES.filter((g) => opt[genreOptionId(g.id)]).map((g) => g.id));
-      const pool = eligibleSongs(songPool(staticSongs, options.extraContent), {
-        mode,
-        genres,
-        blocked: options.blockedContentIds,
-        minPopularity: MUSIK_CONFIG.minPopularity,
-      });
+      const { overrides, added } = splitExtra(options.extraContent);
       // Kids: title only (not changeable). Otherwise the active types by weight (none switched on → all).
       const active = MUSIK_QUESTION_TYPE_IDS.filter((t) => opt[MUSIK_TYPE_INFO[t].optionId] !== false);
       const weights: Partial<Record<MusikQuestionTypeId, number>> = kids
         ? { title: 1 }
         : Object.fromEntries((active.length ? active : MUSIK_QUESTION_TYPE_IDS).map((t) => [t, points[MUSIK_TYPE_INFO[t].weightId as MusikPointId]]));
       if (!kids && Object.values(weights).every((w) => !w)) for (const t of active.length ? active : MUSIK_QUESTION_TYPE_IDS) weights[t] = 1;
-      const planned = planRound(pool, {
+      const plan: MusikPlanRequest = {
+        mode,
+        genres: [...genres],
+        liveGenres: liveGenresFor(mode, genres),
         count: options.questionCount,
         weights,
-        gameIds: new Set(options.currentGameContentIds ?? []),
-        sessionIds: new Set(options.excludeContentIds),
-        random: ctx.random,
-      });
-      const pending: MusikPendingSlot[] = planned.map((slot) => ({
-        type: slot.type,
-        candidates: slot.candidates.map((song) => ({ song: prepareSong(song), kids: kids ? kidsChoices(song, pool, ctx.random) : null })),
-      }));
+        blocked: [...(options.blockedContentIds ?? [])],
+        gameIds: [...(options.currentGameContentIds ?? [])],
+        sessionIds: [...(options.excludeContentIds ?? [])],
+        overrides,
+        added,
+      };
       const state: MusikState = {
         step: "loading",
+        plan,
         kids,
-        pending,
+        pending: [],
         slots: [],
         index: 0,
         stepStartedAt: ctx.now,
-        stepEndsAt: ctx.now + MUSIK_CONFIG.previewTimeoutMs + 2_000,
+        stepEndsAt: ctx.now + MUSIK_CONFIG.catalogTimeoutMs + 2_000,
         clip: null,
         buzz: null,
         check: null,
@@ -451,20 +561,26 @@ export function createMusikModule(opts: MusikModuleOptions = {}): MusikModule {
         aiCheck: opt.aiCheck === true,
         events: [],
         eventSeq: 0,
-        roundKey: `${ctx.now}:${planned.map((p) => p.candidates[0]!.id).join(",")}`,
+        roundKey: `${ctx.now}:${mode}:${[...genres].join(",")}`,
         yearMax: new Date(ctx.now).getUTCFullYear(),
       };
-      if (pending.length === 0) {
-        options.log?.("musik: no playable songs (did pnpm songs:import run?)", { mode, genres: [...genres] });
-        return { state, phaseEndsAt: null, done: true };
-      }
+      // Nothing to ask live (no genre of this mode picked): plan from the stored songs right away.
+      if (plan.liveGenres.length === 0) return logEmpty(planFrom(state, null, ctx, false), options, plan);
       return { state, phaseEndsAt: state.stepEndsAt };
     },
 
     pendingTask(state) {
+      if (state.step === "loading" && state.plan) {
+        return {
+          id: `${state.roundKey}:catalog`,
+          kind: "song_catalog",
+          input: { genres: state.plan.liveGenres, questions: state.plan.count },
+          timeoutMs: MUSIK_CONFIG.catalogTimeoutMs,
+        };
+      }
       if (state.step === "loading") {
         const tracks: SongPreviewRequest[] = state.pending.flatMap((p) =>
-          p.candidates.map(({ song }) => ({
+          p.candidates.filter(({ song }) => !song.previewUrl).map(({ song }) => ({
             songId: song.id,
             provider: song.provider,
             trackId: song.providerTrackId,
@@ -494,7 +610,11 @@ export function createMusikModule(opts: MusikModuleOptions = {}): MusikModule {
     },
 
     resolveTask(state, taskId, result, ctx) {
-      if (state.step === "loading" && taskId === `${state.roundKey}:previews`) {
+      if (state.step === "loading" && state.plan && taskId === `${state.roundKey}:catalog`) {
+        const live = result === null ? null : liveSongs(result);
+        return planFrom(state, live, ctx, false);
+      }
+      if (state.step === "loading" && !state.plan && taskId === `${state.roundKey}:previews`) {
         const parsed = z.record(z.string(), z.string().nullable()).safeParse(result);
         return startRound(state, parsed.success ? parsed.data : null, ctx);
       }
@@ -572,7 +692,9 @@ export function createMusikModule(opts: MusikModuleOptions = {}): MusikModule {
     onTimer(state, ctx) {
       switch (state.step) {
         case "loading":
-          // The previews never came: play what needs no lookup (local test songs).
+          // The songs never came: plan from what is there and play what has audio already.
+          if (state.plan) return planFrom(state, null, ctx, true);
+          // The previews never came: play what needs no lookup (live songs, local test songs).
           return startRound(state, null, ctx);
         case "announce":
           return startPlay(state, ctx);
@@ -608,7 +730,7 @@ export function createMusikModule(opts: MusikModuleOptions = {}): MusikModule {
       const wrong = Object.values(state.runs).filter((r) => r.lockedOut).length;
       return {
         index: state.index,
-        total: state.slots.length || state.pending.length,
+        total: state.slots.length || state.pending.length || (state.plan?.count ?? 0),
         // Buzzer: a new step after every wrong answer, so test bots may buzz again.
         step: state.step === "play" ? `play-${wrong}` : state.step,
         contentId: slot?.song.id,
@@ -683,7 +805,7 @@ export function createMusikModule(opts: MusikModuleOptions = {}): MusikModule {
       return {
         step: state.step,
         index: state.index,
-        total: state.slots.length || state.pending.length,
+        total: state.slots.length || state.pending.length || (state.plan?.count ?? 0),
         type,
         input,
         typeInfo: { label: info.label, emoji: info.emoji, hint: info.hint },

@@ -37,7 +37,7 @@ import { meteredFetchFor, type FetchFor } from "./costs/meter";
 import { d1CostStore, usageRecorder } from "./costs/store";
 import { VoiceDirector } from "./voice/director";
 import { loadContentFilter, type ContentFilter } from "./stats/content-filter";
-import { createPreviewLookup, createProviders } from "./songs/previews";
+import { createPreviewLookup, createProviders, createSongCatalog } from "./songs/previews";
 import { d1SongOverrideStore } from "./songs/store";
 import { StatsRecorder } from "./stats/recorder";
 import { createOpenAIJsonModel } from "./generate/model";
@@ -166,6 +166,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
         : null,
     // Musik-Quiz: fresh preview URLs (free APIs, no key, not metered).
     songs: () => createPreviewLookup(createProviders((input, init) => fetch(input, init))),
+    songCatalog: () => createSongCatalog(createProviders((input, init) => fetch(input, init)).deezer),
   });
 
   /** Blocked ids + generated questions, refreshed before each round starts. */

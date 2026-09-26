@@ -3,7 +3,7 @@
  * task runner at the round start, the buzzer order decided by arrival at the
  * server, points into the game's scores, Kids without a timer.
  */
-import { MUSIK_TEST_SONGS } from "@couch-clash/content";
+import { MUSIK_TEST_SONGS, type LiveCatalogResult, type Song } from "@couch-clash/content";
 import {
   GAME_MODULES,
   createMusikModule,
@@ -32,7 +32,18 @@ function unwrap<T>(r: Result<T>): T {
 let seed = 3;
 const random = () => (seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296;
 
-async function setup(mode: GameMode, options: Record<string, boolean> = {}) {
+/** Songs the fake Deezer catalog returns (with their fresh previews). */
+const LIVE: Song[] = MUSIK_TEST_SONGS.slice(0, 4).map((s, i) => ({
+  ...s,
+  id: `song-live-${i}`,
+  provider: "deezer",
+  providerTrackId: String(500 + i),
+  previewUrl: null,
+  genres: ["90er"],
+}));
+const liveReply: LiveCatalogResult = { songs: LIVE, previews: Object.fromEntries(LIVE.map((s) => [s.id, `https://cdn.example/${s.providerTrackId}.mp3`])) };
+
+async function setup(mode: GameMode, options: Record<string, boolean> = {}, live: LiveCatalogResult | null = null) {
   let room = createRoomRecord("MUSI", "host-token-0123456789abcdef", T0);
   const ids: string[] = [];
   for (const name of ["Anna", "Ben"]) {
@@ -51,11 +62,13 @@ async function setup(mode: GameMode, options: Record<string, boolean> = {}) {
   room = unwrap(advance(room, deps())); // intro → loading
 
   const asked: SongPreviewRequest[][] = [];
+  const catalogs: { genres: readonly string[]; questions: number }[] = [];
   const pending: Promise<unknown>[] = [];
-  const runner = new ModuleTaskRunner({
+  const runner: ModuleTaskRunner = new ModuleTaskRunner({
     read: () => room,
     commit: async (next) => {
       room = next;
+      runner.roomChanged(next);
     },
     waitUntil: (p) => pending.push(p),
     flowDeps: deps,
@@ -64,10 +77,17 @@ async function setup(mode: GameMode, options: Record<string, boolean> = {}) {
       asked.push([...tracks]);
       return Object.fromEntries(tracks.map((t) => [t.songId, t.previewUrl ?? null]));
     },
+    songCatalog: live
+      ? () => async (input) => {
+          catalogs.push(input);
+          return live;
+        }
+      : undefined,
     registry,
   });
   runner.roomChanged(room);
-  await Promise.all(pending);
+  // The catalog task, then (maybe) the previews task.
+  while (pending.length) await pending.shift();
   return {
     get room() {
       return room;
@@ -77,6 +97,7 @@ async function setup(mode: GameMode, options: Record<string, boolean> = {}) {
     },
     ids,
     asked,
+    catalogs,
     deps,
     tick: (ms: number) => (now += ms),
     at: (t: number) => (now = t),
@@ -88,12 +109,21 @@ const view = (room: RoomRecord, viewer: "host" | string) =>
   publicGame(room, viewer === "host" ? { role: "host" } : { role: "player", playerId: viewer }, registry)!.module as MusikPublicState;
 
 describe("Musik-Quiz in the room", () => {
-  it("round start: the room looks up fresh previews, then announces the first song", async () => {
-    const t = await setup("family", { typeTitle: true, typeArtist: false, typeYear: false });
-    expect(t.asked).toHaveLength(1);
-    expect(t.asked[0]!.length).toBeGreaterThanOrEqual(3);
+  it("round start: the room fetches the songs live (with previews), then announces the first song", async () => {
+    const t = await setup("family", { typeTitle: true, typeArtist: false, typeYear: false, "genre-90er": true }, liveReply);
+    expect(t.catalogs).toEqual([{ genres: ["90er"], questions: 3 }]);
+    // Live songs bring their preview; local test songs need none – no second lookup.
+    expect(t.asked).toHaveLength(0);
     expect(state(t.room).step).toBe("announce");
+    expect(state(t.room).slots).toHaveLength(3);
+    expect(state(t.room).slots.some((s) => s.song.previewUrl?.startsWith("https://cdn.example/"))).toBe(true);
     expect(view(t.room, "host").clip).toBeNull();
+  });
+
+  it("round start without the live catalog: the stored songs play", async () => {
+    const t = await setup("family", { typeTitle: true, typeArtist: false, typeYear: false });
+    expect(state(t.room).step).toBe("announce");
+    expect(state(t.room).slots.every((s) => s.song.provider === "local")).toBe(true);
   });
 
   it("buzzer: arrival order at the server decides, points land in the scores", async () => {

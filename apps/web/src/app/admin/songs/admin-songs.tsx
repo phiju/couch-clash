@@ -93,7 +93,7 @@ function SongsView({ token, onLogout }: { token: string; onLogout: (message?: st
         <>
           <p className="text-cream/80">
             {data.songs.length} Songs · {unverified} ohne bestätigtes Jahr (spielen nie „Aus welchem Jahr?“) ·{" "}
-            {data.importedAt ? `Import: ${new Date(data.importedAt).toLocaleString("de-DE")}` : "noch nicht importiert – pnpm songs:import"}
+            {data.importedAt ? `Import: ${new Date(data.importedAt).toLocaleString("de-DE")}` : "keine gespeicherten Songs – die Runden holen ihre Songs live von Deezer"}
           </p>
           <div className="panel flex flex-wrap items-center gap-4 !rounded-2xl p-3">
             <input
