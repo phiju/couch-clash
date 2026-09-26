@@ -28,6 +28,15 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.20.1",
+    date: "2026-09-26",
+    title: "Die Lobby hat sich hübsch gemacht.",
+    items: [
+      { emoji: "✨", text: "Aufgeräumte Lobby: Einstellungen ordentlich in einer Reihe" },
+      { emoji: "🎬", text: "„Spiel starten“ steht jetzt frei und groß in der Mitte" },
+    ],
+  },
+  {
     version: "0.20.0",
     date: "2026-09-26",
     title: "Das Survival-Finale klingt jetzt so, wie es aussieht: Es blubbert, ruckelt, platscht.",
