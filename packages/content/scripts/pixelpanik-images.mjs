@@ -45,6 +45,7 @@
  *
  * Env: OPENAI_API_KEY (only for "ai" – read from the environment, never
  * logged), PIXELPANIK_IMAGE_MODEL (default "gpt-image-2", like the avatars).
+ * Behind an HTTPS proxy: NODE_USE_ENV_PROXY=1 (Node's fetch ignores HTTPS_PROXY otherwise).
  */
 import { randomBytes } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
@@ -111,6 +112,10 @@ async function fromOpenAI(item) {
         size: "1024x1024",
         quality: args.quality,
         n: 1,
+        // Streamed: partial pictures keep bytes flowing, so proxies with an idle
+        // timeout (e.g. 30 s) don't cut off a picture that takes longer.
+        stream: true,
+        partial_images: 1,
       }),
     });
     if ((res.status === 429 || res.status >= 500) && attempt < 6) {
@@ -131,13 +136,25 @@ async function fromOpenAI(item) {
       }
       throw new Error(`OpenAI ${res.status}: ${message.slice(0, 300)}`);
     }
-    const json = await res.json();
-    const b64 = json.data?.[0]?.b64_json;
+    const b64 = finalImage(await res.text());
     if (b64) return { buffer: Buffer.from(b64, "base64") };
-    const url = json.data?.[0]?.url;
-    if (url) return { buffer: await download(url) };
     throw new Error("OpenAI: no image in the answer");
   }
+}
+
+/** The finished picture from the event stream (image_generation.completed), or from a plain JSON answer. */
+function finalImage(body) {
+  if (body.trimStart().startsWith("{")) return JSON.parse(body).data?.[0]?.b64_json ?? null;
+  let image = null;
+  for (const line of body.split("\n")) {
+    if (!line.startsWith("data:")) continue;
+    const data = line.slice(5).trim();
+    if (!data || data === "[DONE]") continue;
+    const event = JSON.parse(data);
+    if (event.type === "error" || event.error) throw new Error(`OpenAI stream: ${event.error?.message ?? data.slice(0, 300)}`);
+    if (event.type === "image_generation.completed") image = event.b64_json;
+  }
+  return image;
 }
 
 /** flag-icons, 1x1 variant, rendered at full size. */
