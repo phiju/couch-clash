@@ -7,10 +7,11 @@
  * Nothing happens until `unlock()` is called from a user gesture – only
  * host screens do that, so player phones stay silent.
  *
- *   sources → music bus (0.8) → duck gain ─┐
- *   sources → effects bus (1.0) ───────────┤
- *   game sounds → sound bus (1.0) → duck ──┤  (Survival-Finale: one-shots + loops, lowered while the host speaks)
- *   host voice → voice bus (1.8) ──────────┴→ master (volume slider) → speakers
+ *   sources → music bus (0.6) → duck → bed duck ─────────┐
+ *   sources → effects bus (1.0) ──────────────────────────┤
+ *   game loops → loops bus → bed duck ─┐                  │
+ *   game one-shots ────────────────────┴→ sound bus (1.6) → duck ─┤  (Survival-Finale; lowered a little while the host speaks)
+ *   host voice → voice bus (1.8) ──────────┴→ master (volume slider) → limiter → speakers
  */
 import { sequenceSchedule } from "../voice/sequence";
 import { loopPoints, parseAudioManifest, AUDIO_BASE, type AudioEntry } from "./manifest";
@@ -27,14 +28,22 @@ import {
   type SurvivalOneShotId,
 } from "./scenes";
 
-const MUSIC_GAIN = 0.8;
+/** Background music is a bed under everything else. */
+const MUSIC_GAIN = 0.6;
 const EFFECTS_GAIN = 1.0;
 /** The host's voice is clearly louder than the (ducked) music. */
 const VOICE_GAIN = 1.8;
 const DUCK_LEVEL = 0.3;
-/** Game sounds all play at the same base level (the files are balanced); only lowered while the host speaks. */
-const SOUNDS_GAIN = 1.0;
-const SOUNDS_DUCK_LEVEL = 0.35;
+/**
+ * Game sounds all play at the same base level (the files are balanced). They
+ * must cut through the running music and sit just under the host's voice –
+ * at 1.0 (music level) and 0.35 while he speaks (he comments on the very
+ * events that trigger them), they were buried and nobody heard them.
+ */
+const SOUNDS_GAIN = 1.6;
+const SOUNDS_DUCK_LEVEL = 0.7;
+/** While a game one-shot plays, the background (music + game loops) steps back to this level. */
+const BED_DUCK_LEVEL = 0.4;
 const DEFAULT_FADE = 0.8;
 const VOLUME_KEY = "couchclash:volume";
 
@@ -70,6 +79,11 @@ export class AudioEngine {
   private voiceBus!: GainNode;
   private soundsBus!: GainNode;
   private soundsDuck!: GainNode;
+  /** Background under game one-shots: music and the game loops. */
+  private musicBedDuck!: GainNode;
+  private loopsBedDuck!: GainNode;
+  /** Game one-shots playing right now (the background ducks while > 0). */
+  private soundShots = 0;
   /** Game-sound loops by id, and the level each one should have (0 = off). */
   private loops = new Map<SurvivalLoopId, { source: AudioBufferSourceNode; gain: GainNode }>();
   private loopLevels = new Map<SurvivalLoopId, number>();
@@ -123,11 +137,19 @@ export class AudioEngine {
       this.ctx = ctx;
       this.master = ctx.createGain();
       this.master.gain.value = this._volume;
-      this.master.connect(ctx.destination);
+      // Safety limiter: loud sounds on top of the voice must never clip.
+      const limiter = ctx.createDynamicsCompressor();
+      limiter.threshold.value = -3;
+      limiter.knee.value = 0;
+      limiter.ratio.value = 20;
+      limiter.attack.value = 0.003;
+      limiter.release.value = 0.15;
+      this.master.connect(limiter).connect(ctx.destination);
       this.musicBus = ctx.createGain();
       this.musicBus.gain.value = MUSIC_GAIN;
       this.duck = ctx.createGain();
-      this.musicBus.connect(this.duck).connect(this.master);
+      this.musicBedDuck = ctx.createGain();
+      this.musicBus.connect(this.duck).connect(this.musicBedDuck).connect(this.master);
       this.effectsBus = ctx.createGain();
       this.effectsBus.gain.value = EFFECTS_GAIN;
       this.effectsBus.connect(this.master);
@@ -138,6 +160,8 @@ export class AudioEngine {
       this.soundsBus.gain.value = SOUNDS_GAIN;
       this.soundsDuck = ctx.createGain();
       this.soundsBus.connect(this.soundsDuck).connect(this.master);
+      this.loopsBedDuck = ctx.createGain();
+      this.loopsBedDuck.connect(this.soundsBus);
       // A silent buffer "unlocks" playback on iOS/Safari.
       const silent = ctx.createBufferSource();
       silent.buffer = ctx.createBuffer(1, 1, 22050);
@@ -393,6 +417,7 @@ export class AudioEngine {
     el.preload = "auto";
     el.preservesPitch = true;
     el.src = url;
+    let ended: { promise: Promise<void>; done: () => void } | null = null;
     try {
       await new Promise<void>((resolve, reject) => {
         el.addEventListener("loadedmetadata", () => resolve(), { once: true });
@@ -403,15 +428,18 @@ export class AudioEngine {
       el.playbackRate = rate;
       this.stopVoice();
       this.voiceElement = el;
-      const ended = this.voiceStarted(() => {
+      const started = this.voiceStarted(() => {
         node.disconnect();
         if (this.voiceElement === el) this.voiceElement = null;
       });
-      el.addEventListener("ended", ended.done, { once: true });
-      el.addEventListener("error", ended.done, { once: true });
+      ended = started;
+      el.addEventListener("ended", started.done, { once: true });
+      el.addEventListener("error", started.done, { once: true });
       await el.play();
-      return { durationMs: Math.round((el.duration / rate) * 1000), ended: ended.promise };
+      return { durationMs: Math.round((el.duration / rate) * 1000), ended: started.promise };
     } catch {
+      // play() refused after the ducking started: release it, or music and game sounds stay lowered for good.
+      ended?.done();
       el.removeAttribute("src");
       return null;
     }
@@ -502,8 +530,9 @@ export class AudioEngine {
   }
 
   /**
-   * A game sound, once, at the same base level as all others. Never ducks
-   * the music. `delayMs` schedules it (e.g. the splash on the impact). A
+   * A game sound, once, at the same base level as all others. While it
+   * plays, the background (music + game loops) is lowered so it cuts
+   * through. `delayMs` schedules it (e.g. the splash on the impact). A
    * sound that isn't loaded yet plays only if it is ready within `maxLateMs`
    * – the game never waits for audio, and a late tick is worse than none.
    */
@@ -514,7 +543,17 @@ export class AudioEngine {
       const source = ctx.createBufferSource();
       source.buffer = buffer;
       source.connect(this.soundsBus);
-      source.start(ctx.currentTime + Math.max(0, delay) / 1000);
+      const wait = Math.max(0, delay);
+      source.start(ctx.currentTime + wait / 1000);
+      setTimeout(() => {
+        if (this.ctx !== ctx) return;
+        this.soundShots++;
+        this.setBedDuck(true);
+      }, wait);
+      source.onended = () => {
+        this.soundShots = Math.max(0, this.soundShots - 1);
+        if (this.soundShots === 0) this.setBedDuck(false);
+      };
     };
     const buffer = this.buffers.get(id);
     if (buffer) return start(buffer, delayMs);
@@ -568,9 +607,20 @@ export class AudioEngine {
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0, now);
     gain.gain.linearRampToValueAtTime(level, now + fade);
-    source.connect(gain).connect(this.soundsBus);
+    source.connect(gain).connect(this.loopsBedDuck);
     source.start(now);
     this.loops.set(id, { source, gain });
+  }
+
+  /** Music and game loops step back under a game one-shot (quick down, gentle back up). */
+  private setBedDuck(on: boolean) {
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+    for (const g of [this.musicBedDuck.gain, this.loopsBedDuck.gain]) {
+      g.cancelScheduledValues(now);
+      g.setValueAtTime(g.value, now);
+      g.linearRampToValueAtTime(on ? BED_DUCK_LEVEL : 1, now + (on ? 0.05 : 0.5));
+    }
   }
 
   private setDuck(on: boolean) {
@@ -619,6 +669,23 @@ export class AudioEngine {
         }
       });
     }
+  }
+
+  // ── sound test (developer mode) ───────────────────────────────────────
+  /** Loads one file: its duration, or null if it is missing (404) or can't be decoded. */
+  async probe(id: AudioId): Promise<number | null> {
+    const buffer = await this.load(id);
+    return buffer ? buffer.duration : null;
+  }
+
+  /** The URL a sound is loaded from (after audio.json). */
+  async urlOf(id: AudioId): Promise<string> {
+    return (await this.loadManifest())[id].url;
+  }
+
+  /** How loud the game sounds are right now (1 = normal, less while the host speaks). */
+  get soundsDuckLevel(): number {
+    return this.ctx ? this.soundsDuck.gain.value : 1;
   }
 
   /** For categories that play their own audio (music rounds, karaoke). */
