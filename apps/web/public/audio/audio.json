@@ -34,5 +34,60 @@
     "file": "fanfare.mp3",
     "use": "Final ranking / winner",
     "loop": false
+  },
+  "survival-intro": {
+    "file": "survival-intro.mp3",
+    "use": "Survival-Finale: start of the finale / rules intro",
+    "loop": false
+  },
+  "survival-bonus": {
+    "file": "survival-bonus.mp3",
+    "use": "Survival-Finale: right answer with +50",
+    "loop": false
+  },
+  "survival-wrong": {
+    "file": "survival-wrong.mp3",
+    "use": "Survival-Finale: wrong answer / timeout (−200)",
+    "loop": false
+  },
+  "survival-elevator-jolt": {
+    "file": "survival-elevator-jolt.mp3",
+    "use": "Survival-Finale: the elevator drops (−200), together with survival-wrong",
+    "loop": false
+  },
+  "survival-decay-tick": {
+    "file": "survival-decay-tick.mp3",
+    "use": "Survival-Finale: every −10 of the live decay",
+    "loop": false
+  },
+  "survival-splash": {
+    "file": "survival-splash.mp3",
+    "use": "Survival-Finale: elimination, on the impact in the slime",
+    "loop": false
+  },
+  "survival-final-two": {
+    "file": "survival-final-two.mp3",
+    "use": "Survival-Finale: only two players left",
+    "loop": false
+  },
+  "survival-winner": {
+    "file": "survival-winner.mp3",
+    "use": "Survival-Finale: the winner is decided",
+    "loop": false
+  },
+  "survival-slime-bubble-loop": {
+    "file": "survival-slime-bubble-loop.wav",
+    "use": "Survival-Finale: the slime's constant bubbling (whole file loops seamlessly)",
+    "loop": true
+  },
+  "survival-slime-threat-loop": {
+    "file": "survival-slime-threat-loop.wav",
+    "use": "Survival-Finale: threatening bubbling from CRITICAL, volume by danger",
+    "loop": true
+  },
+  "survival-warning-lamp-loop": {
+    "file": "survival-warning-lamp-loop.wav",
+    "use": "Survival-Finale: warning lamp while someone is ELIMINATION_IMMINENT",
+    "loop": true
   }
 }

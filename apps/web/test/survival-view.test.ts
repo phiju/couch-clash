@@ -149,7 +149,8 @@ describe("show", () => {
     expect(survivalSkipLabel(state())).toBeNull();
     expect(survivalSkipLabel(state({ step: "reveal" }))).toBe("Weiter ⏭");
     expect(survivalAudio(state())?.music).toBe("think");
-    expect(survivalAudio(state({ step: "winner" }))?.enter).toBe("fanfare");
+    expect(survivalAudio(state({ step: "winner" }))).toMatchObject({ music: null });
+    expect(survivalAudio(state({ step: "winner" }))?.enter).toBeUndefined();
   });
 
   it("intro count from main-game points to life energy", () => {

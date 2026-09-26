@@ -9,17 +9,32 @@
  *
  *   sources → music bus (0.8) → duck gain ─┐
  *   sources → effects bus (1.0) ───────────┤
+ *   game sounds → sound bus (1.0) → duck ──┤  (Survival-Finale: one-shots + loops, lowered while the host speaks)
  *   host voice → voice bus (1.8) ──────────┴→ master (volume slider) → speakers
  */
 import { sequenceSchedule } from "../voice/sequence";
 import { loopPoints, parseAudioManifest, AUDIO_BASE, type AudioEntry } from "./manifest";
-import { EFFECT_IDS, MUSIC_IDS, type AudioId, type AudioScene, type EffectId, type MusicId } from "./scenes";
+import {
+  EFFECT_IDS,
+  MUSIC_IDS,
+  SOUND_IDS,
+  type AudioId,
+  type AudioScene,
+  type EffectId,
+  type MusicId,
+  type SoundId,
+  type SurvivalLoopId,
+  type SurvivalOneShotId,
+} from "./scenes";
 
 const MUSIC_GAIN = 0.8;
 const EFFECTS_GAIN = 1.0;
 /** The host's voice is clearly louder than the (ducked) music. */
 const VOICE_GAIN = 1.8;
 const DUCK_LEVEL = 0.3;
+/** Game sounds all play at the same base level (the files are balanced); only lowered while the host speaks. */
+const SOUNDS_GAIN = 1.0;
+const SOUNDS_DUCK_LEVEL = 0.35;
 const DEFAULT_FADE = 0.8;
 const VOLUME_KEY = "couchclash:volume";
 
@@ -53,6 +68,13 @@ export class AudioEngine {
   private duck!: GainNode;
   private effectsBus!: GainNode;
   private voiceBus!: GainNode;
+  private soundsBus!: GainNode;
+  private soundsDuck!: GainNode;
+  /** Game-sound loops by id, and the level each one should have (0 = off). */
+  private loops = new Map<SurvivalLoopId, { source: AudioBufferSourceNode; gain: GainNode }>();
+  private loopLevels = new Map<SurvivalLoopId, number>();
+  /** Voice lines playing right now (the game sounds duck while > 0). */
+  private voices = 0;
   private voiceSource: AudioBufferSourceNode | null = null;
   private voiceElement: HTMLAudioElement | null = null;
   /** Clips scheduled back to back (name clip + line). */
@@ -112,6 +134,10 @@ export class AudioEngine {
       this.voiceBus = ctx.createGain();
       this.voiceBus.gain.value = VOICE_GAIN;
       this.voiceBus.connect(this.master);
+      this.soundsBus = ctx.createGain();
+      this.soundsBus.gain.value = SOUNDS_GAIN;
+      this.soundsDuck = ctx.createGain();
+      this.soundsBus.connect(this.soundsDuck).connect(this.master);
       // A silent buffer "unlocks" playback on iOS/Safari.
       const silent = ctx.createBufferSource();
       silent.buffer = ctx.createBuffer(1, 1, 22050);
@@ -158,7 +184,8 @@ export class AudioEngine {
   private async preload() {
     await this.loadManifest();
     // Jingle first (it plays right away), then the loops, then the rest.
-    const order: AudioId[] = ["jingle", "lobby", ...MUSIC_IDS, ...EFFECT_IDS];
+    // Game sounds last: the Survival-Finale's are ready long before it starts.
+    const order: AudioId[] = ["jingle", "lobby", ...MUSIC_IDS, ...EFFECT_IDS, ...SOUND_IDS];
     for (const id of [...new Set(order)]) void this.load(id);
   }
 
@@ -394,6 +421,8 @@ export class AudioEngine {
   private voiceStarted(cleanup: () => void): { promise: Promise<void>; done: () => void } {
     this.setDuck(true);
     this.oneShots++;
+    this.voices++;
+    this.setSoundsDuck(true);
     let finished = false;
     let resolve!: () => void;
     const promise = new Promise<void>((r) => (resolve = r));
@@ -403,6 +432,8 @@ export class AudioEngine {
       cleanup();
       this.oneShots = Math.max(0, this.oneShots - 1);
       if (this.oneShots === 0) this.setDuck(false);
+      this.voices = Math.max(0, this.voices - 1);
+      if (this.voices === 0) this.setSoundsDuck(false);
       resolve();
     };
     return { promise, done };
@@ -452,6 +483,94 @@ export class AudioEngine {
       this.voiceElement.dispatchEvent(new Event("ended"));
       this.voiceElement = null;
     }
+  }
+
+  private setSoundsDuck(on: boolean) {
+    if (!this.ctx) return;
+    const now = this.ctx.currentTime;
+    const g = this.soundsDuck.gain;
+    g.cancelScheduledValues(now);
+    g.setValueAtTime(g.value, now);
+    g.linearRampToValueAtTime(on ? SOUNDS_DUCK_LEVEL : 1, now + (on ? 0.2 : 0.6));
+  }
+
+  // ── game sounds (Survival-Finale) ─────────────────────────────────────
+  /** Loads game sounds ahead of time (a tick that arrives late is worse than none). */
+  preloadSounds(ids: readonly SoundId[]) {
+    if (!this.ctx) return;
+    for (const id of ids) void this.load(id);
+  }
+
+  /**
+   * A game sound, once, at the same base level as all others. Never ducks
+   * the music. `delayMs` schedules it (e.g. the splash on the impact). A
+   * sound that isn't loaded yet plays only if it is ready within `maxLateMs`
+   * – the game never waits for audio, and a late tick is worse than none.
+   */
+  playSound(id: SurvivalOneShotId, delayMs = 0, maxLateMs = 0) {
+    const ctx = this.ctx;
+    if (!ctx) return;
+    const start = (buffer: AudioBuffer, delay: number) => {
+      const source = ctx.createBufferSource();
+      source.buffer = buffer;
+      source.connect(this.soundsBus);
+      source.start(ctx.currentTime + Math.max(0, delay) / 1000);
+    };
+    const buffer = this.buffers.get(id);
+    if (buffer) return start(buffer, delayMs);
+    const asked = performance.now();
+    void this.load(id).then((b) => {
+      const late = performance.now() - asked;
+      if (b && this.ctx === ctx && late <= delayMs + maxLateMs) start(b, delayMs - late);
+    });
+  }
+
+  /**
+   * A seamless WAV loop (Web Audio, loop = true over the whole file) at
+   * `level` (0 = off, faded). Starts once the file is decoded.
+   */
+  setLoop(id: SurvivalLoopId, level: number, fade = 0.6) {
+    this.loopLevels.set(id, Math.max(0, level));
+    this.applyLoop(id, fade);
+  }
+
+  /** All game-sound loops off (e.g. the finale is over). */
+  stopLoops(fade = 0.6) {
+    for (const id of [...this.loopLevels.keys()]) this.setLoop(id, 0, fade);
+  }
+
+  private applyLoop(id: SurvivalLoopId, fade: number) {
+    const ctx = this.ctx;
+    if (!ctx) return;
+    const level = this.loopLevels.get(id) ?? 0;
+    const now = ctx.currentTime;
+    const playing = this.loops.get(id);
+    if (playing) {
+      const g = playing.gain.gain;
+      g.cancelScheduledValues(now);
+      g.setValueAtTime(g.value, now);
+      g.linearRampToValueAtTime(level, now + fade);
+      if (level === 0) {
+        playing.source.stop(now + fade + 0.05);
+        this.loops.delete(id);
+      }
+      return;
+    }
+    if (level === 0) return;
+    const buffer = this.buffers.get(id);
+    if (!buffer) {
+      void this.load(id).then((b) => b && this.applyLoop(id, fade));
+      return;
+    }
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.loop = true; // the files are cut seamlessly: loop the whole buffer
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(level, now + fade);
+    source.connect(gain).connect(this.soundsBus);
+    source.start(now);
+    this.loops.set(id, { source, gain });
   }
 
   private setDuck(on: boolean) {

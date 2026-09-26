@@ -28,6 +28,19 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.20.0",
+    date: "2026-09-26",
+    title: "Das Survival-Finale klingt jetzt so, wie es aussieht: Es blubbert, ruckelt, platscht.",
+    items: [
+      { emoji: "🫧", text: "Der Schleim blubbert – und wird bedrohlicher, je knapper es wird" },
+      { emoji: "🚨", text: "Warnlampe heult, wenn jemand kurz vorm Baden ist" },
+      { emoji: "⏱️", text: "Jede verlorene Sekunde tickt hörbar" },
+      { emoji: "💥", text: "Falsche Antwort: Buzzer und der Aufzug sackt ab" },
+      { emoji: "💦", text: "PLATSCH genau im Moment des Aufpralls" },
+      { emoji: "🏆", text: "Eigene Sounds für Intro, die letzten zwei und den Sieger" },
+    ],
+  },
+  {
     version: "0.19.1",
     date: "2026-09-26",
     title: "Aufgeräumt: Die Spielauswahl in der Lobby sitzt jetzt wieder gerade.",

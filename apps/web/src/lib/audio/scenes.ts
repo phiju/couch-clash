@@ -10,7 +10,28 @@ import type { PublicRoomState } from "@couch-clash/shared";
 
 export type MusicId = "lobby" | "think";
 export type EffectId = "jingle" | "sting" | "sting-short" | "fanfare";
-export type AudioId = MusicId | EffectId;
+
+/**
+ * Survival-Finale sounds – the ids are the file names in public/audio
+ * (see docs/survival-sounds.md). One-shots are MP3, the seamless loops WAV.
+ */
+export const SURVIVAL_ONE_SHOT_IDS = [
+  "survival-intro",
+  "survival-bonus",
+  "survival-wrong",
+  "survival-elevator-jolt",
+  "survival-decay-tick",
+  "survival-splash",
+  "survival-final-two",
+  "survival-winner",
+] as const;
+export const SURVIVAL_LOOP_IDS = ["survival-slime-bubble-loop", "survival-slime-threat-loop", "survival-warning-lamp-loop"] as const;
+export type SurvivalOneShotId = (typeof SURVIVAL_ONE_SHOT_IDS)[number];
+export type SurvivalLoopId = (typeof SURVIVAL_LOOP_IDS)[number];
+export type SoundId = SurvivalOneShotId | SurvivalLoopId;
+export const SOUND_IDS: readonly SoundId[] = [...SURVIVAL_ONE_SHOT_IDS, ...SURVIVAL_LOOP_IDS];
+
+export type AudioId = MusicId | EffectId | SoundId;
 
 export const MUSIC_IDS: readonly MusicId[] = ["lobby", "think"];
 export const EFFECT_IDS: readonly EffectId[] = ["jingle", "sting", "sting-short", "fanfare"];

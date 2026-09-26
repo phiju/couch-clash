@@ -2,13 +2,16 @@
 
 import type { SurvivalPublicQuestion, SurvivalPublicState } from "@couch-clash/games/meta";
 import type { PublicRoomState } from "@couch-clash/shared";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { AvatarBadge } from "@/components/avatar";
 import { useHostSpeech } from "@/components/host/voice";
-import { useServerNow } from "@/lib/clock";
+import { ClockContext, useServerNow } from "@/lib/clock";
 import { QUIZ_OPTION_STYLES } from "../quiz/options";
 import type { HostViewProps } from "../types";
+import { getAudioEngine } from "@/lib/audio/engine";
+import { SOUND_IDS } from "@/lib/audio/scenes";
 import { conversionValue, liveScores, newEvents, timeZone, zoneText } from "./logic";
+import { ambienceFor, decaySecond, freshEvents, soundsFor, type SurvivalHookEvent } from "./sounds";
 import { SurvivalStage } from "./stage";
 
 /** Intro: the count from main-game points to life energy, then the rules. */
@@ -16,7 +19,6 @@ const CONVERSION_MS = 7_000;
 
 export function SurvivalHostView({ state, room }: HostViewProps<SurvivalPublicState>) {
   const now = useServerNow(200);
-  useSurvivalHooks(state, now);
   const q = state.question;
   const zone = q && state.step === "question" ? timeZone(q, now) : null;
   const intro = state.step === "intro";
@@ -25,6 +27,8 @@ export function SurvivalHostView({ state, room }: HostViewProps<SurvivalPublicSt
   const scores = intro
     ? Object.fromEntries(state.players.map((p) => [p.id, conversionValue(p.mainScore, p.startScore, introProgress ?? 1)]))
     : live;
+  useSurvivalSounds(state.step);
+  useSurvivalHooks(state, now, live);
   const descending = new Set(
     zone === "decay" && q ? state.players.filter((p) => q.aliveAtStart.includes(p.id) && !p.answered && !p.eliminated).map((p) => p.id) : [],
   );
@@ -256,35 +260,89 @@ function CaptionLine() {
 }
 
 /**
- * Hooks for sound and effects: every new game event, plus a DECAY_TICK each
- * second someone loses points to the clock, goes out as a DOM event
- * ("couchclash:survival") – mechanical sounds, warning lamps, slime burps can
- * listen to it without touching the game. A reconnecting TV never replays old events.
+ * Hooks for sound and effects: every new game event, a DECAY_TICK for each
+ * −10 of the live decay and AMBIENCE for the background loops go out as a DOM
+ * event ("couchclash:survival") – sounds, lamps and other effects listen to it
+ * without touching the game. A reconnecting TV never replays old events
+ * (only the last few seconds, e.g. the intro it just appeared for).
  */
 export const SURVIVAL_HOOK_EVENT = "couchclash:survival";
 
-function useSurvivalHooks(state: SurvivalPublicState, now: number) {
+function emitHook(detail: SurvivalHookEvent) {
+  window.dispatchEvent(new CustomEvent(SURVIVAL_HOOK_EVENT, { detail }));
+}
+
+function useSurvivalHooks(state: SurvivalPublicState, now: number, scores: Readonly<Record<string, number>>) {
   const lastSeq = useRef<number | null>(null);
   const lastTick = useRef<string | null>(null);
+  const lastAmbience = useRef<string | null>(null);
   useEffect(() => {
     const maxSeq = state.events.at(-1)?.seq ?? 0;
-    if (lastSeq.current === null) {
-      lastSeq.current = maxSeq;
-      return;
-    }
-    for (const event of newEvents(state.events, lastSeq.current)) {
-      window.dispatchEvent(new CustomEvent(SURVIVAL_HOOK_EVENT, { detail: event }));
-    }
-    lastSeq.current = Math.max(lastSeq.current, maxSeq);
+    const events = lastSeq.current === null ? freshEvents(state.events, now) : newEvents(state.events, lastSeq.current);
+    for (const event of events) emitHook(event);
+    lastSeq.current = Math.max(lastSeq.current ?? 0, maxSeq);
+    // Only new events matter here – `now` is read, not tracked.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.events]);
-  const q = state.question;
-  const second = q && state.step === "question" && now > q.decayFrom ? Math.floor((Math.min(now, q.timeoutAt) - q.decayFrom) / 1000) : null;
+
+  // One tick per booked −10 (the first one a full second after the threshold).
+  const q = state.step === "question" ? state.question : null;
+  const second = decaySecond(q, now);
   useEffect(() => {
     if (second === null || !q) return;
     const key = `${q.number}:${second}`;
     if (lastTick.current === key) return;
     lastTick.current = key;
     const playerIds = state.players.filter((p) => q.aliveAtStart.includes(p.id) && !p.answered && !p.eliminated).map((p) => p.id);
-    if (playerIds.length) window.dispatchEvent(new CustomEvent(SURVIVAL_HOOK_EVENT, { detail: { type: "DECAY_TICK", playerIds } }));
+    if (playerIds.length) emitHook({ type: "DECAY_TICK", playerIds });
   }, [second, q, state.players]);
+
+  // Background loops follow the live danger.
+  const ambience = ambienceFor(state, scores);
+  const ambienceKey = `${ambience.slime}:${ambience.threat}:${ambience.lamp}`;
+  useEffect(() => {
+    if (lastAmbience.current === ambienceKey) return;
+    lastAmbience.current = ambienceKey;
+    emitHook({ type: "AMBIENCE", ...ambience });
+    // ambienceKey covers every field of ambience.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ambienceKey]);
+  // The finale is gone (next round, reload): loops off.
+  useEffect(
+    () => () => {
+      lastAmbience.current = null; // mounted again (e.g. React's dev double-mount): send the state anew
+      emitHook({ type: "AMBIENCE", slime: false, threat: 0, lamp: false });
+    },
+    [],
+  );
+}
+
+/** Plays the hook events on the host (never on phones): one-shots and the three loops. */
+function useSurvivalSounds(step: SurvivalPublicState["step"]) {
+  // Server time at the moment of the event (the splash is timed to the impact).
+  const offset = useContext(ClockContext);
+  const ctx = useRef({ step, offset });
+  useEffect(() => {
+    ctx.current = { step, offset };
+  }, [step, offset]);
+  useEffect(() => {
+    const engine = getAudioEngine();
+    engine.preloadSounds(SOUND_IDS);
+    const onHook = (e: Event) => {
+      const detail = (e as CustomEvent<SurvivalHookEvent>).detail;
+      if (detail.type === "AMBIENCE") {
+        engine.setLoop("survival-slime-bubble-loop", detail.slime ? 1 : 0, 1.2);
+        engine.setLoop("survival-slime-threat-loop", detail.slime ? detail.threat : 0, 1);
+        engine.setLoop("survival-warning-lamp-loop", detail.slime && detail.lamp ? 1 : 0, 0.3);
+        return;
+      }
+      const { step: current, offset: clock } = ctx.current;
+      for (const cue of soundsFor([detail], { step: current, now: Date.now() + clock })) engine.playSound(cue.id, cue.delayMs, cue.maxLateMs);
+    };
+    window.addEventListener(SURVIVAL_HOOK_EVENT, onHook);
+    return () => {
+      window.removeEventListener(SURVIVAL_HOOK_EVENT, onHook);
+      engine.stopLoops();
+    };
+  }, []);
 }

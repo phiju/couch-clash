@@ -177,7 +177,8 @@ export function survivalAudio(state: SurvivalPublicState | null): ModuleAudioSce
     case "tiebreak_reveal":
       return { key: `survival:tbr:${state.tiebreak?.attempt ?? 0}`, music: null, enter: "sting" };
     case "winner":
-      return { key: "survival:winner", music: null, enter: "fanfare", afterEnter: { music: "lobby", musicLevel: 0.7 } };
+      // The winner has its own sound (survival-winner, from the WINNER event); the fanfare follows at the ceremony.
+      return { key: "survival:winner", music: null, musicFade: 0.4 };
   }
 }
 
