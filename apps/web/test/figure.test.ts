@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { FIGURE_CONFIG, alignShift, currentPose, feetAnchor, idlePhase, poseForDanger, reactionForEvent } from "../src/lib/figure";
+import { FIGURE_CONFIG, alignShift, currentPose, feetAnchor, idlePhase, poseForDanger, reactionForEvent, stagePose } from "../src/lib/figure";
 
 /** A transparent RGBA image with an opaque "figure": a body rectangle and two feet. */
 function figureImage(w: number, h: number, feet: { left: number; right: number; bottom: number }, bodyTop = 5) {
@@ -22,6 +22,22 @@ describe("figure poses", () => {
       "besorgt",
       "panisch",
     ]);
+  });
+
+  it("stage pose per game state: standard, besorgt, panisch, jubelnd, geschockt", () => {
+    expect(stagePose({ danger: "SAFE" })).toBe("standard");
+    expect(stagePose({ danger: "WARNING" })).toBe("standard");
+    // Sinking platform or few points → worried.
+    expect(stagePose({ danger: "SAFE", descending: true })).toBe("besorgt");
+    expect(stagePose({ danger: "CRITICAL" })).toBe("besorgt");
+    // Just above the slime → panic (also while sinking).
+    expect(stagePose({ danger: "ELIMINATION_IMMINENT", descending: true })).toBe("panisch");
+    // Correct answer → cheering, even in danger; any loss of points → shocked.
+    expect(stagePose({ danger: "ELIMINATION_IMMINENT", correct: true, pointsChange: 0 })).toBe("jubelnd");
+    expect(stagePose({ danger: "SAFE", correct: false, pointsChange: -200 })).toBe("geschockt");
+    expect(stagePose({ danger: "SAFE", correct: true, pointsChange: -30 })).toBe("geschockt");
+    expect(stagePose({ danger: "ELIMINATED" })).toBe("geschockt");
+    expect(stagePose({ danger: "CRITICAL", winner: true })).toBe("jubelnd");
   });
 
   it("+50 / comeback / winner → cheering briefly; wrong answer → shocked ~1.5 s; others → none", () => {

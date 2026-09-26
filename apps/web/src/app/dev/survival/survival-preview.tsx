@@ -15,7 +15,7 @@ import { Screen } from "@/components/ui";
 import { devModeOn } from "@/lib/dev-mode";
 import { AdminNav } from "@/components/admin-nav";
 import { launchFrame } from "@/games/survival/logic";
-import { SurvivalStage } from "@/games/survival/stage";
+import { SurvivalBackdrop, SurvivalStage } from "@/games/survival/stage";
 
 const noop = () => () => {};
 const SCENES = ["launch", "elim", "winner", "podium"] as const;
@@ -170,6 +170,7 @@ function Preview({ n, scene, fig }: { n: number; scene: Scene; fig: boolean }) {
   return (
     <Screen fit className="max-w-[2000px] !items-stretch">
       <div className="sv-grain flex min-h-0 w-full flex-1 flex-col gap-[1.2vh]">
+        <SurvivalBackdrop />
         {bar}
         <SurvivalStage state={state} players={ps} now={now} scores={scores} launch={launch} />
       </div>
