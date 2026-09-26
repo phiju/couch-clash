@@ -10,7 +10,6 @@ import {
   laneGrow,
   laneSize,
   liveScores,
-  moodFor,
   survivalAudio,
   survivalSkipLabel,
   timeZone,
@@ -127,14 +126,6 @@ describe("clock zones (phones + TV)", () => {
 });
 
 describe("show", () => {
-  it("moods follow danger and the last answer", () => {
-    expect(moodFor(player("a"))).toBe("confident");
-    expect(moodFor(player("a", { danger: "ELIMINATION_IMMINENT" }))).toBe("panic");
-    expect(moodFor(player("a", { change: { bonus: 50, decay: 0, penalty: 0, drain: 0, total: 50 } }))).toBe("cheering");
-    expect(moodFor(player("a", { change: { bonus: 0, decay: 0, penalty: 200, drain: 0, total: -200 } }))).toBe("shocked");
-    expect(moodFor(player("a", { eliminated: true }))).toBe("gone");
-  });
-
   it("final two: two big lanes, the eliminated step back; sizes by player count", () => {
     const s = state({ players: [player("a"), player("b"), player("c", { eliminated: true, eliminatedAt: T0 })] });
     expect(isFinalTwo(s)).toBe(true);

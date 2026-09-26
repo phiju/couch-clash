@@ -28,7 +28,7 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
-    version: "0.24.0",
+    version: "0.25.0",
     date: "2026-09-26",
     title: "Double or Nothing: Kassieren oder alles riskieren?",
     items: [
@@ -38,6 +38,19 @@ export const CHANGELOG: ChangelogEntry[] = [
       { emoji: "💥", text: "Falsch gesetzt? Topf geplatzt – und der Moderator lästert" },
       { emoji: "👀", text: "Alle Entscheidungen werden gleichzeitig aufgedeckt – Spannung pur" },
       { emoji: "🧸", text: "Im Kindermodus bleibt Stufe 5 kindgerecht schwer" },
+    ],
+  },
+  {
+    version: "0.24.0",
+    date: "2026-09-26",
+    title: "Survival-Finale im Schleimlabor",
+    items: [
+      { emoji: "🧪", text: "Neue Bühne: blubbernde Schleimtanks, Kupferrohre und grüner Nebel" },
+      { emoji: "🧍", text: "Eure Figuren stehen jetzt in voller Größe auf der Plattform" },
+      { emoji: "😱", text: "Sie zittern, jubeln und erschrecken – je nachdem, wie's gerade läuft" },
+      { emoji: "🪧", text: "Name und Punkte stehen groß vorne auf der Plattform" },
+      { emoji: "🟢", text: "Der Schleim reicht jetzt wirklich bis ganz unten" },
+      { emoji: "🔧", text: "Stehende Figuren werden jetzt zuverlässig gebastelt" },
     ],
   },
   {
