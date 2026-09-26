@@ -8,13 +8,27 @@ import FIGURE_PROMPTS_JSON from "./figure-prompts.json";
 export const AVATAR_CONFIG = {
   /** OpenAI GPT Image model (image edit with several input images). */
   model: "gpt-image-2",
+  /** The round avatar – the one everybody sees first. */
   quality: "medium",
+  /** The leaderboard faces: shown small, so "low" looks the same at a fraction of the price. */
+  expressionQuality: "low",
   /** Size requested from the model; stored images are scaled down to `storedSize`. */
   size: "1024x1024",
   storedSize: 256,
   /** WebP quality (0–100) for the model output and the stored image. */
   webpQuality: 80,
   timeoutMs: PHOTO_TIMEOUT_MS,
+} as const;
+
+/**
+ * "Too many requests" from OpenAI (the account's images-per-minute limit):
+ * wait as long as OpenAI says and try again. Not billed, so it doesn't count
+ * as the image's retry. At most this much waiting per image, then give up.
+ */
+export const RATE_LIMIT_CONFIG = {
+  maxWaitMs: 30_000,
+  /** When OpenAI doesn't say how long. */
+  defaultWaitMs: 10_000,
 } as const;
 
 /** First image: the player's photo; second image: the Couch Clash style reference. */
@@ -41,8 +55,10 @@ export const FIGURE_CONFIG = {
   storedHeight: 600,
   /** One automatic retry per image, then give up (fallback: standard figure / round avatar). */
   retries: 1,
-  /** Estimated OpenAI price per image (medium, 1024×1536) – for the cost log only. */
-  estimatedUsdPerImage: 0.063,
+  /** Shown at most 600 px tall: "low" looks the same as "medium" at about a fifth of the price. */
+  quality: "low",
+  /** Estimated OpenAI price per image (low, 1024×1536, measured) – for the cost log only. */
+  estimatedUsdPerImage: 0.011,
   timeoutMs: PHOTO_TIMEOUT_MS,
 } as const;
 

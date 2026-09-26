@@ -142,7 +142,9 @@ describe("standing figures: generation", () => {
     const log = vi.spyOn(console, "log").mockImplementation(() => {});
     const { done } = await acceptedPlayer();
     await done;
-    expect(log.mock.calls.flat().join(" ")).toMatch(/avatar figures: 5\/5 made in 5 model calls \(≈\$0\.32\)/);
+    expect(log.mock.calls.flat().join(" ")).toContain(
+      `avatar figures: 5/5 made in 5 model calls (≈$${(5 * FIGURE_CONFIG.estimatedUsdPerImage).toFixed(2)})`,
+    );
   });
 
   it("a new round avatar drops the old figures; results for an old version are ignored", async () => {

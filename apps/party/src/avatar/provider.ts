@@ -18,6 +18,8 @@ export interface AvatarGenerateOptions {
   size?: string;
   /** Transparent background (standing figures). */
   transparent?: boolean;
+  /** Model quality, e.g. "low" / "medium" (default: AVATAR_CONFIG.quality). */
+  quality?: string;
 }
 
 /**
@@ -33,6 +35,8 @@ export class AvatarGenerationError extends Error {
   constructor(
     readonly reason: PhotoFailure,
     message: string,
+    /** Set when the API said "too many requests": how long to wait before trying again. */
+    readonly retryAfterMs?: number,
   ) {
     super(message);
     this.name = "AvatarGenerationError";

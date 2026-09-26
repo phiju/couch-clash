@@ -3,7 +3,7 @@
  * The original photo only lives in memory for the duration of the call.
  */
 import type { FigurePose, PhotoExpression, PhotoFailure } from "@couch-clash/shared";
-import { AVATAR_CONFIG, AVATAR_PROMPT, FIGURE_CONFIG, expressionPrompt, figurePrompt } from "./config";
+import { AVATAR_CONFIG, AVATAR_PROMPT, FIGURE_CONFIG, RATE_LIMIT_CONFIG, expressionPrompt, figurePrompt } from "./config";
 import { AvatarGenerationError, type AvatarGenerateOptions, type AvatarImage, type AvatarProvider } from "./provider";
 import { avatarKey, figureKey, type AvatarStore } from "./store";
 
@@ -17,20 +17,22 @@ export interface AvatarServiceDeps {
   /** Scales a standing figure to the fixed portrait size, keeping transparency. Optional. */
   resizeFigure?: (image: AvatarImage) => Promise<AvatarImage>;
   timeoutMs?: number;
+  /** Waits on "too many requests" (tests pass a fake). */
+  sleep?: (ms: number) => Promise<void>;
 }
 
 export type GenerationOutcome = { ok: true } | { ok: false; reason: PhotoFailure };
 
 class TimeoutError extends Error {}
 
+interface CallOptions extends Omit<AvatarGenerateOptions, "signal"> {
+  /** Send the Couch Clash style reference (round avatars and faces; figures keep the input's style). */
+  withStyle: boolean;
+}
+
 /** Calls the provider, aborting after the timeout even if it ignores the signal. */
-async function generateWithTimeout(
-  deps: AvatarServiceDeps,
-  input: AvatarImage,
-  prompt: string,
-  /** Figures: no style reference (they keep the input's style), portrait, transparent. */
-  figure?: Omit<AvatarGenerateOptions, "signal">,
-): Promise<AvatarImage> {
+async function generateWithTimeout(deps: AvatarServiceDeps, input: AvatarImage, prompt: string, options: CallOptions): Promise<AvatarImage> {
+  const { withStyle, ...generate } = options;
   const controller = new AbortController();
   let timer: ReturnType<typeof setTimeout> | undefined;
   const timeout = new Promise<never>((_, reject) => {
@@ -41,13 +43,37 @@ async function generateWithTimeout(
   });
   try {
     return await Promise.race([
-      figure
-        ? deps.provider.generateAvatar(input, { prompt }, { ...figure, signal: controller.signal })
-        : deps.provider.generateAvatar(input, { reference: deps.styleReference(), prompt }, { signal: controller.signal }),
+      deps.provider.generateAvatar(
+        input,
+        withStyle ? { reference: deps.styleReference(), prompt } : { prompt },
+        { ...generate, signal: controller.signal },
+      ),
       timeout,
     ]);
   } finally {
     if (timer !== undefined) clearTimeout(timer);
+  }
+}
+
+const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+/**
+ * One image. On "too many requests" it waits as long as the API says and
+ * tries again (not billed, so not the image's retry) – up to
+ * RATE_LIMIT_CONFIG.maxWaitMs of waiting in total.
+ */
+async function callModel(deps: AvatarServiceDeps, input: AvatarImage, prompt: string, options: CallOptions): Promise<AvatarImage> {
+  let waited = 0;
+  for (;;) {
+    try {
+      return await generateWithTimeout(deps, input, prompt, options);
+    } catch (err) {
+      const wait = err instanceof AvatarGenerationError ? err.retryAfterMs : undefined;
+      if (wait === undefined || waited + wait > RATE_LIMIT_CONFIG.maxWaitMs) throw err;
+      waited += wait;
+      console.warn(`avatar rate-limited, waiting ${Math.round(wait / 1000)} s`);
+      await (deps.sleep ?? sleep)(wait);
+    }
   }
 }
 
@@ -82,7 +108,7 @@ export async function generateBaseAvatar(
   job: { code: string; playerId: string; photo: AvatarImage },
 ): Promise<GenerationOutcome> {
   try {
-    const image = await generateWithTimeout(deps, job.photo, AVATAR_PROMPT);
+    const image = await callModel(deps, job.photo, AVATAR_PROMPT, { withStyle: true, quality: AVATAR_CONFIG.quality });
     await storeImage(deps, avatarKey(job.code, job.playerId, "neutral"), image);
     return { ok: true };
   } catch (err) {
@@ -99,11 +125,10 @@ export async function generateExpressionAvatar(
   try {
     const neutral = await deps.store.get(avatarKey(job.code, job.playerId, "neutral"));
     if (!neutral) return false;
-    const image = await generateWithTimeout(
-      deps,
-      { bytes: neutral.bytes, mimeType: neutral.contentType },
-      expressionPrompt(job.expression),
-    );
+    const image = await callModel(deps, { bytes: neutral.bytes, mimeType: neutral.contentType }, expressionPrompt(job.expression), {
+      withStyle: true,
+      quality: AVATAR_CONFIG.expressionQuality,
+    });
     await storeImage(deps, avatarKey(job.code, job.playerId, job.expression), image);
     return true;
   } catch (err) {
@@ -114,7 +139,7 @@ export async function generateExpressionAvatar(
 
 export interface FigureOutcome {
   ok: boolean;
-  /** Model calls made (1, or 2 with the retry) – for the cost log. */
+  /** Billed model calls (1, or 2 with the retry; rate-limited calls aren't billed) – for the cost log. */
   attempts: number;
 }
 
@@ -136,7 +161,12 @@ export async function generateFigure(
   for (let i = 0; i <= FIGURE_CONFIG.retries; i++) {
     attempts++;
     try {
-      const image = await generateWithTimeout(deps, input, figurePrompt(job.pose), { size: FIGURE_CONFIG.size, transparent: true });
+      const image = await callModel(deps, input, figurePrompt(job.pose), {
+        withStyle: false,
+        size: FIGURE_CONFIG.size,
+        transparent: true,
+        quality: FIGURE_CONFIG.quality,
+      });
       await storeImage(deps, figureKey(job.code, job.playerId, job.pose), image, true);
       return { ok: true, attempts };
     } catch (err) {

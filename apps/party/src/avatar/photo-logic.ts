@@ -14,6 +14,7 @@ import {
   type PhotoFailure,
   type PublicPhotoAvatar,
 } from "@couch-clash/shared";
+import { RATE_LIMIT_CONFIG } from "./config";
 import { fail, ok, type Result } from "../result";
 import type { PlayerRecord, RoomRecord } from "../room-logic";
 
@@ -43,11 +44,11 @@ export const PHOTO_MAX_BASE_PER_PLAYER = 1 + PHOTO_MAX_REGENERATIONS;
 export const ROOM_MAX_BASE_IMAGES = MAX_PLAYERS * PHOTO_MAX_BASE_PER_PLAYER;
 export const ROOM_MAX_EXPRESSION_IMAGES = MAX_PLAYERS * EXTRA_EXPRESSIONS.length;
 /** A job still "pending" this long after its start is treated as timed out (crash, eviction). */
-export const PHOTO_STALE_MS = PHOTO_TIMEOUT_MS + 30_000;
+export const PHOTO_STALE_MS = PHOTO_TIMEOUT_MS + RATE_LIMIT_CONFIG.maxWaitMs + 30_000;
 /** Expressions run one after another. */
-export const EXPRESSIONS_STALE_MS = EXTRA_EXPRESSIONS.length * PHOTO_TIMEOUT_MS + 30_000;
+export const EXPRESSIONS_STALE_MS = EXTRA_EXPRESSIONS.length * (PHOTO_TIMEOUT_MS + RATE_LIMIT_CONFIG.maxWaitMs) + 30_000;
 /** Figures: the standard one, then four in parallel – each with one retry. */
-export const FIGURES_STALE_MS = 2 * 2 * PHOTO_TIMEOUT_MS + 30_000;
+export const FIGURES_STALE_MS = 2 * (2 * PHOTO_TIMEOUT_MS + RATE_LIMIT_CONFIG.maxWaitMs) + 30_000;
 /** Room-wide budget of model calls for standing figures: 16 players × 5 figures × (1 + 1 retry). */
 export const ROOM_MAX_FIGURE_IMAGES = MAX_PLAYERS * FIGURE_POSES.length * 2;
 
