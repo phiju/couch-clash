@@ -1,0 +1,315 @@
+{
+  "category": "stadt-land-fluss",
+  "letters": {
+    "kinder": "ABDEFGHIJKLMNOPRSTUVWZ",
+    "familie": "ABCDEFGHIJKLMNOPRSTUVWZ",
+    "party": "ABCDEFGHIJKLMNOPRSTUVWZ"
+  },
+  "mix": {
+    "partyMinPerRound": 2,
+    "creativeMinPerRound": 1
+  },
+  "categories": [
+    {
+      "id": "k-tier",
+      "label": "Tier",
+      "mode": "kinder",
+      "type": "fakt"
+    },
+    {
+      "id": "k-farbe",
+      "label": "Farbe",
+      "mode": "kinder",
+      "type": "fakt"
+    },
+    {
+      "id": "k-obst-gemuese",
+      "label": "Obst/Gemüse",
+      "mode": "kinder",
+      "type": "fakt"
+    },
+    {
+      "id": "k-spielzeug",
+      "label": "Spielzeug",
+      "mode": "kinder",
+      "type": "fakt"
+    },
+    {
+      "id": "k-vorname",
+      "label": "Vorname",
+      "mode": "kinder",
+      "type": "fakt"
+    },
+    {
+      "id": "k-essen",
+      "label": "Essen",
+      "mode": "kinder",
+      "type": "fakt"
+    },
+    {
+      "id": "k-beruf",
+      "label": "Beruf",
+      "mode": "kinder",
+      "type": "fakt"
+    },
+    {
+      "id": "k-koerperteil",
+      "label": "Körperteil",
+      "mode": "kinder",
+      "type": "fakt"
+    },
+    {
+      "id": "k-kleidungsstueck",
+      "label": "Kleidungsstück",
+      "mode": "kinder",
+      "type": "fakt"
+    },
+    {
+      "id": "k-maerchenfigur",
+      "label": "Märchenfigur",
+      "mode": "kinder",
+      "type": "fakt"
+    },
+    {
+      "id": "k-sportart",
+      "label": "Sportart",
+      "mode": "kinder",
+      "type": "fakt"
+    },
+    {
+      "id": "k-etwas-im-kinderzimmer",
+      "label": "Etwas im Kinderzimmer",
+      "mode": "kinder",
+      "type": "kreativ"
+    },
+    {
+      "id": "k-superkraft",
+      "label": "Superkraft",
+      "mode": "kinder",
+      "type": "kreativ"
+    },
+    {
+      "id": "k-etwas-das-fliegen-kann",
+      "label": "Etwas, das fliegen kann",
+      "mode": "kinder",
+      "type": "kreativ"
+    },
+    {
+      "id": "f-stadt",
+      "label": "Stadt",
+      "mode": "familie",
+      "type": "fakt"
+    },
+    {
+      "id": "f-land",
+      "label": "Land",
+      "mode": "familie",
+      "type": "fakt"
+    },
+    {
+      "id": "f-fluss",
+      "label": "Fluss",
+      "mode": "familie",
+      "type": "fakt"
+    },
+    {
+      "id": "f-promi",
+      "label": "Promi",
+      "mode": "familie",
+      "type": "fakt"
+    },
+    {
+      "id": "f-film-serie",
+      "label": "Film/Serie",
+      "mode": "familie",
+      "type": "fakt"
+    },
+    {
+      "id": "f-marke",
+      "label": "Marke",
+      "mode": "familie",
+      "type": "fakt"
+    },
+    {
+      "id": "f-automarke",
+      "label": "Automarke",
+      "mode": "familie",
+      "type": "fakt"
+    },
+    {
+      "id": "f-gericht",
+      "label": "Gericht",
+      "mode": "familie",
+      "type": "fakt"
+    },
+    {
+      "id": "f-hobby",
+      "label": "Hobby",
+      "mode": "familie",
+      "type": "fakt"
+    },
+    {
+      "id": "f-urlaubsziel",
+      "label": "Urlaubsziel",
+      "mode": "familie",
+      "type": "fakt"
+    },
+    {
+      "id": "f-songtitel",
+      "label": "Songtitel",
+      "mode": "familie",
+      "type": "fakt"
+    },
+    {
+      "id": "f-etwas-im-kuehlschrank",
+      "label": "Etwas im Kühlschrank",
+      "mode": "familie",
+      "type": "kreativ"
+    },
+    {
+      "id": "f-ausrede-fuers-zuspaetkommen",
+      "label": "Ausrede fürs Zuspätkommen",
+      "mode": "familie",
+      "type": "kreativ"
+    },
+    {
+      "id": "f-grund-fuer-familienstreit",
+      "label": "Grund für Familienstreit",
+      "mode": "familie",
+      "type": "kreativ"
+    },
+    {
+      "id": "f-schlechter-name-fuer-ein-haustier",
+      "label": "Schlechter Name für ein Haustier",
+      "mode": "familie",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-dein-name-als-pornodarsteller",
+      "label": "Dein Name als Pornodarsteller",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-pornofilmtitel",
+      "label": "Pornofilmtitel",
+      "mode": "party",
+      "type": "kreativ",
+      "hint": "Parodie eines echten Films"
+    },
+    {
+      "id": "p-sexspielzeug",
+      "label": "Sexspielzeug",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-stellung",
+      "label": "Stellung",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-ort-fuer-einen-quickie",
+      "label": "Ort für einen Quickie",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-mieser-anmachspruch",
+      "label": "Mieser Anmachspruch",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-ausrede-nach-schlechtem-sex",
+      "label": "Ausrede nach schlechtem Sex",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-safeword",
+      "label": "Safeword",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-was-in-deinem-nachttisch-liegt",
+      "label": "Was in deinem Nachttisch liegt",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-kosename-fuer-ein-geschlechtsteil",
+      "label": "Kosename für ein Geschlechtsteil",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-etwas-das-man-nackt-nicht-tun-sollte",
+      "label": "Etwas, das man nackt nicht tun sollte",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-cocktail",
+      "label": "Cocktail",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-trinkspiel",
+      "label": "Trinkspiel",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-ausrede-fuer-den-kater",
+      "label": "Ausrede für den Kater",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-das-hab-ich-betrunken-gemacht",
+      "label": "Das hab ich betrunken gemacht",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-da-bin-ich-schon-mal-aufgewacht",
+      "label": "Da bin ich schon mal aufgewacht",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-grund-fuer-noch-eine-runde",
+      "label": "Grund für noch eine Runde",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-name-fuer-eine-kneipe",
+      "label": "Name für eine Kneipe",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-das-hab-ich-schon-mal-geklaut",
+      "label": "Das hab ich schon mal geklaut",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-das-wuerde-ich-nie-meiner-mutter-erzaehlen",
+      "label": "Das würde ich nie meiner Mutter erzählen",
+      "mode": "party",
+      "type": "kreativ"
+    },
+    {
+      "id": "p-luege-beim-ersten-date",
+      "label": "Lüge beim ersten Date",
+      "mode": "party",
+      "type": "kreativ"
+    }
+  ]
+}

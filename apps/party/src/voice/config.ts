@@ -14,19 +14,28 @@ export const ELEVENLABS_MODELS = {
   expressive: "eleven_v3",
   /** Comments, read-outs, library lines, name clips: fast and half the credits. */
   fast: "eleven_flash_v2_5",
-} as const;
+  /**
+   * Long read-outs (Stadt, Land, Fluss: every answer of a letter). Cheap by
+   * default; to try another model set the Worker variable
+   * ELEVENLABS_READ_MODEL (one of ELEVENLABS_READ_MODELS) – no code change.
+   */
+  read: "eleven_flash_v2_5",
+} as const satisfies Record<"expressive" | "fast" | "read", string>;
+
+/** Models ELEVENLABS_READ_MODEL may pick (flash / turbo: ½ credit per character, the others 1). */
+export const ELEVENLABS_READ_MODELS = ["eleven_flash_v2_5", "eleven_turbo_v2_5", "eleven_multilingual_v2", "eleven_v3"] as const;
 
 export const ELEVENLABS_OUTPUT_FORMAT = "mp3_44100_128";
 
 /** ElevenLabs credits per character: eleven_flash_v2_5 ½, eleven_v3 1. */
-export const CREDITS_PER_CHAR = { fast: 0.5, expressive: 1 } as const;
+export const CREDITS_PER_CHAR = { fast: 0.5, expressive: 1, read: 0.5 } as const;
 
 /**
  * Lively voice (stability ~0.35). eleven_v3 is built around the stability
  * presets 0.0 "creative" / 0.5 "natural" / 1.0 "robust", so it gets "natural".
  */
 export const ELEVENLABS_VOICE_SETTINGS = {
-  stability: { expressive: 0.5, fast: 0.35 },
+  stability: { expressive: 0.5, fast: 0.35, read: 0.35 },
   similarityBoost: 0.8,
   style: 0.6,
   useSpeakerBoost: true,

@@ -62,12 +62,15 @@ const POOLS: Record<CategoryId, readonly { id: string; adult?: boolean }[]> = {
   survival: QUIZ_QUESTIONS_DE,
   // Only motifs with pictures are played (the image script adds them).
   pixelpanik: playableMotifs(PIXELPANIK_MOTIFS).map((m) => ({ id: m.id, ...motifFlags(m) })),
+  // Letters and categories, no questions – its party categories are tested in stadt-land-fluss.test.ts.
+  "stadt-land-fluss": [],
 };
 // The Survival-Finale has no fixed round (it draws questions one by one) – tested in survival.test.ts.
 // Pixelpanik needs pictures – the same checks run on a pool with pictures in pixelpanik.test.ts.
+// Stadt, Land, Fluss plays letters, not items – its mode rules are tested in stadt-land-fluss.test.ts.
 // Double or Nothing plays at most 5 questions on a difficulty ladder – its own checks below.
 const GAMES = (Object.keys(GAME_MODULES) as CategoryId[]).filter(
-  (id) => !GAME_MODULES[id].meta.finale && id !== "pixelpanik" && id !== "double-or-nothing",
+  (id) => !GAME_MODULES[id].meta.finale && id !== "pixelpanik" && id !== "stadt-land-fluss" && id !== "double-or-nothing",
 );
 const partyIds = (id: CategoryId) => POOLS[id].filter((x) => x.adult).map((x) => x.id);
 

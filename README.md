@@ -149,6 +149,19 @@ SUPABASE_URL=https://<project>.supabase.co SUPABASE_SERVICE_ROLE_KEY=… OPENAI_
 
 End-to-end check (needs pictures + `pnpm dev:party` + `pnpm dev:web`): `MODE=family|party|kids SHOTS=./shots pnpm --filter @couch-clash/web e2e:pixelpanik`.
 
+## Stadt, Land, Fluss
+
+The classic: a random letter and a few categories, everyone writes at the same time on the phone, then the host reads out EVERY answer – one text per category with one gag. Logic: `packages/games/src/stadt-land-fluss/` (own module), views: `apps/web/src/games/stadt-land-fluss/`. One „question“ = one letter (1–6 per round, default 3).
+
+- **Content** (`packages/content/data/stadt-land-fluss.de.json`, zod `SlfFileSchema`): categories with `id`, `label`, `mode` (`kinder` | `familie` | `party`) and `type` (`fakt`: the AI checks the letter AND whether it is real – „ist das wirklich eine Stadt?“; `kreativ`: anything with the right letter counts, made-up included), letter pools per mode (Kids without C, Q, X, Y) and the mix (`partyMinPerRound`, `creativeMinPerRound`).
+- **Mix per letter** (`pick.ts`, the one mode filter `categoriesForMode`): Kids = kids categories, Familie = family + kids, Party = family + party with at least 2 party categories. **Party categories never come up in Kids or Familie.** Every letter has at least one `kreativ` category (for the vote). Never the same letter twice in a game; categories not played yet come first.
+- **Host settings** („Punkte-Einstellungen“, no code change): points 20 (the only valid answer of the category) / 10 (valid and unique) / 5 (valid but shared) / +10 (funniest answer), categories and seconds per letter for Familie/Party (4, 60 s) and Kids (3, 90 s), seconds after „Stopp!“ (10).
+- **Flow per letter:** intro (the letter big on the TV, the host announces it) → write (phones save while typing – a dropped phone keeps its answers) → whoever filled every field may press **Stopp!**: everyone else gets 10 s (one `stepEndsAt` for the room and every screen; alone it ends at once) → check → gags → reveal → vote → tally (all points booked) → leaderboard.
+- **Check** (one `llm_json` task, strong model, anonymous answer keys): per answer `valid`, `normalized`, `duplicateGroup`, `typo`, `offensive`, `note`. Spelling is tolerant in every mode („Schwarzwaldt“, „Dildoh“), articles don't count („der Rhein“ → R). The first letter is always checked locally – the AI can't make a wrong letter valid. Duplicates: the AI's groups joined with the local key (umlauts, articles, punctuation: „Muenchen“ = „München“). Offensive answers (per mode) are censored: 0 points, never shown or read. **AI failed →** only the first letter counts, local duplicates, the host reads without gags.
+- **Host text** (`script.ts`): per category „Sexspielzeug mit D: Philip sagt Dildo, Tina sagt Dildo, Max sagt Duschkopf.“ is built locally (every player, also „Max hat nichts“) – the AI only writes ONE gag per category (one call for all categories, fast model, players as „P1“, „P2“ – names are filled in afterwards). Nobody wrote anything → the host's own line. Read out via `readAloud` with `long: true` → voice style `read`; the TV follows the voice's cue and shows the text, too (TTS fails → the reveal runs on as text).
+- **Fixed lines** (letters A–Z, „Stopp!“, time's up, nobody has anything, vote) are made once for all rooms (global voice cache, checked when a round starts).
+- **Vote:** every player picks the funniest valid `kreativ` answer (never their own; the same answer of several players is one choice). Most votes → +10 for each author.
+
 ## Survival-Finale
 
 The optional last round of a game (host switch „Survival-Finale zum Schluss“, default on; `CategoryMeta.finale` – always played last, once, never planned by Zufall). The main game's points become **life energy**; questions (multiple choice from the quiz pool) keep coming until one player is left.
@@ -241,6 +254,7 @@ The option "Include source files outside of the Root Directory" must stay on (it
 
 | `OPENAI_API_KEY`         | `apps/party`, Cloudflare Worker **secret** | Photo avatars + the host's texts (never sent to the browser) |
 | `ELEVENLABS_API_KEY`     | `apps/party`, Cloudflare Worker **secret** | The host's voice (never sent to the browser) |
+| `ELEVENLABS_READ_MODEL`  | `apps/party`, Cloudflare Worker variable (optional) | Voice model for long read-outs (Stadt, Land, Fluss), e.g. `eleven_turbo_v2_5`; default `eleven_flash_v2_5`, allowed: `ELEVENLABS_READ_MODELS` in `apps/party/src/voice/config.ts` |
 | `ADMIN_TOKEN`            | `apps/party`, Cloudflare Worker **secret** | Password for `/admin/fragen` (long random string) |
 
 No secrets are committed to the repository. For local photo avatars, put `OPENAI_API_KEY=…` into `apps/party/.dev.vars` (git-ignored). Without the key, photo avatars answer "not available" and everyone plays with emojis.
