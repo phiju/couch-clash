@@ -9,7 +9,7 @@ import type { ModuleTask } from "@couch-clash/shared";
 import type { ModuleRegistry } from "@couch-clash/games";
 import { pendingModuleTask, resolveModuleTask, type FlowDeps } from "../game-flow";
 import type { JsonModel } from "../generate/model";
-import type { PreviewLookup } from "../songs/previews";
+import type { PreviewLookup, SongCatalog } from "../songs/previews";
 import type { RoomRecord } from "../room-logic";
 
 export interface TaskRuntime {
@@ -21,6 +21,8 @@ export interface TaskRuntime {
   model(quality: "fast" | "strong"): JsonModel | null;
   /** Song previews (Musik-Quiz); absent → every such task resolves with null. */
   songs?: () => PreviewLookup | null;
+  /** Live song catalog (Musik-Quiz); absent → every such task resolves with null. */
+  songCatalog?: () => SongCatalog | null;
   registry?: ModuleRegistry;
 }
 
@@ -78,6 +80,10 @@ export class ModuleTaskRunner {
       case "song_previews": {
         const lookup = this.rt.songs?.();
         return lookup ? () => lookup(task.input.tracks) : null;
+      }
+      case "song_catalog": {
+        const catalog = this.rt.songCatalog?.();
+        return catalog ? () => catalog(task.input) : null;
       }
     }
   }

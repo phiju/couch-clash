@@ -28,6 +28,15 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.28.1",
+    date: "2026-09-26",
+    title: "Das Musik-Quiz legt los",
+    items: [
+      { emoji: "🎶", text: "Das Musik-Quiz ist startklar – die Songs kommen jetzt frisch von Deezer" },
+      { emoji: "🔀", text: "Jede Runde neue Playlists – so schnell geht euch die Musik nicht aus" },
+    ],
+  },
+  {
     version: "0.28.0",
     date: "2026-09-26",
     title: "Pixelpanik ist da!",

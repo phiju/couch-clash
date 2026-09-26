@@ -14,8 +14,8 @@ export function poolSizesFor(mode: GameModeSettings, registry: ModuleRegistry = 
   for (const [id, module] of Object.entries(registry)) {
     // Games that play another category's questions (e.g. every knowledge game → "quiz").
     const owner = registry[contentPoolOf(module.meta)] ?? module;
-    const entries = owner.listContent?.();
-    // Without a catalog (generated content) the pool is unlimited.
+    // Without a catalog, or with content fetched live (Musik-Quiz: Deezer), the pool is unlimited.
+    const entries = owner.meta.contentSource === "generated" ? undefined : owner.listContent?.();
     sizes[id] = entries ? entries.filter((e) => eligibleForMode(e, mode, module.meta)).length : Number.MAX_SAFE_INTEGER;
   }
   byMode.set(key, sizes);

@@ -2,7 +2,7 @@
 import type { MusikQuestionTypeId } from "./meta";
 
 /**
- * loading (fresh preview URLs) → per song: announce (question type, 2–3 s)
+ * loading (live songs from Deezer, fresh preview URLs) → per song: announce (question type, 2–3 s)
  * → play (music; buzzer / year / kids choice) ⇄ answer (someone buzzed,
  * music paused) ⇄ checking (optional AI check) → reveal → leaderboard.
  */

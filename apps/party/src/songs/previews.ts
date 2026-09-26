@@ -1,5 +1,7 @@
 /**
- * Fresh preview URLs for a Musik-Quiz round (module task "song_previews").
+ * Songs and fresh preview URLs for a Musik-Quiz round: the live catalog
+ * (module task "song_catalog", Deezer playlists per genre) and previews for
+ * songs from songs.json / test songs (module task "song_previews").
  * Deezer per track id first, iTunes (country DE, ~20 calls/min, cached) as
  * the fallback, local test files as they are. URLs are handed to the round
  * only – never stored (Deezer's carry expiring tokens).
@@ -10,8 +12,15 @@ import {
   ITunesProvider,
   LocalProvider,
   RateLimiter,
+  SONG_GENRE_IDS,
+  SONG_IMPORT_CONFIG,
+  TtlCache,
   foldText,
+  liveSongCatalog,
   type Fetch,
+  type LiveCatalogResult,
+  type PlaylistInfo,
+  type SongGenreId,
   type SongProvider,
   type SongProviderId,
   type TrackRef,
@@ -31,7 +40,9 @@ export const PREVIEW_CONFIG = {
 const itunesLimiter = new RateLimiter(20, 60_000);
 const deezerLimiter = new RateLimiter(45, 5_000);
 
-export function createProviders(fetchFn: Fetch): Record<SongProviderId, SongProvider> & { itunes: ITunesProvider } {
+const playlistCache = new TtlCache<PlaylistInfo[]>(12 * 60 * 60_000);
+
+export function createProviders(fetchFn: Fetch): Record<SongProviderId, SongProvider> & { itunes: ITunesProvider; deezer: DeezerProvider } {
   return {
     deezer: new DeezerProvider({ fetch: fetchFn, limiter: deezerLimiter }),
     itunes: new ITunesProvider({
@@ -71,4 +82,22 @@ export function createPreviewLookup(providers: Record<SongProviderId, SongProvid
     await Promise.all(Array.from({ length: PREVIEW_CONFIG.parallel }, worker));
     return out;
   };
+}
+
+export type SongCatalog = (input: { genres: readonly string[]; questions: number }) => Promise<LiveCatalogResult>;
+
+/** Songs for a round, live from Deezer playlists of the genres (module task "song_catalog"). */
+export function createSongCatalog(deezer: DeezerProvider): SongCatalog {
+  return (input) =>
+    liveSongCatalog(
+      { genres: input.genres.filter((g): g is SongGenreId => (SONG_GENRE_IDS as readonly string[]).includes(g)), questions: input.questions },
+      {
+        source: deezer,
+        config: SONG_IMPORT_CONFIG,
+        random: Math.random,
+        nowYear: new Date().getUTCFullYear(),
+        playlistCache,
+        log: (message) => console.warn(message),
+      },
+    );
 }

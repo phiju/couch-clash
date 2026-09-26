@@ -50,6 +50,8 @@ export const MUSIK_CONFIG = {
   kidsSettleMs: 1_500,
   /** Longest free-text answer. */
   maxAnswerLength: 60,
+  /** Waiting for the live songs (Deezer playlists) at the round start. */
+  catalogTimeoutMs: 12_000,
   /** Waiting for fresh preview URLs at the round start before playing what is there. */
   previewTimeoutMs: 12_000,
   /** Candidate songs per slot (the first one with a preview plays). */
@@ -134,7 +136,8 @@ export const musikMeta = {
   scoringFields: ["points", "perQuestionCap"],
   /** Announcement, ~15–20 s of music, the solution and the leaderboard. */
   estimatedSecondsPerQuestion: 38,
-  contentSource: "static",
+  /** Songs come live from Deezer when a round starts (songs.json only adds to them). */
+  contentSource: "generated",
   modes: ["kids", "family", "party"],
   kidsMaxDifficulty: 3,
   options,

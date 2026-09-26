@@ -279,7 +279,7 @@ export interface GameModule<TState = unknown, TAction = unknown, TPublic = unkno
 }
 
 /** Generic server tasks a module may request. */
-export type ModuleTask = LlmJsonTask | SongPreviewsTask;
+export type ModuleTask = LlmJsonTask | SongPreviewsTask | SongCatalogTask;
 
 interface ModuleTaskBase {
   /** Unique per state – the room runs each id once. */
@@ -314,6 +314,16 @@ export interface SongPreviewRequest {
 export interface SongPreviewsTask extends ModuleTaskBase {
   kind: "song_previews";
   input: { tracks: SongPreviewRequest[] };
+}
+
+/**
+ * Songs for a Musik-Quiz round, fetched live from the song provider (Deezer
+ * playlists of the genres). Result: `{ songs: Song[], previews: songId → URL }`
+ * – the module validates it.
+ */
+export interface SongCatalogTask extends ModuleTaskBase {
+  kind: "song_catalog";
+  input: { genres: string[]; questions: number };
 }
 
 export interface ReadAloud {

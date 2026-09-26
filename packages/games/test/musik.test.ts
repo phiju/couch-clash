@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { GAME_MODULES, normalizeScoring } from "../src";
 import { artistTerms, checkArtist, isBorderline, matchesTerms, memberTerms, titleTerms } from "../src/musik/match";
 import { MUSIK_CONFIG, musikMeta } from "../src/musik/meta";
-import { createMusikModule, songPool, type MusikState } from "../src/musik/module";
+import { createMusikModule, liveGenresFor, songPool, type MusikModule, type MusikState } from "../src/musik/module";
 import { eligibleSongs, kidsChoices, planRound } from "../src/musik/plan";
 import { buzzPoints, scoreYears } from "../src/musik/scoring";
 
@@ -59,10 +59,20 @@ function previewsFor(u: ModuleUpdate<MusikState>) {
   return Object.fromEntries(task.input.tracks.map((t) => [t.songId, t.previewUrl ?? `https://cdn.example/${t.trackId}.mp3?token=x`]));
 }
 
-/** init → previews → announce → play */
+/** init → the live catalog (null: offline – only the stored songs) → planned, waiting for previews */
+function planned(c: ModuleContext, o: ModuleInitOptions, live: unknown = null, m: MusikModule = mod): ModuleUpdate<MusikState> {
+  const init = m.init(c, o);
+  expect(init.state.step).toBe("loading");
+  const task = m.pendingTask!(init.state)!;
+  expect(task.kind).toBe("song_catalog");
+  return m.resolveTask!(init.state, task.id, live, c)!;
+}
+
+/** init → catalog → previews → announce → play */
 function playing(mode = family, extra: Partial<ModuleInitOptions> = {}, ids = PLAYERS): ModuleUpdate<MusikState> {
-  const init = mod.init(ctx(T0, ids), options(mode, extra));
-  const loaded = mod.resolveTask!(init.state, `${init.state.roundKey}:previews`, previewsFor(init), ctx(T0 + 100, ids))!;
+  const init = planned(ctx(T0, ids), options(mode, extra));
+  // Only local test songs planned (e.g. Kids) → no lookup, the round starts right away.
+  const loaded = init.state.step === "loading" ? mod.resolveTask!(init.state, `${init.state.roundKey}:previews`, previewsFor(init), ctx(T0 + 100, ids))! : init;
   expect(loaded.state.step).toBe("announce");
   const play = mod.onTimer(loaded.state, ctx(T0 + 3_000, ids));
   expect(play.state.step).toBe("play");
@@ -203,7 +213,7 @@ describe("planning", () => {
 
 describe("round start", () => {
   it("asks the room for fresh previews first and plays only songs that have one", () => {
-    const init = mod.init(ctx(T0), options(family, only("title")));
+    const init = planned(ctx(T0), options(family, only("title")));
     expect(init.state.step).toBe("loading");
     const task = mod.pendingTask!(init.state)!;
     expect(task.kind).toBe("song_previews");
@@ -218,18 +228,26 @@ describe("round start", () => {
   });
 
   it("no previews (timeout) → the local test songs still play", () => {
-    const init = mod.init(ctx(T0), options(family, only("title")));
+    const init = planned(ctx(T0), options(family, only("title")));
     const next = mod.onTimer(init.state, ctx(T0 + 20_000));
     expect(next.state.slots.every((s) => s.song.provider === "local")).toBe(true);
   });
 
+  it("no live songs (timeout) → the stored songs with audio play right away", () => {
+    const init = mod.init(ctx(T0), options(family, only("title")));
+    const next = mod.onTimer(init.state, ctx(T0 + 20_000));
+    expect(next.state.step).toBe("announce");
+    expect(next.state.slots.length).toBeGreaterThan(0);
+    expect(next.state.slots.every((s) => s.song.provider === "local")).toBe(true);
+  });
+
   it("an empty pool ends the round right away", () => {
-    const empty = createMusikModule({ songs: [] }).init(ctx(T0), options(family));
+    const empty = planned(ctx(T0), options(family), null, createMusikModule({ songs: [] }));
     expect(empty.done).toBe(true);
   });
 
   it("announces the question type before the song", () => {
-    const init = mod.init(ctx(T0), options(family));
+    const init = planned(ctx(T0), options(family));
     const loaded = mod.resolveTask!(init.state, `${init.state.roundKey}:previews`, previewsFor(init), ctx(T0))!;
     expect(loaded.phaseEndsAt).toBe(T0 + MUSIK_CONFIG.announceMs);
     expect(loaded.state.events.at(-1)).toMatchObject({ type: "ANNOUNCE" });
@@ -364,7 +382,7 @@ describe("year", () => {
 
   it("only verified years are asked", () => {
     for (let seed = 1; seed < 10; seed++) {
-      const init = mod.init(ctx(T0, PLAYERS, seeded(seed)), options(family, only("year")));
+      const init = planned(ctx(T0, PLAYERS, seeded(seed)), options(family, only("year")));
       for (const p of init.state.pending) expect(p.candidates.every((c) => c.song.yearVerified)).toBe(true);
     }
   });
@@ -449,7 +467,44 @@ describe("module registry & content", () => {
 
 describe("party mode", () => {
   it("plays family and party songs", () => {
-    const init = mod.init(ctx(T0), options(party, { questionCount: 15 }));
+    const init = planned(ctx(T0), options(party, { questionCount: 15 }));
     expect(init.state.pending.length).toBeGreaterThan(10);
+  });
+});
+
+describe("live songs (Deezer)", () => {
+  const live = (n: number, patch: Partial<Song> = {}) => deezer(100 + n, { genres: ["90er"], ...patch });
+  const LIVE = Array.from({ length: 12 }, (_, i) => live(i));
+  const reply = { songs: LIVE, previews: Object.fromEntries(LIVE.map((s) => [s.id, `https://cdn.example/${s.providerTrackId}.mp3?hdnea=1`])) };
+  const offline = createMusikModule({ songs: [] });
+
+  it("asks for the picked genres that fit the mode – Zufall: every genre of the mode", () => {
+    const init = offline.init(ctx(T0), options(family, { options: { "genre-90er": true, "genre-ballermann": true } }));
+    const task = offline.pendingTask!(init.state)!;
+    expect(task).toMatchObject({ kind: "song_catalog", input: { genres: ["90er"], questions: 6 } });
+    expect(liveGenresFor("kids", new Set())).toEqual(["kinder"]);
+    expect(liveGenresFor("family", new Set())).not.toContain("ballermann");
+    expect(liveGenresFor("party", new Set())).toContain("ballermann");
+  });
+
+  it("live songs play with their own preview – no second lookup", () => {
+    const loaded = planned(ctx(T0), options(family, { options: { "genre-90er": true } }), reply, offline);
+    expect(loaded.state.step).toBe("announce");
+    expect(loaded.state.slots).toHaveLength(6);
+    expect(loaded.state.slots.every((s) => s.song.previewUrl?.startsWith("https://cdn.example/"))).toBe(true);
+  });
+
+  it("admin overrides apply to live songs; songs without preview or invalid ones are dropped", () => {
+    const withOverride = options(family, { questionCount: 3, extraContent: [{ kind: "song-override", id: LIVE[0]!.id, disabled: true }] });
+    const broken = { songs: [...LIVE.slice(0, 4), { id: "nope" }], previews: { ...reply.previews, [LIVE[1]!.id]: undefined } };
+    const loaded = planned(ctx(T0), withOverride, JSON.parse(JSON.stringify(broken)), offline);
+    const ids = loaded.state.slots.map((s) => s.song.id);
+    expect(ids).not.toContain(LIVE[0]!.id);
+    expect(ids).not.toContain(LIVE[1]!.id);
+    expect(ids.length).toBe(2);
+  });
+
+  it("the settings show the game without a song file (pool unlimited)", () => {
+    expect(musikMeta.contentSource).toBe("generated");
   });
 });

@@ -170,19 +170,14 @@ Well-known party songs everyone can sing along to, **one question type per song*
 
 ### Songs
 
-- **Model** (`SongSchema`): id, title + aliases, artist + aliases, main artists, band members, cover, provider + track id, source link, original year + `yearVerified`, popularity (Deezer rank), genres, modes. **Preview URLs are never stored** (Deezer's carry expiring tokens): when a round starts the module asks the room for them (`song_previews` module task) and the worker fetches each track fresh.
-- **Providers** (`packages/content/src/music/providers.ts`, one `SongProvider` interface): `DeezerProvider` (default: tracks, playlists, charts, playlist search), `ITunesProvider` (fallback, country DE, ~20 calls/min, cached), `LocalProvider` (synth test songs in `apps/web/public/test-audio`, `pnpm --filter @couch-clash/content songs:test-audio`), `AppleMusicProvider` (empty stub). Every external call runs in the worker or the import script – never in a browser, no keys.
-- **Genres** (`data/musik/genres.json`): 80er · 90er · 2000er · Schlager-Klassiker · Schlager-Party · Ballermann/Après-Ski · Oktoberfest/Wiesn · Neue Deutsche Welle · Party-Klassiker international · Kinderlieder (Kids only), each with Deezer playlist ids, search terms and plausible years.
-- **Import** (once, then commit `data/musik/songs.json`):
+- **Model** (`SongSchema`): id, title + aliases, artist + aliases, main artists, band members, cover, provider + track id, source link, original year + `yearVerified`, popularity (Deezer rank), genres, modes. **Preview URLs are never stored** (Deezer's carry expiring tokens).
+- **Songs come live from Deezer** (`packages/content/src/music/live.ts`, module task `song_catalog`): when a round starts the worker searches Deezer playlists for the round's genres (search terms from `data/musik/genres.json`, or the fixed `deezerPlaylistIds` there when set; a random one of the best hits, so rounds vary; searches cached 12 h per worker), takes up to 4 genres (Zufall = every genre of the mode), keeps the best known tracks (rank ≥ `minPopularity`, previews only, no live / remix / karaoke / cover versions), merges duplicates and hands the songs **with their fresh preview URLs** to the round – no key, nothing stored. The year for „Aus welchem Jahr?“ comes from the track's album, only for an original album or single (no sampler, best-of, remaster, deluxe) and only when it fits the genre's years – otherwise that song just isn't asked for the year. Deezer unreachable → the round plays what `songs.json` / the test songs have, or is skipped.
+- **Providers** (`packages/content/src/music/providers.ts`, one `SongProvider` interface): `DeezerProvider` (default: tracks, albums, playlists, charts, playlist search), `ITunesProvider` (preview fallback, country DE, ~20 calls/min, cached), `LocalProvider` (synth test songs in `apps/web/public/test-audio`, `pnpm --filter @couch-clash/content songs:test-audio`), `AppleMusicProvider` (empty stub). Every external call runs in the worker or the import script – never in a browser, no keys.
+- **Genres** (`data/musik/genres.json`): 80er · 90er · 2000er · Schlager-Klassiker · Schlager-Party · Ballermann/Après-Ski · Oktoberfest/Wiesn · Neue Deutsche Welle · Party-Klassiker international · Kinderlieder (Kids only), each with search terms, optional fixed Deezer playlist ids, plausible years and modes.
+- **Optional stored songs** (`data/musik/songs.json`, empty by default): `pnpm songs:playlists` / `MUSICBRAINZ_CONTACT=you@example.org pnpm songs:import` still build a curated list with MusicBrainz years; stored songs play next to the live ones and get their previews from the `song_previews` task (Deezer per track id, iTunes fallback).
+- **Admin `/admin/songs`** (same `ADMIN_TOKEN`): corrections for the stored songs – years, title and artist aliases, switch a song off. Corrections live in D1 (`song_overrides`, migration `0003`), are keyed by song id (`song-<artist>-<title>`) and apply to live songs with the same id, too.
+- The game is always offered in the settings (the pool counts as unlimited, `contentSource: "generated"`). **Local development:** `MUSIC_TEST_SONGS=1` in `apps/party/.dev.vars` also plays the synth test songs (e.g. offline). End-to-end check: `MODE=family|kids SHOTS=./shots pnpm --filter @couch-clash/web e2e:musik`.
 
-```bash
-pnpm songs:playlists                  # 2–3 Deezer playlist candidates per genre (track count, examples) → pick ids into genres.json
-MUSICBRAINZ_CONTACT=you@example.org pnpm songs:import   # playlists → filter → merge → original year → songs.json
-```
-
-  The import keeps songs with rank ≥ `minPopularity`, drops live / remix / karaoke / instrumental / cover versions, merges duplicates (clean title + main artist) and takes the **original year from MusicBrainz** (recording → first-release-date, 1 request/s, own User-Agent) – never Deezer's release date (samplers, remasters). A year outside the genre's range, or found only once, stays `yearVerified: false`. Songs already in the file keep their year, aliases and members.
-- **Admin `/admin/songs`** (same `ADMIN_TOKEN`): filter „Nur ohne bestätigtes Jahr“, genre, search; correct / confirm years, keep title and artist aliases, switch a song off. Corrections live in D1 (`song_overrides`, migration `0003`) and apply from the next round on.
-- Until songs are imported the game is hidden in the settings (like Pixelpanik without pictures). **Local development:** `MUSIC_TEST_SONGS=1` in `apps/party/.dev.vars` plays the synth test songs. End-to-end check: `MODE=family|kids SHOTS=./shots pnpm --filter @couch-clash/web e2e:musik`.
 ## Stadt, Land, Fluss
 
 The classic: a random letter and a few categories, everyone writes at the same time on the phone, then the host reads out EVERY answer – one text per category with one gag. Logic: `packages/games/src/stadt-land-fluss/` (own module), views: `apps/web/src/games/stadt-land-fluss/`. One „question“ = one letter (1–6 per round, default 3).
@@ -497,7 +492,7 @@ The TV/laptop plays music and effects; phones never do.
 
 **Pixelpanik** ✅ New game: a picture sharpens from 4×4 pixels to full resolution – recognize it early for up to 200 points; free text with typo tolerance (Kids: four options), out on a wrong guess, own snarky host lines, pictures pre-rendered by a one-time script (Cloudflare R2).
 
-**Musik-Quiz** ✅ New game: party songs with a question type per song – buzz the title or the artist, tip the year on a timeline; Kids pick the title without a timer. Songs from Deezer playlists with the original year from MusicBrainz (`pnpm songs:import`), corrections on `/admin/songs`.
+**Musik-Quiz** ✅ New game: party songs with a question type per song – buzz the title or the artist, tip the year on a timeline; Kids pick the title without a timer. Songs live from Deezer playlists per genre when a round starts, corrections on `/admin/songs`.
 
 **Skurrile Ereignisse** ✅ New game on the bluff engine: 139 true, bizarre stories (Kids, Familie, Party) – invent the ending, find the truth; fact and source at the reveal.
 
