@@ -87,9 +87,9 @@ export function eligibleForMode(item: ContentFlags, s: GameModeSettings, meta?: 
   }
 }
 
-/** The party share a round uses: the host's choice in Party mode, 0 otherwise. */
-export function partyShareOf(s: GameModeSettings | undefined): number {
-  if (s?.mode !== "party") return 0;
+/** The party share a round uses: the host's choice in Party mode, 0 otherwise (and always 0 for mode-neutral categories). */
+export function partyShareOf(s: GameModeSettings | undefined, meta?: Pick<CategoryMeta, "modeNeutral">): number {
+  if (s?.mode !== "party" || meta?.modeNeutral) return 0;
   return s.partyShare ?? PARTY_CONFIG.defaultShare;
 }
 

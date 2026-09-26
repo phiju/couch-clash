@@ -14,7 +14,10 @@ export interface PartyPickable {
   adult?: boolean;
 }
 
-export type PartyPickOptions = Pick<ModuleInitOptions, "excludeContentIds" | "mode" | "log">;
+export type PartyPickOptions = Pick<ModuleInitOptions, "excludeContentIds" | "mode" | "log"> & {
+  /** CategoryMeta.modeNeutral: no party share, the whole round is picked like outside Party mode. */
+  modeNeutral?: boolean;
+};
 
 /**
  * Where the party items go in a round of `n`: evenly spread, the first one
@@ -52,7 +55,7 @@ export function selectWithPartyShare<T extends PartyPickable>(
   const weight = (q: T) => difficultyWeight(q.difficulty, options.mode);
   const exclude = options.excludeContentIds ?? [];
   const pickRest = pickFamily ?? ((items: readonly T[], n: number) => pickFresh(items, n, exclude, random, weight));
-  const share = partyShareOf(options.mode);
+  const share = partyShareOf(options.mode, options);
   if (share <= 0) return pickRest(candidates, count);
 
   const excluded = new Set(exclude);

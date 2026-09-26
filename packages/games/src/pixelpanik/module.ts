@@ -124,9 +124,14 @@ export function motifFlags(m: PixelpanikMotif): ContentFlags {
   };
 }
 
-/** May this motif come up in the mode? (the motif's own `modes` list) */
+/**
+ * May this motif come up in the mode? Pixelpanik is mode-neutral: the
+ * motif's own `modes` list is ignored, Kids only need the four options.
+ * (Adult motifs stay out of Kids / Familie via eligibleForMode.)
+ */
 export function motifFitsMode(m: PixelpanikMotif, mode: GameModeSettings): boolean {
-  if (mode.mode === "kids") return m.modes.includes("kinder") && m.kids_choices !== null;
+  if (mode.mode === "kids") return m.kids_choices !== null && (pixelpanikMeta.modeNeutral || m.modes.includes("kinder"));
+  if (pixelpanikMeta.modeNeutral) return true;
   if (mode.mode === "family") return m.modes.includes("erwachsene");
   return m.modes.includes("party");
 }
@@ -161,8 +166,8 @@ export function spreadCategories<T extends { category: string }>(items: readonly
 
 /**
  * The pictures of a round: mode filter, never one played in this session
- * (room), weighted by difficulty, Party: at least the party share from the
- * party pool – then mixed by topic.
+ * (room), weighted by difficulty (mode-neutral: no party share) – then
+ * mixed by topic.
  */
 export function pickMotifs(
   pool: readonly PixelpanikMotif[],
@@ -180,7 +185,7 @@ export function pickMotifs(
   const picked = selectWithPartyShare(
     pickable,
     options.questionCount,
-    { ...options, mode, excludeContentIds: [] },
+    { ...options, mode, excludeContentIds: [], modeNeutral: pixelpanikMeta.modeNeutral },
     random,
     "pixelpanik",
     (items, n) => pickSpread(weightedShuffle(items, weight, random), n, (p) => p.motif.category),

@@ -152,3 +152,6 @@ vite.config.ts.timestamp-*
 next-env.d.ts
 .vercel
 !.env.example
+
+# Pixelpanik image script output (uploaded to R2, never committed)
+packages/content/.pixelpanik-out/

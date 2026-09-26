@@ -128,23 +128,28 @@ A picture on the TV starts as 4×4 big pixels and gets sharper in six stages (4�
 - **Stages and points** (host: „Punkte-Einstellungen“): 200 / 180 / 150 / 100 / 50 / 20 by the stage of the right answer – everyone right in the same stage gets the same. „Sekunden pro Stufe“ (default 4, 2–15), then 5 s solution and the leaderboard. Points are booked at the solution. 3–10 pictures per round (default 5).
 - **Familie / Party (free text):** one guess per picture, sendable any time. Check (`pixelpanik/match.ts`): normalize (lower case, ä→ae, ß→ss, accents, spaces, hyphens, leading articles), then Levenshtein against answer + synonyms – 0 typos up to 3 letters, 1 up to 5, 2 up to 9, else 3 („Kolloseum“, „eifelturm“ ✓). A guess closer to another motif than to this one is wrong („Irland“ ≠ „Island“). Wrong = out for this picture (spectator screen), right = locked. The picture ends when everyone is done or after stage 6.
 - **Kids (multiple choice):** the four `kids_choices`, shuffled. A wrong option stays greyed out and locks the player until the next stage – nobody is ever out. Only motifs with `kinder`.
-- **Motifs:** `packages/content/data/pixelpanik/motive.json` (169, zod schema `PixelpanikMotifSchema`). `modes`: `kinder` → Kids, `erwachsene` → Familie, `party` → Party; motifs only for `party` are the party pool (≥ 30 % of a Party round, `selectWithPartyShare`). The difficulty mix (leicht / gemischt / schwer) weights the pick. Never the same motif twice per room; topics are mixed (never two in a row when avoidable). **Motifs without `image` are never played** – until the image script ran, the game is hidden in the settings.
+- **Motifs:** `packages/content/data/pixelpanik/motive.json` (169, zod schema `PixelpanikMotifSchema`). `modes`: `kinder` → Kids, `erwachsene` → Familie, `party` → Party; Pixelpanik is **mode-neutral** (`CategoryMeta.modeNeutral`): no party share per round and the motifs' mode tags are ignored – Party plays every motif, Familie / Kids still never see party-only motifs (global mode filter), Kids only motifs with `kids_choices`. The difficulty mix (leicht / gemischt / schwer) weights the pick. Never the same motif twice per room; topics are mixed (never two in a row when avoidable). **Motifs without `image` are never played** – until the image script ran, the game is hidden in the settings.
 - **Anti-cheat:** the stages are pre-rendered (image script) under random file names – no motif id, no stage in the name. The server sends the TV only the URL of the *current* stage; the full picture comes with stage 6. Phones never get a picture URL, and in free text they never get the options. The TV draws a stage onto an N×N canvas and scales it up with `imageSmoothingEnabled = false`; the full picture „snaps“ in (flash + bounce, `sting-short`).
 - **Host voice:** event-driven like the Survival-Finale (`apps/party/src/voice/pixelpanik-voice.ts`): nobody tried by stage 2 (picks on a random player), wrong guess, right at 4×4 / 8×8, right only at full resolution, nobody got it. **The lines live in `apps/party/src/voice/pixelpanik-lines.ts`** – `{name}` placeholder, pools `family`, `party` (extra, cheekier) and `kids`; the last 3 per situation are locked. Audio: cached lines are free, new ones are made at the round start (max 4,000 credits per round, a few per player and situation first).
 - **Avatars:** early hit → the avatar zooms in and cheers (`jubelnd`), out → `enttaeuscht`.
 
 ### Pictures (once, before the first game)
 
-`packages/content/scripts/pixelpanik-images.mjs` fetches every picture, crops it square (subject centred), renders the six stages (sharp) and uploads them to **Supabase Storage** (bucket `pixelpanik`, created public if missing); the URLs are written back into `motive.json` (commit the file afterwards). Idempotent: motifs with `image` are skipped; the file is saved after every motif.
+`packages/content/scripts/pixelpanik-images.mjs` fetches every picture, crops it square (subject centred) and renders the six stages (sharp: 4×4 … 64×64 as tiny PNGs, the full picture as 1024×1024 WebP, random file names). It works in three steps – nothing is uploaded by the script itself, no secret ends up in the repo:
 
-- `ai` → OpenAI Image API (`gpt-image-2`, 1024×1024, `--quality medium` ≈ $0.04–0.07 per picture, ~130 pictures)
-- `svg` → flags from the npm package `flag-icons` (1x1), rendered to PNG (`flag_code`)
+1. **generate** → files, `manifest.json` and `upload.sh` in `packages/content/.pixelpanik-out/` (git-ignored). Idempotent: motifs in the manifest or with `image` are skipped; failed motifs (e.g. a rejected prompt) are logged, skipped and listed at the end.
+2. **upload** → `sh packages/content/.pixelpanik-out/upload.sh` puts every file into the public Cloudflare R2 bucket `couch-clash-pixelpanik` (wrangler; once: `npx wrangler login`, `npx wrangler r2 bucket create couch-clash-pixelpanik`, `npx wrangler r2 bucket dev-url enable couch-clash-pixelpanik` or a custom domain).
+3. **apply** → writes the public URLs into `motive.json` (commit the file afterwards).
+
+- `ai` → OpenAI Image API (`gpt-image-2`, 1024×1024, `--quality medium`); the key only comes from `OPENAI_API_KEY` and is never logged
+- `svg` → flags from the npm package `flag-icons` (1x1, `flag_code`)
 - `wikimedia` → public-domain paintings from Wikimedia Commons (`wikimedia_file`, falls back to a search); title, artist, licence and link go into `image.source` and are shown at the solution
 
 ```bash
-SUPABASE_URL=https://<project>.supabase.co SUPABASE_SERVICE_ROLE_KEY=… OPENAI_API_KEY=… \
-  pnpm --filter @couch-clash/content images:pixelpanik            # everything missing
-  # --source svg | --only pp-001,pp-031 | --limit 10 | --force | --out-dir ./tmp/pp (dry run, local files only)
+OPENAI_API_KEY=… pnpm --filter @couch-clash/content images:pixelpanik            # 1. everything missing
+  # --source svg | --only pp-001,pp-031 | --limit 10 | --force | --preview (full + 4×4 + 8×8 side by side)
+sh packages/content/.pixelpanik-out/upload.sh                                     # 2.
+pnpm --filter @couch-clash/content images:pixelpanik --apply --public-base https://pub-….r2.dev   # 3.
 ```
 
 End-to-end check (needs pictures + `pnpm dev:party` + `pnpm dev:web`): `MODE=family|party|kids SHOTS=./shots pnpm --filter @couch-clash/web e2e:pixelpanik`.
@@ -485,7 +490,7 @@ The TV/laptop plays music and effects; phones never do.
 
 **Bluff-Lexikon** ✅ New category: invent definitions for very rare Latin/Greek nouns, find the real one – AI judge with polished answers, host reads the options, 200 words.
 
-**Pixelpanik** ✅ New game: a picture sharpens from 4×4 pixels to full resolution – recognize it early for up to 200 points; free text with typo tolerance (Kids: four options), out on a wrong guess, own snarky host lines, pictures pre-rendered by a one-time script (Supabase Storage).
+**Pixelpanik** ✅ New game: a picture sharpens from 4×4 pixels to full resolution – recognize it early for up to 200 points; free text with typo tolerance (Kids: four options), out on a wrong guess, own snarky host lines, pictures pre-rendered by a one-time script (Cloudflare R2).
 
 **Musik-Quiz** ✅ New game: party songs with a question type per song – buzz the title or the artist, tip the year on a timeline; Kids pick the title without a timer. Songs live from Deezer playlists per genre when a round starts, corrections on `/admin/songs`.
 

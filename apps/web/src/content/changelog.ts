@@ -28,12 +28,23 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
-    version: "0.27.1",
+    version: "0.28.1",
     date: "2026-09-26",
     title: "Das Musik-Quiz legt los",
     items: [
       { emoji: "🎶", text: "Das Musik-Quiz ist startklar – die Songs kommen jetzt frisch von Deezer" },
       { emoji: "🔀", text: "Jede Runde neue Playlists – so schnell geht euch die Musik nicht aus" },
+    ],
+  },
+  {
+    version: "0.28.0",
+    date: "2026-09-26",
+    title: "Pixelpanik ist da!",
+    items: [
+      { emoji: "👾", text: "Pixelpanik ist spielbereit: 158 Bilder warten darauf, erkannt zu werden" },
+      { emoji: "🗼", text: "Bauwerke, Tiere, Essen, Autos, Flaggen, Naturwunder und Alltagskram" },
+      { emoji: "🍸", text: "Auf der Party gibt's eigene Partybilder – und jedes andere Bild auch" },
+      { emoji: "🧸", text: "Im Kids-Modus mit vier Antworten zum Antippen" },
     ],
   },
   {
