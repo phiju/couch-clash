@@ -5,11 +5,12 @@
  * option and the players' answers (with server timestamps) – and runs the
  * per-question steps:
  *
- *   [pre-step of the game] → question → reveal → leaderboard → next …
+ *   [pre-step of the game] → [showdown] → question → reveal → leaderboard → next …
  *
  * Everything game-specific lives in the game's own module (KnowledgeGame):
- * an optional pre-step (pick a category, NORMAL/DOUBLE, a wager), what
- * happens when a question starts (e.g. find the leader), and the scoring.
+ * an optional pre-step (pick a category, cash out or bet, a wager), what
+ * happens when a question starts (e.g. find the leader), who may answer,
+ * when the round is over early, and the scoring.
  * Timers are only `phaseEndsAt` (the room's alarm calls onTimer).
  */
 import { QUIZ_QUESTIONS_DE, type QuizQuestion } from "@couch-clash/content";
@@ -82,6 +83,9 @@ export interface QuestionSlot {
 export interface KnowledgeScoreInput<G> {
   game: G;
   question: PreparedQuizQuestion;
+  /** 0-based question index; `last`: no question follows (the round ends after it). */
+  index: number;
+  last: boolean;
   answers: Readonly<Record<string, RecordedAnswer>>;
   /** Every player of the room (answered or not). */
   playerIds: readonly string[];
@@ -113,22 +117,34 @@ export interface KnowledgePrePhase<G, A extends { type: string }> {
   act(game: G, action: A, actorId: string, ctx: ModuleContext): G | { error: ErrorCode };
   /** The step is over (all acted or time up): defaults for everyone missing. */
   finish(game: G, ctx: ModuleContext): G;
+  /** Points booked right when the step is over (after finish), e.g. players who cash out. */
+  payout?(game: G): Record<string, number>;
+  /** Uncover everyone's choice on the TV for this many seconds before the question ("showdown"). */
+  showdownSeconds?: number;
   /** Test bots: the bot's move in this step (it is an actor and hasn't acted yet). */
   bot?(game: G, botId: string, ctx: ModuleContext, bot: BotContext): A | null;
 }
 
 export interface KnowledgeGame<G, A extends { type: string } = never> {
   meta: CategoryMeta;
-  /** The game's own state – plus the round's questions if they are not drawn one by one. */
+  /**
+   * The game's own state – plus the round's questions if they are not drawn
+   * one by one, and `total` if the game knows how many it plays (default:
+   * the question count asked for).
+   */
   init(
     ctx: ModuleContext,
     options: ModuleInitOptions,
     pool: readonly QuizQuestion[],
-  ): { game: G; questions?: PreparedQuizQuestion[] };
+  ): { game: G; questions?: PreparedQuizQuestion[]; total?: number };
   /** Questions drawn one by one (after a pick). Null → nothing left, the round ends. */
   drawQuestion?(game: G, index: number, ctx: ModuleContext): { game: G; question: PreparedQuizQuestion } | null;
   /** A new question begins (before the pre-step). */
   startQuestion?(game: G, slot: QuestionSlot): G;
+  /** Who may answer the question (default: every player). Others get NOT_IN_PLAY and never hold up the step. */
+  answerers?(game: G): readonly string[];
+  /** The round is over before its last question (e.g. nobody is left in the game). */
+  over?(game: G): boolean;
   pre?: KnowledgePrePhase<G, A>;
   score(input: KnowledgeScoreInput<G>): KnowledgeScoreOutput<G>;
   /** Public part for this viewer (hide secrets until the reveal). */
@@ -184,7 +200,10 @@ export function createKnowledgeModule<G, A extends { type: string } = never>(
     return { state, phaseEndsAt: null, done: true };
   }
 
+  const canAnswer = (state: State, playerId: string) => !def.answerers || def.answerers(state.game).includes(playerId);
+
   function openSlot(state: State, index: number, ctx: ModuleContext): ModuleUpdate<State> {
+    if (def.over?.(state.game)) return done(state);
     let next: State = { ...state, index, answers: {}, results: null };
     if (def.startQuestion) next = { ...next, game: def.startQuestion(next.game, { index, ctx, scores: ctx.scores ?? {} }) };
     if (pre && (pre.active?.(next.game, index) ?? true)) {
@@ -214,7 +233,20 @@ export function createKnowledgeModule<G, A extends { type: string } = never>(
   }
 
   function endPre(state: State, ctx: ModuleContext): ModuleUpdate<State> {
-    return openQuestion({ ...state, game: pre ? pre.finish(state.game, ctx) : state.game }, ctx);
+    const game = pre ? pre.finish(state.game, ctx) : state.game;
+    const payout = Object.fromEntries(Object.entries(pre?.payout?.(game) ?? {}).filter(([, points]) => points !== 0));
+    const scoreDelta = Object.keys(payout).length > 0 ? { scoreDelta: payout } : {};
+    if (pre?.showdownSeconds) {
+      const next: State = { ...state, game, step: "showdown", stepStartedAt: ctx.now, stepEndsAt: ctx.now + pre.showdownSeconds * 1000 };
+      return update(next, scoreDelta);
+    }
+    const opened = openQuestion({ ...state, game }, ctx);
+    return { ...opened, ...scoreDelta };
+  }
+
+  /** After the showdown: the question – unless nobody is left to play it. */
+  function endShowdown(state: State, ctx: ModuleContext): ModuleUpdate<State> {
+    return def.over?.(state.game) ? done(state) : openQuestion(state, ctx);
   }
 
   function reveal(state: State, ctx: ModuleContext): ModuleUpdate<State> {
@@ -223,6 +255,8 @@ export function createKnowledgeModule<G, A extends { type: string } = never>(
     const out = def.score({
       game: state.game,
       question,
+      index: state.index,
+      last: state.index + 1 >= state.total,
       answers: state.answers,
       playerIds: ctx.players.map((p) => p.id),
       scores,
@@ -260,9 +294,9 @@ export function createKnowledgeModule<G, A extends { type: string } = never>(
     return update({ ...state, step: "leaderboard", stepStartedAt: now, stepEndsAt: now + REVEAL_LEADERBOARD_MS });
   }
 
-  /** Everyone who is connected has answered (disconnected players don't block). */
+  /** Everyone who is connected (and may answer) has answered – disconnected players don't block. */
   function allAnswered(state: State, ctx: ModuleContext): boolean {
-    const connected = ctx.players.filter((p) => p.connected);
+    const connected = ctx.players.filter((p) => p.connected && canAnswer(state, p.id));
     return connected.length > 0 && connected.every((p) => p.id in state.answers);
   }
 
@@ -279,6 +313,7 @@ export function createKnowledgeModule<G, A extends { type: string } = never>(
     if (state.step !== "question") return { error: "WRONG_PHASE" as const };
     if (ctx.now > state.stepEndsAt) return { error: "TOO_LATE" as const };
     if (!ctx.players.some((p) => p.id === playerId)) return { error: "UNKNOWN_PLAYER" as const };
+    if (!canAnswer(state, playerId)) return { error: "NOT_IN_PLAY" as const };
     if (playerId in state.answers) return { error: "ALREADY_ANSWERED" as const };
     const next: State = { ...state, answers: { ...state.answers, [playerId]: { value, at: ctx.now } } };
     if (allAnswered(next, ctx)) return reveal(next, ctx);
@@ -290,10 +325,10 @@ export function createKnowledgeModule<G, A extends { type: string } = never>(
     actionSchema,
 
     init(ctx, options) {
-      const { game, questions = [] } = def.init(ctx, options, pool);
+      const { game, questions = [], total } = def.init(ctx, options, pool);
       const initial: State = {
         questions,
-        total: def.drawQuestion ? options.questionCount : questions.length,
+        total: total ?? (def.drawQuestion ? options.questionCount : questions.length),
         index: 0,
         step: "question",
         stepStartedAt: ctx.now,
@@ -328,6 +363,7 @@ export function createKnowledgeModule<G, A extends { type: string } = never>(
     onTimer(raw, ctx) {
       const state = upgrade(raw);
       if (pre && state.step === pre.step) return endPre(state, ctx);
+      if (state.step === "showdown") return endShowdown(state, ctx);
       if (state.step === "question") return reveal(state, ctx);
       if (state.step === "reveal") return showLeaderboard(state, ctx.now);
       const nextIndex = state.index + 1;
@@ -361,7 +397,7 @@ export function createKnowledgeModule<G, A extends { type: string } = never>(
         return pre.bot?.(state.game, botId, ctx, bot) ?? null;
       }
       const question = state.questions[state.index];
-      if (state.step !== "question" || !question || botId in state.answers) return null;
+      if (state.step !== "question" || !question || botId in state.answers || !canAnswer(state, botId)) return null;
       return { type: "answer", value: botChoice(question.correctIndex, question.options.length, bot) };
     },
 

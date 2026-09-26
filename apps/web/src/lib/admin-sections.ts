@@ -16,6 +16,12 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     text: "Statistik jeder Frage, Meldungen, Quarantäne, rauswerfen & Ersatz – und Moderator-Sprüche vertonen.",
   },
   {
+    href: "/admin/songs",
+    emoji: "🎶",
+    title: "Songs",
+    text: "Musik-Quiz: Jahre prüfen und bestätigen, Aliase für Titel und Interpret, Songs ausschalten.",
+  },
+  {
     href: "/admin/kosten",
     emoji: "💶",
     title: "Kosten",

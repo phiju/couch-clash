@@ -154,6 +154,48 @@ pnpm --filter @couch-clash/content images:pixelpanik --apply --public-base https
 
 End-to-end check (needs pictures + `pnpm dev:party` + `pnpm dev:web`): `MODE=family|party|kids SHOTS=./shots pnpm --filter @couch-clash/web e2e:pixelpanik`.
 
+## Musik-Quiz
+
+Well-known party songs everyone can sing along to, **one question type per song**. Before each song the TV shows the type big (2–3 s, `announce`) and the host names it. Logic: `packages/games/src/musik/` (server-authoritative, pure), views: `apps/web/src/games/musik/`, songs: `packages/content/src/music/` + `data/musik/`.
+
+- **Question types** are a registry (`musik/question-types.ts`): per type the song filter, the flow (`buzzer` or `estimate`), the answer check and what the TV may show; scoring per flow in `musik/scoring.ts`. A new type = id + labels in `musik/meta.ts` and an entry in the registry – the planner, the settings (option + weight) and the views pick it up.
+  - **„Wie heißt der Song?“** (`title`) and **„Wer singt das?“** (`artist`): buzzer. The first buzz that reaches the server wins (the room handles messages one by one – client times are never used); every further buzz gets `BUZZER_TAKEN` until the answer is judged. The music pauses at that spot; 10 s to type (`answerSeconds`). Wrong / timeout → locked out for this song, the music continues where it stopped, the others may buzz. Nobody by the clip's end → solution. `artist`: every main artist counts (duets, „feat.“), a band member gives `memberShare` % of the points. The title is never shown before the solution.
+  - **„Aus welchem Jahr?“** (`year`): no buzzer, title and artist shown, everyone tips at once (slider + ±1, 15–30 s). Only songs with `yearVerified`. Solution: a timeline on the TV with every tip as an avatar, the right year drops in.
+- **Mix** (host, per game): which types are on (options) and their weight (Punkte-Einstellungen, default 1 each). Never the same type twice in a row; a type whose pool is small is drawn less often; no song twice per game (songs of earlier games in the room only when the pool runs dry). **Genres** are options too – none picked = Zufall.
+- **Kids:** title only (override, not changeable), four titles of the same genre as big buttons, text only (no cover). No timer: the preview loops (cross-fade at the loop point) until every connected child picked; picks change until the solution; the TV shows who picked (✅), never what. The host's button reads „Auflösen“.
+- **Answer check** (`musik/match.ts`): case, umlauts/ß (ä = ae), punctuation, „feat. …“, version brackets („Remastered“, „Radio Edit“), optional leading article („Toten Hosen“), then Levenshtein by length (as in Pixelpanik) against title / artist and the aliases. Optional AI check for borderline answers (option „KI prüft knappe Antworten“, default off): a `llm_json` module task, the music stays paused, a timeout counts as wrong.
+- **Scoring** (all in Punkte-Einstellungen): buzz 200 within the first 5 s, falling to 50 at the clip's end; optional minus points for a wrong buzz (default 0 = off); year exact 200 · ±1 150 · ±2 100 · ±5 50, +50 for the closest when nobody is exact; Kids 100 for a right pick, no time bonus, no minus points.
+- **Host voice** (`apps/party/src/voice/musik-voice.ts`, lines in `musik-lines.ts`): announces the type, teases wrong buzzes, lightning-fast hits, bullseye years, years way off and songs nobody knew – event-driven like Pixelpanik, cached audio only. The song is lowered while he speaks.
+- **Audio on the TV** (`apps/web/src/games/musik/song-player.ts`): audio elements (provider previews come from other domains), unlocked by the first host click („Los geht's!“ / „Spiel starten“); the next clip is preloaded; pause keeps the exact spot, a stop fades out; no background music while a song plays. Phones never get the audio URL.
+
+### Songs
+
+- **Model** (`SongSchema`): id, title + aliases, artist + aliases, main artists, band members, cover, provider + track id, source link, original year + `yearVerified`, popularity (Deezer rank), genres, modes. **Preview URLs are never stored** (Deezer's carry expiring tokens): when a round starts the module asks the room for them (`song_previews` module task) and the worker fetches each track fresh.
+- **Providers** (`packages/content/src/music/providers.ts`, one `SongProvider` interface): `DeezerProvider` (default: tracks, playlists, charts, playlist search), `ITunesProvider` (fallback, country DE, ~20 calls/min, cached), `LocalProvider` (synth test songs in `apps/web/public/test-audio`, `pnpm --filter @couch-clash/content songs:test-audio`), `AppleMusicProvider` (empty stub). Every external call runs in the worker or the import script – never in a browser, no keys.
+- **Genres** (`data/musik/genres.json`): 80er · 90er · 2000er · Schlager-Klassiker · Schlager-Party · Ballermann/Après-Ski · Oktoberfest/Wiesn · Neue Deutsche Welle · Party-Klassiker international · Kinderlieder (Kids only), each with Deezer playlist ids, search terms and plausible years.
+- **Import** (once, then commit `data/musik/songs.json`):
+
+```bash
+pnpm songs:playlists                  # 2–3 Deezer playlist candidates per genre (track count, examples) → pick ids into genres.json
+MUSICBRAINZ_CONTACT=you@example.org pnpm songs:import   # playlists → filter → merge → original year → songs.json
+```
+
+  The import keeps songs with rank ≥ `minPopularity`, drops live / remix / karaoke / instrumental / cover versions, merges duplicates (clean title + main artist) and takes the **original year from MusicBrainz** (recording → first-release-date, 1 request/s, own User-Agent) – never Deezer's release date (samplers, remasters). A year outside the genre's range, or found only once, stays `yearVerified: false`. Songs already in the file keep their year, aliases and members.
+- **Admin `/admin/songs`** (same `ADMIN_TOKEN`): filter „Nur ohne bestätigtes Jahr“, genre, search; correct / confirm years, keep title and artist aliases, switch a song off. Corrections live in D1 (`song_overrides`, migration `0003`) and apply from the next round on.
+- Until songs are imported the game is hidden in the settings (like Pixelpanik without pictures). **Local development:** `MUSIC_TEST_SONGS=1` in `apps/party/.dev.vars` plays the synth test songs. End-to-end check: `MODE=family|kids SHOTS=./shots pnpm --filter @couch-clash/web e2e:musik`.
+## Stadt, Land, Fluss
+
+The classic: a random letter and a few categories, everyone writes at the same time on the phone, then the host reads out EVERY answer – one text per category with one gag. Logic: `packages/games/src/stadt-land-fluss/` (own module), views: `apps/web/src/games/stadt-land-fluss/`. One „question“ = one letter (1–6 per round, default 3).
+
+- **Content** (`packages/content/data/stadt-land-fluss.de.json`, zod `SlfFileSchema`): categories with `id`, `label`, `mode` (`kinder` | `familie` | `party`) and `type` (`fakt`: the AI checks the letter AND whether it is real – „ist das wirklich eine Stadt?“; `kreativ`: anything with the right letter counts, made-up included), letter pools per mode (Kids without C, Q, X, Y) and the mix (`partyMinPerRound`, `creativeMinPerRound`).
+- **Mix per letter** (`pick.ts`, the one mode filter `categoriesForMode`): Kids = kids categories, Familie = family + kids, Party = family + party with at least 2 party categories. **Party categories never come up in Kids or Familie.** Every letter has at least one `kreativ` category (for the vote). Never the same letter twice in a game; categories not played yet come first.
+- **Host settings** („Punkte-Einstellungen“, no code change): points 20 (the only valid answer of the category) / 10 (valid and unique) / 5 (valid but shared) / +10 (funniest answer), categories and seconds per letter for Familie/Party (4, 60 s) and Kids (3, 90 s), seconds after „Stopp!“ (10).
+- **Flow per letter:** intro (the letter big on the TV, the host announces it) → write (phones save while typing – a dropped phone keeps its answers) → whoever filled every field may press **Stopp!**: everyone else gets 10 s (one `stepEndsAt` for the room and every screen; alone it ends at once) → check → gags → reveal → vote → tally (all points booked) → leaderboard.
+- **Check** (one `llm_json` task, strong model, anonymous answer keys): per answer `valid`, `normalized`, `duplicateGroup`, `typo`, `offensive`, `note`. Spelling is tolerant in every mode („Schwarzwaldt“, „Dildoh“), articles don't count („der Rhein“ → R). The first letter is always checked locally – the AI can't make a wrong letter valid. Duplicates: the AI's groups joined with the local key (umlauts, articles, punctuation: „Muenchen“ = „München“). Offensive answers (per mode) are censored: 0 points, never shown or read. **AI failed →** only the first letter counts, local duplicates, the host reads without gags.
+- **Host text** (`script.ts`): per category „Sexspielzeug mit D: Philip sagt Dildo, Tina sagt Dildo, Max sagt Duschkopf.“ is built locally (every player, also „Max hat nichts“) – the AI only writes ONE gag per category (one call for all categories, fast model, players as „P1“, „P2“ – names are filled in afterwards). Nobody wrote anything → the host's own line. Read out via `readAloud` with `long: true` → voice style `read`; the TV follows the voice's cue and shows the text, too (TTS fails → the reveal runs on as text).
+- **Fixed lines** (letters A–Z, „Stopp!“, time's up, nobody has anything, vote) are made once for all rooms (global voice cache, checked when a round starts).
+- **Vote:** every player picks the funniest valid `kreativ` answer (never their own; the same answer of several players is one choice). Most votes → +10 for each author.
+
 ## Survival-Finale
 
 The optional last round of a game (host switch „Survival-Finale zum Schluss“, default on; `CategoryMeta.finale` – always played last, once, never planned by Zufall). The main game's points become **life energy**; questions (multiple choice from the quiz pool) keep coming until one player is left.
@@ -246,7 +288,9 @@ The option "Include source files outside of the Root Directory" must stay on (it
 
 | `OPENAI_API_KEY`         | `apps/party`, Cloudflare Worker **secret** | Photo avatars + the host's texts (never sent to the browser) |
 | `ELEVENLABS_API_KEY`     | `apps/party`, Cloudflare Worker **secret** | The host's voice (never sent to the browser) |
+| `ELEVENLABS_READ_MODEL`  | `apps/party`, Cloudflare Worker variable (optional) | Voice model for long read-outs (Stadt, Land, Fluss), e.g. `eleven_turbo_v2_5`; default `eleven_flash_v2_5`, allowed: `ELEVENLABS_READ_MODELS` in `apps/party/src/voice/config.ts` |
 | `ADMIN_TOKEN`            | `apps/party`, Cloudflare Worker **secret** | Password for `/admin/fragen` (long random string) |
+| `MUSIC_TEST_SONGS`       | `apps/party/.dev.vars` (development only) | `1` = the Musik-Quiz also plays the synth test songs |
 
 No secrets are committed to the repository. For local photo avatars, put `OPENAI_API_KEY=…` into `apps/party/.dev.vars` (git-ignored). Without the key, photo avatars answer "not available" and everyone plays with emojis.
 
@@ -452,6 +496,8 @@ The TV/laptop plays music and effects; phones never do.
 **Bluff-Lexikon** ✅ New category: invent definitions for very rare Latin/Greek nouns, find the real one – AI judge with polished answers, host reads the options, 200 words.
 
 **Pixelpanik** ✅ New game: a picture sharpens from 4×4 pixels to full resolution – recognize it early for up to 200 points; free text with typo tolerance (Kids: four options), out on a wrong guess, own snarky host lines, pictures pre-rendered by a one-time script (Cloudflare R2).
+
+**Musik-Quiz** ✅ New game: party songs with a question type per song – buzz the title or the artist, tip the year on a timeline; Kids pick the title without a timer. Songs from Deezer playlists with the original year from MusicBrainz (`pnpm songs:import`), corrections on `/admin/songs`.
 
 **Skurrile Ereignisse** ✅ New game on the bluff engine: 139 true, bizarre stories (Kids, Familie, Party) – invent the ending, find the truth; fact and source at the reveal.
 

@@ -223,7 +223,11 @@ export interface ModuleUpdate<TState> {
 
 export type ModuleActionResult<TState> = ModuleUpdate<TState> | { error: ErrorCode };
 
-export interface GameModule<TState = unknown, TAction = unknown, TPublic = unknown> {
+/**
+ * TTask: the tasks this module asks for. Most modules only use the text
+ * model (the default); the room's runner handles every ModuleTask kind.
+ */
+export interface GameModule<TState = unknown, TAction = unknown, TPublic = unknown, TTask extends ModuleTask = LlmJsonTask> {
   meta: CategoryMeta;
   /** Validates player actions before handleAction sees them. */
   actionSchema: z.ZodType<TAction>;
@@ -267,7 +271,7 @@ export interface GameModule<TState = unknown, TAction = unknown, TPublic = unkno
    * texts). The room runs it (at most once per id) and hands the result to
    * resolveTask – null on timeout/failure. Optional.
    */
-  pendingTask?(state: TState): ModuleTask | null;
+  pendingTask?(state: TState): TTask | null;
   /** Result of pendingTask. Return null if the task is outdated. */
   resolveTask?(state: TState, taskId: string, result: unknown, ctx: ModuleContext): ModuleUpdate<TState> | null;
   /** Texts the host reads out now, in order (e.g. the answer options). Optional. */
@@ -275,21 +279,56 @@ export interface GameModule<TState = unknown, TAction = unknown, TPublic = unkno
 }
 
 /** Generic server tasks a module may request. */
-export type ModuleTask = {
+export type ModuleTask = LlmJsonTask | SongPreviewsTask;
+
+interface ModuleTaskBase {
   /** Unique per state – the room runs each id once. */
   id: string;
-  /** A JSON answer from the text model; the module builds the prompt and validates the reply. */
+  timeoutMs: number;
+}
+
+/** A JSON answer from the text model; the module builds the prompt and validates the reply. */
+export interface LlmJsonTask extends ModuleTaskBase {
   kind: "llm_json";
   input: { system: string; user: string };
-  timeoutMs: number;
   /** "strong": a more capable (slower) model, e.g. for judging answers. Default "fast". */
   model?: "fast" | "strong";
-};
+}
+
+/** A track whose audio the room should look up (Musik-Quiz). */
+export interface SongPreviewRequest {
+  songId: string;
+  provider: "deezer" | "itunes" | "local" | "applemusic";
+  trackId: string;
+  title: string;
+  artist: string;
+  /** Local test songs: the file (no lookup needed). */
+  previewUrl?: string | null;
+}
+
+/**
+ * Fresh preview URLs from the song providers (they carry expiring tokens, so
+ * they are fetched when a round starts and never stored for long). Result:
+ * songId → URL or null.
+ */
+export interface SongPreviewsTask extends ModuleTaskBase {
+  kind: "song_previews";
+  input: { tracks: SongPreviewRequest[] };
+}
 
 export interface ReadAloud {
   /** Changes when there is something new to read. */
   key: string;
-  items: { cue: string; text: string }[];
+  items: {
+    cue: string;
+    text: string;
+    /**
+     * A long text that is new every time (e.g. every answer of a round):
+     * the voice uses its model for long read-outs (configurable, see the
+     * party worker's voice config). Short fixed texts leave it out.
+     */
+    long?: boolean;
+  }[];
 }
 
 /** Numbers for one played question – never names or answers. */

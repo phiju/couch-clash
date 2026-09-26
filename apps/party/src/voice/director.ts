@@ -40,8 +40,9 @@ import {
 } from "./rules";
 import { cachedClip, produceLine, type ProducedLine, type VoiceServices } from "./service";
 import { SurvivalVoice, type SurvivalVoiceRuntime } from "./survival-voice";
+import { MusikVoice } from "./musik-voice";
 import { PixelpanikVoice } from "./pixelpanik-voice";
-import type { PixelpanikState, SurvivalCue, SurvivalState } from "@couch-clash/games";
+import { slfStandardLines, type MusikState, type PixelpanikState, type SlfState, type SurvivalCue, type SurvivalState } from "@couch-clash/games";
 import { chooseSnark, detectSituations, isNoteworthy, updateWrongStreaks, type SituationHit } from "./snark";
 import { commentTemplate, finaleTemplate, startTemplate, summaryTemplate, welcomeTemplate } from "./templates";
 
@@ -136,6 +137,10 @@ export class VoiceDirector {
   private readonly survival: SurvivalVoice;
   /** Pixelpanik: event-driven lines (wrong guess, early hit, nobody got it, …). */
   private readonly pixelpanik: PixelpanikVoice;
+  /** Musik-Quiz: announces the question type, comments buzzes and years. */
+  private readonly musik: MusikVoice;
+  /** Stadt, Land, Fluss: the round whose fixed lines were prepared. */
+  private slfWarmed: string | null = null;
 
   constructor(private readonly rt: VoiceRuntime) {
     const eventVoice: SurvivalVoiceRuntime = {
@@ -168,6 +173,7 @@ export class VoiceDirector {
     };
     this.survival = new SurvivalVoice(eventVoice);
     this.pixelpanik = new PixelpanikVoice(eventVoice);
+    this.musik = new MusikVoice(eventVoice);
   }
 
   private get registry() {
@@ -323,6 +329,16 @@ export class VoiceDirector {
       const names = Object.fromEntries(next.players.map((p) => [p.id, sanitizeName(p.name)]));
       this.pixelpanik.roomChanged(pixelpanik, names, next.mode.mode);
     }
+    const musik = this.musikState(next);
+    if (musik) {
+      const names = Object.fromEntries(next.players.map((p) => [p.id, sanitizeName(p.name)]));
+      this.musik.roomChanged(musik, names, next.mode.mode);
+    }
+    const slf = this.slfState(next);
+    if (slf && slf.roundKey !== this.slfWarmed) {
+      this.slfWarmed = slf.roundKey;
+      this.run(() => this.warmUpSlf(slf));
+    }
     const events = detectVoiceEvents(prev, next, this.registry);
     const starting = events.some((e) => e.type === "game_start");
     for (const event of events) {
@@ -397,6 +413,60 @@ export class VoiceDirector {
     const round = game?.rounds[game.roundIndex];
     if (!game || game.moduleState == null || round?.categoryId !== "pixelpanik") return null;
     return game.moduleState as PixelpanikState;
+  }
+
+  /** The Musik-Quiz's state while it plays (event-driven, like Pixelpanik). */
+  private musikState(room: RoomRecord): MusikState | null {
+    const game = room.phase === "play" ? room.game : null;
+    const round = game?.rounds[game.roundIndex];
+    if (!game || game.moduleState == null || round?.categoryId !== "musik") return null;
+    return game.moduleState as MusikState;
+  }
+
+  /** Stadt, Land, Fluss while it plays. */
+  private slfState(room: RoomRecord): SlfState | null {
+    const game = room.phase === "play" ? room.game : null;
+    const round = game?.rounds[game.roundIndex];
+    if (!game || game.moduleState == null || round?.categoryId !== "stadt-land-fluss") return null;
+    return game.moduleState as SlfState;
+  }
+
+  /**
+   * Stadt, Land, Fluss: the fixed lines (letters A–Z, "Stopp!", time's up,
+   * nobody has anything, vote) are made once for all rooms – checked (and
+   * generated if missing) when a round starts, this round's letters first.
+   */
+  private async warmUpSlf(state: SlfState) {
+    const room = this.rt.read();
+    if (!this.enabled(room)) return;
+    const own = state.rounds.map((r) => r.letter);
+    const letters = [...own, ...[..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"].filter((l) => !own.includes(l))];
+    const lines = slfStandardLines(state.mode, letters, Math.round(state.stopMs / 1000));
+    const speed = TEMPO_SPEED[room.voice.settings.tempo];
+    let next = 0;
+    let fresh = 0;
+    const worker = async () => {
+      while (next < lines.length) {
+        const text = lines[next++]!;
+        const current = this.rt.read();
+        if (!current || this.slfWarmed !== state.roundKey) return;
+        const clip = await cachedClip(this.rt.services(), {
+          kind: "read",
+          text,
+          style: "fast",
+          speed,
+          allowNew: this.newAudioAllowed(current),
+          reserveCredits: (credits) => this.reserveCredits(credits),
+        });
+        if (clip.path && !clip.cached) fresh++;
+        if (clip.voiceStatus) {
+          await this.stopNewAudio(clip.voiceStatus, clip.errorCode);
+          return;
+        }
+      }
+    };
+    await Promise.all([worker(), worker(), worker()]);
+    console.log(`slf voice: ${lines.length} fixed lines checked (${fresh} new)`);
   }
 
   // ── Part B: commentary ───────────────────────────────────────────────
@@ -716,8 +786,12 @@ export class VoiceDirector {
     this.reading = reading;
     if (!this.enabled(room)) return;
     // All clips in parallel, sent in order (the host plays them one after another).
+    // Long texts that are new every time (e.g. every answer of a letter) use the "read" model.
     const clips = read.items.map((item) =>
-      this.produce("read", "fast", { system: "", user: "" }, item.text, null, false).then((produced) => ({ produced, cue: item.cue })),
+      this.produce("read", item.long ? "read" : "fast", { system: "", user: "" }, item.text, null, false).then((produced) => ({
+        produced,
+        cue: item.cue,
+      })),
     );
     this.run(async () => {
       for (const clip of clips) {

@@ -28,7 +28,7 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
-    version: "0.25.0",
+    version: "0.28.0",
     date: "2026-09-26",
     title: "Pixelpanik ist da!",
     items: [
@@ -36,6 +36,45 @@ export const CHANGELOG: ChangelogEntry[] = [
       { emoji: "🗼", text: "Bauwerke, Tiere, Essen, Autos, Flaggen, Naturwunder und Alltagskram" },
       { emoji: "🍸", text: "Auf der Party gibt's eigene Partybilder – und jedes andere Bild auch" },
       { emoji: "🧸", text: "Im Kids-Modus mit vier Antworten zum Antippen" },
+    ],
+  },
+  {
+    version: "0.27.0",
+    date: "2026-09-26",
+    title: "Neues Spiel: Musik-Quiz!",
+    items: [
+      { emoji: "🎶", text: "Partyhits zum Mitsingen – vom Schlager bis zu den 90ern" },
+      { emoji: "🔔", text: "Titel oder Interpret erkannt? Wer zuerst buzzert, darf antworten" },
+      { emoji: "📅", text: "Aus welchem Jahr? Alle tippen – der Zeitstrahl verrät, wer daneben lag" },
+      { emoji: "🎚️", text: "Genres selbst aussuchen oder einfach Zufall" },
+      { emoji: "🧸", text: "Für Kids: Lied antippen, ganz ohne Zeitdruck" },
+      { emoji: "🎙️", text: "Der Moderator kündigt jede Frage an – und lästert über Fehl-Buzzer" },
+    ],
+  },
+  {
+    version: "0.26.0",
+    date: "2026-09-26",
+    title: "Neues Spiel: Stadt, Land, Fluss!",
+    items: [
+      { emoji: "✏️", text: "Der Klassiker: ein Buchstabe, alle schreiben gleichzeitig am Handy" },
+      { emoji: "🛑", text: "Alles ausgefüllt? Stopp drücken – die anderen haben nur noch 10 Sekunden" },
+      { emoji: "🎙️", text: "Der Moderator liest jede Antwort vor – und lästert über Ausreißer" },
+      { emoji: "👯", text: "Doppelte Antworten gibt's nur halb – Tippfehler verzeiht die Jury" },
+      { emoji: "😂", text: "Stimmt ab: Die witzigste Antwort kassiert Extrapunkte" },
+      { emoji: "🍹", text: "Im Party-Modus mit extra versauten Kategorien – nur für Erwachsene" },
+    ],
+  },
+  {
+    version: "0.25.0",
+    date: "2026-09-26",
+    title: "Double or Nothing: Kassieren oder alles riskieren?",
+    items: [
+      { emoji: "💰", text: "Jeder baut seinen eigenen Topf: 100 → 300 → 700 → 1.500 → 3.100" },
+      { emoji: "🎲", text: "Vor jeder Frage geheim am Handy: kassieren oder weiter setzen?" },
+      { emoji: "🔥", text: "Fünf Fragen, jede schwerer – ab Stufe 4 wird's richtig fies" },
+      { emoji: "💥", text: "Falsch gesetzt? Topf geplatzt – und der Moderator lästert" },
+      { emoji: "👀", text: "Alle Entscheidungen werden gleichzeitig aufgedeckt – Spannung pur" },
+      { emoji: "🧸", text: "Im Kindermodus bleibt Stufe 5 kindgerecht schwer" },
     ],
   },
   {

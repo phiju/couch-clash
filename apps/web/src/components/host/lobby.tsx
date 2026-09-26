@@ -9,6 +9,7 @@ import { Sparkle } from "@/components/sparkle";
 import { Button, Logo, Screen } from "@/components/ui";
 import { displayJoinLink, joinUrl as buildJoinUrl } from "@/lib/config";
 import { adminTokenStore } from "@/lib/admin-api";
+import { getAudioEngine } from "@/lib/audio/engine";
 import { initialLobbySettingsOpen } from "@/lib/lobby-panel";
 import { testModeEnabled } from "@/lib/test-mode";
 import { summaryText } from "@/lib/summary";
@@ -200,7 +201,11 @@ export function HostLobby({
           {/* Always visible – the player list scrolls instead. The button stands on its own, one calm line below. */}
           <div className="flex shrink-0 flex-col items-center gap-[1.2vh] pt-[0.6vh]">
             <Button
-              onClick={() => startRef.current?.()}
+              onClick={() => {
+                // "Spiel starten" is a host click: audio (and the Musik-Quiz's songs) may play from here on.
+                getAudioEngine().unlock();
+                startRef.current?.();
+              }}
               disabled={players.length === 0 || !canSend || !room?.settingsSummary}
               title={players.length === 0 ? START_HINT : undefined}
               glow

@@ -141,6 +141,7 @@ export async function replaceQuestion(deps: ReplaceDeps, target: { id: string; c
         tags: original.tags,
         ...(original.adult ? { adult: true as const } : {}),
         ...(original.alcohol ? { alcohol: true as const } : {}),
+        ...levelsOf(original.payload),
       });
       const parsed = module.parseContent(raw);
       if (!parsed.ok) {
@@ -176,4 +177,13 @@ export async function replaceQuestion(deps: ReplaceDeps, target: { id: string; c
     }
   }
   return fail(`Kein Ersatz nach ${attempts} Versuchen – ${lastError}`);
+}
+
+/** The original's quiz levels (1–5), if it has them. */
+function levelsOf(payload: unknown): { level?: number; kidsLevel?: number } {
+  const p = (payload ?? {}) as { level?: unknown; kidsLevel?: unknown };
+  return {
+    ...(typeof p.level === "number" ? { level: p.level } : {}),
+    ...(typeof p.kidsLevel === "number" ? { kidsLevel: p.kidsLevel } : {}),
+  };
 }

@@ -3,6 +3,7 @@
  * blocked, AI-generated questions are added per category. Cached ~5 minutes
  * per worker instance; without D1 the game plays without the filter.
  */
+import type { SongOverrideStore } from "../songs/store";
 import type { StatsStore } from "./store";
 
 export interface ContentFilter {
@@ -19,11 +20,19 @@ export function invalidateContentFilter() {
   cache = null;
 }
 
-export async function loadContentFilter(store: StatsStore | null, now: number): Promise<ContentFilter | null> {
+/**
+ * @param songs Musik-Quiz corrections from /admin/songs – added to the
+ *   category's extra content (the module applies them to songs.json).
+ */
+export async function loadContentFilter(store: StatsStore | null, now: number, songs?: SongOverrideStore | null): Promise<ContentFilter | null> {
   if (!store) return null;
   if (cache && now - cache.at < CONTENT_FILTER_TTL_MS) return cache.value;
   try {
-    const [blocked, generated] = await Promise.all([store.blockedIds(), store.listGenerated()]);
+    const [blocked, generated, overrides] = await Promise.all([
+      store.blockedIds(),
+      store.listGenerated(),
+      songs ? songs.list().catch(() => []) : Promise.resolve([]),
+    ]);
     const extra: Record<string, unknown[]> = {};
     for (const row of generated) {
       if (row.status !== "active") continue;
@@ -33,6 +42,7 @@ export async function loadContentFilter(store: StatsStore | null, now: number): 
         // broken payload – skipped
       }
     }
+    if (overrides.length) (extra.musik ??= []).push(...overrides);
     const value: ContentFilter = { blocked: new Set(blocked), extra };
     cache = { at: now, value };
     return value;

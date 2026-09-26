@@ -1,4 +1,5 @@
 import { vi } from "vitest";
+import { ELEVENLABS_MODELS } from "../src/voice/config";
 import type { SpeechProvider } from "../src/voice/provider";
 import { keepAllowedTags, stripTags } from "../src/voice/tags";
 
@@ -8,6 +9,7 @@ export function mockSpeech(
 ): SpeechProvider & { speak: ReturnType<typeof vi.fn> } {
   return {
     id: "elevenlabs",
+    modelFor: (style) => ELEVENLABS_MODELS[style],
     supportsTags: (style) => style === "expressive",
     prepare: (text, style) => (style === "expressive" ? keepAllowedTags(text) : stripTags(text)),
     speak: vi.fn(impl),

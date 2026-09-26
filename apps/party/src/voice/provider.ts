@@ -21,11 +21,17 @@ export interface SpeechClip {
   mimeType: string;
 }
 
-/** "expressive": welcome/start/finale (may use audio tags); "fast": time-critical comments. */
-export type SpeechStyle = "expressive" | "fast";
+/**
+ * "expressive": welcome/start/finale (may use audio tags); "fast": time-critical
+ * comments; "read": long read-outs that are new every time (e.g. every answer
+ * of a Stadt-Land-Fluss letter) – its model is configurable.
+ */
+export type SpeechStyle = "expressive" | "fast" | "read";
 
 export interface SpeechProvider {
   readonly id: "elevenlabs" | "openai";
+  /** The speech model used for this style (cache key, credits). */
+  modelFor(style: SpeechStyle): string;
   /** Whether the text model may add audio tags for this style. */
   supportsTags(style: SpeechStyle): boolean;
   /** The exact text that will be sent (unsupported tags removed) – used for the character budget. */

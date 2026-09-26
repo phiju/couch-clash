@@ -1,13 +1,23 @@
 import type { AccountUsage } from "@couch-clash/shared";
 import { plainFetch, type FetchFor } from "../costs/meter";
-import { VOICE_PROVIDER } from "./config";
+import { ELEVENLABS_MODELS, ELEVENLABS_READ_MODELS, VOICE_PROVIDER } from "./config";
 import { createElevenLabsProvider, fetchElevenLabsUsage } from "./elevenlabs";
 import { createOpenAISpeechProvider, createOpenAITextProvider } from "./openai";
-import type { SpeechProvider, TextProvider } from "./provider";
+import type { SpeechProvider, SpeechStyle, TextProvider } from "./provider";
 
 export interface VoiceEnv {
   OPENAI_API_KEY?: string;
   ELEVENLABS_API_KEY?: string;
+  /** Worker variable: speech model for long read-outs (one of ELEVENLABS_READ_MODELS). */
+  ELEVENLABS_READ_MODEL?: string;
+}
+
+/** The ElevenLabs models per style – "read" from ELEVENLABS_READ_MODEL when it names a known model. */
+export function elevenLabsModels(env: Pick<VoiceEnv, "ELEVENLABS_READ_MODEL">): Record<SpeechStyle, string> {
+  const wanted = env.ELEVENLABS_READ_MODEL?.trim();
+  const read = ELEVENLABS_READ_MODELS.find((m) => m === wanted);
+  if (wanted && !read) console.warn("voice: unknown ELEVENLABS_READ_MODEL – using the default");
+  return { ...ELEVENLABS_MODELS, ...(read ? { read } : {}) };
 }
 
 /**
@@ -24,7 +34,7 @@ export function createVoiceProviders(
   const speech =
     provider === "elevenlabs"
       ? env.ELEVENLABS_API_KEY
-        ? createElevenLabsProvider(env.ELEVENLABS_API_KEY, fetchFor("voice-speech"))
+        ? createElevenLabsProvider(env.ELEVENLABS_API_KEY, fetchFor("voice-speech"), elevenLabsModels(env))
         : null
       : env.OPENAI_API_KEY
         ? createOpenAISpeechProvider(env.OPENAI_API_KEY, fetchFor("voice-speech"))
