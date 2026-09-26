@@ -1,6 +1,6 @@
 "use client";
 
-import { FIGURE_POSES, figureUrl, type FigurePose, type PublicPlayer } from "@couch-clash/shared";
+import { ALL_FIGURE_POSES, figureUrl, type FigurePose, type PublicPlayer } from "@couch-clash/shared";
 import { memo, useEffect, useState, type ReactNode } from "react";
 import { PARTY_HTTP_URL } from "@/lib/config";
 import { FIGURE_CONFIG, alignShift, currentPose, feetAnchor, idlePhase, type FeetAnchor, type FigureReaction } from "@/lib/figure";
@@ -92,7 +92,8 @@ export const StandingFigure = memo(function StandingFigure({
     return () => clearTimeout(t);
   }, [reactionKey, reactionMs]);
   const shown = currentPose(pose, reaction && reaction.key !== doneKey ? reaction : null);
-  const urls = FIGURE_POSES.map((p) => figureUrl(PARTY_HTTP_URL, photo, p));
+  // Missing poses resolve to the standard figure – the layer list stays small.
+  const urls = ALL_FIGURE_POSES.map((p) => figureUrl(PARTY_HTTP_URL, photo, p));
   const standardUrl = urls[0];
   const unique = [...new Set(urls.filter((u): u is string => !!u))];
   const feet = useFeet(unique);
@@ -101,7 +102,7 @@ export const StandingFigure = memo(function StandingFigure({
 
   if (!standardUrl) {
     return (
-      <div className={`fig ${className}`} data-idle={idle} style={{ ["--fig-delay" as string]: delay }}>
+      <div className={`fig ${className}`} data-idle={idle} data-fallback style={{ ["--fig-delay" as string]: delay }}>
         <div className="fig-fallback" data-active data-pose="standard">
           {fallback}
         </div>

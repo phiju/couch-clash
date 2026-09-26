@@ -137,6 +137,7 @@ describe("survival voice (runtime)", () => {
 
   function runtime(over: Partial<SurvivalVoiceRuntime> = {}) {
     const sent: HostLine[] = [];
+    const cues: string[] = [];
     const tasks: Promise<void>[] = [];
     let id = 0;
     const rt: SurvivalVoiceRuntime = {
@@ -156,9 +157,10 @@ describe("survival voice (runtime)", () => {
         tasks.push(task());
       },
       log: () => {},
+      cue: (cue) => cues.push(cue),
       ...over,
     };
-    return { rt, sent, settle: () => Promise.all(tasks) };
+    return { rt, sent, cues, settle: () => Promise.all(tasks) };
   }
 
   it("warms up at the start, then speaks the intro line with priority and queue age", async () => {
@@ -179,8 +181,8 @@ describe("survival voice (runtime)", () => {
     expect(sent[0]).toMatchObject({ kind: "comment", priority: 2, preempt: true, staleAfterMs: 2500, playAt: T0 + 400 + 1350 });
   });
 
-  it("voice service down: no lines, no errors – the finale just goes on", async () => {
-    const { rt, sent, settle } = runtime({ clip: async () => ({ path: null, cached: false, refused: true }) });
+  it("voice service down: no lines, no errors – the finale just goes on (no waiting for a line)", async () => {
+    const { rt, sent, cues, settle } = runtime({ clip: async () => ({ path: null, cached: false, refused: true }) });
     const voice = new SurvivalVoice(rt);
     const s = state();
     voice.roomChanged(s, { a: "Anna" });
@@ -188,6 +190,59 @@ describe("survival voice (runtime)", () => {
     voice.roomChanged({ ...s, events: [...s.events, { seq: 50, type: "WINNER", at: T0, playerId: "a" }] }, { a: "Anna" });
     expect(voice.readyCount).toBe(0);
     expect(sent).toEqual([]);
+    expect(cues).toEqual(["ceremony"]);
+  });
+
+  it("start sequence: the opening line after the pause – the ride starts when it ended", async () => {
+    const { rt, sent, cues, settle } = runtime();
+    const voice = new SurvivalVoice(rt);
+    const s = state();
+    voice.roomChanged(s, { a: "Anna", b: "Ben" });
+    await settle();
+    sent.length = 0;
+    const launch = [
+      { seq: 20, type: "LAUNCH" as const, at: T0 + 400, playerIds: ["a", "b"] },
+      { seq: 21, type: "SCORES_CONVERTED" as const, at: T0 + 400, playerIds: ["a", "b"] },
+    ];
+    voice.roomChanged({ ...s, step: "launch", events: [...s.events, ...launch] }, { a: "Anna", b: "Ben" });
+    expect(sent).toHaveLength(1);
+    expect(SURVIVAL_LINES.FINALE_STARTED).toContain(sent[0]!.text);
+    expect(sent[0]!.playAt).toBe(T0 + 400 + 1000);
+    expect(cues).toEqual([]);
+    voice.lineEnded("nope");
+    expect(cues).toEqual([]);
+    voice.lineEnded(sent[0]!.id);
+    expect(cues).toEqual(["launch"]);
+    voice.lineEnded(sent[0]!.id);
+    expect(cues).toEqual(["launch"]);
+  });
+
+  it("winner: the WINNER line after the ride up, right after it „ab zur Siegerehrung“ – the ceremony follows its end", async () => {
+    const { rt, sent, cues, settle } = runtime();
+    const voice = new SurvivalVoice(rt);
+    const s = state();
+    voice.roomChanged(s, { a: "Anna", b: "Ben" });
+    await settle();
+    sent.length = 0;
+    voice.roomChanged({ ...s, step: "winner", events: [...s.events, { seq: 40, type: "WINNER", at: T0 + 400, playerId: "a" }] }, { a: "Anna", b: "Ben" });
+    expect(sent).toHaveLength(2);
+    expect(sent[0]).toMatchObject({ priority: 1, preempt: true, playAt: T0 + 400 + 1500 });
+    expect(sent[1]).toMatchObject({ priority: 1, staleAfterMs: 15_000 });
+    expect(SURVIVAL_LINES.TRANSITION_TO_CEREMONY).toContain(sent[1]!.text);
+    voice.lineEnded(sent[0]!.id);
+    expect(cues).toEqual([]);
+    voice.lineEnded(sent[1]!.id);
+    expect(cues).toEqual(["ceremony"]);
+  });
+
+  it("voice switched off: the finale never waits for a line", () => {
+    const { rt, sent, cues } = runtime({ enabled: () => false });
+    const voice = new SurvivalVoice(rt);
+    const s = state();
+    voice.roomChanged(s, { a: "Anna" });
+    voice.roomChanged({ ...s, step: "launch", events: [...s.events, { seq: 20, type: "LAUNCH", at: T0, playerIds: ["a"] }] }, { a: "Anna" });
+    expect(sent).toEqual([]);
+    expect(cues).toEqual(["launch"]);
   });
 
   it("a room that restarts mid-finale never replays old events", () => {

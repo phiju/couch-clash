@@ -63,12 +63,28 @@ export interface SurvivalConfig {
    */
   danger: { warning: number; critical: number; imminent: number };
   /** Show-only step lengths (ms). */
+  /** The rules on screen. */
   introMs: number;
+  /** Start sequence: pause before the moderator opens the finale. */
+  launchPauseMs: number;
+  /** Start sequence: the ride starts when his line ends – at the latest after this (no voice, line missing). */
+  launchLineMaxMs: number;
+  /** Start sequence: the leader's ride up (the others stop earlier). */
+  riseMs: number;
+  /** The reveal after the last elimination: at least this long … */
+  finalRevealMinMs: number;
+  /** … and until the elimination animation is over (after the moment the score hit 0). */
+  eliminationAnimMs: number;
   revealMs: number;
   phaseChangeMs: number;
   suddenDeathMs: number;
   tiebreakRevealMs: number;
+  /** Winner: the ceremony follows the moderator's lines – at the latest after this (safety). */
   winnerMs: number;
+  /** Winner without any line (no voice): the platform rides up, a short cheer, then the ceremony. */
+  winnerMinMs: number;
+  /** No winner (solo out, nobody left): the ceremony after this. */
+  noWinnerMs: number;
   /** Questions queued at the start (fresh ones first, then ones from earlier games). */
   questionQueueSize: number;
   /** Ask the AI for more questions when fewer than this are left in the queue. */
@@ -96,12 +112,19 @@ export const SURVIVAL_CONFIG: SurvivalConfig = {
   tiebreakSeconds: 30,
   maxTiebreakAttempts: 3,
   danger: { warning: 3, critical: 2, imminent: 1 },
-  introMs: 18_000,
+  introMs: 11_000,
+  launchPauseMs: 1_000,
+  launchLineMaxMs: 7_000,
+  riseMs: 3_000,
+  finalRevealMinMs: 1_500,
+  eliminationAnimMs: 2_600,
   revealMs: 5_000,
   phaseChangeMs: 4_000,
   suddenDeathMs: 6_000,
   tiebreakRevealMs: 8_000,
   winnerMs: 12_000,
+  winnerMinMs: 3_500,
+  noWinnerMs: 5_000,
   questionQueueSize: 80,
   aiRefillBelow: 5,
   aiMaxRequests: 3,

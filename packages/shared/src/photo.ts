@@ -19,12 +19,23 @@ export function isPhotoExpression(value: string): value is PhotoExpression {
  * so they all match. Same size and position, feet on the same baseline.
  */
 export const FIGURE_POSES = ["standard", "jubelnd", "besorgt", "panisch", "geschockt"] as const;
-export type FigurePose = (typeof FIGURE_POSES)[number];
+/**
+ * Extra figures made only when needed: "pokal" (holding the trophy) for the
+ * last two of the Survival-Finale, so it is ready at the ceremony.
+ */
+export const FIGURE_EXTRA_POSES = ["pokal"] as const;
+export const ALL_FIGURE_POSES = [...FIGURE_POSES, ...FIGURE_EXTRA_POSES] as const;
+export type FigurePose = (typeof ALL_FIGURE_POSES)[number];
 /** The four made from the standing standard figure. */
 export const FIGURE_EXPRESSIONS = ["jubelnd", "besorgt", "panisch", "geschockt"] as const satisfies readonly FigurePose[];
 
 export function isFigurePose(value: string): value is FigurePose {
-  return (FIGURE_POSES as readonly string[]).includes(value);
+  return (ALL_FIGURE_POSES as readonly string[]).includes(value);
+}
+
+/** Does the player have this exact figure (no fallback)? */
+export function hasFigure(photo: Pick<PublicPhotoAvatar, "readyVersion" | "figures"> | undefined | null, pose: FigurePose): boolean {
+  return !!photo && photo.readyVersion !== null && (photo.figures ?? []).includes(pose);
 }
 
 /** Image name of a figure on the party worker ("figure-panisch"). */

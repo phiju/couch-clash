@@ -135,6 +135,8 @@ export interface SurvivalState {
   ranking: SurvivalRankingEntry[] | null;
   events: SurvivalEvent[];
   eventSeq: number;
+  /** Launch step: when the elevators start riding up (null: not yet). */
+  launchRiseAt?: number | null;
   source: SurvivalQuestionSource;
 }
 
@@ -315,6 +317,29 @@ export function createSurvivalModule(opts: SurvivalModuleOptions = {}): Survival
     s.step = "reveal";
     s.stepStartedAt = now;
     s.stepEndsAt = now + s.config.revealMs;
+    // The last one standing: no extra wait – only until the last car is under the slime.
+    if (!s.solo && alive.length === 1) {
+      const lastOut = Math.max(0, ...s.players.map((p) => (p.removed ? 0 : (p.eliminatedAt ?? 0))));
+      s.stepEndsAt = Math.min(s.stepEndsAt, Math.max(now + s.config.finalRevealMinMs, lastOut + s.config.eliminationAnimMs));
+    }
+  }
+
+  /** After the rules: the moderator opens the finale, then the elevators ride up to their start. */
+  function startLaunch(s: SurvivalState, now: number) {
+    s.step = "launch";
+    s.stepStartedAt = now;
+    s.stepEndsAt = now + s.config.launchPauseMs + s.config.launchLineMaxMs;
+    s.launchRiseAt = null;
+    const ids = s.players.filter((p) => !p.removed).map((p) => p.id);
+    emit(s, { type: "LAUNCH", at: now, playerIds: ids });
+    emit(s, { type: "SCORES_CONVERTED", at: now, playerIds: ids });
+  }
+
+  /** The ride starts (the moderator's line is over, or the safety time): never before the pause. */
+  function startRise(s: SurvivalState, now: number) {
+    const riseAt = Math.max(now, s.stepStartedAt + s.config.launchPauseMs);
+    s.launchRiseAt = riseAt;
+    s.stepEndsAt = riseAt + s.config.riseMs;
   }
 
   /** Server tick during a question (alarm or any update). */
@@ -465,7 +490,8 @@ export function createSurvivalModule(opts: SurvivalModuleOptions = {}): Survival
     }
     s.step = "winner";
     s.stepStartedAt = now;
-    s.stepEndsAt = now + s.config.winnerMs;
+    // With a winner the room moves on when the moderator's lines are over (winnerMs is only the safety net).
+    s.stepEndsAt = now + (winnerId ? s.config.winnerMs : s.config.noWinnerMs);
   }
 
   function update(s: SurvivalState, now: number, ops: Ops): ModuleUpdate<SurvivalState> {
@@ -523,7 +549,6 @@ export function createSurvivalModule(opts: SurvivalModuleOptions = {}): Survival
       };
       if (ids.length === 0) return { state: s, phaseEndsAt: null, done: true };
       emit(s, { type: "FINALE_STARTED", at: ctx.now, playerIds: lanes });
-      emit(s, { type: "SCORES_CONVERTED", at: ctx.now, playerIds: lanes });
       if (ids.length === 2) emit(s, { type: "FINAL_TWO", at: ctx.now, playerIds: lanes });
       return { state: s, phaseEndsAt: s.stepEndsAt };
     },
@@ -577,6 +602,12 @@ export function createSurvivalModule(opts: SurvivalModuleOptions = {}): Survival
       const now = ctx.now;
       switch (s.step) {
         case "intro":
+          startLaunch(s, now);
+          break;
+        case "launch":
+          if (s.launchRiseAt == null) startRise(s, now);
+          else openQuestion(s, now, o);
+          break;
         case "phase_change":
         case "sudden_death":
           openQuestion(s, now, o);
@@ -724,6 +755,10 @@ export function createSurvivalModule(opts: SurvivalModuleOptions = {}): Survival
                 answers: Object.fromEntries(Object.entries(q!.answers).map(([id, a]) => [id, a.value])),
               }
             : null,
+        launch:
+          s.step === "intro" || s.step === "launch"
+            ? { riseAt: s.step === "launch" ? (s.launchRiseAt ?? null) : null, riseMs: s.config.riseMs }
+            : null,
         tiebreak: showTiebreak
           ? {
               attempt: tb!.attempt,
@@ -762,3 +797,18 @@ export function createSurvivalModule(opts: SurvivalModuleOptions = {}): Survival
 }
 
 export const survivalModule = createSurvivalModule();
+
+/**
+ * The finale waits for the moderator: when his opening line ends the ride
+ * starts, when his last line ends the ceremony follows. Returns the moment
+ * the room should move on (its timer), or null when the cue doesn't apply
+ * (wrong step, already moving). The step's own safety time still holds.
+ */
+export type SurvivalCue = "launch" | "ceremony";
+
+export function survivalCueAt(s: SurvivalState, cue: SurvivalCue, now: number): number | null {
+  if (cue === "launch") return s.step === "launch" && s.launchRiseAt == null ? now : null;
+  if (s.step !== "winner" || !s.winnerId) return null;
+  // Without any line the platform still rides up and the winner cheers a moment.
+  return Math.max(now, s.stepStartedAt + s.config.winnerMinMs);
+}

@@ -28,6 +28,19 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.22.0",
+    date: "2026-09-26",
+    title: "Das Survival-Finale hat jetzt einen großen Auftritt – und ein Treppchen!",
+    items: [
+      { emoji: "⏩", text: "Nach der letzten Runde geht's direkt ins Finale" },
+      { emoji: "🛗", text: "Startschuss: Alle Aufzüge fahren gleichzeitig hoch – der Beste am längsten" },
+      { emoji: "🫧", text: "Wer baden geht, bleibt auch wirklich im Schleim" },
+      { emoji: "🎙️", text: "Der Moderator schickt alle zum Abtrocknen – und flott zur Siegerehrung" },
+      { emoji: "🏆", text: "Siegertreppchen: Der Sieger stemmt seinen eigenen Pokal" },
+      { emoji: "🔉", text: "Das Schleim-Blubbern ist etwas leiser" },
+    ],
+  },
+  {
     version: "0.21.0",
     date: "2026-09-26",
     title: "Eure Figuren stehen jetzt in voller Größe auf der Bühne!",

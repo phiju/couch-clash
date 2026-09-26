@@ -9,25 +9,22 @@ import { ClockContext, useServerNow } from "@/lib/clock";
 import { QUIZ_OPTION_STYLES } from "../quiz/options";
 import type { HostViewProps } from "../types";
 import { getAudioEngine } from "@/lib/audio/engine";
-import { SOUND_IDS } from "@/lib/audio/scenes";
-import { conversionValue, liveScores, newEvents, timeZone, zoneText } from "./logic";
+import { SOUND_CUE_VOLUMES, SOUND_IDS } from "@/lib/audio/scenes";
+import { launchFrame, launchStops, liveScores, newEvents, timeZone, zoneText } from "./logic";
 import { ambienceFor, decaySecond, freshEvents, soundsFor, type SurvivalHookEvent } from "./sounds";
 import { SurvivalStage } from "./stage";
 
-/** Intro: the count from main-game points to life energy, then the rules. */
-const CONVERSION_MS = 7_000;
-
 export function SurvivalHostView({ state, room }: HostViewProps<SurvivalPublicState>) {
-  const now = useServerNow(200);
+  // The start ride is animated frame by frame (height and points in step); otherwise 5 updates a second are plenty.
+  const now = useServerNow(state.step === "launch" && state.launch?.riseAt != null ? 33 : 200);
   const q = state.question;
   const zone = q && state.step === "question" ? timeZone(q, now) : null;
   const intro = state.step === "intro";
-  const introProgress = intro ? Math.min(1, (now - state.stepStartedAt) / CONVERSION_MS) : undefined;
+  const launch = launchFrame(state, now);
   const live = liveScores(state, now);
-  const scores = intro
-    ? Object.fromEntries(state.players.map((p) => [p.id, conversionValue(p.mainScore, p.startScore, introProgress ?? 1)]))
-    : live;
+  const scores = launch ? Object.fromEntries([...launch].map(([id, car]) => [id, car.score])) : live;
   useSurvivalSounds(state.step);
+  useLaunchSounds(state);
   useSurvivalHooks(state, now, live);
   const descending = new Set(
     zone === "decay" && q ? state.players.filter((p) => q.aliveAtStart.includes(p.id) && !p.answered && !p.eliminated).map((p) => p.id) : [],
@@ -48,7 +45,8 @@ export function SurvivalHostView({ state, room }: HostViewProps<SurvivalPublicSt
         )}
       </div>
 
-      {intro && <IntroCard state={state} now={now} />}
+      {intro && <IntroCard state={state} />}
+      {state.step === "launch" && <LaunchTitle />}
       {q && (state.step === "question" || state.step === "reveal") && <QuestionCard q={q} state={state} room={room} />}
       {(state.step === "tiebreak" || state.step === "tiebreak_reveal") && <TiebreakCard state={state} room={room} />}
       {state.step === "phase_change" && <Banner title={state.phase.label} text={phaseText(state)} />}
@@ -62,7 +60,7 @@ export function SurvivalHostView({ state, room }: HostViewProps<SurvivalPublicSt
         players={room.players}
         now={now}
         scores={scores}
-        introProgress={introProgress}
+        launch={launch}
         descending={descending}
       />
       {state.rules.moderatorCaptions && <CaptionLine />}
@@ -156,17 +154,19 @@ function QuestionCard({ q, state, room }: { q: SurvivalPublicQuestion; state: Su
   );
 }
 
-function IntroCard({ state, now }: { state: SurvivalPublicState; now: number }) {
-  const rules = now - state.stepStartedAt >= CONVERSION_MS;
+/** Start sequence: the title while the moderator opens and the elevators ride up to their start. */
+function LaunchTitle() {
+  return (
+    <div className="panel sv-banner shrink-0 px-[2vw] py-[1.2vh] text-center">
+      <h2 className="fs-hero font-bold text-bulb drop-shadow-[0_6px_0_var(--color-brown)]">SURVIVAL-FINALE</h2>
+      <p className="fs-xl text-cream/90">Eure Punkte werden zu Lebensenergie. Wer vorne lag, steht höher.</p>
+    </div>
+  );
+}
+
+/** The rules (right after the last normal round – no standings in between). */
+function IntroCard({ state }: { state: SurvivalPublicState }) {
   const p = state.phase;
-  if (!rules) {
-    return (
-      <div className="panel sv-banner shrink-0 px-[2vw] py-[1.6vh] text-center">
-        <h2 className="fs-hero font-bold text-bulb drop-shadow-[0_6px_0_var(--color-brown)]">SURVIVAL-FINALE</h2>
-        <p className="fs-xl text-cream/90">Eure Punkte werden zu Lebensenergie. Wer vorne lag, steht höher.</p>
-      </div>
-    );
-  }
   const lines = [
     `RICHTIG IN UNTER ${p.speedBonusThreshold} SEKUNDEN: +${p.speedBonus}`,
     `RICHTIG IN ${p.speedBonusThreshold}–${p.scoreDecayThreshold} SEKUNDEN: ±0`,
@@ -317,9 +317,6 @@ function useSurvivalHooks(state: SurvivalPublicState, now: number, scores: Reado
   );
 }
 
-/** The slime bubbles constantly and clearly audible through the whole finale (the file itself is quiet). */
-const BUBBLE_LEVEL = 1.5;
-
 /** Plays the hook events on the host (never on phones): one-shots and the three loops. */
 function useSurvivalSounds(step: SurvivalPublicState["step"]) {
   // Server time at the moment of the event (the splash is timed to the impact).
@@ -334,7 +331,8 @@ function useSurvivalSounds(step: SurvivalPublicState["step"]) {
     const onHook = (e: Event) => {
       const detail = (e as CustomEvent<SurvivalHookEvent>).detail;
       if (detail.type === "AMBIENCE") {
-        engine.setLoop("survival-slime-bubble-loop", detail.slime ? BUBBLE_LEVEL : 0, 1.2);
+        // Levels: SOUND_LEVELS (lib/audio/scenes.ts).
+        engine.setLoop("survival-slime-bubble-loop", detail.slime ? 1 : 0, 1.2);
         engine.setLoop("survival-slime-threat-loop", detail.slime ? detail.threat : 0, 1);
         engine.setLoop("survival-warning-lamp-loop", detail.slime && detail.lamp ? 1 : 0, 0.3);
         return;
@@ -348,4 +346,34 @@ function useSurvivalSounds(step: SurvivalPublicState["step"]) {
       engine.stopLoops();
     };
   }, []);
+}
+
+/** A ride that started longer ago than this is not replayed (a TV that just appeared). */
+const LAUNCH_SOUND_MAX_LATE_MS = 600;
+
+/**
+ * Start ride: the rise sound with the ride, a quieter clack each time an
+ * elevator stops (cars stopping together share one). Scheduled once per
+ * ride, in server time; a missing file is simply silent.
+ */
+function useLaunchSounds(state: SurvivalPublicState) {
+  const offset = useContext(ClockContext);
+  const riseAt = state.step === "launch" ? (state.launch?.riseAt ?? null) : null;
+  const played = useRef<number | null>(null);
+  const stateRef = useRef(state);
+  useEffect(() => {
+    stateRef.current = state;
+  }, [state]);
+  useEffect(() => {
+    if (riseAt === null || played.current === riseAt) return;
+    played.current = riseAt;
+    const now = Date.now() + offset;
+    if (now - riseAt > LAUNCH_SOUND_MAX_LATE_MS) return;
+    const engine = getAudioEngine();
+    engine.playSound("survival-elevator-rise", Math.max(0, riseAt - now), LAUNCH_SOUND_MAX_LATE_MS);
+    const frame = launchFrame(stateRef.current, riseAt);
+    for (const stop of frame ? launchStops(frame) : []) {
+      engine.playSound("survival-elevator-jolt", Math.max(0, stop - now), 0, SOUND_CUE_VOLUMES.launchStop);
+    }
+  }, [riseAt, offset]);
 }

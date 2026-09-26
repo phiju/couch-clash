@@ -3,7 +3,7 @@
  * Object passes in how to read and commit its room; the returned promises
  * are the background work (handed to ctx.waitUntil).
  */
-import { FIGURE_EXPRESSIONS, generateSecret, type PhotoExpression, type PhotoUploadResponse } from "@couch-clash/shared";
+import { FIGURE_POSES, generateSecret, type FigurePose, type PhotoExpression, type PhotoUploadResponse } from "@couch-clash/shared";
 import { FIGURE_CONFIG } from "./config";
 import { authenticatePlayer, type RoomRecord } from "../room-logic";
 import { fail, ok, type Result } from "../result";
@@ -121,10 +121,12 @@ export async function runFigures(
   code: string,
   playerId: string,
   now: number,
+  /** Default: the five figures. The trophy is asked for by the Survival-Finale (FINAL_TWO). */
+  wanted: readonly FigurePose[] = FIGURE_POSES,
 ): Promise<void> {
   const room = access.read();
   if (!room || room.code !== code) return;
-  const started = startFigures(room, playerId, now);
+  const started = startFigures(room, playerId, now, wanted);
   if (!started) return;
   await access.commit(started.room);
   const { version, poses } = started;
@@ -145,7 +147,7 @@ export async function runFigures(
   };
 
   const hasStandard = !poses.includes("standard") || (await make("standard"));
-  if (hasStandard) await Promise.all(FIGURE_EXPRESSIONS.filter((p) => poses.includes(p)).map(make));
+  if (hasStandard) await Promise.all(poses.filter((p) => p !== "standard").map(make));
   await update(access, code, (r) => finishFigures(r, playerId, version, calls));
   const roomCalls = access.read()?.photoUsage.figures ?? calls;
   console.log(

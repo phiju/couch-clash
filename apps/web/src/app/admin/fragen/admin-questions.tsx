@@ -12,9 +12,9 @@ import {
   type QuestionStatus,
   type QuickFilter,
 } from "@couch-clash/shared";
-import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { AdminVoicePanel } from "./admin-voice";
+import { AdminNav } from "@/components/admin-nav";
 import { Button, Screen } from "@/components/ui";
 import { AdminApiError, adminApi, adminTokenStore, saveAdminToken } from "@/lib/admin-api";
 import { applyView, DEFAULT_VIEW, partyCounters, quickCounts, scoreOf, STATUS_LABELS, toCsv, type AdminView, type SortKey } from "@/lib/admin-view";
@@ -164,12 +164,10 @@ function AdminTable({ token, onLogout }: { token: string; onLogout: (message?: s
 
   return (
     <Screen className="max-w-[1800px] !items-stretch gap-4 text-base">
+      <AdminNav />
       <header className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-3xl font-bold">Fragen-Admin</h1>
+        <h1 className="text-3xl font-bold">❓ Fragen</h1>
         <div className="flex flex-wrap items-center gap-3 text-sm">
-          <Link href="/admin/kosten" className="rounded-full px-3 py-1 font-bold hover:bg-petrol-dark/70">
-            💶 Kosten
-          </Link>
           {data && (
             <span className="chip rounded-full px-3 py-1">
               Generiert heute: {data.generationsToday} / {data.dailyGenerationLimit}

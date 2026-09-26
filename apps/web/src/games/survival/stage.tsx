@@ -17,6 +17,7 @@ import {
   laneGrow,
   laneSize,
   moodFor,
+  type LaunchCar,
   visualHeight,
 } from "./logic";
 
@@ -27,8 +28,8 @@ export interface StageProps {
   now: number;
   /** Displayed score per player (live decay included). */
   scores: Readonly<Record<string, number>>;
-  /** Intro: the elevators ride up from the slime to their start (0 … 1). */
-  introProgress?: number;
+  /** Start sequence: every car's height and points right now (null: the game's own heights). */
+  launch?: ReadonlyMap<string, LaunchCar> | null;
   /** Players currently losing points to the clock. */
   descending?: ReadonlySet<string>;
 }
@@ -38,7 +39,7 @@ export interface StageProps {
  * the bar chart – its height is the VISUAL survival position (logic.ts),
  * never the game score itself. Slime across the whole width at the bottom.
  */
-export function SurvivalStage({ state, players, now, scores, introProgress, descending }: StageProps) {
+export function SurvivalStage({ state, players, now, scores, launch, descending }: StageProps) {
   const byId = new Map(players.map((p) => [p.id, p]));
   const finalTwo = isFinalTwo(state);
   const reference = heightReference(state.players);
@@ -59,7 +60,7 @@ export function SurvivalStage({ state, players, now, scores, introProgress, desc
             reference={reference}
             grow={laneGrow(p, finalTwo)}
             size={size}
-            introProgress={introProgress}
+            launchHeight={launch?.get(p.id)?.h}
             fresh={isFreshElimination(p.eliminatedAt, now)}
             descending={!!descending?.has(p.id)}
             winner={winnerId === p.id}
@@ -110,7 +111,7 @@ const Lane = memo(function Lane({
   reference,
   grow,
   size,
-  introProgress,
+  launchHeight,
   fresh,
   descending,
   winner,
@@ -125,7 +126,7 @@ const Lane = memo(function Lane({
   reference: number;
   grow: number;
   size: keyof typeof AVATAR_SCALE;
-  introProgress?: number;
+  launchHeight?: number;
   fresh: boolean;
   descending: boolean;
   winner: boolean;
@@ -140,7 +141,7 @@ const Lane = memo(function Lane({
   const hasFigure = !!player && figureUrl(PARTY_HTTP_URL, player.avatar.photo, "standard") !== null;
   // The winner rides up demonstratively (not into the banner above).
   const target = winner ? 0.9 : visualHeight(score, reference);
-  const h = introProgress === undefined ? target : target * introProgress;
+  const h = launchHeight ?? target;
   const change = p.change;
   const deltaKey = change ? `${questionNumber}:${change.bonus}:${change.penalty}` : null;
   const showDelta = change && (change.bonus > 0 || change.penalty > 0);
@@ -155,6 +156,7 @@ const Lane = memo(function Lane({
       data-winner={winner || undefined}
       data-revived={revived || undefined}
       data-size={size}
+      data-launch={launchHeight !== undefined || undefined}
     >
       <div className="sv-shaft" />
       <div className="sv-piston" />

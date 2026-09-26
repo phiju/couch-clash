@@ -17,7 +17,7 @@ import { survivalModule } from "./survival/module";
 
 export * from "./meta";
 export * from "./scoring";
-export { createSurvivalModule, survivalModule, type SurvivalModule, type SurvivalState } from "./survival/module";
+export { createSurvivalModule, survivalCueAt, survivalModule, type SurvivalCue, type SurvivalModule, type SurvivalState } from "./survival/module";
 export { defaultSuddenDeath, type SuddenDeathRule } from "./survival/sudden-death";
 
 /** ── Register new categories here (2/2) ── */

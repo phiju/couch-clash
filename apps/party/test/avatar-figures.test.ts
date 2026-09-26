@@ -9,6 +9,7 @@ import {
   nextPhotoDeadline,
   publicPhoto,
   startFigures,
+  type PhotoRecord,
 } from "../src/avatar/photo-logic";
 import { AvatarGenerationError, type AvatarImage } from "../src/avatar/provider";
 import type { AvatarServiceDeps } from "../src/avatar/service";
@@ -254,5 +255,49 @@ describe("standing figures: saved figures", () => {
     // …and they are kept in the saved slot for next time.
     const meta = JSON.parse(new TextDecoder().decode(store.objects.get(`saved/${SAVED}/meta.json`)!));
     expect([...meta.figures].sort()).toEqual([...FIGURE_POSES].sort());
+  });
+});
+
+describe("trophy figure (Survival-Finale, last two)", () => {
+  it("made on request only, from the standing standard figure, with its own prompt – and saved with the figure", async () => {
+    const { a, p, store, provider, done } = await acceptedPlayer();
+    await done;
+    const before = figureCalls(provider).length;
+    expect(a.room.players[0]!.photo!.figures).not.toContain("pokal");
+
+    await runFigures(a, { provider, store, styleReference }, a.room.code, p.id, T0 + 10, ["pokal"]);
+    const calls = figureCalls(provider).slice(before);
+    expect(calls).toHaveLength(1);
+    expect(calls[0]!.prompt).toBe(FIGURE_PROMPTS.trophy);
+    expect(figurePrompt("pokal")).toBe(FIGURE_PROMPTS.trophy);
+    expect(calls[0]!.input.bytes).toEqual(store.objects.get(`rooms/${a.room.code}/${p.id}/figure-standard.webp`));
+    expect(calls[0]!.options).toMatchObject({ transparent: true, size: FIGURE_CONFIG.size });
+    expect(a.room.players[0]!.photo!.figures).toContain("pokal");
+    expect(store.objects.has(`rooms/${a.room.code}/${p.id}/figure-pokal.webp`)).toBe(true);
+    // Automatically kept figure → the trophy goes into the saved slot too.
+    const savedId = a.room.players[0]!.photo!.savedId;
+    if (savedId) expect(store.objects.has(`saved/${savedId}/figure-pokal.webp`)).toBe(true);
+
+    // Asked again: nothing to do.
+    await runFigures(a, { provider, store, styleReference }, a.room.code, p.id, T0 + 20, ["pokal"]);
+    expect(figureCalls(provider).length).toBe(before + 1);
+  });
+
+  it("never without the standing standard figure (the fallback is the cheering figure + a drawn cup)", () => {
+    const room = roomWithPlayers(["Ana"]);
+    const p = room.players[0]!;
+    const photoRecord: PhotoRecord = {
+      status: "ready",
+      version: 1,
+      readyVersion: 1,
+      accepted: true,
+      expressions: ["neutral"],
+      expressionsPending: false,
+      startedAt: T0,
+      reason: null,
+      figures: [],
+    };
+    const withPhoto: RoomRecord = { ...room, players: [{ ...p, photo: photoRecord }] };
+    expect(startFigures(withPhoto, p.id, T0, ["pokal"])).toBeNull();
   });
 });

@@ -11,9 +11,9 @@ import {
   type FixedCost,
   type FixedCostInput,
 } from "@couch-clash/shared";
-import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { TokenForm } from "../fragen/admin-questions";
+import { AdminNav } from "@/components/admin-nav";
 import { Screen } from "@/components/ui";
 import { AdminApiError, adminApi, adminTokenStore, saveAdminToken } from "@/lib/admin-api";
 
@@ -73,12 +73,10 @@ function CostsView({ token, onLogout }: { token: string; onLogout: (message?: st
 
   return (
     <Screen className="max-w-[1100px] !items-stretch gap-4 text-base">
+      <AdminNav />
       <header className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-3xl font-bold">💶 Kosten</h1>
         <div className="flex flex-wrap items-center gap-3 text-sm">
-          <Link href="/admin/fragen" className="rounded-full px-3 py-1 font-bold hover:bg-petrol-dark/70">
-            ❓ Fragen-Admin
-          </Link>
           <button type="button" onClick={reload} className="rounded-full px-3 py-1 font-bold hover:bg-petrol-dark/70">
             ↻ Neu laden
           </button>
