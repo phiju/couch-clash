@@ -12,6 +12,7 @@ import { getGameViews } from "@/games/registry";
 import { useServerNow } from "@/lib/clock";
 import { EARLY_FINALE_TITLE, podiumOrder, splitPodium } from "@/lib/finale";
 import { Leaderboard } from "@/components/leaderboard";
+import { SurvivalPodium } from "./survival-podium";
 
 type Send = (msg: ClientMessage) => void;
 
@@ -221,6 +222,8 @@ export function HostFinale({ room, send }: { room: PublicRoomState; send: Send }
   const speech = useHostSpeech();
   if (!entries) return <Screen />;
   const early = room.game?.endedEarly ?? false;
+  // After the Survival-Finale: the podium with the standing figures (places by the elimination order).
+  const ranked = !early && !!room.game?.rankedFinale;
   const byId = new Map(room.players.map((p) => [p.id, p]));
   const winners = entries.filter((e) => e.rankAfter === 1).flatMap((e) => byId.get(e.playerId) ?? []);
   const { podium, rest } = splitPodium(entries);
@@ -233,10 +236,10 @@ export function HostFinale({ room, send }: { room: PublicRoomState; send: Send }
           pose="cheer"
           talking={!!speech}
           className="z-10 hidden md:flex"
-          imageClassName={early ? "h-[min(26vh,340px)]" : "h-[min(34vh,460px)]"}
+          imageClassName={early ? "h-[min(26vh,340px)]" : ranked ? "h-[min(20vh,280px)]" : "h-[min(34vh,460px)]"}
         />
         <div className="flex flex-col items-center gap-[1.5vh] pb-[1.5vh] text-center">
-          {!early && (
+          {!early && !ranked && (
             <div className="flex -space-x-6">
               {winners.map((w) => (
                 <AvatarBadge key={w.id} avatar={w.avatar} size="fluid" className="animate-float" />
@@ -248,12 +251,21 @@ export function HostFinale({ room, send }: { room: PublicRoomState; send: Send }
               ? `🏁 ${EARLY_FINALE_TITLE}`
               : `🏆 ${winners.map((w) => w.name).join(" & ")} ${winners.length > 1 ? "gewinnen" : "gewinnt"}!`}
           </h2>
-          {room.game?.rankedFinale && (
+          {ranked && (
             <p className="fs-md text-cream/80">Platzierung nach dem Survival-Finale: wer später in den Schleim fiel, steht weiter vorn.</p>
           )}
         </div>
       </div>
-      {early ? (
+      {ranked ? (
+        <>
+          <SurvivalPodium entries={entries} byId={byId} />
+          {rest.length > 0 && (
+            <div className="panel max-h-[22vh] min-h-0 w-full shrink-0 overflow-y-auto p-[1.5vh]">
+              <Leaderboard entries={rest} players={room.players} animated={false} showGains={false} />
+            </div>
+          )}
+        </>
+      ) : early ? (
         <>
           <Podium entries={podium} byId={byId} />
           {rest.length > 0 && (

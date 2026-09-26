@@ -6,9 +6,9 @@
  * Nothing here ever delays the game: a line whose audio isn't ready simply
  * isn't picked.
  */
-import type { SurvivalEvent, SurvivalState } from "@couch-clash/games";
+import type { SurvivalCue, SurvivalEvent, SurvivalState } from "@couch-clash/games";
 import type { HostLine } from "@couch-clash/shared";
-import { chooseComment, createCommentaryMemory, type CommentaryMemory } from "./survival-commentary";
+import { chooseComment, chooseTransition, createCommentaryMemory, type CommentaryMemory } from "./survival-commentary";
 import { RUNNING_GAGS, SURVIVAL_LINES, fillLine, namelessLines, PLAYER_NAME, type ModeratorPoolId } from "./survival-lines";
 
 export const SURVIVAL_VOICE_CONFIG = {
@@ -23,7 +23,9 @@ export const SURVIVAL_VOICE_CONFIG = {
   /** Events whose named lines are voiced first. */
   namedEvents: ["WRONG_ANSWER", "CRITICAL", "ELIMINATED", "WINNER", "NEAR_ELIMINATION", "TIME_DECAY_STARTED", "FAST_CORRECT", "COMEBACK", "WARNING", "TIMEOUT"],
   /** Nameless pools voiced first (the intro needs them right away). */
-  firstPools: ["FINALE_STARTED", "SCORES_CONVERTED", "ELIMINATED", "WRONG_ANSWER", "CRITICAL", "WINNER"],
+  firstPools: ["FINALE_STARTED", "SCORES_CONVERTED", "ELIMINATED", "WRONG_ANSWER", "CRITICAL", "WINNER", "TRANSITION_TO_CEREMONY"],
+  /** The line to the ceremony waits behind the WINNER line – it must not go stale meanwhile. */
+  transitionStaleMs: 15_000,
 } as const satisfies { namedEvents: readonly ModeratorPoolId[]; firstPools: readonly ModeratorPoolId[] } & Record<string, unknown>;
 
 export interface SurvivalClip {
@@ -50,6 +52,8 @@ export interface SurvivalVoiceRuntime {
   newId(): string;
   run(task: () => Promise<void>): void;
   log(message: string): void;
+  /** The line the finale waits for is over (or there is none): move on (start the ride / the ceremony). */
+  cue(cue: SurvivalCue): void;
 }
 
 /** A finale is identified by its players and the moment it started. */
@@ -69,8 +73,31 @@ export class SurvivalVoice {
   /** Until the cache is checked, events wait here (the intro line must not get lost). */
   private pending: { events: SurvivalEvent[]; state: SurvivalState; names: Readonly<Record<string, string>> } | null = null;
   private checked = false;
+  /** Lines the finale waits for: line id → what happens when it ended. */
+  private readonly awaiting = new Map<string, SurvivalCue>();
 
   constructor(private readonly rt: SurvivalVoiceRuntime) {}
+
+  /** The host screen reports a line as over (played or skipped). */
+  lineEnded(lineId: string) {
+    const cue = this.awaiting.get(lineId);
+    if (!cue) return;
+    this.awaiting.delete(lineId);
+    this.rt.cue(cue);
+  }
+
+  /** What these events make the finale wait for (the opening, the winner). */
+  private static cueOf(events: readonly SurvivalEvent[]): SurvivalCue | null {
+    if (events.some((e) => e.type === "WINNER")) return "ceremony";
+    if (events.some((e) => e.type === "LAUNCH")) return "launch";
+    return null;
+  }
+
+  /** No line will come for these events (voice off, not ready, too late): don't make the finale wait. */
+  private cueNow(events: readonly SurvivalEvent[]) {
+    const cue = SurvivalVoice.cueOf(events);
+    if (cue) this.rt.cue(cue);
+  }
 
   /** The room changed while the finale runs. `names`: player id → sanitized name. */
   roomChanged(state: SurvivalState, names: Readonly<Record<string, string>>) {
@@ -90,7 +117,8 @@ export class SurvivalVoice {
     }
     const events = state.events.filter((e) => e.seq > this.lastSeq);
     this.lastSeq = Math.max(this.lastSeq, maxSeq);
-    if (events.length === 0 || !this.rt.enabled()) return;
+    if (events.length === 0) return;
+    if (!this.rt.enabled()) return this.cueNow(events);
     if (!this.checked) {
       this.pending = { events: [...(this.pending?.events ?? []), ...events], state, names };
       return;
@@ -104,6 +132,7 @@ export class SurvivalVoice {
     this.pending = null;
     if (!pending) return;
     const fresh = pending.events.filter((e) => this.rt.now() - e.at <= SURVIVAL_VOICE_CONFIG.pendingMaxAgeMs);
+    this.cueNow(pending.events.filter((e) => !fresh.includes(e)));
     if (fresh.length) this.speak(fresh, pending.state, pending.names);
   }
 
@@ -117,20 +146,50 @@ export class SurvivalVoice {
       ready: (text) => this.ready.has(text),
     });
     this.memory = memory;
-    if (!comment) return;
-    const audioPath = this.ready.get(comment.text);
-    if (!audioPath) return;
-    this.rt.send({
-      id: this.rt.newId(),
-      kind: "comment",
-      text: comment.text,
-      audioPath,
-      playbackRate: this.rt.playbackRate(),
-      staleAfterMs: comment.maxQueueAgeMs,
-      priority: comment.priority,
-      ...(comment.preempt ? { preempt: true } : {}),
-      ...(comment.playAt !== null ? { playAt: comment.playAt } : {}),
-    });
+    const cue = SurvivalVoice.cueOf(events);
+    // The line the finale waits for: the opening (launch), or the last of WINNER + "ab zur Siegerehrung" (ceremony).
+    let waitFor: string | null = null;
+    const audioPath = comment ? this.ready.get(comment.text) : undefined;
+    if (comment && audioPath) {
+      const id = this.rt.newId();
+      const sent = this.rt.send({
+        id,
+        kind: "comment",
+        text: comment.text,
+        audioPath,
+        playbackRate: this.rt.playbackRate(),
+        staleAfterMs: comment.maxQueueAgeMs,
+        priority: comment.priority,
+        ...(comment.preempt ? { preempt: true } : {}),
+        ...(comment.playAt !== null ? { playAt: comment.playAt } : {}),
+      });
+      const opens = cue === "launch" && comment.event.type === "FINALE_STARTED";
+      if (sent && (opens || cue === "ceremony")) waitFor = id;
+    }
+    if (cue === "ceremony") {
+      const text = chooseTransition(this.memory, { random: () => this.rt.random(), ready: (t) => this.ready.has(t) });
+      const path = text ? this.ready.get(text) : undefined;
+      if (text && path) {
+        const id = this.rt.newId();
+        // Right after the WINNER line (same priority, queued behind it).
+        const sent = this.rt.send({
+          id,
+          kind: "comment",
+          text,
+          audioPath: path,
+          playbackRate: this.rt.playbackRate(),
+          staleAfterMs: SURVIVAL_VOICE_CONFIG.transitionStaleMs,
+          priority: 1,
+        });
+        if (sent) {
+          waitFor = id;
+          this.memory = { ...this.memory, recent: [...this.memory.recent, text], used: [...this.memory.used, text] };
+        }
+      }
+    }
+    if (!cue) return;
+    if (waitFor) this.awaiting.set(waitFor, cue);
+    else this.rt.cue(cue);
   }
 
   /** Texts ready to play (tests / logs). */

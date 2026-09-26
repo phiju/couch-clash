@@ -1,8 +1,11 @@
 import { SURVIVAL_PHASES, type SurvivalPublicPlayer, type SurvivalPublicState } from "@couch-clash/games/meta";
 import { describe, expect, it } from "vitest";
 import {
-  conversionValue,
+  LAUNCH_LOW,
+  heightReference,
   isFinalTwo,
+  launchFrame,
+  launchStops,
   isFreshElimination,
   laneGrow,
   laneSize,
@@ -61,6 +64,7 @@ function state(over: Partial<SurvivalPublicState> = {}): SurvivalPublicState {
     myAnswer: null,
     reveal: null,
     tiebreak: null,
+    launch: null,
     winnerId: null,
     solo: false,
     ranking: null,
@@ -151,11 +155,49 @@ describe("show", () => {
     expect(survivalAudio(state())?.music).toBe("think");
     expect(survivalAudio(state({ step: "winner" }))).toMatchObject({ music: null });
     expect(survivalAudio(state({ step: "winner" }))?.enter).toBeUndefined();
+    expect(survivalAudio(state({ step: "launch" }))).toMatchObject({ music: null });
   });
 
-  it("intro count from main-game points to life energy", () => {
-    expect(conversionValue(2000, 1200, 0)).toBe(2000);
-    expect(conversionValue(2000, 1200, 1)).toBe(1200);
-    expect(conversionValue(90, 250, 0.5)).toBeGreaterThan(90);
+  it("start sequence: everyone low with the main-game points, then one ride – the leader longest, points and car arrive together", () => {
+    const players = [
+      player("lead", { mainScore: 2000, startScore: 1200, score: 1200 }),
+      player("mid", { mainScore: 600, startScore: 500, score: 500 }),
+      player("low", { mainScore: 90, startScore: 250, score: 250 }),
+    ];
+    const riseMs = 3000;
+    const waiting = launchFrame({ players, launch: { riseAt: null, riseMs } }, T0)!;
+    for (const p of players) expect(waiting.get(p.id)).toEqual({ h: LAUNCH_LOW, score: p.mainScore, stopAt: null });
+
+    const riseAt = T0 + 1000;
+    const at = (t: number) => launchFrame({ players, launch: { riseAt, riseMs } }, riseAt + t)!;
+    // Same start, same speed: all cars level while riding.
+    const early = at(400);
+    expect(early.get("lead")!.h).toBeCloseTo(early.get("low")!.h, 6);
+    expect(early.get("lead")!.h).toBeGreaterThan(LAUNCH_LOW);
+    // The last to stop is the leader, after riseMs; the others earlier.
+    const stops = [...at(0).values()].map((c) => c.stopAt! - riseAt);
+    expect(Math.max(...stops)).toBe(riseMs);
+    expect(at(0).get("low")!.stopAt!).toBeLessThan(at(0).get("mid")!.stopAt!);
+    // At the end: exactly the heights and scores the question starts with (no jump).
+    const end = at(riseMs);
+    const reference = heightReference(players);
+    for (const p of players) {
+      expect(end.get(p.id)!.h).toBeCloseTo(visualHeight(p.startScore, reference), 6);
+      expect(end.get(p.id)!.score).toBe(p.startScore);
+    }
+    // Halfway through its own ride, the points are halfway too.
+    const lowStop = at(0).get("low")!.stopAt! - riseAt;
+    expect(at(lowStop / 2).get("low")!.score).toBe(Math.round(90 + (250 - 90) / 2));
+    expect(launchFrame(state(), T0)).toBeNull();
+  });
+
+  it("one clack per stop – cars that stop together share it", () => {
+    const frame = new Map([
+      ["a", { h: 0, score: 0, stopAt: 1000 }],
+      ["b", { h: 0, score: 0, stopAt: 1050 }],
+      ["c", { h: 0, score: 0, stopAt: 2000 }],
+    ]);
+    expect(launchStops(frame)).toEqual([1000, 2000]);
+    expect(launchStops(new Map([["a", { h: 0, score: 0, stopAt: null }]]))).toEqual([]);
   });
 });

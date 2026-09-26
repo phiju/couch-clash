@@ -29,8 +29,11 @@ export const MODERATOR_EVENT_TYPES = [
 ] as const;
 export type ModeratorEventType = (typeof MODERATOR_EVENT_TYPES)[number];
 
-/** Pools by event. PHASE_CHANGED has an extra pool for DEATH MODE. */
-export type ModeratorPoolId = ModeratorEventType | "PHASE_CHANGED_DEATH";
+/**
+ * Pools by event. PHASE_CHANGED has an extra pool for DEATH MODE;
+ * TRANSITION_TO_CEREMONY follows the WINNER line (then the ceremony starts).
+ */
+export type ModeratorPoolId = ModeratorEventType | "PHASE_CHANGED_DEATH" | "TRANSITION_TO_CEREMONY";
 
 export const SURVIVAL_LINES: Record<ModeratorPoolId, readonly string[]> = {
   FINALE_STARTED: [
@@ -172,6 +175,13 @@ export const SURVIVAL_LINES: Record<ModeratorPoolId, readonly string[]> = {
     "{playerName} bleibt trocken!",
     "Couch Clash hat einen Gewinner!",
     "{playerName} gewinnt – und darf die Klamotten anbehalten!",
+  ],
+  TRANSITION_TO_CEREMONY: [
+    "So, genug geplanscht. Abtrocknen und ab zur Siegerehrung!",
+    "Alle Schleimigen bitte abtrocknen. Wir sehen uns bei der Siegerehrung!",
+    "Handtücher gibt's am Ausgang. Ab zur Siegerehrung!",
+    "Kurz abtropfen lassen – und dann ab aufs Treppchen!",
+    "Die Nassen bitte abtrocknen, der Trockene bitte nach vorne. Siegerehrung!",
   ],
 };
 

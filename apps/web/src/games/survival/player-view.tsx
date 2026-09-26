@@ -55,7 +55,7 @@ export function SurvivalPlayerView({ state, room, me, sendAction }: PlayerViewPr
     </div>
   );
 
-  if (state.step === "intro") {
+  if (state.step === "intro" || state.step === "launch") {
     return (
       <div className="flex w-full flex-1 flex-col gap-4">
         {header}

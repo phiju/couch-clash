@@ -59,6 +59,14 @@ function finaleRoom() {
 
 const state = (room: RoomRecord) => room.game!.moduleState as SurvivalState;
 
+/** Rules → start sequence (the elevators ride up) → first question, by the room's alarms. */
+function toFirstQuestion(room: RoomRecord, ids: string[]): RoomRecord {
+  let r = room;
+  for (let i = 0; i < 5 && state(r).step !== "question"; i++) r = unwrap(advance(r, deps(r.phaseEndsAt!, ids)));
+  expect(state(r).step).toBe("question");
+  return r;
+}
+
 function answer(room: RoomRecord, playerId: string, correct: boolean, afterMs: number, ids: string[]) {
   const q = state(room).question!;
   const value = correct ? q.question.correctIndex : (q.question.correctIndex + 1) % 4;
@@ -82,8 +90,7 @@ describe("Survival-Finale in the room", () => {
   it("alarms drive the question: live decay, timeout, and the main scores stay as they were", () => {
     const start = finaleRoom();
     const { anna, ben, ids } = start;
-    let room = start.room;
-    room = unwrap(advance(room, deps(room.phaseEndsAt!, ids)));
+    let room = toFirstQuestion(start.room, ids);
     const q = state(room).question!;
     expect(room.usedContentIds).toContain(q.contentId);
     room = unwrap(answer(room, anna, true, 2000, ids));
@@ -122,6 +129,27 @@ describe("Survival-Finale in the room", () => {
     expect(rounds.map((r) => r.categoryId)).toEqual(["quiz", "estimate", "survival"]);
   });
 
+  it("no standings before the finale: the last normal round goes straight into its intro (other rounds keep theirs)", () => {
+    let room = createRoomRecord("SUR3", "host-token-0123456789abcdef", T0);
+    const r = unwrap(joinPlayer(room, { name: "Anna", avatar }, { now: T0 }));
+    room = r.room;
+    const ids = [r.player.id];
+    const quiz = { categoryId: "quiz", questionCount: 1, scoring: GAME_MODULES.quiz.meta.scoring };
+    room = unwrap(updateSettings(room, [quiz, { ...quiz, categoryId: "estimate", scoring: GAME_MODULES.estimate.meta.scoring }, { categoryId: "survival", questionCount: 1, scoring }]));
+    room = unwrap(beginGame(room, deps(T0, ids)));
+    const phases: string[] = [];
+    let now = T0;
+    for (let i = 0; i < 60 && !(room.phase === "play" && room.game!.roundIndex === 2); i++) {
+      now += 1000;
+      const before = `${room.phase}:${room.game!.roundIndex}`;
+      room = unwrap(advance(room, deps(now, ids)));
+      const after = `${room.phase}:${room.game!.roundIndex}`;
+      if (after !== before) phases.push(after);
+    }
+    expect(phases).toEqual(["play:0", "scoreboard:0", "intro:1", "play:1", "intro:2", "play:2"]);
+    expect(state(room).step).toBe("intro");
+  });
+
   it("never plays a question of the running game", () => {
     let room = createRoomRecord("SUR2", "host-token-0123456789abcdef", T0);
     const r = unwrap(joinPlayer(room, { name: "Anna", avatar }, { now: T0 }));
@@ -149,8 +177,7 @@ describe("Survival-Finale in the room", () => {
   it("reconnect: same start time, the decay keeps running, no second answer", () => {
     const start = finaleRoom();
     const { anna, ben, ids } = start;
-    let room = start.room;
-    room = unwrap(advance(room, deps(room.phaseEndsAt!, ids)));
+    let room = toFirstQuestion(start.room, ids);
     const startedAt = state(room).question!.startedAt;
     room = unwrap(answer(room, anna, true, 1000, ids));
     // Ben's phone drops out and comes back: nothing restarts.

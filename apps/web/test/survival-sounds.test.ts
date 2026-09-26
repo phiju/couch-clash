@@ -2,7 +2,7 @@ import type { SurvivalEvent, SurvivalPublicPlayer } from "@couch-clash/games/met
 import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { parseAudioManifest } from "../src/lib/audio/manifest";
-import { SOUND_IDS, SURVIVAL_LOOP_IDS } from "../src/lib/audio/scenes";
+import { SOUND_CUE_VOLUMES, SOUND_IDS, SOUND_LEVELS, SURVIVAL_LOOP_IDS } from "../src/lib/audio/scenes";
 import { SPLASH_IMPACT_MS, ambienceFor, decaySecond, freshEvents, soundsFor } from "../src/games/survival/sounds";
 
 const T0 = 1_700_000_000_000;
@@ -85,6 +85,11 @@ describe("survival sound files", () => {
       expect(m[id], id).toMatchObject({ url: `/audio/${id}.${loop ? "wav" : "mp3"}`, loop });
       expect(existsSync(new URL(`../public${m[id].url}`, import.meta.url)), id).toBe(true);
     }
+    // The start ride's sound is there; all levels in one place, the bubbling 6 dB lower than before (1.5 → 0.75).
+    expect(SOUND_IDS).toContain("survival-elevator-rise");
+    for (const id of SOUND_IDS) expect(SOUND_LEVELS[id], id).toBeGreaterThan(0);
+    expect(SOUND_LEVELS["survival-slime-bubble-loop"]).toBe(0.75);
+    expect(SOUND_CUE_VOLUMES.launchStop).toBe(0.5);
     // Without a manifest entry the right file is still found.
     expect(parseAudioManifest(null)["survival-slime-threat-loop"].url).toBe("/audio/survival-slime-threat-loop.wav");
   });
