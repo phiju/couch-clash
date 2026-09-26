@@ -17,6 +17,7 @@ import type { GameMode, GameModeSettings } from "@couch-clash/shared";
 import { describe, expect, it } from "vitest";
 import { advance, beginGame, handlePlayerAction, publicGame, updateMode, updateSettings, type FlowDeps } from "../src/game-flow";
 import type { Result } from "../src/result";
+import { poolSizesFor } from "../src/pools";
 import { createRoomRecord, joinPlayer, type RoomRecord } from "../src/room-logic";
 
 const T0 = 1_700_000_000_000;
@@ -114,9 +115,25 @@ describe.each(["family", "party", "kids"] as const)("Pixelpanik round in %s mode
     expect(new Set(played).size).toBe(5);
     expect(room.game!.scores[A]).toBe(5 * 200);
     expect(room.game!.scores[B]).toBe(mode === "kids" ? 5 * 180 : 0);
-    if (mode === "party") {
-      const partyCount = played.filter((id) => PIXELPANIK_MOTIFS.find((m) => m.id === id)!.modes.join() === "party").length;
-      expect(partyCount / 5).toBeGreaterThanOrEqual(0.3);
+    // Mode-neutral: every motif may come up in Party, Kids and Familie never get party motifs.
+    if (mode !== "party") expect(played.some((id) => PIXELPANIK_MOTIFS.find((m) => m.id === id)!.modes.join() === "party")).toBe(false);
+  });
+});
+
+describe("Pixelpanik is mode-neutral", () => {
+  it("with pictures it can be picked in every mode – Party gets every motif", () => {
+    const sizes = (mode: GameMode) => poolSizesFor({ mode, allow16: false, difficulty: "mixed" }, registry).pixelpanik!;
+    expect(sizes("party")).toBe(PIXELPANIK_MOTIFS.length);
+    expect(sizes("family")).toBe(PIXELPANIK_MOTIFS.filter((m) => m.modes.includes("erwachsene")).length);
+    expect(sizes("kids")).toBe(PIXELPANIK_MOTIFS.filter((m) => m.kids_choices).length);
+    for (const mode of ["kids", "family", "party"] as const) {
+      expect(sizes(mode)).toBeGreaterThanOrEqual(pixelpanikMeta.questionsPerRound.max);
+      let room = createRoomRecord("NEUT", "host-token-0123456789abcdef", T0);
+      room = unwrap(updateMode(room, { mode, allow16: false, difficulty: "mixed" }, true, registry));
+      room = unwrap(
+        updateSettings(room, [{ categoryId: "pixelpanik", questionCount: 10, scoring: normalizeScoring(pixelpanikMeta, undefined) }], registry),
+      );
+      expect(room.settings).toMatchObject([{ categoryId: "pixelpanik", questionCount: 10 }]);
     }
   });
 });

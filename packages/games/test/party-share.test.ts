@@ -118,6 +118,13 @@ describe("partyCountFor: max(1, ceil(N × share))", () => {
     expect(PARTY_CONFIG.defaultShare).toBe(0.3);
     expect(partyShareOf(party(1))).toBe(1);
   });
+
+  it("mode-neutral categories never get a party share; only Pixelpanik is mode-neutral", () => {
+    expect(partyShareOf(party(), { modeNeutral: true })).toBe(0);
+    expect(partyShareOf(party(1), { modeNeutral: true })).toBe(0);
+    expect(partyShareOf(party(), { modeNeutral: false })).toBe(PARTY_CONFIG.defaultShare);
+    expect(Object.values(GAME_MODULES).filter((m) => m.meta.modeNeutral).map((m) => m.meta.id)).toEqual(["pixelpanik"]);
+  });
 });
 
 describe("partySlots: spread over the round", () => {

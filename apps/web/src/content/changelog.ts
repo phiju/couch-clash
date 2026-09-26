@@ -28,6 +28,15 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.24.1",
+    date: "2026-09-26",
+    title: "Pixelpanik für alle",
+    items: [
+      { emoji: "👾", text: "Pixelpanik lässt sich jetzt auch im Party-Modus auswählen" },
+      { emoji: "🖼️", text: "Auf der Party kann jedes Bild drankommen – keine Pflicht-Partymotive mehr" },
+    ],
+  },
+  {
     version: "0.24.0",
     date: "2026-09-26",
     title: "Survival-Finale im Schleimlabor",
