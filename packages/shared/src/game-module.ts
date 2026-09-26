@@ -75,6 +75,10 @@ export interface ScoringPoint {
   id: string;
   label: string;
   default: number;
+  /** Input range and step (default 0 … 10,000 in steps of 10) – e.g. seconds instead of points. */
+  min?: number;
+  max?: number;
+  step?: number;
 }
 
 export interface CategoryMeta {

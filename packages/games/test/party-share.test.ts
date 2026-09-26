@@ -8,6 +8,7 @@ import {
   BLUFF_WORDS_DE,
   ESTIMATE_QUESTIONS_DE,
   FUEHRERSCHEIN_QUESTIONS_DE,
+  PIXELPANIK_MOTIFS,
   QUIZ_QUESTIONS_DE,
   SKURRIL_STORIES_DE,
 } from "@couch-clash/content";
@@ -26,6 +27,7 @@ import { GAME_MODULES, normalizeScoring, type CategoryId } from "../src";
 import { CATEGORY_METAS, planGame } from "../src/meta";
 import { categoryPickGame } from "../src/category-pick/module";
 import { isPartyItem, partySlots, selectWithPartyShare } from "../src/party-share";
+import { motifFlags, playableMotifs } from "../src/pixelpanik/module";
 
 function seeded(seed = 7) {
   let s = seed;
@@ -57,9 +59,12 @@ const POOLS: Record<CategoryId, readonly { id: string; adult?: boolean }[]> = {
   bluff: BLUFF_WORDS_DE,
   skurril: SKURRIL_STORIES_DE,
   survival: QUIZ_QUESTIONS_DE,
+  // Only motifs with pictures are played (the image script adds them).
+  pixelpanik: playableMotifs(PIXELPANIK_MOTIFS).map((m) => ({ id: m.id, ...motifFlags(m) })),
 };
 // The Survival-Finale has no fixed round (it draws questions one by one) – tested in survival.test.ts.
-const GAMES = (Object.keys(GAME_MODULES) as CategoryId[]).filter((id) => !GAME_MODULES[id].meta.finale);
+// Pixelpanik needs pictures – the same checks run on a pool with pictures in pixelpanik.test.ts.
+const GAMES = (Object.keys(GAME_MODULES) as CategoryId[]).filter((id) => !GAME_MODULES[id].meta.finale && id !== "pixelpanik");
 const partyIds = (id: CategoryId) => POOLS[id].filter((x) => x.adult).map((x) => x.id);
 
 /** The items a round plays, in order (Kategorienvorgabe draws them one by one after each pick). */

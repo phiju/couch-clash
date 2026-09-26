@@ -14,6 +14,7 @@ import {
 import { describe, expect, it } from "vitest";
 import { GAME_MODULES, normalizeCategoryOptions } from "../src";
 import type { StealExtra } from "../src/knowledge/types";
+import { pixelpanikWithImages } from "./fixtures/pixelpanik-pool";
 
 const ME = "solo";
 
@@ -23,7 +24,8 @@ function seeded(seed: number) {
 }
 
 function playSolo(id: string, seed = 1, opts: { players?: string[]; decoys?: boolean } = {}) {
-  const module = GAME_MODULES[id as keyof typeof GAME_MODULES] as GameModule;
+  // Pixelpanik needs pictures (the image script adds them) – here every motif has stand-ins.
+  const module = (id === "pixelpanik" ? pixelpanikWithImages : GAME_MODULES[id as keyof typeof GAME_MODULES]) as GameModule;
   const random = seeded(seed);
   const ids = opts.players ?? [ME];
   let now = 1_700_000_000_000;

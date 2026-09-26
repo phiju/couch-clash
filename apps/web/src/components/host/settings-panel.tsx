@@ -476,17 +476,31 @@ const MAX_POINTS_LABEL: Record<ScoringSettings["mode"], string> = {
   bluff: "Punkte für die echte Erklärung",
 };
 
-function PointsInput({ label, value, onChange }: { label: string; value: number; onChange: (value: number) => void }) {
+function PointsInput({
+  label,
+  value,
+  onChange,
+  min = 0,
+  max = 10000,
+  step = 10,
+}: {
+  label: string;
+  value: number;
+  onChange: (value: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+}) {
   return (
     <label className="flex items-center justify-between gap-4">
       <span>{label}</span>
       <input
         type="number"
-        min={0}
-        max={10000}
-        step={10}
+        min={min}
+        max={max}
+        step={step}
         value={value}
-        onChange={(e) => onChange(clamp(Math.round(Number(e.target.value) || 0), 0, 10000))}
+        onChange={(e) => onChange(clamp(Math.round(Number(e.target.value) || 0), min, max))}
         className="w-24 rounded-xl bg-cream px-3 py-1 text-right font-bold text-brown"
       />
     </label>
@@ -524,6 +538,9 @@ function ScoringEditor({
             <PointsInput
               key={p.id}
               label={p.label}
+              min={p.min}
+              max={p.max}
+              step={p.step}
               value={scoring.points?.[p.id] ?? p.default}
               onChange={(value) => onChange({ points: { ...scoring.points, [p.id]: value } })}
             />

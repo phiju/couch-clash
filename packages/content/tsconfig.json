@@ -4,5 +4,5 @@
     // Runs in browsers, Workers and Node – all provide Web Crypto.
     "lib": ["ES2022", "DOM"]
   },
-  "include": ["src", "test", "data/*.json"]
+  "include": ["src", "test", "data/**/*.json"]
 }

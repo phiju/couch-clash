@@ -23,6 +23,10 @@
   --animate-float: float 3s ease-in-out infinite;
   --animate-sway: sway 2.6s ease-in-out infinite;
   --animate-glow: glow-pulse 1.8s ease-in-out infinite;
+  /* Pixelpanik: the snap to full resolution, its white flash, an early hit's avatar zooming in. */
+  --animate-pp-snap: pp-snap 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-pp-flash: pp-flash 0.45s ease-out forwards;
+  --animate-pp-zoom: pp-zoom 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 
   @keyframes pop {
     0% { transform: scale(0.4); opacity: 0; }
@@ -35,6 +39,20 @@
   @keyframes sway {
     0%, 100% { rotate: 0deg; }
     50% { rotate: 1.5deg; }
+  }
+  @keyframes pp-snap {
+    0% { transform: scale(1.08); filter: brightness(2.2) contrast(1.4); }
+    55% { transform: scale(0.98); filter: brightness(1.1); }
+    100% { transform: scale(1); filter: none; }
+  }
+  @keyframes pp-flash {
+    0% { opacity: 0.85; }
+    100% { opacity: 0; }
+  }
+  @keyframes pp-zoom {
+    0% { transform: scale(1); }
+    35% { transform: scale(1.7); }
+    100% { transform: scale(1.3); }
   }
   @keyframes glow-pulse {
     0%, 100% { box-shadow: 0 8px 0 var(--color-brown), 0 0 0 rgb(253 188 95 / 0); }

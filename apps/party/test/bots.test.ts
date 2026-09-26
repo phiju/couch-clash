@@ -95,7 +95,9 @@ describe("bots play every game on their own and never block", () => {
 
   it("all games in one evening with 3 bots: every step moves on, bots act in each game", async () => {
     const t = harness([], 3);
-    const rounds = CATEGORY_METAS.filter((m) => m.modes.includes("family")).map((m) => ({
+    // Pixelpanik is only offered once its pictures exist (the image script) – tested in pixelpanik-flow.test.ts.
+    const playable = (id: string) => id !== "pixelpanik" || (GAME_MODULES.pixelpanik.listContent?.() ?? []).length > 0;
+    const rounds = CATEGORY_METAS.filter((m) => m.modes.includes("family") && playable(m.id)).map((m) => ({
       categoryId: m.id,
       questionCount: m.questionsPerRound.min,
       scoring: normalizeScoring(m, undefined) as ScoringSettings,
