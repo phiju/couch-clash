@@ -12,6 +12,7 @@ import { fuehrerscheinMeta } from "./fuehrerschein/meta";
 import { pixelpanikMeta } from "./pixelpanik/meta";
 import { quizMeta } from "./quiz/meta";
 import { skurrilMeta } from "./skurril/meta";
+import { slfMeta } from "./stadt-land-fluss/meta";
 import { stealMeta } from "./steal/meta";
 import { survivalMeta } from "./survival/meta";
 
@@ -27,6 +28,7 @@ export const CATEGORY_METAS = [
   pixelpanikMeta,
   bluffMeta,
   skurrilMeta,
+  slfMeta,
   // The finale (not a card in the library – its own switch in the settings).
   survivalMeta,
 ] as const satisfies readonly CategoryMeta[];
@@ -37,7 +39,9 @@ export function getCategoryMeta(id: string): CategoryMeta | undefined {
   return CATEGORY_METAS.find((m) => m.id === id);
 }
 
-export { betMeta, bluffMeta, categoryPickMeta, doubleMeta, estimateMeta, fuehrerscheinMeta, pixelpanikMeta, quizMeta, skurrilMeta, stealMeta, survivalMeta };
+export { betMeta, bluffMeta, categoryPickMeta, doubleMeta, estimateMeta, fuehrerscheinMeta, pixelpanikMeta, quizMeta, skurrilMeta, slfMeta, stealMeta, survivalMeta };
+export { SLF_CONFIG, SLF_DEFAULTS } from "./stadt-land-fluss/meta";
+export type * from "./stadt-land-fluss/types";
 export { PIXELPANIK_CONFIG, PIXELPANIK_STAGES } from "./pixelpanik/meta";
 export * from "./pixelpanik/types";
 export { BET_CONFIG } from "./bet/meta";

@@ -303,3 +303,47 @@ export const PixelpanikFileSchema = z.object({
   scoring: z.record(z.string(), z.number().int().min(0)),
   items: z.array(PixelpanikMotifSchema),
 });
+
+// ── Stadt, Land, Fluss: categories and letters per mode ──
+
+export const SLF_CATEGORY_MODES = ["kinder", "familie", "party"] as const;
+export type SlfCategoryMode = (typeof SLF_CATEGORY_MODES)[number];
+
+/** fakt: the AI checks letter AND plausibility · kreativ: anything with the right letter counts. */
+export const SLF_CATEGORY_TYPES = ["fakt", "kreativ"] as const;
+export type SlfCategoryType = (typeof SLF_CATEGORY_TYPES)[number];
+
+export const SlfCategorySchema = z.object({
+  id: z.string().regex(/^[a-z]-[a-z0-9-]+$/),
+  /** What TV, phone and voice say ("Stadt", "Ausrede fürs Zuspätkommen"). */
+  label: z.string().trim().min(2).max(40),
+  /** Small print under the label (TV and phone only). */
+  hint: z.string().trim().min(2).max(60).optional(),
+  /** kinder: Kids + Familie · familie: Familie + Party · party: Party only. */
+  mode: z.enum(SLF_CATEGORY_MODES),
+  type: z.enum(SLF_CATEGORY_TYPES),
+});
+export type SlfCategory = z.infer<typeof SlfCategorySchema>;
+
+const letterPool = z
+  .string()
+  .regex(/^[A-Z]+$/)
+  .refine((s) => new Set(s).size === s.length, "Letters must be unique");
+
+export const SlfFileSchema = z
+  .object({
+    category: z.literal("stadt-land-fluss"),
+    /** Letters drawn per mode (Kids without C, Q, X, Y). */
+    letters: z.strictObject({ kinder: letterPool, familie: letterPool, party: letterPool }),
+    mix: z.strictObject({
+      /** Party mode: at least this many categories of a round come from the party pool. */
+      partyMinPerRound: z.number().int().min(0).max(6),
+      /** At least this many "kreativ" categories per round (the funniest-answer vote needs them). */
+      creativeMinPerRound: z.number().int().min(0).max(6),
+    }),
+    categories: z.array(SlfCategorySchema).min(1),
+  })
+  .refine((d) => !/[CQXY]/.test(d.letters.kinder), { message: "Kids letters without C, Q, X, Y", path: ["letters", "kinder"] })
+  .refine((d) => new Set(d.categories.map((c) => c.id)).size === d.categories.length, "Category ids must be unique")
+  .refine((d) => d.categories.every((c) => c.mode !== "party" || c.id.startsWith("p-")), "Party categories use the prefix p-");
+export type SlfFile = z.infer<typeof SlfFileSchema>;

@@ -15,6 +15,7 @@ import {
   type VoiceSettings,
   type VoiceStatus,
 } from "@couch-clash/shared";
+import { ELEVENLABS_CREDITS_PER_CHAR } from "../costs/prices";
 import { CREDITS_PER_CHAR, VOICE_CONFIG } from "./config";
 import type { SpeechStyle } from "./provider";
 import type { CommentPlayerFacts } from "./prompt";
@@ -206,9 +207,10 @@ export function commentHighlights(players: readonly CommentPlayerFacts[]): strin
   return out;
 }
 
-/** ElevenLabs credits for a text: characters × the model's rate (flash ½, v3 1). */
-export function creditsFor(chars: number, style: SpeechStyle): number {
-  return Math.ceil(chars * CREDITS_PER_CHAR[style]);
+/** ElevenLabs credits for a text: characters × the model's rate (flash ½, v3 1); unknown models by style. */
+export function creditsFor(chars: number, style: SpeechStyle, model?: string): number {
+  const rate = (model ? ELEVENLABS_CREDITS_PER_CHAR[model] : undefined) ?? CREDITS_PER_CHAR[style];
+  return Math.ceil(chars * rate);
 }
 
 /** Reserves `credits` from the room's budget; null if it does not fit (then only cached audio). */

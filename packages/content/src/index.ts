@@ -10,6 +10,7 @@ import pixelpanikMotive from "../data/pixelpanik/motive.json";
 import quizDe from "../data/quiz.de.json";
 import skurrilDe from "../data/skurril.de.json";
 import snarkLinesDe from "../data/snark-lines.de.json";
+import slfDe from "../data/stadt-land-fluss.de.json";
 import {
   BluffWordSchema,
   EstimateQuestionSchema,
@@ -17,6 +18,7 @@ import {
   PixelpanikFileSchema,
   QuizQuestionSchema,
   SkurrilStorySchema,
+  SlfFileSchema,
   SnarkLinesSchema,
 } from "./schema";
 
@@ -46,3 +48,6 @@ const pixelpanikFile = PixelpanikFileSchema.parse(pixelpanikMotive, { error: () 
 export const PIXELPANIK_MOTIFS = load(PixelpanikFileSchema.shape.items.element, pixelpanikFile.items, "pixelpanik/motive.json");
 /** Points per stage as noted in motive.json (the game uses the category's settings). */
 export const PIXELPANIK_FILE_SCORING: Readonly<Record<string, number>> = pixelpanikFile.scoring;
+
+/** Stadt, Land, Fluss: categories (per mode, fakt / kreativ), letters per mode and the round mix. */
+export const SLF_DATA_DE = SlfFileSchema.parse(slfDe, { error: () => "Invalid content in stadt-land-fluss.de.json" });

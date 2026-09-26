@@ -28,6 +28,19 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.24.0",
+    date: "2026-09-26",
+    title: "Neues Spiel: Stadt, Land, Fluss!",
+    items: [
+      { emoji: "✏️", text: "Der Klassiker: ein Buchstabe, alle schreiben gleichzeitig am Handy" },
+      { emoji: "🛑", text: "Alles ausgefüllt? Stopp drücken – die anderen haben nur noch 10 Sekunden" },
+      { emoji: "🎙️", text: "Der Moderator liest jede Antwort vor – und lästert über Ausreißer" },
+      { emoji: "👯", text: "Doppelte Antworten gibt's nur halb – Tippfehler verzeiht die Jury" },
+      { emoji: "😂", text: "Stimmt ab: Die witzigste Antwort kassiert Extrapunkte" },
+      { emoji: "🍹", text: "Im Party-Modus mit extra versauten Kategorien – nur für Erwachsene" },
+    ],
+  },
+  {
     version: "0.23.0",
     date: "2026-09-26",
     title: "Neues Spiel: Pixelpanik!",

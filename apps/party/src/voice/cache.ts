@@ -24,8 +24,14 @@ async function sha256Hex(text: string): Promise<string> {
 }
 
 /** Same text, voice, model and speed → same key. */
-export async function voiceCacheKey(kind: VoiceCacheKind, text: string, style: SpeechStyle, speed: number): Promise<string> {
-  const hash = await sha256Hex([ELEVENLABS_MODELS[style], style, speed.toFixed(2), text].join("|"));
+export async function voiceCacheKey(
+  kind: VoiceCacheKind,
+  text: string,
+  style: SpeechStyle,
+  speed: number,
+  model: string = ELEVENLABS_MODELS[style],
+): Promise<string> {
+  const hash = await sha256Hex([model, style, speed.toFixed(2), text].join("|"));
   return `voice-cache/${cacheVoiceId()}/${kind}/${hash}.mp3`;
 }
 
