@@ -27,10 +27,19 @@ const knowledge = {
   primaryCategory: z.enum(KNOWLEDGE_CATEGORIES).optional(),
 };
 
+/** Fine difficulty 1 (easy) … 5 (very hard) – the ladder of Double or Nothing (question n has level n). */
+export const QUIZ_LEVELS = [1, 2, 3, 4, 5] as const;
+export type QuizLevel = (typeof QUIZ_LEVELS)[number];
+const quizLevel = z.union(QUIZ_LEVELS.map((l) => z.literal(l)));
+
 export const QuizQuestionSchema = z
   .object({
     ...base,
     ...knowledge,
+    /** Level within the Familie/Party pool (relative to adults). Optional: generated items fall back to `difficulty`. */
+    level: quizLevel.optional(),
+    /** Level within the Kids pool (only child-friendly items): 5 = hard for children, not for adults. */
+    kidsLevel: quizLevel.optional(),
     options: z.tuple([z.string().min(1), z.string().min(1), z.string().min(1), z.string().min(1)]),
     correctIndex: z.number().int().min(0).max(3),
   })

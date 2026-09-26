@@ -3,11 +3,17 @@
 /**
  * TV + phone views shared by every knowledge game (the former quiz views).
  * Game-specific parts are small add-ons (KnowledgeAddon): the pre-step
- * (category cards, NORMAL/DOUBLE, wager picker), banners and reveal tags.
+ * (category cards, cash out / bet, wager picker), banners and reveal tags.
  * No scoring here – points come from the server.
  */
 import type { KnowledgePublicState } from "@couch-clash/games/meta";
-import { KNOWLEDGE_CATEGORY_LABELS, type KnowledgeCategory, type PublicPlayer, type PublicRoomState } from "@couch-clash/shared";
+import {
+  KNOWLEDGE_CATEGORY_LABELS,
+  type KnowledgeCategory,
+  type PhotoExpression,
+  type PublicPlayer,
+  type PublicRoomState,
+} from "@couch-clash/shared";
 import { useState, type ComponentType, type ReactNode } from "react";
 import { AvatarBadge } from "@/components/avatar";
 import { questionRoundAudio, type ModuleAudioScene } from "@/lib/audio/scenes";
@@ -64,8 +70,19 @@ export interface KnowledgeAddon<E> {
   HostBanner?: ComponentType<AddonHostProps<E>>;
   /** Phone above the options / in the reveal. */
   PlayerBanner?: ComponentType<AddonPlayerProps<E>>;
-  /** Chip next to a player's name in the reveal list (e.g. "DOUBLE"). */
+  /** Chip next to a player's name in the reveal list (e.g. the wager). */
   revealTag?: (state: KnowledgePublicState<E>, player: PublicPlayer) => ReactNode;
+  /** Reveal list: the answer column for a player (undefined → the answer or "keine Antwort"). */
+  revealAnswer?: (state: KnowledgePublicState<E>, player: PublicPlayer) => ReactNode | undefined;
+  /** Reveal list: the points column instead of "+100" (e.g. a pot that grows). */
+  revealPoints?: (state: KnowledgePublicState<E>, player: PublicPlayer) => ReactNode;
+  /** Reveal list: the avatar's face (e.g. cheering, disappointed). */
+  revealExpression?: (state: KnowledgePublicState<E>, player: PublicPlayer) => PhotoExpression;
+  /** Phone: this player sits the step out (e.g. cashed out) – PlayerSidelined shows instead of the pre-step, question and reveal. */
+  sidelined?: (state: KnowledgePublicState<E>, meId: string) => boolean;
+  PlayerSidelined?: ComponentType<AddonPlayerProps<E>>;
+  /** Phone: own result at the reveal instead of the points (the correct answer is still shown). */
+  PlayerReveal?: ComponentType<AddonPlayerProps<E>>;
 }
 
 export function CategoryChip({ category, big = false }: { category: KnowledgeCategory | null; big?: boolean }) {
@@ -165,7 +182,11 @@ function makeHostView<E>(addon: KnowledgeAddon<E>) {
               room={room}
               results={reveal.results}
               renderTag={addon.revealTag ? (p) => addon.revealTag!(state, p) : undefined}
+              renderPoints={addon.revealPoints ? (p) => addon.revealPoints!(state, p) : undefined}
+              expressionOf={addon.revealExpression ? (p) => addon.revealExpression!(state, p) : undefined}
               renderAnswer={(p) => {
+                const own = addon.revealAnswer?.(state, p);
+                if (own !== undefined) return own;
                 const a = reveal.answers[p.id];
                 if (a === undefined) return "keine Antwort";
                 return `${QUIZ_OPTION_STYLES[a]?.shape ?? ""} ${state.question!.options[a]}`;
@@ -191,6 +212,9 @@ function makePlayerView<E>(addon: KnowledgeAddon<E>) {
       return <QuestionLeaderboard state={state} room={room} variant="phone" meId={me.id} />;
     }
 
+    const Sidelined = addon.PlayerSidelined;
+    if (Sidelined && addon.sidelined?.(state, me.id)) return <Sidelined state={state} room={room} me={me} sendAction={sendAction} />;
+
     if (!state.question) {
       const Pre = addon.PlayerPre;
       return Pre ? <Pre state={state} room={room} me={me} sendAction={sendAction} /> : null;
@@ -199,9 +223,8 @@ function makePlayerView<E>(addon: KnowledgeAddon<E>) {
     if (reveal) {
       const mine = reveal.answers[me.id];
       const correct = reveal.correctIndex;
-      return (
-        <PlayerRevealResult result={reveal.results[me.id]} answered={mine !== undefined}>
-          {Banner && <Banner state={state} room={room} me={me} sendAction={sendAction} />}
+      const solution = (
+        <>
           <p className="text-xl">
             Richtig war:{" "}
             <span className="font-bold text-bulb">
@@ -211,6 +234,22 @@ function makePlayerView<E>(addon: KnowledgeAddon<E>) {
           {mine !== undefined && mine !== correct && (
             <p className="text-lg text-cream/60">Deine Antwort: {state.question.options[mine]}</p>
           )}
+        </>
+      );
+      const OwnReveal = addon.PlayerReveal;
+      if (OwnReveal) {
+        return (
+          <div className="panel flex w-full flex-col items-center gap-4 p-6 text-center">
+            <OwnReveal state={state} room={room} me={me} sendAction={sendAction} />
+            {solution}
+            <p className="text-lg text-cream/60">Schau auf den Fernseher!</p>
+          </div>
+        );
+      }
+      return (
+        <PlayerRevealResult result={reveal.results[me.id]} answered={mine !== undefined}>
+          {Banner && <Banner state={state} room={room} me={me} sendAction={sendAction} />}
+          {solution}
         </PlayerRevealResult>
       );
     }
@@ -264,6 +303,8 @@ export function knowledgeAudio(state: { step?: string; index?: number } | null):
   if (state?.step === "pick" || state?.step === "decide" || state?.step === "wager") {
     return { key: `${state.step}:${state.index ?? 0}`, music: "think" };
   }
+  // The choices are uncovered: a short sting, the tension stays.
+  if (state?.step === "showdown") return { key: `showdown:${state.index ?? 0}`, music: "think", enter: "sting-short" };
   return questionRoundAudio(state);
 }
 

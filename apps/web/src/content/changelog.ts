@@ -28,6 +28,19 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.24.0",
+    date: "2026-09-26",
+    title: "Double or Nothing: Kassieren oder alles riskieren?",
+    items: [
+      { emoji: "💰", text: "Jeder baut seinen eigenen Topf: 100 → 300 → 700 → 1.500 → 3.100" },
+      { emoji: "🎲", text: "Vor jeder Frage geheim am Handy: kassieren oder weiter setzen?" },
+      { emoji: "🔥", text: "Fünf Fragen, jede schwerer – ab Stufe 4 wird's richtig fies" },
+      { emoji: "💥", text: "Falsch gesetzt? Topf geplatzt – und der Moderator lästert" },
+      { emoji: "👀", text: "Alle Entscheidungen werden gleichzeitig aufgedeckt – Spannung pur" },
+      { emoji: "🧸", text: "Im Kindermodus bleibt Stufe 5 kindgerecht schwer" },
+    ],
+  },
+  {
     version: "0.23.0",
     date: "2026-09-26",
     title: "Neues Spiel: Pixelpanik!",
