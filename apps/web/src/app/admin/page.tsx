@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { AdminCostsPage } from "./admin-costs";
+import { AdminHome } from "./admin-home";
 
 export const metadata: Metadata = {
-  title: "Kosten · Admin · Couch Clash",
+  title: "Admin · Couch Clash",
   robots: { index: false, follow: false },
 };
 
 export default function Page() {
-  return <AdminCostsPage />;
+  return <AdminHome />;
 }

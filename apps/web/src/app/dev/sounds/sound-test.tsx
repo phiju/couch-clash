@@ -10,6 +10,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { Screen } from "@/components/ui";
 import { useAudioState } from "@/lib/audio/react";
 import { devModeOn } from "@/lib/dev-mode";
+import { AdminNav } from "@/components/admin-nav";
 import {
   EFFECT_IDS,
   MUSIC_IDS,
@@ -80,6 +81,7 @@ function SoundBoard() {
 
   return (
     <Screen dim="soft" className="gap-5">
+      <AdminNav />
       <h1 className="text-center text-4xl font-bold text-bulb drop-shadow-[0_4px_0_var(--color-brown)]">Soundtest</h1>
       {!unlocked ? (
         <button type="button" onClick={() => engine.unlock()} className="btn btn-primary px-6 py-3 text-lg">

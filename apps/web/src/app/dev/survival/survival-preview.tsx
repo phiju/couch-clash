@@ -13,6 +13,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { SurvivalPodium } from "@/components/host/survival-podium";
 import { Screen } from "@/components/ui";
 import { devModeOn } from "@/lib/dev-mode";
+import { AdminNav } from "@/components/admin-nav";
 import { launchFrame } from "@/games/survival/logic";
 import { SurvivalStage } from "@/games/survival/stage";
 
@@ -141,6 +142,7 @@ function Preview({ n, scene, fig }: { n: number; scene: Scene; fig: boolean }) {
 
   const bar = (
     <nav className="flex shrink-0 flex-wrap items-center gap-2 text-sm" aria-label="Vorschau">
+      <AdminNav className="mr-4" />
       {SCENES.map((s) => (
         <a key={s} href={`?n=${n}&scene=${s}${fig ? "&fig=1" : ""}`} className={`rounded-full px-3 py-1 font-bold ${s === scene ? "bg-bulb text-brown" : "chip"}`}>
           {s}

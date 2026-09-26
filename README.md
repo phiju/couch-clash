@@ -354,6 +354,10 @@ Every played question is counted in **Cloudflare D1** (database `couch-clash-sta
 - **Status** `active` / `quarantined` / `removed`. When a round starts, the room loads the non-active ids and the generated questions (cached ~5 min). If D1 is unreachable, the game plays without the filter.
 - Categories provide the numbers via the module hook `toStats`, and their catalog via `listContent` / `parseContent`. The room has no category-specific code.
 
+### Admin area `/admin`
+
+One start page for everything behind the `ADMIN_TOKEN` (asked once per tab): tiles for **Fragen** (`/admin/fragen`), **Kosten** (`/admin/kosten`, with this month's total on the tile) and the developer pages **Survival-Bühne** (`/dev/survival`) and **Sounds** (`/dev/sounds`, both linked with `?dev=1`). Every admin and developer page has the same navigation row on top (`components/admin-nav.tsx`, sections in `lib/admin-sections.ts`).
+
 ### Admin page `/admin/fragen`
 
 Asks for the `ADMIN_TOKEN` (kept in `sessionStorage` of that tab only); the worker checks it on every `/api/admin/*` request (`401` if wrong, `503` if not set). Table of all questions joined with the content: text, correct answer, difficulty, plays, correct rate / average error, average time, 👍/👎, reports, status, last played. Sortable, filter by category, search, quick filters (Quarantäne, rausgeworfen, neu generiert, gemeldet, viele 👎, Schwierigkeit passt nicht, nie gespielt), actions per row and in bulk, CSV export of the current view.
