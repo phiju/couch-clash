@@ -63,7 +63,8 @@ const DEFAULT_OUT_DIR = join(here, "..", ".pixelpanik-out");
 /** Keep in sync with PIXELPANIK_STAGE_SIZES (src/schema.ts). 0 = full picture. */
 const STAGE_SIZES = [4, 8, 16, 32, 64, 0];
 const FULL_SIZE = 1024;
-const USER_AGENT = "CouchClash-Pixelpanik/1.0 (party game; one-time image import)";
+// Wikimedia wants a contact in the User-Agent (anonymous clients get throttled hard).
+const USER_AGENT = "CouchClashPixelpanik/1.0 (https://github.com/phiju/couch-clash; one-time import of public-domain paintings)";
 
 const { values: args } = parseArgs({
   options: {
@@ -166,9 +167,20 @@ async function fromFlagIcons(item) {
   return { buffer: await sharp(svg, { density: 600 }).resize(FULL_SIZE, FULL_SIZE).png().toBuffer() };
 }
 
+/** GET with the Wikimedia User-Agent; on 429 waits as long as `retry-after` says (a few times). */
+async function politeFetch(url) {
+  for (let attempt = 1; ; attempt++) {
+    const res = await fetch(url, { headers: { "User-Agent": USER_AGENT } });
+    if (res.status !== 429 || attempt >= 4) return res;
+    const wait = Math.min(120, Number(res.headers.get("retry-after")) || 30) * 1000;
+    console.log(`  Wikimedia 429 – waiting ${Math.round(wait / 1000)} s`);
+    await sleep(wait);
+  }
+}
+
 async function commonsApi(params) {
   const url = `https://commons.wikimedia.org/w/api.php?${new URLSearchParams({ format: "json", formatversion: "2", ...params })}`;
-  const res = await fetch(url, { headers: { "User-Agent": USER_AGENT } });
+  const res = await politeFetch(url);
   if (!res.ok) throw new Error(`Wikimedia API ${res.status}`);
   return res.json();
 }
@@ -218,7 +230,7 @@ async function fromWikimedia(item) {
 }
 
 async function download(url) {
-  const res = await fetch(url, { headers: { "User-Agent": USER_AGENT } });
+  const res = await politeFetch(url);
   if (!res.ok) throw new Error(`Download ${res.status}: ${url}`);
   return Buffer.from(await res.arrayBuffer());
 }
