@@ -18,6 +18,7 @@ import {
 import { createAvatarProvider } from "./avatar";
 import {
   acceptPhotoAndGenerate,
+  runFigures,
   savePlayerPhoto,
   startPhotoUpload,
   useSavedPhoto,
@@ -30,6 +31,8 @@ import { imagesFigureResizer, imagesResizer, type AvatarServiceDeps } from "./av
 import { playerPrefix, r2AvatarStore, roomPrefix } from "./avatar/store";
 import { styleReference } from "./avatar/style";
 import { createVoiceProviders } from "./voice";
+import { applySurvivalCue, trophyCandidates } from "./survival-room";
+import type { SurvivalCue } from "@couch-clash/games";
 import { meteredFetchFor, type FetchFor } from "./costs/meter";
 import { d1CostStore, usageRecorder } from "./costs/store";
 import { VoiceDirector } from "./voice/director";
@@ -123,6 +126,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     hostConnected: () => this.presence().host,
     waitUntil: (promise) => this.ctx.waitUntil(promise),
     services: () => ({ ...createVoiceProviders(this.env, undefined, this.fetchFor()), store: this.avatarStore() }),
+    survivalCue: (cue) => this.ctx.waitUntil(this.survivalCue(cue)),
     now: () => Date.now(),
     random: Math.random,
     newId: () => generateSecret(8),
@@ -608,9 +612,26 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     this.broadcastState();
     // The host may have something to say about it (welcome, commentary, …).
     this.voice.roomChanged(prev, room);
+    this.startTrophies(prev, room);
     this.stats.roomChanged(prev, room);
     this.tasks.roomChanged(room);
     this.bots.roomChanged(room);
+  }
+
+  /** Survival-Finale: the moderator's line is over – the ride starts / the ceremony follows now. */
+  private async survivalCue(cue: SurvivalCue) {
+    const room = this.activeRoom();
+    const next = room && applySurvivalCue(room, cue, Date.now());
+    if (next) await this.commit(next);
+  }
+
+  /** The last two of the Survival-Finale get their trophy figure in the background (ready for the ceremony). */
+  private startTrophies(prev: RoomRecord | null, room: RoomRecord) {
+    const ids = trophyCandidates(prev, room);
+    if (ids.length === 0) return;
+    const deps = this.avatarDeps();
+    if (!deps) return;
+    for (const id of ids) this.ctx.waitUntil(runFigures(this.roomAccess, deps, room.code, id, Date.now(), ["pokal"]));
   }
 
   /** Host lines never go to phones. */

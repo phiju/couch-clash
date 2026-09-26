@@ -1,6 +1,7 @@
 import { buildLeaderboard } from "@couch-clash/shared";
 import { describe, expect, it } from "vitest";
-import { EARLY_FINALE_TITLE, placeText, podiumOrder, splitPodium } from "../src/lib/finale";
+import { buildRankedLeaderboard } from "@couch-clash/shared";
+import { EARLY_FINALE_TITLE, placeText, podiumOrder, splitPodium, survivalPodium } from "../src/lib/finale";
 
 const players = ["Anna", "Ben", "Cleo", "Dana", "Emil"].map((name, i) => ({ id: `p${i}`, name }));
 const scores = { p0: 300, p1: 740, p2: 120, p3: 740, p4: 0 };
@@ -35,5 +36,36 @@ describe("early finale", () => {
     expect(placeText(buildLeaderboard(players, { ...scores, p4: 1 }, {}), "p4")).toBe("Platz 5 von 5 – 1 Punkt");
     expect(placeText(buildLeaderboard(players, { ...scores, p1: 1740 }, {}), "p1")).toBe("Platz 1 von 5 – 1.740 Punkte");
     expect(placeText(entries, "nobody")).toBeNull();
+  });
+});
+
+describe("Survival-Finale ceremony podium", () => {
+  it("2 · 1 · 3 by the finale's placing (2 = out last, 3 = before)", () => {
+    // Winner p2, out last p0, before that p4, first out p1.
+    const ranked = buildRankedLeaderboard(players.slice(0, 5), scores, [
+      { playerId: "p2", place: 1 },
+      { playerId: "p0", place: 2 },
+      { playerId: "p4", place: 3 },
+      { playerId: "p3", place: 4 },
+      { playerId: "p1", place: 5 },
+    ]);
+    const slots = survivalPodium(ranked);
+    expect(slots.map((s) => [s.step, s.entry?.playerId, s.place])).toEqual([
+      [2, "p0", 2],
+      [1, "p2", 1],
+      [3, "p4", 3],
+    ]);
+  });
+
+  it("two players: the third step stays empty", () => {
+    const ranked = buildRankedLeaderboard(players.slice(0, 2), scores, [
+      { playerId: "p1", place: 1 },
+      { playerId: "p0", place: 2 },
+    ]);
+    expect(survivalPodium(ranked).map((s) => [s.step, s.entry?.playerId ?? null])).toEqual([
+      [2, "p0"],
+      [1, "p1"],
+      [3, null],
+    ]);
   });
 });

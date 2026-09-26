@@ -179,7 +179,7 @@ describe("start scores", () => {
     expect(f.player("a")).toMatchObject({ mainScore: 2000, startScore: 1200, score: 1200, lane: 0 });
     expect(f.player("b")).toMatchObject({ mainScore: 90, startScore: 250, score: 250, lane: 1 });
     expect(f.s.step).toBe("intro");
-    expect(f.events().map((e) => e.type)).toEqual(["FINALE_STARTED", "SCORES_CONVERTED", "FINAL_TWO"]);
+    expect(f.events().map((e) => e.type)).toEqual(["FINALE_STARTED", "FINAL_TWO"]);
     f.toQuestion();
     f.answer("a", true, 1000);
     const r = f.mod.handleAction(f.s, { type: "answer", value: f.q.question.correctIndex }, "b", f.ctx(f.q.startedAt + 2000));
@@ -741,5 +741,68 @@ describe("danger levels", () => {
     f.answer("a", true, 1000);
     f.answer("b", true, 1000);
     expect(f.events("FINAL_TWO")[0]?.playerIds).toEqual(["a", "b"]);
+  });
+});
+
+describe("start sequence and the way to the ceremony (presentation timing)", () => {
+  const C = SURVIVAL_CONFIG;
+
+  it("rules → launch (moderator opens, then the ride) → first question; scores unchanged", () => {
+    const f = new Finale({ a: 2000, b: 1200, c: 90 });
+    expect(f.phaseEndsAt).toBe(T0 + C.introMs);
+    let pub = f.mod.toPublicState(f.s, { role: "host" });
+    expect(pub.launch).toEqual({ riseAt: null, riseMs: C.riseMs });
+
+    f.timer(); // rules over
+    expect(f.s.step).toBe("launch");
+    expect(f.events().slice(-2).map((e) => e.type)).toEqual(["LAUNCH", "SCORES_CONVERTED"]);
+    const launchAt = T0 + C.introMs;
+    // Safety net: the ride starts at the latest when the moderator's line would be over.
+    expect(f.phaseEndsAt).toBe(launchAt + C.launchPauseMs + C.launchLineMaxMs);
+
+    // The room moves on when his line ended (here: right away → still the 1 s pause first).
+    f.timer(launchAt + 200);
+    expect(f.s.step).toBe("launch");
+    expect(f.s.launchRiseAt).toBe(launchAt + C.launchPauseMs);
+    expect(f.phaseEndsAt).toBe(launchAt + C.launchPauseMs + C.riseMs);
+    pub = f.mod.toPublicState(f.s, { role: "host" });
+    expect(pub.launch).toEqual({ riseAt: launchAt + C.launchPauseMs, riseMs: C.riseMs });
+    // Presentation only: the start scores are the converted ones from the beginning.
+    expect(pub.players.map((p) => p.score)).toEqual([1200, 800, 250]);
+
+    f.timer(); // the ride is over → the first question right away
+    expect(f.s.step).toBe("question");
+    expect(f.q.startedAt).toBe(launchAt + C.launchPauseMs + C.riseMs);
+    expect(f.mod.toPublicState(f.s, { role: "host" }).launch).toBeNull();
+  });
+
+  it("a line that ends late starts the ride then", () => {
+    const f = new Finale({ a: 2000, b: 1200 });
+    f.timer();
+    const launchAt = T0 + C.introMs;
+    f.timer(launchAt + 4_200);
+    expect(f.s.launchRiseAt).toBe(launchAt + 4_200);
+  });
+
+  it("after the last elimination: no extra wait, then the winner step with the safety time", () => {
+    const f = new Finale({ a: 2000, b: 90 }); // a 1200, b 250
+    f.toQuestion();
+    f.answer("a", true, 6_000);
+    f.answer("b", false, 6_000); // 250 → 50
+    f.runQuestion();
+    expect(f.s.step).toBe("reveal");
+    expect(f.phaseEndsAt! - f.s.stepStartedAt).toBe(C.revealMs);
+    f.toQuestion();
+    f.answer("a", true, 6_000);
+    const outAt = f.q.startedAt + 6_500;
+    expect(f.answer("b", false, 6_500)).toBeNull(); // 50 → out, the question ends at once
+    expect(f.s.step).toBe("reveal");
+    // Only until the car is under the slime – not the full reveal.
+    expect(f.phaseEndsAt).toBe(Math.max(outAt + C.finalRevealMinMs, outAt + C.eliminationAnimMs));
+    expect(f.phaseEndsAt! - f.s.stepStartedAt).toBeLessThan(C.revealMs);
+    f.timer();
+    expect(f.s.step).toBe("winner");
+    expect(f.s.winnerId).toBe("a");
+    expect(f.phaseEndsAt).toBe(f.s.stepStartedAt + C.winnerMs);
   });
 });

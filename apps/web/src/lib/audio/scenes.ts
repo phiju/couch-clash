@@ -20,6 +20,7 @@ export const SURVIVAL_ONE_SHOT_IDS = [
   "survival-bonus",
   "survival-wrong",
   "survival-elevator-jolt",
+  "survival-elevator-rise",
   "survival-decay-tick",
   "survival-splash",
   "survival-final-two",
@@ -30,6 +31,34 @@ export type SurvivalOneShotId = (typeof SURVIVAL_ONE_SHOT_IDS)[number];
 export type SurvivalLoopId = (typeof SURVIVAL_LOOP_IDS)[number];
 export type SoundId = SurvivalOneShotId | SurvivalLoopId;
 export const SOUND_IDS: readonly SoundId[] = [...SURVIVAL_ONE_SHOT_IDS, ...SURVIVAL_LOOP_IDS];
+
+/**
+ * THE place for game-sound levels (1 = the file as delivered; the files are
+ * balanced against each other). A one-shot plays at level × its cue volume,
+ * a loop at level × what the game asks for (e.g. the threat by danger).
+ * A missing file is simply silent.
+ */
+export const SOUND_LEVELS: Record<SoundId, number> = {
+  "survival-intro": 1,
+  "survival-bonus": 1,
+  "survival-wrong": 1,
+  "survival-elevator-jolt": 1,
+  "survival-elevator-rise": 1,
+  "survival-decay-tick": 1,
+  "survival-splash": 1,
+  "survival-final-two": 1,
+  "survival-winner": 1,
+  // Constant under the whole finale: was 1.5 (to be heard at all), now −6 dB → 0.75.
+  "survival-slime-bubble-loop": 0.75,
+  "survival-slime-threat-loop": 1,
+  "survival-warning-lamp-loop": 1,
+};
+
+/** Volumes of single cues on top of SOUND_LEVELS. */
+export const SOUND_CUE_VOLUMES = {
+  /** The short clack when an elevator stops after the start ride (quieter than the −200 jolt). */
+  launchStop: 0.5,
+} as const;
 
 export type AudioId = MusicId | EffectId | SoundId;
 

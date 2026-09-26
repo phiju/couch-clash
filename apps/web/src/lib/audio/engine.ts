@@ -19,6 +19,7 @@ import {
   EFFECT_IDS,
   MUSIC_IDS,
   SOUND_IDS,
+  SOUND_LEVELS,
   type AudioId,
   type AudioScene,
   type EffectId,
@@ -530,19 +531,21 @@ export class AudioEngine {
   }
 
   /**
-   * A game sound, once, at the same base level as all others. While it
-   * plays, the background (music + game loops) is lowered so it cuts
+   * A game sound, once, at its level from SOUND_LEVELS (× `volume` for a
+   * quieter cue, e.g. the stop clack). While it plays, the background (music + game loops) is lowered so it cuts
    * through. `delayMs` schedules it (e.g. the splash on the impact). A
    * sound that isn't loaded yet plays only if it is ready within `maxLateMs`
    * – the game never waits for audio, and a late tick is worse than none.
    */
-  playSound(id: SurvivalOneShotId, delayMs = 0, maxLateMs = 0) {
+  playSound(id: SurvivalOneShotId, delayMs = 0, maxLateMs = 0, volume = 1) {
     const ctx = this.ctx;
     if (!ctx) return;
     const start = (buffer: AudioBuffer, delay: number) => {
       const source = ctx.createBufferSource();
       source.buffer = buffer;
-      source.connect(this.soundsBus);
+      const gain = ctx.createGain();
+      gain.gain.value = (SOUND_LEVELS[id] ?? 1) * volume;
+      source.connect(gain).connect(this.soundsBus);
       const wait = Math.max(0, delay);
       source.start(ctx.currentTime + wait / 1000);
       setTimeout(() => {
@@ -569,7 +572,7 @@ export class AudioEngine {
    * `level` (0 = off, faded). Starts once the file is decoded.
    */
   setLoop(id: SurvivalLoopId, level: number, fade = 0.6) {
-    this.loopLevels.set(id, Math.max(0, level));
+    this.loopLevels.set(id, Math.max(0, level) * (SOUND_LEVELS[id] ?? 1));
     this.applyLoop(id, fade);
   }
 

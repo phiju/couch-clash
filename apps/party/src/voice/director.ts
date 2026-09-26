@@ -41,7 +41,7 @@ import {
 import { cachedClip, produceLine, type ProducedLine, type VoiceServices } from "./service";
 import { SurvivalVoice, type SurvivalVoiceRuntime } from "./survival-voice";
 import { PixelpanikVoice } from "./pixelpanik-voice";
-import type { PixelpanikState, SurvivalState } from "@couch-clash/games";
+import type { PixelpanikState, SurvivalCue, SurvivalState } from "@couch-clash/games";
 import { chooseSnark, detectSituations, isNoteworthy, updateWrongStreaks, type SituationHit } from "./snark";
 import { commentTemplate, finaleTemplate, startTemplate, summaryTemplate, welcomeTemplate } from "./templates";
 
@@ -59,6 +59,8 @@ export interface VoiceRuntime {
   random(): number;
   newId(): string;
   registry?: ModuleRegistry;
+  /** Survival-Finale: the moderator's line the finale waits for is over (start the ride / the ceremony). */
+  survivalCue?(cue: SurvivalCue): void;
 }
 
 export type VoiceEvent =
@@ -162,6 +164,7 @@ export class VoiceDirector {
       newId: () => this.rt.newId(),
       run: (task) => this.run(task),
       log: (message) => console.log(message),
+      cue: (cue) => this.rt.survivalCue?.(cue),
     };
     this.survival = new SurvivalVoice(eventVoice);
     this.pixelpanik = new PixelpanikVoice(eventVoice);
@@ -735,6 +738,7 @@ export class VoiceDirector {
       return;
     }
     if (event === "ended") {
+      this.survival.lineEnded(lineId);
       if (this.welcomesOnHost.delete(lineId)) this.pumpWelcomes();
       if (this.hold?.lineId === lineId) this.hold = null;
       return;

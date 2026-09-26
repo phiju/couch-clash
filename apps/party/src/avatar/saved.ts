@@ -2,7 +2,7 @@
  * Saved figures: copies between a room (`rooms/<code>/<playerId>/`) and the
  * player's saved slot (`saved/<savedId>/`). Only generated images are copied.
  */
-import { FIGURE_POSES, PHOTO_EXPRESSIONS, isFigurePose, isPhotoExpression, type FigurePose, type PhotoExpression } from "@couch-clash/shared";
+import { ALL_FIGURE_POSES, PHOTO_EXPRESSIONS, isFigurePose, isPhotoExpression, type FigurePose, type PhotoExpression } from "@couch-clash/shared";
 import { avatarKey, figureKey, savedFigureKey, savedKey, savedMetaKey, savedPrefix, type AvatarStore } from "./store";
 
 export interface SavedMeta {
@@ -130,7 +130,7 @@ export async function loadFigure(
   }
   if (!copied.includes("neutral")) return null;
   const figures: FigurePose[] = [];
-  for (const pose of FIGURE_POSES.filter((x) => meta.figures.includes(x))) {
+  for (const pose of ALL_FIGURE_POSES.filter((x) => meta.figures.includes(x))) {
     const obj = await store.get(savedFigureKey(job.savedId, pose));
     if (!obj) continue;
     await store.put(figureKey(job.code, job.playerId, pose), obj.bytes, obj.contentType);

@@ -18,7 +18,7 @@ import { survivalModule } from "./survival/module";
 
 export * from "./meta";
 export * from "./scoring";
-export { createSurvivalModule, survivalModule, type SurvivalModule, type SurvivalState } from "./survival/module";
+export { createSurvivalModule, survivalCueAt, survivalModule, type SurvivalCue, type SurvivalModule, type SurvivalState } from "./survival/module";
 export { createPixelpanikModule, pixelpanikModule, type PixelpanikModule, type PixelpanikState } from "./pixelpanik/module";
 export { isCorrectGuess, normalizeAnswer } from "./pixelpanik/match";
 export { defaultSuddenDeath, type SuddenDeathRule } from "./survival/sudden-death";

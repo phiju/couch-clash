@@ -4,6 +4,7 @@
  */
 import {
   EXTRA_EXPRESSIONS,
+  ALL_FIGURE_POSES,
   FIGURE_POSES,
   type FigurePose,
   MAX_PLAYERS,
@@ -49,8 +50,8 @@ export const PHOTO_STALE_MS = PHOTO_TIMEOUT_MS + RATE_LIMIT_CONFIG.maxWaitMs + 3
 export const EXPRESSIONS_STALE_MS = EXTRA_EXPRESSIONS.length * (PHOTO_TIMEOUT_MS + RATE_LIMIT_CONFIG.maxWaitMs) + 30_000;
 /** Figures: the standard one, then four in parallel – each with one retry. */
 export const FIGURES_STALE_MS = 2 * (2 * PHOTO_TIMEOUT_MS + RATE_LIMIT_CONFIG.maxWaitMs) + 30_000;
-/** Room-wide budget of model calls for standing figures: 16 players × 5 figures × (1 + 1 retry). */
-export const ROOM_MAX_FIGURE_IMAGES = MAX_PLAYERS * FIGURE_POSES.length * 2;
+/** Room-wide budget of model calls for standing figures: 16 players × (5 figures + trophy) × (1 + 1 retry). */
+export const ROOM_MAX_FIGURE_IMAGES = MAX_PLAYERS * ALL_FIGURE_POSES.length * 2;
 
 export interface PhotoUsage {
   base: number;
@@ -193,10 +194,15 @@ export function startFigures(
   room: RoomRecord,
   playerId: string,
   now: number,
+  /** Which figures (default: the five; the trophy only on request). */
+  wanted: readonly FigurePose[] = FIGURE_POSES,
 ): { room: RoomRecord; version: number; poses: FigurePose[] } | null {
   const photo = room.players.find((p) => p.id === playerId)?.photo;
   if (!photo || photo.readyVersion === null || photo.figuresPending) return null;
-  const poses = FIGURE_POSES.filter((p) => !(photo.figures ?? []).includes(p));
+  const have = photo.figures ?? [];
+  // Everything but the standard figure is made from it.
+  if (!wanted.includes("standard") && !have.includes("standard")) return null;
+  const poses = wanted.filter((p) => !have.includes(p));
   if (poses.length === 0) return null;
   // Room budget: the worst case (every image with its retry) must fit.
   if ((room.photoUsage.figures ?? 0) + poses.length * 2 > ROOM_MAX_FIGURE_IMAGES) return null;

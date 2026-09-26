@@ -1,4 +1,4 @@
-import { PHOTO_TIMEOUT_MS, type FigurePose, type PhotoExpression } from "@couch-clash/shared";
+import { PHOTO_TIMEOUT_MS, type FIGURE_EXPRESSIONS, type FigurePose, type PhotoExpression } from "@couch-clash/shared";
 import FIGURE_PROMPTS_JSON from "./figure-prompts.json";
 
 /**
@@ -65,7 +65,9 @@ export const FIGURE_CONFIG = {
 interface FigurePrompts {
   standard: string;
   expressionBase: string;
-  expressions: Record<Exclude<FigurePose, "standard">, string>;
+  expressions: Record<(typeof FIGURE_EXPRESSIONS)[number], string>;
+  /** Complete prompt for the winner with the trophy ("pokal"). */
+  trophy: string;
 }
 
 /** The prompts live in figure-prompts.json (editable without touching code). */
@@ -73,5 +75,7 @@ export const FIGURE_PROMPTS: FigurePrompts = FIGURE_PROMPTS_JSON;
 
 /** Prompt for one figure: the standard one, or the shared edit part + the expression. */
 export function figurePrompt(pose: FigurePose, prompts: FigurePrompts = FIGURE_PROMPTS): string {
-  return pose === "standard" ? prompts.standard : `${prompts.expressionBase}\n\n${prompts.expressions[pose]}`;
+  if (pose === "standard") return prompts.standard;
+  if (pose === "pokal") return prompts.trophy;
+  return `${prompts.expressionBase}\n\n${prompts.expressions[pose]}`;
 }

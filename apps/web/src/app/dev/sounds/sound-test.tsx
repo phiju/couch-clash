@@ -9,6 +9,8 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { Screen } from "@/components/ui";
 import { useAudioState } from "@/lib/audio/react";
+import { devModeOn } from "@/lib/dev-mode";
+import { AdminNav } from "@/components/admin-nav";
 import {
   EFFECT_IDS,
   MUSIC_IDS,
@@ -18,20 +20,7 @@ import {
   type SurvivalLoopId,
 } from "@/lib/audio/scenes";
 
-const DEV_KEY = "couchclash:dev";
 const noop = () => () => {};
-
-function devModeOn(): boolean {
-  if (process.env.NODE_ENV === "development") return true;
-  try {
-    const flag = new URLSearchParams(window.location.search).get("dev");
-    if (flag === "1") window.localStorage.setItem(DEV_KEY, "1");
-    if (flag === "0") window.localStorage.removeItem(DEV_KEY);
-    return window.localStorage.getItem(DEV_KEY) === "1";
-  } catch {
-    return false;
-  }
-}
 
 type Status = { state: "ok"; duration: number; url: string } | { state: "missing"; url: string };
 
@@ -92,6 +81,7 @@ function SoundBoard() {
 
   return (
     <Screen dim="soft" className="gap-5">
+      <AdminNav />
       <h1 className="text-center text-4xl font-bold text-bulb drop-shadow-[0_4px_0_var(--color-brown)]">Soundtest</h1>
       {!unlocked ? (
         <button type="button" onClick={() => engine.unlock()} className="btn btn-primary px-6 py-3 text-lg">

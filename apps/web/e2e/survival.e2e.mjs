@@ -91,30 +91,45 @@ async function main() {
   host.send({ type: "skip" });
 
   // The quiz: bots answer on their own; the phone answers the first option.
+  let sawScoreboard = false;
   for (let guard = 0; guard < 300 && !(watch.state?.phase === "intro" && watch.state.game?.roundIndex === 1); guard++) {
+    if (watch.state?.phase === "scoreboard") sawScoreboard = true;
     if (watch.state?.game?.module?.step === "question") await phone.locator("button").filter({ hasText: /\S/ }).first().click({ timeout: 500 }).catch(() => {});
     await sleep(300);
     if (watch.state?.phase === "play" && watch.state.game?.module?.step !== "question") host.send({ type: "skip" });
   }
   console.log("main game:", JSON.stringify(watch.state?.game?.scores));
+  check(!sawScoreboard, "no standings between the last normal round and the finale");
   await tv.getByText("Bis nur noch einer übrig ist").waitFor();
   await shot(tv, "1-category-intro");
   host.send({ type: "skip" });
 
   const survival = () => (watch.state?.phase === "play" ? watch.state.game?.module : null);
-  check(await waitFor(() => survival()?.step === "intro"), "finale intro");
-  await sleep(3500);
-  await shot(tv, "2-intro-conversion");
+  check(await waitFor(() => survival()?.step === "intro"), "finale intro (rules)");
+  await sleep(3000);
+  await shot(tv, "2-intro-rules");
   await shot(phone, "2-intro-phone");
-  await sleep(5000);
-  await shot(tv, "3-intro-rules");
+
+  // Start sequence: everyone low with the main-game points, the moderator (here: no voice), then the ride.
+  check(await waitFor(() => survival()?.step === "launch", 20_000), "start sequence after the rules");
+  await sleep(300);
+  await shot(tv, "3-launch-low");
+  check(await waitFor(() => survival()?.launch?.riseAt != null, 10_000), "the ride starts (no voice: right after the pause)");
+  const { riseAt, riseMs } = survival().launch;
+  await waitFor(() => Date.now() >= riseAt + riseMs * 0.45, 8_000);
+  await shot(tv, "3-launch-ride");
+  check(await waitFor(() => survival()?.step === "question", 10_000), "first question right after the ride");
+  const firstAt = survival()?.question?.startedAt ?? 0;
+  check(Math.abs(firstAt - (riseAt + riseMs)) < 300, `first question when the ride is over (${firstAt - riseAt} ms after the start)`);
 
   const seen = new Set();
+  let winnerSince = null;
   let decayShot = false;
   let eliminations = 0;
   const end = Date.now() + 9 * 60_000;
   while (Date.now() < end && watch.state?.phase !== "finale") {
     const s = survival();
+    if (s?.step === "winner" && winnerSince === null) winnerSince = Date.now();
     if (s) {
       const key = `${s.step}:${s.question?.number ?? ""}:${s.phaseIndex}`;
       const out = s.players.filter((p) => p.eliminated).length;
@@ -143,6 +158,10 @@ async function main() {
   }
   const final = watch.state;
   check(final?.phase === "finale", "finale reached");
+  if (winnerSince !== null) {
+    const ms = Date.now() - winnerSince;
+    check(ms < 8_500, `winner → ceremony without waiting (${ms} ms; no voice: ride + short cheer)`);
+  }
   check(final?.game?.rankedFinale === true, "finale placed by the Survival-Finale");
   await sleep(1500);
   await shot(tv, "7-finale-tv");

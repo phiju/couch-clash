@@ -2,11 +2,13 @@
 import type { DangerLevel, SurvivalPhaseConfig } from "./config";
 
 /**
- * intro (score conversion + rules) → question → reveal → [phase_change |
- * sudden_death] → question … → [tiebreak → tiebreak_reveal] → winner.
+ * intro (rules) → launch (the elevators ride up to their start) → question →
+ * reveal → [phase_change | sudden_death] → question … → [tiebreak →
+ * tiebreak_reveal] → winner.
  */
 export type SurvivalStep =
   | "intro"
+  | "launch"
   | "question"
   | "reveal"
   | "phase_change"
@@ -21,6 +23,8 @@ export type SurvivalStep =
  */
 export const SURVIVAL_EVENT_TYPES = [
   "FINALE_STARTED",
+  /** The start sequence on the stage begins (the moderator opens the finale, then the elevators ride up). */
+  "LAUNCH",
   "SCORES_CONVERTED",
   "PHASE_CHANGED",
   "FAST_CORRECT",
@@ -142,6 +146,12 @@ export interface SurvivalPublicState {
   /** After the question: the right option and everyone's answers. */
   reveal: { correctIndex: number; answers: Record<string, number> } | null;
   tiebreak: SurvivalPublicTiebreak | null;
+  /**
+   * Intro and launch: everyone stands low over the slime with the main-game
+   * points; from `riseAt` the elevators ride up to their start score (all at
+   * the same speed, the leader rides `riseMs`). null → no ride yet.
+   */
+  launch: { riseAt: number | null; riseMs: number } | null;
   winnerId: string | null;
   /** Played alone: the finale ends when the player is out. */
   solo: boolean;

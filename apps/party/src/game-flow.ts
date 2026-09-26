@@ -169,6 +169,12 @@ function applyModuleUpdate(
     // A finale category (Survival-Finale) goes straight to the game's finale with its placing.
     const finale = !!(round && getModule(round.categoryId, registry)?.meta.finale);
     if (finale) return settleLateJoiners(setPhase(next, "finale", now, now + FINALE_MS), registry);
+    // Straight into a finale round (Survival-Finale): no standings in between – its intro shows the rules.
+    const upcoming = nextGame.rounds[nextGame.roundIndex + 1];
+    if (upcoming && getModule(upcoming.categoryId, registry)?.meta.finale) {
+      const into = { ...next, game: { ...nextGame, roundIndex: nextGame.roundIndex + 1 } };
+      return settleLateJoiners(setPhase(into, "intro", now, now + INTRO_MS), registry);
+    }
     return settleLateJoiners(setPhase(next, "scoreboard", now, now + SCOREBOARD_MS), registry);
   }
   return settleLateJoiners({ ...next, phaseEndsAt: update.phaseEndsAt }, registry);

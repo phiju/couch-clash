@@ -8,7 +8,7 @@
  * Text, audio and the moderator's animation are separate consumers of the
  * chosen comment (the director voices it; captions could show `text`).
  */
-import type { SurvivalEvent } from "@couch-clash/games";
+import { SURVIVAL_CONFIG, type SurvivalEvent } from "@couch-clash/games";
 import {
   PLAYER_NAME,
   RUNNING_GAGS,
@@ -32,6 +32,10 @@ export const COMMENTARY_CONFIG = {
   slowGagAfter: 2,
   /** "PLATSCH!" lands on the splash (the TV lets the car sink ~1.35 s after the elimination). */
   splashImpactMs: 1_350,
+  /** The opening line comes after the short pause of the start sequence. */
+  launchPauseMs: SURVIVAL_CONFIG.launchPauseMs,
+  /** The WINNER line comes when the winner's platform has ridden up (TV: 1.5 s). */
+  winnerRiseMs: 1_500,
 } as const;
 
 /** 1 = most important. Comments of priority ≤ 4 ignore cooldowns. */
@@ -139,7 +143,9 @@ const blankPlayer = (): PlayerMemory => ({ lastAt: null, events: [], slow: 0, wr
 
 /** One game event → moderator events (a multi-player event becomes one per player, or one nameless). */
 export function toModeratorEvents(e: SurvivalEvent, names: Readonly<Record<string, string>>): ModeratorCommentEvent[] {
-  const type = e.type as ModeratorEventType;
+  // The finale opens during the rules (intro sound only); the moderator speaks at the start sequence (LAUNCH).
+  if (e.type === "FINALE_STARTED") return [];
+  const type = (e.type === "LAUNCH" ? "FINALE_STARTED" : e.type) as ModeratorEventType;
   const base = {
     type,
     at: e.at,
@@ -191,6 +197,29 @@ function gagFor(e: ModeratorCommentEvent, p: PlayerMemory | undefined): { gag: G
     return { gag: "wrongAgain", stage: 0, text: RUNNING_GAGS.wrongAgain.stages[0].text };
   }
   return null;
+}
+
+/** Lines timed to the stage: the splash, the opening after the pause, the winner after the ride up. */
+function playAtFor(e: ModeratorCommentEvent): number | null {
+  switch (e.type) {
+    case "ELIMINATED":
+      return e.at + COMMENTARY_CONFIG.splashImpactMs;
+    case "FINALE_STARTED":
+      return e.at + COMMENTARY_CONFIG.launchPauseMs;
+    case "WINNER":
+      return e.at + COMMENTARY_CONFIG.winnerRiseMs;
+    default:
+      return null;
+  }
+}
+
+/** The line that sends everyone to the ceremony (after the WINNER line): a ready one, not said lately. */
+export function chooseTransition(memory: CommentaryMemory, input: Pick<CommentaryInput, "random" | "ready">): string | null {
+  const ready = SURVIVAL_LINES.TRANSITION_TO_CEREMONY.filter((t) => input.ready(t));
+  const fresh = ready.filter((t) => !memory.recent.includes(t));
+  const pool = fresh.length ? fresh : ready;
+  if (pool.length === 0) return null;
+  return pool[Math.min(pool.length - 1, Math.floor(input.random() * pool.length))]!;
 }
 
 function poolFor(e: ModeratorCommentEvent): ModeratorPoolId {
@@ -265,7 +294,7 @@ export function chooseComment(
         template,
         priority,
         preempt: PREEMPTS.has(e.type),
-        playAt: e.type === "ELIMINATED" ? e.at + COMMENTARY_CONFIG.splashImpactMs : null,
+        playAt: playAtFor(e),
         maxQueueAgeMs: COMMENTARY_CONFIG.commentMaxQueueAge,
       },
       memory: mem,

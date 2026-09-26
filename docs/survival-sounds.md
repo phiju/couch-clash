@@ -8,7 +8,8 @@ und auf eine gemeinsame Lautheit abgestimmt. Keine Datei übersteuert.
 | survival-intro.mp3 | Start des Finales / Regel-Intro | einmal |
 | survival-bonus.mp3 | richtige Antwort mit +50 | einmal |
 | survival-wrong.mp3 | falsche Antwort / Timeout (−200) | einmal |
-| survival-elevator-jolt.mp3 | Aufzug sackt ab (−200) | einmal, zusammen mit wrong |
+| survival-elevator-jolt.mp3 | Aufzug sackt ab (−200); leiser (50 %) als Klack, wenn ein Aufzug nach der Startfahrt anhält | einmal, zusammen mit wrong / pro Halt |
+| survival-elevator-rise.mp3 | Startsequenz: alle Aufzüge fahren zu ihren Finale-Punkten hoch (~3 s) | einmal, mit Beginn der Fahrt |
 | survival-decay-tick.mp3 | jedes −10 beim Live-Verfall | einmal pro Tick |
 | survival-splash.mp3 | Eliminierung, synchron zum Aufprall im Schleim | einmal |
 | survival-final-two.mp3 | nur noch zwei Spieler | einmal |
@@ -22,9 +23,10 @@ die beim Wiederholen als Klicken oder Lücke hörbar wäre. Die WAV-Loops sind n
 geschnitten und sollten über die Web Audio API mit loop = true abgespielt werden.
 
 Lautstärken sind bereits relativ zueinander abgestimmt (Grund-Blubbern bewusst leise,
-Splash/Sieg am lautesten). Im Code alle mit gleicher Grundlautstärke abspielen und
-nur über eine gemeinsame Master-Lautstärke regeln. Ausnahmen im Code: das Grund-Blubbern
-läuft angehoben (1,5×), damit es im ganzen Finale konstant hörbar ist; solange ein
+Splash/Sieg am lautesten). Alle Pegel stehen zentral in `SOUND_LEVELS`
+(`apps/web/src/lib/audio/scenes.ts`, 1 = Datei wie geliefert), einzelne leisere Einsätze
+in `SOUND_CUE_VOLUMES` (Klack beim Halt nach der Startfahrt: 0,5). Das Grund-Blubbern
+läuft mit 0,75 (vorher 1,5 – um 6 dB leiser); solange ein
 Einzeleffekt spielt, treten Musik und Loops zurück (0,4). Während der Moderator spricht,
 werden die Spielsounds nur leicht abgesenkt (0,7). Jeden Sound einzeln testen: `/dev/sounds`
 (in `next dev` direkt, sonst einmal mit `?dev=1` öffnen).

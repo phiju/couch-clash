@@ -143,7 +143,7 @@ export function laneSize(count: number, finalTwo: boolean): "xl" | "lg" | "md" |
 
 /** Final two: exactly two alive in a game that started with more. */
 export function isFinalTwo(state: Pick<SurvivalPublicState, "players" | "step">): boolean {
-  if (state.step === "intro" || state.step === "winner") return false;
+  if (state.step === "intro" || state.step === "launch" || state.step === "winner") return false;
   return state.players.length > 2 && state.players.filter((p) => !p.eliminated).length === 2;
 }
 
@@ -168,6 +168,9 @@ export function survivalAudio(state: SurvivalPublicState | null): ModuleAudioSce
   switch (state.step) {
     case "intro":
       return { key: "survival:intro", music: "lobby", musicLevel: 0.5 };
+    case "launch":
+      // The moderator opens, the elevators ride up: only their sound.
+      return { key: "survival:launch", music: null, musicFade: 1 };
     case "question":
       return { key: `survival:q:${n}`, music: "think", musicLevel: SURVIVAL_MUSIC_LEVEL };
     case "reveal":
@@ -198,11 +201,54 @@ export function survivalSkipLabel(state: SurvivalPublicState): string | null {
   }
 }
 
-/** Count-up/-down during the intro: main-game points → life energy. */
-export function conversionValue(from: number, to: number, progress: number): number {
-  const t = Math.min(1, Math.max(0, progress));
-  const eased = 1 - Math.pow(1 - t, 3);
-  return Math.round(from + (to - from) * eased);
+/** Start sequence: everyone waits here, just over the slime (visual height 0 … 1). */
+export const LAUNCH_LOW = 0.06;
+
+export interface LaunchCar {
+  /** Visual height right now. */
+  h: number;
+  /** Shown points: main-game points → start score, in step with the car. */
+  score: number;
+  /** Server time this car stops (null: no ride yet). */
+  stopAt: number | null;
+}
+
+/**
+ * The start sequence (rules and launch step): all cars low with the main-game
+ * points; from `riseAt` all start together at the same speed and each stops
+ * at its start score – the leader rides the full `riseMs`. Points and height
+ * move with the same progress, so they arrive together. Null outside it.
+ */
+export function launchFrame(
+  state: Pick<SurvivalPublicState, "launch" | "players">,
+  now: number,
+): Map<string, LaunchCar> | null {
+  const launch = state.launch;
+  if (!launch) return null;
+  const reference = heightReference(state.players);
+  const dist = new Map(state.players.map((p) => [p.id, Math.max(0, visualHeight(p.startScore, reference) - LAUNCH_LOW)]));
+  const longest = Math.max(0, ...dist.values());
+  const out = new Map<string, LaunchCar>();
+  for (const p of state.players) {
+    const d = dist.get(p.id)!;
+    const ms = longest > 0 ? (launch.riseMs * d) / longest : 0;
+    const started = launch.riseAt !== null && now >= launch.riseAt;
+    const t = started ? Math.min(1, ms > 0 ? (now - launch.riseAt!) / ms : 1) : 0;
+    out.set(p.id, {
+      h: LAUNCH_LOW + d * t,
+      score: Math.round(p.mainScore + (p.startScore - p.mainScore) * t),
+      stopAt: launch.riseAt === null ? null : launch.riseAt + ms,
+    });
+  }
+  return out;
+}
+
+/** When cars stop (one "klack" per moment – cars stopping together share it). */
+export function launchStops(frame: ReadonlyMap<string, LaunchCar>, mergeMs = 90): number[] {
+  const times = [...frame.values()].flatMap((c) => (c.stopAt === null ? [] : [c.stopAt])).sort((a, b) => a - b);
+  const out: number[] = [];
+  for (const t of times) if (out.length === 0 || t - out.at(-1)! > mergeMs) out.push(t);
+  return out;
 }
 
 /** "Anna" / "Anna & Ben" / "Anna, Ben & Clara". */

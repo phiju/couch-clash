@@ -1,93 +1,98 @@
 {
-  "jingle": {
-    "file": "jingle.mp3",
-    "use": "Title jingle, plays once after 'Los geht's!' during the intro",
-    "loop": false
-  },
-  "lobby": {
-    "file": "lobby.mp3",
-    "use": "Background loop in the lobby / setup / between categories",
-    "loop": true,
-    "loopStart": 0.5,
-    "loopEnd": 95.702,
-    "gain": 1.0
-  },
-  "think": {
-    "file": "think.mp3",
-    "use": "Quiet loop while a question is open",
-    "loop": true,
-    "loopStart": 0.5,
-    "loopEnd": 92.753,
-    "gain": 1.0
-  },
-  "sting": {
-    "file": "sting.mp3",
-    "use": "Reveal of the correct answer / category scoreboard",
-    "loop": false
-  },
-  "stingShort": {
-    "file": "sting-short.mp3",
-    "use": "Short hit: category intro card, 'all answered'",
-    "loop": false
-  },
-  "fanfare": {
-    "file": "fanfare.mp3",
-    "use": "Final ranking / winner",
-    "loop": false
-  },
-  "survival-intro": {
-    "file": "survival-intro.mp3",
-    "use": "Survival-Finale: start of the finale / rules intro",
-    "loop": false
-  },
-  "survival-bonus": {
-    "file": "survival-bonus.mp3",
-    "use": "Survival-Finale: right answer with +50",
-    "loop": false
-  },
-  "survival-wrong": {
-    "file": "survival-wrong.mp3",
-    "use": "Survival-Finale: wrong answer / timeout (−200)",
-    "loop": false
-  },
-  "survival-elevator-jolt": {
-    "file": "survival-elevator-jolt.mp3",
-    "use": "Survival-Finale: the elevator drops (−200), together with survival-wrong",
-    "loop": false
-  },
-  "survival-decay-tick": {
-    "file": "survival-decay-tick.mp3",
-    "use": "Survival-Finale: every −10 of the live decay",
-    "loop": false
-  },
-  "survival-splash": {
-    "file": "survival-splash.mp3",
-    "use": "Survival-Finale: elimination, on the impact in the slime",
-    "loop": false
-  },
-  "survival-final-two": {
-    "file": "survival-final-two.mp3",
-    "use": "Survival-Finale: only two players left",
-    "loop": false
-  },
-  "survival-winner": {
-    "file": "survival-winner.mp3",
-    "use": "Survival-Finale: the winner is decided",
-    "loop": false
-  },
-  "survival-slime-bubble-loop": {
-    "file": "survival-slime-bubble-loop.wav",
-    "use": "Survival-Finale: the slime's constant bubbling (whole file loops seamlessly)",
-    "loop": true
-  },
-  "survival-slime-threat-loop": {
-    "file": "survival-slime-threat-loop.wav",
-    "use": "Survival-Finale: threatening bubbling from CRITICAL, volume by danger",
-    "loop": true
-  },
-  "survival-warning-lamp-loop": {
-    "file": "survival-warning-lamp-loop.wav",
-    "use": "Survival-Finale: warning lamp while someone is ELIMINATION_IMMINENT",
-    "loop": true
-  }
+ "jingle": {
+  "file": "jingle.mp3",
+  "use": "Title jingle, plays once after 'Los geht's!' during the intro",
+  "loop": false
+ },
+ "lobby": {
+  "file": "lobby.mp3",
+  "use": "Background loop in the lobby / setup / between categories",
+  "loop": true,
+  "loopStart": 0.5,
+  "loopEnd": 95.702,
+  "gain": 1.0
+ },
+ "think": {
+  "file": "think.mp3",
+  "use": "Quiet loop while a question is open",
+  "loop": true,
+  "loopStart": 0.5,
+  "loopEnd": 92.753,
+  "gain": 1.0
+ },
+ "sting": {
+  "file": "sting.mp3",
+  "use": "Reveal of the correct answer / category scoreboard",
+  "loop": false
+ },
+ "stingShort": {
+  "file": "sting-short.mp3",
+  "use": "Short hit: category intro card, 'all answered'",
+  "loop": false
+ },
+ "fanfare": {
+  "file": "fanfare.mp3",
+  "use": "Final ranking / winner",
+  "loop": false
+ },
+ "survival-intro": {
+  "file": "survival-intro.mp3",
+  "use": "Survival-Finale: start of the finale / rules intro",
+  "loop": false
+ },
+ "survival-bonus": {
+  "file": "survival-bonus.mp3",
+  "use": "Survival-Finale: right answer with +50",
+  "loop": false
+ },
+ "survival-wrong": {
+  "file": "survival-wrong.mp3",
+  "use": "Survival-Finale: wrong answer / timeout (−200)",
+  "loop": false
+ },
+ "survival-elevator-jolt": {
+  "file": "survival-elevator-jolt.mp3",
+  "use": "Survival-Finale: the elevator drops (−200), together with survival-wrong",
+  "loop": false
+ },
+ "survival-elevator-rise": {
+  "file": "survival-elevator-rise.mp3",
+  "use": "Survival-Finale: start sequence – all elevators ride up to their start score (~3 s)",
+  "loop": false
+ },
+ "survival-decay-tick": {
+  "file": "survival-decay-tick.mp3",
+  "use": "Survival-Finale: every −10 of the live decay",
+  "loop": false
+ },
+ "survival-splash": {
+  "file": "survival-splash.mp3",
+  "use": "Survival-Finale: elimination, on the impact in the slime",
+  "loop": false
+ },
+ "survival-final-two": {
+  "file": "survival-final-two.mp3",
+  "use": "Survival-Finale: only two players left",
+  "loop": false
+ },
+ "survival-winner": {
+  "file": "survival-winner.mp3",
+  "use": "Survival-Finale: the winner is decided",
+  "loop": false
+ },
+ "survival-slime-bubble-loop": {
+  "file": "survival-slime-bubble-loop.wav",
+  "use": "Survival-Finale: the slime's constant bubbling (whole file loops seamlessly)",
+  "loop": true
+ },
+ "survival-slime-threat-loop": {
+  "file": "survival-slime-threat-loop.wav",
+  "use": "Survival-Finale: threatening bubbling from CRITICAL, volume by danger",
+  "loop": true
+ },
+ "survival-warning-lamp-loop": {
+  "file": "survival-warning-lamp-loop.wav",
+  "use": "Survival-Finale: warning lamp while someone is ELIMINATION_IMMINENT",
+  "loop": true
+ }
 }

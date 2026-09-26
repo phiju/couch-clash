@@ -476,6 +476,8 @@ body {
   flex: 1 1 0;
   min-width: 0;
   transition: flex-grow 1s cubic-bezier(0.3, 1, 0.4, 1), opacity 1s;
+  /* Nothing of a lane can ever show below the slime surface (sinking cars, fizz, …). */
+  clip-path: inset(-100vh -40vw var(--sv-slime) -40vw);
 }
 .sv-shaft {
   position: absolute; left: 50%; top: 4%; bottom: var(--sv-slime); width: 0.35vw; min-width: 3px;
@@ -559,7 +561,11 @@ body {
 .sv-lane[data-descending] .sv-lamp { animation: sv-blink 0.5s linear infinite; }
 /* Eliminated: short pause at the surface, then down into the slime. The lane stays. */
 .sv-lane[data-out] { opacity: 0.55; }
-.sv-lane[data-out] .sv-car { transform: translate(-50%, 140%); opacity: 0; transition: transform 1s 0.55s cubic-bezier(0.5, 0, 0.8, 0.4), opacity 0.4s 1.3s; }
+.sv-lane[data-out] .sv-car {
+  transform: translate(-50%, 140%); opacity: 0; visibility: hidden;
+  /* Sinks, fades – and is gone for good at the end (never reappears under the slime). */
+  transition: transform 1s 0.55s cubic-bezier(0.5, 0, 0.8, 0.4), opacity 0.4s 1.3s, visibility 0s 1.75s;
+}
 .sv-lane[data-out]:not([data-fresh]) .sv-car { transition: none; }
 .sv-lane[data-out] .sv-piston { height: 0; }
 .sv-out {
@@ -604,13 +610,21 @@ body {
   border-radius: 40%;
 }
 /* The winner rides to the top. */
-.sv-lane[data-winner] .sv-car { filter: drop-shadow(0 0 22px rgb(253 188 95 / 0.95)); }
+.sv-lane[data-winner] .sv-car {
+  filter: drop-shadow(0 0 22px rgb(253 188 95 / 0.95));
+  /* The winner's platform rides up (≈ 1.5 s), then the moderator speaks. */
+  transition: bottom 1.5s cubic-bezier(0.3, 0.9, 0.4, 1), transform 0.6s, opacity 0.6s;
+}
+.sv-lane[data-winner] .sv-piston { transition: height 1.5s cubic-bezier(0.3, 0.9, 0.4, 1); }
+/* Start ride: every frame sets the height itself (points and car in step) – no easing on top. */
+.sv-lane[data-launch] .sv-car, .sv-lane[data-launch] .sv-piston { transition: none; }
 .sv-lane[data-winner] .sv-rider { animation: float 1.6s ease-in-out infinite; }
 .sv-stage[data-winner] .sv-lane:not([data-winner]) { opacity: 0.35; }
 
 /* Slime */
 .sv-slime {
-  position: absolute; left: 50%; bottom: 0; z-index: 2; width: 100vw; height: calc(var(--sv-slime) + 3vh);
+  /* Down to the screen's bottom edge (past the page padding), over the lanes. */
+  position: absolute; left: 50%; bottom: calc(-2.2vh - 2px); z-index: 2; width: 100vw; height: calc(var(--sv-slime) + 3vh + 2.2vh + 2px);
   transform: translateX(-50%); pointer-events: none;
 }
 .sv-stage[data-final-two] .sv-slime { width: 104vw; }
@@ -659,6 +673,9 @@ body {
 .fig-layer[data-active] { opacity: 1; }
 .fig-img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; pointer-events: none; user-select: none; }
 .fig-fallback { position: absolute; inset: auto 0 0 0; display: flex; justify-content: center; transform-origin: 50% 100%; }
+/* No standing figure: the round avatar takes its own space (never lies on top of the points above it). */
+.fig[data-fallback] { aspect-ratio: auto; }
+.fig[data-fallback] .fig-fallback { position: relative; inset: auto; }
 
 @keyframes fig-breathe {
   0%, 100% { transform: scale(1, 1) translateY(0); }
@@ -718,3 +735,62 @@ body {
 .sv-lane[data-size="xl"] .sv-figure { height: clamp(7rem, 20vh, 16rem); }
 .sv-lane[data-size="md"] .sv-figure { height: clamp(4.5rem, 11vh, 9rem); }
 .sv-lane[data-size="sm"] .sv-figure { height: clamp(4rem, 9vh, 7.5rem); }
+
+/* ── Survival-Finale ceremony: the podium (2 · 1 · 3) with standing figures ── */
+.fig[data-idle="on"] [data-active] .fig-img[data-pose="pokal"] { animation: fig-breathe 2.4s ease-in-out var(--fig-delay, 0s) infinite; }
+.podium { display: flex; width: 100%; min-height: 0; flex: 1; align-items: flex-end; justify-content: center; gap: 2vw; }
+.podium-place { display: flex; width: min(24vw, 380px); min-width: 0; flex-direction: column; align-items: center; gap: 0.8vh; animation: pop 0.6s cubic-bezier(0.3, 1.4, 0.5, 1) both; }
+.podium-place[data-step="1"] { --fig-h: min(32vh, 30vw); animation-delay: 0.5s; }
+.podium-place[data-step="2"] { --fig-h: min(25vh, 24vw); animation-delay: 0.2s; }
+.podium-place[data-step="3"] { --fig-h: min(22vh, 21vw); }
+.podium-figure { position: relative; display: flex; height: var(--fig-h); align-items: flex-end; justify-content: center; }
+.podium-figure .fig { height: 100%; }
+.podium-figure[data-winner] { filter: drop-shadow(0 0 26px rgb(253 188 95 / 0.9)); }
+.podium-empty { height: var(--fig-h); }
+/* Round avatar instead of a standing figure: the box fits the avatar (cup and drips sit on it). */
+.podium-figure[data-round] { height: auto; }
+.podium-figure[data-round] .fig { height: auto; }
+.podium-figure[data-round] .podium-cup { top: -18%; right: -52%; width: 58%; }
+.podium-figure[data-round] .podium-drips { inset: 0 10% 0 10%; }
+.podium-figure[data-round] .podium-drip { --fall: 7vh; }
+.podium-name {
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: clamp(1rem, min(2.2vw, 3.6vh), 2.6rem); font-weight: 700; color: var(--color-cream); text-shadow: 0 3px 0 var(--color-brown);
+}
+.podium-step {
+  display: flex; width: 100%; align-items: center; justify-content: center;
+  border: 4px solid var(--color-bulb); border-bottom: 0; border-radius: 1.4rem 1.4rem 0 0;
+  background: linear-gradient(180deg, #2c9791, var(--color-petrol) 55%, var(--color-petrol-dark));
+  box-shadow: inset 0 -10px 0 rgb(0 0 0 / 0.18);
+}
+.podium-place[data-step="1"] .podium-step { height: 16vh; background: linear-gradient(180deg, #ffd27a, var(--color-bulb) 50%, var(--color-orange)); border-color: var(--color-orange); }
+.podium-place[data-step="2"] .podium-step { height: 11vh; }
+.podium-place[data-step="3"] .podium-step { height: 8vh; }
+.podium-number { font-size: clamp(2rem, min(5vw, 9vh), 6rem); font-weight: 700; line-height: 1; color: var(--color-cream); text-shadow: 0 5px 0 var(--color-brown); }
+.podium-place[data-step="1"] .podium-number { color: var(--color-brown); text-shadow: 0 4px 0 rgb(255 255 255 / 0.5); }
+@keyframes podium-cup { 0% { transform: translateY(30%) rotate(-12deg) scale(0.4); opacity: 0; } 60% { transform: translateY(-6%) rotate(6deg) scale(1.08); opacity: 1; } 100% { transform: translateY(0) rotate(0) scale(1); opacity: 1; } }
+@keyframes podium-cup-shine { 0%, 100% { filter: drop-shadow(0 0 10px rgb(255 224 138 / 0.7)); } 50% { filter: drop-shadow(0 0 22px rgb(255 224 138 / 1)); } }
+.podium-cup {
+  position: absolute; top: -8%; right: -18%; width: 42%; height: auto;
+  animation: podium-cup 0.9s cubic-bezier(0.3, 1.4, 0.5, 1) 0.9s both, podium-cup-shine 1.6s ease-in-out 1.8s infinite;
+}
+/* Slime still dripping off places 2 and 3 */
+@keyframes podium-drip { 0% { transform: translateY(0) scaleY(0.6); opacity: 0; } 15% { opacity: 1; } 80% { transform: translateY(var(--fall)) scaleY(1.3); opacity: 1; } 100% { transform: translateY(var(--fall)) scaleY(0.4); opacity: 0; } }
+.podium-drips { position: absolute; inset: 4% 22% 0 22%; pointer-events: none; }
+.podium-drip {
+  --fall: calc(var(--fig-h) * 0.55);
+  position: absolute; top: calc(var(--i) * 9%); left: calc(10% + var(--i) * 24%);
+  width: clamp(6px, 0.7vw, 12px); aspect-ratio: 0.7; border-radius: 50% 50% 50% 50% / 35% 35% 65% 65%;
+  background: radial-gradient(circle at 35% 30%, #f4ffd0 0 18%, #9be22d 45%, #4e9a1a 100%);
+  border: 2px solid #2b5e0e;
+  animation: podium-drip 2.2s ease-in calc(var(--i) * 0.55s) infinite;
+}
+.podium-drips::before {
+  /* A slime cap on the head. */
+  content: ""; position: absolute; left: 18%; right: 18%; top: 0; height: 7%;
+  border-radius: 45% 45% 60% 60%; background: linear-gradient(180deg, #b6f03a, #5aa818); border: 2px solid #2b5e0e; opacity: 0.9;
+}
+@media (prefers-reduced-motion: reduce) {
+  .podium-place, .podium-cup { animation: fade-in 0.4s both !important; }
+  .podium-drip { animation: none; opacity: 0.9; }
+}

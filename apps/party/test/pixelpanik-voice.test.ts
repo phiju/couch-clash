@@ -144,6 +144,7 @@ describe("PixelpanikVoice", () => {
       newId: () => `line-${id++}`,
       run: (task) => void tasks.push(task()),
       log: () => {},
+      cue: () => {},
       ...over,
     };
     return { rt, sent, tasks, setNow: (t: number) => (now = t) };
