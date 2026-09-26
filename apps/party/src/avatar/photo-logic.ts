@@ -4,6 +4,8 @@
  */
 import {
   EXTRA_EXPRESSIONS,
+  FIGURE_POSES,
+  type FigurePose,
   MAX_PLAYERS,
   PHOTO_MAX_REGENERATIONS,
   PHOTO_TIMEOUT_MS,
@@ -12,6 +14,7 @@ import {
   type PhotoFailure,
   type PublicPhotoAvatar,
 } from "@couch-clash/shared";
+import { RATE_LIMIT_CONFIG } from "./config";
 import { fail, ok, type Result } from "../result";
 import type { PlayerRecord, RoomRecord } from "../room-logic";
 
@@ -28,6 +31,11 @@ export interface PhotoRecord {
   reason: PhotoFailure | null;
   /** Saved slot of this figure ("Figur behalten"). Never sent to other clients. */
   savedId?: string;
+  /** Standing full-body figures that exist for `readyVersion`. */
+  figures?: FigurePose[];
+  /** Standing figures are being made for `readyVersion`. */
+  figuresPending?: boolean;
+  figuresStartedAt?: number;
 }
 
 /** Base images per player: the first one plus the re-generations. */
@@ -36,13 +44,19 @@ export const PHOTO_MAX_BASE_PER_PLAYER = 1 + PHOTO_MAX_REGENERATIONS;
 export const ROOM_MAX_BASE_IMAGES = MAX_PLAYERS * PHOTO_MAX_BASE_PER_PLAYER;
 export const ROOM_MAX_EXPRESSION_IMAGES = MAX_PLAYERS * EXTRA_EXPRESSIONS.length;
 /** A job still "pending" this long after its start is treated as timed out (crash, eviction). */
-export const PHOTO_STALE_MS = PHOTO_TIMEOUT_MS + 30_000;
+export const PHOTO_STALE_MS = PHOTO_TIMEOUT_MS + RATE_LIMIT_CONFIG.maxWaitMs + 30_000;
 /** Expressions run one after another. */
-export const EXPRESSIONS_STALE_MS = EXTRA_EXPRESSIONS.length * PHOTO_TIMEOUT_MS + 30_000;
+export const EXPRESSIONS_STALE_MS = EXTRA_EXPRESSIONS.length * (PHOTO_TIMEOUT_MS + RATE_LIMIT_CONFIG.maxWaitMs) + 30_000;
+/** Figures: the standard one, then four in parallel – each with one retry. */
+export const FIGURES_STALE_MS = 2 * (2 * PHOTO_TIMEOUT_MS + RATE_LIMIT_CONFIG.maxWaitMs) + 30_000;
+/** Room-wide budget of model calls for standing figures: 16 players × 5 figures × (1 + 1 retry). */
+export const ROOM_MAX_FIGURE_IMAGES = MAX_PLAYERS * FIGURE_POSES.length * 2;
 
 export interface PhotoUsage {
   base: number;
   expressions: number;
+  /** Model calls for standing figures (retries included). Missing in old rooms. */
+  figures?: number;
 }
 
 function updatePlayer(room: RoomRecord, playerId: string, fn: (p: PlayerRecord) => PlayerRecord): RoomRecord {
@@ -50,7 +64,7 @@ function updatePlayer(room: RoomRecord, playerId: string, fn: (p: PlayerRecord) 
 }
 
 function isBusy(photo: PhotoRecord | undefined): boolean {
-  return !!photo && (photo.status === "pending" || photo.expressionsPending);
+  return !!photo && (photo.status === "pending" || photo.expressionsPending || !!photo.figuresPending);
 }
 
 /** "Verwandeln!" / "Nochmal": reserve a base generation and mark it pending. */
@@ -75,6 +89,8 @@ export function startPhotoGeneration(
     accepted: false,
     // A new neutral image replaces the old one; old expressions no longer match.
     expressions: prev?.readyVersion != null ? ["neutral"] : [],
+    figures: [],
+    figuresPending: false,
     expressionsPending: false,
     startedAt: now,
     reason: null,
@@ -103,7 +119,7 @@ export function finishPhotoGeneration(
   if (!photo || photo.version !== version || photo.status !== "pending") return null;
   const next: PhotoRecord = outcome.ok
     ? // A new image is a new figure – the saved one stays as it was.
-      { ...photo, status: "ready", readyVersion: version, expressions: ["neutral"], reason: null, savedId: undefined }
+      { ...photo, status: "ready", readyVersion: version, expressions: ["neutral"], figures: [], reason: null, savedId: undefined }
     : { ...photo, status: "failed", reason: outcome.reason };
   return updatePlayer(room, playerId, (p) => ({ ...p, photo: next }));
 }
@@ -169,6 +185,44 @@ export function finishPhotoExpressions(room: RoomRecord, playerId: string, versi
   return updatePlayer(room, playerId, (p) => ({ ...p, photo: { ...photo, expressionsPending: false } }));
 }
 
+/**
+ * Standing figures for the accepted avatar (after "Passt!" or a saved figure
+ * without them). Null when there is nothing to do or the room budget is used up.
+ */
+export function startFigures(
+  room: RoomRecord,
+  playerId: string,
+  now: number,
+): { room: RoomRecord; version: number; poses: FigurePose[] } | null {
+  const photo = room.players.find((p) => p.id === playerId)?.photo;
+  if (!photo || photo.readyVersion === null || photo.figuresPending) return null;
+  const poses = FIGURE_POSES.filter((p) => !(photo.figures ?? []).includes(p));
+  if (poses.length === 0) return null;
+  // Room budget: the worst case (every image with its retry) must fit.
+  if ((room.photoUsage.figures ?? 0) + poses.length * 2 > ROOM_MAX_FIGURE_IMAGES) return null;
+  const next = updatePlayer(room, playerId, (p) => ({
+    ...p,
+    photo: { ...photo, figuresPending: true, figuresStartedAt: now },
+  }));
+  return { room: next, version: photo.readyVersion, poses };
+}
+
+/** One standing figure is stored. */
+export function addFigure(room: RoomRecord, playerId: string, version: number, pose: FigurePose): RoomRecord | null {
+  const photo = room.players.find((p) => p.id === playerId)?.photo;
+  if (!photo || photo.readyVersion !== version || (photo.figures ?? []).includes(pose)) return null;
+  return updatePlayer(room, playerId, (p) => ({ ...p, photo: { ...photo, figures: [...(photo.figures ?? []), pose] } }));
+}
+
+/** The figure job is over (missing ones fall back); the model calls count against the room budget. */
+export function finishFigures(room: RoomRecord, playerId: string, version: number, modelCalls: number): RoomRecord {
+  const usage = { ...room.photoUsage, figures: (room.photoUsage.figures ?? 0) + modelCalls };
+  const photo = room.players.find((p) => p.id === playerId)?.photo;
+  const next = { ...room, photoUsage: usage };
+  if (!photo || photo.readyVersion !== version || !photo.figuresPending) return next;
+  return updatePlayer(next, playerId, (p) => ({ ...p, photo: { ...photo, figuresPending: false } }));
+}
+
 /** Back to the emoji avatar. The used generations still count. */
 export function resetPhoto(room: RoomRecord, playerId: string): Result<RoomRecord> {
   const player = room.players.find((p) => p.id === playerId);
@@ -210,6 +264,7 @@ export function applySavedPhoto(
   savedId: string,
   expressions: PhotoExpression[],
   now: number,
+  figures: FigurePose[] = [],
 ): Result<RoomRecord> {
   const allowed = canUseSavedPhoto(room, playerId);
   if (!allowed.ok) return allowed;
@@ -224,6 +279,8 @@ export function applySavedPhoto(
     startedAt: now,
     reason: null,
     savedId,
+    figures,
+    figuresPending: false,
   };
   return ok(updatePlayer(room, playerId, (p) => ({ ...p, photo })));
 }
@@ -247,6 +304,10 @@ export function expireStalePhotos(room: RoomRecord, now: number): RoomRecord | n
       changed = true;
       return { ...p, photo: { ...photo, expressionsPending: false } };
     }
+    if (photo.figuresPending && now - (photo.figuresStartedAt ?? photo.startedAt) >= FIGURES_STALE_MS) {
+      changed = true;
+      return { ...p, photo: { ...photo, figuresPending: false } };
+    }
     return p;
   });
   return changed ? { ...room, players } : null;
@@ -265,6 +326,8 @@ export function nextPhotoDeadline(room: RoomRecord): number | null {
           ? photo.startedAt + EXPRESSIONS_STALE_MS
           : null;
     if (at !== null && (next === null || at < next)) next = at;
+    const figuresAt = photo.figuresPending ? (photo.figuresStartedAt ?? photo.startedAt) + FIGURES_STALE_MS : null;
+    if (figuresAt !== null && (next === null || figuresAt < next)) next = figuresAt;
   }
   return next;
 }
@@ -282,5 +345,7 @@ export function publicPhoto(player: PlayerRecord, code: string): PublicPhotoAvat
     reason: photo.reason,
     path: photoAvatarPath(code, player.id),
     saved: !!photo.savedId,
+    figures: photo.readyVersion === null ? [] : (photo.figures ?? []),
+    figuresPending: !!photo.figuresPending,
   };
 }

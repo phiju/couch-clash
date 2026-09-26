@@ -8,6 +8,7 @@ import {
   generateSecret,
   type HostLine,
   type Avatar,
+  type FigurePose,
   type PhotoExpression,
   type PhotoUploadResponse,
   type RoomNotice,
@@ -25,10 +26,12 @@ import {
 import { expireStalePhotos, nextPhotoDeadline, resetPhoto, setPhotoAvatars } from "./avatar/photo-logic";
 import type { AvatarImage } from "./avatar/provider";
 import type { AvatarRoomApi } from "./avatar/routes";
-import { imagesResizer, type AvatarServiceDeps } from "./avatar/service";
+import { imagesFigureResizer, imagesResizer, type AvatarServiceDeps } from "./avatar/service";
 import { playerPrefix, r2AvatarStore, roomPrefix } from "./avatar/store";
 import { styleReference } from "./avatar/style";
 import { createVoiceProviders } from "./voice";
+import { meteredFetchFor, type FetchFor } from "./costs/meter";
+import { d1CostStore, usageRecorder } from "./costs/store";
 import { VoiceDirector } from "./voice/director";
 import { loadContentFilter, type ContentFilter } from "./stats/content-filter";
 import { StatsRecorder } from "./stats/recorder";
@@ -119,7 +122,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     sendToHosts: (line) => this.sendToHosts(line),
     hostConnected: () => this.presence().host,
     waitUntil: (promise) => this.ctx.waitUntil(promise),
-    services: () => ({ ...createVoiceProviders(this.env), store: this.avatarStore() }),
+    services: () => ({ ...createVoiceProviders(this.env, undefined, this.fetchFor()), store: this.avatarStore() }),
     now: () => Date.now(),
     random: Math.random,
     newId: () => generateSecret(8),
@@ -151,7 +154,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     flowDeps: () => this.flowDeps(Date.now()),
     model: (quality) =>
       this.env.OPENAI_API_KEY
-        ? createOpenAIJsonModel(this.env.OPENAI_API_KEY, fetch, { model: TASK_MODELS[quality], temperature: 0, timeoutMs: 10_000 })
+        ? createOpenAIJsonModel(this.env.OPENAI_API_KEY, this.fetchFor()("module-task"), { model: TASK_MODELS[quality], temperature: 0, timeoutMs: 10_000 })
         : null,
   });
 
@@ -201,9 +204,13 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     return response;
   }
 
-  async hasPhoto(playerId: string, expression: PhotoExpression): Promise<boolean> {
+  async hasPhoto(
+    playerId: string,
+    image: { kind: "expression"; expression: PhotoExpression } | { kind: "figure"; pose: FigurePose },
+  ): Promise<boolean> {
     const photo = this.activeRoom()?.players.find((p) => p.id === playerId)?.photo;
-    return !!photo && photo.readyVersion !== null && photo.expressions.includes(expression);
+    if (!photo || photo.readyVersion === null) return false;
+    return image.kind === "figure" ? (photo.figures ?? []).includes(image.pose) : photo.expressions.includes(image.expression);
   }
 
   // -------------------------------------------------------------------------
@@ -439,6 +446,10 @@ export class Room extends Server<Env> implements AvatarRoomApi {
         const result = await acceptPhotoAndGenerate(this.roomAccess, this.avatarDeps(), state.playerId, now);
         if (!result.ok) return this.send(conn, errorMessage(result.error));
         if (result.value) this.ctx.waitUntil(result.value);
+        // The consent before "Verwandeln!" says the figure is kept for next time: save it now
+        // (faces and standing figures follow as they are made). The id goes to this connection only.
+        const saved = await savePlayerPhoto(this.roomAccess, this.avatarStore(), state.playerId, now);
+        if (saved.ok) this.send(conn, { type: "photo_saved", savedId: saved.value });
         return;
       }
 
@@ -466,6 +477,7 @@ export class Room extends Server<Env> implements AvatarRoomApi {
         this.voice.hostEvent(msg.lineId, msg.event, msg.endsAt);
         return;
 
+      // Older phones still send this (saving is automatic since "Passt!").
       case "photo_save": {
         const state = conn.state;
         if (state?.role !== "player") return this.send(conn, errorMessage("NOT_AUTHORIZED"));
@@ -478,8 +490,9 @@ export class Room extends Server<Env> implements AvatarRoomApi {
       case "photo_use_saved": {
         const state = conn.state;
         if (state?.role !== "player") return this.send(conn, errorMessage("NOT_AUTHORIZED"));
-        const result = await useSavedPhoto(this.roomAccess, this.avatarStore(), state.playerId, msg.savedId, now);
+        const result = await useSavedPhoto(this.roomAccess, this.avatarStore(), state.playerId, msg.savedId, now, this.avatarDeps());
         if (!result.ok) return this.send(conn, errorMessage(result.error));
+        if (result.value) this.ctx.waitUntil(result.value);
         return;
       }
 
@@ -576,8 +589,9 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     this.voice.playerJoined(player.id);
     // Joined with the emoji first; the saved figure replaces it a moment later.
     if (savedFigureId) {
-      const used = await useSavedPhoto(this.roomAccess, this.avatarStore(), player.id, savedFigureId, Date.now());
+      const used = await useSavedPhoto(this.roomAccess, this.avatarStore(), player.id, savedFigureId, Date.now(), this.avatarDeps());
       if (!used.ok) this.send(conn, errorMessage(used.error));
+      else if (used.value) this.ctx.waitUntil(used.value);
     }
   }
 
@@ -671,15 +685,21 @@ export class Room extends Server<Env> implements AvatarRoomApi {
     return this.env.AVATARS ? r2AvatarStore(this.env.AVATARS) : null;
   }
 
+  /** Fetches that record what each API call costs (D1, in the background). */
+  private fetchFor(): FetchFor {
+    return meteredFetchFor(usageRecorder(this.env.STATS ? d1CostStore(this.env.STATS) : null, (p) => this.ctx.waitUntil(p)));
+  }
+
   /** Null when photo avatars are not set up (no API key or no R2 bucket). */
   private avatarDeps(): AvatarServiceDeps | null {
-    const provider = createAvatarProvider(this.env);
+    const provider = createAvatarProvider(this.env, this.fetchFor());
     if (!provider || !this.env.AVATARS) return null;
     return {
       provider,
       store: r2AvatarStore(this.env.AVATARS),
       styleReference,
       resize: this.env.IMAGES ? imagesResizer(this.env.IMAGES) : undefined,
+      resizeFigure: this.env.IMAGES ? imagesFigureResizer(this.env.IMAGES) : undefined,
     };
   }
 

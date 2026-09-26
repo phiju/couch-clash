@@ -85,7 +85,7 @@ function PlayerRoom({ code }: { code: string }) {
   const [photoFlow, setPhotoFlow] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
-  /** Figure kept with "Figur behalten" (id only on this phone). */
+  /** The figure kept for next time (saved on "Passt!"; the id lives only on this phone). */
   const [savedFigure, setSavedFigure] = useState<string | null>(() => savedFigureStore.get());
   const forgetSavedFigure = useCallback(() => {
     savedFigureStore.clear();
@@ -124,10 +124,14 @@ function PlayerRoom({ code }: { code: string }) {
           if (photo) void startUpload(joinedCreds, photo);
           break;
         }
-        case "photo_saved":
+        case "photo_saved": {
+          // A new figure replaces the one saved before (one per phone).
+          const previous = savedFigureStore.get();
+          if (previous && previous !== msg.savedId) void deleteSavedFigure(previous);
           savedFigureStore.set(msg.savedId);
           setSavedFigure(msg.savedId);
           break;
+        }
         case "welcome_player":
           setPlayerId(msg.playerId);
           setView("joined");
@@ -249,11 +253,6 @@ function PlayerRoom({ code }: { code: string }) {
               </div>
             ) : photo && !showProgress ? (
               <div className="flex flex-col items-center gap-3">
-                {photo.accepted && photo.readyVersion !== null && inLobby && !photo.saved && (
-                  <Button type="button" variant="secondary" onClick={() => send({ type: "photo_save" })} className="!text-xl">
-                    ⭐ Figur fürs nächste Mal behalten
-                  </Button>
-                )}
                 {photo.saved && <p className="text-lg font-bold text-bulb">⭐ Für nächstes Mal gespeichert</p>}
                 <button
                   type="button"
@@ -271,9 +270,8 @@ function PlayerRoom({ code }: { code: string }) {
             me={me}
             uploading={uploading}
             uploadError={uploadError}
-            onAccept={(keep) => {
+            onAccept={() => {
               send({ type: "photo_accept" });
-              if (keep) send({ type: "photo_save" });
               closeFlow();
             }}
             onRetry={(next) => {

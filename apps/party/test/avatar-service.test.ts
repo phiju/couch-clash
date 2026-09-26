@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { AVATAR_CONFIG, AVATAR_PROMPT } from "../src/avatar/config";
-import { createOpenAIProvider } from "../src/avatar/openai";
+import { AVATAR_CONFIG, AVATAR_PROMPT, FIGURE_CONFIG, RATE_LIMIT_CONFIG } from "../src/avatar/config";
+import { createOpenAIProvider, retryAfterMs } from "../src/avatar/openai";
 import { AvatarGenerationError } from "../src/avatar/provider";
-import { generateBaseAvatar, generateExpressionAvatar } from "../src/avatar/service";
+import { generateBaseAvatar, generateExpressionAvatar, generateFigure } from "../src/avatar/service";
 import { avatarKey, r2AvatarStore } from "../src/avatar/store";
 import { memoryStore, mockProvider, photo, styleReference } from "./avatar-helpers";
 
@@ -96,6 +96,72 @@ describe("generateExpressionAvatar", () => {
   });
 });
 
+describe("quality per image kind (cost)", () => {
+  it("round avatar in the configured quality, faces and standing figures in low", async () => {
+    const provider = mockProvider();
+    const store = memoryStore();
+    const deps = { provider, store, styleReference };
+    await generateBaseAvatar(deps, job);
+    await generateExpressionAvatar(deps, { code: "ABCD", playerId: "player1", expression: "jubelnd" });
+    await generateFigure(deps, { code: "ABCD", playerId: "player1", pose: "standard" });
+    expect(provider.calls.map((c) => c.options.quality)).toEqual([AVATAR_CONFIG.quality, "low", "low"]);
+    expect(AVATAR_CONFIG.expressionQuality).toBe("low");
+    expect(FIGURE_CONFIG.quality).toBe("low");
+  });
+});
+
+describe("too many requests (images per minute)", () => {
+  const rateLimited = (ms: number) => new AvatarGenerationError("error", "OpenAI HTTP 429 rate_limit_exceeded", ms);
+
+  it("waits as long as the API says and tries again – not counted as the image's retry", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    let n = 0;
+    const provider = mockProvider(async () => {
+      if (n++ < 2) throw rateLimited(12_000);
+      return { bytes: new Uint8Array([1]), mimeType: "image/webp" };
+    });
+    const store = memoryStore();
+    await store.put(avatarKey("ABCD", "player1", "neutral"), new Uint8Array([5]), "image/webp");
+    const waits: number[] = [];
+    const sleep = async (ms: number) => void waits.push(ms);
+    const outcome = await generateFigure({ provider, store, styleReference, sleep }, { code: "ABCD", playerId: "player1", pose: "standard" });
+    expect(outcome).toEqual({ ok: true, attempts: 1 });
+    expect(waits).toEqual([12_000, 12_000]);
+  });
+
+  it("gives up once the wait budget is used up (then the normal fallback applies)", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    const provider = mockProvider(async () => {
+      throw rateLimited(20_000);
+    });
+    const waits: number[] = [];
+    const sleep = async (ms: number) => void waits.push(ms);
+    const outcome = await generateBaseAvatar({ provider, store: memoryStore(), styleReference, sleep }, job);
+    expect(outcome).toEqual({ ok: false, reason: "error" });
+    expect(waits.reduce((a, b) => a + b, 0)).toBeLessThanOrEqual(RATE_LIMIT_CONFIG.maxWaitMs);
+    expect(provider.calls).toHaveLength(waits.length + 1);
+  });
+
+  it("other errors are not waited on", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    const provider = mockProvider(async () => {
+      throw new AvatarGenerationError("error", "OpenAI HTTP 500");
+    });
+    const sleep = vi.fn(async () => {});
+    await generateBaseAvatar({ provider, store: memoryStore(), styleReference, sleep }, job);
+    expect(sleep).not.toHaveBeenCalled();
+    expect(provider.calls).toHaveLength(1);
+  });
+
+  it("reads the wait from the headers or the message", () => {
+    expect(retryAfterMs(new Headers({ "retry-after-ms": "1500" }))).toBe(1500);
+    expect(retryAfterMs(new Headers({ "retry-after": "3" }))).toBe(3000);
+    expect(retryAfterMs(new Headers(), "Rate limit reached … Please try again in 12.5s.")).toBe(12_500);
+    expect(retryAfterMs(new Headers(), "Please try again in 800ms.")).toBe(800);
+    expect(retryAfterMs(new Headers())).toBe(RATE_LIMIT_CONFIG.defaultWaitMs);
+  });
+});
+
 describe("OpenAI provider (mocked fetch)", () => {
   const style = { reference: styleReference(), prompt: AVATAR_PROMPT };
 
@@ -125,6 +191,26 @@ describe("OpenAI provider (mocked fetch)", () => {
     const down = createOpenAIProvider("sk-test", (async () =>
       Response.json({ error: { type: "server_error" } }, { status: 500 })) as typeof fetch);
     await expect(down.generateAvatar(photo, style)).rejects.toMatchObject({ reason: "error" });
+  });
+
+  it("marks 'too many requests' as worth waiting for, but not an empty quota", async () => {
+    const limited = createOpenAIProvider("sk-test", (async () =>
+      Response.json(
+        { error: { code: "rate_limit_exceeded", message: "Please try again in 12s." } },
+        { status: 429 },
+      )) as typeof fetch);
+    await expect(limited.generateAvatar(photo, style)).rejects.toMatchObject({ reason: "error", retryAfterMs: 12_000 });
+    const broke = createOpenAIProvider("sk-test", (async () =>
+      Response.json({ error: { code: "insufficient_quota" } }, { status: 429 })) as typeof fetch);
+    await expect(broke.generateAvatar(photo, style)).rejects.toMatchObject({ reason: "error", retryAfterMs: undefined });
+  });
+
+  it("sends the requested quality", async () => {
+    const fetchFn = vi.fn<(url: RequestInfo | URL, init?: RequestInit) => Promise<Response>>(async () =>
+      Response.json({ data: [{ b64_json: btoa("abc") }] }),
+    );
+    await createOpenAIProvider("sk-test", fetchFn as typeof fetch).generateAvatar(photo, { prompt: "p" }, { quality: "low" });
+    expect((fetchFn.mock.calls[0]![1]!.body as FormData).get("quality")).toBe("low");
   });
 });
 

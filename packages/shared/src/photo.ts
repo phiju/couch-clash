@@ -13,6 +13,32 @@ export function isPhotoExpression(value: string): value is PhotoExpression {
   return (PHOTO_EXPRESSIONS as readonly string[]).includes(value);
 }
 
+/**
+ * Standing full-body figures of a photo avatar (on top of the round one):
+ * "standard" is made from the round avatar, the other four from "standard"
+ * so they all match. Same size and position, feet on the same baseline.
+ */
+export const FIGURE_POSES = ["standard", "jubelnd", "besorgt", "panisch", "geschockt"] as const;
+export type FigurePose = (typeof FIGURE_POSES)[number];
+/** The four made from the standing standard figure. */
+export const FIGURE_EXPRESSIONS = ["jubelnd", "besorgt", "panisch", "geschockt"] as const satisfies readonly FigurePose[];
+
+export function isFigurePose(value: string): value is FigurePose {
+  return (FIGURE_POSES as readonly string[]).includes(value);
+}
+
+/** Image name of a figure on the party worker ("figure-panisch"). */
+export function figureImageName(pose: FigurePose): string {
+  return `figure-${pose}`;
+}
+
+/** A requested avatar image: a round expression or a standing figure. */
+export function parseAvatarImageName(name: string): { kind: "expression"; expression: PhotoExpression } | { kind: "figure"; pose: FigurePose } | null {
+  if (isPhotoExpression(name)) return { kind: "expression", expression: name };
+  const pose = name.startsWith("figure-") ? name.slice("figure-".length) : "";
+  return isFigurePose(pose) ? { kind: "figure", pose } : null;
+}
+
 /** Upload limits (the phone crops to 512 px JPEG, which is far below this). */
 export const PHOTO_MAX_BYTES = 1024 * 1024;
 export const PHOTO_MIME_TYPES = ["image/jpeg", "image/png", "image/webp"] as const;
@@ -41,6 +67,10 @@ export interface PublicPhotoAvatar {
   path: string;
   /** Kept for next time ("Figur behalten"). The id itself is only sent to the owner. */
   saved: boolean;
+  /** Standing figures that exist (the game never waits for them). */
+  figures: FigurePose[];
+  /** Standing figures are being made right now. */
+  figuresPending: boolean;
 }
 
 /**
@@ -72,6 +102,19 @@ export function photoAvatarUrl(
   if (!photo || photo.readyVersion === null) return null;
   const face = photo.expressions.includes(expression) ? expression : "neutral";
   return `${partyHttpUrl}${photo.path}/${face}?v=${photo.readyVersion}`;
+}
+
+/**
+ * URL of a standing figure with the fallback chain: the pose → the standing
+ * standard figure → null (then the round avatar stands on the platform).
+ */
+export function figureUrl(partyHttpUrl: string, photo: PublicPhotoAvatar | undefined, pose: FigurePose): string | null {
+  if (!photo || photo.readyVersion === null) return null;
+  const figures = photo.figures ?? [];
+  // Expressions are made from the standard figure – without it, the round avatar.
+  if (!figures.includes("standard")) return null;
+  const use = figures.includes(pose) ? pose : "standard";
+  return `${partyHttpUrl}${photo.path}/${figureImageName(use)}?v=${photo.readyVersion}`;
 }
 
 /**

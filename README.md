@@ -24,7 +24,8 @@ couch-clash/
 │       ├── src/voice/               Host mascot's voice: text + speech providers, prompts, rules, director
 │       ├── src/stats/               Question statistics (D1): recorder, votes, content filter
 │       ├── src/generate/            AI replacement questions (per-category generators, verify, daily limit)
-│       ├── src/admin/               Admin API for /admin/fragen (ADMIN_TOKEN)
+│       ├── src/admin/               Admin API for /admin/fragen and /admin/kosten (ADMIN_TOKEN)
+│       ├── src/costs/               Cost metering (every paid API call → D1) and fixed costs
 │       ├── migrations/              D1 migrations (couch-clash-stats)
 │       └── test/
 └── packages/
@@ -240,13 +241,14 @@ Retro 1970s TV game show. Design tokens (petrol, petrol-dark, orange, rust, bulb
 Players can take a selfie or pick a photo when joining. The party server turns it into a cartoon in the Couch Clash style (the host artwork `apps/web/public/brand/host.webp` is the style reference). **The emoji avatar is always the fallback**, and the game never waits for the AI.
 
 **Flow**
-- **Phone:** name → "📸 Selfie machen" / "🖼️ Foto wählen" / "😀 Emoji nehmen". A one-time consent note appears (remembered in `localStorage`). The phone crops the photo to a centered square (max 512 px, JPEG 0.8; re-encoding strips EXIF) and shows a preview. **Nothing is uploaded before "Verwandeln!"**. The player joins right away with the emoji and sees the waiting screen, then "Passt!" / "Nochmal" (max 2 re-generations). Errors, the 90 s timeout and safety refusals keep the emoji (or the previous image).
-- **Worker:** `POST /api/rooms/:code/avatar` (multipart `playerId`, `playerSecret`, `photo`; ≤ 1 MB; JPEG/PNG/WebP, checked by the file bytes). The room sets the avatar's `photo.status` to `pending` and generates in the background (`ctx.waitUntil`). Every client gets `pending → ready | failed` over the room WebSocket. After "Passt!", 3 expressions are generated in the background (jubelnd / enttäuscht / geschockt). The animated leaderboard shows them when a player moves up, moves down, or loses big.
+- **Phone:** name → "📸 Selfie machen" / "🖼️ Foto wählen" / "😀 Emoji nehmen". A one-time consent note appears (remembered in `localStorage`; it also says the figure is kept for next time). The phone crops the photo to a centered square (max 512 px, JPEG 0.8; re-encoding strips EXIF) and shows a preview. **Nothing is uploaded before "Verwandeln!"**. The player joins right away with the emoji and sees the waiting screen, then "Passt!" / "Nochmal" (max 2 re-generations). Errors, the 90 s timeout and safety refusals keep the emoji (or the previous image).
+- **Worker:** `POST /api/rooms/:code/avatar` (multipart `playerId`, `playerSecret`, `photo`; ≤ 1 MB; JPEG/PNG/WebP, checked by the file bytes). The room sets the avatar's `photo.status` to `pending` and generates in the background (`ctx.waitUntil`). Every client gets `pending → ready | failed` over the room WebSocket. After "Passt!", 3 expressions are generated in the background (jubelnd / enttäuscht / geschockt). The animated leaderboard shows them when a player moves up, moves down, or loses big. In parallel, 5 **standing full-body figures** are made (`figure-standard`, then `figure-jubelnd` / `-besorgt` / `-panisch` / `-geschockt` from the standard figure; portrait 400×600, transparent, one retry each, cost logged). Prompts live in `apps/party/src/avatar/figure-prompts.json`. Fallbacks: missing pose → standard figure → round avatar. The Survival-Finale shows them on the platforms (`StandingFigure`, `apps/web/src/lib/figure.ts`: pose per danger level, short reactions, CSS-only idle motion). **Cost:** the round avatar is made in `medium` quality (≈ $0.07), the 3 faces and 5 figures in `low` (≈ $0.013 / $0.011 each; they are shown small) – about **$0.19 per player** (`AVATAR_CONFIG`, `FIGURE_CONFIG`). **Rate limit:** on HTTP 429 ("too many requests") the worker waits as long as OpenAI says and tries again, up to 30 s per image (`RATE_LIMIT_CONFIG`). Low OpenAI usage tiers allow only a few input images per minute (tier 1: 5) – for game nights with many players, raise the tier.
 - **Limits per room:** 16 players × (1 + 2) base images, 16 × 3 expressions, and one job per player at a time. The API returns clear errors (409 busy, 429 limit, 413 too large, 415 wrong type, 401 auth, 404 room).
 - **Host:** lobby switch "📸 Foto-Avatare erlauben" (default on), "↺ Emoji" on each player card, and a sparkle plus `sting-short` when a photo avatar is ready.
 
-**Keep the figure ("⭐ Figur fürs nächste Mal behalten")**
-- After "Passt!", the player can tick the checkbox (opt-in), or tap the button in the lobby later.
+**Keeping the figure (automatic)**
+- The consent note before "Verwandeln!" says so: the photo is deleted right after the transformation, the figure is kept for the next games (only this phone finds it again, deletable any time, gone after 365 days without playing). Tapping "Okay" is the consent; the note is asked again when its content changes (`photoConsentStore`, key `photo-consent-v2`).
+- On "Passt!" the server saves the figure right away; faces and standing figures are added as they are made. One saved figure per phone: a new one replaces (deletes) the previous one.
 - The server copies the generated images to `saved/<random id>/` in R2. **Only this phone learns the id** (message `photo_saved` to this connection only, stored in `localStorage`). Other clients just see `saved: true`.
 - Next time, "⭐ Meine Figur nehmen" appears right after the name. The server copies the figure into the new room: no API call, no cost, all expressions right away.
 - "Figur löschen" (`DELETE /api/avatars/saved/:id`) removes it immediately.
@@ -364,6 +366,14 @@ Asks for the `ADMIN_TOKEN` (kept in `sessionStorage` of that tab only); the work
 4. **Deploy command** (Settings → Builds): `cd apps/party && npx wrangler d1 migrations apply couch-clash-stats --remote && npx wrangler deploy`.
 
 Locally: `cd apps/party && npx wrangler d1 migrations apply couch-clash-stats --local`, and `ADMIN_TOKEN=…` in `apps/party/.dev.vars`.
+
+## Costs `/admin/kosten`
+
+Same `ADMIN_TOKEN` as `/admin/fragen`. Shows per month: total, measured API costs, fixed costs, and the average cost of one photo avatar; a bar chart of the last 30 days; the measured costs per purpose (round avatar, faces, standing figures, moderator texts and voice, replacement questions, AI checks in the game); ElevenLabs credits.
+
+- **Measured automatically** (`apps/party/src/costs/`): every provider gets a measured `fetch` (`meteredFetch`). After a successful call it reads the token counts from OpenAI's answer (or counts characters for text-to-speech) and adds one row per UTC day × kind to the D1 table `api_usage` (migration `0002_costs.sql`, in the background – the game never waits, a failed write only logs). Prices per model live in `costs/prices.ts` – update them there. Failed calls aren't billed and aren't counted. Only numbers are stored, never prompts, texts or player data. ElevenLabs is paid by the plan, so only its credits are counted.
+- **Fixed costs** (Claude, ElevenLabs plan, domain, …) are entered on the page: name, amount per month (€ or $), from month, optional until month („Beenden“ ends it this month). Stored in `fixed_costs`.
+- Everything is shown in euros; dollars are converted with the fixed rate `COST_CONFIG.usdToEur` (`packages/shared/src/costs.ts`). Estimates – the real bill is in the OpenAI dashboard. Measuring starts with the deploy of this page.
 
 ## Neuigkeiten (release notes)
 

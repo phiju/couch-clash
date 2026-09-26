@@ -116,13 +116,17 @@ export const setupStore = {
   set: (setup: unknown) => write("setup", setup),
 };
 
-/** The player agreed to the photo note once ("Okay") – remembered per device. */
+/**
+ * The player agreed to the photo note once ("Okay") – remembered per device.
+ * v2: the figure is kept for next time – everyone who agreed to the old
+ * note ("deleted after 24 hours") is asked again.
+ */
 export const photoConsentStore = {
-  get: () => read<boolean>("photo-consent") === true,
-  set: () => write("photo-consent", true),
+  get: () => read<boolean>("photo-consent-v2") === true,
+  set: () => write("photo-consent-v2", true),
 };
 
-/** Id of the figure saved with "Figur behalten" – the key to it, stays on this phone. */
+/** Id of the figure kept for next time (saved on "Passt!") – the key to it, stays on this phone. */
 export const savedFigureStore = {
   get: () => {
     const id = read<string>("saved-figure");

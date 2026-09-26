@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { PHOTO_EXPRESSIONS, expressionForChange, photoAvatarUrl, type PublicPhotoAvatar } from "../src";
+import { PHOTO_EXPRESSIONS, expressionForChange, photoAvatarUrl, type PublicPhotoAvatar, figureUrl, parseAvatarImageName } from "../src";
 
 const all = PHOTO_EXPRESSIONS;
 
@@ -31,6 +31,8 @@ describe("photoAvatarUrl", () => {
     reason: null,
     path: "/api/rooms/ABCD/avatar/p1",
     saved: false,
+    figures: [],
+    figuresPending: false,
   };
 
   it("builds a cache-busting URL and falls back to neutral", () => {
@@ -76,5 +78,43 @@ describe("voiceErrorHint", () => {
     expect(voiceErrorHint("400 voice_not_found")).toMatch(/My Voices/);
     expect(voiceErrorHint("402")).toMatch(/Abo/);
     expect(voiceErrorHint(null)).toMatch(/abgelehnt/);
+  });
+});
+
+describe("standing figures: fallback chain", () => {
+  const base: PublicPhotoAvatar = {
+    status: "ready",
+    version: 3,
+    readyVersion: 3,
+    accepted: true,
+    expressions: ["neutral"],
+    regenerationsLeft: 0,
+    reason: null,
+    path: "/api/rooms/ABCD/avatar/p1",
+    saved: false,
+    figures: ["standard", "jubelnd"],
+    figuresPending: true,
+  };
+
+  it("the pose when it exists", () => {
+    expect(figureUrl("https://x", base, "jubelnd")).toBe("https://x/api/rooms/ABCD/avatar/p1/figure-jubelnd?v=3");
+  });
+
+  it("a missing expression → the standing standard figure", () => {
+    expect(figureUrl("https://x", base, "panisch")).toBe("https://x/api/rooms/ABCD/avatar/p1/figure-standard?v=3");
+  });
+
+  it("no standard figure → null (the round avatar stands on the platform)", () => {
+    expect(figureUrl("https://x", { ...base, figures: ["jubelnd"] }, "jubelnd")).toBeNull();
+    expect(figureUrl("https://x", { ...base, figures: [] }, "standard")).toBeNull();
+    expect(figureUrl("https://x", undefined, "standard")).toBeNull();
+    expect(figureUrl("https://x", { ...base, readyVersion: null }, "standard")).toBeNull();
+  });
+
+  it("image names: round expressions and figures", () => {
+    expect(parseAvatarImageName("geschockt")).toEqual({ kind: "expression", expression: "geschockt" });
+    expect(parseAvatarImageName("figure-panisch")).toEqual({ kind: "figure", pose: "panisch" });
+    expect(parseAvatarImageName("figure-neutral")).toBeNull();
+    expect(parseAvatarImageName("../x")).toBeNull();
   });
 });

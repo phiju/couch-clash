@@ -2,10 +2,13 @@ import { readFileSync } from "node:fs";
 import { DatabaseSync } from "node:sqlite";
 import { d1StatsStore, type StatsStore } from "../src/stats/store";
 
-/** Minimal D1 on top of node:sqlite, with the real migration applied. */
+/** Every file in migrations/, in order – add new ones here. */
+const MIGRATIONS = ["0001_question_stats.sql", "0002_costs.sql"];
+
+/** Minimal D1 on top of node:sqlite, with the real migrations applied. */
 export function sqliteD1() {
   const db = new DatabaseSync(":memory:");
-  db.exec(readFileSync(new URL("../migrations/0001_question_stats.sql", import.meta.url), "utf8"));
+  for (const file of MIGRATIONS) db.exec(readFileSync(new URL(`../migrations/${file}`, import.meta.url), "utf8"));
   const statement = (sql: string, args: unknown[] = []) => {
     const run = () => {
       const res = db.prepare(sql).run(...args);

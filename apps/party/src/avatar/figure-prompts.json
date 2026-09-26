@@ -1,0 +1,11 @@
+{
+  "_comment": "Prompts for the standing full-body figures. Edit freely – no code change needed. 'standard' gets the round avatar as input; each expression gets the standing standard figure and 'expressionBase' + its own text.",
+  "standard": "Turn this character into a full-body standing figure, head to toe fully visible. Keep the same person, same face and identity, same art style, same colors and same hairstyle. If the outfit is only partly visible, continue it naturally to a full outfit in the same style. Neutral confident standing pose, arms relaxed, facing the viewer, feet flat on the ground. Figure centered, filling most of the image height, feet touching the bottom edge area. Transparent background, no floor, no shadow, no props. Exaggerated cartoon game show style, family-friendly.",
+  "expressionBase": "Edit this full-body character image. Keep everything identical: same person, same face and identity, same art style, same outfit, same colors, same size and position in the frame, feet at the same baseline, same transparent background. Change only the facial expression, pose and body language as described below. Head to toe must remain fully visible. Exaggerated cartoon game show style, expressive and funny, family-friendly.",
+  "expressions": {
+    "jubelnd": "Expression: ecstatic celebration. Huge open-mouthed grin, eyes squeezed shut with joy, both fists pumped high in the air, one knee slightly lifted, like just winning a TV game show prize.",
+    "besorgt": "Expression: nervous and worried. Eyebrows pulled up and together, eyes wide and glancing down at the ground, tight wobbly smile, cartoon sweat drop on the forehead, shoulders hunched, knees slightly together.",
+    "panisch": "Expression: full panic. Eyes extremely wide with tiny pupils, mouth wide open in a scream, hands pressed against the cheeks, knees shaking, several cartoon sweat drops flying off, hair standing on end.",
+    "geschockt": "Expression: extreme comedic shock. Jaw dropped all the way down, eyes bulging, eyebrows launched to the top of the forehead, face slightly pale, both hands thrown up beside the head, whole body recoiling backwards, like a cartoon character who just saw something unbelievable."
+  }
+}

@@ -12,6 +12,7 @@ import {
   type QuestionStatus,
   type QuickFilter,
 } from "@couch-clash/shared";
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { AdminVoicePanel } from "./admin-voice";
 import { Button, Screen } from "@/components/ui";
@@ -46,11 +47,11 @@ export function AdminQuestionsPage() {
   }, []);
 
   if (token === undefined) return <Screen />;
-  if (!token) return <TokenForm onSubmit={(t) => saveAdminToken(t)} />;
+  if (!token) return <TokenForm title="Fragen-Admin 🔒" onSubmit={(t) => saveAdminToken(t)} />;
   return <AdminTable token={token} onLogout={logout} />;
 }
 
-function TokenForm({ onSubmit }: { onSubmit: (token: string) => void }) {
+export function TokenForm({ title, onSubmit }: { title: string; onSubmit: (token: string) => void }) {
   const [value, setValue] = useState("");
   return (
     <Screen dim="soft" className="justify-center">
@@ -61,7 +62,7 @@ function TokenForm({ onSubmit }: { onSubmit: (token: string) => void }) {
           if (value.trim()) onSubmit(value.trim());
         }}
       >
-        <h1 className="text-3xl font-bold">Fragen-Admin 🔒</h1>
+        <h1 className="text-3xl font-bold">{title}</h1>
         <label className="flex flex-col gap-2 text-lg">
           Admin-Token
           <input
@@ -166,6 +167,9 @@ function AdminTable({ token, onLogout }: { token: string; onLogout: (message?: s
       <header className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-3xl font-bold">Fragen-Admin</h1>
         <div className="flex flex-wrap items-center gap-3 text-sm">
+          <Link href="/admin/kosten" className="rounded-full px-3 py-1 font-bold hover:bg-petrol-dark/70">
+            💶 Kosten
+          </Link>
           {data && (
             <span className="chip rounded-full px-3 py-1">
               Generiert heute: {data.generationsToday} / {data.dailyGenerationLimit}

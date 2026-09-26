@@ -1,5 +1,5 @@
 import type { Avatar } from "@couch-clash/shared";
-import type { AvatarImage, AvatarProvider } from "../src/avatar/provider";
+import type { AvatarGenerateOptions, AvatarImage, AvatarProvider } from "../src/avatar/provider";
 import type { AvatarStore } from "../src/avatar/store";
 import { createRoomRecord, joinPlayer, type RoomRecord } from "../src/room-logic";
 
@@ -43,18 +43,26 @@ export function memoryStore(): AvatarStore & { objects: Map<string, Uint8Array> 
   };
 }
 
+export interface MockCall {
+  input: AvatarImage;
+  prompt: string;
+  /** A style reference was sent (round avatars) or not (standing figures). */
+  withReference: boolean;
+  options: AvatarGenerateOptions;
+}
+
 /** Mocked provider – never calls a real API. Records every call. */
 export function mockProvider(
   impl: (input: AvatarImage, prompt: string) => Promise<AvatarImage> = async () => ({
     bytes: new Uint8Array([7, 7, 7]),
     mimeType: "image/webp",
   }),
-): AvatarProvider & { calls: { input: AvatarImage; prompt: string }[] } {
-  const calls: { input: AvatarImage; prompt: string }[] = [];
+): AvatarProvider & { calls: MockCall[] } {
+  const calls: MockCall[] = [];
   return {
     calls,
-    generateAvatar(input, style) {
-      calls.push({ input, prompt: style.prompt });
+    generateAvatar(input, style, options = {}) {
+      calls.push({ input, prompt: style.prompt, withReference: !!style.reference, options });
       return impl(input, style.prompt);
     },
   };

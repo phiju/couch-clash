@@ -28,6 +28,17 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.21.0",
+    date: "2026-09-26",
+    title: "Eure Figuren stehen jetzt in voller Größe auf der Bühne!",
+    items: [
+      { emoji: "🧍", text: "Foto-Avatare gibt’s jetzt auch als stehende Ganzkörperfigur" },
+      { emoji: "😱", text: "Im Survival-Finale zittern, jubeln und erschrecken eure Figuren mit" },
+      { emoji: "🫧", text: "Wer in Gefahr ist, sieht auch so aus – bis zur Panik" },
+      { emoji: "⭐", text: "Deine Figur bleibt fürs nächste Mal gespeichert – ganz automatisch" },
+    ],
+  },
+  {
     version: "0.20.2",
     date: "2026-09-26",
     title: "Jetzt hört ihr den Schleim.",
