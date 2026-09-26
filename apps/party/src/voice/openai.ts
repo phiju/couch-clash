@@ -52,6 +52,7 @@ export function createOpenAITextProvider(apiKey: string, fetchFn: typeof fetch =
 export function createOpenAISpeechProvider(apiKey: string, fetchFn: typeof fetch = fetch): SpeechProvider {
   return {
     id: "openai",
+    modelFor: () => VOICE_CONFIG.openaiSpeechModel,
     supportsTags: () => false,
     prepare: (text) => stripTags(text),
     async speak(text, { speed, signal }) {

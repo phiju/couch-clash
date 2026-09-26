@@ -1,25 +1,13 @@
 "use client";
 
 import { getDangerLevel, type SurvivalPublicPlayer, type SurvivalPublicState } from "@couch-clash/games/meta";
-import { figureUrl, type PublicPlayer } from "@couch-clash/shared";
-import { memo } from "react";
-import { AvatarBadge } from "@/components/avatar";
+import { figureUrl, getAvatarOption, photoAvatarUrl, type FigurePose, type PublicPlayer } from "@couch-clash/shared";
+import { memo, useLayoutEffect, useRef, useState } from "react";
 import { StandingFigure } from "@/components/standing-figure";
 import { PARTY_HTTP_URL } from "@/lib/config";
-import { poseForDanger, reactionForEvent, type FigureReaction } from "@/lib/figure";
+import { POSE_EXPRESSION, reactionForEvent, stagePose, type FigureReaction } from "@/lib/figure";
 import { signedPoints } from "../question-round/components";
-import {
-  MOOD_EMOJI,
-  MOOD_EXPRESSION,
-  heightReference,
-  isFinalTwo,
-  isFreshElimination,
-  laneGrow,
-  laneSize,
-  moodFor,
-  type LaunchCar,
-  visualHeight,
-} from "./logic";
+import { heightReference, isFinalTwo, isFreshElimination, laneGrow, laneSize, type LaunchCar, visualHeight } from "./logic";
 
 export interface StageProps {
   state: SurvivalPublicState;
@@ -48,8 +36,10 @@ export function SurvivalStage({ state, players, now, scores, launch, descending 
   const bubbling = critical >= 2 ? "wild" : critical === 1 || state.phase.id === "death" ? "busy" : "calm";
   const winnerId = state.step === "winner" ? state.winnerId : null;
   const reactions = figureReactions(state.events, now);
+  const reveal = state.step === "reveal" ? state.reveal : null;
+  const stageRef = useSlimeAnchor(finalTwo);
   return (
-    <div className="sv-stage" data-final-two={finalTwo || undefined} data-winner={winnerId ? true : undefined}>
+    <div ref={stageRef} className="sv-stage" data-final-two={finalTwo || undefined} data-winner={winnerId ? true : undefined}>
       <ol className="sv-lanes" aria-hidden>
         {state.players.map((p) => (
           <Lane
@@ -68,6 +58,7 @@ export function SurvivalStage({ state, players, now, scores, launch, descending 
             questionNumber={state.question?.number ?? 0}
             rules={state.rules}
             reaction={reactions.get(p.id) ?? null}
+            correct={reveal && p.id in reveal.answers ? reveal.answers[p.id] === reveal.correctIndex : null}
           />
         ))}
       </ol>
@@ -88,7 +79,34 @@ export function SurvivalStage({ state, players, now, scores, launch, descending 
   );
 }
 
-const AVATAR_SCALE = { xl: 1.6, lg: 1.2, md: 1, sm: 0.8 } as const;
+/**
+ * The slime is fixed to the bottom of the viewport; its surface follows the
+ * stage's slime line (--sv-surface: px from the viewport top), measured on
+ * every resize – no strip of background below it on any screen shape.
+ */
+function useSlimeAnchor(finalTwo: boolean) {
+  const ref = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const measure = () => {
+      const rect = el.getBoundingClientRect();
+      const slime = parseFloat(getComputedStyle(el).getPropertyValue("--sv-slime")) || 17;
+      el.style.setProperty("--sv-surface", `${rect.bottom - (rect.height * slime) / 100}px`);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    observer.observe(document.documentElement);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+    // The final two raise the slime line (--sv-slime) without a resize.
+  }, [finalTwo]);
+  return ref;
+}
 
 /** Reactions shorter-lived than this are not replayed by a TV that just appeared. */
 const REACTION_MAX_AGE_MS = 3_000;
@@ -119,13 +137,14 @@ const Lane = memo(function Lane({
   questionNumber,
   rules,
   reaction,
+  correct,
 }: {
   p: SurvivalPublicPlayer;
   player: PublicPlayer | undefined;
   score: number;
   reference: number;
   grow: number;
-  size: keyof typeof AVATAR_SCALE;
+  size: "xl" | "lg" | "md" | "sm";
   launchHeight?: number;
   fresh: boolean;
   descending: boolean;
@@ -134,17 +153,20 @@ const Lane = memo(function Lane({
   questionNumber: number;
   rules: SurvivalPublicState["rules"];
   reaction: FigureReaction | null;
+  /** Reveal: the answer was right (null: no reveal or no answer). */
+  correct: boolean | null;
 }) {
   const liveDanger = p.eliminated ? "ELIMINATED" : getDangerLevel(score, rules);
-  const mood = winner ? "cheering" : moodFor(p, liveDanger);
-  // Standing figures when the player has one; the round avatar otherwise.
+  // Standing figures when the player has one; the round avatar (as a portrait) otherwise.
   const hasFigure = !!player && figureUrl(PARTY_HTTP_URL, player.avatar.photo, "standard") !== null;
+  const change = p.change;
+  const pose = stagePose({ danger: liveDanger, winner, descending, correct, pointsChange: change?.total ?? null });
   // The winner rides up demonstratively (not into the banner above).
   const target = winner ? 0.9 : visualHeight(score, reference);
   const h = launchHeight ?? target;
-  const change = p.change;
   const deltaKey = change ? `${questionNumber}:${change.bonus}:${change.penalty}` : null;
   const showDelta = change && (change.bonus > 0 || change.penalty > 0);
+  const shown = Math.max(0, score);
   return (
     <li
       className="sv-lane"
@@ -166,28 +188,31 @@ const Lane = memo(function Lane({
             {change.penalty > 0 ? signedPoints(-change.penalty) : signedPoints(change.bonus)}
           </span>
         )}
-        <span className="sv-score tabular-nums">{Math.max(0, score).toLocaleString("de-DE")}</span>
-        <div className="sv-rider" data-figure={hasFigure || undefined}>
+        <div className="sv-rider" data-figure={hasFigure || undefined} data-pose={pose}>
           {player && (
             <StandingFigure
               player={player}
-              // The winner cheers; everyone else shows their danger (live, while the score melts).
-              pose={winner ? "jubelnd" : poseForDanger(liveDanger)}
+              pose={pose}
               reaction={reaction}
               className={hasFigure ? "sv-figure" : ""}
-              fallback={
-                <span style={{ transform: `scale(${AVATAR_SCALE[size]})` }} className="inline-flex origin-bottom">
-                  <AvatarBadge avatar={player.avatar} size="fluid" expression={MOOD_EXPRESSION[mood]} />
-                </span>
-              }
+              ground
+              fallback={<StagePortrait player={player} pose={pose} />}
             />
           )}
-          {!hasFigure && <span className="sv-mood">{MOOD_EMOJI[mood]}</span>}
         </div>
         <div className="sv-platform">
-          <span className="sv-lamp" />
-          <span className="sv-name">{player?.name ?? "?"}</span>
-          <span className="sv-lamp" />
+          <div className="sv-deck" />
+          <div className="sv-front">
+            <span className="sv-lamp" />
+            <div className="sv-plate">
+              <span className="sv-name">{player?.name ?? "?"}</span>
+              {/* Keyed by the value: every change pops the number once. */}
+              <span key={shown} className="sv-points tabular-nums">
+                {shown.toLocaleString("de-DE")}
+              </span>
+            </div>
+            <span className="sv-lamp" />
+          </div>
         </div>
       </div>
       {p.eliminated && (
@@ -200,6 +225,23 @@ const Lane = memo(function Lane({
     </li>
   );
 });
+
+/**
+ * No standing figure: the round avatar as a portrait standing on the
+ * platform – no ring, no circle. Emoji avatars stand there as a big emoji.
+ */
+function StagePortrait({ player, pose }: { player: PublicPlayer; pose: FigurePose }) {
+  const url = photoAvatarUrl(PARTY_HTTP_URL, player.avatar.photo, POSE_EXPRESSION[pose]);
+  const [failedUrl, setFailedUrl] = useState<string | null>(null);
+  if (url && failedUrl !== url) {
+    return (
+      // Plain <img>: the image comes from the party worker, not from Next.
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src={url} alt="" draggable={false} className="sv-portrait" onError={() => setFailedUrl(url)} />
+    );
+  }
+  return <span className="sv-portrait-emoji">{getAvatarOption("character", player.avatar.character)?.value ?? "❓"}</span>;
+}
 
 /** The cartoon splash when someone hits the slime. */
 function Splash() {
@@ -264,3 +306,18 @@ export const SlimePool = memo(function SlimePool({ bubbling }: { bubbling: "calm
     </div>
   );
 });
+
+/**
+ * The finale's own backdrop (slime tanks, copper pipes, arch of lights),
+ * over the normal stage: vignette at the edges, dark behind the question
+ * area at the top; its green fog at the bottom runs into the slime.
+ */
+export function SurvivalBackdrop() {
+  return (
+    <div className="sv-backdrop" aria-hidden>
+      {/* Plain <img>: object-fit cover, centered – one fixed picture, nothing to optimize per size. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/brand/survival-stage.webp" alt="" draggable={false} className="sv-backdrop-img" fetchPriority="high" />
+    </div>
+  );
+}

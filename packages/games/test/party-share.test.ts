@@ -26,6 +26,7 @@ import { describe, expect, it, vi } from "vitest";
 import { GAME_MODULES, normalizeScoring, type CategoryId } from "../src";
 import { CATEGORY_METAS, planGame } from "../src/meta";
 import { categoryPickGame } from "../src/category-pick/module";
+import { doubleGame } from "../src/double/module";
 import { isPartyItem, partySlots, selectWithPartyShare } from "../src/party-share";
 import { motifFlags, playableMotifs } from "../src/pixelpanik/module";
 
@@ -61,12 +62,18 @@ const POOLS: Record<CategoryId, readonly { id: string; adult?: boolean }[]> = {
   survival: QUIZ_QUESTIONS_DE,
   // Only motifs with pictures are played (the image script adds them).
   pixelpanik: playableMotifs(PIXELPANIK_MOTIFS).map((m) => ({ id: m.id, ...motifFlags(m) })),
-  // Songs are picked by their own modes, without a party share (tested in musik.test.ts).
+  // Letters and categories, no questions – its party categories are tested in stadt-land-fluss.test.ts.
+  "stadt-land-fluss": [],
   musik: [],
 };
 // The Survival-Finale has no fixed round (it draws questions one by one) – tested in survival.test.ts.
 // Pixelpanik needs pictures – the same checks run on a pool with pictures in pixelpanik.test.ts.
-const GAMES = (Object.keys(GAME_MODULES) as CategoryId[]).filter((id) => !GAME_MODULES[id].meta.finale && id !== "pixelpanik" && id !== "musik");
+// Stadt, Land, Fluss plays letters, not items – its mode rules are tested in stadt-land-fluss.test.ts.
+// Double or Nothing plays at most 5 questions on a difficulty ladder – its own checks below.
+// The Musik-Quiz picks songs by their own modes, without a party share – tested in musik.test.ts.
+const GAMES = (Object.keys(GAME_MODULES) as CategoryId[]).filter(
+  (id) => !GAME_MODULES[id].meta.finale && id !== "pixelpanik" && id !== "stadt-land-fluss" && id !== "double-or-nothing" && id !== "musik",
+);
 const partyIds = (id: CategoryId) => POOLS[id].filter((x) => x.adult).map((x) => x.id);
 
 /** The items a round plays, in order (Kategorienvorgabe draws them one by one after each pick). */
@@ -93,6 +100,12 @@ function playRound(id: CategoryId, questionCount: number, mode: GameModeSettings
       out.push({ id: drawn.question.id, party: isPartyItem(drawn.question) });
     }
     return out;
+  }
+  if (id === "double-or-nothing") {
+    // The ladder is planned at the start and played one by one.
+    const byId = new Map(QUIZ_QUESTIONS_DE.map((q) => [q.id, q]));
+    const { game } = doubleGame(QUIZ_QUESTIONS_DE).init(ctx(random), options, QUIZ_QUESTIONS_DE);
+    return game.ladder.map((s) => ({ id: s.id, party: isPartyItem(byId.get(s.id)) }));
   }
   const state = module.init(ctx(random), options).state as { questions?: unknown[]; words?: unknown[] };
   const items = (state.questions ?? state.words ?? []) as { id: string }[];
@@ -195,6 +208,45 @@ describe.each(GAMES)("party share: %s", (id) => {
 
   it("has enough party content for a full round at 100 %", () => {
     expect(partyIds(id).length).toBeGreaterThanOrEqual(module.meta.questionsPerRound.max);
+  });
+});
+
+describe("party share: double-or-nothing (ladder of at most 5 questions)", () => {
+  const id = "double-or-nothing";
+
+  it.each([1, 3, 5])("Party 30 %% / 50 %% / 100 %%, N = %i: exactly max(1, ceil(N × share)) party items", (n) => {
+    for (const seed of [1, 7, 42]) {
+      for (const share of PARTY_CONFIG.shares) {
+        const items = playRound(id, n, party(share), {}, seed);
+        expect(items).toHaveLength(n);
+        expect(items.filter((x) => x.party)).toHaveLength(partyCountFor(n, share));
+        expect(new Set(items.map((x) => x.id)).size).toBe(n);
+      }
+    }
+  });
+
+  it("Familie and Kids never get an adult item", () => {
+    for (const mode of [family, kids]) {
+      for (let seed = 1; seed <= 10; seed++) {
+        for (const n of [1, 3, 5]) expect(playRound(id, n, mode, {}, seed).some((x) => x.party)).toBe(false);
+      }
+    }
+  });
+
+  it("party pool exhausted → logged, the family pool fills up, no crash", () => {
+    const log = vi.fn();
+    const items = playRound(id, 5, party(), { excludeContentIds: partyIds(id), log });
+    expect(items).toHaveLength(5);
+    expect(log).toHaveBeenCalledWith(expect.stringContaining("party pool"), expect.objectContaining({ label: id, wanted: 2 }));
+  });
+
+  it("the host knows a party question at the reveal", () => {
+    const module = GAME_MODULES[id];
+    const players = [{ id: "a", connected: true }];
+    const c = { ...ctx(), players };
+    let state = module.init(c, { questionCount: 1, scoring: normalizeScoring(module.meta, module.meta.scoring), excludeContentIds: [], mode: party(1) }).state;
+    state = module.onTimer(state, c).state;
+    expect(module.revealFacts?.(state)?.partyItem).toBe(true);
   });
 });
 

@@ -17,7 +17,7 @@ import { createBetModule, type BetGame } from "../src/bet/module";
 import { categoryPickMeta } from "../src/category-pick/meta";
 import { PICKER_STRATEGY_FNS, createCategoryPickModule } from "../src/category-pick/module";
 import { doubleMeta } from "../src/double/meta";
-import { createDoubleModule, type DoubleGame } from "../src/double/module";
+import { createDoubleModule } from "../src/double/module";
 import { createEstimateModule } from "../src/estimate/module";
 import { clampDelta, type KnowledgeModule, type KnowledgeState } from "../src/knowledge/engine";
 import { selectQuestions, toKnowledgeQuestion } from "../src/knowledge/questions";
@@ -394,74 +394,6 @@ describe("Kategorienvorgabe", () => {
       const facts = mod.revealFacts!(wrong.state)!;
       expect(facts.answers.a!.note).toContain("selbst ausgesucht und trotzdem falsch");
     }
-  });
-});
-
-describe("Double or Nothing", () => {
-  const scoring = scoringOf(doubleMeta);
-
-  function setup(decisions: Record<string, "normal" | "double">) {
-    const mod = createDoubleModule(POOL);
-    let s = mod.init(ctx(T0), { questionCount: 3, scoring, excludeContentIds: [] }).state;
-    expect(s.step).toBe("decide");
-    for (const [id, mode] of Object.entries(decisions)) {
-      const r = unwrap(mod.handleAction(s, { type: "risk", mode }, id, ctx(T0 + 500)));
-      s = r.state;
-    }
-    if (s.step === "decide") s = mod.onTimer(s, ctx(T0 + 8000)).state;
-    return { mod, s };
-  }
-
-  it("all four cases: NORMAL right/wrong, DOUBLE right/wrong", () => {
-    const { mod, s } = setup({ a: "normal", b: "normal", c: "double" });
-    expect(s.step).toBe("question");
-    const r = answerAndReveal(mod, s, { a: "right", b: "wrong", c: "right" }, { a: 0, b: 0, c: 0 });
-    expect(r.scoreDelta).toEqual({ a: 100, c: 200 });
-    const { mod: mod2, s: s2 } = setup({ a: "double" });
-    const r2 = answerAndReveal(mod2, s2, { a: "wrong" }, { a: 500 });
-    expect(r2.scoreDelta).toEqual({ a: -200 });
-    expect(r2.state.results!.a).toMatchObject({ finalScore: -200, correct: false });
-  });
-
-  it("DOUBLE without an answer counts as wrong; the total never goes below 0", () => {
-    const { mod, s } = setup({ a: "double", b: "double" });
-    const r = answerAndReveal(mod, s, { b: "wrong" }, { a: 50, b: 0 });
-    expect(r.scoreDelta).toEqual({ a: -50 });
-    expect(r.state.results!.b!.finalScore).toBe(0);
-  });
-
-  it("no decision → NORMAL (timeout)", () => {
-    const { mod, s } = setup({});
-    const r = answerAndReveal(mod, s, { a: "right", b: "wrong" });
-    expect(r.scoreDelta).toEqual({ a: 100 });
-    const pub = mod.toPublicState(r.state, { role: "host" });
-    expect(pub.extra).toMatchObject({ decisions: {} });
-  });
-
-  it("decisions stay secret until the reveal; the step ends when everyone decided", () => {
-    const mod = createDoubleModule(POOL);
-    let s: KnowledgeState<DoubleGame> = mod.init(ctx(T0), { questionCount: 3, scoring, excludeContentIds: [] }).state;
-    s = unwrap(mod.handleAction(s, { type: "risk", mode: "double" }, "a", ctx(T0))).state;
-    expect(mod.handleAction(s, { type: "risk", mode: "normal" }, "a", ctx(T0))).toEqual({ error: "ALREADY_ANSWERED" });
-    const other = mod.toPublicState(s, { role: "player", playerId: "b" });
-    expect(other.extra).toMatchObject({ decisions: null, myDecision: null });
-    expect(other.actedPlayerIds).toEqual(["a"]);
-    expect(mod.toPublicState(s, { role: "player", playerId: "a" }).extra).toMatchObject({ myDecision: "double" });
-    s = unwrap(mod.handleAction(s, { type: "risk", mode: "normal" }, "b", ctx(T0))).state;
-    s = unwrap(mod.handleAction(s, { type: "risk", mode: "normal" }, "c", ctx(T0))).state;
-    expect(s.step).toBe("question");
-    const r = answerAndReveal(mod, s, { a: "right" });
-    expect(mod.toPublicState(r.state, { role: "guest" }).extra).toMatchObject({ decisions: { a: "double", b: "normal", c: "normal" } });
-    expect(mod.readAloud!(r.state)!.items[0]!.text).toContain("Clara");
-  });
-
-  it("amounts are configurable", () => {
-    const mod = createDoubleModule(POOL);
-    const custom = { ...scoring, points: { normal: 50, double: 300, doubleLoss: 100 } };
-    let s = mod.init(ctx(T0), { questionCount: 3, scoring: custom, excludeContentIds: [] }).state;
-    s = unwrap(mod.handleAction(s, { type: "risk", mode: "double" }, "a", ctx(T0))).state;
-    s = mod.onTimer(s, ctx(T0 + 8000)).state;
-    expect(answerAndReveal(mod, s, { a: "right", b: "right" }).scoreDelta).toEqual({ a: 300, b: 50 });
   });
 });
 

@@ -312,7 +312,16 @@ export interface SongPreviewsTask extends ModuleTaskBase {
 export interface ReadAloud {
   /** Changes when there is something new to read. */
   key: string;
-  items: { cue: string; text: string }[];
+  items: {
+    cue: string;
+    text: string;
+    /**
+     * A long text that is new every time (e.g. every answer of a round):
+     * the voice uses its model for long read-outs (configurable, see the
+     * party worker's voice config). Short fixed texts leave it out.
+     */
+    long?: boolean;
+  }[];
 }
 
 /** Numbers for one played question – never names or answers. */

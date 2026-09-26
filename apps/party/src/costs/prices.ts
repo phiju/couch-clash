@@ -22,7 +22,9 @@ export const SPEECH_USD_PER_CHAR: Record<string, number> = {
 /** ElevenLabs credits per character by model (eleven_v3: 1, flash: 0.5). */
 export const ELEVENLABS_CREDITS_PER_CHAR: Record<string, number> = {
   eleven_v3: 1,
+  eleven_multilingual_v2: 1,
   eleven_flash_v2_5: 0.5,
+  eleven_turbo_v2_5: 0.5,
 };
 
 /** Unknown model: price it like the most expensive known one (better too high than invisible). */

@@ -72,7 +72,7 @@ export async function startPhotoUpload(
   return { response: { ok: true, version }, job };
 }
 
-/** "Passt!" → accepted; extra expressions one after another in the background. */
+/** "Passt!" → accepted; extra expressions one after another and the standing figures in the background. */
 export async function acceptPhotoAndGenerate(
   access: RoomAccess,
   deps: AvatarServiceDeps | null,
@@ -85,11 +85,13 @@ export async function acceptPhotoAndGenerate(
   if (!accepted.ok) return accepted;
   const { expressions, version } = accepted.value;
   if (accepted.value.room !== room) await access.commit(accepted.value.room);
-  if (!deps || expressions.length === 0) return ok(null);
+  if (!deps) return ok(null);
 
   const code = room.code;
   // Standing figures run next to the expressions – the lobby and the game never wait for either.
+  // They have their own budget: they start even when no round expression is missing or its budget is used up.
   const figures = runFigures(access, deps, code, playerId, now);
+  if (expressions.length === 0) return ok(figures);
   return ok(
     (async () => {
       for (const expression of expressions as Exclude<PhotoExpression, "neutral">[]) {

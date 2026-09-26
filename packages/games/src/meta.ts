@@ -13,6 +13,7 @@ import { musikMeta } from "./musik/meta";
 import { pixelpanikMeta } from "./pixelpanik/meta";
 import { quizMeta } from "./quiz/meta";
 import { skurrilMeta } from "./skurril/meta";
+import { slfMeta } from "./stadt-land-fluss/meta";
 import { stealMeta } from "./steal/meta";
 import { survivalMeta } from "./survival/meta";
 
@@ -29,6 +30,7 @@ export const CATEGORY_METAS = [
   musikMeta,
   bluffMeta,
   skurrilMeta,
+  slfMeta,
   // The finale (not a card in the library – its own switch in the settings).
   survivalMeta,
 ] as const satisfies readonly CategoryMeta[];
@@ -39,14 +41,16 @@ export function getCategoryMeta(id: string): CategoryMeta | undefined {
   return CATEGORY_METAS.find((m) => m.id === id);
 }
 
-export { betMeta, bluffMeta, categoryPickMeta, doubleMeta, estimateMeta, fuehrerscheinMeta, musikMeta, pixelpanikMeta, quizMeta, skurrilMeta, stealMeta, survivalMeta };
+export { betMeta, bluffMeta, categoryPickMeta, doubleMeta, estimateMeta, fuehrerscheinMeta, musikMeta, pixelpanikMeta, quizMeta, skurrilMeta, slfMeta, stealMeta, survivalMeta };
+export { SLF_CONFIG, SLF_DEFAULTS } from "./stadt-land-fluss/meta";
+export type * from "./stadt-land-fluss/types";
 export { PIXELPANIK_CONFIG, PIXELPANIK_STAGES } from "./pixelpanik/meta";
 export * from "./pixelpanik/types";
 export { MUSIK_CONFIG, MUSIK_GENRES, MUSIK_KIDS_INFO, MUSIK_QUESTION_TYPE_IDS, MUSIK_TYPE_INFO, genreOptionId, type MusikGenreId, type MusikQuestionTypeId } from "./musik/meta";
 export * from "./musik/types";
 export { BET_CONFIG } from "./bet/meta";
 export { CATEGORY_PICK_CONFIG } from "./category-pick/meta";
-export { DOUBLE_CONFIG } from "./double/meta";
+export { DOUBLE_CONFIG, potAfterWin } from "./double/meta";
 export { FUEHRERSCHEIN_CONFIG } from "./fuehrerschein/meta";
 export { examStampDelayMs } from "./fuehrerschein/exam";
 export { BLUFF_CONFIG, OPTION_LETTERS } from "./bluff/meta";

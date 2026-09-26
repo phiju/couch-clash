@@ -6,7 +6,7 @@ import {
   ELEVENLABS_VOICE_SETTINGS,
   VOICE_CONFIG,
 } from "./config";
-import { VoiceProviderError, type SpeechProvider } from "./provider";
+import { VoiceProviderError, type SpeechProvider, type SpeechStyle } from "./provider";
 import { keepAllowedTags, stripTags } from "./tags";
 
 const API = "https://api.elevenlabs.io/v1/text-to-speech";
@@ -29,9 +29,15 @@ const UNAVAILABLE_DETAIL = new Set([
  * welcome/start/finale, eleven_flash_v2_5 (fast, no tags) for comments.
  * Never logs texts – only status codes.
  */
-export function createElevenLabsProvider(apiKey: string, fetchFn: typeof fetch = fetch): SpeechProvider {
+export function createElevenLabsProvider(
+  apiKey: string,
+  fetchFn: typeof fetch = fetch,
+  /** Model per style (ELEVENLABS_MODELS, "read" may be overridden by ELEVENLABS_READ_MODEL). */
+  models: Record<SpeechStyle, string> = ELEVENLABS_MODELS,
+): SpeechProvider {
   return {
     id: "elevenlabs",
+    modelFor: (style) => models[style],
     supportsTags: (style) => style === "expressive",
     prepare: (text, style) => (style === "expressive" ? keepAllowedTags(text) : stripTags(text)),
 
@@ -42,7 +48,7 @@ export function createElevenLabsProvider(apiKey: string, fetchFn: typeof fetch =
         headers: { "xi-api-key": apiKey, "Content-Type": "application/json", Accept: "audio/mpeg" },
         body: JSON.stringify({
           text,
-          model_id: ELEVENLABS_MODELS[style],
+          model_id: models[style],
           language_code: "de",
           voice_settings: {
             stability: ELEVENLABS_VOICE_SETTINGS.stability[style],

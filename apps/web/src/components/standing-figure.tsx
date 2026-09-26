@@ -71,6 +71,7 @@ export const StandingFigure = memo(function StandingFigure({
   reaction,
   fallback,
   className = "",
+  ground = false,
 }: {
   player: PublicPlayer;
   /** The resting pose (e.g. from the danger level). */
@@ -80,6 +81,8 @@ export const StandingFigure = memo(function StandingFigure({
   /** What stands on the platform without any standing figure (the round avatar). */
   fallback: ReactNode;
   className?: string;
+  /** Moves the figure down so the standard figure's feet touch the bottom edge (standing on whatever is below). */
+  ground?: boolean;
 }) {
   const photo = player.avatar.photo;
   // A reaction shows until its time is up (then this key is "done" and the resting pose returns).
@@ -112,7 +115,15 @@ export const StandingFigure = memo(function StandingFigure({
   const activeUrl = figureUrl(PARTY_HTTP_URL, photo, shown);
   const reference = feet[standardUrl] ?? null;
   return (
-    <div className={`fig ${className}`} data-idle={idle} style={{ ["--fig-delay" as string]: delay }}>
+    <div
+      className={`fig ${className}`}
+      data-idle={idle}
+      style={{
+        ["--fig-delay" as string]: delay,
+        // Transparent space under the feet would make the figure float above the platform.
+        translate: ground && reference ? `0 ${100 - reference.y}%` : undefined,
+      }}
+    >
       {unique.map((url) => {
         const isActive = url === activeUrl;
         const anchor = feet[url] ?? null;

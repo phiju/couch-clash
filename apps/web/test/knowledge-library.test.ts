@@ -20,11 +20,13 @@ describe("game library", () => {
       "musik",
       "bluff",
       "skurril",
+      "stadt-land-fluss",
     ]);
     // Host moved bluff to the front: stays there (Skurrile Ereignisse lands right after it).
     expect(mergeLibraryOrder(["bluff", "quiz", "estimate", "fuehrerschein"], REGISTRY)).toEqual([
       "bluff",
       "skurril",
+      "stadt-land-fluss",
       "quiz",
       "estimate",
       "category-pick",

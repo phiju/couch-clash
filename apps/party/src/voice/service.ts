@@ -130,10 +130,11 @@ export async function cachedClip(services: VoiceServices, req: CachedClipRequest
   if (!store) return { path: null, cached: false };
   const spoken = speech ? speech.prepare(req.text, req.style) : req.text;
   if (!spoken) return { path: null, cached: false };
-  const key = await voiceCacheKey(req.kind, spoken, req.style, req.speed);
+  const model = speech?.modelFor(req.style);
+  const key = await voiceCacheKey(req.kind, spoken, req.style, req.speed, model);
   if (await store.has(key)) return { path: voiceCachePath(key), cached: true };
   if (!req.allowNew || !speech) return { path: null, cached: false };
-  if (!(await req.reserveCredits(creditsFor(spoken.length, req.style)))) return { path: null, cached: false, voiceStatus: "budget" };
+  if (!(await req.reserveCredits(creditsFor(spoken.length, req.style, model)))) return { path: null, cached: false, voiceStatus: "budget" };
   try {
     const clip = await withTimeout(req.timeoutMs ?? VOICE_CONFIG.speechTimeoutMs, (signal) =>
       speech.speak(spoken, { style: req.style, speed: req.speed, signal }),
@@ -214,7 +215,7 @@ export async function produceLine(services: VoiceServices, req: LineRequest): Pr
   if (!services.speech || !services.store) return { line: null, target, source };
   const spoken = services.speech.prepare(text, req.style);
   if (!spoken) return { line: null, target, source };
-  if (!(await req.reserveCredits(creditsFor(spoken.length, req.style)))) {
+  if (!(await req.reserveCredits(creditsFor(spoken.length, req.style, services.speech.modelFor(req.style))))) {
     return { line: null, target, source, voiceStatus: "budget" };
   }
   try {

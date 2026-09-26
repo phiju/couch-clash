@@ -49,7 +49,7 @@ function ws(code, onMsg) {
 const songs = JSON.parse(readFileSync(new URL("../../../packages/content/data/musik/test-songs.json", import.meta.url), "utf8")).items;
 const songByUrl = new Map(songs.map((s) => [s.previewUrl, s]));
 
-const IDS = ["quiz", "estimate", "category-pick", "double-or-nothing", "bet", "steal", "fuehrerschein", "pixelpanik", "musik", "bluff", "skurril", "survival"];
+const IDS = ["quiz", "estimate", "category-pick", "double-or-nothing", "bet", "steal", "fuehrerschein", "pixelpanik", "musik", "stadt-land-fluss", "bluff", "skurril", "survival"];
 const SETUP = {
   order: IDS,
   choices: Object.fromEntries(IDS.map((id) => [id, { enabled: id === "musik", questionCount: SONGS }])),

@@ -14,6 +14,7 @@ import songGenres from "../data/musik/genres.json";
 import songsFile from "../data/musik/songs.json";
 import testSongsFile from "../data/musik/test-songs.json";
 import { SongFileSchema, SongImportConfigSchema } from "./music/schema";
+import slfDe from "../data/stadt-land-fluss.de.json";
 import {
   BluffWordSchema,
   EstimateQuestionSchema,
@@ -21,6 +22,7 @@ import {
   PixelpanikFileSchema,
   QuizQuestionSchema,
   SkurrilStorySchema,
+  SlfFileSchema,
   SnarkLinesSchema,
 } from "./schema";
 
@@ -61,3 +63,5 @@ export const MUSIK_SONGS_IMPORTED_AT = musikFile.importedAt;
 export const MUSIK_TEST_SONGS = load(SongFileSchema.shape.items.element, SongFileSchema.parse(testSongsFile).items, "musik/test-songs.json");
 /** Genres with their Deezer playlists and plausible years (import script). */
 export const SONG_IMPORT_CONFIG = SongImportConfigSchema.parse(songGenres, { error: () => "Invalid content in musik/genres.json" });
+/** Stadt, Land, Fluss: categories (per mode, fakt / kreativ), letters per mode and the round mix. */
+export const SLF_DATA_DE = SlfFileSchema.parse(slfDe, { error: () => "Invalid content in stadt-land-fluss.de.json" });

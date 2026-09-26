@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { FIGURE_CONFIG, FIGURE_PROMPTS, figurePrompt } from "../src/avatar/config";
 import { acceptPhotoAndGenerate, runFigures, savePlayerPhoto, startPhotoUpload, useSavedPhoto, type RoomAccess } from "../src/avatar/jobs";
 import {
+  ROOM_MAX_EXPRESSION_IMAGES,
   ROOM_MAX_FIGURE_IMAGES,
   FIGURES_STALE_MS,
   expireStalePhotos,
@@ -89,6 +90,22 @@ describe("standing figures: generation", () => {
       expect(c.withReference).toBe(false);
     }
     for (const pose of FIGURE_POSES) expect(store.objects.has(`rooms/ABCD/${p.id}/figure-${pose}.webp`)).toBe(true);
+  });
+
+  it("figures start after 'Passt!' even when the expression budget is used up", async () => {
+    const provider = numberedProvider();
+    const deps: AvatarServiceDeps = { provider, store: memoryStore(), styleReference };
+    const room = roomWithPlayers(["Ana"]);
+    const p = room.players[0]!;
+    const a = access(room);
+    await (await startPhotoUpload(a, deps, { playerId: p.id, playerSecret: p.secret, photo }, T0)).job;
+    a.room = { ...a.room, photoUsage: { ...a.room.photoUsage, expressions: ROOM_MAX_EXPRESSION_IMAGES } };
+    const accepted = await acceptPhotoAndGenerate(a, deps, p.id, T0 + 1);
+    if (!accepted.ok) throw new Error(accepted.error);
+    expect(a.room.players[0]!.photo).toMatchObject({ accepted: true, expressionsPending: false, figuresPending: true });
+    await accepted.value;
+    expect(a.room.players[0]!.photo!.expressions).toEqual(["neutral"]);
+    expect(a.room.players[0]!.photo!.figures).toEqual(expect.arrayContaining([...FIGURE_POSES]));
   });
 
   it("prompts come from the config file: standard as given, expressions = shared part + their text", () => {

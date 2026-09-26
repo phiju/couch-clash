@@ -8,6 +8,7 @@ import { fuehrerscheinViews } from "./fuehrerschein";
 import { musikViews } from "./musik";
 import { pixelpanikViews } from "./pixelpanik";
 import { quizViews } from "./quiz";
+import { slfViews } from "./stadt-land-fluss";
 import { stealViews } from "./steal";
 import { survivalViews } from "./survival";
 import type { GameViews } from "./types";
@@ -29,6 +30,7 @@ export const GAME_VIEWS: Record<CategoryId, GameViews<any>> = {
   musik: musikViews,
   bluff: bluffViews,
   skurril: skurrilViews,
+  "stadt-land-fluss": slfViews,
   survival: survivalViews,
 };
 
